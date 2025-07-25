@@ -1,0 +1,27 @@
+{
+  "past": [
+    {
+      "roll": 1,
+      "description": "Umarłeś i powróciłeś do żywych. Zaczynasz grę z 1k6 punktów Szaleństwa.",
+      "user_actions": {
+        "add_attribute": {
+          "insanity": "1d6"
+        }
+      }
+    },
+    {
+      "roll": 2,
+      "description": "Przez krótki czas byłeś opętany przez demona. Zaczynasz grę z 1 punktem Splugawienia.",
+      "user_actions": {
+        "add_attribute": {
+          "corruption": 1
+        }
+      }
+    }
+  ],
+  "character": "",
+  "religion": "",
+  "age": "",
+  "body": "",
+  "appearance": ""
+}
