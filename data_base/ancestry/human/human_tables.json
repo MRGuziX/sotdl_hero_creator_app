@@ -1,7 +1,9 @@
 {
   "past": [
     {
-      "roll": 1,
+      "roll": [
+        1
+      ],
       "description": "Umarłeś i powróciłeś do żywych. Zaczynasz grę z 1k6 punktów Szaleństwa.",
       "user_actions": {
         "add_attribute": {
@@ -10,18 +12,436 @@
       }
     },
     {
-      "roll": 2,
+      "roll": [
+        2
+      ],
       "description": "Przez krótki czas byłeś opętany przez demona. Zaczynasz grę z 1 punktem Splugawienia.",
       "user_actions": {
         "add_attribute": {
           "corruption": 1
         }
       }
+    },
+    {
+      "roll": [
+        3
+      ],
+      "description": "Spędziłeś 1k6 lat w więzieniu."
+    },
+    {
+      "roll": [
+        4
+      ],
+      "description": "Zabiłeś kogoś z zimną krwią. Zaczynasz grę z 1 punktem Splugawienia.",
+      "user_actions": {
+        "add_attribute": {
+          "corruption": 1
+        }
+      }
+    },
+    {
+      "roll": [
+        5
+      ],
+      "description": "Przeszedłeś ciężką chorobę."
+    },
+    {
+      "roll": [
+        6
+      ],
+      "description": "Należałeś do kultu i byłeś świadkiem wielu dziwnych rzeczy. Zaczynasz grę z 1 punktem Szaleństwa.",
+      "user_actions": {
+        "add_attribute": {
+          "insanity": 1
+        }
+      }
+    },
+    {
+      "roll": [
+        7
+      ],
+      "description": "Przez 1k20 lat byłeś więźniem faerie."
+    },
+    {
+      "roll": [
+        8
+      ],
+      "description": "Nigdy nie otrząsnąłeś się z żalu po utracie bliskiej osoby."
+    },
+    {
+      "roll": [
+        9
+      ],
+      "description": "Straciłeś palec, kilka zębów albo ucho lub nosisz bliznę."
+    },
+    {
+      "roll": [
+        10
+      ],
+      "description": "Utrzymujesz się z pracy w swojej profesji."
+    },
+    {
+      "roll": [
+        11
+      ],
+      "description": "Zakochałeś się; związek ten nadal trwa lub zakończył się dobrze."
+    },
+    {
+      "roll": [
+        12
+      ],
+      "description": "Masz żonę lub męża i 1k6 - 2 dzieci (minimum 0)."
+    },
+    {
+      "roll": [
+        13
+      ],
+      "description": "Odbyłeś wiele podróży w różne strony świata. Umiesz mówić w jednym dodatkowym języku.",
+      "user_actions": {
+        "add_attribute": {
+          "language": {
+            "any": false
+          }
+        }
+      }
+    },
+    {
+      "roll": [
+        14
+      ],
+      "description": "Posiadasz formalne wykształcenie. Umiesz czytać i pisać w języku wspólnym.",
+      "user_actions": {
+        "add_attribute": {
+          "language": {
+            "Wspólny": true
+          }
+        }
+      }
+    },
+    {
+      "roll": [
+        15
+      ],
+      "description": "Obroniłeś rodzinne miasto przed okropnymi potworami."
+    },
+    {
+      "roll": [
+        16
+      ],
+      "description": "Powstrzymałeś spisek na życie ważnej persony lub schwytałeś zabójcę."
+    },
+    {
+      "roll": [
+        17
+      ],
+      "description": "Dokonałeś wielkich czynów i w swoich rodzinnych stronach jesteś bohaterem."
+    },
+    {
+      "roll": [
+        18
+      ],
+      "description": "Znalazłeś starą mapę wiodącą do skarbu."
+    },
+    {
+      "roll": [
+        19
+      ],
+      "description": "Ktoś ważny i wpływowy jest ci winien przysługę."
+    },
+    {
+      "roll": [
+        20
+      ],
+      "description": "Odziedziczyłeś w spadku pieniądze; zaczynasz grę z 2k6 miedziaków.",
+      "user_actions": {
+        "add_attribute": {
+          "copper_coins": "2d6"
+        }
+      }
     }
   ],
-  "character": "",
-  "religion": "",
-  "age": "",
-  "body": "",
-  "appearance": ""
+  "character": [
+    {
+      "roll": [
+        3
+      ],
+      "description": "Jesteś okrutny, niegodziwy i samolubny. Lubisz sprawiać innym ból."
+    },
+    {
+      "roll": [
+        4
+      ],
+      "description": "Jesteś kapryśny i nieprzewidywalny. Rzadko dotrzymujesz słowa i dajesz się ponosić impulsom."
+    },
+    {
+      "roll": [
+        5,
+        6
+      ],
+      "description": "Kierujesz się prawem silniejszego. Posłuszeństwo wobec władzy jest najwyższym ideałem."
+    },
+    {
+      "roll": [
+        7,
+        8
+      ],
+      "description": "Dbasz przede wszystkim o siebie. Jesteś w stanie zdradzić nawet przyjaciół."
+    },
+    {
+      "roll": [
+        9,
+        10,
+        11,
+        12
+      ],
+      "description": "Ponad wszystkim innym stawiasz dobro swoje i swoich bliskich."
+    },
+    {
+      "roll": [
+        13,
+        14
+      ],
+      "description": "Pomagasz innym, bo tak należy."
+    },
+    {
+      "roll": [
+        15
+      ],
+      "description": "Starasz się postępować słusznie, nawet jeśli jest to wbrew prawu czy normom społecznym."
+    },
+    {
+      "roll": [
+        17
+      ],
+      "description": "We wszystkim kierujesz się honorem i lojalnością."
+    },
+    {
+      "roll": [
+        18
+      ],
+      "description": "Jesteś oddany dobrym i szlachetnym celom i nie zdradzisz swoich przekonań nawet za cenę życia."
+    }
+  ],
+  "religion": [
+    {
+      "roll": [
+        3
+      ],
+      "description": "Jesteś członkiem kultu wyznającego jakąś mroczną siłę."
+    },
+    {
+      "roll": [
+        4
+      ],
+      "description": "Należysz do sekty heretyków."
+    },
+    {
+      "roll": [
+        5,
+        6
+      ],
+      "description": "Wychowałeś się na wiedźmiarskich naukach."
+    },
+    {
+      "roll": [
+        7,
+        8,
+        9,
+        10
+      ],
+      "description": "Kierujesz się doktryną Starej Wiary."
+    },
+    {
+      "roll": [
+        11,
+        12,
+        13,
+        14,
+        15
+      ],
+      "description": "Jesteś wyznawcą Nowego Boga."
+    },
+    {
+      "roll": [
+        16,
+        17,
+        18
+      ],
+      "description": "Nie jesteś religijny."
+    }
+  ],
+  "age": [
+    {
+      "roll": [
+        3
+      ],
+      "description": "Dziecko, 11 lat lub mniej."
+    },
+    {
+      "roll": [
+        4,
+        5,
+        6,
+        7
+      ],
+      "description": "Młodociany, 12–17 lat."
+    },
+    {
+      "roll": [
+        8,
+        9,
+        10,
+        11,
+        12
+      ],
+      "description": "Młody dorosły, 18–35 lat."
+    },
+    {
+      "roll": [
+        13,
+        14,
+        15
+      ],
+      "description": "Dorosły w średnim wieku, 36–55 lat."
+    },
+    {
+      "roll": [
+        16,
+        17
+      ],
+      "description": "Starszy dorosły, 56–75 lat."
+    },
+    {
+      "roll": [
+        18
+      ],
+      "description": "Sędziwy dorosły, 76 lat lub więcej."
+    }
+  ],
+  "body": [
+    {
+      "roll": [
+        3
+      ],
+      "description": "Jesteś niski i szczupły."
+    },
+    {
+      "roll": [
+        4
+      ],
+      "description": "Jesteś niski i krępy."
+    },
+    {
+      "roll": [
+        5,
+        6
+      ],
+      "description": "Jesteś niski."
+    },
+    {
+      "roll": [
+        7,
+        8
+      ],
+      "description": "Jesteś smukły."
+    },
+    {
+      "roll": [
+        9,
+        10,
+        11,
+        12
+      ],
+      "description": "Jesteś średniego wzrostu i wagi."
+    },
+    {
+      "roll": [
+        13,
+        14
+      ],
+      "description": "Masz lekką nadwagę."
+    },
+    {
+      "roll": [
+        15,
+        16
+      ],
+      "description": "Jesteś wysoki."
+    },
+    {
+      "roll": [
+        17
+      ],
+      "description": "Jesteś wysoki i szczupły."
+    },
+    {
+      "roll": [
+        18
+      ],
+      "description": "Jesteś bardzo wysoki i masywny."
+    }
+  ],
+  "appearance": [
+    {
+      "roll": [
+        3
+      ],
+      "description": "Jesteś szpetny. Wyglądasz jak maszkara. Dzieci płaczą na twój widok, osoby o słabszym sercu mdleją, a raz ktoś nawet zwymiotował po tym, jak dokładnie przyjrzał się twojej twarzy."
+    },
+    {
+      "roll": [
+        4
+      ],
+      "description": "Jesteś brzydki; twoja twarz nie podoba się innym z powodu blizny, torbieli, krzaczastych brwi, krost, czyraków, zeza lub innych podobnych defektów."
+    },
+    {
+      "roll": [
+        5,
+        6
+      ],
+      "description": "Nie jesteś brzydki, ale większość nie uważa cię za atrakcyjnego."
+    },
+    {
+      "roll": [
+        7,
+        8
+      ],
+      "description": "Jesteś z twarzy podobny zupełnie do nikogo. Inni ludzie cię zauważają, ale nie robisz szczególnego wrażenia."
+    },
+    {
+      "roll": [
+        9,
+        10,
+        11,
+        12
+      ],
+      "description": "Masz przeciętną aparycję. Wyglądasz jak wszyscy inni."
+    },
+    {
+      "roll": [
+        13,
+        14
+      ],
+      "description": "Posiadasz cechę, którą inni uważają za atrakcyjną. Mogą to być ładne oczy, usta lub włosy, zgrabna figura albo coś innego."
+    },
+    {
+      "roll": [
+        15,
+        16
+      ],
+      "description": "Posiadasz kilka cech fizycznych, które dodają ci atrakcyjności."
+    },
+    {
+      "roll": [
+        17
+      ],
+      "description": "Jesteś jedną z najpiękniejszych osób na tych ziemiach, o niemal nieskazitelnej urodzie. Przyciągasz spojrzenia innych."
+    },
+    {
+      "roll": [
+        18
+      ],
+      "description": "Twoja uroda jest tak zjawiskowa, że gdziekolwiek się pojawisz, wszystko zdaje się tobą wzrokorem. Samą obecnością mieszasz ludziom w głowach; gdy z tobą rozmawiają, zapominają o sensie i sile języka. Jeśli znajdą się osoby bardziej uwielbienia niż nienawiści — bywają nieliczne. Jeśli dostrzegą cię słabeusze, ich jedyną szansą, by się ocalić, jest ucieczka przed twoim pięknem."
+    }
+  ]
 }

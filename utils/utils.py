@@ -51,9 +51,14 @@ def roll_dice(num_dice: int, sides: int) -> int:
     for _ in range(num_dice):
         total += random.randint(1, sides)
 
-    if total<num_dice:
+    if total < num_dice:
         raise ArithmeticError(f"Minimal value is {num_dice}, and you rolled {total}")
-    elif total>sides*num_dice:
-        raise ArithmeticError(f"Maximal value is {sides*num_dice}, and you rolled {total}")
+    elif total > sides * num_dice:
+        raise ArithmeticError(f"Maximal value is {sides * num_dice}, and you rolled {total}")
 
     return total
+
+# TODO: get value from json ancestry tables
+# TODO: inject value to new_hero.json
+# TODO: Inject new_hero.json to PDF
+# TODO: save pdf

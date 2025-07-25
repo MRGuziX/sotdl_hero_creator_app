@@ -1,7 +1,6 @@
 {
   "general": {
     "ancestry_name": "Człowiek",
-    "age": "18",
     "strength": 10,
     "dexterity": 10,
     "intelligence": 10,
@@ -28,13 +27,13 @@
   },
   "talents": [
     {
-      "name": "Widzenie w cieniu",
-      "description": "Widzisz bardzo dobrze w cieniu",
+      "name": "",
+      "description": "",
       "level": 0
     },
     {
-      "name": "Odpornośc na Ogień",
-      "description": "Jesteś odporny fest odporny na ogień"
+      "name": "",
+      "description": ""
     }
   ],
   "professions": [
@@ -44,7 +43,6 @@
     }
   ],
   "spells": [],
-
   "user_actions": [
     {
       "add_attribute": {
