@@ -1,19 +1,4 @@
-# import json
-# from typing import Any
-#
-# def open_json(file_path: str) -> dict:
-#     with open(file_path, 'r', encoding="utf8") as f:
-#         data = json.load(f)
-#     return data
-#
-# template_ancestry = open_json("data_base/ancestry/human/human.json")
-#
-# def get_talent_by_name(data, talent_name):
-#     for talent in data['talents']:
-#         if talent['name'] == talent_name:
-#             return talent
-#     return None
-#
+
 # def add_spell(spell_name: str, tradition_name: str) -> Any | None:
 #     tradition = open_json(f"data_base/spells/{tradition_name}_tradition.json")
 #     for spell_level in tradition:
@@ -77,7 +62,7 @@ def get_from_ancestry(roll: int, category: str, ancestry: str) -> dict:
 
         for roll_value in data[category]:
             if roll in roll_value["roll"]:
-                description = roll_value.get("description", "")
+                description = {category: roll_value.get("description", "")}
                 user_action = roll_value.get("user_actions", "")
                 return description, user_action
 
@@ -85,6 +70,8 @@ def get_from_ancestry(roll: int, category: str, ancestry: str) -> dict:
         raise FileNotFoundError(f"File {path_to_file} not found.")
 
 
+# TODO: Add open_json_template method
+# TODO: Add save_dict_to_json method
 # TODO: inject value to new_hero.json
 # TODO: Inject new_hero.json to PDF
 # TODO: save pdf
