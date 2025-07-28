@@ -29,6 +29,8 @@
 #     new_hero['spells'].append(add_spell("Light", "fire"))
 #     new_hero['spells'].append(add_spell("Detect Magic"))
 #     print(json.dumps(new_hero, indent=4))
+import json
+import pathlib
 import random
 
 
@@ -58,7 +60,31 @@ def roll_dice(num_dice: int, sides: int) -> int:
 
     return total
 
-# TODO: get value from json ancestry tables
+def get_from_ancestry(roll: int, category: str, ancestry: str) -> dict:
+
+    project_root = pathlib.Path(__file__).parent.parent
+    path_to_file = project_root / "data_base" / "ancestry" / ancestry / f'{ancestry}_tables.json'
+
+    if not isinstance(roll, int) or not isinstance(category, str) or not isinstance(category, str):
+        raise TypeError("'roll', 'category' and 'ancestry' params must be expected types: int, str, str.")
+
+    try:
+        with open(path_to_file, "r", encoding="utf8") as file:
+            data = json.load(file)
+
+        if category not in data:
+            raise ValueError(f"Category {category} not found in {path_to_file}")
+
+        for roll_value in data[category]:
+            if roll in roll_value["roll"]:
+                description = roll_value.get("description", "")
+                user_action = roll_value.get("user_actions", "")
+                return description, user_action
+
+    except FileNotFoundError:
+        raise FileNotFoundError(f"File {path_to_file} not found.")
+
+
 # TODO: inject value to new_hero.json
 # TODO: Inject new_hero.json to PDF
 # TODO: save pdf

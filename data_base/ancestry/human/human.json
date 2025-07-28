@@ -45,9 +45,11 @@
   "spells": [],
   "user_actions": [
     {
-      "add_attribute": {
-        "any": 1
-      }
+      "add_attribute": [
+        {
+          "any": 1
+        }
+      ]
     },
     {
       "complex_choice": {
