@@ -26,6 +26,7 @@ import pathlib
 
 from utils.utils import roll_dice, get_from_ancestry
 
+
 roll = roll_dice(1,20)
 desc, actions = get_from_ancestry(roll, "past", "human")
 
