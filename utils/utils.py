@@ -72,13 +72,6 @@ def get_from_ancestry(roll: int, category: str, ancestry: str) -> None | tuple[d
         raise FileNotFoundError(f"File {path_to_file} not found.")
 
 
-# TODO: Add open_json_template method
-# TODO: Add save_dict_to_json method
-# TODO: inject value to new_hero.json
-# TODO: Inject new_hero.json to PDF
-# TODO: save pdf
-
-
 def build_hero(ancestry: str, hero_lvl: int = 0, is_random: bool = False):
     project_root = pathlib.Path(__file__).parent.parent
 
@@ -87,61 +80,48 @@ def build_hero(ancestry: str, hero_lvl: int = 0, is_random: bool = False):
     with open(path_to_hero, "r", encoding="utf8") as file:
         data = json.load(file)
 
+    def _update_backstory(data: dict, backstory_type: tuple | dict) -> dict:
+        if isinstance(backstory_type, tuple):
+            description, user_action = backstory_type
+            data["backstory"].update(description)
+            data["user_actions"].append(user_action)
+        else:
+            data["backstory"].update(backstory_type)
+        return data
+
     if is_random:
         pass
     else:
         match ancestry:
             case "human":
                 past = get_from_ancestry(roll=roll_dice(1, 20), category="past", ancestry=ancestry)
-                if isinstance(past, tuple):
-                    description, user_action = past
-                    data["backstory"].update(description)
-                    data["user_actions"].append(user_action)
-                else:
-                    data["backstory"].update(past)
+                _update_backstory(data, past)
 
                 character = get_from_ancestry(roll=roll_dice(3, 6), category="character", ancestry=ancestry)
-                if isinstance(character, tuple):
-                    description, user_action = character
-                    data["backstory"].update(description)
-                    data["user_actions"].append(user_action)
-                else:
-                    data["backstory"].update(character)
+                _update_backstory(data, character)
 
                 religion = get_from_ancestry(roll=roll_dice(3, 6), category="religion", ancestry=ancestry)
-                if isinstance(religion, tuple):
-                    description, user_action = religion
-                    data["backstory"].update(description)
-                    data["user_actions"].append(user_action)
-                else:
-                    data["backstory"].update(religion)
+                _update_backstory(data, religion)
 
                 age = get_from_ancestry(roll=roll_dice(3, 6), category="age", ancestry=ancestry)
-                if isinstance(age, tuple):
-                    description, user_action = age
-                    data["backstory"].update(description)
-                    data["user_actions"].append(user_action)
-                else:
-                    data["backstory"].update(age)
+                _update_backstory(data, age)
 
                 body = get_from_ancestry(roll=roll_dice(3, 6), category="body", ancestry=ancestry)
-                if isinstance(body, tuple):
-                    description, user_action = body
-                    data["backstory"].update(description)
-                    data["user_actions"].append(user_action)
-                else:
-                    data["backstory"].update(body)
+                _update_backstory(data, body)
 
                 appearance = get_from_ancestry(roll=roll_dice(3, 6), category="appearance",
                                                ancestry=ancestry)
-                if isinstance(appearance, tuple):
-                    description, user_action = appearance
-                    data["backstory"].update(description)
-                    data["user_actions"].append(user_action)
-                else:
-                    data["backstory"].update(appearance)
+                _update_backstory(data, appearance)
 
     print(data)
+    return data
+
+
+# TODO: Add open_json_template method
+# TODO: Add save_dict_to_json method
+# TODO: Pydantic?
+# TODO: Inject new_hero.json to PDF
+# TODO: save pdf
 
 
 build_hero(ancestry="human")
