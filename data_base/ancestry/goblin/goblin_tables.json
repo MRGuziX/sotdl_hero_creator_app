@@ -1,0 +1,105 @@
+{
+    "age": [
+        { "roll": [3], "description": "Dziecko, 6 lat lub mniej." },
+        { "roll": [4, 5, 6, 7], "description": "Młodociany, 7–10 lat." },
+        { "roll": [8, 9, 10, 11, 12], "description": "Młody dorosły, 11–25 lat." },
+        { "roll": [13, 14, 15], "description": "Dorosły w średnim wieku, 26–50 lat." },
+        { "roll": [16, 17], "description": "Starszy dorosły, 51–75 lat." },
+        { "roll": [18], "description": "Sędziwy dorosły, 76 lat lub więcej." }
+    ],
+    "body": [
+        { "roll": [3], "description": "Jesteś niski i szczupowaty." },
+        { "roll": [4], "description": "Jesteś niski i krągły." },
+        { "roll": [5, 6], "description": "Jesteś niski." },
+        { "roll": [7, 8], "description": "Jesteś żylasty." },
+        { "roll": [9, 10, 11, 12], "description": "Jesteś średniego jak na goblina wzrostu i wagi." },
+        { "roll": [13, 14], "description": "Jesteś pulchny." },
+        { "roll": [15, 16], "description": "Jesteś wysoki." },
+        { "roll": [17], "description": "Jesteś wysoki i chudy." },
+        { "roll": [18], "description": "Jesteś bardzo wysoki i masywny." }
+    ],
+    "trait": [
+        { "roll": [1], "description": "Masz długi, ostro zakończony nos." },
+        { "roll": [2], "description": "Masz jaskrawozieloną lub jaskrawopomarańczową skórę." },
+        { "roll": [3], "description": "Twoja głowa przypomina psią." },
+        { "roll": [4], "description": "Masz jaszczurzy wygląd i niewielkie rogi na czubku głowy." },
+        { "roll": [5], "description": "Masz szeroki, cwaniacki uśmiech." },
+        { "roll": [6], "description": "Zamiast nosa masz świński ryj." },
+        { "roll": [7], "description": "Masz długie, smukłe palce." },
+        { "roll": [8], "description": "Na środku czoła wyrósł ci ząb." },
+        { "roll": [9], "description": "Masz ogon." },
+        { "roll": [10], "description": "Twoje ręce i nogi pokrywa gęste futro." },
+        { "roll": [11], "description": "Jesteś całkowicie bezwłosy." },
+        { "roll": [12], "description": "Od stóp do głów jesteś pokryty kurzajkami." },
+        { "roll": [13], "description": "Na plecach masz ogromną torbiel." },
+        { "roll": [14], "description": "Masz niesamowicie długi i ostry podbródek." },
+        { "roll": [15], "description": "Z boku głowy wyrasta ci pojedynczy róg." },
+        { "roll": [16], "description": "Masz tylko jedno oko." },
+        { "roll": [17], "description": "Posiadasz dodatkowe 1k6 palców, które wyrosły w wybranych miejscach na twoim ciele." },
+        { "roll": [18], "description": "Masz olbrzymie uszy." },
+        { "roll": [19], "description": "Masz komicznie krótkie nogi." },
+        { "roll": [20], "description": "Wymyśl coś!" }
+    ],
+    "quirk": [
+        { "roll": [1], "description": "Wyszczerzasz swoje wydzieliny zamykasz w małych buteleczkach, którymi obdarowujesz tych, których polubisz." },
+        { "roll": [2], "description": "Nigdy się nie myjesz." },
+        { "roll": [3], "description": "Spluwasz po każdym wypowiedzianym zdaniu." },
+        { "roll": [4], "description": "Bezustannie puszczasz monstrualne wiatry, ale zdajesz się tego nie zauważać." },
+        { "roll": [5], "description": "Żywisz się wyłącznie słodyczami." },
+        { "roll": [6], "description": "Kolekcjonujesz genitalia pokonanych stworzeń, którymi obwieszasz się jak biżuterią." },
+        { "roll": [7], "description": "Liżesz przedmioty, by zaznaczyć, że są twoje." },
+        { "roll": [8], "description": "Ubierasz się bardzo elegancko." },
+        { "roll": [9], "description": "Nigdy nie nosisz butów." },
+        { "roll": [10], "description": "Jako zwierzęta domowe hodujesz karaluchy." },
+        { "roll": [11], "description": "Zawsze badasz zawartość swoich odchodów, rozsmarowując je palcami." },
+        { "roll": [12], "description": "Zawsze masz przy sobie kawałek żelaza." },
+        { "roll": [13], "description": "Podsłuchujesz zamiast mówić." },
+        { "roll": [14], "description": "Z każdej zabitej przez siebie istoty odkrajasz i zjadasz kawałek ciała." },
+        { "roll": [15], "description": "Płaczesz z byle powodu." },
+        { "roll": [16], "description": "W najmniej odpowiednich momentach opowiadasz sprośne dowcipy." },
+        { "roll": [17], "description": "Nosisz dziecięce ubranka i odmawiasz założenia czegokolwiek innego." },
+        { "roll": [18], "description": "Masz bogatą kolekcję języków." },
+        { "roll": [19], "description": "Lubisz się chować." },
+        { "roll": [20], "description": "Wymyśl coś!" }
+    ],
+    "past": [
+        { "roll": [1], "description": "Ostatnie 1k6 lat spędziłeś kompletnie zalany. Nie jesteś z tego dumny." },
+        { "roll": [2], "description": "Król goblinów zamienił cię w ropuchę. Udało ci się przekonać elfkę pannę, by cię odczarowała pocałunkiem. Gdy przerażona twoim wyglądem zaczęła krzyczeć, zabiłeś ją. Zaczynasz grę z 1 punktem Splugawienia.", "user_actions": { "add_attribute": { "corruption": 1 } } },
+        { "roll": [3], "description": "Przypadkiem spowodowałeś śmierć całego swojego plemienia." },
+        { "roll": [4], "description": "Zostałeś osierocony. Wychowałeś się wśród olbrzymich szczurów." },
+        { "roll": [5], "description": "Niechcący sprowadziłeś na świat demona." },
+        { "roll": [6], "description": "Przez dwa dni wydawało ci się, że jesteś wściekłym psem. Zaczynasz grę z 1 punktem Szaleństwa.", "user_actions": { "add_attribute": { "insanity": 1 } } },
+        { "roll": [7], "description": "Przez 1k6 lat byłeś seksualnym niewolnikiem pewnej meduzy." },
+        { "roll": [8], "description": "Twoje plemię zostało niemal całkowicie wybite przez trollowy. Jesteś jednym z 1k6 osobników, którzy przeżyli." },
+        { "roll": [9], "description": "Prawie utonąłeś, gdy wyląłeś ścieki." },
+        { "roll": [10], "description": "Utrzymujesz się z pracy w swojej profesji." },
+        { "roll": [11], "description": "Wybierz postać z drużyny. Osoba ta uratowała ci życie i masz wobec niej dług wdzięczności." },
+        { "roll": [12], "description": "Jesteś niereformowalnym przestępcą. Zyskujesz jedną losową profesję przestępczą." },
+        { "roll": [13], "description": "Odbyłeś wiele podróży w różne strony świata. Umiesz mówić w jednym dodatkowym języku." },
+        { "roll": [14], "description": "Ukradłeś nóż pewnemu pięknemu rycerzowi." },
+        { "roll": [15], "description": "Zakradłeś się do Altheimu i zwędziłeś kosmyk włosów Królowej Faerie." },
+        { "roll": [16], "description": "Zabiłeś i zjadłeś setkę chorych szczurów." },
+        { "roll": [17], "description": "Byłeś pomocnikiem potężnego czarodzieja." },
+        { "roll": [18], "description": "W ściekach znalazłeś szlachecki sygnet." },
+        { "roll": [19], "description": "Jesteś siedemnastym dzieckiem króla goblinów." },
+        { "roll": [20], "description": "Odziedziczyłeś w spadku pieniądze; zaczynasz grę z 2k6 miedziaków.", "user_actions": { "add_attribute": { "coins": "2d6" } } }
+    ],
+    "personality": [
+        { "roll": [3], "description": "Jesteś zbirem i lubisz nękać słabszych od siebie." },
+        { "roll": [4], "description": "Lubisz przemoc, zwłaszcza bezsensowną." },
+        { "roll": [5, 6], "description": "Starasz się porzucić umiłowanie brudu typowe dla twojego ludu i czynić na świecie dobro." },
+        { "roll": [7, 8], "description": "Uwielbiasz płatać innym złośliwe figle. Ich niedola bawi cię do rozpuku!" },
+        { "roll": [9, 10], "description": "Martwisz się tylko o siebie. Do diabła z innymi!" },
+        { "roll": [11, 12], "description": "Ty tylko starasz się przeżyć!" },
+        { "roll": [13, 14], "description": "Twój lud nie zasługiwał na wygnanie. Wierzysz, że odnajdziecie swoje miejsce w świecie i udowodnicie tym przeklętym elfom, że się myliły." },
+        { "roll": [15, 16], "description": "Żyjesz, by służyć tym silnym i wpływowym." },
+        { "roll": [17, 18], "description": "Swoimi czynami chcesz sprawić, że twój lud wróci do łask Królowej Faerie." }
+    ]
+}
+
+# Save to file
+output_path = "/mnt/data/goblin.json"
+with open(output_path, "w", encoding="utf-8") as f:
+    json.dump(goblin_data, f, ensure_ascii=False, indent=2)
+
+output_path

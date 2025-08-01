@@ -51,12 +51,12 @@
           "any": 1
         }
       ]
-    },
+    }
+  ],
+  "complex_choices": [
     {
-      "complex_choice": {
-        "language": "any",
-        "profession": "any"
-      }
+      "language": "any",
+      "profession": "any"
     }
   ]
 }

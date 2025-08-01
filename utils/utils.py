@@ -82,9 +82,12 @@ def build_hero(ancestry: str, hero_lvl: int = 0, is_random: bool = False):
 
     def _update_backstory(data: dict, backstory_type: tuple | dict) -> dict:
         if isinstance(backstory_type, tuple):
-            description, user_action = backstory_type
+            description, action = backstory_type #it can be 'user_actions' or 'complex_choices'
             data["backstory"].update(description)
-            data["user_actions"].append(user_action)
+            if "user_actions" in action:
+                data["user_actions"].append(action)
+            else:
+                data["complex_choices"].append(action)
         else:
             data["backstory"].update(backstory_type)
         return data
@@ -125,3 +128,35 @@ def build_hero(ancestry: str, hero_lvl: int = 0, is_random: bool = False):
 
 
 build_hero(ancestry="human")
+
+
+def extract_attribute_choices(ancestry: str = "automaton") :
+    """
+    Specifically extracts attribute choices from complex_choices actions.
+
+    Returns tuples like: ({\"strength\": 2}, {\"dexterity\": 2})
+    """
+    project_root = pathlib.Path(__file__).parent.parent
+
+    path_to_hero = project_root / "data_base" / "ancestry" / ancestry / f'{ancestry}.json'
+
+    with open(path_to_hero, "r", encoding="utf8") as file:
+        data = json.load(file)
+
+    attribute_choices = []
+    user_actions = data.get('user_actions', [])
+
+    for action in user_actions:
+        if 'complex_choices' in action:
+            complex_choices = action['complex_choices']
+
+            # Look for add_attribute choices specifically
+            if 'add_attribute' in complex_choices:
+                add_attribute_options = complex_choices['add_attribute']
+                if isinstance(add_attribute_options, list):
+                    choice_tuple = tuple(add_attribute_options)
+                    attribute_choices.append(choice_tuple)
+
+    return attribute_choices
+
+extract_attribute_choices()

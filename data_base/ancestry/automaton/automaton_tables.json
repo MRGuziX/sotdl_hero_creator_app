@@ -1,0 +1,434 @@
+{
+  "age": [
+    {
+      "roll": [
+        3,
+        4,
+        5,
+        6,
+        7,
+        8
+      ],
+      "description": "Nowy, 5 lat lub mniej."
+    },
+    {
+      "roll": [
+        9,
+        10,
+        11,
+        12
+      ],
+      "description": "Doświadczony, 6–10 lat."
+    },
+    {
+      "roll": [
+        13,
+        14,
+        15
+      ],
+      "description": "Stary, 11–50 lat."
+    },
+    {
+      "roll": [
+        16,
+        17
+      ],
+      "description": "Bardzo stary, 51–150 lat."
+    },
+    {
+      "roll": [
+        18
+      ],
+      "description": "Wiekowy, powyżej 150 lat."
+    }
+  ],
+  "function": [
+    {
+      "roll": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "description": "Zostałeś stworzony do walki. Zwiększ swoją Siłę lub Zręczność o 2.",
+      "complex_choices": {
+        "add_attribute": {
+          "strength": 2,
+          "dexterity": 2
+        }
+      }
+    },
+    {
+      "roll": [
+        5,
+        6,
+        7,
+        8
+      ],
+      "description": "Zostałeś stworzony do pracy. Zwiększ swoją Siłę o 2.",
+      "user_actions": {
+        "add_attribute": {
+          "strength": 2
+        }
+      }
+    },
+    {
+      "roll": [
+        9,
+        10,
+        11,
+        12
+      ],
+      "description": "Zostałeś stworzony do używania magii. Zwiększ swój Intelekt lub Wolę o 2.",
+      "complex_choices": {
+        "add_attribute": {
+          "intelligence": 2,
+          "will": 2
+        }
+      }
+    },
+    {
+      "roll": [
+        13,
+        14,
+        15,
+        16
+      ],
+      "description": "Zostałeś stworzony do szpiegowania lub skrytobójstwa. Zwiększ swoją Zręczność lub Intelekt o 2.",
+      "complex_choices": {
+        "add_attribute": {
+          "intelligence": 2,
+          "dexterity": 2
+        }
+      }
+    },
+    {
+      "roll": [
+        17,
+        18,
+        19,
+        20
+      ],
+      "description": "Nie znasz funkcji, do której zostałeś stworzony. Zwiększ jeden wybrany atrybut o 2.",
+      "user_actions": {
+        "add_attribute": {
+          "any": 2
+        }
+      }
+    }
+  ],
+  "form": [
+    {
+      "roll": [
+        3
+      ],
+      "description": "Niewielki, latający automaton. Zmniejsz swoje Zdrowie o 5 i Rozmiar do 1/2. Potrafisz latać, ale musisz zakończyć ruch lądowaniem, w przeciwnym wypadku spadasz na ziemię. Masz około 1 metra wzrostu i ważysz około 25 kilogramów."
+    },
+    {
+      "roll": [
+        4,
+        5
+      ],
+      "description": "Niewielki automaton przypominający pająka o chwytnych kończynach. Zmniejsz swój Rozmiar do 1/2. Gdy się wspinasz, ignorujesz efekty trudnego terenu. Masz około 1 metra wzrostu i ważysz około 25 kilogramów."
+    },
+    {
+      "roll": [
+        6,
+        7,
+        8,
+        9
+      ],
+      "description": "Mały, człekopodobny automaton. Zmniejsz swój Rozmiar do 1/2. Masz około 120 centymetrów wzrostu i ważysz około 30 kilogramów."
+    },
+    {
+      "roll": [
+        10,
+        11,
+        12,
+        13,
+        14,
+        15
+      ],
+      "description": "Człekopodobny automaton. Masz około 180 centymetrów wzrostu i ważysz około 150 kilogramów."
+    },
+    {
+      "roll": [
+        16,
+        17
+      ],
+      "description": "Duży, człekopodobny automaton. Zwiększ swój Rozmiar do 2, ale zmniejsz Prędkość i Obronę o 2. Masz około 3 metrów wzrostu i ważysz około 300 kilogramów."
+    },
+    {
+      "roll": [
+        18
+      ],
+      "description": "Duży automaton od pasa w dół przypominający konia. Zwiększ swój Rozmiar do 2 i Prędkość o 2. Zmniejsz swoją Obronę o 3. Masz około 2 metrów wzrostu i długości, ważysz około 300 kilogramów."
+    }
+  ],
+  "appearance": [
+    {
+      "roll": [
+        3
+      ],
+      "description": "Twój wygląd jest dziwaczny i niepokojący."
+    },
+    {
+      "roll": [
+        4
+      ],
+      "description": "Twoja forma wydaje się prymitywna i nieprawnie złożona."
+    },
+    {
+      "roll": [
+        5,
+        6
+      ],
+      "description": "Wyglądasz na podniszczonego, poobijanego i źle utrzymanego."
+    },
+    {
+      "roll": [
+        7,
+        8
+      ],
+      "description": "Nie masz żadnych rysów twarzy ani znaków szczególnych."
+    },
+    {
+      "roll": [
+        9,
+        10,
+        11,
+        12
+      ],
+      "description": "Twoja twarz jest ledwie zarysowana."
+    },
+    {
+      "roll": [
+        13,
+        14
+      ],
+      "description": "Wyglądasz na dobrze utrzymanego i działającego bez zarzutu."
+    },
+    {
+      "roll": [
+        15,
+        16
+      ],
+      "description": "Twoja forma jest bogato zdobiona."
+    },
+    {
+      "roll": [
+        17
+      ],
+      "description": "Twoja forma ozdobiona jest grawerunkami i klejnotami."
+    },
+    {
+      "roll": [
+        18
+      ],
+      "description": "Twoja forma ozdobiona jest grawerunkami i klejnotami, a do tego wykończona metalami szlachetnymi. Jeśli zostaniesz rozmontowany, twoje części warte są 1k6 złotych koron."
+    }
+  ],
+  "personality": [
+    {
+      "roll": [
+        3
+      ],
+      "description": "Nienawidzisz żywych istot i uwielbiasz rozbierać je na części."
+    },
+    {
+      "roll": [
+        4
+      ],
+      "description": "Stan uśpienia cię przeraża."
+    },
+    {
+      "roll": [
+        5,
+        6,
+        7
+      ],
+      "description": "Twoja forma daje ci siłę i moc. Wykorzystujesz je, by podporządkowywać sobie innych."
+    },
+    {
+      "roll": [
+        8
+      ],
+      "description": "Nie prosiłeś się o to nowe „życie”, ale starasz się jak najlepiej z niego korzystać."
+    },
+    {
+      "roll": [
+        9,
+        10,
+        11,
+        12,
+        13
+      ],
+      "description": "Poszukujesz znaczenia w świecie, w którym jesteś obcy."
+    },
+    {
+      "roll": [
+        14
+      ],
+      "description": "Zostałeś stworzony, by służyć. Swoją egzystencję poświęcasz pomocy innym."
+    },
+    {
+      "roll": [
+        15
+      ],
+      "description": "Nie znasz swojego miejsca w tym świecie, ale poświęcasz życie, by je odnaleźć."
+    },
+    {
+      "roll": [
+        16,
+        17
+      ],
+      "description": "Jesteś posłuszny wobec każdego, kogo uznasz za sprawującego władzę."
+    },
+    {
+      "roll": [
+        18
+      ],
+      "description": "Twój stwórca wpoił ci trzy dyrektywy, do których bezwzględnie się stosujesz."
+    }
+  ],
+  "past": [
+    {
+      "roll": [
+        1
+      ],
+      "description": "Twoja dusza pochodzi z Piekła. Zaczynasz grę z 1k3 punktów Splugawienia.",
+      "user_actions": {
+        "add_attribute": {
+          "corruption": "1d3"
+        }
+      }
+    },
+    {
+      "roll": [
+        2
+      ],
+      "description": "Twoja dusza została wyrwana z Zaświatów, zanim zdążyła zapomnieć swoje poprzednie życie. Zaczynasz grę z 1k6 punktów Szaleństwa i zyskujesz dodatkową profesję.",
+      "user_actions": {
+        "add_attribute": {
+          "insanity": "1d6"
+        },
+        "gain": {
+          "profession": 1
+        }
+      }
+    },
+    {
+      "roll": [
+        3
+      ],
+      "description": "Spędziłeś 1k20 lat w stanie uśpienia."
+    },
+    {
+      "roll": [
+        4
+      ],
+      "description": "Twój stwórca źle cię traktował. Uciekłeś, ale boisz się, że będzie cię szukał."
+    },
+    {
+      "roll": [
+        5
+      ],
+      "description": "Twój dom został zniszczony przez ogień, zarazę lub potwory. Tylko ty się uratowałeś."
+    },
+    {
+      "roll": [
+        6
+      ],
+      "description": "Zostałeś skradziony z warsztatu, w którym powstałeś. Przez 1k6 lat żyłeś w niewoli."
+    },
+    {
+      "roll": [
+        7
+      ],
+      "description": "Zostałeś porwany przez gobliny i prawie rozebrany na części. Brakujące elementy zastąpiłeś kawałkami drewna, starej broni i innym złomem."
+    },
+    {
+      "roll": [
+        8
+      ],
+      "description": "Twój stwórca umarł, zostawiając cię samego na świecie."
+    },
+    {
+      "roll": [
+        9
+      ],
+      "description": "Wypadłeś z pokładu statku. Dojście do brzegu zajęło ci dwa lata."
+    },
+    {
+      "roll": [
+        10
+      ],
+      "description": "Przez 1k6 lat pełniłeś funkcję, do jakiej zostałeś stworzony."
+    },
+    {
+      "roll": [
+        11
+      ],
+      "description": "Wybierasz innego członka drużyny. Postać ta znalazła cię i nakręciła, przywracając do życia. Masz wobec niej dług wdzięczności."
+    },
+    {
+      "roll": [
+        12
+      ],
+      "description": "Powstałeś w tym samym czasie, co 1k6 innych automatonów. Chciałbyś je kiedyś odnaleźć."
+    },
+    {
+      "roll": [
+        13
+      ],
+      "description": "Pełniłeś funkcję tłumacza. Umiesz mówić w jednym dodatkowym języku."
+    },
+    {
+      "roll": [
+        14
+      ],
+      "description": "Pełniłeś funkcję skryby. Umiesz czytać i pisać w języku wspólnym."
+    },
+    {
+      "roll": [
+        15
+      ],
+      "description": "Twój stwórca ofiarował ci wolność, byś sam odnalazł swoje przeznaczenie."
+    },
+    {
+      "roll": [
+        16
+      ],
+      "description": "Nie pamiętasz swojej przeszłości. Nie wiesz, skąd pochodzisz ani jak trafiłeś do miejsca, w którym się obecnie znajdujesz."
+    },
+    {
+      "roll": [
+        17
+      ],
+      "description": "Brałeś udział w budowie ważnego dla twojej społeczności monumentu."
+    },
+    {
+      "roll": [
+        18
+      ],
+      "description": "Wewnątrz swojego ciała znalazłeś zakodowaną wiadomość. Jak dotąd nie udało ci się jej rozszyfrować."
+    },
+    {
+      "roll": [
+        19
+      ],
+      "description": "Do jednego z twoich ramion przymocowany jest miecz."
+    },
+    {
+      "roll": [
+        20
+      ],
+      "description": "Odziedziczyłeś w spadku pieniądze; zaczynasz grę z 2k6 miedziaków.",
+      "user_actions": {
+        "add_attribute": {
+          "coins": "2d6"
+        }
+      }
+    }
+  ]
+}
