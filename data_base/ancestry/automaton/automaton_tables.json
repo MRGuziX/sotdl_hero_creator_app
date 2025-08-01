@@ -52,10 +52,8 @@
       ],
       "description": "Zostałeś stworzony do walki. Zwiększ swoją Siłę lub Zręczność o 2.",
       "complex_choices": {
-        "add_attribute": {
-          "strength": 2,
-          "dexterity": 2
-        }
+        "strength": 2,
+        "dexterity": 2
       }
     },
     {
@@ -81,10 +79,8 @@
       ],
       "description": "Zostałeś stworzony do używania magii. Zwiększ swój Intelekt lub Wolę o 2.",
       "complex_choices": {
-        "add_attribute": {
-          "intelligence": 2,
-          "will": 2
-        }
+        "intelligence": 2,
+        "will": 2
       }
     },
     {
@@ -96,10 +92,8 @@
       ],
       "description": "Zostałeś stworzony do szpiegowania lub skrytobójstwa. Zwiększ swoją Zręczność lub Intelekt o 2.",
       "complex_choices": {
-        "add_attribute": {
-          "intelligence": 2,
-          "dexterity": 2
-        }
+        "intelligence": 2,
+        "dexterity": 2
       }
     },
     {
@@ -122,14 +116,27 @@
       "roll": [
         3
       ],
-      "description": "Niewielki, latający automaton. Zmniejsz swoje Zdrowie o 5 i Rozmiar do 1/2. Potrafisz latać, ale musisz zakończyć ruch lądowaniem, w przeciwnym wypadku spadasz na ziemię. Masz około 1 metra wzrostu i ważysz około 25 kilogramów."
+      "description": "Niewielki, latający automaton. Zmniejsz swoje Zdrowie o 5 i Rozmiar do 1/2. Potrafisz latać, ale musisz zakończyć ruch lądowaniem, w przeciwnym wypadku spadasz na ziemię. Masz około 1 metra wzrostu i ważysz około 25 kilogramów.",
+      "user_actions": {
+        "add_attribute": {
+          "health": -5
+        },
+        "add_attribute": {
+          "size": 0.5
+        }
+      }
     },
     {
       "roll": [
         4,
         5
       ],
-      "description": "Niewielki automaton przypominający pająka o chwytnych kończynach. Zmniejsz swój Rozmiar do 1/2. Gdy się wspinasz, ignorujesz efekty trudnego terenu. Masz około 1 metra wzrostu i ważysz około 25 kilogramów."
+      "description": "Niewielki automaton przypominający pająka o chwytnych kończynach. Zmniejsz swój Rozmiar do 1/2. Gdy się wspinasz, ignorujesz efekty trudnego terenu. Masz około 1 metra wzrostu i ważysz około 25 kilogramów.",
+      "user_actions": {
+        "add_attribute": {
+          "size": 0.5
+        }
+      }
     },
     {
       "roll": [
@@ -138,7 +145,12 @@
         8,
         9
       ],
-      "description": "Mały, człekopodobny automaton. Zmniejsz swój Rozmiar do 1/2. Masz około 120 centymetrów wzrostu i ważysz około 30 kilogramów."
+      "description": "Mały, człekopodobny automaton. Zmniejsz swój Rozmiar do 1/2. Masz około 120 centymetrów wzrostu i ważysz około 30 kilogramów.",
+      "user_actions": {
+        "add_attribute": {
+          "size": 0.5
+        }
+      }
     },
     {
       "roll": [
@@ -156,13 +168,35 @@
         16,
         17
       ],
-      "description": "Duży, człekopodobny automaton. Zwiększ swój Rozmiar do 2, ale zmniejsz Prędkość i Obronę o 2. Masz około 3 metrów wzrostu i ważysz około 300 kilogramów."
+      "description": "Duży, człekopodobny automaton. Zwiększ swój Rozmiar do 2, ale zmniejsz Prędkość i Obronę o 2. Masz około 3 metrów wzrostu i ważysz około 300 kilogramów.",
+      "user_actions": {
+        "add_attribute": {
+          "size": 2.0
+        },
+        "add_attribute": {
+          "speed": -2
+        },
+        "add_attribute": {
+          "defence": -2
+        }
+      }
     },
     {
       "roll": [
         18
       ],
-      "description": "Duży automaton od pasa w dół przypominający konia. Zwiększ swój Rozmiar do 2 i Prędkość o 2. Zmniejsz swoją Obronę o 3. Masz około 2 metrów wzrostu i długości, ważysz około 300 kilogramów."
+      "description": "Duży automaton od pasa w dół przypominający konia. Zwiększ swój Rozmiar do 2 i Prędkość o 2. Zmniejsz swoją Obronę o 3. Masz około 2 metrów wzrostu i długości, ważysz około 300 kilogramów.",
+      "user_actions": {
+        "add_attribute": {
+          "size": 2.0
+        },
+        "add_attribute": {
+          "speed": 2
+        },
+        "add_attribute": {
+          "defence": -3
+        }
+      }
     }
   ],
   "appearance": [
@@ -312,8 +346,8 @@
         "add_attribute": {
           "insanity": "1d6"
         },
-        "gain": {
-          "profession": 1
+        "add_attribute": {
+          "profession": "any"
         }
       }
     },
@@ -426,7 +460,7 @@
       "description": "Odziedziczyłeś w spadku pieniądze; zaczynasz grę z 2k6 miedziaków.",
       "user_actions": {
         "add_attribute": {
-          "coins": "2d6"
+          "copper_coins": "2d6"
         }
       }
     }

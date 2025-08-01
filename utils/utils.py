@@ -63,10 +63,14 @@ def get_from_ancestry(roll: int, category: str, ancestry: str) -> None | tuple[d
         for roll_value in data[category]:
             if roll in roll_value["roll"]:
                 description = {category: roll_value.get("description", "")}
-                if roll_value.get("user_actions") is not None:
-                    user_action = roll_value.get("user_actions")
-                    return description, user_action
-                return description
+                if roll_value.get("user_actions"):
+                    action = {"user_actions": roll_value.get("user_actions")}
+                    return description, action
+                elif roll_value.get("complex_choices"):
+                    action = {"complex_choices": roll_value.get("complex_choices")}
+                    return description, action
+                else:
+                    return description
 
     except FileNotFoundError:
         raise FileNotFoundError(f"File {path_to_file} not found.")
@@ -82,12 +86,14 @@ def build_hero(ancestry: str, hero_lvl: int = 0, is_random: bool = False):
 
     def _update_backstory(data: dict, backstory_type: tuple | dict) -> dict:
         if isinstance(backstory_type, tuple):
-            description, action = backstory_type #it can be 'user_actions' or 'complex_choices'
+            description, action = backstory_type  # it can be 'user_actions' or 'complex_choices'
             data["backstory"].update(description)
             if "user_actions" in action:
-                data["user_actions"].append(action)
+                data["user_actions"].append(action["user_actions"])
+            elif "complex_choices" in action:
+                data["complex_choices"].append(action["complex_choices"])
             else:
-                data["complex_choices"].append(action)
+                pass
         else:
             data["backstory"].update(backstory_type)
         return data
@@ -115,8 +121,26 @@ def build_hero(ancestry: str, hero_lvl: int = 0, is_random: bool = False):
                 appearance = get_from_ancestry(roll=roll_dice(3, 6), category="appearance",
                                                ancestry=ancestry)
                 _update_backstory(data, appearance)
+            case "automaton":
+                age = get_from_ancestry(roll=roll_dice(3, 6), category="age", ancestry=ancestry)
+                _update_backstory(data, age)
 
-    print(data)
+                function = get_from_ancestry(roll=roll_dice(1, 20), category="function", ancestry=ancestry)
+                _update_backstory(data, function)
+
+                form = get_from_ancestry(roll=roll_dice(3, 6), category="form", ancestry=ancestry)
+                _update_backstory(data, form)
+
+                appearance = get_from_ancestry(roll=roll_dice(3, 6), category="appearance", ancestry=ancestry)
+                _update_backstory(data, appearance)
+
+                personality = get_from_ancestry(roll=roll_dice(3, 6), category="personality", ancestry=ancestry)
+                _update_backstory(data, personality)
+
+                past = get_from_ancestry(roll=roll_dice(1, 20), category="past", ancestry=ancestry)
+                _update_backstory(data, past)
+
+    # print(data)
     return data
 
 
@@ -126,37 +150,23 @@ def build_hero(ancestry: str, hero_lvl: int = 0, is_random: bool = False):
 # TODO: Inject new_hero.json to PDF
 # TODO: save pdf
 
-
-build_hero(ancestry="human")
-
-
-def extract_attribute_choices(ancestry: str = "automaton") :
-    """
-    Specifically extracts attribute choices from complex_choices actions.
-
-    Returns tuples like: ({\"strength\": 2}, {\"dexterity\": 2})
-    """
-    project_root = pathlib.Path(__file__).parent.parent
-
-    path_to_hero = project_root / "data_base" / "ancestry" / ancestry / f'{ancestry}.json'
-
-    with open(path_to_hero, "r", encoding="utf8") as file:
-        data = json.load(file)
-
-    attribute_choices = []
-    user_actions = data.get('user_actions', [])
-
-    for action in user_actions:
-        if 'complex_choices' in action:
-            complex_choices = action['complex_choices']
-
-            # Look for add_attribute choices specifically
-            if 'add_attribute' in complex_choices:
-                add_attribute_options = complex_choices['add_attribute']
-                if isinstance(add_attribute_options, list):
-                    choice_tuple = tuple(add_attribute_options)
-                    attribute_choices.append(choice_tuple)
-
-    return attribute_choices
-
-extract_attribute_choices()
+#
+# data = build_hero(ancestry="automaton")
+#
+#
+# def complex_choices_extractor(data: dict) -> dict:
+#     complex = data.get("complex_choices")
+#     print(complex)
+#     converted_choices = {
+#     }
+#
+#     for choice in complex:
+#         for key, value in choice.items():
+#             converted_action = {"add_attribute": {key: value}}
+#             converted_choices.update(converted_action)
+#
+#     print(converted_choices)
+#     return converted_choices
+#
+#
+# complex_choices_extractor(data)
