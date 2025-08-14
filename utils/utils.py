@@ -147,26 +147,121 @@ def build_hero(ancestry: str, hero_lvl: int = 0, is_random: bool = False):
 # TODO: Add open_json_template method
 # TODO: Add save_dict_to_json method
 # TODO: Pydantic?
+
+# TODO: Choose complex attribute ad add attribute to user actions in json
+
 # TODO: Inject new_hero.json to PDF
 # TODO: save pdf
 
-#
-# data = build_hero(ancestry="automaton")
-#
-#
-# def complex_choices_extractor(data: dict) -> dict:
-#     complex = data.get("complex_choices")
-#     print(complex)
-#     converted_choices = {
-#     }
-#
-#     for choice in complex:
-#         for key, value in choice.items():
-#             converted_action = {"add_attribute": {key: value}}
-#             converted_choices.update(converted_action)
-#
-#     print(converted_choices)
-#     return converted_choices
-#
-#
-# complex_choices_extractor(data)
+#TODO: change in tables
+"""
+"language": {
+        "Wspólny": true
+        }
+to
+"languages": [
+      {
+        "name": "Wspólny",
+        "known": false
+      }
+    ]
+
+
+"""
+
+character_data = build_hero(ancestry="automaton")
+
+
+def change_complex_action_to_simple(character_data: dict, is_random: bool = False) -> list[dict]:
+    """
+    Handles user choices from a list of choice dictionaries.
+
+    Args:
+        choices_list: [{'language': 'any', 'profession': 'any'}, {'strength': 2, 'dexterity': 2}]
+        random_choice: If True, randomly selects options instead of asking user
+
+    Returns:
+        List of user_actions based on user selections or random choices
+        :param is_random:
+        :param character_data:
+    """
+
+    user_actions = []
+    choices_list = character_data.get("complex_choices", [])
+
+    for choice_dict in choices_list:
+        if len(choice_dict) > 1:  # Multiple options to choose from
+            options = list(choice_dict.keys())
+
+            if is_random:
+                # Randomly select an option
+                selected_key = random.choice(options)
+                selected_value = choice_dict[selected_key]
+                print(f"Randomly selected: {selected_key.capitalize()} = {selected_value}")
+            else:
+                print(f"Choose one of the following options:")
+                for i, option in enumerate(options, 1):
+                    print(f"{i}. {option.capitalize()}: {choice_dict[option]}")
+
+                # Get user input
+                while True:
+                    try:
+                        choice_num = int(input("Enter your choice (number): ")) - 1  # here we will change for API input
+                        if 0 <= choice_num < len(options):
+                            selected_key = options[choice_num]
+                            selected_value = choice_dict[selected_key]
+                            break
+                        else:
+                            print("Invalid choice. Please try again.")
+                    except ValueError:
+                        print("Please enter a valid number.")
+
+            user_action = {
+                "add_attribute": {selected_key: selected_value}
+            }
+            user_actions.append(user_action)
+        else:
+            # Only one option, add it directly
+            key, value = list(choice_dict.items())[0]
+            user_action = {
+                "add_attribute": {key: value}
+            }
+            user_actions.append(user_action)
+
+    return user_actions
+
+
+user_actions = change_complex_action_to_simple(character_data, is_random=True)
+
+
+def add_attribute(attribute: str, value: str | int, character_data: dict, is_random: bool = False) -> None:
+    is_random = True
+    if is_random and attribute == "any":
+        attribute = random.choice(["strength", "dexterity", "intelligence","will"])
+    elif attribute == "any":
+        attribute = random.choice(["strength", "dexterity", "intelligence","will"]) #user needs to choose
+
+    if attribute == "language":
+        pass
+    original_value = character_data['general'].get(attribute)
+    character_data["general"][attribute] = original_value + value
+    print(original_value)
+
+
+def update_attributes(character_data: dict, user_actions: list[dict], is_random: bool = False) -> dict:
+    for action in user_actions:
+        character_data["user_actions"].append(action)
+    attributes_to_update = character_data.get("user_actions")
+
+    for attribute in attributes_to_update:
+        for key, value in attribute.items():
+            for attribute, value in value.items():
+                add_attribute(attribute=attribute,
+                              value=value,
+                              character_data=character_data,
+                              is_random=is_random)
+
+    print(character_data)
+
+
+update_attributes(character_data=character_data, user_actions=user_actions)
