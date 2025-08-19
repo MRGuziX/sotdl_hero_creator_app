@@ -96,10 +96,3 @@
         { "roll": [17, 18], "description": "Swoimi czynami chcesz sprawić, że twój lud wróci do łask Królowej Faerie." }
     ]
 }
-
-# Save to file
-output_path = "/mnt/data/goblin.json"
-with open(output_path, "w", encoding="utf-8") as f:
-    json.dump(goblin_data, f, ensure_ascii=False, indent=2)
-
-output_path

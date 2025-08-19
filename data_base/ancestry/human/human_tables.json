@@ -100,7 +100,8 @@
       "user_actions": {
         "add_attribute": {
           "language": {
-            "any": false
+            "name": "Wspólny",
+            "known": false
           }
         }
       }
@@ -113,7 +114,8 @@
       "user_actions": {
         "add_attribute": {
           "language": {
-            "Wspólny": true
+            "name": "Wspólny",
+            "known": true
           }
         }
       }

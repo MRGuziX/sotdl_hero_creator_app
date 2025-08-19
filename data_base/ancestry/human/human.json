@@ -18,7 +18,7 @@
     "damage": 0,
     "insanity": 0,
     "corruption": 0,
-    "languages": [
+    "language": [
       {
         "name": "Wspólny",
         "known": false
@@ -46,16 +46,19 @@
   "spells": [],
   "user_actions": [
     {
-      "add_attribute": [
+      "add_attribute":
         {
           "any": 1
         }
-      ]
     }
   ],
   "complex_choices": [
     {
-      "language": "any",
+      "language":
+        {
+        "name": "any",
+        "known": false
+      },
       "profession": "any"
     }
   ]

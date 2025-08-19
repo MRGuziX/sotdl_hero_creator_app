@@ -92,8 +92,6 @@ def build_hero(ancestry: str, hero_lvl: int = 0, is_random: bool = False):
                 data["user_actions"].append(action["user_actions"])
             elif "complex_choices" in action:
                 data["complex_choices"].append(action["complex_choices"])
-            else:
-                pass
         else:
             data["backstory"].update(backstory_type)
         return data
@@ -153,23 +151,7 @@ def build_hero(ancestry: str, hero_lvl: int = 0, is_random: bool = False):
 # TODO: Inject new_hero.json to PDF
 # TODO: save pdf
 
-#TODO: change in tables
-"""
-"language": {
-        "Wspólny": true
-        }
-to
-"languages": [
-      {
-        "name": "Wspólny",
-        "known": false
-      }
-    ]
-
-
-"""
-
-character_data = build_hero(ancestry="automaton")
+character_data = build_hero(ancestry="human")
 
 
 def change_complex_action_to_simple(character_data: dict, is_random: bool = False) -> list[dict]:
@@ -235,20 +217,50 @@ user_actions = change_complex_action_to_simple(character_data, is_random=True)
 
 
 def add_attribute(attribute: str, value: str | int, character_data: dict, is_random: bool = False) -> None:
-    is_random = True
-    if is_random and attribute == "any":
-        attribute = random.choice(["strength", "dexterity", "intelligence","will"])
-    elif attribute == "any":
-        attribute = random.choice(["strength", "dexterity", "intelligence","will"]) #user needs to choose
+    languages_list = ["Wspólny", "Mroczna mowa", "Krasnoludzki", "Elficki", "Wysoki archaik", "Trolli",
+                      "Sekretne języki", "Martwe języki"]
+    core_attributes = ["strength", "dexterity", "intelligence", "will"]
+    character_languages = character_data["general"].get("language")
+    possible_languages_to_learn = []
+    langs_known = []
+
+    if attribute in core_attributes or attribute == "any":
+        if is_random and attribute == "any":
+            attribute = random.choice(core_attributes)
+        elif attribute == "any":        # user needs to choose
+            attribute = random.choice(core_attributes)
+
+        original_value = character_data['general'].get(attribute)
+        character_data["general"][attribute] = original_value + value
+        return
+
 
     if attribute == "language":
-        pass
-    original_value = character_data['general'].get(attribute)
-    character_data["general"][attribute] = original_value + value
-    print(original_value)
+        character_languages = character_data["general"].get("language")
+        possible_languages_to_learn = []
+        langs_known = []
+
+        for existing_language in character_languages:
+            langs_known.append(existing_language['name'])
+
+        if is_random and value['name'] == "any":
+            language_to_add = random.choice(languages_list)
+        #
+        # elif value['name'] in languages_list:
+        #     language_to_add = value['name']
+        #
+        # for existing_language in character_languages:
+        #     if existing_language['name'] == language_to_add:
+        #         language_to_add = random.choice(languages_list)
+        #     if value['known'] is True:
+        #         character_data["general"]["language"].append({'known': True, 'name': language_to_add})
+        #     else:
+        #         character_data["general"]["language"].append({'known': False, 'name': language_to_add})
 
 
-def update_attributes(character_data: dict, user_actions: list[dict], is_random: bool = False) -> dict:
+
+
+def update_attributes(character_data: dict, user_actions: list[dict], is_random: bool = False) -> None:
     for action in user_actions:
         character_data["user_actions"].append(action)
     attributes_to_update = character_data.get("user_actions")
@@ -264,4 +276,4 @@ def update_attributes(character_data: dict, user_actions: list[dict], is_random:
     print(character_data)
 
 
-update_attributes(character_data=character_data, user_actions=user_actions)
+update_attributes(character_data=character_data, user_actions=user_actions, is_random=True)
