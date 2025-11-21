@@ -5,7 +5,7 @@
         1
       ],
       "description": "Umarłeś i powróciłeś do żywych. Zaczynasz grę z 1k6 punktów Szaleństwa.",
-      "user_actions": {
+      "actions": {
         "add_attribute": {
           "insanity": "1d6"
         }
@@ -16,7 +16,7 @@
         2
       ],
       "description": "Przez krótki czas byłeś opętany przez demona. Zaczynasz grę z 1 punktem Splugawienia.",
-      "user_actions": {
+      "actions": {
         "add_attribute": {
           "corruption": 1
         }
@@ -33,7 +33,7 @@
         4
       ],
       "description": "Zabiłeś kogoś z zimną krwią. Zaczynasz grę z 1 punktem Splugawienia.",
-      "user_actions": {
+      "actions": {
         "add_attribute": {
           "corruption": 1
         }
@@ -50,7 +50,7 @@
         6
       ],
       "description": "Należałeś do kultu i byłeś świadkiem wielu dziwnych rzeczy. Zaczynasz grę z 1 punktem Szaleństwa.",
-      "user_actions": {
+      "actions": {
         "add_attribute": {
           "insanity": 1
         }
@@ -97,7 +97,7 @@
         13
       ],
       "description": "Odbyłeś wiele podróży w różne strony świata. Umiesz mówić w jednym dodatkowym języku.",
-      "user_actions": {
+      "actions": {
         "add_attribute": {
           "language": {
             "name": "Wspólny",
@@ -111,7 +111,7 @@
         14
       ],
       "description": "Posiadasz formalne wykształcenie. Umiesz czytać i pisać w języku wspólnym.",
-      "user_actions": {
+      "actions": {
         "add_attribute": {
           "language": {
             "name": "Wspólny",
@@ -155,7 +155,7 @@
         20
       ],
       "description": "Odziedziczyłeś w spadku pieniądze; zaczynasz grę z 2k6 miedziaków.",
-      "user_actions": {
+      "actions": {
         "add_attribute": {
           "copper_coins": "2d6"
         }

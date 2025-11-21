@@ -64,11 +64,11 @@
     ],
     "past": [
         { "roll": [1], "description": "Ostatnie 1k6 lat spędziłeś kompletnie zalany. Nie jesteś z tego dumny." },
-        { "roll": [2], "description": "Król goblinów zamienił cię w ropuchę. Udało ci się przekonać elfkę pannę, by cię odczarowała pocałunkiem. Gdy przerażona twoim wyglądem zaczęła krzyczeć, zabiłeś ją. Zaczynasz grę z 1 punktem Splugawienia.", "user_actions": { "add_attribute": { "corruption": 1 } } },
+        { "roll": [2], "description": "Król goblinów zamienił cię w ropuchę. Udało ci się przekonać elfkę pannę, by cię odczarowała pocałunkiem. Gdy przerażona twoim wyglądem zaczęła krzyczeć, zabiłeś ją. Zaczynasz grę z 1 punktem Splugawienia.", "actions": { "add_attribute": { "corruption": 1 } } },
         { "roll": [3], "description": "Przypadkiem spowodowałeś śmierć całego swojego plemienia." },
         { "roll": [4], "description": "Zostałeś osierocony. Wychowałeś się wśród olbrzymich szczurów." },
         { "roll": [5], "description": "Niechcący sprowadziłeś na świat demona." },
-        { "roll": [6], "description": "Przez dwa dni wydawało ci się, że jesteś wściekłym psem. Zaczynasz grę z 1 punktem Szaleństwa.", "user_actions": { "add_attribute": { "insanity": 1 } } },
+        { "roll": [6], "description": "Przez dwa dni wydawało ci się, że jesteś wściekłym psem. Zaczynasz grę z 1 punktem Szaleństwa.", "actions": { "add_attribute": { "insanity": 1 } } },
         { "roll": [7], "description": "Przez 1k6 lat byłeś seksualnym niewolnikiem pewnej meduzy." },
         { "roll": [8], "description": "Twoje plemię zostało niemal całkowicie wybite przez trollowy. Jesteś jednym z 1k6 osobników, którzy przeżyli." },
         { "roll": [9], "description": "Prawie utonąłeś, gdy wyląłeś ścieki." },
@@ -82,7 +82,7 @@
         { "roll": [17], "description": "Byłeś pomocnikiem potężnego czarodzieja." },
         { "roll": [18], "description": "W ściekach znalazłeś szlachecki sygnet." },
         { "roll": [19], "description": "Jesteś siedemnastym dzieckiem króla goblinów." },
-        { "roll": [20], "description": "Odziedziczyłeś w spadku pieniądze; zaczynasz grę z 2k6 miedziaków.", "user_actions": { "add_attribute": { "coins": "2d6" } } }
+        { "roll": [20], "description": "Odziedziczyłeś w spadku pieniądze; zaczynasz grę z 2k6 miedziaków.", "actions": { "add_attribute": { "coins": "2d6" } } }
     ],
     "personality": [
         { "roll": [3], "description": "Jesteś zbirem i lubisz nękać słabszych od siebie." },

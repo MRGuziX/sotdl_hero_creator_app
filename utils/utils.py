@@ -63,11 +63,11 @@ def get_from_ancestry(roll: int, category: str, ancestry: str) -> None | tuple[d
         for roll_value in data[category]:
             if roll in roll_value["roll"]:
                 description = {category: roll_value.get("description", "")}
-                if roll_value.get("user_actions"):
-                    action = {"user_actions": roll_value.get("user_actions")}
+                if roll_value.get("actions"):
+                    action = {"actions": roll_value.get("actions")}
                     return description, action
-                elif roll_value.get("complex_choices"):
-                    action = {"complex_choices": roll_value.get("complex_choices")}
+                elif roll_value.get("choices"):
+                    action = {"choices": roll_value.get("choices")}
                     return description, action
                 else:
                     return description
@@ -86,12 +86,12 @@ def build_hero(ancestry: str, hero_lvl: int = 0, is_random: bool = False):
 
     def _update_backstory(data: dict, backstory_type: tuple | dict) -> dict:
         if isinstance(backstory_type, tuple):
-            description, action = backstory_type  # it can be 'user_actions' or 'complex_choices'
+            description, action = backstory_type  # it can be 'actions' or 'choices'
             data["backstory"].update(description)
-            if "user_actions" in action:
-                data["user_actions"].append(action["user_actions"])
-            elif "complex_choices" in action:
-                data["complex_choices"].append(action["complex_choices"])
+            if "actions" in action:
+                data["actions"].append(action["actions"])
+            elif "choices" in action:
+                data["choices"].append(action["choices"])
         else:
             data["backstory"].update(backstory_type)
         return data
@@ -154,22 +154,22 @@ def build_hero(ancestry: str, hero_lvl: int = 0, is_random: bool = False):
 character_data = build_hero(ancestry="human")
 
 
-def change_complex_action_to_simple(character_data: dict, is_random: bool = False) -> list[dict]:
+def change_choices_to_actions(character_data: dict, is_random: bool = False) -> list[dict]:
     """
     Handles user choices from a list of choice dictionaries.
 
     Args:
         choices_list: [{'language': 'any', 'profession': 'any'}, {'strength': 2, 'dexterity': 2}]
-        random_choice: If True, randomly selects options instead of asking user
+        random_choice: If True, randomly selects options instead of asking the user
 
     Returns:
-        List of user_actions based on user selections or random choices
+        List of actions based on user selections or random choices
         :param is_random:
         :param character_data:
     """
 
-    user_actions = []
-    choices_list = character_data.get("complex_choices", [])
+    actions = []
+    choices_list = character_data.get("choices", [])
 
     for choice_dict in choices_list:
         if len(choice_dict) > 1:  # Multiple options to choose from
@@ -201,19 +201,19 @@ def change_complex_action_to_simple(character_data: dict, is_random: bool = Fals
             user_action = {
                 "add_attribute": {selected_key: selected_value}
             }
-            user_actions.append(user_action)
+            actions.append(user_action)
         else:
             # Only one option, add it directly
             key, value = list(choice_dict.items())[0]
             user_action = {
                 "add_attribute": {key: value}
             }
-            user_actions.append(user_action)
+            actions.append(user_action)
 
-    return user_actions
+    return actions
 
 
-user_actions = change_complex_action_to_simple(character_data, is_random=True)
+actions = change_choices_to_actions(character_data, is_random=True)
 
 
 def add_attribute(attribute: str, value: str | int, character_data: dict, is_random: bool = False) -> None:
@@ -227,13 +227,12 @@ def add_attribute(attribute: str, value: str | int, character_data: dict, is_ran
     if attribute in core_attributes or attribute == "any":
         if is_random and attribute == "any":
             attribute = random.choice(core_attributes)
-        elif attribute == "any":        # user needs to choose
+        elif attribute == "any":  # user needs to choose
             attribute = random.choice(core_attributes)
 
         original_value = character_data['general'].get(attribute)
         character_data["general"][attribute] = original_value + value
         return
-
 
     if attribute == "language":
         character_languages = character_data["general"].get("language")
@@ -245,6 +244,7 @@ def add_attribute(attribute: str, value: str | int, character_data: dict, is_ran
 
         if is_random and value['name'] == "any":
             language_to_add = random.choice(languages_list)
+
         #
         # elif value['name'] in languages_list:
         #     language_to_add = value['name']
@@ -258,22 +258,22 @@ def add_attribute(attribute: str, value: str | int, character_data: dict, is_ran
         #         character_data["general"]["language"].append({'known': False, 'name': language_to_add})
 
 
-
-
-def update_attributes(character_data: dict, user_actions: list[dict], is_random: bool = False) -> None:
-    for action in user_actions:
-        character_data["user_actions"].append(action)
-    attributes_to_update = character_data.get("user_actions")
+def bulk_update_attributes(character_data: dict, actions: list[dict], is_random: bool = False) -> None:
+    for action in actions:
+        character_data["actions"].append(action)
+    attributes_to_update = character_data.get("actions")
 
     for attribute in attributes_to_update:
         for key, value in attribute.items():
             for attribute, value in value.items():
-                add_attribute(attribute=attribute,
-                              value=value,
-                              character_data=character_data,
-                              is_random=is_random)
+                add_attribute(
+                    attribute=attribute,
+                    value=value,
+                    character_data=character_data,
+                    is_random=is_random
+                )
 
     print(character_data)
 
 
-update_attributes(character_data=character_data, user_actions=user_actions, is_random=True)
+bulk_update_attributes(character_data=character_data, actions=actions, is_random=True)
