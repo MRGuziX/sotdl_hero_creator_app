@@ -1,3 +1,8 @@
+import json
+import pathlib
+import random
+from typing import Any
+
 # def add_spell(spell_name: str, tradition_name: str) -> Any | None:
 #     tradition = open_json(f"data_base/spells/{tradition_name}_tradition.json")
 #     for spell_level in tradition:
@@ -13,13 +18,13 @@
 #     new_hero['spells'].append(add_spell("Light", "fire"))
 #     new_hero['spells'].append(add_spell("Detect Magic"))
 #     print(json.dumps(new_hero, indent=4))
-import json
-import pathlib
-import random
-from typing import Any
 
 
-def roll_dice(num_dice: int, sides: int) -> int:
+
+def roll_dice(
+        num_dice: int,
+        sides: int
+) -> int:
     """
     Method responsible for rolling dice and returning the result.
     :param num_dice:
@@ -46,7 +51,12 @@ def roll_dice(num_dice: int, sides: int) -> int:
     return total
 
 
-def get_from_ancestry(roll: int, category: str, ancestry: str) -> None | tuple[dict[str, Any], Any] | dict[str, Any]:
+def get_from_ancestry(
+        roll: int,
+        category: str,
+        ancestry: str
+) -> None | tuple[dict[str, Any], Any] | dict[str, Any]:
+
     project_root = pathlib.Path(__file__).parent.parent
     path_to_file = project_root / "data_base" / "ancestry" / ancestry / f'{ancestry}_tables.json'
 
@@ -76,9 +86,13 @@ def get_from_ancestry(roll: int, category: str, ancestry: str) -> None | tuple[d
         raise FileNotFoundError(f"File {path_to_file} not found.")
 
 
-def build_hero(ancestry: str, hero_lvl: int = 0, is_random: bool = False):
-    project_root = pathlib.Path(__file__).parent.parent
+def build_hero(
+        ancestry: str,
+        hero_lvl: int = 0,
+        is_random: bool = False
+) -> dict:
 
+    project_root = pathlib.Path(__file__).parent.parent
     path_to_hero = project_root / "data_base" / "ancestry" / ancestry / f'{ancestry}.json'
 
     with open(path_to_hero, "r", encoding="utf8") as file:
@@ -154,7 +168,10 @@ def build_hero(ancestry: str, hero_lvl: int = 0, is_random: bool = False):
 character_data = build_hero(ancestry="human")
 
 
-def change_choices_to_actions(character_data: dict, is_random: bool = False) -> list[dict]:
+def change_choices_to_actions(
+        character_data: dict,
+        is_random: bool = False
+) -> list[dict]:
     """
     Handles user choices from a list of choice dictionaries.
 
@@ -216,7 +233,13 @@ def change_choices_to_actions(character_data: dict, is_random: bool = False) -> 
 actions = change_choices_to_actions(character_data, is_random=True)
 
 
-def add_attribute(attribute: str, value: str | int, character_data: dict, is_random: bool = False) -> None:
+def add_attribute(
+        attribute: str,
+        value: str | int,
+        character_data: dict,
+        is_random: bool = False
+) -> None:
+
     languages_list = ["Wspólny", "Mroczna mowa", "Krasnoludzki", "Elficki", "Wysoki archaik", "Trolli",
                       "Sekretne języki", "Martwe języki"]
     core_attributes_list = [
@@ -269,7 +292,13 @@ def add_attribute(attribute: str, value: str | int, character_data: dict, is_ran
 
     # TODO: professions
 
-def bulk_update_attributes(character_data: dict, actions: list[dict], is_random: bool = False) -> None:
+
+def bulk_update_attributes(
+        character_data: dict,
+        actions: list[dict],
+        is_random: bool = False
+) -> None:
+
     for action in actions:
         character_data["actions"].append(action)
     attributes_to_update = character_data.get("actions")
