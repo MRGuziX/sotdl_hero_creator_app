@@ -3,6 +3,7 @@ import pathlib
 import random
 from typing import Any
 
+
 # def add_spell(spell_name: str, tradition_name: str) -> Any | None:
 #     tradition = open_json(f"data_base/spells/{tradition_name}_tradition.json")
 #     for spell_level in tradition:
@@ -18,7 +19,6 @@ from typing import Any
 #     new_hero['spells'].append(add_spell("Light", "fire"))
 #     new_hero['spells'].append(add_spell("Detect Magic"))
 #     print(json.dumps(new_hero, indent=4))
-
 
 
 def roll_dice(
@@ -56,7 +56,6 @@ def get_from_ancestry(
         category: str,
         ancestry: str
 ) -> None | tuple[dict[str, Any], Any] | dict[str, Any]:
-
     project_root = pathlib.Path(__file__).parent.parent
     path_to_file = project_root / "data_base" / "ancestry" / ancestry / f'{ancestry}_tables.json'
 
@@ -91,7 +90,6 @@ def build_hero(
         hero_lvl: int = 0,
         is_random: bool = False
 ) -> dict:
-
     project_root = pathlib.Path(__file__).parent.parent
     path_to_hero = project_root / "data_base" / "ancestry" / ancestry / f'{ancestry}.json'
 
@@ -158,10 +156,6 @@ def build_hero(
 
 # TODO: Add open_json_template method
 # TODO: Add save_dict_to_json method
-# TODO: Pydantic?
-
-# TODO: Choose complex attribute ad add attribute to user actions in json
-
 # TODO: Inject new_hero.json to PDF
 # TODO: save pdf
 
@@ -233,19 +227,62 @@ def change_choices_to_actions(
 actions = change_choices_to_actions(character_data, is_random=True)
 
 
+def add_profession(profession_type: str) -> None:
+    project_root = pathlib.Path(__file__).parent.parent
+    path_to_professions = project_root / "data_base" / "professions" / "profession_tables.json"
+
+    roll = roll_dice(1, 20)
+
+    with open(path_to_professions, "r", encoding="utf8") as file:
+        professions = json.load(file)
+
+    professions_list = [
+        "naukowa", "pospolita", "przestępcza", "wojenna", "religijna", "koczownicza"
+    ]
+
+    for roll_value in professions[profession_type]:
+        if roll in roll_value["roll"]:
+            description = roll_value.get("description", "")
+            if roll_value.get("add_attribute"):
+                action = {"add_attribute": roll_value.get("add_attribute")}
+                return description, action
+            else:
+                return description
+    return None
+
+
+
+    # if profession_type == "naukowa":
+    #     action = {
+    #         "add_attribute":
+    #         {
+    #             "language": "any" #known to True
+    #         }
+    #     }
+    #
+    #
+    # else:
+    #
+    #     # add_language()
+    #
+    # return
+
+
 def add_attribute(
         attribute: str,
         value: str | int,
         character_data: dict,
         is_random: bool = False
 ) -> None:
-
-    languages_list = ["Wspólny", "Mroczna mowa", "Krasnoludzki", "Elficki", "Wysoki archaik", "Trolli",
-                      "Sekretne języki", "Martwe języki"]
     core_attributes_list = [
         "strength", "dexterity", "intelligence", "will",
         "perception", "health", "defense", "healing_rate",
         "speed", "power", "damage", "insanity", "corruption"
+    ]
+    languages_list = [
+        "Wspólny", "Mroczna mowa", "Krasnoludzki",
+        "Elficki", "Wysoki archaik", "Trolli",
+        "Sekretne języki", "Martwe języki"
     ]
     character_languages = character_data["general"].get("language")
     character_languages_names = [lang["name"] for lang in character_languages]
@@ -265,6 +302,7 @@ def add_attribute(
         character_data["general"][attribute] = original_value + value
         return
 
+    #probably this should be add_language() method that is called here
     if attribute == "language":
         if is_random and value['name'] == "any":
             language_to_add = random.choice(possible_languages_to_learn)
@@ -290,7 +328,9 @@ def add_attribute(
 
         return
 
-    # TODO: professions
+    if attribute == "profession":
+        add_profession(profession=value)
+        return
 
 
 def bulk_update_attributes(
@@ -298,7 +338,6 @@ def bulk_update_attributes(
         actions: list[dict],
         is_random: bool = False
 ) -> None:
-
     for action in actions:
         character_data["actions"].append(action)
     attributes_to_update = character_data.get("actions")
