@@ -227,7 +227,10 @@ def change_choices_to_actions(
 actions = change_choices_to_actions(character_data, is_random=True)
 
 
-def add_profession(profession_type: str) -> None:
+def add_profession(
+        profession_type: str,
+        character_data: dict,
+) -> None:
     project_root = pathlib.Path(__file__).parent.parent
     path_to_professions = project_root / "data_base" / "professions" / "profession_tables.json"
 
@@ -240,17 +243,24 @@ def add_profession(profession_type: str) -> None:
         "naukowa", "pospolita", "przestępcza", "wojenna", "religijna", "koczownicza"
     ]
 
+    if profession_type == "naukowa":
+        add_language()
+        pass
+
     for roll_value in professions[profession_type]:
         if roll in roll_value["roll"]:
             description = roll_value.get("description", "")
             if roll_value.get("add_attribute"):
-                action = {"add_attribute": roll_value.get("add_attribute")}
-                return description, action
-            else:
-                return description
+                language = roll_value.get("add_attribute")['language']
+                value = roll_value.get("add_attribute")['value']
+
+                add_attribute(
+                    attribute=language,
+                    value=value,
+                    character_data=character_data
+                )
+            return character_data
     return None
-
-
 
     # if profession_type == "naukowa":
     #     action = {
@@ -268,29 +278,77 @@ def add_profession(profession_type: str) -> None:
     # return
 
 
-def add_attribute(
-        attribute: str,
-        value: str | int,
+def add_language(
+        language_type: str,
         character_data: dict,
+        known: bool = False,
         is_random: bool = False
-) -> None:
-    core_attributes_list = [
-        "strength", "dexterity", "intelligence", "will",
-        "perception", "health", "defense", "healing_rate",
-        "speed", "power", "damage", "insanity", "corruption"
-    ]
+):
     languages_list = [
         "Wspólny", "Mroczna mowa", "Krasnoludzki",
         "Elficki", "Wysoki archaik", "Trolli",
         "Sekretne języki", "Martwe języki"
     ]
-    character_languages = character_data["general"].get("language")
-    character_languages_names = [lang["name"] for lang in character_languages]
-    possible_languages_to_learn = [lang for lang in languages_list if lang not in character_languages_names]
+    character_languages_data = character_data["general"].get("language")
 
-    for existing_language in character_languages:
-        if not existing_language['known']:
-            possible_languages_to_learn.append(existing_language['name'])
+    languages_character_speak = [lang["name"] for lang in character_languages_data if lang["known"] is False]
+    languages_character_write = [lang["name"] for lang in character_languages_data if lang["known"] is True]
+
+    try:
+        possible_languages_to_learn = [lang for lang in languages_list if lang not in str(character_languages_data)]
+        possible_languages_to_learn.extend(languages_character_speak)
+    except Exception as e:
+        print(e)
+
+
+    if is_random:
+        if language_type == "any":
+            language_type = random.choice(languages_list)
+
+        if language_type not in languages_character_speak and known is False:
+            character_data["general"]["language"].append(
+                {'known': False, 'name': language_type}
+            )
+        elif language_type not in languages_character_speak and known is True:
+            character_data["general"]["language"].append(
+                {'known': True, 'name': language_type}
+            )
+
+        if language_type in languages_character_speak:
+            for lang in character_data["general"]["language"]:
+                if lang['name'] == language_type:
+                    lang.update(
+                        {'known': True, 'name': language_type}
+                    )
+    else:
+
+
+
+        language_type = random.choice(possible_languages_to_learn)
+        for lang in character_data["general"]["language"]:
+            if lang['name'] == language_type and lang['known'] is False:
+                lang.update(
+                    {'known': True, 'name': language_type}
+                )
+            if language_type not in languages_character_speak:
+                character_data["general"]["language"].append(
+                    {'known': False, 'name': language_type}
+                )
+        return
+
+
+
+def add_attribute(
+        attribute: str,
+        value: str | int,
+        character_data: dict,
+        is_random: bool = False
+) -> dict:
+    core_attributes_list = [
+        "strength", "dexterity", "intelligence", "will",
+        "perception", "health", "defense", "healing_rate",
+        "speed", "power", "damage", "insanity", "corruption"
+    ]
 
     if attribute in core_attributes_list or attribute == "any":
         if is_random and attribute == "any":
@@ -300,37 +358,17 @@ def add_attribute(
 
         original_value = character_data['general'].get(attribute)
         character_data["general"][attribute] = original_value + value
-        return
 
-    #probably this should be add_language() method that is called here
+    # probably this should be add_language() method that is called here
     if attribute == "language":
-        if is_random and value['name'] == "any":
-            language_to_add = random.choice(possible_languages_to_learn)
-            if language_to_add not in character_languages_names:
-                character_data["general"]["language"].append({'known': False, 'name': language_to_add})
-            elif language_to_add in character_languages_names:
-                for lang in character_languages:
-                    if lang['name'] == language_to_add:
-                        lang['known'] = True
-        elif value['name'] == "any":
-            # TODO:
-            # - Show a list of languages that can be learn
-            # - check if lang is already known
-            #   - if not, known = True, else append
-            pass
-        elif value['name'] in possible_languages_to_learn:
-            # TODO:
-            # check if lang is already known
-            # - check if lang known = False
-            #   - change known = True
-            # - else append
-            pass
-
-        return
+        add_language()
 
     if attribute == "profession":
-        add_profession(profession=value)
-        return
+        add_profession(
+            profession_type=value,
+            character_data=character_data
+        )
+    return character_data
 
 
 def bulk_update_attributes(
@@ -354,5 +392,4 @@ def bulk_update_attributes(
 
     print(character_data)
 
-
-bulk_update_attributes(character_data=character_data, actions=actions, is_random=True)
+# bulk_update_attributes(character_data=character_data, actions=actions, is_random=True)
