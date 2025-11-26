@@ -230,6 +230,7 @@ actions = change_choices_to_actions(character_data, is_random=True)
 def add_profession(
         profession_type: str,
         character_data: dict,
+        is_random: bool = False,
 ) -> None:
     project_root = pathlib.Path(__file__).parent.parent
     path_to_professions = project_root / "data_base" / "professions" / "profession_tables.json"
@@ -243,24 +244,33 @@ def add_profession(
         "naukowa", "pospolita", "przestępcza", "wojenna", "religijna", "koczownicza"
     ]
 
-    if profession_type == "naukowa":
-        add_language()
+    if is_random:
+        if profession_type == "naukowa":
+            add_language(
+                language_type="any",
+                known=True,
+                character_data=character_data,
+                is_random=is_random
+            )
+
+        for roll_value in professions[profession_type]:
+            if roll in roll_value["roll"]:
+                description = roll_value.get("description", "")
+                if roll_value.get("add_attribute"):
+                    language = roll_value.get("add_attribute")['language']
+                    value = roll_value.get("add_attribute")['value']
+
+                    add_attribute(
+                        attribute=language,
+                        value=value,
+                        character_data=character_data
+                    )
+                character_data["professions"].append(description)
+                return character_data
+        return None
+
+    else:
         pass
-
-    for roll_value in professions[profession_type]:
-        if roll in roll_value["roll"]:
-            description = roll_value.get("description", "")
-            if roll_value.get("add_attribute"):
-                language = roll_value.get("add_attribute")['language']
-                value = roll_value.get("add_attribute")['value']
-
-                add_attribute(
-                    attribute=language,
-                    value=value,
-                    character_data=character_data
-                )
-            return character_data
-    return None
 
     # if profession_type == "naukowa":
     #     action = {
@@ -330,6 +340,7 @@ def add_language(
                 )
     except IndexError as e:
         print(e)
+    return character_data
 
 
 
