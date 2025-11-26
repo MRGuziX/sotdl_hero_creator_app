@@ -159,7 +159,7 @@ def build_hero(
 # TODO: Inject new_hero.json to PDF
 # TODO: save pdf
 
-character_data = build_hero(ancestry="human")
+
 
 
 def change_choices_to_actions(
@@ -212,6 +212,7 @@ def change_choices_to_actions(
             user_action = {
                 "add_attribute": {selected_key: selected_value}
             }
+            character_data["actions"].append(user_action)
             actions.append(user_action)
         else:
             # Only one option, add it directly
@@ -219,12 +220,13 @@ def change_choices_to_actions(
             user_action = {
                 "add_attribute": {key: value}
             }
+            character_data["actions"].append(user_action)
             actions.append(user_action)
+
+        character_data["choices"].remove(choice_dict)
 
     return actions
 
-
-actions = change_choices_to_actions(character_data, is_random=True)
 
 
 def add_profession(
@@ -336,10 +338,10 @@ def add_attribute(
         is_random: bool = False
 ) -> dict:
     core_attributes_list = [
-        "strength", "dexterity", "intelligence", "will",
-        "perception", "health", "defense", "healing_rate",
-        "speed", "power", "damage", "insanity", "corruption"
+        "strength", "dexterity", "intelligence", "will"
     ]
+    secondary_attributes_list = ["perception", "health", "defense", "healing_rate",
+        "speed", "power", "damage", "insanity", "corruption"]
 
     if attribute in core_attributes_list or attribute == "any":
         if is_random and attribute == "any":
@@ -369,11 +371,14 @@ def add_attribute(
 
 def bulk_update_attributes(
         character_data: dict,
-        actions: list[dict],
+        actions: list[dict] = None,
         is_random: bool = False
 ) -> None:
-    for action in actions:
-        character_data["actions"].append(action)
+
+    if actions is not None:
+        for action in actions:
+            character_data["actions"].append(action)
+
     attributes_to_update = character_data.get("actions")
 
     for attribute in attributes_to_update:
@@ -386,6 +391,9 @@ def bulk_update_attributes(
                     is_random=is_random
                 )
 
-    print(character_data)
+    return character_data
 
-# bulk_update_attributes(character_data=character_data, actions=actions, is_random=True)
+character_data = build_hero(ancestry="human")
+change_choices_to_actions(character_data, is_random=True)
+bulk_update_attributes(character_data=character_data, is_random=True)
+print(character_data["general"]["language"])
