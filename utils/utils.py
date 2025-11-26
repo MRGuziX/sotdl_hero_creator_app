@@ -245,48 +245,34 @@ def add_profession(
     ]
 
     if is_random:
-        if profession_type == "naukowa":
-            add_language(
-                language_type="any",
-                known=True,
-                character_data=character_data,
-                is_random=is_random
-            )
+        if profession_type == "any":
+            profession_type = random.choice(professions_list)
+            if profession_type == "naukowa":
+                add_language(
+                    language_type="any",
+                    known=True,
+                    character_data=character_data,
+                    is_random=is_random
+                )
 
-        for roll_value in professions[profession_type]:
-            if roll in roll_value["roll"]:
-                description = roll_value.get("description", "")
-                if roll_value.get("add_attribute"):
-                    language = roll_value.get("add_attribute")['language']
-                    value = roll_value.get("add_attribute")['value']
+            for roll_value in professions[profession_type]:
+                if roll in roll_value["roll"]:
+                    description = roll_value.get("description", "")
+                    if roll_value.get("add_attribute"):
+                        language = roll_value.get("add_attribute")['language']
+                        known = roll_value.get("add_attribute")['known']
 
-                    add_attribute(
-                        attribute=language,
-                        value=value,
-                        character_data=character_data
-                    )
-                character_data["professions"].append(description)
-                return character_data
-        return None
+                        add_language(
+                            language_type=language,
+                            known=known,
+                            character_data=character_data,
+                            is_random=is_random
+                        )
+                    character_data["professions"].append(description)
 
     else:
         pass
-
-    # if profession_type == "naukowa":
-    #     action = {
-    #         "add_attribute":
-    #         {
-    #             "language": "any" #known to True
-    #         }
-    #     }
-    #
-    #
-    # else:
-    #
-    #     # add_language()
-    #
-    # return
-
+    return character_data
 
 def add_language(
         language_type: str,
@@ -312,16 +298,16 @@ def add_language(
 
     try:
         if is_random:
-            if known and language_type == "any" :
-                #learn to write in a language that you can speak
-                    language_type = random.choice(languages_character_speak)
-                    for lang in character_data["general"]["language"]:
-                        if lang['name'] == language_type:
-                            lang.update(
-                                {'known': True, 'name': language_type}
-                            )
+            if known and language_type == "any":
+                # learn to write in a language that you can speak
+                language_type = random.choice(languages_character_speak)
+                for lang in character_data["general"]["language"]:
+                    if lang['name'] == language_type:
+                        lang.update(
+                            {'known': True, 'name': language_type}
+                        )
             elif not known and language_type == "any":
-                #learn to speak in a language that you cannot speak
+                # learn to speak in a language that you cannot speak
                 language_type = random.choice(possible_languages_to_learn)
                 character_data["general"]["language"].append(
                     {'known': False, 'name': language_type}
@@ -341,7 +327,6 @@ def add_language(
     except IndexError as e:
         print(e)
     return character_data
-
 
 
 def add_attribute(
@@ -367,12 +352,17 @@ def add_attribute(
 
     # probably this should be add_language() method that is called here
     if attribute == "language":
-        add_language()
+        add_language(
+            language_type=value,
+            character_data=character_data,
+            is_random=is_random
+        )
 
     if attribute == "profession":
         add_profession(
             profession_type=value,
-            character_data=character_data
+            character_data=character_data,
+            is_random=is_random
         )
     return character_data
 

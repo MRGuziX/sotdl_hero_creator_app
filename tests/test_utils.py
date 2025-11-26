@@ -48,7 +48,11 @@ character_data = {
          {
             "known":True,
             "name":"Elficki"
-         }
+         },
+          {
+            "known":False,
+            "name":"Krasnoludzki"
+         },
       ],
       "perception":10,
       "power":0,
@@ -79,7 +83,7 @@ character_data = {
 
 def test_profession_method():
     add_profession(
-        profession_type="naukowa",
+        profession_type="any",
         character_data=character_data,
         is_random=True
     )
