@@ -293,48 +293,43 @@ def add_language(
 
     languages_character_speak = [lang["name"] for lang in character_languages_data if lang["known"] is False]
     languages_character_write = [lang["name"] for lang in character_languages_data if lang["known"] is True]
-
+    possible_languages_to_learn = []
     try:
         possible_languages_to_learn = [lang for lang in languages_list if lang not in str(character_languages_data)]
         possible_languages_to_learn.extend(languages_character_speak)
     except Exception as e:
         print(e)
 
-
-    if is_random:
-        if language_type == "any":
-            language_type = random.choice(languages_list)
-
-        if language_type not in languages_character_speak and known is False:
-            character_data["general"]["language"].append(
-                {'known': False, 'name': language_type}
-            )
-        elif language_type not in languages_character_speak and known is True:
-            character_data["general"]["language"].append(
-                {'known': True, 'name': language_type}
-            )
-
-        if language_type in languages_character_speak:
-            for lang in character_data["general"]["language"]:
-                if lang['name'] == language_type:
-                    lang.update(
-                        {'known': True, 'name': language_type}
-                    )
-    else:
-
-
-
-        language_type = random.choice(possible_languages_to_learn)
-        for lang in character_data["general"]["language"]:
-            if lang['name'] == language_type and lang['known'] is False:
-                lang.update(
-                    {'known': True, 'name': language_type}
-                )
-            if language_type not in languages_character_speak:
+    try:
+        if is_random:
+            if known and language_type == "any" :
+                #learn to write in a language that you can speak
+                    language_type = random.choice(languages_character_speak)
+                    for lang in character_data["general"]["language"]:
+                        if lang['name'] == language_type:
+                            lang.update(
+                                {'known': True, 'name': language_type}
+                            )
+            elif not known and language_type == "any":
+                #learn to speak in a language that you cannot speak
+                language_type = random.choice(possible_languages_to_learn)
                 character_data["general"]["language"].append(
                     {'known': False, 'name': language_type}
                 )
-        return
+        else:
+            if known:
+                print(languages_character_speak)
+                for lang in character_data["general"]["language"]:
+                    if lang['name'] == language_type:
+                        lang.update(
+                            {'known': True, 'name': language_type}
+                        )
+            elif not known and language_type not in possible_languages_to_learn:
+                character_data["general"]["language"].append(
+                    {'known': False, 'name': language_type}
+                )
+    except IndexError as e:
+        print(e)
 
 
 
