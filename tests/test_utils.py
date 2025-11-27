@@ -1,4 +1,4 @@
-from utils.utils import add_profession, add_language
+from utils.utils import add_profession, add_language, wealth_generator, oddity_generator
 
 character_data = {
    "actions":[
@@ -94,3 +94,9 @@ def test_add_language():
         known=False,
         character_data=character_data,
     )
+
+def test_wealth():
+    wealth_generator(character_data)
+
+def test_oddity():
+    oddity_generator(character_data)

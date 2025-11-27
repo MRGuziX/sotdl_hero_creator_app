@@ -160,8 +160,6 @@ def build_hero(
 # TODO: save pdf
 
 
-
-
 def change_choices_to_actions(
         character_data: dict,
         is_random: bool = False
@@ -228,7 +226,6 @@ def change_choices_to_actions(
     return actions
 
 
-
 def add_profession(
         profession_type: str,
         character_data: dict,
@@ -275,6 +272,7 @@ def add_profession(
     else:
         pass
     return character_data
+
 
 def add_language(
         language_type: str,
@@ -341,7 +339,7 @@ def add_attribute(
         "strength", "dexterity", "intelligence", "will"
     ]
     secondary_attributes_list = ["perception", "health", "defense", "healing_rate",
-        "speed", "power", "damage", "insanity", "corruption"]
+                                 "speed", "power", "damage", "insanity", "corruption"]
 
     if attribute in core_attributes_list or attribute == "any":
         if is_random and attribute == "any":
@@ -374,7 +372,6 @@ def bulk_update_attributes(
         actions: list[dict] = None,
         is_random: bool = False
 ) -> None:
-
     if actions is not None:
         for action in actions:
             character_data["actions"].append(action)
@@ -393,7 +390,50 @@ def bulk_update_attributes(
 
     return character_data
 
+
+def wealth_generator(character_data: dict):
+    dice_roll = roll_dice(3, 6)
+
+    project_root = pathlib.Path(__file__).parent.parent
+    path_to_file = project_root / "data_base" / "equipment" / "wealth.json"
+
+    try:
+        with open(path_to_file, "r", encoding="utf8") as file:
+            data = json.load(file)
+    except FileNotFoundError:
+        print(f"File {path_to_file} not found.")
+
+    for roll_range in data["zamożność"]:
+        if dice_roll in roll_range["roll"]:
+            character_data["wealth"] = roll_range["description"]
+
+    return character_data
+
+
+def equipment_generator(character_data: dict):
+    return
+
+
+def oddity_generator(character_data):
+    dice_roll = roll_dice(1, 120)
+
+    project_root = pathlib.Path(__file__).parent.parent
+    path_to_file = project_root / "data_base" / "equipment" / "oddity.json"
+
+    try:
+        with open(path_to_file, "r", encoding="utf8") as file:
+            data = json.load(file)
+    except FileNotFoundError:
+        print(f"File {path_to_file} not found.")
+
+    for roll_range in data["kurioza"]:
+        if dice_roll in roll_range["roll"]:
+            character_data["oddity"] = roll_range["description"]
+    return character_data
+
 character_data = build_hero(ancestry="human")
+wealth_generator(character_data)
+oddity_generator(character_data)
 change_choices_to_actions(character_data, is_random=True)
 bulk_update_attributes(character_data=character_data, is_random=True)
 print(character_data["general"]["language"])

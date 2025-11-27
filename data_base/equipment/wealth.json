@@ -1,0 +1,50 @@
+{
+  "zamożność": [
+    {
+      "roll": [
+        3,
+        4
+      ],
+      "description": "Nędza: Żyjesz na ulicy bez grosza przy duszy."
+    },
+    {
+      "roll": [
+        5,
+        6,
+        7,
+        8
+      ],
+      "description": "Ubóstwo: Żyjesz w podłych warunkach; nigdy nie wiesz, czy kolejnego dnia nie będziesz głodny."
+    },
+    {
+      "roll": [
+        9,
+        10,
+        11,
+        12,
+        13
+      ],
+      "description": "Klasa średnia: Zarabiasz wystarczająco dużo, by pokryć wszystkie bieżące wydatki."
+    },
+    {
+      "roll": [
+        14,
+        15,
+        16
+      ],
+      "description": "Komfort: Żyjesz na dobrej stopie i zarabiasz na tyle, by móc co nieco odłożyć."
+    },
+    {
+      "roll": [
+        17
+      ],
+      "description": "Dobyty: Żyjesz w luksusie. Stać cię na eleganckie ubrania i wszelkie wygody; prawdopodobnie od dłuższego czasu nie zaznałeś żadnego braku."
+    },
+    {
+      "roll": [
+        18
+      ],
+      "description": "Bogactwo: Niczego ci nie brakuje. Zapewne pochodzisz ze szlacheckiego rodu; masz służących i posiadłość lub zamek w najlepszej części miasta. Twoja fortuna przysparza ci zarówno sojuszników, jak i wrogów."
+    }
+  ]
+}

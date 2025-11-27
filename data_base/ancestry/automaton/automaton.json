@@ -37,12 +37,7 @@
       "description": ""
     }
   ],
-  "professions": [
-    {
-      "name": "",
-      "description": ""
-    }
-  ],
+  "professions": [],
   "spells": [],
   "actions": [
     {

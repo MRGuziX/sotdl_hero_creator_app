@@ -39,6 +39,9 @@
   ],
   "professions": [],
   "spells": [],
+  "wealth": "",
+  "oddity": "",
+  "equipment": [],
   "actions": [
     {
       "add_attribute":
