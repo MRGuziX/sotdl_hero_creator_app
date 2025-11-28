@@ -436,7 +436,25 @@ def add_equipment(character_data: dict):
     except FileNotFoundError:
         print(f"File {path_to_file} not found.")
 
+    def _add_weapon(item_name, character_data):
+        all_weapons = data['store']['weapons']
+        item_info = next(
+            (item for item in data["store"]["weapons"] if item["name"].lower() == item_name),
+            None
+        )
+        character_data['equipment'][0]['weapons'].append(item_info)
+        return item_info
 
+    def _add_shield(item_name, character_data):
+        all_shields = data['store']['shields']
+        item_info = next(
+            (item for item in data["store"]["shields"] if item["name"].lower() == item_name),
+            None
+        )
+        character_data['equipment'][0]['shields'].append(item_info)
+        return item_info
+
+    _add_weapon("kostur", character_data)
 
     return character_data
 

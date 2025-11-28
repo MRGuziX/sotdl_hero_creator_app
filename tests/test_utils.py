@@ -1,4 +1,4 @@
-from utils.utils import add_profession, add_language, add_wealth, add_oddity, add_money
+from utils.utils import add_profession, add_language, add_wealth, add_oddity, add_money, add_equipment
 
 character_data = {
     "actions": [
@@ -71,23 +71,32 @@ character_data = {
     "wealth": "",
     "money": [
         {
-            "name":"okrawki",
+            "name": "okrawki",
             "amount": 0
         },
         {
-            "name":"miedziaki",
+            "name": "miedziaki",
             "amount": 0
         },
         {
-            "name":"srebrniki",
+            "name": "srebrniki",
             "amount": 0
         },
         {
-            "name":"złote korony",
+            "name": "złote korony",
             "amount": 0
         }
     ], "oddity": "",
-    "equipment": [],
+    "equipment": [
+        {
+            "weapons": []
+        },
+        {
+            "shields": []
+        },
+        {"armor": ""},
+        {'backpack': ""}
+    ],
     "talents": [
         {
             "description": "",
@@ -133,3 +142,7 @@ def test_add_money():
         character_data=character_data
     )
     print("x")
+
+
+def test_add_equ():
+    add_equipment(character_data)
