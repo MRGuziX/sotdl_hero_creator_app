@@ -94,8 +94,12 @@ character_data = {
         {
             "shields": []
         },
-        {"armor": ""},
-        {'backpack': ""}
+        {
+            "armors": []
+        },
+        {
+            'backpack': []
+        }
     ],
     "talents": [
         {
@@ -145,4 +149,8 @@ def test_add_money():
 
 
 def test_add_equ():
+    add_equipment(character_data)
+
+
+def test_add_shields():
     add_equipment(character_data)

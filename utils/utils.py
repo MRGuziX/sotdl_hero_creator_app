@@ -439,7 +439,7 @@ def add_equipment(character_data: dict):
     def _add_weapon(item_name, character_data):
         all_weapons = data['store']['weapons']
         item_info = next(
-            (item for item in data["store"]["weapons"] if item["name"].lower() == item_name),
+            (item for item in all_weapons if item["name"].lower() == item_name.lower()),
             None
         )
         character_data['equipment'][0]['weapons'].append(item_info)
@@ -448,14 +448,24 @@ def add_equipment(character_data: dict):
     def _add_shield(item_name, character_data):
         all_shields = data['store']['shields']
         item_info = next(
-            (item for item in data["store"]["shields"] if item["name"].lower() == item_name),
+            (item for item in all_shields if item["name"].lower() == item_name.lower()),
             None
         )
-        character_data['equipment'][0]['shields'].append(item_info)
+        character_data['equipment'][1]['shields'].append(item_info)
+        return item_info
+
+    def _add_armor(item_name, character_data):
+        all_armors = data['store']['armors']
+        item_info = next(
+            (item for item in all_armors if item["name"].lower() == item_name.lower()),
+            None
+        )
+        character_data['equipment'][2]['armors'].append(item_info)
         return item_info
 
     _add_weapon("kostur", character_data)
-
+    _add_shield("mała tarcza", character_data)
+    _add_armor("Odzież", character_data)
     return character_data
 
 
