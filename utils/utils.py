@@ -350,7 +350,6 @@ def add_attribute(
         original_value = character_data['general'].get(attribute)
         character_data["general"][attribute] = original_value + value
 
-    # probably this should be add_language() method that is called here
     if attribute == "language":
         add_language(
             language_type=value,
@@ -426,7 +425,7 @@ def add_money(
     return character_data
 
 
-def add_equipment(character_data: dict):
+def add_weapon(item_name, character_data):
     project_root = pathlib.Path(__file__).parent.parent
     path_to_file = project_root / "data_base" / "equipment" / "equ.json"
 
@@ -435,38 +434,49 @@ def add_equipment(character_data: dict):
             data = json.load(file)
     except FileNotFoundError:
         print(f"File {path_to_file} not found.")
+    all_weapons = data['store']['weapons']
+    item_info = next(
+        (item for item in all_weapons if item["name"].lower() == item_name.lower()),
+        None
+    )
+    character_data['equipment'][0]['weapons'].append(item_info)
+    return item_info
 
-    def _add_weapon(item_name, character_data):
-        all_weapons = data['store']['weapons']
-        item_info = next(
-            (item for item in all_weapons if item["name"].lower() == item_name.lower()),
-            None
-        )
-        character_data['equipment'][0]['weapons'].append(item_info)
-        return item_info
 
-    def _add_shield(item_name, character_data):
-        all_shields = data['store']['shields']
-        item_info = next(
-            (item for item in all_shields if item["name"].lower() == item_name.lower()),
-            None
-        )
-        character_data['equipment'][1]['shields'].append(item_info)
-        return item_info
+def add_shield(item_name, character_data):
+    project_root = pathlib.Path(__file__).parent.parent
+    path_to_file = project_root / "data_base" / "equipment" / "equ.json"
 
-    def _add_armor(item_name, character_data):
-        all_armors = data['store']['armors']
-        item_info = next(
-            (item for item in all_armors if item["name"].lower() == item_name.lower()),
-            None
-        )
-        character_data['equipment'][2]['armors'].append(item_info)
-        return item_info
+    try:
+        with open(path_to_file, "r", encoding="utf8") as file:
+            data = json.load(file)
+    except FileNotFoundError:
+        print(f"File {path_to_file} not found.")
+    all_shields = data['store']['shields']
+    item_info = next(
+        (item for item in all_shields if item["name"].lower() == item_name.lower()),
+        None
+    )
+    character_data['equipment'][1]['shields'].append(item_info)
+    return item_info
 
-    _add_weapon("kostur", character_data)
-    _add_shield("mała tarcza", character_data)
-    _add_armor("Odzież", character_data)
-    return character_data
+
+def add_armor(item_name, character_data):
+    project_root = pathlib.Path(__file__).parent.parent
+    path_to_file = project_root / "data_base" / "equipment" / "equ.json"
+
+    try:
+        with open(path_to_file, "r", encoding="utf8") as file:
+            data = json.load(file)
+    except FileNotFoundError:
+        print(f"File {path_to_file} not found.")
+    all_armors = data['store']['armors']
+    item_info = next(
+        (item for item in all_armors if item["name"].lower() == item_name.lower()),
+        None
+    )
+    character_data['equipment'][2]['armors'].append(item_info)
+    return item_info
 
 
 def add_oddity(character_data):

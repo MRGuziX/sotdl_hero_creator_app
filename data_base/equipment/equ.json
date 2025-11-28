@@ -374,12 +374,13 @@
         "availability": "P"
       },
       {
-        "name": "Duża tarcza (min. 11 Siły)",
+        "name": "Duża tarcza",
         "damage": "1k3",
         "grip": "Dowolny",
         "properties": "Defensywna +2, Rozmiar 1",
         "price": "1 sr",
-        "availability": "P"
+        "availability": "P",
+        "requirements": "min. 11 Siły"
       }
     ]
   }

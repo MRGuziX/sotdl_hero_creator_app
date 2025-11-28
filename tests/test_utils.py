@@ -1,4 +1,13 @@
-from utils.utils import add_profession, add_language, add_wealth, add_oddity, add_money, add_equipment
+from utils.utils import (
+    add_profession,
+    add_language,
+    add_wealth,
+    add_oddity,
+    add_money,
+    add_armor,
+    add_weapon,
+    add_shield,
+)
 
 character_data = {
     "actions": [
@@ -148,9 +157,22 @@ def test_add_money():
     print("x")
 
 
-def test_add_equ():
-    add_equipment(character_data)
+def test_add_armors():
+    add_armor(
+        item_name="Miękka skórznia",
+        character_data=character_data
+    )
+
+
+def test_add_weapon():
+    add_weapon(
+        item_name="Oszczep",
+        character_data=character_data
+    )
 
 
 def test_add_shields():
-    add_equipment(character_data)
+    add_shield(
+        item_name="Duża tarcza",
+        character_data=character_data
+    )
