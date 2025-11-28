@@ -40,20 +40,32 @@
   "professions": [],
   "spells": [],
   "wealth": "",
+  "money": [
+    {
+      "okrawki": 0
+    },
+    {
+      "miedziaki": ""
+    },
+    {
+      "srebrniki": ""
+    },
+    {
+      "złote korony": ""
+    }
+  ],
   "oddity": "",
   "equipment": [],
   "actions": [
     {
-      "add_attribute":
-        {
-          "any": 1
-        }
+      "add_attribute": {
+        "any": 1
+      }
     }
   ],
   "choices": [
     {
-      "language":
-        {
+      "language": {
         "name": "any",
         "known": false
       },

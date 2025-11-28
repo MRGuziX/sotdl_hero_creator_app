@@ -1,3 +1,396 @@
 {
-  "foo": "bar"
+  "starting": {
+    "nędza": {
+      "item": "łachmany, sakiewka z 1k6 okrawków",
+      "choices": [
+        {
+          "item": [
+            "pałka",
+            "proca"
+          ]
+        }
+      ]
+    },
+    "ubóstwo": {
+      "item": "kostur, połatane ubranie, sakwa podróżna, bochenek chleba, bukłak z wodą, hubka i krzesiwo, świeca, sakiewka z 2k6 okrawków",
+      "choices": [
+        {
+          "item": [
+            "pałka",
+            "proca"
+          ]
+        }
+      ]
+    },
+    "klasa średnia": {
+      "item": "sztylet, kostur, zwykłe ubranie, plecak, racje żywnościowe na tydzień, bukłak z wodą, hubka i krzesiwo, dwie pochodnie, sakiewka z 1k6 miedziaków",
+      "choices": [
+        {
+          "item": [
+            "pałka",
+            "proca"
+          ]
+        }
+      ]
+    },
+    "komfort": {
+      "item": "sztylet, kostur,wytworne ubranie, plecak, peleryna, racje żywnościowe na tydzień, bukłak z wodą, zwój liny, hubka i krzesiwo, dwie pochodnie, eliksir leczenia, sakiewka z 2k6 miedziaków",
+      "choices": [
+        {
+          "item": [
+            "pałka",
+            "proca"
+          ]
+        },
+        {
+          "item": [
+            "mała tarcza",
+            "zwój z inkantacją kręgu 0",
+            "zestaw uzdrowieciela",
+            "zestaw pisarski",
+            "narzędzia"
+          ]
+        }
+      ]
+    },
+    "dobrobyt": {
+      "item": "Sztylet, ubranie dworzanina, plecak, peleryna, racje żywno- ściowe na tydzień, bukłak z wodą, zwój liny, hubka i krzesiwo, latarnia i dwie butelki oleju, eliksir leczenia, sakiewka z 1k6 srebrników",
+      "choices": [
+        {
+          "item": [
+            "tarcza",
+            "zwój z inkantacją kręgu 0",
+            "zestaw uzdrowieciela",
+            "zestaw pisarski",
+            "narzędzia"
+          ]
+        }
+      ]
+    },
+    "bogactwo": {
+      "item": "Sztylet, ubranie szlachcica, peleryna, racje żywnościowe na tydzień, bukłak z wodą, eliksir leczenia, sakiewka z 2k6 srebrników. Masz także osobistego posługacza, ochroniarza i trzy konie z siodłami"
+    }
+  },
+  "store": {
+    "armors": [
+      {
+        "name": "Odzież",
+        "defence": "Zręczność",
+        "special": "P",
+        "requirements": "Brak wymagań"
+      },
+      {
+        "name": "Miękka skórznia",
+        "defence": "Zręczność + 1",
+        "special": "P",
+        "requirements": "Brak wymagań"
+      },
+      {
+        "name": "Utwardzana skórznia",
+        "defence": "Zręczność + 2",
+        "special": "P",
+        "requirements": "Min. 11 Siły (lekki pancerz)"
+      },
+      {
+        "name": "Brygantyna",
+        "defence": "13",
+        "special": "P",
+        "requirements": "Min. 11 Siły (lekki pancerz)"
+      },
+      {
+        "name": "Kolczuga",
+        "defence": "15",
+        "special": "N",
+        "requirements": "Min. 13 Siły (średni pancerz)"
+      },
+      {
+        "name": "Zbroja łuskowa",
+        "defence": "16",
+        "special": "N",
+        "requirements": "Min. 13 Siły (średni pancerz)"
+      },
+      {
+        "name": "Bechter",
+        "defence": "17",
+        "special": "R",
+        "requirements": "Min. 15 Siły (ciężki pancerz)"
+      },
+      {
+        "name": "Pełna zbroja płytowa",
+        "defence": "18",
+        "special": "E",
+        "requirements": "Min. 15 Siły (ciężki pancerz)"
+      }
+    ],
+    "weapons": {
+      "simple_melee": [
+        {
+          "name": "Atak bez broni",
+          "damage": "1",
+          "grip": "Dowolny",
+          "properties": "Finezyjna",
+          "price": "-",
+          "availability": "-"
+        },
+        {
+          "name": "Kostur",
+          "damage": "1k6 + 1",
+          "grip": "Dwuręczny",
+          "properties": "Finezyjna",
+          "price": "5 md",
+          "availability": "P"
+        },
+        {
+          "name": "Młotek lub siekiera",
+          "damage": "1k3",
+          "grip": "Dowolny",
+          "properties": "Miotana, zasięg (bliski)",
+          "price": "1 sr",
+          "availability": "P"
+        },
+        {
+          "name": "Nóż lub sztylet",
+          "damage": "1k3",
+          "grip": "Dowolny",
+          "properties": "Finezyjna, miotana, zasięg (bliski)",
+          "price": "5 md",
+          "availability": "P"
+        },
+        {
+          "name": "Oszczep",
+          "damage": "1k6",
+          "grip": "Jednoręczny",
+          "properties": "Finezyjna, miotana, zasięg (średni)",
+          "price": "5 md",
+          "availability": "P"
+        },
+        {
+          "name": "Pałka",
+          "damage": "1k6",
+          "grip": "Jednoręczny",
+          "properties": "Finezyjna",
+          "price": "1 sr",
+          "availability": "P"
+        },
+        {
+          "name": "Sierp lub włócznia",
+          "damage": "1k6",
+          "grip": "Jednoręczny",
+          "properties": "Finezyjna",
+          "price": "1 sr",
+          "availability": "P"
+        },
+        {
+          "name": "Strzałka",
+          "damage": "1",
+          "grip": "Dowolny",
+          "properties": "Finezyjna, miotana, zasięg (bliski)",
+          "price": "1 md",
+          "availability": "P"
+        },
+        {
+          "name": "Topór",
+          "damage": "1k6 + 1",
+          "grip": "Jednoręczny",
+          "properties": "",
+          "price": "1 sr",
+          "availability": "P"
+        }
+      ],
+      "ranged": [
+        {
+          "name": "Długi łuk (min. 9 Siły)",
+          "damage": "1k6 + 1",
+          "grip": "Dwuręczny",
+          "properties": "Rozmiar 1, używa strzał, zasięg (daleki)",
+          "price": "1 zk",
+          "availability": "N"
+        },
+        {
+          "name": "Dmuchawka",
+          "damage": "1k3",
+          "grip": "Jednoręczny",
+          "properties": "Używa igieł, zasięg (średni)",
+          "price": "5 sr",
+          "availability": "P"
+        },
+        {
+          "name": "Flinta",
+          "damage": "3k6",
+          "grip": "Dwuręczny",
+          "properties": "Niewypał, przeładowanie, używa kul, zasięg (daleki)",
+          "price": "10 zk",
+          "availability": "R"
+        },
+        {
+          "name": "Kusza",
+          "damage": "2k6",
+          "grip": "Dwuręczny",
+          "properties": "Przeładowanie, używa bełtów, zasięg (daleki)",
+          "price": "2 zk",
+          "availability": "P"
+        },
+        {
+          "name": "Łuk",
+          "damage": "1k6",
+          "grip": "Dwuręczny",
+          "properties": "Używa strzał, zasięg (średni)",
+          "price": "5 sr",
+          "availability": "P"
+        },
+        {
+          "name": "Kusza pistoletowa",
+          "damage": "1k6",
+          "grip": "Dowolny",
+          "properties": "Przeładowanie, używa bełtów, zasięg (bliski)",
+          "price": "1 zk",
+          "availability": "R"
+        },
+        {
+          "name": "Pistolet",
+          "damage": "2k6",
+          "grip": "Dowolny",
+          "properties": "Niewypał, przeładowanie, używa kul, zasięg (średni)",
+          "price": "5 zk",
+          "availability": "E"
+        },
+        {
+          "name": "Proca",
+          "damage": "1k3",
+          "grip": "Dowolny",
+          "properties": "Używa kamieni, zasięg (średni)",
+          "price": "5 md",
+          "availability": "P"
+        }
+      ],
+      "martial_melee": [
+        {
+          "name": "Buława",
+          "damage": "1k6",
+          "grip": "Dowolny",
+          "properties": "",
+          "price": "5 sr",
+          "availability": "P"
+        },
+        {
+          "name": "Glewia, halabarda lub berdysz",
+          "damage": "1k6 + 2",
+          "grip": "Dwuręczny",
+          "properties": "Dalekosiężna +1",
+          "price": "1 zk",
+          "availability": "N"
+        },
+        {
+          "name": "Lanca",
+          "damage": "1k6",
+          "grip": "Dwuręczny",
+          "properties": "Dalekosiężna +2, jednoręczna w czasie jazdy wierzchem",
+          "price": "5 sr",
+          "availability": "N"
+        },
+        {
+          "name": "Miecz długi lub młot bojowy",
+          "damage": "2k6",
+          "grip": "Dwuręczny",
+          "properties": "Nieporęczna",
+          "price": "1 zk",
+          "availability": "R"
+        },
+        {
+          "name": "Pika",
+          "damage": "1k6 + 2",
+          "grip": "Dwuręczny",
+          "properties": "Dalekosiężna +2, Rozmiar 1",
+          "price": "5 sr",
+          "availability": "N"
+        },
+        {
+          "name": "Topór bojowy, korbacz, morgenstern, nadziak lub miecz",
+          "damage": "1k6 + 2",
+          "grip": "Jednoręczny",
+          "properties": "",
+          "price": "5 sr",
+          "availability": "N"
+        },
+        {
+          "name": "Trójząb",
+          "damage": "1k6",
+          "grip": "Jednoręczny",
+          "properties": "Finezyjna, miotana, zasięg (bliski)",
+          "price": "1 sr",
+          "availability": "P"
+        },
+        {
+          "name": "Włócznia",
+          "damage": "1k6",
+          "grip": "Jednoręczny",
+          "properties": "Finezyjna, miotana, zasięg (bliski)",
+          "price": "5 md",
+          "availability": "P"
+        }
+      ],
+      "fast_melee": [
+        {
+          "name": "Bicz",
+          "damage": "1k3",
+          "grip": "Dowolny",
+          "properties": "Dalekosiężna +1, finezyjna",
+          "price": "5 sr",
+          "availability": "N"
+        },
+        {
+          "name": "Łańcuch, kordelas, długi nóż, karczownik lub mizerykordia",
+          "damage": "1k3",
+          "grip": "Dowolny",
+          "properties": "Finezyjna",
+          "price": "5 md",
+          "availability": "P"
+        },
+        {
+          "name": "Rapier, szabla, bułat",
+          "damage": "1k6 + 1",
+          "grip": "Jednoręczny",
+          "properties": "Finezyjna",
+          "price": "1 zk",
+          "availability": "R"
+        }
+      ],
+      "heavy_melee": [
+        {
+          "name": "Dwuręczny miecz, dwuręczny topór lub dwuręczny młot",
+          "damage": "3k6",
+          "grip": "Dwuręczny",
+          "properties": "Nieporęczna",
+          "price": "2 zk",
+          "availability": "R"
+        },
+        {
+          "name": "Miecz długi lub młot bojowy",
+          "damage": "2k6",
+          "grip": "Jednoręczny",
+          "properties": "Nieporęczna",
+          "price": "1 zk",
+          "availability": "R"
+        }
+      ]
+    },
+    "shields": [
+      {
+        "name": "Mała tarcza",
+        "damage": "1",
+        "grip": "Dowolny",
+        "properties": "Defensywna +1",
+        "price": "5 md",
+        "availability": "P"
+      },
+      {
+        "name": "Duża tarcza (min. 11 Siły)",
+        "damage": "1k3",
+        "grip": "Dowolny",
+        "properties": "Defensywna +2, Rozmiar 1",
+        "price": "1 sr",
+        "availability": "P"
+      }
+    ]
+  }
 }
