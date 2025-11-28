@@ -1,0 +1,30 @@
+{
+  "level_0": [
+    {
+      "name": "Magic Missile",
+      "description": "A reliable force projectile that automatically hits its target, dealing consistent damage"
+    },
+    {
+      "name": "Light",
+      "description": "Creates a bright light source that illuminates the surrounding area"
+    },
+    {
+      "name": "Detect Magic",
+      "description": "Reveals the presence of magical auras within a short range"
+    }
+  ],
+  "level_1": [
+    {
+      "name": "Fireball",
+      "description": "Launches an explosive ball of fire that deals area damage to multiple targets"
+    },
+    {
+      "name": "Healing Potion",
+      "description": "Restores health points to the target, providing immediate magical healing"
+    },
+    {
+      "name": "Shield",
+      "description": "Creates a magical barrier that increases the caster's defensive capabilities"
+    }
+  ]
+}

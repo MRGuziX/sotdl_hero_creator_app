@@ -1,0 +1,56 @@
+{
+  "general": {
+    "ancestry_name": "Automaton",
+    "strength": 10,
+    "dexterity": 10,
+    "intelligence": 10,
+    "will": 10,
+    "perception": 10,
+    "defense": 10,
+    "health": 10,
+    "healing_rate": 2,
+    "size": [
+      1.0,
+      0.5
+    ],
+    "speed": 10,
+    "power": 0,
+    "damage": 0,
+    "insanity": 0,
+    "corruption": 0,
+    "language": [
+      {
+        "name": "Wspólny",
+        "known": false
+      }
+    ]
+  },
+  "backstory": {},
+  "talents": [
+    {
+      "name": "",
+      "description": "",
+      "level": 0
+    },
+    {
+      "name": "",
+      "description": ""
+    }
+  ],
+  "professions": [],
+  "spells": [],
+  "actions": [
+    {
+      "add_attribute":
+        {
+          "any": 1
+        }
+    }
+  ],
+  "choices": [
+    {
+      "language": "any",
+      "profession": "any"
+    }
+  ]
+}
