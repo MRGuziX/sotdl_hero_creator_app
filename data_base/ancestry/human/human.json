@@ -55,7 +55,20 @@
     }
   ],
   "oddity": "",
-  "equipment": [],
+  "equipment": [
+        {
+            "weapons": []
+        },
+        {
+            "shields": []
+        },
+        {
+            "armors": []
+        },
+        {
+            "backpack": []
+        }
+    ],
   "actions": [
     {
       "add_attribute": {

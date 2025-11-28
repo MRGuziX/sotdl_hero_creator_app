@@ -95,7 +95,8 @@ character_data = {
             "name": "złote korony",
             "amount": 0
         }
-    ], "oddity": "",
+    ],
+    "oddity": "",
     "equipment": [
         {
             "weapons": []
@@ -107,7 +108,7 @@ character_data = {
             "armors": []
         },
         {
-            'backpack': []
+            "backpack": []
         }
     ],
     "talents": [
@@ -154,7 +155,6 @@ def test_add_money():
         money_type="miedziaki",
         character_data=character_data
     )
-    print("x")
 
 
 def test_add_armors():

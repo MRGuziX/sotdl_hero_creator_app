@@ -404,8 +404,15 @@ def add_wealth(character_data: dict):
 
     for roll_range in data["zamożność"]:
         if dice_roll in roll_range["roll"]:
-            character_data["wealth"] = roll_range["description"]
+            if roll_range["description"]:
+                character_data["wealth"] = roll_range["description"]
+            if roll_range["backpack"]:
+                character_data['equipment'][3]['backpack'].append(roll_range["backpack"])
+            if roll_range["choices"]:
+                character_data['choices'].append(roll_range["choices"])
             break
+
+
 
     return character_data
 
@@ -425,7 +432,7 @@ def add_money(
     return character_data
 
 
-def add_weapon(item_name, character_data):
+def add_weapon(item_name: str, character_data: dict):
     project_root = pathlib.Path(__file__).parent.parent
     path_to_file = project_root / "data_base" / "equipment" / "equ.json"
 
@@ -443,7 +450,7 @@ def add_weapon(item_name, character_data):
     return item_info
 
 
-def add_shield(item_name, character_data):
+def add_shield(item_name: str, character_data: dict):
     project_root = pathlib.Path(__file__).parent.parent
     path_to_file = project_root / "data_base" / "equipment" / "equ.json"
 
@@ -461,7 +468,7 @@ def add_shield(item_name, character_data):
     return item_info
 
 
-def add_armor(item_name, character_data):
+def add_armor(item_name: str, character_data: dict):
     project_root = pathlib.Path(__file__).parent.parent
     path_to_file = project_root / "data_base" / "equipment" / "equ.json"
 
@@ -479,7 +486,7 @@ def add_armor(item_name, character_data):
     return item_info
 
 
-def add_oddity(character_data):
+def add_oddity(character_data: dict):
     dice_roll = roll_dice(1, 120)
 
     project_root = pathlib.Path(__file__).parent.parent
