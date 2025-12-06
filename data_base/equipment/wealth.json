@@ -8,12 +8,18 @@
       "description": "Nędza: Żyjesz na ulicy bez grosza przy duszy.",
       "backpack": "łachmany, sakiewka z 1k6 okrawków",
       "choices": [
-        {
-          "items": [
-            "pałka",
-            "proca"
-          ]
-        }
+        [
+          {
+            "weapon": "pałka",
+            "damage": "1k3",
+            "spec": "1h"
+          },
+          {
+            "weapon": "proca",
+            "damage": "1k3",
+            "spec": "ranged"
+          }
+        ]
       ]
     },
     {
@@ -26,12 +32,18 @@
       "description": "Ubóstwo: Żyjesz w podłych warunkach; nigdy nie wiesz, czy kolejnego dnia nie będziesz głodny.",
       "backpack": "kostur, połatane ubranie, sakwa podróżna, bochenek chleba, bukłak z wodą, hubka i krzesiwo, świeca, sakiewka z 2k6 okrawków",
       "choices": [
-        {
-          "items": [
-            "pałka",
-            "proca"
-          ]
-        }
+        [
+          {
+            "weapon": "pałka",
+            "damage": "1k3",
+            "spec": "1h"
+          },
+          {
+            "weapon": "proca",
+            "damage": "1k3",
+            "spec": "ranged"
+          }
+        ]
       ]
     },
     {
@@ -45,12 +57,18 @@
       "description": "Klasa średnia: Zarabiasz wystarczająco dużo, by pokryć wszystkie bieżące wydatki.",
       "backpack": "sztylet, kostur, zwykłe ubranie, plecak, racje żywnościowe na tydzień, bukłak z wodą, hubka i krzesiwo, dwie pochodnie, sakiewka z 1k6 miedziaków",
       "choices": [
-        {
-          "items": [
-            "pałka",
-            "proca"
-          ]
-        }
+        [
+          {
+            "weapon": "pałka",
+            "damage": "1k3",
+            "spec": "1h"
+          },
+          {
+            "weapon": "proca",
+            "damage": "1k3",
+            "spec": "ranged"
+          }
+        ]
       ]
     },
     {
@@ -62,21 +80,25 @@
       "description": "Komfort: Żyjesz na dobrej stopie i zarabiasz na tyle, by móc co nieco odłożyć.",
       "backpack": "sztylet, kostur, wytworne ubranie, plecak, peleryna, racje żywnościowe na tydzień, bukłak z wodą, zwój liny, hubka i krzesiwo, dwie pochodnie, eliksir leczenia, sakiewka z 2k6 miedziaków",
       "choices": [
-        {
-          "items": [
-            "pałka",
-            "proca"
-          ]
-        },
-        {
-          "items": [
-            "mała tarcza",
-            "zwój z inkantacją kręgu 0",
-            "zestaw uzdrowieciela",
-            "zestaw pisarski",
-            "narzędzia"
-          ]
-        }
+        [
+          {
+            "weapon": "pałka",
+            "damage": "1k3",
+            "spec": "1h"
+          },
+          {
+            "weapon": "proca",
+            "damage": "1k3",
+            "spec": "ranged"
+          }
+        ],
+        [
+          "mała tarcza",
+          "zwój z inkantacją kręgu 0",
+          "zestaw uzdrowieciela",
+          "zestaw pisarski",
+          "narzędzia"
+        ]
       ]
     },
     {
@@ -86,15 +108,13 @@
       "description": "Dobyty: Żyjesz w luksusie. Stać cię na eleganckie ubrania i wszelkie wygody; prawdopodobnie od dłuższego czasu nie zaznałeś żadnego braku.",
       "backpack": "sztylet, ubranie dworzanina, plecak, peleryna, racje żywno- ściowe na tydzień, bukłak z wodą, zwój liny, hubka i krzesiwo, latarnia i dwie butelki oleju, eliksir leczenia, sakiewka z 1k6 srebrników",
       "choices": [
-        {
-          "items": [
-            "tarcza",
-            "zwój z inkantacją kręgu 0",
-            "zestaw uzdrowieciela",
-            "zestaw pisarski",
-            "narzędzia"
-          ]
-        }
+        [
+          "tarcza",
+          "zwój z inkantacją kręgu 0",
+          "zestaw uzdrowieciela",
+          "zestaw pisarski",
+          "narzędzia"
+        ]
       ]
     },
     {

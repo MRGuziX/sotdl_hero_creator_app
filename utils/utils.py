@@ -101,9 +101,19 @@ def build_hero(
             description, action = backstory_type  # it can be 'actions' or 'choices'
             data["backstory"].update(description)
             if "actions" in action:
-                data["actions"].append(action["actions"])
+                # action["actions"] may already be a list; ensure we don't create nested lists
+                actions_payload = action["actions"]
+                if isinstance(actions_payload, list):
+                    data["actions"].extend(actions_payload)
+                else:
+                    data["actions"].append(actions_payload)
             elif "choices" in action:
-                data["choices"].append(action["choices"])
+                # action["choices"] is typically a list of dicts; use extend to avoid nested lists
+                choices_payload = action["choices"]
+                if isinstance(choices_payload, list):
+                    data["choices"].extend(choices_payload)
+                else:
+                    data["choices"].append(choices_payload)
         else:
             data["backstory"].update(backstory_type)
         return data
@@ -150,14 +160,7 @@ def build_hero(
                 past = get_from_ancestry(roll=roll_dice(1, 20), category="past", ancestry=ancestry)
                 _update_backstory(data, past)
 
-    # print(data)
     return data
-
-
-# TODO: Add open_json_template method
-# TODO: Add save_dict_to_json method
-# TODO: Inject new_hero.json to PDF
-# TODO: save pdf
 
 
 def change_choices_to_actions(
@@ -178,52 +181,40 @@ def change_choices_to_actions(
     """
 
     actions = []
-    choices_list = character_data.get("choices", [])
+    choices_pool = character_data.get("choices", [])
 
-    for choice_dict in choices_list:
-        if len(choice_dict) > 1:  # Multiple options to choose from
-            options = list(choice_dict.keys())
+    for pool in choices_pool:
 
-            if is_random:
-                # Randomly select an option
-                selected_key = random.choice(options)
-                selected_value = choice_dict[selected_key]
-                print(f"Randomly selected: {selected_key.capitalize()} = {selected_value}")
-            else:
-                print(f"Choose one of the following options:")
-                for i, option in enumerate(options, 1):
-                    print(f"{i}. {option.capitalize()}: {choice_dict[option]}")
+        if is_random:
+            # Randomly select an option
+            choice = random.choice(pool)
 
-                # Get user input
-                while True:
-                    try:
-                        choice_num = int(input("Enter your choice (number): ")) - 1  # here we will change for API input
-                        if 0 <= choice_num < len(options):
-                            selected_key = options[choice_num]
-                            selected_value = choice_dict[selected_key]
-                            break
-                        else:
-                            print("Invalid choice. Please try again.")
-                    except ValueError:
-                        print("Please enter a valid number.")
-
-            user_action = {
-                "add_attribute": {selected_key: selected_value}
-            }
-            character_data["actions"].append(user_action)
-            actions.append(user_action)
         else:
-            # Only one option, add it directly
-            key, value = list(choice_dict.items())[0]
-            user_action = {
-                "add_attribute": {key: value}
-            }
-            character_data["actions"].append(user_action)
-            actions.append(user_action)
+            pass
+        # print(f"Choose one of the following options:")
+        # for i, option in enumerate(options, 1):
+        #     print(f"{i}. {option.capitalize()}: {choice_dict[option]}")
+        #
+        # # Get user input
+        # while True:
+        #     try:
+        #         choice_num = int(input("Enter your choice (number): ")) - 1  # here we will change for API input
+        #         if 0 <= choice_num < len(options):
+        #             selected_key = options[choice_num]
+        #             selected_value = choice_dict[selected_key]
+        #             break
+        #         else:
+        #             print("Invalid choice. Please try again.")
+        #     except ValueError:
+        #         print("Please enter a valid number.")
 
-        character_data["choices"].remove(choice_dict)
+        user_action = {
+            "add_attribute": choice
+        }
+        character_data["actions"].append(user_action)
+        actions.append(user_action)
 
-    return actions
+    return character_data
 
 
 def add_profession(
@@ -329,6 +320,10 @@ def add_language(
     return character_data
 
 
+def add_item(item_name: str, character_data: dict, is_random: bool) -> dict:
+    pass
+
+
 def add_attribute(
         attribute: str,
         value: str | int,
@@ -363,6 +358,14 @@ def add_attribute(
             character_data=character_data,
             is_random=is_random
         )
+
+    if attribute == "items":
+        add_item(
+            item_name=value,
+            character_data=character_data,
+            is_random=is_random
+        )
+
     return character_data
 
 
@@ -390,31 +393,37 @@ def bulk_update_attributes(
     return character_data
 
 
-def add_wealth(character_data: dict):
-    dice_roll = roll_dice(3, 6)
-
-    project_root = pathlib.Path(__file__).parent.parent
-    path_to_file = project_root / "data_base" / "equipment" / "wealth.json"
-
-    try:
-        with open(path_to_file, "r", encoding="utf8") as file:
-            data = json.load(file)
-    except FileNotFoundError:
-        print(f"File {path_to_file} not found.")
-
-    for roll_range in data["zamożność"]:
-        if dice_roll in roll_range["roll"]:
-            if roll_range["description"]:
-                character_data["wealth"] = roll_range["description"]
-            if roll_range["backpack"]:
-                character_data['equipment'][3]['backpack'].append(roll_range["backpack"])
-            if roll_range["choices"]:
-                character_data['choices'].append(roll_range["choices"])
-            break
-
-
-
-    return character_data
+# def add_wealth(character_data: dict):
+#     dice_roll = roll_dice(3, 6)
+#
+#     project_root = pathlib.Path(__file__).parent.parent
+#     path_to_file = project_root / "data_base" / "equipment" / "wealth.json"
+#
+#     try:
+#         with open(path_to_file, "r", encoding="utf8") as file:
+#             data = json.load(file)
+#     except FileNotFoundError:
+#         print(f"File {path_to_file} not found.")
+#
+#     for roll_range in data["zamożność"]:
+#         if dice_roll in roll_range["roll"]:
+#             if roll_range["description"]:
+#                 character_data["wealth"] = roll_range["description"]
+#             if roll_range["backpack"]:
+#                 character_data['equipment'][3]['backpack'] = roll_range["backpack"]
+#             if roll_range["choices"]:
+#                 # roll_range["choices"] is a list of choices; extend to avoid nested list structure
+#                 for entry in roll_range["choices"]:
+#                     item = random.choice(entry['items'])
+#                     character_data['equipment'][3]['backpack'] += f', {item}'
+#
+#                     # if isinstance(roll_range["choices"], list):
+#                     #     character_data['choices'].extend(roll_range["choices"])
+#                     # else:
+#                     #     character_data['choices'].append(roll_range["choices"])
+#             break
+#
+#     return character_data
 
 
 def add_money(
@@ -504,9 +513,9 @@ def add_oddity(character_data: dict):
     return character_data
 
 
-character_data = build_hero(ancestry="human")
-add_wealth(character_data)
-add_oddity(character_data)
-change_choices_to_actions(character_data, is_random=True)
-bulk_update_attributes(character_data=character_data, is_random=True)
-print(character_data["general"]["language"])
+# character_data = build_hero(ancestry="human")
+# # add_wealth(character_data)
+# # add_oddity(character_data)
+# change_choices_to_actions(character_data, is_random=True)
+# bulk_update_attributes(character_data=character_data, is_random=True)
+# print(character_data["general"]["language"])

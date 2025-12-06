@@ -56,19 +56,19 @@
   ],
   "oddity": "",
   "equipment": [
-        {
-            "weapons": []
-        },
-        {
-            "shields": []
-        },
-        {
-            "armors": []
-        },
-        {
-            "backpack": []
-        }
-    ],
+    {
+      "weapons": []
+    },
+    {
+      "shields": []
+    },
+    {
+      "armors": []
+    },
+    {
+      "backpack": []
+    }
+  ],
   "actions": [
     {
       "add_attribute": {
@@ -77,12 +77,16 @@
     }
   ],
   "choices": [
-    {
-      "language": {
-        "name": "any",
-        "known": false
+    [
+      {
+        "language": {
+          "known": false,
+          "name": "any"
+        }
       },
-      "profession": "any"
-    }
+      {
+        "profession": "any"
+      }
+    ]
   ]
 }
