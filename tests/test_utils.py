@@ -7,7 +7,7 @@ from utils.utils import (
     add_money,
     add_armor,
     add_weapon,
-    add_shield, change_choices_to_actions,
+    add_shield, change_choices_to_actions, add_wealth,
 )
 
 character_data = {

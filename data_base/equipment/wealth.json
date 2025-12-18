@@ -6,16 +6,21 @@
         4
       ],
       "description": "Nędza: Żyjesz na ulicy bez grosza przy duszy.",
-      "backpack": "łachmany, sakiewka z 1k6 okrawków",
+      "backpack": "łachmany",
+      "money": {
+        "type": "okrawki",
+        "dice_type": 6,
+        "dice_amount": 1
+      },
       "choices": [
         [
           {
-            "weapon": "pałka",
+            "name": "pałka",
             "damage": "1k3",
             "spec": "1h"
           },
           {
-            "weapon": "proca",
+            "name": "proca",
             "damage": "1k3",
             "spec": "ranged"
           }
@@ -30,16 +35,21 @@
         8
       ],
       "description": "Ubóstwo: Żyjesz w podłych warunkach; nigdy nie wiesz, czy kolejnego dnia nie będziesz głodny.",
-      "backpack": "kostur, połatane ubranie, sakwa podróżna, bochenek chleba, bukłak z wodą, hubka i krzesiwo, świeca, sakiewka z 2k6 okrawków",
+      "backpack": "kostur, połatane ubranie, sakwa podróżna, bochenek chleba, bukłak z wodą, hubka i krzesiwo, świeca",
+      "money": {
+        "type": "okrawki",
+        "dice_type": 6,
+        "dice_amount": 2
+      },
       "choices": [
         [
           {
-            "weapon": "pałka",
+            "name": "pałka",
             "damage": "1k3",
             "spec": "1h"
           },
           {
-            "weapon": "proca",
+            "name": "proca",
             "damage": "1k3",
             "spec": "ranged"
           }
@@ -55,16 +65,21 @@
         13
       ],
       "description": "Klasa średnia: Zarabiasz wystarczająco dużo, by pokryć wszystkie bieżące wydatki.",
-      "backpack": "sztylet, kostur, zwykłe ubranie, plecak, racje żywnościowe na tydzień, bukłak z wodą, hubka i krzesiwo, dwie pochodnie, sakiewka z 1k6 miedziaków",
+      "backpack": "sztylet, kostur, zwykłe ubranie, plecak, racje żywnościowe na tydzień, bukłak z wodą, hubka i krzesiwo, dwie pochodnie",
+      "money": {
+        "type": "miedziaki",
+        "dice_type": 6,
+        "dice_amount": 1
+      },
       "choices": [
         [
           {
-            "weapon": "pałka",
+            "name": "pałka",
             "damage": "1k3",
             "spec": "1h"
           },
           {
-            "weapon": "proca",
+            "name": "proca",
             "damage": "1k3",
             "spec": "ranged"
           }
@@ -78,16 +93,21 @@
         16
       ],
       "description": "Komfort: Żyjesz na dobrej stopie i zarabiasz na tyle, by móc co nieco odłożyć.",
-      "backpack": "sztylet, kostur, wytworne ubranie, plecak, peleryna, racje żywnościowe na tydzień, bukłak z wodą, zwój liny, hubka i krzesiwo, dwie pochodnie, eliksir leczenia, sakiewka z 2k6 miedziaków",
+      "backpack": "sztylet, kostur, wytworne ubranie, plecak, peleryna, racje żywnościowe na tydzień, bukłak z wodą, zwój liny, hubka i krzesiwo, dwie pochodnie, eliksir leczenia",
+      "money": {
+        "type": "miedziaki",
+        "dice_type": 6,
+        "dice_amount": 2
+      },
       "choices": [
         [
           {
-            "weapon": "pałka",
+            "name": "pałka",
             "damage": "1k3",
             "spec": "1h"
           },
           {
-            "weapon": "proca",
+            "name": "proca",
             "damage": "1k3",
             "spec": "ranged"
           }
@@ -106,7 +126,12 @@
         17
       ],
       "description": "Dobyty: Żyjesz w luksusie. Stać cię na eleganckie ubrania i wszelkie wygody; prawdopodobnie od dłuższego czasu nie zaznałeś żadnego braku.",
-      "backpack": "sztylet, ubranie dworzanina, plecak, peleryna, racje żywno- ściowe na tydzień, bukłak z wodą, zwój liny, hubka i krzesiwo, latarnia i dwie butelki oleju, eliksir leczenia, sakiewka z 1k6 srebrników",
+      "backpack": "sztylet, ubranie dworzanina, plecak, peleryna, racje żywno- ściowe na tydzień, bukłak z wodą, zwój liny, hubka i krzesiwo, latarnia i dwie butelki oleju, eliksir leczenia",
+      "money": {
+        "type": "srebrniki",
+        "dice_type": 6,
+        "dice_amount": 1
+      },
       "choices": [
         [
           "tarcza",
@@ -122,7 +147,12 @@
         18
       ],
       "description": "Bogactwo: Niczego ci nie brakuje. Zapewne pochodzisz ze szlacheckiego rodu; masz służących i posiadłość lub zamek w najlepszej części miasta. Twoja fortuna przysparza ci zarówno sojuszników, jak i wrogów.",
-      "backpack": "sztylet, ubranie szlachcica, peleryna, racje żywnościowe na tydzień, bukłak z wodą, eliksir leczenia, sakiewka z 2k6 srebrników. Masz także osobistego posługacza, ochroniarza i trzy konie z siodłami"
+      "backpack": "sztylet, ubranie szlachcica, peleryna, racje żywnościowe na tydzień, bukłak z wodą, eliksir leczenia. Masz także osobistego posługacza, ochroniarza i trzy konie z siodłami",
+      "money": {
+        "type":"srebrniki",
+        "dice_type": 6,
+        "dice_amount": 2
+      }
     }
   ]
 }

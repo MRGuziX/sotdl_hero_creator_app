@@ -12,13 +12,6 @@ from typing import Any, Literal
 #                 print(spell)
 #                 return spell
 #     return None
-#
-# def create_hero(template_ancestry: dict):
-#     new_hero = open_json("data_base/new_hero.json")
-#     new_hero.update(template_ancestry)
-#     new_hero['spells'].append(add_spell("Light", "fire"))
-#     new_hero['spells'].append(add_spell("Detect Magic"))
-#     print(json.dumps(new_hero, indent=4))
 
 
 def roll_dice(
@@ -188,25 +181,8 @@ def change_choices_to_actions(
         if is_random:
             # Randomly select an option
             choice = random.choice(pool)
-
         else:
             pass
-        # print(f"Choose one of the following options:")
-        # for i, option in enumerate(options, 1):
-        #     print(f"{i}. {option.capitalize()}: {choice_dict[option]}")
-        #
-        # # Get user input
-        # while True:
-        #     try:
-        #         choice_num = int(input("Enter your choice (number): ")) - 1  # here we will change for API input
-        #         if 0 <= choice_num < len(options):
-        #             selected_key = options[choice_num]
-        #             selected_value = choice_dict[selected_key]
-        #             break
-        #         else:
-        #             print("Invalid choice. Please try again.")
-        #     except ValueError:
-        #         print("Please enter a valid number.")
 
         user_action = {
             "add_attribute": choice
@@ -393,37 +369,47 @@ def bulk_update_attributes(
     return character_data
 
 
-# def add_wealth(character_data: dict):
-#     dice_roll = roll_dice(3, 6)
-#
-#     project_root = pathlib.Path(__file__).parent.parent
-#     path_to_file = project_root / "data_base" / "equipment" / "wealth.json"
-#
-#     try:
-#         with open(path_to_file, "r", encoding="utf8") as file:
-#             data = json.load(file)
-#     except FileNotFoundError:
-#         print(f"File {path_to_file} not found.")
-#
-#     for roll_range in data["zamożność"]:
-#         if dice_roll in roll_range["roll"]:
-#             if roll_range["description"]:
-#                 character_data["wealth"] = roll_range["description"]
-#             if roll_range["backpack"]:
-#                 character_data['equipment'][3]['backpack'] = roll_range["backpack"]
-#             if roll_range["choices"]:
-#                 # roll_range["choices"] is a list of choices; extend to avoid nested list structure
-#                 for entry in roll_range["choices"]:
-#                     item = random.choice(entry['items'])
-#                     character_data['equipment'][3]['backpack'] += f', {item}'
-#
-#                     # if isinstance(roll_range["choices"], list):
-#                     #     character_data['choices'].extend(roll_range["choices"])
-#                     # else:
-#                     #     character_data['choices'].append(roll_range["choices"])
-#             break
-#
-#     return character_data
+def add_wealth(character_data: dict):
+    dice_roll = roll_dice(3, 6)
+    dice_roll = 18
+
+    project_root = pathlib.Path(__file__).parent.parent
+    path_to_file = project_root / "data_base" / "equipment" / "wealth.json"
+
+    try:
+        with open(path_to_file, "r", encoding="utf8") as file:
+            data = json.load(file)
+    except FileNotFoundError:
+        print(f"File {path_to_file} not found.")
+
+    for roll_range in data["zamożność"]:
+        if dice_roll in roll_range["roll"]:
+            if roll_range.get("backpack", ""):
+                character_data["wealth"] = roll_range["description"]
+            if roll_range.get("backpack", ""):
+                character_data['equipment'][3]['backpack'] = roll_range["backpack"]
+            if roll_range.get("choices", ""):
+                for entry in roll_range["choices"]:
+                    item = random.choice(entry)
+
+                    if isinstance(item, dict):
+                        character_data['equipment'][3]['backpack'] += f', {item.get("name")}'
+                        character_data['equipment'][0]['weapons'].append(item)
+                    else:
+                        character_data['equipment'][3]['backpack'] += f', {item}'
+            if roll_range.get("money", ""):
+                amount = roll_dice(
+                    num_dice=roll_range["money"].get("dice_amount"),
+                    sides=roll_range["money"].get("dice_type")
+                )
+
+                add_money(
+                    amount=amount,
+                    money_type=roll_range["money"].get("type"),
+                    character_data=character_data)
+            break
+
+    return character_data
 
 
 def add_money(
@@ -433,10 +419,18 @@ def add_money(
 ):
     money_list = ["okrawki", "miedziaki", "srebrniki", "złote korony"]
 
-    for entry_type in character_data["money"]:
-        if entry_type['name'] == money_type:
-            entry_type["amount"] += amount
-            break
+    if money_type not in money_list:
+        raise ValueError(f"Wrong money type: {money_type}. Choose one of: {money_list}")
+
+    match money_type:
+        case "okrawki":
+            character_data["money"][0]["okrawki"] += amount
+        case "miedziaki":
+            character_data["money"][1]["miedziaki"] += amount
+        case "srebrniki":
+            character_data["money"][2]["srebrniki"] += amount
+        case "złote korony":
+            character_data["money"][3]["złote korony"] += amount
 
     return character_data
 
@@ -513,9 +507,9 @@ def add_oddity(character_data: dict):
     return character_data
 
 
-# character_data = build_hero(ancestry="human")
-# # add_wealth(character_data)
-# # add_oddity(character_data)
-# change_choices_to_actions(character_data, is_random=True)
-# bulk_update_attributes(character_data=character_data, is_random=True)
-# print(character_data["general"]["language"])
+character_data = build_hero(ancestry="human")
+add_wealth(character_data)
+add_oddity(character_data)
+change_choices_to_actions(character_data, is_random=True)
+bulk_update_attributes(character_data=character_data, is_random=True)
+print(character_data)
