@@ -1,0 +1,103 @@
+{
+  "general": {
+    "ancestry_name": "Goblin",
+    "strength": 8,
+    "dexterity": 12,
+    "intelligence": 10,
+    "will": 9,
+    "perception": 11,
+    "defense": 12,
+    "health": 8,
+    "healing_rate": 2,
+    "size": [
+      0.5
+    ],
+    "speed": 10,
+    "power": 0,
+    "damage": 0,
+    "insanity": 0,
+    "corruption": 0,
+    "language": [
+      {
+        "name": "Wspólny",
+        "known": false
+      },
+      {
+        "name": "Elficki",
+        "known": false
+      }
+    ]
+  },
+  "backstory": {},
+  "talents": [
+    {
+      "name": "Niewrażliwości",
+      "description": "zauroczenie, a także na choroby i pochodzące od nich obrażenia.",
+      "level": 0
+    },
+    {
+      "name": "Wrażliwość na żelazo",
+      "description": "Jesteś osłabiony, gdy dotykasz żelaza.",
+      "level": 0
+    },
+    {
+      "name": "Widzenie w cieniu",
+      "description": "Widzisz w zacienionych obszarach tak samo dobrze jak w oświetlonych.",
+      "level": 0
+    },
+    {
+      "name": "Przebiegłość",
+      "description": "Testy Zręczności na ukrywanie się lub ciche poruszanie wykonujesz z 1 ułatwieniem.",
+      "level": 0
+    }
+  ],
+  "professions": [],
+  "spells": [],
+  "wealth": "",
+  "money": [
+    {
+      "okrawki": 0
+    },
+    {
+      "miedziaki": 0
+    },
+    {
+      "srebrniki": 0
+    },
+    {
+      "złote korony": 0
+    }
+  ],
+  "oddity": "",
+  "equipment": [
+    {
+      "weapons": []
+    },
+    {
+      "shields": []
+    },
+    {
+      "armors": []
+    },
+    {
+      "backpack": []
+    }
+  ],
+  "actions": [
+    {
+      "add_attribute": {
+        "any": 1
+      }
+    }
+  ],
+  "choices": [
+    [
+      {
+        "language": "any"
+      },
+      {
+        "profession": "any"
+      }
+    ]
+  ]
+}
