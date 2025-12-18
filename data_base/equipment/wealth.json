@@ -149,7 +149,7 @@
       "description": "Bogactwo: Niczego ci nie brakuje. Zapewne pochodzisz ze szlacheckiego rodu; masz służących i posiadłość lub zamek w najlepszej części miasta. Twoja fortuna przysparza ci zarówno sojuszników, jak i wrogów.",
       "backpack": "sztylet, ubranie szlachcica, peleryna, racje żywnościowe na tydzień, bukłak z wodą, eliksir leczenia. Masz także osobistego posługacza, ochroniarza i trzy konie z siodłami",
       "money": {
-        "type":"srebrniki",
+        "type": "srebrniki",
         "dice_type": 6,
         "dice_amount": 2
       }

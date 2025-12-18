@@ -39,18 +39,51 @@
   ],
   "professions": [],
   "spells": [],
+  "wealth": "",
+  "money": [
+    {
+      "okrawki": 0
+    },
+    {
+      "miedziaki": 0
+    },
+    {
+      "srebrniki": 0
+    },
+    {
+      "złote korony": 0
+    }
+  ],
+  "oddity": "",
+  "equipment": [
+    {
+      "weapons": []
+    },
+    {
+      "shields": []
+    },
+    {
+      "armors": []
+    },
+    {
+      "backpack": []
+    }
+  ],
   "actions": [
     {
-      "add_attribute":
-        {
-          "any": 1
-        }
+      "add_attribute": {
+        "any": 1
+      }
     }
   ],
   "choices": [
-    {
-      "language": "any",
-      "profession": "any"
-    }
+    [
+      {
+        "language": "any"
+      },
+      {
+        "profession": "any"
+      }
+    ]
   ]
 }

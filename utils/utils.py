@@ -177,16 +177,13 @@ def change_choices_to_actions(
     choices_pool = character_data.get("choices", [])
 
     for pool in choices_pool:
-
         if is_random:
             # Randomly select an option
             choice = random.choice(pool)
         else:
             pass
 
-        user_action = {
-            "add_attribute": choice
-        }
+        user_action = {"add_attribute": choice}
         character_data["actions"].append(user_action)
         actions.append(user_action)
 
@@ -296,10 +293,6 @@ def add_language(
     return character_data
 
 
-def add_item(item_name: str, character_data: dict, is_random: bool) -> dict:
-    pass
-
-
 def add_attribute(
         attribute: str,
         value: str | int,
@@ -335,13 +328,6 @@ def add_attribute(
             is_random=is_random
         )
 
-    if attribute == "items":
-        add_item(
-            item_name=value,
-            character_data=character_data,
-            is_random=is_random
-        )
-
     return character_data
 
 
@@ -371,7 +357,6 @@ def bulk_update_attributes(
 
 def add_wealth(character_data: dict):
     dice_roll = roll_dice(3, 6)
-    dice_roll = 18
 
     project_root = pathlib.Path(__file__).parent.parent
     path_to_file = project_root / "data_base" / "equipment" / "wealth.json"
@@ -507,7 +492,7 @@ def add_oddity(character_data: dict):
     return character_data
 
 
-character_data = build_hero(ancestry="human")
+character_data = build_hero(ancestry="automaton")
 add_wealth(character_data)
 add_oddity(character_data)
 change_choices_to_actions(character_data, is_random=True)
