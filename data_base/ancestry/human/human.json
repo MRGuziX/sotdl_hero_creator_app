@@ -45,30 +45,30 @@
       "okrawki": 0
     },
     {
-      "miedziaki": ""
+      "miedziaki": 0
     },
     {
-      "srebrniki": ""
+      "srebrniki": 0
     },
     {
-      "złote korony": ""
+      "złote korony": 0
     }
   ],
   "oddity": "",
   "equipment": [
-        {
-            "weapons": []
-        },
-        {
-            "shields": []
-        },
-        {
-            "armors": []
-        },
-        {
-            "backpack": []
-        }
-    ],
+    {
+      "weapons": []
+    },
+    {
+      "shields": []
+    },
+    {
+      "armors": []
+    },
+    {
+      "backpack": []
+    }
+  ],
   "actions": [
     {
       "add_attribute": {
@@ -77,12 +77,16 @@
     }
   ],
   "choices": [
-    {
-      "language": {
-        "name": "any",
-        "known": false
+    [
+      {
+        "language": {
+          "known": false,
+          "name": "any"
+        }
       },
-      "profession": "any"
-    }
+      {
+        "profession": "any"
+      }
+    ]
   ]
 }

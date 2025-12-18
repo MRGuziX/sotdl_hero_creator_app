@@ -1,12 +1,13 @@
+
 from utils.utils import (
     add_profession,
     add_language,
-    add_wealth,
+    # add_wealth,
     add_oddity,
     add_money,
     add_armor,
     add_weapon,
-    add_shield,
+    add_shield, change_choices_to_actions, add_wealth,
 )
 
 character_data = {
@@ -31,13 +32,32 @@ character_data = {
         "religion": "Jesteś wyznawcą Nowego Boga."
     },
     "choices": [
-        {
-            "language": {
-                "known": False,
-                "name": "any"
+        [
+            {
+                "language": {
+                    "known": False,
+                    "name": "any"
+                }
+
             },
-            "profession": "any"
-        }
+            {
+                "profession": "any"
+            }
+        ],
+        [
+            {
+                "weapon": "pałka",
+                "damage": "1k3",
+                "spec": "1h"
+
+            },
+            {
+                "weapon": "proca",
+                "damage": "1k3",
+                "spec": "ranged"
+            },
+        ],
+        ["a","B"]
     ],
     "general": {
         "ancestry_name": "Człowiek",
@@ -73,10 +93,8 @@ character_data = {
         "strength": 10,
         "will": 10
     },
-    "professions": [
-    ],
-    "spells": [
-    ],
+    "professions": [],
+    "spells": [],
     "wealth": "",
     "money": [
         {
@@ -176,3 +194,15 @@ def test_add_shields():
         item_name="Duża tarcza",
         character_data=character_data
     )
+
+
+# def test_add_attribute():
+#     add_attribute(
+#         attribute="items",
+#         value=
+#     )
+
+def test_random_choices():
+    choices = character_data["choices"]
+    change_choices_to_actions(character_data=character_data, is_random=True)
+

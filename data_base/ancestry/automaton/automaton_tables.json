@@ -51,10 +51,16 @@
         4
       ],
       "description": "Zostałeś stworzony do walki. Zwiększ swoją Siłę lub Zręczność o 2.",
-      "choices": {
-        "strength": 2,
-        "dexterity": 2
-      }
+      "choices": [
+        [
+          {
+            "strength": 2
+          },
+          {
+            "dexterity": 2
+          }
+        ]
+      ]
     },
     {
       "roll": [
@@ -78,10 +84,16 @@
         12
       ],
       "description": "Zostałeś stworzony do używania magii. Zwiększ swój Intelekt lub Wolę o 2.",
-      "choices": {
-        "intelligence": 2,
-        "will": 2
-      }
+      "choices": [
+        [
+          {
+            "intelligence": 2
+          },
+          {
+            "will": 2
+          }
+        ]
+      ]
     },
     {
       "roll": [
@@ -91,10 +103,16 @@
         16
       ],
       "description": "Zostałeś stworzony do szpiegowania lub skrytobójstwa. Zwiększ swoją Zręczność lub Intelekt o 2.",
-      "choices": {
-        "intelligence": 2,
-        "dexterity": 2
-      }
+      "choices": [
+        [
+          {
+            "intelligence": 2
+          },
+          {
+            "dexterity": 2
+          }
+        ]
+      ]
     },
     {
       "roll": [

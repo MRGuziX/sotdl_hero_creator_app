@@ -12,13 +12,6 @@ from typing import Any, Literal
 #                 print(spell)
 #                 return spell
 #     return None
-#
-# def create_hero(template_ancestry: dict):
-#     new_hero = open_json("data_base/new_hero.json")
-#     new_hero.update(template_ancestry)
-#     new_hero['spells'].append(add_spell("Light", "fire"))
-#     new_hero['spells'].append(add_spell("Detect Magic"))
-#     print(json.dumps(new_hero, indent=4))
 
 
 def roll_dice(
@@ -101,9 +94,19 @@ def build_hero(
             description, action = backstory_type  # it can be 'actions' or 'choices'
             data["backstory"].update(description)
             if "actions" in action:
-                data["actions"].append(action["actions"])
+                # action["actions"] may already be a list; ensure we don't create nested lists
+                actions_payload = action["actions"]
+                if isinstance(actions_payload, list):
+                    data["actions"].extend(actions_payload)
+                else:
+                    data["actions"].append(actions_payload)
             elif "choices" in action:
-                data["choices"].append(action["choices"])
+                # action["choices"] is typically a list of dicts; use extend to avoid nested lists
+                choices_payload = action["choices"]
+                if isinstance(choices_payload, list):
+                    data["choices"].extend(choices_payload)
+                else:
+                    data["choices"].append(choices_payload)
         else:
             data["backstory"].update(backstory_type)
         return data
@@ -150,14 +153,7 @@ def build_hero(
                 past = get_from_ancestry(roll=roll_dice(1, 20), category="past", ancestry=ancestry)
                 _update_backstory(data, past)
 
-    # print(data)
     return data
-
-
-# TODO: Add open_json_template method
-# TODO: Add save_dict_to_json method
-# TODO: Inject new_hero.json to PDF
-# TODO: save pdf
 
 
 def change_choices_to_actions(
@@ -178,52 +174,20 @@ def change_choices_to_actions(
     """
 
     actions = []
-    choices_list = character_data.get("choices", [])
+    choices_pool = character_data.get("choices", [])
 
-    for choice_dict in choices_list:
-        if len(choice_dict) > 1:  # Multiple options to choose from
-            options = list(choice_dict.keys())
-
-            if is_random:
-                # Randomly select an option
-                selected_key = random.choice(options)
-                selected_value = choice_dict[selected_key]
-                print(f"Randomly selected: {selected_key.capitalize()} = {selected_value}")
-            else:
-                print(f"Choose one of the following options:")
-                for i, option in enumerate(options, 1):
-                    print(f"{i}. {option.capitalize()}: {choice_dict[option]}")
-
-                # Get user input
-                while True:
-                    try:
-                        choice_num = int(input("Enter your choice (number): ")) - 1  # here we will change for API input
-                        if 0 <= choice_num < len(options):
-                            selected_key = options[choice_num]
-                            selected_value = choice_dict[selected_key]
-                            break
-                        else:
-                            print("Invalid choice. Please try again.")
-                    except ValueError:
-                        print("Please enter a valid number.")
-
-            user_action = {
-                "add_attribute": {selected_key: selected_value}
-            }
-            character_data["actions"].append(user_action)
-            actions.append(user_action)
+    for pool in choices_pool:
+        if is_random:
+            # Randomly select an option
+            choice = random.choice(pool)
         else:
-            # Only one option, add it directly
-            key, value = list(choice_dict.items())[0]
-            user_action = {
-                "add_attribute": {key: value}
-            }
-            character_data["actions"].append(user_action)
-            actions.append(user_action)
+            pass
 
-        character_data["choices"].remove(choice_dict)
+        user_action = {"add_attribute": choice}
+        character_data["actions"].append(user_action)
+        actions.append(user_action)
 
-    return actions
+    return character_data
 
 
 def add_profession(
@@ -363,6 +327,7 @@ def add_attribute(
             character_data=character_data,
             is_random=is_random
         )
+
     return character_data
 
 
@@ -404,15 +369,30 @@ def add_wealth(character_data: dict):
 
     for roll_range in data["zamożność"]:
         if dice_roll in roll_range["roll"]:
-            if roll_range["description"]:
+            if roll_range.get("backpack", ""):
                 character_data["wealth"] = roll_range["description"]
-            if roll_range["backpack"]:
-                character_data['equipment'][3]['backpack'].append(roll_range["backpack"])
-            if roll_range["choices"]:
-                character_data['choices'].append(roll_range["choices"])
+            if roll_range.get("backpack", ""):
+                character_data['equipment'][3]['backpack'] = roll_range["backpack"]
+            if roll_range.get("choices", ""):
+                for entry in roll_range["choices"]:
+                    item = random.choice(entry)
+
+                    if isinstance(item, dict):
+                        character_data['equipment'][3]['backpack'] += f', {item.get("name")}'
+                        character_data['equipment'][0]['weapons'].append(item)
+                    else:
+                        character_data['equipment'][3]['backpack'] += f', {item}'
+            if roll_range.get("money", ""):
+                amount = roll_dice(
+                    num_dice=roll_range["money"].get("dice_amount"),
+                    sides=roll_range["money"].get("dice_type")
+                )
+
+                add_money(
+                    amount=amount,
+                    money_type=roll_range["money"].get("type"),
+                    character_data=character_data)
             break
-
-
 
     return character_data
 
@@ -424,10 +404,18 @@ def add_money(
 ):
     money_list = ["okrawki", "miedziaki", "srebrniki", "złote korony"]
 
-    for entry_type in character_data["money"]:
-        if entry_type['name'] == money_type:
-            entry_type["amount"] += amount
-            break
+    if money_type not in money_list:
+        raise ValueError(f"Wrong money type: {money_type}. Choose one of: {money_list}")
+
+    match money_type:
+        case "okrawki":
+            character_data["money"][0]["okrawki"] += amount
+        case "miedziaki":
+            character_data["money"][1]["miedziaki"] += amount
+        case "srebrniki":
+            character_data["money"][2]["srebrniki"] += amount
+        case "złote korony":
+            character_data["money"][3]["złote korony"] += amount
 
     return character_data
 
@@ -504,9 +492,9 @@ def add_oddity(character_data: dict):
     return character_data
 
 
-character_data = build_hero(ancestry="human")
+character_data = build_hero(ancestry="automaton")
 add_wealth(character_data)
 add_oddity(character_data)
 change_choices_to_actions(character_data, is_random=True)
 bulk_update_attributes(character_data=character_data, is_random=True)
-print(character_data["general"]["language"])
+print(character_data)
