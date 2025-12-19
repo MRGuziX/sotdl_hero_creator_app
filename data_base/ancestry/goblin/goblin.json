@@ -1,16 +1,15 @@
 {
   "general": {
-    "ancestry_name": "Automaton",
-    "strength": 10,
-    "dexterity": 10,
+    "ancestry_name": "Goblin",
+    "strength": 8,
+    "dexterity": 12,
     "intelligence": 10,
-    "will": 10,
-    "perception": 10,
-    "defense": 10,
-    "health": 10,
+    "will": 9,
+    "perception": 11,
+    "defense": 12,
+    "health": 8,
     "healing_rate": 2,
     "size": [
-      1.0,
       0.5
     ],
     "speed": 10,
@@ -22,19 +21,34 @@
       {
         "name": "Wspólny",
         "known": false
+      },
+      {
+        "name": "Elficki",
+        "known": false
       }
     ]
   },
   "backstory": {},
   "talents": [
     {
-      "name": "",
-      "description": "",
+      "name": "Niewrażliwości",
+      "description": "zauroczenie, a także na choroby i pochodzące od nich obrażenia.",
       "level": 0
     },
     {
-      "name": "",
-      "description": ""
+      "name": "Wrażliwość na żelazo",
+      "description": "Jesteś osłabiony, gdy dotykasz żelaza.",
+      "level": 0
+    },
+    {
+      "name": "Widzenie w cieniu",
+      "description": "Widzisz w zacienionych obszarach tak samo dobrze jak w oświetlonych.",
+      "level": 0
+    },
+    {
+      "name": "Przebiegłość",
+      "description": "Testy Zręczności na ukrywanie się lub ciche poruszanie wykonujesz z 1 ułatwieniem.",
+      "level": 0
     }
   ],
   "professions": [],

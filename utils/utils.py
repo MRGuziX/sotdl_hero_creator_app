@@ -119,8 +119,8 @@ def build_hero(
                 past = get_from_ancestry(roll=roll_dice(1, 20), category="past", ancestry=ancestry)
                 _update_backstory(data, past)
 
-                character = get_from_ancestry(roll=roll_dice(3, 6), category="character", ancestry=ancestry)
-                _update_backstory(data, character)
+                personality = get_from_ancestry(roll=roll_dice(3, 6), category="personality", ancestry=ancestry)
+                _update_backstory(data, personality)
 
                 religion = get_from_ancestry(roll=roll_dice(3, 6), category="religion", ancestry=ancestry)
                 _update_backstory(data, religion)
@@ -134,6 +134,7 @@ def build_hero(
                 appearance = get_from_ancestry(roll=roll_dice(3, 6), category="appearance",
                                                ancestry=ancestry)
                 _update_backstory(data, appearance)
+
             case "automaton":
                 age = get_from_ancestry(roll=roll_dice(3, 6), category="age", ancestry=ancestry)
                 _update_backstory(data, age)
@@ -152,6 +153,117 @@ def build_hero(
 
                 past = get_from_ancestry(roll=roll_dice(1, 20), category="past", ancestry=ancestry)
                 _update_backstory(data, past)
+
+            case "goblin":
+                past = get_from_ancestry(roll=roll_dice(1, 20), category="past", ancestry=ancestry)
+                _update_backstory(data, past)
+
+                personality = get_from_ancestry(roll=roll_dice(3, 6), category="personality", ancestry=ancestry)
+                _update_backstory(data, personality)
+
+                quirk = get_from_ancestry(roll=roll_dice(3, 6), category="quirk", ancestry=ancestry)
+                _update_backstory(data, quirk)
+
+                age = get_from_ancestry(roll=roll_dice(3, 6), category="age", ancestry=ancestry)
+                _update_backstory(data, age)
+
+                body = get_from_ancestry(roll=roll_dice(3, 6), category="body", ancestry=ancestry)
+                _update_backstory(data, body)
+
+                appearance = get_from_ancestry(roll=roll_dice(1, 20), category="appearance",
+                                               ancestry=ancestry)
+                _update_backstory(data, appearance)
+
+            case "dwarf":
+                past = get_from_ancestry(roll=roll_dice(1, 20), category="past", ancestry=ancestry)
+                _update_backstory(data, past)
+
+                personality = get_from_ancestry(roll=roll_dice(3, 6), category="personality", ancestry=ancestry)
+                _update_backstory(data, personality)
+
+                quirk = get_from_ancestry(roll=roll_dice(1, 20), category="quirk", ancestry=ancestry)
+                _update_backstory(data, quirk)
+
+                age = get_from_ancestry(roll=roll_dice(3, 6), category="age", ancestry=ancestry)
+                _update_backstory(data, age)
+
+                body = get_from_ancestry(roll=roll_dice(3, 6), category="body", ancestry=ancestry)
+                _update_backstory(data, body)
+
+                appearance = get_from_ancestry(roll=roll_dice(3, 6), category="appearance",ancestry=ancestry)
+                _update_backstory(data, appearance)
+
+            case "orc":
+                past = get_from_ancestry(roll=roll_dice(1, 20), category="past", ancestry=ancestry)
+                _update_backstory(data, past)
+
+                personality = get_from_ancestry(roll=roll_dice(3, 6), category="personality", ancestry=ancestry)
+                _update_backstory(data, personality)
+
+                age = get_from_ancestry(roll=roll_dice(3, 6), category="age", ancestry=ancestry)
+                _update_backstory(data, age)
+
+                body = get_from_ancestry(roll=roll_dice(3, 6), category="body", ancestry=ancestry)
+                _update_backstory(data, body)
+
+                appearance = get_from_ancestry(roll=roll_dice(3, 6), category="appearance", ancestry=ancestry)
+                _update_backstory(data, appearance)
+
+            case "changeling":
+                origin = get_from_ancestry(roll=roll_dice(3, 6), category="origin", ancestry=ancestry)
+
+                if origin not in ["goblin","krasnolud","człowiek","ork"]:
+                    origin = random.choice(["goblin", "krasnolud", "człowiek", "ork"])
+                match origin:
+                    case "goblin":
+                        age = get_from_ancestry(roll=roll_dice(3, 6), category="age", ancestry="goblin")
+                        _update_backstory(data, age)
+
+                        body = get_from_ancestry(roll=roll_dice(3, 6), category="body", ancestry="goblin")
+                        _update_backstory(data, body)
+
+                        appearance = get_from_ancestry(roll=roll_dice(1, 20), category="appearance",
+                                                       ancestry="goblin")
+                        _update_backstory(data, appearance)
+                    case "krasnolud":
+                        age = get_from_ancestry(roll=roll_dice(3, 6), category="age", ancestry="dwarf")
+                        _update_backstory(data, age)
+
+                        body = get_from_ancestry(roll=roll_dice(3, 6), category="body", ancestry="dwarf")
+                        _update_backstory(data, body)
+
+                        appearance = get_from_ancestry(roll=roll_dice(3, 6), category="appearance", ancestry="dwarf")
+                        _update_backstory(data, appearance)
+                    case "człowiek":
+                        age = get_from_ancestry(roll=roll_dice(3, 6), category="age", ancestry="human")
+                        _update_backstory(data, age)
+
+                        body = get_from_ancestry(roll=roll_dice(3, 6), category="body", ancestry="human")
+                        _update_backstory(data, body)
+
+                        appearance = get_from_ancestry(roll=roll_dice(3, 6), category="appearance", ancestry="human")
+                        _update_backstory(data, appearance)
+                    case "ork":
+                        age = get_from_ancestry(roll=roll_dice(3, 6), category="age", ancestry="orc")
+                        _update_backstory(data, age)
+
+                        body = get_from_ancestry(roll=roll_dice(3, 6), category="body", ancestry="orc")
+                        _update_backstory(data, body)
+
+                        appearance = get_from_ancestry(roll=roll_dice(3, 6), category="appearance", ancestry="orc")
+                        _update_backstory(data, appearance)
+
+                personality = get_from_ancestry(roll=roll_dice(3, 6), category="personality", ancestry=ancestry)
+                _update_backstory(data, personality)
+
+                apparent_sex = get_from_ancestry(roll=roll_dice(1, 6), category="apparent_sex", ancestry=ancestry)
+                _update_backstory(data, apparent_sex)
+
+                true_age = get_from_ancestry(roll=roll_dice(3, 6), category="true_age", ancestry=ancestry)
+                _update_backstory(data, true_age)
+
+                oddity = get_from_ancestry(roll=roll_dice(3, 6), category="oddity", ancestry=ancestry)
+                _update_backstory(data, oddity)
 
     return data
 
@@ -176,16 +288,19 @@ def change_choices_to_actions(
     actions = []
     choices_pool = character_data.get("choices", [])
 
-    for pool in choices_pool:
-        if is_random:
-            # Randomly select an option
-            choice = random.choice(pool)
-        else:
-            pass
+    try:
+        for pool in choices_pool:
+            if is_random:
+                # Randomly select an option
+                choice = random.choice(pool)
+            else:
+                pass
 
-        user_action = {"add_attribute": choice}
-        character_data["actions"].append(user_action)
-        actions.append(user_action)
+            user_action = {"add_attribute": choice}
+            character_data["actions"].append(user_action)
+            actions.append(user_action)
+    except IndexError:
+        print("No choices left.")
 
     return character_data
 
@@ -492,7 +607,7 @@ def add_oddity(character_data: dict):
     return character_data
 
 
-character_data = build_hero(ancestry="automaton")
+character_data = build_hero(ancestry="changeling")
 add_wealth(character_data)
 add_oddity(character_data)
 change_choices_to_actions(character_data, is_random=True)

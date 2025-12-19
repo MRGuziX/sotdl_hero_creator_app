@@ -1,19 +1,18 @@
 {
   "general": {
-    "ancestry_name": "Automaton",
+    "ancestry_name": "Krasnolud",
     "strength": 10,
-    "dexterity": 10,
+    "dexterity": 9,
     "intelligence": 10,
     "will": 10,
-    "perception": 10,
+    "perception": 11,
     "defense": 10,
-    "health": 10,
-    "healing_rate": 2,
+    "health": 14,
+    "healing_rate": 3,
     "size": [
-      1.0,
       0.5
     ],
-    "speed": 10,
+    "speed": 8,
     "power": 0,
     "damage": 0,
     "insanity": 0,
@@ -22,19 +21,29 @@
       {
         "name": "Wspólny",
         "known": false
+      },
+      {
+        "name": "Krasnoludzki",
+        "known": true
       }
     ]
   },
   "backstory": {},
   "talents": [
     {
-      "name": "",
-      "description": "",
+      "name": "Widzenie w ciemności",
+      "description": "W obszarach spowitych cieniem lub mrokiem widzisz na średni zasięg tak samo dobrze jak w oświetlonych. Poza średnim zasięgiem widzisz w cieniu jak w świetle, a w mroku jak w cieniu.",
       "level": 0
     },
     {
-      "name": "",
-      "description": ""
+      "name": "Znienawidzony wróg",
+      "description": "Wybierz rodzaj stworzenia z tabeli Znienawidzone stworzenia. Wszystkie rzuty na atak przeciwko stworzeniom tego typu wykonujesz z 1 ułatwieniem.",
+      "level": 0
+    },
+    {
+      "name": "Naturalna odporność",
+      "description": "Otrzymujesz tylko połowę obrażeń od trucizny. Testy na uniknięcie lub pozbycie się zatrucia wykonujesz z 1 ułatwieniem",
+      "level": 0
     }
   ],
   "professions": [],
@@ -70,11 +79,6 @@
     }
   ],
   "actions": [
-    {
-      "add_attribute": {
-        "any": 1
-      }
-    },
     {
       "add_attribute": {
         "profession": "any"

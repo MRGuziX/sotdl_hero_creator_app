@@ -18,7 +18,7 @@
         { "roll": [17], "description": "Jesteś wysoki i chudy." },
         { "roll": [18], "description": "Jesteś bardzo wysoki i masywny." }
     ],
-    "trait": [
+    "appearance": [
         { "roll": [1], "description": "Masz długi, ostro zakończony nos." },
         { "roll": [2], "description": "Masz jaskrawozieloną lub jaskrawopomarańczową skórę." },
         { "roll": [3], "description": "Twoja głowa przypomina psią." },
