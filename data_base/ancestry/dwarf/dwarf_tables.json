@@ -1,0 +1,182 @@
+{
+    "age": [
+      { "roll": [3], "description": "Dziecko, 20 lat lub mniej." },
+      { "roll": [4, 5, 6, 7], "description": "Młodociany, 20–30 lat." },
+      { "roll": [8, 9, 10, 11, 12], "description": "Młody dorosły, 31–50 lat." },
+      { "roll": [13, 14, 15], "description": "Dorosły w średnim wieku, 51–100 lat." },
+      { "roll": [16, 17], "description": "Starszy dorosły, 101–150 lat." },
+      { "roll": [18], "description": "Sędziwy dorosły, 151 lat lub więcej." }
+    ],
+
+    "body": [
+      { "roll": [3], "description": "Jesteś niski i szczupły." },
+      { "roll": [4, 5, 6], "description": "Jesteś niski i gruby." },
+      { "roll": [7, 8], "description": "Jesteś odrobinę niższy niż inne krasnoludy." },
+      { "roll": [9, 10, 11, 12], "description": "Jesteś średniego wzrostu i wagi." },
+      { "roll": [13, 14, 15], "description": "Masz imponujący brzuch." },
+      { "roll": [16, 17], "description": "Jesteś wysoki." },
+      { "roll": [18], "description": "Jesteś wysoki i masywny." }
+    ],
+
+    "appearance": [
+      {
+        "roll": [3, 4],
+        "description": "Wyglądasz jak maszkarę, prawdopodobnie przez trudy życia i liczne spotkania z niebezpieczeństwem. Twoja twarz to jedna wielka blizna, pewnie brakuje ci również ucha, oka czy nosa. Masz też jakiś nietypowy nawyk, na przykład wybijanie ćwieków we własną czaszkę lub nacieranie skóry sadłem trolla."
+      },
+      {
+        "roll": [5, 6],
+        "description": "Masz kilka ciekawych cech, które sprawiają, że wyglądasz jak naprawdę paskudny zakapior. Brud z kopalni, wszy we włosach, skóra poorana bliznami czy też ostry zapach wymiocin – wszystko to składa się na twój wyjątkowy styl."
+      },
+      {
+        "roll": [7, 8],
+        "description": "Jesteś krępy, włochaty i niechlujny."
+      },
+      {
+        "roll": [9, 10, 11],
+        "description": "Wyglądasz jak typowy krasnolud – krępy, włochaty, ale zadbany."
+      },
+      {
+        "roll": [12, 13, 14, 15],
+        "description": "Twój wygląd jest dla ciebie powodem do dumy. Często się myjesz, a swoją zarost nacierasz olejkami, zaplatasz i zdobisz pierścieniami."
+      },
+      {
+        "roll": [16, 17, 18],
+        "description": "Jak na krasnoluda jesteś całkiem pociągający. Masz szlachetne rysy twarzy, głęboki głos i dobrze się nosisz. Twój wygląd jest dla ciebie powodem do dumy."
+      }
+    ],
+
+    "quirk": [
+      { "roll": [1, 2], "description": "Ogry" },
+      { "roll": [3, 4], "description": "Trogłodyci" },
+      { "roll": [5, 6], "description": "Zwierzołudzie" },
+      { "roll": [7, 8], "description": "Orki" },
+      { "roll": [9, 10], "description": "Gobliny" },
+      { "roll": [11, 12], "description": "Elfy" },
+      { "roll": [13, 14], "description": "Trolle" },
+      { "roll": [15, 16], "description": "Olbrzymy" },
+      { "roll": [17, 18], "description": "Smoki" },
+      { "roll": [19, 20], "description": "Demony" }
+    ],
+
+    "past": [
+      {
+        "roll": [1],
+        "description": "Dla bogactwa zaprzedałeś duszę diabłu, który oszukał cię i zostawił bez grosza. Zaczynasz grę z 1 punktem Szczęścia."
+      },
+      {
+        "roll": [2],
+        "description": "W sennej wizji ukazali ci się przodkowie i nakazali odszukać legendarny artefakt."
+      },
+      {
+        "roll": [3],
+        "description": "Przez przypadek zabiłeś kogoś bliskiego."
+      },
+      {
+        "roll": [4],
+        "description": "Zhańbiłeś swoje imię, kradnąc złoto należące do innego klanu."
+      },
+      {
+        "roll": [5],
+        "description": "Walczyłeś przeciw znienawidzonym stworzeniom i poniosłeś porażkę."
+      },
+      {
+        "roll": [6],
+        "description": "Zhańbiłeś siebie i swój klan. Żyjesz na wygnaniu, poszukując odkupienia, nawet jeśli ma nim być chwalebna śmierć."
+      },
+      {
+        "roll": [7],
+        "description": "Zostałeś pojmany przez znienawidzone stworzenia. Przez 2k6 lat byłeś ich niewolnikiem."
+      },
+      {
+        "roll": [8],
+        "description": "Znienawidzone przez ciebie stworzenia najechały twój dom i wybiły twój klan."
+      },
+      {
+        "roll": [9],
+        "description": "Przeżyłeś tąpnięcie w kopalni, od tamtej pory przebywanie pod ziemią wywołuje w tobie niepokój."
+      },
+      {
+        "roll": [10],
+        "description": "Utrzymujesz się z pracy w swojej profesji."
+      },
+      {
+        "roll": [11],
+        "description": "Jesteś zaprzysiężonym poddanym króla krasnoludów."
+      },
+      {
+        "roll": [12],
+        "description": "Jesteś utalentowanym rzemieślnikiem. Zyskujesz jedną profesję powiązaną z dowolnym rzemiosłem."
+      },
+      {
+        "roll": [13],
+        "description": "Odbyłeś wiele podróży w różne strony świata. Umiesz mówić w jednym dodatkowym języku."
+      },
+      {
+        "roll": [14],
+        "description": "Odziedziczyłeś po przodku topór lub młot bojowy."
+      },
+      {
+        "roll": [15],
+        "description": "Pod swoim domem we wnętrzu góry odkryłeś żyłę złota."
+      },
+      {
+        "roll": [16],
+        "description": "Wytropiłeś i pomogłeś zabić jedno ze swoich znienawidzonych stworzeń."
+      },
+      {
+        "roll": [17],
+        "description": "Dokonałeś wielkich czynów i jesteś bohaterem swojego klanu."
+      },
+      {
+        "roll": [18],
+        "description": "Posiadasz klucz do dawno zaginionego krasnoludzkiego skarbca."
+      },
+      {
+        "roll": [19],
+        "description": "Jesteś prawowitym dziedzicem twierdzy, która obecnie znajduje się w rękach wrogów twojego ludu."
+      },
+      {
+        "roll": [20],
+        "description": "Odziedziczyłeś w spadku pieniądze; zaczynasz grę z 2k6 miedziaków."
+      }
+    ],
+
+    "character": [
+      {
+        "roll": [3],
+        "description": "Twoja nienawiść jest niemalże sensem twojego życia. Motywuje cię, daje siłę i pomaga zwyciężać wrogów."
+      },
+      {
+        "roll": [4],
+        "description": "Poszukujesz chwalebnej śmierci w walce z wrogiem."
+      },
+      {
+        "roll": [5, 6],
+        "description": "Ponad wszystko kochasz złoto. Jego dotyk, smak i dźwięk, jaki wydaje."
+      },
+      {
+        "roll": [7, 8],
+        "description": "Jesteś przekonany, że inni pożądają twojego bogactwa. Twoim obowiązkiem jest chronić je za wszelką cenę."
+      },
+      {
+        "roll": [9, 10, 11, 12],
+        "description": "Twoim życiem kieruje honor. Nigdy nie zrobisz czegoś, co przyniosłoby hańbę twojemu ludowi."
+      },
+      {
+        "roll": [13, 14],
+        "description": "W życiu kierujesz się wolą przodków, tradycjami swojego ludu i dobrem ogółu."
+      },
+      {
+        "roll": [15, 16],
+        "description": "Uważasz, że krasnoludy powinny wyzbyć się chciwości i nieufności. W tych mrocznych czasach wszyscy muszą stanąć ramię w ramię, by stawić czoła nadciągającej zagładzie."
+      },
+      {
+        "roll": [17],
+        "description": "Nie lubisz przedstawicieli innych ras i nie ufasz im, choć czasem są przydatni."
+      },
+      {
+        "roll": [18],
+        "description": "Nie jesteś szczególnie przywiązany do krasnoludzkich tradycji. Nadszedł czas, by twój lud opuścił zakurzone jaskinie i zaczął budować swą przyszłość gdzieś indziej."
+      }
+    ]
+  }

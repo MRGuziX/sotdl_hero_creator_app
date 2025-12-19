@@ -18,7 +18,7 @@
         { "roll": [17], "description": "Jesteś wysoki i chudy." },
         { "roll": [18], "description": "Jesteś bardzo wysoki i masywny." }
     ],
-    "trait": [
+    "appearance": [
         { "roll": [1], "description": "Masz długi, ostro zakończony nos." },
         { "roll": [2], "description": "Masz jaskrawozieloną lub jaskrawopomarańczową skórę." },
         { "roll": [3], "description": "Twoja głowa przypomina psią." },
@@ -84,7 +84,7 @@
         { "roll": [19], "description": "Jesteś siedemnastym dzieckiem króla goblinów." },
         { "roll": [20], "description": "Odziedziczyłeś w spadku pieniądze; zaczynasz grę z 2k6 miedziaków.", "actions": { "add_attribute": { "coins": "2d6" } } }
     ],
-    "personality": [
+    "character": [
         { "roll": [3], "description": "Jesteś zbirem i lubisz nękać słabszych od siebie." },
         { "roll": [4], "description": "Lubisz przemoc, zwłaszcza bezsensowną." },
         { "roll": [5, 6], "description": "Starasz się porzucić umiłowanie brudu typowe dla twojego ludu i czynić na świecie dobro." },

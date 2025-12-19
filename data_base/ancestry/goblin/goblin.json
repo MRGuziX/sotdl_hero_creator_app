@@ -88,16 +88,20 @@
       "add_attribute": {
         "any": 1
       }
+    },
+    {
+      "add_attribute": {
+        "profession": "any"
+      }
+    },
+    {
+      "add_attribute": {
+        "profession": "any"
+      }
     }
   ],
   "choices": [
     [
-      {
-        "language": "any"
-      },
-      {
-        "profession": "any"
-      }
     ]
   ]
 }
