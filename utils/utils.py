@@ -534,7 +534,7 @@ def add_oddity(character_data: dict):
     return character_data
 
 
-character_data = build_hero(ancestry="goblin")
+character_data = build_hero(ancestry="orc")
 add_wealth(character_data)
 add_oddity(character_data)
 change_choices_to_actions(character_data, is_random=True)
