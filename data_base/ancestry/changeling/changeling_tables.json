@@ -1,0 +1,178 @@
+{
+    "true_age": [
+      { "roll": [3], "description": "Dziecko, 8 lat lub mniej." },
+      { "roll": [4, 5, 6, 7], "description": "Młodociany, 9–14 lat." },
+      { "roll": [8, 9, 10, 11, 12], "description": "Młody dorosły, 15–25 lat." },
+      { "roll": [13, 14, 15], "description": "Dorosły w średnim wieku, 26–40 lat." },
+      { "roll": [16, 17], "description": "Starszy dorosły, 41–60 lat." },
+      { "roll": [18], "description": "Sędziwy dorosły, 61 lat lub więcej." }
+    ],
+    "apparent_sex": [
+      { "roll": [1, 2, 3], "description": "Masz postać mężczyzny." },
+      { "roll": [4, 5, 6], "description": "Masz postać kobiety." }
+    ],
+    "origin": [
+      {
+        "roll": [3, 4],
+        "description": "goblin. Przejdź do opisu goblińskiego pochodzenia, by ustalić swój wiek, budowę ciała i wygląd."
+      },
+      {
+        "roll": [5, 6, 7],
+        "description": "krasnolud. Przejdź do opisu krasnoludzkiego pochodzenia, by ustalić swój wiek, budowę ciała i wygląd."
+      },
+      {
+        "roll": [8, 9, 10, 11, 12, 13, 14, 15],
+        "description": "człowiek. Przejdź do opisu ludzkiego pochodzenia, by ustalić swój wiek, budowę ciała i wygląd."
+      },
+      {
+        "roll": [16, 17],
+        "description": "ork. Przejdź do opisu orczego pochodzenia, by ustalić swój wiek, budowę ciała i wygląd."
+      },
+      {
+        "roll": [18],
+        "description": "Twój wiek, budowę ciała i wygląd ustala MG."
+      }
+    ],
+    "past": [
+      {
+        "roll": [1],
+        "description": "Dopiero niedawno odkryłeś swoją prawdziwą naturę i masz trudności z zaakceptowaniem nowego stanu rzeczy. Zaczynasz grę z 1 punktem Szaleństwa."
+      },
+      {
+        "roll": [2],
+        "description": "Pozostajesz nieświadomy tego, że jesteś odmieńcem. Uważasz swoje przybrane pochodzenie za prawdziwe. Zyskujesz dodatkową losową profesję. Dopóki nie zostaniesz obezwładniony lub nie dotkniesz po raz pierwszy żelaza, nie możesz korzystać z Kradzieży tożsamości."
+      },
+      {
+        "roll": [3],
+        "description": "Byłeś niewolnikiem jędzy, która zmuszała cię do czynienia niewysłowionego zła. Zaczynasz grę z 1 punktem Splugawienia."
+      },
+      {
+        "roll": [4],
+        "description": "Zabiłeś osobę, której tożsamość skradłeś, aby żyć jej życiem. Zaczynasz grę z 1 punktem Splugawienia."
+      },
+      {
+        "roll": [5],
+        "description": "Gdy twoi „rodzice” zdali sobie sprawę z tego, czym jesteś, wygnali cię z domu. Od tamtej pory musiałeś radzić sobie sam."
+      },
+      {
+        "roll": [6],
+        "description": "Uciekłeś z domu, gdy dowiedziałeś się, czym jesteś, i przez długie lata żyłeś wśród faerie."
+      },
+      {
+        "roll": [7],
+        "description": "Ściga cię łowca czarownic. Jeśli wasze drogi kiedyś się zejdą, będzie próbował cię zabić."
+      },
+      {
+        "roll": [8],
+        "description": "Zostałeś wygnany z rodzinnego miasteczka przez przerażonych twoją prawdziwą naturą mieszkańców. Znienawidziłeś ich za to i szukasz sposobu, by się zemścić."
+      },
+      {
+        "roll": [9],
+        "description": "Gdy po raz pierwszy skradłeś czyjąś tożsamość, poznałeś także kilka wspomnień tej osoby."
+      },
+      {
+        "roll": [10],
+        "description": "Utrzymujesz się z pracy w swojej profesji."
+      },
+      {
+        "roll": [11],
+        "description": "Zakochałeś się, ale obiekt twoich uczuć nie wie, kim naprawdę jesteś."
+      },
+      {
+        "roll": [12],
+        "description": "Wygnano cię z domu, ale zostałeś przygarnięty przez druida lub wiedźmę. Zawsze masz dokąd wrócić."
+      },
+      {
+        "roll": [13],
+        "description": "Pracowałeś dla inkwizycji jako informator."
+      },
+      {
+        "roll": [14],
+        "description": "Posiadasz formalne wykształcenie. Umiesz czytać i pisać w języku wspólnym."
+      },
+      {
+        "roll": [15],
+        "description": "Podszywając się pod kogoś, poznałeś straszliwy sekret. Ustal jego naturę wspólnie z mistrzem gry."
+      },
+      {
+        "roll": [16],
+        "description": "Rodzice wychowali cię mimo tego, że znali twoją prawdziwą naturę. Ich miłość i wsparcie pomogły ci ukształtować własną, dojrzałą osobowość."
+      },
+      {
+        "roll": [17],
+        "description": "Zostałeś niedawno odnaleziony przez swojego elfiego stwórcę. Zaprzyjaźniliście się; możesz raz poprosić o przysługę, mówiąc do muszli, którą otrzymałeś od niego w darze. Wielkość tej przysługi zależy od MG."
+      },
+      {
+        "roll": [18],
+        "description": "Przyjąłeś postać kogoś znanego, ważnego i wpływowego."
+      },
+      {
+        "roll": [19],
+        "description": "Zostałeś zwerbowany przez organizację przestępczą z uwagi na swój magiczny dar."
+      },
+      {
+        "roll": [20],
+        "description": "Odziedziczyłeś w spadku pieniądze; zaczynasz grę z 2k6 miedziaków."
+      }
+    ],
+    "oddity": [
+      { "roll": [1], "description": "Zawsze mówisz o sobie w trzeciej osobie." },
+      { "roll": [2], "description": "W ciemności twoje oczy świecą na zielono." },
+      { "roll": [3], "description": "Zwierzęta są podenerwowane, gdy jesteś w pobliżu." },
+      { "roll": [4], "description": "Możesz przybierać tylko męskie lub tylko żeńskie formy." },
+      { "roll": [5], "description": "Jesteś nieokrzesany i impulsywny." },
+      { "roll": [6], "description": "Zawsze powracasz do pierwszej postaci, jaką przybrałeś." },
+      { "roll": [7], "description": "Zapach żelaza przyprawia cię o mdłości." },
+      { "roll": [8], "description": "Nękają cię okropne koszmary." },
+      { "roll": [9], "description": "Czasem wydaje ci się, że słyszysz głosy." },
+      { "roll": [10], "description": "Często gubisz drobne, nieważne przedmioty." },
+      { "roll": [11], "description": "Co roku na jedną noc tracisz swój talent Kradzież tożsamości." },
+      { "roll": [12], "description": "Możesz przybierać postać wyłącznie martwych osób." },
+      { "roll": [13], "description": "Zawsze mówisz szeptem." },
+      { "roll": [14], "description": "Roztaczasz wokół siebie osobliwy, ziemisty zapach." },
+      { "roll": [15], "description": "Twoje ubrania są wiecznie brudne." },
+      { "roll": [16], "description": "Nie jesteś w stanie się upić." },
+      { "roll": [17], "description": "Zawsze mówisz prawdę (lub to, co uważasz za prawdę)." },
+      { "roll": [18], "description": "Brzydzisz się mięsa." },
+      { "roll": [19], "description": "Śmiejesz się w najmniej odpowiednich momentach." },
+      { "roll": [20], "description": "Formy, które przybierasz, nie mają włosów i paznokci." }
+    ],
+    "personality": [
+      {
+        "roll": [3],
+        "description": "Kradniesz cudzą tożsamość, by móc robić, co chcesz, i nie zważać na konsekwencje. Nie obchodzi cię, jak odbija się to na innych."
+      },
+      {
+        "roll": [4, 5],
+        "description": "Lubisz przybierać formy, które pozwalają ci psocić."
+      },
+      {
+        "roll": [6],
+        "description": "Przybierasz formy, które dają ci władzę nad innymi. Władza zapewnia ci bezpieczeństwo."
+      },
+      {
+        "roll": [7, 8, 9, 10],
+        "description": "Zmieniasz postać dla zysku, zwykle, by dostać się w miejsca, które inaczej byłyby dla ciebie niedostępne."
+      },
+      {
+        "roll": [11, 12, 13],
+        "description": "Jesteś bardzo ostrożny w kwestii zmiany postaci. Starasz się trzymać z dala od kłopotów i chronić swoje sekrety."
+      },
+      {
+        "roll": [14],
+        "description": "Chcesz czynić dobro, a swoje zdolności wykorzystywać, by pomagać innym i chronić się przed wrogami."
+      },
+      {
+        "roll": [15, 16],
+        "description": "Swoją naturę widzisz jako dar, który wykorzystujesz, by czynić to, co uważasz za słuszne, nawet jeśli ma ci to przysporzyć wrogów."
+      },
+      {
+        "roll": [17],
+        "description": "Starasz się trzymać jednej i tej samej postaci tak długo, jak to możliwe. Pragniesz stabilizacji i zrobiłbyś wszystko, by być „normalny”."
+      },
+      {
+        "roll": [18],
+        "description": "Swoje talenty wykorzystujesz, by pomagać innym, naprawiać krzywdy i czynić świat lepszym."
+      }
+    ]
+  }

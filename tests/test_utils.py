@@ -27,7 +27,7 @@ character_data = {
         "age": "Dorosły w średnim wieku, 36–55 lat.",
         "appearance": "Posiadasz kilka cech fizycznych, które dodają ci atrakcyjności.",
         "body": "Jesteś średniego wzrostu i wagi.",
-        "character": "Ponad wszystkim innym stawiasz dobro swoje i swoich bliskich.",
+        "personality": "Ponad wszystkim innym stawiasz dobro swoje i swoich bliskich.",
         "past": "Zakochałeś się; związek ten nadal trwa lub zakończył się dobrze.",
         "religion": "Jesteś wyznawcą Nowego Boga."
     },

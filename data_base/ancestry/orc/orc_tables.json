@@ -1,186 +1,361 @@
 {
-    "age": [
-      { "roll": [3], "description": "Dziecko, 8 lat lub mniej." },
-      { "roll": [4, 5, 6, 7], "description": "Młodociany, 8–12 lat." },
-      { "roll": [8, 9, 10, 11, 12], "description": "Młody dorosły, 13–18 lat." },
-      { "roll": [13, 14, 15], "description": "Dorosły w średnim wieku, 19–26 lat." },
-      { "roll": [16, 17], "description": "Starszy dorosły, 27–32 lat." },
-      { "roll": [18], "description": "Sędziwy dorosły, 33 lata lub więcej." }
-    ],
-
-    "body": [
-      { "roll": [3], "description": "Jesteś niski i żylasty." },
-      { "roll": [4], "description": "Jesteś niski i muskularny." },
-      { "roll": [5, 6], "description": "Jesteś niski." },
-      { "roll": [7, 8], "description": "Jesteś chudy." },
-      { "roll": [9, 10, 11, 12], "description": "Jesteś średniego wzrostu i wagi." },
-      { "roll": [13, 14], "description": "Jesteś otyły." },
-      { "roll": [15, 16], "description": "Jesteś wysoki." },
-      { "roll": [17], "description": "Jesteś wysoki i chudy." },
-      { "roll": [18], "description": "Jesteś olbrzymem wśród orków." }
-    ],
-
-    "appearance": [
-      {
-        "roll": [3, 4, 5],
-        "description": "Jesteś chodzącą groteską. Twoja twarz to jedna wielka blizna. Na całym ciele masz głębokie szramy, pozszywane niewprawnie rzemykami. Z otwartych ran leje się ropa. Cuchniesz kałem, krwią i zgnilizną."
-      },
-      {
-        "roll": [6, 7, 8],
-        "description": "Wyglądasz jak monstrum o twardych, prymitywnych rysach twarzy. Twoją grubą, twardą skórę pokrywają dziwne wykwity i paskudne, poszarpane blizny."
-      },
-      {
-        "roll": [9, 10, 11, 12],
-        "description": "Jesteś brzydki. Masz szeroką żuchwę, wystające kły, wydatne czoło i małe, głęboko osadzone oczy."
-      },
-      {
-        "roll": [13, 14, 15],
-        "description": "Masz typowy dla orka wygląd, jesteś brudny i zaniedbany."
-      },
-      {
-        "roll": [16, 17],
-        "description": "Masz trochę mniej bestialskie rysy, choć wyróżniasz się nietypowym kolorem skóry, gęstszą sierścią czy grubo ciosaną twarzą."
-      },
-      {
-        "roll": [18],
-        "description": "Zdecydowanie różnisz się od innych orków. Na twoim ciele nie ma charakterystycznych dla twoich współbraci blizn i ran, nie nękają cię też żadne choroby."
-      }
-    ],
-
-    "background": [
-      {
-        "roll": [1],
-        "description": "Z zimną krwią mordowałeś bezbronnych ludzi. Zyskaj 2 punkty Splugawienia.",
-        "actions": {
+  "age": [
+    {
+      "roll": [
+        3
+      ],
+      "description": "Dziecko, 8 lat lub mniej."
+    },
+    {
+      "roll": [
+        4,
+        5,
+        6,
+        7
+      ],
+      "description": "Młodociany, 8–12 lat."
+    },
+    {
+      "roll": [
+        8,
+        9,
+        10,
+        11,
+        12
+      ],
+      "description": "Młody dorosły, 13–18 lat."
+    },
+    {
+      "roll": [
+        13,
+        14,
+        15
+      ],
+      "description": "Dorosły w średnim wieku, 19–26 lat."
+    },
+    {
+      "roll": [
+        16,
+        17
+      ],
+      "description": "Starszy dorosły, 27–32 lat."
+    },
+    {
+      "roll": [
+        18
+      ],
+      "description": "Sędziwy dorosły, 33 lata lub więcej."
+    }
+  ],
+  "body": [
+    {
+      "roll": [
+        3
+      ],
+      "description": "Jesteś niski i żylasty."
+    },
+    {
+      "roll": [
+        4
+      ],
+      "description": "Jesteś niski i muskularny."
+    },
+    {
+      "roll": [
+        5,
+        6
+      ],
+      "description": "Jesteś niski."
+    },
+    {
+      "roll": [
+        7,
+        8
+      ],
+      "description": "Jesteś chudy."
+    },
+    {
+      "roll": [
+        9,
+        10,
+        11,
+        12
+      ],
+      "description": "Jesteś średniego wzrostu i wagi."
+    },
+    {
+      "roll": [
+        13,
+        14
+      ],
+      "description": "Jesteś otyły."
+    },
+    {
+      "roll": [
+        15,
+        16
+      ],
+      "description": "Jesteś wysoki."
+    },
+    {
+      "roll": [
+        17
+      ],
+      "description": "Jesteś wysoki i chudy."
+    },
+    {
+      "roll": [
+        18
+      ],
+      "description": "Jesteś olbrzymem wśród orków."
+    }
+  ],
+  "appearance": [
+    {
+      "roll": [
+        3,
+        4,
+        5
+      ],
+      "description": "Jesteś chodzącą groteską. Twoja twarz to jedna wielka blizna. Na całym ciele masz głębokie szramy, pozszywane niewprawnie rzemykami. Z otwartych ran leje się ropa. Cuchniesz kałem, krwią i zgnilizną."
+    },
+    {
+      "roll": [
+        6,
+        7,
+        8
+      ],
+      "description": "Wyglądasz jak monstrum o twardych, prymitywnych rysach twarzy. Twoją grubą, twardą skórę pokrywają dziwne wykwity i paskudne, poszarpane blizny."
+    },
+    {
+      "roll": [
+        9,
+        10,
+        11,
+        12
+      ],
+      "description": "Jesteś brzydki. Masz szeroką żuchwę, wystające kły, wydatne czoło i małe, głęboko osadzone oczy."
+    },
+    {
+      "roll": [
+        13,
+        14,
+        15
+      ],
+      "description": "Masz typowy dla orka wygląd, jesteś brudny i zaniedbany."
+    },
+    {
+      "roll": [
+        16,
+        17
+      ],
+      "description": "Masz trochę mniej bestialskie rysy, choć wyróżniasz się nietypowym kolorem skóry, gęstszą sierścią czy grubo ciosaną twarzą."
+    },
+    {
+      "roll": [
+        18
+      ],
+      "description": "Zdecydowanie różnisz się od innych orków. Na twoim ciele nie ma charakterystycznych dla twoich współbraci blizn i ran, nie nękają cię też żadne choroby."
+    }
+  ],
+  "past": [
+    {
+      "roll": [
+        1
+      ],
+      "description": "Z zimną krwią mordowałeś bezbronnych ludzi. Zyskaj 2 punkty Splugawienia.",
+      "actions": {
         "add_attribute": {
           "corruption": 2
         }
       }
-      },
-      {
-        "roll": [2],
-        "description": "Przez krótki czas byłeś opętany przez demona. Zyskaj 1 punkt Splugawienia.",
-        "actions": {
+    },
+    {
+      "roll": [
+        2
+      ],
+      "description": "Przez krótki czas byłeś opętany przez demona. Zyskaj 1 punkt Splugawienia.",
+      "actions": {
         "add_attribute": {
           "corruption": 1
         }
       }
-      },
-      {
-        "roll": [3],
-        "description": "Przez 1k6 lat ku uciesze tłumów walczyłeś przeciw innym orkom na arenie."
-      },
-      {
-        "roll": [4],
-        "description": "Pozostałeś lojalny wobec Imperium i walczyłeś przeciw innym orkom. Zostałeś naznaczony piętnem zdrajcy i wygnany."
-      },
-      {
-        "roll": [5],
-        "description": "Wskutek choroby straciłeś uszy i nos."
-      },
-      {
-        "roll": [6],
-        "description": "Przez 1k6 lat służyłeś przykuty do wioseł na galerze."
-      },
-      {
-        "roll": [7],
-        "description": "Zostałeś wykastrowany i postawiony na straży konkubin cesarza."
-      },
-      {
-        "roll": [8],
-        "description": "Połowę twojego ciała pokrywają blizny po oparzeniu magicznym ogniem."
-      },
-      {
-        "roll": [9],
-        "description": "Uciekłeś z niewoli i od tamtej pory żyłeś w dziczy."
-      },
-      {
-        "roll": [10],
-        "description": "Utrzymujesz się z pracy w swojej profesji."
-      },
-      {
-        "roll": [11],
-        "description": "Zakochałeś się w człowieku i twoja miłość została odtrącona."
-      },
-      {
-        "roll": [12],
-        "description": "Dorobiłeś się 3k6 dzieci. Rzuć jeszcze raz 3k6 i odejmij wynik od poprzedniego rzutu, by ustalić, ile z nich przeżyło (minimum 0)."
-      },
-      {
-        "roll": [13],
-        "description": "Odbyłeś wiele podróży w różne strony świata. Umiesz mówić jednym dodatkowym językiem."
-      },
-      {
-        "roll": [14],
-        "description": "Posiadasz formalne wykształcenie. Umiesz czytać i pisać w języku wspólnym."
-      },
-      {
-        "roll": [15],
-        "description": "Walczyłeś dzielnie w imię cesarza i za swoją odwagę zostałeś odznaczony."
-      },
-      {
-        "roll": [16],
-        "description": "Obroniłeś ważnego dygnitarza przed próbą zabójstwa."
-      },
-      {
-        "roll": [17],
-        "description": "Zostałeś oswobodzony przez człowieka, który darował ci wolność, byś szukał szczęścia w szerokim świecie."
-      },
-      {
-        "roll": [18],
-        "description": "Jednemu z zabitych wrogów zabrałeś miecz."
-      },
-      {
-        "roll": [19],
-        "description": "W snach nawiedzają cię Bogowie Krwi i Żelaza. Zaczynasz grę z 1 punktem Splugawienia.",
-        "actions": {
+    },
+    {
+      "roll": [
+        3
+      ],
+      "description": "Przez 1k6 lat ku uciesze tłumów walczyłeś przeciw innym orkom na arenie."
+    },
+    {
+      "roll": [
+        4
+      ],
+      "description": "Pozostałeś lojalny wobec Imperium i walczyłeś przeciw innym orkom. Zostałeś naznaczony piętnem zdrajcy i wygnany."
+    },
+    {
+      "roll": [
+        5
+      ],
+      "description": "Wskutek choroby straciłeś uszy i nos."
+    },
+    {
+      "roll": [
+        6
+      ],
+      "description": "Przez 1k6 lat służyłeś przykuty do wioseł na galerze."
+    },
+    {
+      "roll": [
+        7
+      ],
+      "description": "Zostałeś wykastrowany i postawiony na straży konkubin cesarza."
+    },
+    {
+      "roll": [
+        8
+      ],
+      "description": "Połowę twojego ciała pokrywają blizny po oparzeniu magicznym ogniem."
+    },
+    {
+      "roll": [
+        9
+      ],
+      "description": "Uciekłeś z niewoli i od tamtej pory żyłeś w dziczy."
+    },
+    {
+      "roll": [
+        10
+      ],
+      "description": "Utrzymujesz się z pracy w swojej profesji."
+    },
+    {
+      "roll": [
+        11
+      ],
+      "description": "Zakochałeś się w człowieku i twoja miłość została odtrącona."
+    },
+    {
+      "roll": [
+        12
+      ],
+      "description": "Dorobiłeś się 3k6 dzieci. Rzuć jeszcze raz 3k6 i odejmij wynik od poprzedniego rzutu, by ustalić, ile z nich przeżyło (minimum 0)."
+    },
+    {
+      "roll": [
+        13
+      ],
+      "description": "Odbyłeś wiele podróży w różne strony świata. Umiesz mówić jednym dodatkowym językiem."
+    },
+    {
+      "roll": [
+        14
+      ],
+      "description": "Posiadasz formalne wykształcenie. Umiesz czytać i pisać w języku wspólnym."
+    },
+    {
+      "roll": [
+        15
+      ],
+      "description": "Walczyłeś dzielnie w imię cesarza i za swoją odwagę zostałeś odznaczony."
+    },
+    {
+      "roll": [
+        16
+      ],
+      "description": "Obroniłeś ważnego dygnitarza przed próbą zabójstwa."
+    },
+    {
+      "roll": [
+        17
+      ],
+      "description": "Zostałeś oswobodzony przez człowieka, który darował ci wolność, byś szukał szczęścia w szerokim świecie."
+    },
+    {
+      "roll": [
+        18
+      ],
+      "description": "Jednemu z zabitych wrogów zabrałeś miecz."
+    },
+    {
+      "roll": [
+        19
+      ],
+      "description": "W snach nawiedzają cię Bogowie Krwi i Żelaza. Zaczynasz grę z 1 punktem Splugawienia.",
+      "actions": {
         "add_attribute": {
           "corruption": 1
         }
       }
-      },
-      {
-        "roll": [20],
-        "description": "Odziedziczyłeś w spadku pieniądze; zaczynasz grę z 2k6 miedziaków."
-      }
-    ],
-
-    "personality": [
-      {
-        "roll": [3],
-        "description": "Walczysz o oswobodzenie swojego ludu z niewoli."
-      },
-      {
-        "roll": [4],
-        "description": "Orki są kimś więcej niż tylko zabójcami, jakimi uczynił ich cesarz. Mają serca, dusze, marzenia i ambicje. Wierzysz, że musicie porzucić swą dziką naturę i odnaleźć własne miejsce w świecie."
-      },
-      {
-        "roll": [5, 6],
-        "description": "Świat zmierza ku zagładzie. I dobrze."
-      },
-      {
-        "roll": [7, 8],
-        "description": "Dbasz tylko o siebie; robisz, co chcesz, i bierzesz, co chcesz."
-      },
-      {
-        "roll": [9, 10, 11, 12],
-        "description": "Przepełnia cię żądza mordu!"
-      },
-      {
-        "roll": [13, 14],
-        "description": "Nigdy nie kwestionujesz rozkazów i wypełniasz je co do joty."
-      },
-      {
-        "roll": [15, 16],
-        "description": "Szukasz zemsty; zabijesz każdego, kto stanie ci na drodze."
-      },
-      {
-        "roll": [17],
-        "description": "Wierzysz, że powstałeś w określonym celu. Uwolniony z łańcuchów straciłeś sens życia."
-      },
-      {
-        "roll": [18],
-        "description": "Wierzysz, że twój lud dokonał w imię Imperium wielkiego zła. Starasz się naprawić te krzywdy."
-      }
-    ]
-  }
+    },
+    {
+      "roll": [
+        20
+      ],
+      "description": "Odziedziczyłeś w spadku pieniądze; zaczynasz grę z 2k6 miedziaków."
+    }
+  ],
+  "personality": [
+    {
+      "roll": [
+        3
+      ],
+      "description": "Walczysz o oswobodzenie swojego ludu z niewoli."
+    },
+    {
+      "roll": [
+        4
+      ],
+      "description": "Orki są kimś więcej niż tylko zabójcami, jakimi uczynił ich cesarz. Mają serca, dusze, marzenia i ambicje. Wierzysz, że musicie porzucić swą dziką naturę i odnaleźć własne miejsce w świecie."
+    },
+    {
+      "roll": [
+        5,
+        6
+      ],
+      "description": "Świat zmierza ku zagładzie. I dobrze."
+    },
+    {
+      "roll": [
+        7,
+        8
+      ],
+      "description": "Dbasz tylko o siebie; robisz, co chcesz, i bierzesz, co chcesz."
+    },
+    {
+      "roll": [
+        9,
+        10,
+        11,
+        12
+      ],
+      "description": "Przepełnia cię żądza mordu!"
+    },
+    {
+      "roll": [
+        13,
+        14
+      ],
+      "description": "Nigdy nie kwestionujesz rozkazów i wypełniasz je co do joty."
+    },
+    {
+      "roll": [
+        15,
+        16
+      ],
+      "description": "Szukasz zemsty; zabijesz każdego, kto stanie ci na drodze."
+    },
+    {
+      "roll": [
+        17
+      ],
+      "description": "Wierzysz, że powstałeś w określonym celu. Uwolniony z łańcuchów straciłeś sens życia."
+    },
+    {
+      "roll": [
+        18
+      ],
+      "description": "Wierzysz, że twój lud dokonał w imię Imperium wielkiego zła. Starasz się naprawić te krzywdy."
+    }
+  ]
+}
