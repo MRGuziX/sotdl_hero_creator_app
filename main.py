@@ -1,46 +1,36 @@
-# 1"""
-# 1. dostali karte postaci jako edytowalny PDF
-# 2. wybór poziomu postaci
-# 2a. Losowanie postaci..
-# 3. wybór pochodzenia (człowiekiem, orkiem)
-# 4. wybór klasy
-# 4. Wypisywanie informacji o postacji na forncie UI - FLASK
-# 5. Gdzie trzymamy dane o rzeczach ( zaklęcia, pochodzenia, talenty, języki itd)
-# 6. Rzucanie kostkami (losowanie z tabeli, wyciągnie informacji z JSONów)
-#
-#
-#
-#
-# ---
-# 1. random
-# - Poziomu [ ]
-# - Ścieżka [ ]
-# - pochodzenie [ ]
-#
-# ---
-# Obsługa suplementów
-#
-# """
-import json
-import pathlib
+from flask import Flask, render_template, request, send_file
+from utils.pdf_creator import fill_pdf_form
+import os
 
-from utils.utils import roll_dice, get_from_ancestry
+app = Flask(__name__)
 
+@app.route('/')
+def index():
+    ancestries = ["Człowiek", "Ork", "Goblin", "Automaton", "Krasnolud"]
+    return render_template('index.html', ancestries=ancestries)
 
-roll = roll_dice(1,20)
-desc, actions = get_from_ancestry(roll, "past", "human")
+@app.route('/generate_pdf', methods=['POST'])
+def generate_pdf():
+    # 1. Get ancestry from form
+    ancestry_label = request.form.get('ancestry')
+    mapping = {"Człowiek": "human", "Ork": "orc", "Goblin": "goblin", "Automaton": "automaton", "Krasnolud": "dwarf"}
+    internal_key = mapping.get(ancestry_label)
 
-project_root = pathlib.Path(__file__).parent
-path_template = project_root / "data_base" / "new_hero.json"
-new_hero_template = project_root / "output" / "new_human.json"
+    # 2. Build the hero data
+    hero_data = build_hero(ancestry=internal_key)
 
-with open(path_template, "r", encoding="utf-8") as file:
-    data = json.load(file)
+    # 3. Path to your template (create this file in your project)
+    template_path = os.path.join("utils", "hero_template.pdf")
 
-data.update(desc)
-data.update(actions)
-print(data)
+    # 4. Fill the PDF
+    pdf_buffer = fill_pdf_form(hero_data, template_path)
 
-with open(new_hero_template, "w", encoding="utf-8") as file:
-    json.dump(data,file, indent=4)
+    return send_file(
+        pdf_buffer,
+        as_attachment=True,
+        download_name=f"{ancestry_label}_bohater.pdf",
+        mimetype='application/pdf'
+    )
 
+if __name__ == '__main__':
+    app.run(debug=True)
