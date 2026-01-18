@@ -1,6 +1,4 @@
-import pytest
-
-from utils.pdf_creator import fill_pdf_form
+from utils.pdf_creator import fill_pdf
 from utils.utils import (
     add_profession,
     add_language,
@@ -9,8 +7,7 @@ from utils.utils import (
     add_money,
     add_armor,
     add_weapon,
-    add_shield, change_choices_to_actions, add_wealth, get_hero,
-)
+    add_shield, change_choices_to_actions, add_wealth, get_hero, )
 
 character_data = {
     "actions": [
@@ -100,20 +97,16 @@ character_data = {
     "wealth": "",
     "money": [
         {
-            "name": "okrawki",
-            "amount": 0
+            "okrawki": 0
         },
         {
-            "name": "miedziaki",
-            "amount": 0
+            "miedziaki": 0
         },
         {
-            "name": "srebrniki",
-            "amount": 0
+            "srebrniki": 0
         },
         {
-            "name": "złote korony",
-            "amount": 0
+            "złote korony": 0
         }
     ],
     "oddity": "",
@@ -208,3 +201,10 @@ def test_random_choices():
     choices = character_data["choices"]
     change_choices_to_actions(character_data=character_data, is_random=True)
 
+
+
+def test_fill_pdf():
+    import json
+    character_data = get_hero("changeling")
+    print(json.dumps(character_data, indent=4, ensure_ascii=False))
+    fill_pdf(character_data=character_data, output_path="hero_card.pdf")

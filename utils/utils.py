@@ -90,6 +90,8 @@ def build_hero(
         data = json.load(file)
 
     def _update_backstory(data: dict, backstory_type: tuple | dict) -> dict:
+        if backstory_type is None:
+            return data
         if isinstance(backstory_type, tuple):
             description, action = backstory_type  # it can be 'actions' or 'choices'
             data["backstory"].update(description)
