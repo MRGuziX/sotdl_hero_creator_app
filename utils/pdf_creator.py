@@ -42,10 +42,10 @@ def fill_pdf(character_data: dict, output_path: str = "hero_card.pdf"):
 
         "pochodzenie": str(general.get("ancestry_name", "")),
 
-        "okrawki": str(money[0].get("okrawki", "")) if str(money[0].get("okrawki", "")) == "0" else "",
-        "miedziaki": str(money[1].get("miedziaki", "")) if money[1].get("miedziaki", "") != "0" else "",
-        "srebro": str(money[2].get("srebrniki", "")) if money[2].get("srebrniki", "") != "0" else "",
-        "zloto": str(money[3].get("złote korony", "")) if money[3].get("złote korony", "") != "0" else "",
+        "okrawki": str(money[0].get("okrawki", "")) if money[0].get("okrawki") != 0 else "",
+        "miedziaki": str(money[1].get("miedziaki", "")) if money[1].get("miedziaki") != 0 else "",
+        "srebro": str(money[2].get("srebrniki", "")) if money[2].get("srebrniki") != 0 else "",
+        "zloto": str(money[3].get("złote korony", "")) if money[3].get("złote korony") != 0 else "",
 
         "plecak": str(equipment[3].get("backpack", "")) if len(equipment) > 3 else "",
 
@@ -74,12 +74,11 @@ def fill_pdf(character_data: dict, output_path: str = "hero_card.pdf"):
     weapons = equipment[0].get("weapons", []) if len(equipment) > 0 else []
     for i, weapon in enumerate(weapons):
         if i < 5:
-            fields[f"ekwipunek_{i + 1}"] = f"{weapon.get('name', '')} ({weapon.get('damage', '')})"
+            fields[f"ekwipunek_{i + 1}"] = weapon.get('name', '')
+            fields[f"obrazenia_{i + 1}"] = weapon.get('damage', '')
+            fields[f"cechy_{i + 1}"] = weapon.get('properties', '')
 
     writer.update_page_form_field_values(writer.pages[0], fields)
-
-    output_file = pathlib.Path(output_path)
-    output_file.parent.mkdir(parents=True, exist_ok=True)
 
     with open(output_path, "wb") as output_stream:
         writer.write(output_stream)

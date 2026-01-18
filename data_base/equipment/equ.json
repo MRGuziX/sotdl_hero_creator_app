@@ -54,7 +54,7 @@
       {
         "name": "Atak bez broni",
         "damage": "1",
-        "grip": "Dowolny",
+        "grip": "Chwyt dowolny",
         "properties": "Finezyjna",
         "price": "-",
         "availability": "-"
@@ -70,7 +70,7 @@
       {
         "name": "Młotek lub siekiera",
         "damage": "1k3",
-        "grip": "Dowolny",
+        "grip": "Chwyt dowolny",
         "properties": "Miotana, zasięg (bliski)",
         "price": "1 sr",
         "availability": "P"
@@ -78,7 +78,7 @@
       {
         "name": "Nóż lub sztylet",
         "damage": "1k3",
-        "grip": "Dowolny",
+        "grip": "Chwyt dowolny",
         "properties": "Finezyjna, miotana, zasięg (bliski)",
         "price": "5 md",
         "availability": "P"
@@ -110,7 +110,7 @@
       {
         "name": "Strzałka",
         "damage": "1",
-        "grip": "Dowolny",
+        "grip": "Chwyt dowolny",
         "properties": "Finezyjna, miotana, zasięg (bliski)",
         "price": "1 md",
         "availability": "P"
@@ -166,7 +166,7 @@
       {
         "name": "Kusza pistoletowa",
         "damage": "1k6",
-        "grip": "Dowolny",
+        "grip": "Chwyt dowolny",
         "properties": "Przeładowanie, używa bełtów, zasięg (bliski)",
         "price": "1 zk",
         "availability": "R"
@@ -174,7 +174,7 @@
       {
         "name": "Pistolet",
         "damage": "2k6",
-        "grip": "Dowolny",
+        "grip": "Chwyt dowolny",
         "properties": "Niewypał, przeładowanie, używa kul, zasięg (średni)",
         "price": "5 zk",
         "availability": "E"
@@ -182,7 +182,7 @@
       {
         "name": "Proca",
         "damage": "1k3",
-        "grip": "Dowolny",
+        "grip": "Chwyt dowolny",
         "properties": "Używa kamieni, zasięg (średni)",
         "price": "5 md",
         "availability": "P"
@@ -190,7 +190,7 @@
       {
         "name": "Buława",
         "damage": "1k6",
-        "grip": "Dowolny",
+        "grip": "Chwyt dowolny",
         "properties": "",
         "price": "5 sr",
         "availability": "P"
@@ -254,7 +254,7 @@
       {
         "name": "Bicz",
         "damage": "1k3",
-        "grip": "Dowolny",
+        "grip": "Chwyt dowolny",
         "properties": "Dalekosiężna +1, finezyjna",
         "price": "5 sr",
         "availability": "N"
@@ -262,7 +262,7 @@
       {
         "name": "Łańcuch, kordelas, długi nóż, karczownik lub mizerykordia",
         "damage": "1k3",
-        "grip": "Dowolny",
+        "grip": "Chwyt dowolny",
         "properties": "Finezyjna",
         "price": "5 md",
         "availability": "P"
@@ -296,7 +296,7 @@
       {
         "name": "Mała tarcza",
         "damage": "1",
-        "grip": "Dowolny",
+        "grip": "Chwyt dowolny",
         "properties": "Defensywna +1",
         "price": "5 md",
         "availability": "P"
@@ -304,7 +304,7 @@
       {
         "name": "Duża tarcza",
         "damage": "1k3",
-        "grip": "Dowolny",
+        "grip": "Chwyt dowolny",
         "properties": "Defensywna +2, Rozmiar 1",
         "price": "1 sr",
         "availability": "P",
