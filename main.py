@@ -1,6 +1,8 @@
 from flask import Flask, render_template, request, send_file
-from utils.pdf_creator import fill_pdf_form
+from utils.pdf_creator import fill_pdf
 import os
+
+from utils.utils import build_hero
 
 app = Flask(__name__)
 
@@ -23,7 +25,7 @@ def generate_pdf():
     template_path = os.path.join("utils", "hero_template.pdf")
 
     # 4. Fill the PDF
-    pdf_buffer = fill_pdf_form(hero_data, template_path)
+    pdf_buffer = fill_pdf(hero_data, template_path)
 
     return send_file(
         pdf_buffer,

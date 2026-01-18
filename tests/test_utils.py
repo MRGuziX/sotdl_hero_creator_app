@@ -1,4 +1,6 @@
+import pytest
 
+from utils.pdf_creator import fill_pdf_form
 from utils.utils import (
     add_profession,
     add_language,
@@ -7,7 +9,7 @@ from utils.utils import (
     add_money,
     add_armor,
     add_weapon,
-    add_shield, change_choices_to_actions, add_wealth,
+    add_shield, change_choices_to_actions, add_wealth, get_hero,
 )
 
 character_data = {
