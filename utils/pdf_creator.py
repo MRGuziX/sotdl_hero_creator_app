@@ -52,6 +52,7 @@ def fill_pdf(character_data: dict, output_path: str = "hero_card.pdf"):
         "wyglad": str(backstory.get("appearance", "")) + " " + str(backstory.get("body", "")) + " " + str(
             backstory.get("age", "")),
         "osobowosc": str(backstory.get("personality", "")),
+        "zamoznosc": str(character_data.get("wealth","")).split(":")[0],
     }
 
     notatki_parts = []
