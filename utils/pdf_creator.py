@@ -83,3 +83,4 @@ def fill_pdf(character_data: dict, output_path: str = "../output/hero_card.pdf")
 
     with open(output_path, "wb") as output_stream:
         writer.write(output_stream)
+    return output_path

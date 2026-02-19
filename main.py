@@ -1,38 +1,50 @@
-from flask import Flask, render_template, request, send_file
-from utils.pdf_creator import fill_pdf
+from flask import Flask, render_template, send_file, redirect, url_for
+import random
 import os
-
-from utils.utils import build_hero
+from utils.utils import get_hero
+from utils.pdf_creator import fill_pdf
 
 app = Flask(__name__)
 
+ANCESTRIES = ["human", "automaton", "goblin", "dwarf", "orc", "changeling"]
+
 @app.route('/')
 def index():
-    ancestries = ["Człowiek", "Ork", "Goblin", "Automaton", "Krasnolud"]
-    return render_template('index.html', ancestries=ancestries)
+    return render_template('index.html')
 
-@app.route('/generate_pdf', methods=['POST'])
-def generate_pdf():
-    # 1. Get ancestry from form
-    ancestry_label = request.form.get('ancestry')
-    mapping = {"Człowiek": "human", "Ork": "orc", "Goblin": "goblin", "Automaton": "automaton", "Krasnolud": "dwarf"}
-    internal_key = mapping.get(ancestry_label)
-
-    # 2. Build the hero data
-    hero_data = build_hero(ancestry=internal_key)
-
-    # 3. Path to your template (create this file in your project)
-    template_path = os.path.join("utils", "hero_template.pdf")
-
-    # 4. Fill the PDF
-    pdf_buffer = fill_pdf(hero_data, template_path)
-
+@app.route('/roll/<ancestry>')
+def roll(ancestry):
+    if ancestry not in ANCESTRIES:
+        return "Invalid ancestry", 400
+    
+    # 1. Roll a character
+    hero_data = get_hero(ancestry)
+    
+    # 2. Define output path (ensure output directory exists)
+    project_root = os.path.dirname(os.path.abspath(__file__))
+    output_dir = os.path.join(project_root, "output")
+    if not os.path.exists(output_dir):
+        os.makedirs(output_dir)
+        
+    output_path = os.path.join(output_dir, "hero_card.pdf")
+    
+    # 3. Fill the PDF
+    # Since fill_pdf in utils/pdf_creator.py uses a default path that might not be correct relative to main.py,
+    # we explicitly pass the absolute path.
+    fill_pdf(hero_data, output_path)
+    
+    # 4. Return the filled PDF
     return send_file(
-        pdf_buffer,
+        output_path,
         as_attachment=True,
-        download_name=f"{ancestry_label}_bohater.pdf",
+        download_name=f"{ancestry}_hero.pdf",
         mimetype='application/pdf'
     )
+
+@app.route('/roll_random')
+def roll_random():
+    random_ancestry = random.choice(ANCESTRIES)
+    return redirect(url_for('roll', ancestry=random_ancestry))
 
 if __name__ == '__main__':
     app.run(debug=True)

@@ -203,4 +203,10 @@ def test_get_hero():
 
 def test_create_hero():
     hero = get_hero("orc")
-    fill_pdf(hero)
+    import os
+    output_dir = os.path.join(os.getcwd(), "output")
+    if not os.path.exists(output_dir):
+        os.makedirs(output_dir)
+    output_path = os.path.join(output_dir, "test_hero.pdf")
+    fill_pdf(hero, output_path)
+    assert os.path.exists(output_path)
