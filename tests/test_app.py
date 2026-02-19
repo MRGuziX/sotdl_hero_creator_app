@@ -1,6 +1,6 @@
 import pytest
 import os
-from main import app
+from main import app, OUTPUT_PATH
 
 @pytest.fixture
 def client():
@@ -62,14 +62,12 @@ def test_download_current_route(client):
 def test_download_no_hero(client):
     """Test if download current returns 404 if no hero exists."""
     import os
-    project_root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-    output_path = os.path.join(project_root, "output", "hero_card.pdf")
     
     # Temporarily rename file if it exists
-    backup_path = output_path + ".bak"
-    exists = os.path.exists(output_path)
+    backup_path = OUTPUT_PATH + ".bak"
+    exists = os.path.exists(OUTPUT_PATH)
     if exists:
-        os.rename(output_path, backup_path)
+        os.rename(OUTPUT_PATH, backup_path)
     
     try:
         response = client.get('/download_current')
@@ -77,9 +75,9 @@ def test_download_no_hero(client):
         assert b"No hero generated yet" in response.data
     finally:
         if exists:
-            if os.path.exists(output_path):
-                os.remove(output_path)
-            os.rename(backup_path, output_path)
+            if os.path.exists(OUTPUT_PATH):
+                os.remove(OUTPUT_PATH)
+            os.rename(backup_path, OUTPUT_PATH)
 
 def test_roll_with_download_param(client):
     """Test if roll with download=1 returns attachment without re-rolling."""

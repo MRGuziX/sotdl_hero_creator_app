@@ -16,3 +16,10 @@ Credits
 
 License
 - Shadow of the Demon Lord and related terms are the property of their respective owners. This project is a fan-made utility for personal use and learning.
+
+## Deployment on Vercel
+This app is ready to be deployed on Vercel.
+1. Connect your GitHub repository to [Vercel](https://vercel.com/).
+2. Vercel will automatically detect the `vercel.json` and `requirements.txt` files.
+3. The app uses the `/tmp` directory for PDF generation, which is compatible with Vercel's serverless environment.
+4. **Note:** Since Vercel functions are stateless, the "Download Current" button may not work reliably if the function instance restarts between the generation and the download. It is recommended to use the download button immediately after generating the hero.
