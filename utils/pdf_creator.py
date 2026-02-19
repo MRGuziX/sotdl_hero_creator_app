@@ -50,7 +50,7 @@ def fill_pdf(character_data: dict, output_path: str = "../output/hero_card.pdf")
         "plecak": str(equipment[3].get("backpack", "")) if len(equipment) > 3 else "",
 
         "wyglad": str(backstory.get("appearance", "")) + " " + str(backstory.get("body", "")) + " " + str(
-            backstory.get("age", "")),
+            backstory.get("age", "") + " " + backstory.get("form", "")),
         "osobowosc": str(backstory.get("personality", "")),
         "zamoznosc": str(character_data.get("wealth","")).split(":")[0],
     }

@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>CWD - Generator Postaci</title>
+    <style>
+        .red-button {
+            background-color: #ff4d4d;
+            color: white;
+            padding: 15px 32px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 20px;
+            margin: 10px 2px;
+            cursor: pointer;
+            border: none;
+            border-radius: 8px;
+            font-weight: bold;
+        }
+        .red-button:hover {
+            background-color: #cc0000;
+        }
+        .ancestry-button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 24px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin: 4px 2px;
+            cursor: pointer;
+            border: none;
+            border-radius: 4px;
+        }
+        .ancestry-button:hover {
+            background-color: #45a049;
+        }
+        body {
+            background-color: #2c2c2c;
+            color: white;
+            font-family: Arial, sans-serif;
+        }
+        .container {
+            text-align: center;
+            margin-top: 50px;
+        }
+        .logo {
+            max-width: 600px;
+            height: auto;
+            margin-bottom: 30px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <img src="{{ url_for('static', filename='cwd_logo.png') }}" alt="CWD Logo" class="logo">
+        
+        <div>
+            <button onclick="rollHero('random')" class="red-button">roll random</button>
+        </div>
+        
+        <hr style="width: 50%; margin: 30px auto;">
+        
+        <h3>Choose Ancestry:</h3>
+        <div>
+            <button onclick="rollHero('human')" class="ancestry-button">Człowiek</button>
+            <button onclick="rollHero('automaton')" class="ancestry-button">Automaton</button>
+            <button onclick="rollHero('goblin')" class="ancestry-button">Goblin</button>
+            <button onclick="rollHero('dwarf')" class="ancestry-button">Krasnolud</button>
+            <button onclick="rollHero('orc')" class="ancestry-button">Ork</button>
+            <button onclick="rollHero('changeling')" class="ancestry-button">Odmieniec</button>
+        </div>
+
+        <div id="preview-container" style="display: none; margin-top: 30px;">
+            <h3>Your Hero:</h3>
+            <iframe id="hero-frame" src="" width="80%" height="800px" style="border: 1px solid #ccc; background-color: white;"></iframe>
+            <div style="margin-top: 20px;">
+                <a id="download-btn" href="#" class="red-button" style="background-color: #4CAF50;">Save to PC</a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function rollHero(ancestry) {
+            const previewContainer = document.getElementById('preview-container');
+            const iframe = document.getElementById('hero-frame');
+            const downloadBtn = document.getElementById('download-btn');
+            const timestamp = new Date().getTime();
+            
+            if (ancestry === 'random') {
+                iframe.src = `/roll_random?t=${timestamp}`;
+                downloadBtn.href = `/download_current`;
+            } else {
+                iframe.src = `/roll/${ancestry}?t=${timestamp}`;
+                downloadBtn.href = `/roll/${ancestry}?download=1`;
+            }
+            
+            previewContainer.style.display = 'block';
+            
+            // Scroll to preview
+            setTimeout(() => {
+                previewContainer.scrollIntoView({ behavior: 'smooth' });
+            }, 100);
+        }
+    </script>
+</body>
+</html>
