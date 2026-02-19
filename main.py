@@ -1,46 +1,66 @@
-# 1"""
-# 1. dostali karte postaci jako edytowalny PDF
-# 2. wybór poziomu postaci
-# 2a. Losowanie postaci..
-# 3. wybór pochodzenia (człowiekiem, orkiem)
-# 4. wybór klasy
-# 4. Wypisywanie informacji o postacji na forncie UI - FLASK
-# 5. Gdzie trzymamy dane o rzeczach ( zaklęcia, pochodzenia, talenty, języki itd)
-# 6. Rzucanie kostkami (losowanie z tabeli, wyciągnie informacji z JSONów)
-#
-#
-#
-#
-# ---
-# 1. random
-# - Poziomu [ ]
-# - Ścieżka [ ]
-# - pochodzenie [ ]
-#
-# ---
-# Obsługa suplementów
-#
-# """
-import json
-import pathlib
+from flask import Flask, render_template, send_file, redirect, url_for, request
+import random
+import os
+from utils.utils import get_hero
+from utils.pdf_creator import fill_pdf
 
-from utils.utils import roll_dice, get_from_ancestry
+app = Flask(__name__, static_folder='pictures', static_url_path='/static')
 
+ANCESTRIES = ["human", "automaton", "goblin", "dwarf", "orc", "changeling"]
 
-roll = roll_dice(1,20)
-desc, actions = get_from_ancestry(roll, "past", "human")
+@app.route('/')
+def index():
+    return render_template('index.html')
 
-project_root = pathlib.Path(__file__).parent
-path_template = project_root / "data_base" / "new_hero.json"
-new_hero_template = project_root / "output" / "new_human.json"
+@app.route('/roll/<ancestry>')
+def roll(ancestry):
+    if ancestry not in ANCESTRIES:
+        return "Invalid ancestry", 400
+    
+    # Check if download is requested
+    download = request.args.get('download', '0') == '1'
+    
+    project_root = os.path.dirname(os.path.abspath(__file__))
+    output_path = os.path.join(project_root, "output", "hero_card.pdf")
 
-with open(path_template, "r", encoding="utf-8") as file:
-    data = json.load(file)
+    if not download:
+        # 1. Roll a character (only if not downloading existing one)
+        hero_data = get_hero(ancestry)
+        
+        # 2. Define output path (ensure output directory exists)
+        output_dir = os.path.dirname(output_path)
+        if not os.path.exists(output_dir):
+            os.makedirs(output_dir)
+            
+        # 3. Fill the PDF
+        fill_pdf(hero_data, output_path)
+    
+    # 4. Return the filled PDF
+    return send_file(
+        output_path,
+        as_attachment=download,
+        download_name=f"{ancestry}_hero.pdf",
+        mimetype='application/pdf'
+    )
 
-data.update(desc)
-data.update(actions)
-print(data)
+@app.route('/roll_random')
+def roll_random():
+    random_ancestry = random.choice(ANCESTRIES)
+    return redirect(url_for('roll', ancestry=random_ancestry, **request.args))
 
-with open(new_hero_template, "w", encoding="utf-8") as file:
-    json.dump(data,file, indent=4)
+@app.route('/download_current')
+def download_current():
+    project_root = os.path.dirname(os.path.abspath(__file__))
+    output_path = os.path.join(project_root, "output", "hero_card.pdf")
+    if not os.path.exists(output_path):
+        return "No hero generated yet", 404
+    
+    return send_file(
+        output_path,
+        as_attachment=True,
+        download_name="hero_card.pdf",
+        mimetype='application/pdf'
+    )
 
+if __name__ == '__main__':
+    app.run(debug=True)

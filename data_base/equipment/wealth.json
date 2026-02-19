@@ -15,14 +15,20 @@
       "choices": [
         [
           {
-            "name": "pałka",
-            "damage": "1k3",
-            "spec": "1h"
+            "name": "Pałka",
+            "damage": "1k6",
+            "grip": "Jednoręczny",
+            "properties": "Finezyjna",
+            "price": "1 sr",
+            "availability": "P"
           },
           {
-            "name": "proca",
+            "name": "Proca",
             "damage": "1k3",
-            "spec": "ranged"
+            "grip": "Chwyt dowolny",
+            "properties": "Używa kamieni, zasięg (średni)",
+            "price": "5 md",
+            "availability": "P"
           }
         ]
       ]
@@ -44,14 +50,20 @@
       "choices": [
         [
           {
-            "name": "pałka",
-            "damage": "1k3",
-            "spec": "1h"
+            "name": "Pałka",
+            "damage": "1k6",
+            "grip": "Jednoręczny",
+            "properties": "Finezyjna",
+            "price": "1 sr",
+            "availability": "P"
           },
           {
-            "name": "proca",
+            "name": "Proca",
             "damage": "1k3",
-            "spec": "ranged"
+            "grip": "Chwyt dowolny",
+            "properties": "Używa kamieni, zasięg (średni)",
+            "price": "5 md",
+            "availability": "P"
           }
         ]
       ]
@@ -74,14 +86,20 @@
       "choices": [
         [
           {
-            "name": "pałka",
-            "damage": "1k3",
-            "spec": "1h"
+            "name": "Pałka",
+            "damage": "1k6",
+            "grip": "Jednoręczny",
+            "properties": "Finezyjna",
+            "price": "1 sr",
+            "availability": "P"
           },
           {
-            "name": "proca",
+            "name": "Proca",
             "damage": "1k3",
-            "spec": "ranged"
+            "grip": "Chwyt dowolny",
+            "properties": "Używa kamieni, zasięg (średni)",
+            "price": "5 md",
+            "availability": "P"
           }
         ]
       ]
@@ -102,14 +120,20 @@
       "choices": [
         [
           {
-            "name": "pałka",
-            "damage": "1k3",
-            "spec": "1h"
+            "name": "Pałka",
+            "damage": "1k6",
+            "grip": "Jednoręczny",
+            "properties": "Finezyjna",
+            "price": "1 sr",
+            "availability": "P"
           },
           {
-            "name": "proca",
+            "name": "Proca",
             "damage": "1k3",
-            "spec": "ranged"
+            "grip": "Chwyt dowolny",
+            "properties": "Używa kamieni, zasięg (średni)",
+            "price": "5 md",
+            "availability": "P"
           }
         ],
         [

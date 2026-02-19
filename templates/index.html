@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Sigmar+One&display=swap" rel="stylesheet">
+
+    <title>CWD - Generator Postaci</title>
+    <style>
+        .red-button {
+            background-color: #ff4d4d;
+            color: white;
+            padding: 15px 15px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 30px;
+            margin: 10px 2px;
+            cursor: pointer;
+            border: none;
+            border-radius: 16px;
+            font-weight: bold;
+            font-family: 'Sigmar One', cursive;
+        }
+        .red-button:hover {
+            background-color: #cc0000;
+        }
+        .ancestry-item {
+            position: relative;
+            display: inline-block;
+            margin: 10px;
+            cursor: pointer;
+            transition: transform 0.2s;
+            font-family: 'Sigmar One', cursive;
+        }
+        .ancestry-item:hover {
+            transform: scale(1.1);
+        }
+        .ancestry-img {
+            width: 240px;
+            height: auto;
+            display: block;
+        }
+        .ancestry-name {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 30px;
+            font-weight: bold;
+            color: black;
+            text-shadow: 2px 2px 4px white;
+            width: 100%;
+            text-align: center;
+            pointer-events: none;
+        }
+        body {
+            background-color: #2c2c2c;
+            color: white;
+            font-family: Arial, sans-serif;
+        }
+        .container {
+            text-align: center;
+            margin-top: 50px;
+        }
+        .logo {
+            max-width: 600px;
+            height: auto;
+            margin-bottom: 30px;
+        }
+        .footer {
+            margin-top: 50px;
+            padding-bottom: 20px;
+            font-size: 14px;
+            color: #888;
+            text-align: center;
+        }
+        .footer a {
+            color: #888;
+            text-decoration: underline;
+        }
+        .footer a:hover {
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <img src="{{ url_for('static', filename='cwd_logo.png') }}" alt="CWD Logo" class="logo">
+        
+        <div>
+            <button onclick="rollHero('random')" class="red-button">Generuj losowo</button>
+        </div>
+        
+        <hr style="width: 50%; margin: 30px auto;">
+        
+        <h3>Wybierz pochodzenie postaci:</h3>
+        <div style="display: flex; justify-content: center; flex-wrap: wrap;">
+            <div onclick="rollHero('human')" class="ancestry-item">
+                <img src="{{ url_for('static', filename='ancestry_button.png') }}" alt="Człowiek" class="ancestry-img">
+                <span class="ancestry-name">Człowiek</span>
+            </div>
+            <div onclick="rollHero('automaton')" class="ancestry-item">
+                <img src="{{ url_for('static', filename='ancestry_button.png') }}" alt="Automaton" class="ancestry-img">
+                <span class="ancestry-name">Automaton</span>
+            </div>
+            <div onclick="rollHero('goblin')" class="ancestry-item">
+                <img src="{{ url_for('static', filename='ancestry_button.png') }}" alt="Goblin" class="ancestry-img">
+                <span class="ancestry-name">Goblin</span>
+            </div>
+            <div onclick="rollHero('dwarf')" class="ancestry-item">
+                <img src="{{ url_for('static', filename='ancestry_button.png') }}" alt="Krasnolud" class="ancestry-img">
+                <span class="ancestry-name">Krasnolud</span>
+            </div>
+            <div onclick="rollHero('orc')" class="ancestry-item">
+                <img src="{{ url_for('static', filename='ancestry_button.png') }}" alt="Ork" class="ancestry-img">
+                <span class="ancestry-name">Ork</span>
+            </div>
+            <div onclick="rollHero('changeling')" class="ancestry-item">
+                <img src="{{ url_for('static', filename='ancestry_button.png') }}" alt="Odmieniec" class="ancestry-img">
+                <span class="ancestry-name">Odmieniec</span>
+            </div>
+        </div>
+
+        <div id="preview-container" style="display: none; margin-top: 30px;">
+            <h3>Twoja Karta Postaci:</h3>
+            <iframe id="hero-frame" src="" width="80%" height="800px" style="border: 1px solid #ccc; background-color: white;"></iframe>
+            <div style="margin-top: 20px;">
+                <a id="download-btn" href="#" class="red-button" style="background-color: #4CAF50;">Zapisz na urządzeniu</a>
+            </div>
+        </div>
+        
+        <div class="footer">
+            Created by Tomasz Guzik, <a href="https://www.youtube.com/@Guzikologia" target="_blank">Guzikologia</a> | 2026
+        </div>
+    </div>
+
+    <script>
+        function rollHero(ancestry) {
+            const previewContainer = document.getElementById('preview-container');
+            const iframe = document.getElementById('hero-frame');
+            const downloadBtn = document.getElementById('download-btn');
+            const timestamp = new Date().getTime();
+            
+            if (ancestry === 'random') {
+                iframe.src = `/roll_random?t=${timestamp}`;
+                downloadBtn.href = `/download_current`;
+            } else {
+                iframe.src = `/roll/${ancestry}?t=${timestamp}`;
+                downloadBtn.href = `/roll/${ancestry}?download=1`;
+            }
+            
+            previewContainer.style.display = 'block';
+            
+            // Scroll to preview
+            setTimeout(() => {
+                previewContainer.scrollIntoView({ behavior: 'smooth' });
+            }, 100);
+        }
+    </script>
+</body>
+</html>

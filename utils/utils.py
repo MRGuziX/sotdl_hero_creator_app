@@ -90,6 +90,8 @@ def build_hero(
         data = json.load(file)
 
     def _update_backstory(data: dict, backstory_type: tuple | dict) -> dict:
+        if backstory_type is None:
+            return data
         if isinstance(backstory_type, tuple):
             description, action = backstory_type  # it can be 'actions' or 'choices'
             data["backstory"].update(description)
@@ -606,10 +608,14 @@ def add_oddity(character_data: dict):
             character_data["oddity"] = roll_range["description"]
     return character_data
 
+def get_hero(ancestry):
+    character_data = build_hero(ancestry=ancestry)
 
-character_data = build_hero(ancestry="changeling")
-add_wealth(character_data)
-add_oddity(character_data)
-change_choices_to_actions(character_data, is_random=True)
-bulk_update_attributes(character_data=character_data, is_random=True)
-print(character_data)
+    add_wealth(character_data)
+    add_oddity(character_data)
+
+    change_choices_to_actions(character_data, is_random=True)
+
+    bulk_update_attributes(character_data=character_data, is_random=True)
+    print(character_data)
+    return character_data
