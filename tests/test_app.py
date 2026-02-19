@@ -41,6 +41,12 @@ def test_static_logo(client):
     assert response.status_code == 200
     assert response.headers['Content-Type'] == 'image/png'
 
+def test_static_ancestry_button(client):
+    """Test if the ancestry button image is served from static directory."""
+    response = client.get('/static/ancestry_button.png')
+    assert response.status_code == 200
+    assert response.headers['Content-Type'] == 'image/png'
+
 def test_download_current_route(client):
     """Test if the download current route returns the last generated PDF."""
     # 1. Generate a hero
