@@ -3,7 +3,7 @@ import pathlib
 from pypdf import PdfReader, PdfWriter
 
 
-def fill_pdf(character_data: dict, output_path: str = "hero_card.pdf"):
+def fill_pdf(character_data: dict, output_path: str = "../output/hero_card.pdf"):
     project_root = pathlib.Path(__file__).parent.parent
     template_path = project_root / "data_base" / "card_no_color.pdf"
 

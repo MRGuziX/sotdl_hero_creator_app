@@ -1,5 +1,6 @@
 import pytest
 
+from utils.pdf_creator import fill_pdf
 from utils.utils import (
     roll_dice,
     get_from_ancestry,
@@ -199,3 +200,7 @@ def test_get_hero():
     hero = get_hero("orc")
     assert hero["general"]["ancestry_name"] == "Ork"
     assert hero["wealth"] != ""
+
+def test_create_hero():
+    hero = get_hero("orc")
+    fill_pdf(hero)
