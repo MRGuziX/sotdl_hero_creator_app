@@ -1,5 +1,6 @@
 from flask import Flask, render_template, send_file, redirect, url_for, request
 import random
+import tempfile
 import os
 from utils.utils import get_hero
 from utils.pdf_creator import fill_pdf
@@ -7,6 +8,9 @@ from utils.pdf_creator import fill_pdf
 app = Flask(__name__, static_folder='pictures', static_url_path='/static')
 
 ANCESTRIES = ["human", "automaton", "goblin", "dwarf", "orc", "changeling"]
+
+# Use /tmp for serverless environment compatibility
+OUTPUT_PATH = os.path.join(tempfile.gettempdir(), "hero_card.pdf")
 
 @app.route('/')
 def index():
@@ -20,24 +24,16 @@ def roll(ancestry):
     # Check if download is requested
     download = request.args.get('download', '0') == '1'
     
-    project_root = os.path.dirname(os.path.abspath(__file__))
-    output_path = os.path.join(project_root, "output", "hero_card.pdf")
-
     if not download:
         # 1. Roll a character (only if not downloading existing one)
         hero_data = get_hero(ancestry)
         
-        # 2. Define output path (ensure output directory exists)
-        output_dir = os.path.dirname(output_path)
-        if not os.path.exists(output_dir):
-            os.makedirs(output_dir)
-            
-        # 3. Fill the PDF
-        fill_pdf(hero_data, output_path)
+        # 2. Fill the PDF
+        fill_pdf(hero_data, OUTPUT_PATH)
     
-    # 4. Return the filled PDF
+    # 3. Return the filled PDF
     return send_file(
-        output_path,
+        OUTPUT_PATH,
         as_attachment=download,
         download_name=f"{ancestry}_hero.pdf",
         mimetype='application/pdf'
@@ -50,13 +46,11 @@ def roll_random():
 
 @app.route('/download_current')
 def download_current():
-    project_root = os.path.dirname(os.path.abspath(__file__))
-    output_path = os.path.join(project_root, "output", "hero_card.pdf")
-    if not os.path.exists(output_path):
+    if not os.path.exists(OUTPUT_PATH):
         return "No hero generated yet", 404
     
     return send_file(
-        output_path,
+        OUTPUT_PATH,
         as_attachment=True,
         download_name="hero_card.pdf",
         mimetype='application/pdf'
