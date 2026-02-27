@@ -72,17 +72,18 @@
   "actions": [
     {
       "add_attribute": {
-        "any": 1
+        "name": "any",
+        "value": 1
       }
     },
     {
       "add_profession": {
-        "profession": "any"
+        "name": "any"
       }
     },
     {
       "add_profession": {
-        "profession": "any"
+        "name": "any"
       }
     }
   ],

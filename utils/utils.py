@@ -280,7 +280,8 @@ def change_choices_to_actions(
     choices_pool = character_data.get("choices", [])
 
     try:
-        for entry_to_pick in choices_pool:
+        # We need to iterate over a copy of the list because we're modifying it
+        for entry_to_pick in choices_pool[:]:
             if is_random:
                 choice = random.choice(entry_to_pick)
                 character_data["actions"].append(choice)
@@ -313,20 +314,24 @@ def add_profession(
     if is_random:
         if name == "any":
             name = random.choice(professions_list)
-            if name == "naukowa":
-                add_language(
-                    name="any",
-                    known=True,
-                    character_data=character_data,
-                    is_random=is_random
-                )
 
-            for roll_value in professions[name]:
-                if roll in roll_value["roll"]:
-                    description = roll_value.get("description", "")
-                    if roll_value.get("add_attribute"):
-                        language = roll_value.get("add_attribute")['language']
-                        known = roll_value.get("add_attribute")['known']
+        if name == "naukowa":
+            add_language(
+                name="any",
+                known=True,
+                character_data=character_data,
+                is_random=is_random
+            )
+
+        for roll_value in professions[name]:
+            if roll in roll_value["roll"]:
+                description = roll_value.get("description", "")
+                # Handling old style if it still exists in professions
+                if roll_value.get("add_attribute"):
+                    attr_data = roll_value.get("add_attribute")
+                    if "language" in attr_data:
+                        language = attr_data['language']
+                        known = attr_data['known']
 
                         add_language(
                             name=language,
@@ -334,7 +339,7 @@ def add_profession(
                             character_data=character_data,
                             is_random=is_random
                         )
-                    character_data["professions"].append(description)
+                character_data["professions"].append(description)
 
     else:
         pass
@@ -425,11 +430,16 @@ def add_entry(
         character_data: dict,
         is_random: bool = False
 ) -> dict:
-    entry, info = list(entry.items())[0]
-    name = info.get("name", "")
-    value = info.get("value", "")
+    action_type, info = list(entry.items())[0]
 
-    if entry == "add_attribute":
+    if action_type == "add_attribute":
+        name = info.get("name")
+        value = info.get("value")
+        # Handle cases where value might be a string like "1d6"
+        if isinstance(value, str) and "d" in value:
+            num, sides = map(int, value.split("d"))
+            value = roll_dice(num, sides)
+
         add_attribute(
             name=name,
             value=value,
@@ -437,16 +447,20 @@ def add_entry(
             is_random=is_random
         )
 
-    if entry == "add_language":
+    if action_type == "add_language":
+        name = info.get("name")
+        known = info.get("known", False)
         add_language(
-            name=value,
+            name=name,
             character_data=character_data,
+            known=known,
             is_random=is_random
         )
 
-    if entry == "add_profession":
+    if action_type == "add_profession":
+        name = info.get("name")
         add_profession(
-            name=value,
+            name=name,
             character_data=character_data,
             is_random=is_random
         )

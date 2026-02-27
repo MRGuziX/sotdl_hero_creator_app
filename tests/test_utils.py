@@ -127,14 +127,16 @@ def character_data():
         "choices": [
             [
                 {
-                    "language": {
-                        "known": False,
-                        "name": "any"
+                    "add_language": {
+                        "name": "any",
+                        "known": False
                     }
                 },
                 {
-                    "profession": "any"
-                }
+                    "add_profession": {
+                        "name": "naukowa"
+                    }
+                },
             ]
         ]
     }

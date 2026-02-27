@@ -81,13 +81,13 @@
   ],
   "actions": [
     {
-      "add_attribute": {
-        "profession": "any"
+      "add_profession": {
+        "name": "any"
       }
     },
     {
-      "add_attribute": {
-        "profession": "any"
+      "add_profession": {
+        "name": "any"
       }
     }
   ],
