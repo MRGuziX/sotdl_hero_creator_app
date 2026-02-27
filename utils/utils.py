@@ -192,7 +192,7 @@ def build_hero(
                 body = get_from_ancestry(roll=roll_dice(3, 6), category="body", ancestry=ancestry)
                 _update_backstory(data, body)
 
-                appearance = get_from_ancestry(roll=roll_dice(3, 6), category="appearance",ancestry=ancestry)
+                appearance = get_from_ancestry(roll=roll_dice(3, 6), category="appearance", ancestry=ancestry)
                 _update_backstory(data, appearance)
 
             case "orc":
@@ -214,7 +214,7 @@ def build_hero(
             case "changeling":
                 origin = get_from_ancestry(roll=roll_dice(3, 6), category="origin", ancestry=ancestry)
 
-                if origin not in ["goblin","krasnolud","człowiek","ork"]:
+                if origin not in ["goblin", "krasnolud", "człowiek", "ork"]:
                     origin = random.choice(["goblin", "krasnolud", "człowiek", "ork"])
                 match origin:
                     case "goblin":
@@ -287,20 +287,16 @@ def change_choices_to_actions(
         :param character_data:
     """
 
-    actions = []
     choices_pool = character_data.get("choices", [])
 
     try:
-        for pool in choices_pool:
+        for entry_to_pick in choices_pool:
             if is_random:
-                # Randomly select an option
-                choice = random.choice(pool)
+                choice = random.choice(entry_to_pick)
+                character_data["actions"].append(choice)
+                character_data["choices"].remove(entry_to_pick)
             else:
                 pass
-
-            user_action = {"add_attribute": choice}
-            character_data["actions"].append(user_action)
-            actions.append(user_action)
     except IndexError:
         print("No choices left.")
 
@@ -607,6 +603,7 @@ def add_oddity(character_data: dict):
         if dice_roll in roll_range["roll"]:
             character_data["oddity"] = roll_range["description"]
     return character_data
+
 
 def get_hero(ancestry):
     character_data = build_hero(ancestry=ancestry)

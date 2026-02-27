@@ -51,15 +51,17 @@
         4
       ],
       "description": "Zostałeś stworzony do walki. Zwiększ swoją Siłę lub Zręczność o 2.",
-      "choices": [
-        [
-          {
+      "actions": [
+        {
+          "add_attribute": {
             "strength": 2
-          },
-          {
+          }
+        },
+        {
+          "add_attribute": {
             "dexterity": 2
           }
-        ]
+        }
       ]
     },
     {
@@ -84,15 +86,17 @@
         12
       ],
       "description": "Zostałeś stworzony do używania magii. Zwiększ swój Intelekt lub Wolę o 2.",
-      "choices": [
-        [
-          {
+      "actions": [
+        {
+          "add_attribute": {
             "intelligence": 2
-          },
-          {
+          }
+        },
+        {
+          "add_attribute": {
             "will": 2
           }
-        ]
+        }
       ]
     },
     {
@@ -103,15 +107,17 @@
         16
       ],
       "description": "Zostałeś stworzony do szpiegowania lub skrytobójstwa. Zwiększ swoją Zręczność lub Intelekt o 2.",
-      "choices": [
-        [
-          {
+      "actions": [
+        {
+          "add_attribute": {
             "intelligence": 2
-          },
-          {
+          }
+        },
+        {
+          "add_attribute": {
             "dexterity": 2
           }
-        ]
+        }
       ]
     },
     {
@@ -135,14 +141,18 @@
         3
       ],
       "description": "Niewielki, latający automaton. Zmniejsz swoje Zdrowie o 5 i Rozmiar do 1/2. Potrafisz latać, ale musisz zakończyć ruch lądowaniem, w przeciwnym wypadku spadasz na ziemię. Masz około 1 metra wzrostu i ważysz około 25 kilogramów.",
-      "actions": {
-        "add_attribute": {
-          "health": -5
+      "actions": [
+        {
+          "add_attribute": {
+            "health": -5
+          }
         },
-        "add_attribute": {
-          "size": 0.5
+        {
+          "add_attribute": {
+            "size": 0.5
+          }
         }
-      }
+      ]
     },
     {
       "roll": [
@@ -187,34 +197,46 @@
         17
       ],
       "description": "Duży, człekopodobny automaton. Zwiększ swój Rozmiar do 2, ale zmniejsz Prędkość i Obronę o 2. Masz około 3 metrów wzrostu i ważysz około 300 kilogramów.",
-      "actions": {
-        "add_attribute": {
-          "size": 2.0
+      "actions": [
+        {
+          "add_attribute": {
+            "size": 2.0
+          }
         },
-        "add_attribute": {
-          "speed": -2
+        {
+          "add_attribute": {
+            "speed": -2
+          }
         },
-        "add_attribute": {
-          "defence": -2
+        {
+          "add_attribute": {
+            "defence": -2
+          }
         }
-      }
+      ]
     },
     {
       "roll": [
         18
       ],
       "description": "Duży automaton od pasa w dół przypominający konia. Zwiększ swój Rozmiar do 2 i Prędkość o 2. Zmniejsz swoją Obronę o 3. Masz około 2 metrów wzrostu i długości, ważysz około 300 kilogramów.",
-      "actions": {
-        "add_attribute": {
-          "size": 2.0
+      "actions": [
+        {
+          "add_attribute": {
+            "size": 2.0
+          }
         },
-        "add_attribute": {
-          "speed": 2
+        {
+          "add_attribute": {
+            "speed": 2
+          }
         },
-        "add_attribute": {
-          "defence": -3
+        {
+          "add_attribute": {
+            "defence": -3
+          }
         }
-      }
+      ]
     }
   ],
   "appearance": [
@@ -360,14 +382,18 @@
         2
       ],
       "description": "Twoja dusza została wyrwana z Zaświatów, zanim zdążyła zapomnieć swoje poprzednie życie. Zaczynasz grę z 1k6 punktów Szaleństwa i zyskujesz dodatkową profesję.",
-      "actions": {
-        "add_attribute": {
-          "insanity": "1d6"
+      "actions": [
+        {
+          "add_attribute": {
+            "insanity": "1d6"
+          }
         },
-        "add_attribute": {
-          "profession": "any"
+        {
+          "add_attribute": {
+            "profession": "any"
+          }
         }
-      }
+      ]
     },
     {
       "roll": [
