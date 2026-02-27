@@ -27,10 +27,11 @@ def roll(ancestry):
 
     # Check if download is requested
     download = request.args.get('download', '0') == '1'
+    is_random = request.args.get('is_random', '1') == '1'
 
     if not download:
         # 1. Roll a character (only if not downloading existing one)
-        hero_data = get_hero(ancestry)
+        hero_data = get_hero(ancestry, is_random=is_random)
 
         # 2. Fill the PDF
         fill_pdf(hero_data, OUTPUT_PATH)

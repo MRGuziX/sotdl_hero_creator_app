@@ -10,7 +10,7 @@ from utils.utils import (
     change_choices_to_actions,
     add_profession,
     add_language,
-    add_attribute,
+    add_entry,
     bulk_update_attributes,
     add_wealth,
     add_money,
@@ -38,7 +38,7 @@ def character_data():
             "corruption": 0,
             "damage": 0,
             "defense": 10,
-            "dexterity": 11,
+            "dexterity": 10,
             "healing_rate": 2,
             "health": 10,
             "insanity": 0,
@@ -100,7 +100,30 @@ def character_data():
             }
         ],
         "talents": [],
-        "actions": [],
+        "actions": [
+            {
+                "add_attribute": {
+                    "name": "intelligence",
+                    "value": 5
+                }
+            },
+            {
+                "add_profession": {
+                    "name": "any"
+                }
+            },
+            {
+                "add_profession": {
+                    "name": "naukowa"
+                }
+            },
+            {
+                "add_language": {
+                    "name": "Wspólny",
+                    "known": False
+                }
+            }
+        ],
         "choices": [
             [
                 {
@@ -164,12 +187,12 @@ def test_add_language_new_write(character_data):
 
 def test_add_attribute_core(character_data):
     initial_strength = character_data["general"]["strength"]
-    add_attribute("strength", 2, character_data)
+    add_entry("strength", 2, character_data)
     assert character_data["general"]["strength"] == initial_strength + 2
 
 
 def test_add_attribute_any_random(character_data):
-    add_attribute("any", 1, character_data, is_random=True)
+    add_entry("any", 1, character_data, is_random=True)
     attrs = ["strength", "dexterity", "intelligence", "will"]
     assert any(character_data["general"][attr] > 10 for attr in attrs)
 
@@ -208,13 +231,6 @@ def test_add_wealth(character_data):
     assert character_data["wealth"] != ""
 
 
-def test_change_choices_to_actions(character_data):
-    character_data["choices"] = [[{"strength": 1}, {"dexterity": 1}]]
-    change_choices_to_actions(character_data, is_random=True)
-    assert len(character_data["actions"]) == 1
-    assert "add_attribute" in character_data["actions"][0]
-
-
 def test_bulk_update_attributes(character_data):
     character_data["actions"] = [{"add_attribute": {"strength": 2}}]
     bulk_update_attributes(character_data)
@@ -250,4 +266,40 @@ def test_create_hero():
 
 def test_choices_to_actions(character_data):
     change_choices_to_actions(character_data=character_data)
+    print(character_data)
+
+
+def test_bulk_actions(character_data):
+    bulk_update_attributes(character_data=character_data, is_random=True)
+
+    print(character_data)
+
+
+def test_add_entry(character_data):
+    actions = [
+        {
+            "add_attribute": {
+                "name": "any",
+                "value": 1
+            }
+        },
+        {
+            "add_profession": {
+                "name": "any"
+            }
+        },
+        {
+            "add_profession": {
+                "name": "naukowa"
+            }
+        },
+        {
+            "add_language": {
+                "name": "Wspólny",
+                "known": False
+            }
+        }
+    ]
+    for action in actions:
+        add_entry(entry=action, character_data=character_data)
     print(character_data)

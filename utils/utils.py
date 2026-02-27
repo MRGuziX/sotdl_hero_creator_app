@@ -80,13 +80,9 @@ def get_from_ancestry(
 
 def build_hero(
         ancestry: str,
-        hero_lvl: int = 0,
-        is_random: bool = True
 ) -> dict:
-    if is_random:
-        ancestry = random.choice(["human", "automaton", "goblin", "dwarf", "orc", "changeling"])
-        project_root = pathlib.Path(__file__).parent.parent
-        path_to_hero = project_root / "data_base" / "ancestry" / ancestry / f'{ancestry}.json'
+    project_root = pathlib.Path(__file__).parent.parent
+    path_to_hero = project_root / "data_base" / "ancestry" / ancestry / f"{ancestry}.json"
 
     with open(path_to_hero, "r", encoding="utf8") as file:
         data = json.load(file)
@@ -298,9 +294,9 @@ def change_choices_to_actions(
 
 
 def add_profession(
-        profession_type: str,
+        name: str,
         character_data: dict,
-        is_random: bool = False,
+        is_random: bool = True,
 ) -> None:
     project_root = pathlib.Path(__file__).parent.parent
     path_to_professions = project_root / "data_base" / "professions" / "profession_tables.json"
@@ -315,17 +311,17 @@ def add_profession(
     ]
 
     if is_random:
-        if profession_type == "any":
-            profession_type = random.choice(professions_list)
-            if profession_type == "naukowa":
+        if name == "any":
+            name = random.choice(professions_list)
+            if name == "naukowa":
                 add_language(
-                    language_type="any",
+                    name="any",
                     known=True,
                     character_data=character_data,
                     is_random=is_random
                 )
 
-            for roll_value in professions[profession_type]:
+            for roll_value in professions[name]:
                 if roll in roll_value["roll"]:
                     description = roll_value.get("description", "")
                     if roll_value.get("add_attribute"):
@@ -333,7 +329,7 @@ def add_profession(
                         known = roll_value.get("add_attribute")['known']
 
                         add_language(
-                            language_type=language,
+                            name=language,
                             known=known,
                             character_data=character_data,
                             is_random=is_random
@@ -346,7 +342,7 @@ def add_profession(
 
 
 def add_language(
-        language_type: str,
+        name: str,
         character_data: dict,
         known: bool = False,
         is_random: bool = False
@@ -369,31 +365,31 @@ def add_language(
 
     try:
         if is_random:
-            if known and language_type == "any":
+            if known and name == "any":
                 # learn to write in a language that you can speak
-                language_type = random.choice(languages_character_speak)
+                name = random.choice(languages_character_speak)
                 for lang in character_data["general"]["language"]:
-                    if lang['name'] == language_type:
+                    if lang['name'] == name:
                         lang.update(
-                            {'known': True, 'name': language_type}
+                            {'known': True, 'name': name}
                         )
-            elif not known and language_type == "any":
+            elif not known and name == "any":
                 # learn to speak in a language that you cannot speak
-                language_type = random.choice(possible_languages_to_learn)
+                name = random.choice(possible_languages_to_learn)
                 character_data["general"]["language"].append(
-                    {'known': False, 'name': language_type}
+                    {'known': False, 'name': name}
                 )
         else:
             if known:
                 print(languages_character_speak)
                 for lang in character_data["general"]["language"]:
-                    if lang['name'] == language_type:
+                    if lang['name'] == name:
                         lang.update(
-                            {'known': True, 'name': language_type}
+                            {'known': True, 'name': name}
                         )
-            elif not known and language_type not in possible_languages_to_learn:
+            elif not known and name not in possible_languages_to_learn:
                 character_data["general"]["language"].append(
-                    {'known': False, 'name': language_type}
+                    {'known': False, 'name': name}
                 )
     except IndexError as e:
         print(e)
@@ -401,36 +397,56 @@ def add_language(
 
 
 def add_attribute(
-        entry: str,
-        value: str | int,
+        name: str,
+        value: int,
         character_data: dict,
         is_random: bool = False
-) -> dict:
+):
     core_attributes_list = [
         "strength", "dexterity", "intelligence", "will"
     ]
     secondary_attributes_list = ["perception", "health", "defense", "healing_rate",
                                  "speed", "power", "damage", "insanity", "corruption"]
 
-    if entry in core_attributes_list or entry == "any":
-        if is_random and entry == "any":
-            entry = random.choice(core_attributes_list)
-        elif entry == "any":  # user needs to choose
-            entry = random.choice(core_attributes_list)
+    if name in core_attributes_list or name == "any":
+        if is_random and name == "any":
+            name = random.choice(core_attributes_list)
+        elif name == "any":  # user needs to choose
+            name = random.choice(core_attributes_list)
 
-        original_value = character_data['general'].get(entry)
-        character_data["general"][entry] = original_value + value
+        original_value = character_data['general'].get(name)
+        character_data["general"][name] = original_value + value
 
-    if entry == "language":
-        add_language(
-            language_type=value,
+    return character_data
+
+
+def add_entry(
+        entry: dict,
+        character_data: dict,
+        is_random: bool = False
+) -> dict:
+    entry, info = list(entry.items())[0]
+    name = info.get("name", "")
+    value = info.get("value", "")
+
+    if entry == "add_attribute":
+        add_attribute(
+            name=name,
+            value=value,
             character_data=character_data,
             is_random=is_random
         )
 
-    if entry == "profession":
+    if entry == "add_language":
+        add_language(
+            name=value,
+            character_data=character_data,
+            is_random=is_random
+        )
+
+    if entry == "add_profession":
         add_profession(
-            profession_type=value,
+            name=value,
             character_data=character_data,
             is_random=is_random
         )
@@ -444,15 +460,12 @@ def bulk_update_attributes(
 ) -> None:
     actions = character_data.get("actions")
 
-    for action in actions:
-        for entry, value in action.items():
-            for attribute, value in value.items():
-                add_attribute(
-                    entry=entry,
-                    value=value,
-                    character_data=character_data,
-                    is_random=is_random
-                )
+    for entry in actions:
+        add_entry(
+            entry=entry,
+            character_data=character_data,
+            is_random=is_random
+        )
 
     return character_data
 
@@ -595,7 +608,7 @@ def add_oddity(character_data: dict):
 
 
 def get_hero(ancestry, is_random):
-    character_data = build_hero(ancestry=ancestry, is_random=is_random)
+    character_data = build_hero(ancestry=ancestry)
 
     add_wealth(character_data)
     add_oddity(character_data)

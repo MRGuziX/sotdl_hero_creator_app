@@ -76,12 +76,12 @@
       }
     },
     {
-      "add_attribute": {
+      "add_profession": {
         "profession": "any"
       }
     },
     {
-      "add_attribute": {
+      "add_profession": {
         "profession": "any"
       }
     }

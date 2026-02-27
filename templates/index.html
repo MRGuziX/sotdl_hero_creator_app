@@ -22,9 +22,11 @@
             font-weight: bold;
             font-family: 'Sigmar One', cursive;
         }
+
         .red-button:hover {
             background-color: #cc0000;
         }
+
         .ancestry-item {
             position: relative;
             display: inline-block;
@@ -33,14 +35,17 @@
             transition: transform 0.2s;
             font-family: 'Sigmar One', cursive;
         }
+
         .ancestry-item:hover {
             transform: scale(1.1);
         }
+
         .ancestry-img {
             width: 240px;
             height: auto;
             display: block;
         }
+
         .ancestry-name {
             position: absolute;
             top: 50%;
@@ -54,20 +59,24 @@
             text-align: center;
             pointer-events: none;
         }
+
         body {
             background-color: #2c2c2c;
             color: white;
             font-family: Arial, sans-serif;
         }
+
         .container {
             text-align: center;
             margin-top: 50px;
         }
+
         .logo {
             max-width: 600px;
             height: auto;
             margin-bottom: 30px;
         }
+
         .footer {
             margin-top: 50px;
             padding-bottom: 20px;
@@ -75,90 +84,113 @@
             color: #888;
             text-align: center;
         }
+
         .footer a {
             color: #888;
             text-decoration: underline;
         }
+
         .footer a:hover {
             color: white;
+        }
+
+        .checkbox-container {
+            margin: 20px 0;
+            font-size: 20px;
+            font-family: 'Sigmar One', cursive;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .checkbox-container input {
+            width: 25px;
+            height: 25px;
+            cursor: pointer;
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <img src="{{ url_for('static', filename='cwd_logo.png') }}" alt="CWD Logo" class="logo">
-        
-        <div>
-            <button onclick="rollHero('random')" class="red-button">Generuj losowo</button>
-        </div>
-        
-        <hr style="width: 50%; margin: 30px auto;">
-        
-        <h3>Wybierz pochodzenie postaci:</h3>
-        <div style="display: flex; justify-content: center; flex-wrap: wrap;">
-            <div onclick="rollHero('human')" class="ancestry-item">
-                <img src="{{ url_for('static', filename='ancestry_button.png') }}" alt="Człowiek" class="ancestry-img">
-                <span class="ancestry-name">Człowiek</span>
-            </div>
-            <div onclick="rollHero('automaton')" class="ancestry-item">
-                <img src="{{ url_for('static', filename='ancestry_button.png') }}" alt="Automaton" class="ancestry-img">
-                <span class="ancestry-name">Automaton</span>
-            </div>
-            <div onclick="rollHero('goblin')" class="ancestry-item">
-                <img src="{{ url_for('static', filename='ancestry_button.png') }}" alt="Goblin" class="ancestry-img">
-                <span class="ancestry-name">Goblin</span>
-            </div>
-            <div onclick="rollHero('dwarf')" class="ancestry-item">
-                <img src="{{ url_for('static', filename='ancestry_button.png') }}" alt="Krasnolud" class="ancestry-img">
-                <span class="ancestry-name">Krasnolud</span>
-            </div>
-            <div onclick="rollHero('orc')" class="ancestry-item">
-                <img src="{{ url_for('static', filename='ancestry_button.png') }}" alt="Ork" class="ancestry-img">
-                <span class="ancestry-name">Ork</span>
-            </div>
-            <div onclick="rollHero('changeling')" class="ancestry-item">
-                <img src="{{ url_for('static', filename='ancestry_button.png') }}" alt="Odmieniec" class="ancestry-img">
-                <span class="ancestry-name">Odmieniec</span>
-            </div>
-        </div>
+<div class="container">
+    <img src="{{ url_for('static', filename='cwd_logo.png') }}" alt="CWD Logo" class="logo">
 
-        <div id="preview-container" style="display: none; margin-top: 30px;">
-            <h3>Twoja Karta Postaci:</h3>
-            <iframe id="hero-frame" src="" width="80%" height="800px" style="border: 1px solid #ccc; background-color: white;"></iframe>
-            <div style="margin-top: 20px;">
-                <a id="download-btn" href="#" class="red-button" style="background-color: #4CAF50;">Zapisz na urządzeniu</a>
-            </div>
+    <div class="checkbox-container">
+        <input type="checkbox" id="decision-checkbox">
+        <label for="decision-checkbox">Chce podejmować decyzje!</label>
+    </div>
+
+    <hr style="width: 50%; margin: 30px auto;">
+
+    <h3>Wybierz pochodzenie postaci:</h3>
+    <div style="display: flex; justify-content: center; flex-wrap: wrap;">
+        <div onclick="rollHero('human')" class="ancestry-item">
+            <img src="{{ url_for('static', filename='ancestry_button.png') }}" alt="Człowiek" class="ancestry-img">
+            <span class="ancestry-name">Człowiek</span>
         </div>
-        
-        <div class="footer">
-            Created by Tomasz Guzik, <a href="https://www.youtube.com/@Guzikologia" target="_blank">Guzikologia</a> |
-            Translation & publishing by Alis.Games, <a href="https://alisgames.pl/pl_PL/" target="_blank">Alis.Games</a> |
-            RPG game by Robert Shwalb, <a href="https://schwalbentertainment.com/shadow-of-the-demon-lord/" target="_blank">Schwalb Entertainment</a>
+        <div onclick="rollHero('automaton')" class="ancestry-item">
+            <img src="{{ url_for('static', filename='ancestry_button.png') }}" alt="Automaton" class="ancestry-img">
+            <span class="ancestry-name">Automaton</span>
+        </div>
+        <div onclick="rollHero('goblin')" class="ancestry-item">
+            <img src="{{ url_for('static', filename='ancestry_button.png') }}" alt="Goblin" class="ancestry-img">
+            <span class="ancestry-name">Goblin</span>
+        </div>
+        <div onclick="rollHero('dwarf')" class="ancestry-item">
+            <img src="{{ url_for('static', filename='ancestry_button.png') }}" alt="Krasnolud" class="ancestry-img">
+            <span class="ancestry-name">Krasnolud</span>
+        </div>
+        <div onclick="rollHero('orc')" class="ancestry-item">
+            <img src="{{ url_for('static', filename='ancestry_button.png') }}" alt="Ork" class="ancestry-img">
+            <span class="ancestry-name">Ork</span>
+        </div>
+        <div onclick="rollHero('changeling')" class="ancestry-item">
+            <img src="{{ url_for('static', filename='ancestry_button.png') }}" alt="Odmieniec" class="ancestry-img">
+            <span class="ancestry-name">Odmieniec</span>
         </div>
     </div>
 
-    <script>
-        function rollHero(ancestry) {
-            const previewContainer = document.getElementById('preview-container');
-            const iframe = document.getElementById('hero-frame');
-            const downloadBtn = document.getElementById('download-btn');
-            const timestamp = new Date().getTime();
-            
-            if (ancestry === 'random') {
-                iframe.src = `/roll_random?t=${timestamp}`;
-                downloadBtn.href = `/download_current`;
-            } else {
-                iframe.src = `/roll/${ancestry}?t=${timestamp}`;
-                downloadBtn.href = `/roll/${ancestry}?download=1`;
-            }
-            
-            previewContainer.style.display = 'block';
-            
-            // Scroll to preview
-            setTimeout(() => {
-                previewContainer.scrollIntoView({ behavior: 'smooth' });
-            }, 100);
+    <div id="preview-container" style="display: none; margin-top: 30px;">
+        <h3>Twoja Karta Postaci:</h3>
+        <iframe id="hero-frame" src="" width="80%" height="800px"
+                style="border: 1px solid #ccc; background-color: white;"></iframe>
+        <div style="margin-top: 20px;">
+            <a id="download-btn" href="#" class="red-button" style="background-color: #4CAF50;">Zapisz na urządzeniu</a>
+        </div>
+    </div>
+
+    <div class="footer">
+        Created by Tomasz Guzik, <a href="https://www.youtube.com/@Guzikologia" target="_blank">Guzikologia</a> |
+        Translation & publishing by Alis.Games, <a href="https://alisgames.pl/pl_PL/" target="_blank">Alis.Games</a> |
+        RPG game by Robert Shwalb, <a href="https://schwalbentertainment.com/shadow-of-the-demon-lord/" target="_blank">Schwalb
+        Entertainment</a>
+    </div>
+</div>
+
+<script>
+    function rollHero(ancestry) {
+        const previewContainer = document.getElementById('preview-container');
+        const iframe = document.getElementById('hero-frame');
+        const downloadBtn = document.getElementById('download-btn');
+        const isDecisionChecked = document.getElementById('decision-checkbox').checked;
+        const isRandom = isDecisionChecked ? '0' : '1';
+        const timestamp = new Date().getTime();
+
+        if (ancestry === 'random') {
+            iframe.src = `/roll_random?t=${timestamp}&is_random=${isRandom}`;
+            downloadBtn.href = `/download_current`;
+        } else {
+            iframe.src = `/roll/${ancestry}?t=${timestamp}&is_random=${isRandom}`;
+            downloadBtn.href = `/roll/${ancestry}?download=1&is_random=${isRandom}`;
         }
-    </script>
+
+        previewContainer.style.display = 'block';
+
+        // Scroll to preview
+        setTimeout(() => {
+            previewContainer.scrollIntoView({behavior: 'smooth'});
+        }, 100);
+    }
+</script>
 </body>
 </html>
