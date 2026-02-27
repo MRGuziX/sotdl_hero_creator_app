@@ -431,15 +431,10 @@ def add_entry(
         is_random: bool = False
 ) -> dict:
     action_type, info = list(entry.items())[0]
+    name = info.get("name")
+    value = info.get("value")
 
     if action_type == "add_attribute":
-        name = info.get("name")
-        value = info.get("value")
-        # Handle cases where value might be a string like "1d6"
-        if isinstance(value, str) and "d" in value:
-            num, sides = map(int, value.split("d"))
-            value = roll_dice(num, sides)
-
         add_attribute(
             name=name,
             value=value,
@@ -448,8 +443,7 @@ def add_entry(
         )
 
     if action_type == "add_language":
-        name = info.get("name")
-        known = info.get("known", False)
+        known = info.get("known", None)
         add_language(
             name=name,
             character_data=character_data,
