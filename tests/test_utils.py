@@ -249,5 +249,5 @@ def test_create_hero():
 
 
 def test_choices_to_actions(character_data):
-    change_choices_to_actions(character_data=character_data, is_random=True)
+    change_choices_to_actions(character_data=character_data)
     print(character_data)
