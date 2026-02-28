@@ -425,6 +425,25 @@ def add_attribute(
     return character_data
 
 
+def add_item(
+        name: str,
+        character_data: dict,
+        is_random: bool = False
+):
+    project_root = pathlib.Path(__file__).parent.parent
+    path_to_items = project_root / "data_base" / "items" / "items.json"
+
+    # if is_random:
+    #     item = random.choice(entry)
+    # else:
+    #     pass
+    # if isinstance(item, dict):
+    #     character_data['equipment'][3]['backpack'] += f', {str(item.get("name")).lower}'
+    #     character_data['equipment'][0]['weapons'].append(item)
+    # else:
+    #     character_data['equipment'][3]['backpack'] += f', {item}'
+
+
 def add_entry(
         entry: dict,
         character_data: dict,
@@ -452,8 +471,14 @@ def add_entry(
         )
 
     if action_type == "add_profession":
-        name = info.get("name")
         add_profession(
+            name=name,
+            character_data=character_data,
+            is_random=is_random
+        )
+
+    if action_type == "add_item":
+        add_item(
             name=name,
             character_data=character_data,
             is_random=is_random
@@ -478,7 +503,7 @@ def bulk_update_attributes(
     return character_data
 
 
-def add_wealth(character_data: dict):
+def add_wealth(character_data: dict, is_random: bool = True):
     dice_roll = roll_dice(3, 6)
 
     project_root = pathlib.Path(__file__).parent.parent
@@ -494,17 +519,14 @@ def add_wealth(character_data: dict):
         if dice_roll in roll_range["roll"]:
             if roll_range.get("backpack", ""):
                 character_data["wealth"] = roll_range["description"]
+
             if roll_range.get("backpack", ""):
                 character_data['equipment'][3]['backpack'] = roll_range["backpack"]
-            if roll_range.get("choices", ""):
-                for entry in roll_range["choices"]:
-                    item = random.choice(entry)
 
-                    if isinstance(item, dict):
-                        character_data['equipment'][3]['backpack'] += f', {item.get("name")}'
-                        character_data['equipment'][0]['weapons'].append(item)
-                    else:
-                        character_data['equipment'][3]['backpack'] += f', {item}'
+            if roll_range.get("choices", ""):
+                for choice in roll_range["choices"]:
+                    character_data['choices'].append(choice)
+
             if roll_range.get("money", ""):
                 amount = roll_dice(
                     num_dice=roll_range["money"].get("dice_amount"),

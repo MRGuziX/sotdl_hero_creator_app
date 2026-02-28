@@ -267,11 +267,14 @@ def test_create_hero():
 
 
 def test_choices_to_actions(character_data):
+    add_wealth(character_data)
     change_choices_to_actions(character_data=character_data)
+    bulk_update_attributes(character_data=character_data, is_random=True)
     print(character_data)
 
 
 def test_bulk_actions(character_data):
+    add_wealth(character_data)
     bulk_update_attributes(character_data=character_data, is_random=True)
 
     print(character_data)

@@ -15,20 +15,24 @@
       "choices": [
         [
           {
-            "name": "Pałka",
-            "damage": "1k6",
-            "grip": "Jednoręczny",
-            "properties": "Finezyjna",
-            "price": "1 sr",
-            "availability": "P"
+            "add_item": {
+              "name": "Pałka",
+              "damage": "1k6",
+              "grip": "Jednoręczny",
+              "properties": "Finezyjna",
+              "price": "1 sr",
+              "availability": "P"
+            }
           },
           {
-            "name": "Proca",
-            "damage": "1k3",
-            "grip": "Chwyt dowolny",
-            "properties": "Używa kamieni, zasięg (średni)",
-            "price": "5 md",
-            "availability": "P"
+            "add_item": {
+              "name": "Proca",
+              "damage": "1k3",
+              "grip": "Chwyt dowolny",
+              "properties": "Używa kamieni, zasięg (średni)",
+              "price": "5 md",
+              "availability": "P"
+            }
           }
         ]
       ]
@@ -50,20 +54,24 @@
       "choices": [
         [
           {
-            "name": "Pałka",
-            "damage": "1k6",
-            "grip": "Jednoręczny",
-            "properties": "Finezyjna",
-            "price": "1 sr",
-            "availability": "P"
+            "add_item": {
+              "name": "Pałka",
+              "damage": "1k6",
+              "grip": "Jednoręczny",
+              "properties": "Finezyjna",
+              "price": "1 sr",
+              "availability": "P"
+            }
           },
           {
-            "name": "Proca",
-            "damage": "1k3",
-            "grip": "Chwyt dowolny",
-            "properties": "Używa kamieni, zasięg (średni)",
-            "price": "5 md",
-            "availability": "P"
+            "add_item": {
+              "name": "Proca",
+              "damage": "1k3",
+              "grip": "Chwyt dowolny",
+              "properties": "Używa kamieni, zasięg (średni)",
+              "price": "5 md",
+              "availability": "P"
+            }
           }
         ]
       ]
@@ -86,20 +94,24 @@
       "choices": [
         [
           {
-            "name": "Pałka",
-            "damage": "1k6",
-            "grip": "Jednoręczny",
-            "properties": "Finezyjna",
-            "price": "1 sr",
-            "availability": "P"
+            "add_item": {
+              "name": "Pałka",
+              "damage": "1k6",
+              "grip": "Jednoręczny",
+              "properties": "Finezyjna",
+              "price": "1 sr",
+              "availability": "P"
+            }
           },
           {
-            "name": "Proca",
-            "damage": "1k3",
-            "grip": "Chwyt dowolny",
-            "properties": "Używa kamieni, zasięg (średni)",
-            "price": "5 md",
-            "availability": "P"
+            "add_item": {
+              "name": "Proca",
+              "damage": "1k3",
+              "grip": "Chwyt dowolny",
+              "properties": "Używa kamieni, zasięg (średni)",
+              "price": "5 md",
+              "availability": "P"
+            }
           }
         ]
       ]
@@ -120,28 +132,52 @@
       "choices": [
         [
           {
-            "name": "Pałka",
-            "damage": "1k6",
-            "grip": "Jednoręczny",
-            "properties": "Finezyjna",
-            "price": "1 sr",
-            "availability": "P"
+            "add_item": {
+              "name": "Pałka",
+              "damage": "1k6",
+              "grip": "Jednoręczny",
+              "properties": "Finezyjna",
+              "price": "1 sr",
+              "availability": "P"
+            }
           },
           {
-            "name": "Proca",
-            "damage": "1k3",
-            "grip": "Chwyt dowolny",
-            "properties": "Używa kamieni, zasięg (średni)",
-            "price": "5 md",
-            "availability": "P"
+            "add_item": {
+              "name": "Proca",
+              "damage": "1k3",
+              "grip": "Chwyt dowolny",
+              "properties": "Używa kamieni, zasięg (średni)",
+              "price": "5 md",
+              "availability": "P"
+            }
           }
         ],
         [
-          "mała tarcza",
-          "zwój z inkantacją kręgu 0",
-          "zestaw uzdrowieciela",
-          "zestaw pisarski",
-          "narzędzia"
+          {
+            "add_item": {
+              "name": "mała tarcza"
+            }
+          },
+          {
+            "add_item": {
+              "name": "zwój z inkantacją kręgu 0"
+            }
+          },
+          {
+            "add_item": {
+              "name": "zestaw uzdrowieciela"
+            }
+          },
+          {
+            "add_item": {
+              "name": "zestaw pisarski"
+            }
+          },
+          {
+            "add_item": {
+              "name": "narzędzia"
+            }
+          }
         ]
       ]
     },
@@ -158,11 +194,31 @@
       },
       "choices": [
         [
-          "tarcza",
-          "zwój z inkantacją kręgu 0",
-          "zestaw uzdrowieciela",
-          "zestaw pisarski",
-          "narzędzia"
+          {
+            "add_item": {
+              "name": "tarcza"
+            }
+          },
+          {
+            "add_item": {
+              "name": "zwój z inkantacją kręgu 0"
+            }
+          },
+          {
+            "add_item": {
+              "name": "zestaw uzdrowieciela"
+            }
+          },
+          {
+            "add_item": {
+              "name": "zestaw pisarski"
+            }
+          },
+          {
+            "add_item": {
+              "name": "narzędzia"
+            }
+          }
         ]
       ]
     },
