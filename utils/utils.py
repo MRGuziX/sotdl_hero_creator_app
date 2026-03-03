@@ -320,12 +320,9 @@ def add_profession(
         "naukowa", "pospolita", "przestępcza", "wojenna", "religijna", "koczownicza"
     ]
 
-    if is_random:
-        if name == "any":
-            name = random.choice(professions_list)
-        _apply_profession(name, character_data, is_random)
-    elif name != "any":
-        _apply_profession(name, character_data, is_random)
+    if name == "any":
+        name = random.choice(professions_list)
+    _apply_profession(name, character_data, is_random)
     return character_data
 
 
@@ -441,11 +438,10 @@ def add_attribute(
                                  "speed", "power", "damage", "insanity", "corruption"]
 
     if name in core_attributes_list or name == "any" or name in secondary_attributes_list:
-        if is_random and name == "any":
+        if name == "any":
             name = random.choice(core_attributes_list)
 
-        # If name is still 'any' and not is_random, it means we didn't get a specific choice.
-        # However, at this stage name should be specific if it came from confirm_choices.
+        # If name is not 'any', update character_data
         if name != "any" and name is not None:
             original_value = character_data['general'].get(name, 10 if name in core_attributes_list else 0)
             try:
