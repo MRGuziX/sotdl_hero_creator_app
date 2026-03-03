@@ -5,49 +5,57 @@
         "name": "Odzież",
         "defence": "Zręczność",
         "special": "P",
-        "requirements": "Brak wymagań"
+        "requirements": "Brak wymagań",
+        "item_type": "armor"
       },
       {
         "name": "Miękka skórznia",
         "defence": "Zręczność + 1",
         "special": "P",
-        "requirements": "Brak wymagań"
+        "requirements": "Brak wymagań",
+        "item_type": "armor"
       },
       {
         "name": "Utwardzana skórznia",
         "defence": "Zręczność + 2",
         "special": "P",
-        "requirements": "Min. 11 Siły (lekki pancerz)"
+        "requirements": "Min. 11 Siły (lekki pancerz)",
+        "item_type": "armor"
       },
       {
         "name": "Brygantyna",
         "defence": "13",
         "special": "P",
-        "requirements": "Min. 11 Siły (lekki pancerz)"
+        "requirements": "Min. 11 Siły (lekki pancerz)",
+        "item_type": "armor"
       },
       {
         "name": "Kolczuga",
         "defence": "15",
         "special": "N",
-        "requirements": "Min. 13 Siły (średni pancerz)"
+        "requirements": "Min. 13 Siły (średni pancerz)",
+        "item_type": "armor"
       },
       {
         "name": "Zbroja łuskowa",
         "defence": "16",
         "special": "N",
-        "requirements": "Min. 13 Siły (średni pancerz)"
+        "requirements": "Min. 13 Siły (średni pancerz)",
+        "item_type": "armor"
       },
       {
         "name": "Bechter",
         "defence": "17",
         "special": "R",
-        "requirements": "Min. 15 Siły (ciężki pancerz)"
+        "requirements": "Min. 15 Siły (ciężki pancerz)",
+        "item_type": "armor"
       },
       {
         "name": "Pełna zbroja płytowa",
         "defence": "18",
         "special": "E",
-        "requirements": "Min. 15 Siły (ciężki pancerz)"
+        "requirements": "Min. 15 Siły (ciężki pancerz)",
+        "item_type": "armor"
       }
     ],
     "weapons": [
@@ -57,7 +65,8 @@
         "grip": "Chwyt dowolny",
         "properties": "Finezyjna",
         "price": "-",
-        "availability": "-"
+        "availability": "-",
+        "item_type": "weapon"
       },
       {
         "name": "Kostur",
@@ -65,7 +74,8 @@
         "grip": "Dwuręczny",
         "properties": "Finezyjna",
         "price": "5 md",
-        "availability": "P"
+        "availability": "P",
+        "item_type": "weapon"
       },
       {
         "name": "Młotek lub siekiera",
@@ -73,7 +83,8 @@
         "grip": "Chwyt dowolny",
         "properties": "Miotana, zasięg (bliski)",
         "price": "1 sr",
-        "availability": "P"
+        "availability": "P",
+        "item_type": "weapon"
       },
       {
         "name": "Nóż lub sztylet",
@@ -81,7 +92,8 @@
         "grip": "Chwyt dowolny",
         "properties": "Finezyjna, miotana, zasięg (bliski)",
         "price": "5 md",
-        "availability": "P"
+        "availability": "P",
+        "item_type": "weapon"
       },
       {
         "name": "Oszczep",
@@ -89,7 +101,8 @@
         "grip": "Jednoręczny",
         "properties": "Finezyjna, miotana, zasięg (średni)",
         "price": "5 md",
-        "availability": "P"
+        "availability": "P",
+        "item_type": "weapon"
       },
       {
         "name": "Pałka",
@@ -97,7 +110,8 @@
         "grip": "Jednoręczny",
         "properties": "Finezyjna",
         "price": "1 sr",
-        "availability": "P"
+        "availability": "P",
+        "item_type": "weapon"
       },
       {
         "name": "Sierp lub włócznia",
@@ -105,7 +119,8 @@
         "grip": "Jednoręczny",
         "properties": "Finezyjna",
         "price": "1 sr",
-        "availability": "P"
+        "availability": "P",
+        "item_type": "weapon"
       },
       {
         "name": "Strzałka",
@@ -113,7 +128,8 @@
         "grip": "Chwyt dowolny",
         "properties": "Finezyjna, miotana, zasięg (bliski)",
         "price": "1 md",
-        "availability": "P"
+        "availability": "P",
+        "item_type": "weapon"
       },
       {
         "name": "Topór",
@@ -121,7 +137,8 @@
         "grip": "Jednoręczny",
         "properties": "",
         "price": "1 sr",
-        "availability": "P"
+        "availability": "P",
+        "item_type": "weapon"
       },
       {
         "name": "Długi łuk (min. 9 Siły)",
@@ -129,7 +146,8 @@
         "grip": "Dwuręczny",
         "properties": "Rozmiar 1, używa strzał, zasięg (daleki)",
         "price": "1 zk",
-        "availability": "N"
+        "availability": "N",
+        "item_type": "weapon"
       },
       {
         "name": "Dmuchawka",
@@ -137,7 +155,8 @@
         "grip": "Jednoręczny",
         "properties": "Używa igieł, zasięg (średni)",
         "price": "5 sr",
-        "availability": "P"
+        "availability": "P",
+        "item_type": "weapon"
       },
       {
         "name": "Flinta",
@@ -145,7 +164,8 @@
         "grip": "Dwuręczny",
         "properties": "Niewypał, przeładowanie, używa kul, zasięg (daleki)",
         "price": "10 zk",
-        "availability": "R"
+        "availability": "R",
+        "item_type": "weapon"
       },
       {
         "name": "Kusza",
@@ -153,7 +173,8 @@
         "grip": "Dwuręczny",
         "properties": "Przeładowanie, używa bełtów, zasięg (daleki)",
         "price": "2 zk",
-        "availability": "P"
+        "availability": "P",
+        "item_type": "weapon"
       },
       {
         "name": "Łuk",
@@ -161,7 +182,8 @@
         "grip": "Dwuręczny",
         "properties": "Używa strzał, zasięg (średni)",
         "price": "5 sr",
-        "availability": "P"
+        "availability": "P",
+        "item_type": "weapon"
       },
       {
         "name": "Kusza pistoletowa",
@@ -169,7 +191,8 @@
         "grip": "Chwyt dowolny",
         "properties": "Przeładowanie, używa bełtów, zasięg (bliski)",
         "price": "1 zk",
-        "availability": "R"
+        "availability": "R",
+        "item_type": "weapon"
       },
       {
         "name": "Pistolet",
@@ -177,7 +200,8 @@
         "grip": "Chwyt dowolny",
         "properties": "Niewypał, przeładowanie, używa kul, zasięg (średni)",
         "price": "5 zk",
-        "availability": "E"
+        "availability": "E",
+        "item_type": "weapon"
       },
       {
         "name": "Proca",
@@ -185,7 +209,8 @@
         "grip": "Chwyt dowolny",
         "properties": "Używa kamieni, zasięg (średni)",
         "price": "5 md",
-        "availability": "P"
+        "availability": "P",
+        "item_type": "weapon"
       },
       {
         "name": "Buława",
@@ -193,7 +218,8 @@
         "grip": "Chwyt dowolny",
         "properties": "",
         "price": "5 sr",
-        "availability": "P"
+        "availability": "P",
+        "item_type": "weapon"
       },
       {
         "name": "Glewia, halabarda lub berdysz",
@@ -201,7 +227,8 @@
         "grip": "Dwuręczny",
         "properties": "Dalekosiężna +1",
         "price": "1 zk",
-        "availability": "N"
+        "availability": "N",
+        "item_type": "weapon"
       },
       {
         "name": "Lanca",
@@ -209,7 +236,8 @@
         "grip": "Dwuręczny",
         "properties": "Dalekosiężna +2, jednoręczna w czasie jazdy wierzchem",
         "price": "5 sr",
-        "availability": "N"
+        "availability": "N",
+        "item_type": "weapon"
       },
       {
         "name": "Miecz długi lub młot bojowy",
@@ -217,7 +245,8 @@
         "grip": "Dwuręczny",
         "properties": "Nieporęczna",
         "price": "1 zk",
-        "availability": "R"
+        "availability": "R",
+        "item_type": "weapon"
       },
       {
         "name": "Pika",
@@ -225,7 +254,8 @@
         "grip": "Dwuręczny",
         "properties": "Dalekosiężna +2, Rozmiar 1",
         "price": "5 sr",
-        "availability": "N"
+        "availability": "N",
+        "item_type": "weapon"
       },
       {
         "name": "Topór bojowy, korbacz, morgenstern, nadziak lub miecz",
@@ -233,7 +263,8 @@
         "grip": "Jednoręczny",
         "properties": "",
         "price": "5 sr",
-        "availability": "N"
+        "availability": "N",
+        "item_type": "weapon"
       },
       {
         "name": "Trójząb",
@@ -241,7 +272,8 @@
         "grip": "Jednoręczny",
         "properties": "Finezyjna, miotana, zasięg (bliski)",
         "price": "1 sr",
-        "availability": "P"
+        "availability": "P",
+        "item_type": "weapon"
       },
       {
         "name": "Włócznia",
@@ -249,7 +281,8 @@
         "grip": "Jednoręczny",
         "properties": "Finezyjna, miotana, zasięg (bliski)",
         "price": "5 md",
-        "availability": "P"
+        "availability": "P",
+        "item_type": "weapon"
       },
       {
         "name": "Bicz",
@@ -257,7 +290,8 @@
         "grip": "Chwyt dowolny",
         "properties": "Dalekosiężna +1, finezyjna",
         "price": "5 sr",
-        "availability": "N"
+        "availability": "N",
+        "item_type": "weapon"
       },
       {
         "name": "Łańcuch, kordelas, długi nóż, karczownik lub mizerykordia",
@@ -265,7 +299,8 @@
         "grip": "Chwyt dowolny",
         "properties": "Finezyjna",
         "price": "5 md",
-        "availability": "P"
+        "availability": "P",
+        "item_type": "weapon"
       },
       {
         "name": "Rapier, szabla, bułat",
@@ -273,7 +308,8 @@
         "grip": "Jednoręczny",
         "properties": "Finezyjna",
         "price": "1 zk",
-        "availability": "R"
+        "availability": "R",
+        "item_type": "weapon"
       },
       {
         "name": "Dwuręczny miecz, dwuręczny topór lub dwuręczny młot",
@@ -281,7 +317,8 @@
         "grip": "Dwuręczny",
         "properties": "Nieporęczna",
         "price": "2 zk",
-        "availability": "R"
+        "availability": "R",
+        "item_type": "weapon"
       },
       {
         "name": "Miecz długi lub młot bojowy",
@@ -289,7 +326,8 @@
         "grip": "Jednoręczny",
         "properties": "Nieporęczna",
         "price": "1 zk",
-        "availability": "R"
+        "availability": "R",
+        "item_type": "weapon"
       }
     ],
     "shields": [
@@ -299,7 +337,8 @@
         "grip": "Chwyt dowolny",
         "properties": "Defensywna +1",
         "price": "5 md",
-        "availability": "P"
+        "availability": "P",
+        "item_type": "shield"
       },
       {
         "name": "Duża tarcza",
@@ -308,9 +347,9 @@
         "properties": "Defensywna +2, Rozmiar 1",
         "price": "1 sr",
         "availability": "P",
-        "requirements": "min. 11 Siły"
+        "requirements": "min. 11 Siły",
+        "item_type": "shield"
       }
     ]
   }
 }
-

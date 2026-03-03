@@ -15,20 +15,26 @@
       "choices": [
         [
           {
-            "name": "Pałka",
-            "damage": "1k6",
-            "grip": "Jednoręczny",
-            "properties": "Finezyjna",
-            "price": "1 sr",
-            "availability": "P"
+            "add_item": {
+              "name": "Pałka",
+              "damage": "1k6",
+              "grip": "Jednoręczny",
+              "properties": "Finezyjna",
+              "price": "1 sr",
+              "availability": "P",
+              "item_type": "weapon"
+            }
           },
           {
-            "name": "Proca",
-            "damage": "1k3",
-            "grip": "Chwyt dowolny",
-            "properties": "Używa kamieni, zasięg (średni)",
-            "price": "5 md",
-            "availability": "P"
+            "add_item": {
+              "name": "Proca",
+              "damage": "1k3",
+              "grip": "Chwyt dowolny",
+              "properties": "Używa kamieni, zasięg (średni)",
+              "price": "5 md",
+              "availability": "P",
+              "item_type": "weapon"
+            }
           }
         ]
       ]
@@ -47,23 +53,42 @@
         "dice_type": 6,
         "dice_amount": 2
       },
+      "actions": [
+        {
+          "add_item": {
+            "name": "Kostur",
+            "damage": "1k6 + 1",
+            "grip": "Dwuręczny",
+            "properties": "Finezyjna",
+            "price": "5 md",
+            "availability": "P",
+            "item_type": "weapon"
+          }
+        }
+      ],
       "choices": [
         [
           {
-            "name": "Pałka",
-            "damage": "1k6",
-            "grip": "Jednoręczny",
-            "properties": "Finezyjna",
-            "price": "1 sr",
-            "availability": "P"
+            "add_item": {
+              "name": "Pałka",
+              "damage": "1k6",
+              "grip": "Jednoręczny",
+              "properties": "Finezyjna",
+              "price": "1 sr",
+              "availability": "P",
+              "item_type": "weapon"
+            }
           },
           {
-            "name": "Proca",
-            "damage": "1k3",
-            "grip": "Chwyt dowolny",
-            "properties": "Używa kamieni, zasięg (średni)",
-            "price": "5 md",
-            "availability": "P"
+            "add_item": {
+              "name": "Proca",
+              "damage": "1k3",
+              "grip": "Chwyt dowolny",
+              "properties": "Używa kamieni, zasięg (średni)",
+              "price": "5 md",
+              "availability": "P",
+              "item_type": "weapon"
+            }
           }
         ]
       ]
@@ -83,23 +108,53 @@
         "dice_type": 6,
         "dice_amount": 1
       },
+      "actions": [
+        {
+          "add_item": {
+            "name": "Kostur",
+            "damage": "1k6 + 1",
+            "grip": "Dwuręczny",
+            "properties": "Finezyjna",
+            "price": "5 md",
+            "availability": "P",
+            "item_type": "weapon"
+          }
+        },
+        {
+          "add_item": {
+            "name": "Nóż lub sztylet",
+            "damage": "1k3",
+            "grip": "Chwyt dowolny",
+            "properties": "Finezyjna, miotana, zasięg (bliski)",
+            "price": "5 md",
+            "availability": "P",
+            "item_type": "weapon"
+          }
+        }
+      ],
       "choices": [
         [
           {
-            "name": "Pałka",
-            "damage": "1k6",
-            "grip": "Jednoręczny",
-            "properties": "Finezyjna",
-            "price": "1 sr",
-            "availability": "P"
+            "add_item": {
+              "name": "Pałka",
+              "damage": "1k6",
+              "grip": "Jednoręczny",
+              "properties": "Finezyjna",
+              "price": "1 sr",
+              "availability": "P",
+              "item_type": "weapon"
+            }
           },
           {
-            "name": "Proca",
-            "damage": "1k3",
-            "grip": "Chwyt dowolny",
-            "properties": "Używa kamieni, zasięg (średni)",
-            "price": "5 md",
-            "availability": "P"
+            "add_item": {
+              "name": "Proca",
+              "damage": "1k3",
+              "grip": "Chwyt dowolny",
+              "properties": "Używa kamieni, zasięg (średni)",
+              "price": "5 md",
+              "availability": "P",
+              "item_type": "weapon"
+            }
           }
         ]
       ]
@@ -117,31 +172,81 @@
         "dice_type": 6,
         "dice_amount": 2
       },
+      "actions": [
+        {
+          "add_item": {
+            "name": "Kostur",
+            "damage": "1k6 + 1",
+            "grip": "Dwuręczny",
+            "properties": "Finezyjna",
+            "price": "5 md",
+            "availability": "P",
+            "item_type": "weapon"
+          }
+        },
+        {
+          "add_item": {
+            "name": "Nóż lub sztylet",
+            "damage": "1k3",
+            "grip": "Chwyt dowolny",
+            "properties": "Finezyjna, miotana, zasięg (bliski)",
+            "price": "5 md",
+            "availability": "P",
+            "item_type": "weapon"
+          }
+        }
+      ],
       "choices": [
         [
           {
-            "name": "Pałka",
-            "damage": "1k6",
-            "grip": "Jednoręczny",
-            "properties": "Finezyjna",
-            "price": "1 sr",
-            "availability": "P"
+            "add_item": {
+              "name": "Pałka",
+              "damage": "1k6",
+              "grip": "Jednoręczny",
+              "properties": "Finezyjna",
+              "price": "1 sr",
+              "availability": "P",
+              "item_type": "weapon"
+            }
           },
           {
-            "name": "Proca",
-            "damage": "1k3",
-            "grip": "Chwyt dowolny",
-            "properties": "Używa kamieni, zasięg (średni)",
-            "price": "5 md",
-            "availability": "P"
+            "add_item": {
+              "name": "Proca",
+              "damage": "1k3",
+              "grip": "Chwyt dowolny",
+              "properties": "Używa kamieni, zasięg (średni)",
+              "price": "5 md",
+              "availability": "P",
+              "item_type": "weapon"
+            }
           }
         ],
         [
-          "mała tarcza",
-          "zwój z inkantacją kręgu 0",
-          "zestaw uzdrowieciela",
-          "zestaw pisarski",
-          "narzędzia"
+          {
+            "add_item": {
+              "name": "mała tarcza"
+            }
+          },
+          {
+            "add_item": {
+              "name": "zwój z inkantacją kręgu 0"
+            }
+          },
+          {
+            "add_item": {
+              "name": "zestaw uzdrowieciela"
+            }
+          },
+          {
+            "add_item": {
+              "name": "zestaw pisarski"
+            }
+          },
+          {
+            "add_item": {
+              "name": "narzędzia"
+            }
+          }
         ]
       ]
     },
@@ -156,13 +261,46 @@
         "dice_type": 6,
         "dice_amount": 1
       },
+      "actions": [
+        {
+          "add_item": {
+            "name": "Nóż lub sztylet",
+            "damage": "1k3",
+            "grip": "Chwyt dowolny",
+            "properties": "Finezyjna, miotana, zasięg (bliski)",
+            "price": "5 md",
+            "availability": "P",
+            "item_type": "weapon"
+          }
+        }
+      ],
       "choices": [
         [
-          "tarcza",
-          "zwój z inkantacją kręgu 0",
-          "zestaw uzdrowieciela",
-          "zestaw pisarski",
-          "narzędzia"
+          {
+            "add_item": {
+              "name": "tarcza"
+            }
+          },
+          {
+            "add_item": {
+              "name": "zwój z inkantacją kręgu 0"
+            }
+          },
+          {
+            "add_item": {
+              "name": "zestaw uzdrowieciela"
+            }
+          },
+          {
+            "add_item": {
+              "name": "zestaw pisarski"
+            }
+          },
+          {
+            "add_item": {
+              "name": "narzędzia"
+            }
+          }
         ]
       ]
     },
@@ -176,7 +314,20 @@
         "type": "srebrniki",
         "dice_type": 6,
         "dice_amount": 2
-      }
+      },
+      "actions": [
+        {
+          "add_item": {
+            "name": "Nóż lub sztylet",
+            "damage": "1k3",
+            "grip": "Chwyt dowolny",
+            "properties": "Finezyjna, miotana, zasięg (bliski)",
+            "price": "5 md",
+            "availability": "P",
+            "item_type": "weapon"
+          }
+        }
+      ]
     }
   ]
 }

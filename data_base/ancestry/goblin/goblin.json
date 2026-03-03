@@ -86,22 +86,21 @@
   "actions": [
     {
       "add_attribute": {
-        "any": 1
+        "name": "any",
+        "value": 1
       }
     },
     {
-      "add_attribute": {
-        "profession": "any"
+      "add_profession": {
+        "name": "any"
       }
     },
     {
-      "add_attribute": {
-        "profession": "any"
+      "add_profession": {
+        "name": "any"
       }
     }
   ],
   "choices": [
-    [
-    ]
   ]
 }

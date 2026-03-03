@@ -1,13 +1,13 @@
 {
   "general": {
     "ancestry_name": "Automaton",
-    "strength": 10,
-    "dexterity": 10,
-    "intelligence": 10,
-    "will": 10,
+    "strength": 9,
+    "dexterity": 8,
+    "intelligence": 9,
+    "will": 9,
     "perception": 10,
-    "defense": 10,
-    "health": 10,
+    "defense": 13,
+    "health": 9,
     "healing_rate": 2,
     "size": [
       1.0,
@@ -72,22 +72,21 @@
   "actions": [
     {
       "add_attribute": {
-        "any": 1
+        "name": "any",
+        "value": 1
       }
     },
     {
-      "add_attribute": {
-        "profession": "any"
+      "add_profession": {
+        "name": "any"
       }
     },
     {
-      "add_attribute": {
-        "profession": "any"
+      "add_profession": {
+        "name": "any"
       }
     }
   ],
   "choices": [
-    [
-    ]
   ]
 }
