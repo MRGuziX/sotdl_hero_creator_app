@@ -53,6 +53,19 @@
         "dice_type": 6,
         "dice_amount": 2
       },
+      "actions": [
+        {
+          "add_item": {
+            "name": "Kostur",
+            "damage": "1k6 + 1",
+            "grip": "Dwuręczny",
+            "properties": "Finezyjna",
+            "price": "5 md",
+            "availability": "P",
+            "item_type": "weapon"
+          }
+        }
+      ],
       "choices": [
         [
           {
@@ -95,6 +108,30 @@
         "dice_type": 6,
         "dice_amount": 1
       },
+      "actions": [
+        {
+          "add_item": {
+            "name": "Kostur",
+            "damage": "1k6 + 1",
+            "grip": "Dwuręczny",
+            "properties": "Finezyjna",
+            "price": "5 md",
+            "availability": "P",
+            "item_type": "weapon"
+          }
+        },
+        {
+          "add_item": {
+            "name": "Nóż lub sztylet",
+            "damage": "1k3",
+            "grip": "Chwyt dowolny",
+            "properties": "Finezyjna, miotana, zasięg (bliski)",
+            "price": "5 md",
+            "availability": "P",
+            "item_type": "weapon"
+          }
+        }
+      ],
       "choices": [
         [
           {
@@ -135,6 +172,30 @@
         "dice_type": 6,
         "dice_amount": 2
       },
+      "actions": [
+        {
+          "add_item": {
+            "name": "Kostur",
+            "damage": "1k6 + 1",
+            "grip": "Dwuręczny",
+            "properties": "Finezyjna",
+            "price": "5 md",
+            "availability": "P",
+            "item_type": "weapon"
+          }
+        },
+        {
+          "add_item": {
+            "name": "Nóż lub sztylet",
+            "damage": "1k3",
+            "grip": "Chwyt dowolny",
+            "properties": "Finezyjna, miotana, zasięg (bliski)",
+            "price": "5 md",
+            "availability": "P",
+            "item_type": "weapon"
+          }
+        }
+      ],
       "choices": [
         [
           {
@@ -200,6 +261,19 @@
         "dice_type": 6,
         "dice_amount": 1
       },
+      "actions": [
+        {
+          "add_item": {
+            "name": "Nóż lub sztylet",
+            "damage": "1k3",
+            "grip": "Chwyt dowolny",
+            "properties": "Finezyjna, miotana, zasięg (bliski)",
+            "price": "5 md",
+            "availability": "P",
+            "item_type": "weapon"
+          }
+        }
+      ],
       "choices": [
         [
           {
@@ -240,7 +314,20 @@
         "type": "srebrniki",
         "dice_type": 6,
         "dice_amount": 2
-      }
+      },
+      "actions": [
+        {
+          "add_item": {
+            "name": "Nóż lub sztylet",
+            "damage": "1k3",
+            "grip": "Chwyt dowolny",
+            "properties": "Finezyjna, miotana, zasięg (bliski)",
+            "price": "5 md",
+            "availability": "P",
+            "item_type": "weapon"
+          }
+        }
+      ]
     }
   ]
 }

@@ -243,12 +243,22 @@
                 const actionKey = Object.keys(option)[0];
                 const actionVal = option[actionKey];
 
+                const attributeTranslations = {
+                    'strength': 'Siła',
+                    'dexterity': 'Zręczność',
+                    'intelligence': 'Intelekt',
+                    'will': 'Wola'
+                };
+
                 if (actionKey === 'add_attribute') {
-                    optionText = `Zwiększ ${actionVal.name} o ${actionVal.value}`;
+                    const attrName = attributeTranslations[actionVal.name] || actionVal.name;
+                    optionText = `Zwiększ ${attrName} o ${actionVal.value}`;
                 } else if (actionKey === 'add_language') {
-                    optionText = `Język: ${actionVal.name}`;
+                    const langName = actionVal.name === 'any' ? 'Dodatkowy język' : actionVal.name;
+                    optionText = `Język: ${langName}`;
                 } else if (actionKey === 'add_profession') {
-                    optionText = `Profesja: ${actionVal.name}`;
+                    const profName = actionVal.name === 'any' ? 'Dodatkowa profesja' : actionVal.name;
+                    optionText = `Profesja: ${profName}`;
                 } else if (actionKey === 'add_item') {
                     optionText = `Przedmiot: ${actionVal.name}`;
                 } else {

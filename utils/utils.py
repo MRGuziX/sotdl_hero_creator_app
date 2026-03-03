@@ -618,6 +618,10 @@ def add_wealth(character_data: dict, is_random: bool = True):
                 for choice in roll_range["choices"]:
                     character_data['choices'].append(choice)
 
+            if roll_range.get("actions", ""):
+                for action in roll_range["actions"]:
+                    character_data['actions'].append(action)
+
             if roll_range.get("money", ""):
                 amount = roll_dice(
                     num_dice=roll_range["money"].get("dice_amount"),
