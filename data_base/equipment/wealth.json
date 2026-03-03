@@ -21,7 +21,8 @@
               "grip": "Jednoręczny",
               "properties": "Finezyjna",
               "price": "1 sr",
-              "availability": "P"
+              "availability": "P",
+              "item_type": "weapon"
             }
           },
           {
@@ -31,7 +32,8 @@
               "grip": "Chwyt dowolny",
               "properties": "Używa kamieni, zasięg (średni)",
               "price": "5 md",
-              "availability": "P"
+              "availability": "P",
+              "item_type": "weapon"
             }
           }
         ]
@@ -60,7 +62,8 @@
               "grip": "Jednoręczny",
               "properties": "Finezyjna",
               "price": "1 sr",
-              "availability": "P"
+              "availability": "P",
+              "item_type": "weapon"
             }
           },
           {
@@ -70,7 +73,8 @@
               "grip": "Chwyt dowolny",
               "properties": "Używa kamieni, zasięg (średni)",
               "price": "5 md",
-              "availability": "P"
+              "availability": "P",
+              "item_type": "weapon"
             }
           }
         ]
@@ -100,7 +104,8 @@
               "grip": "Jednoręczny",
               "properties": "Finezyjna",
               "price": "1 sr",
-              "availability": "P"
+              "availability": "P",
+              "item_type": "weapon"
             }
           },
           {
@@ -110,7 +115,8 @@
               "grip": "Chwyt dowolny",
               "properties": "Używa kamieni, zasięg (średni)",
               "price": "5 md",
-              "availability": "P"
+              "availability": "P",
+              "item_type": "weapon"
             }
           }
         ]
@@ -138,7 +144,8 @@
               "grip": "Jednoręczny",
               "properties": "Finezyjna",
               "price": "1 sr",
-              "availability": "P"
+              "availability": "P",
+              "item_type": "weapon"
             }
           },
           {
@@ -148,7 +155,8 @@
               "grip": "Chwyt dowolny",
               "properties": "Używa kamieni, zasięg (średni)",
               "price": "5 md",
-              "availability": "P"
+              "availability": "P",
+              "item_type": "weapon"
             }
           }
         ],

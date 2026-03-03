@@ -52,14 +52,24 @@ def fill_pdf(character_data: dict, output_path: str = "../output/hero_card.pdf")
         "wyglad": str(backstory.get("appearance", "")) + " " + str(backstory.get("body", "")) + " " + str(
             backstory.get("age", "") + " " + backstory.get("form", "")),
         "osobowosc": str(backstory.get("personality", "")),
-        "zamoznosc": str(character_data.get("wealth","")).split(":")[0],
+        "zamoznosc": str(character_data.get("wealth", "")).split(":")[0],
     }
 
     notatki_parts = []
     if backstory.get("past"):
         notatki_parts.append(str(backstory.get("past")))
+        notatki_parts.append("")
     if backstory.get("religion"):
         notatki_parts.append(str(backstory.get("religion")))
+        notatki_parts.append("")
+    if character_data["general"].get("language"):
+        all_langs = character_data["general"].get("language")
+        lang_known = [lang["name"] for lang in all_langs if lang["known"]]
+        lang_spoken = [lang["name"] for lang in all_langs if not lang["known"]]
+        if lang_spoken:
+            notatki_parts.append(f'Języki znane:{str(lang_spoken).replace("'", "").replace("[", " ").replace("]", "")}')
+        if lang_known:
+            notatki_parts.append(f'Języki pisane:{str(lang_known).replace("'", "").replace("[", " ").replace("]", "")}')
         notatki_parts.append("")
     if character_data.get("professions"):
         professions = character_data.get('professions', [])

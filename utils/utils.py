@@ -1,7 +1,11 @@
 import json
+import os
 import pathlib
 import random
+import tempfile
 from typing import Any, Literal
+
+from .pdf_creator import fill_pdf
 
 
 # def add_spell(spell_name: str, tradition_name: str) -> Any | None:
@@ -262,34 +266,39 @@ def build_hero(
 
 def change_choices_to_actions(
         character_data: dict,
-        is_random: bool = True
-) -> list[dict]:
+        is_random: bool = True,
+        selected_choices: list = None
+) -> dict:
     """
     Handles user choices from a list of choice dictionaries.
 
     Args:
-        choices_list: [{'language': 'any', 'profession': 'any'}, {'strength': 2, 'dexterity': 2}]
-        random_choice: If True, randomly selects options instead of asking the user
+        character_data: The hero's data dictionary
+        is_random: If True, randomly selects options
+        selected_choices: If provided, a list of selected options for each choice pool
 
     Returns:
-        List of actions based on user selections or random choices
-        :param is_random:
-        :param character_data:
+        Updated character_data
     """
 
     choices_pool = character_data.get("choices", [])
 
-    try:
-        # We need to iterate over a copy of the list because we're modifying it
-        for entry_to_pick in choices_pool[:]:
-            if is_random:
+    if is_random:
+        try:
+            # We need to iterate over a copy of the list because we're modifying it
+            for entry_to_pick in choices_pool[:]:
                 choice = random.choice(entry_to_pick)
                 character_data["actions"].append(choice)
                 character_data["choices"].remove(entry_to_pick)
-            else:
-                pass
-    except IndexError:
-        print("No choices left.")
+        except IndexError:
+            print("No choices left.")
+    elif selected_choices:
+        # selected_choices should be a list of the choices themselves (as sent from frontend)
+        for choice in selected_choices:
+            character_data["actions"].append(choice)
+
+        # Clear choices_pool as they are now actions
+        character_data["choices"] = []
 
     return character_data
 
@@ -314,36 +323,44 @@ def add_profession(
     if is_random:
         if name == "any":
             name = random.choice(professions_list)
-
-        if name == "naukowa":
-            add_language(
-                name="any",
-                known=True,
-                character_data=character_data,
-                is_random=is_random
-            )
-
-        for roll_value in professions[name]:
-            if roll in roll_value["roll"]:
-                description = roll_value.get("description", "")
-                # Handling old style if it still exists in professions
-                if roll_value.get("add_attribute"):
-                    attr_data = roll_value.get("add_attribute")
-                    if "language" in attr_data:
-                        language = attr_data['language']
-                        known = attr_data['known']
-
-                        add_language(
-                            name=language,
-                            known=known,
-                            character_data=character_data,
-                            is_random=is_random
-                        )
-                character_data["professions"].append(description)
-
-    else:
-        pass
+        _apply_profession(name, character_data, is_random)
+    elif name != "any":
+        _apply_profession(name, character_data, is_random)
     return character_data
+
+
+def _apply_profession(name: str, character_data: dict, is_random: bool):
+    project_root = pathlib.Path(__file__).parent.parent
+    path_to_professions = project_root / "data_base" / "professions" / "profession_tables.json"
+    with open(path_to_professions, "r", encoding="utf8") as file:
+        professions = json.load(file)
+
+    roll = roll_dice(1, 20)
+
+    if name == "naukowa":
+        add_language(
+            name="any",
+            known=True,
+            character_data=character_data,
+            is_random=is_random
+        )
+
+    for roll_value in professions[name]:
+        if roll in roll_value["roll"]:
+            description = roll_value.get("description", "")
+            if roll_value.get("add_attribute"):
+                attr_data = roll_value.get("add_attribute")
+                if "language" in attr_data:
+                    language = attr_data['language']
+                    known = attr_data['known']
+
+                    add_language(
+                        name=language,
+                        known=known,
+                        character_data=character_data,
+                        is_random=is_random
+                    )
+            character_data["professions"].append(description)
 
 
 def add_language(
@@ -386,16 +403,26 @@ def add_language(
                 )
         else:
             if known:
-                print(languages_character_speak)
+                if name == "any":
+                    # If it's still "any" and manual, we might need to pick something.
+                    # Ideally, the user should have chosen.
+                    if languages_character_speak:
+                        name = random.choice(languages_character_speak)
+
                 for lang in character_data["general"]["language"]:
                     if lang['name'] == name:
                         lang.update(
                             {'known': True, 'name': name}
                         )
-            elif not known and name not in possible_languages_to_learn:
-                character_data["general"]["language"].append(
-                    {'known': False, 'name': name}
-                )
+            elif not known:
+                if name == "any":
+                    if possible_languages_to_learn:
+                        name = random.choice(possible_languages_to_learn)
+
+                if name not in str(character_languages_data):
+                    character_data["general"]["language"].append(
+                        {'known': False, 'name': name}
+                    )
     except IndexError as e:
         print(e)
     return character_data
@@ -413,14 +440,19 @@ def add_attribute(
     secondary_attributes_list = ["perception", "health", "defense", "healing_rate",
                                  "speed", "power", "damage", "insanity", "corruption"]
 
-    if name in core_attributes_list or name == "any":
+    if name in core_attributes_list or name == "any" or name in secondary_attributes_list:
         if is_random and name == "any":
             name = random.choice(core_attributes_list)
-        elif name == "any":  # user needs to choose
-            name = random.choice(core_attributes_list)
 
-        original_value = character_data['general'].get(name)
-        character_data["general"][name] = original_value + value
+        # If name is still 'any' and not is_random, it means we didn't get a specific choice.
+        # However, at this stage name should be specific if it came from confirm_choices.
+        if name != "any" and name is not None:
+            original_value = character_data['general'].get(name, 10 if name in core_attributes_list else 0)
+            try:
+                character_data["general"][name] = original_value + value
+            except TypeError as e:
+                print(f"Error: {e}! \n"
+                      f"character_data: {character_data}")
 
     return character_data
 
@@ -430,18 +462,54 @@ def add_item(
         character_data: dict,
         is_random: bool = False
 ):
-    project_root = pathlib.Path(__file__).parent.parent
-    path_to_items = project_root / "data_base" / "items" / "items.json"
+    if not name:
+        return character_data
 
-    # if is_random:
-    #     item = random.choice(entry)
-    # else:
-    #     pass
-    # if isinstance(item, dict):
-    #     character_data['equipment'][3]['backpack'] += f', {str(item.get("name")).lower}'
-    #     character_data['equipment'][0]['weapons'].append(item)
-    # else:
-    #     character_data['equipment'][3]['backpack'] += f', {item}'
+    project_root = pathlib.Path(__file__).parent.parent
+    path_to_file = project_root / "data_base" / "equipment" / "equ.json"
+
+    try:
+        with open(path_to_file, "r", encoding="utf8") as file:
+            data = json.load(file)
+    except FileNotFoundError:
+        print(f"File {path_to_file} not found.")
+        character_data['equipment'][3]['backpack'] += f", {name.lower()}"
+        return character_data
+
+    store = data.get('store', {})
+    found_item = None
+
+    for category in ['weapons', 'armors', 'shields']:
+        items = store.get(category, [])
+        for item in items:
+            if item.get('name', '').lower() == name.lower():
+                found_item = item
+                break
+        if found_item:
+            break
+
+    if found_item:
+        item_type = found_item.get('item_type')
+        if item_type == 'weapon':
+            character_data['equipment'][0]['weapons'].append(found_item)
+            character_data['equipment'][3]['backpack'] += f", {name.lower()}"
+        elif item_type == 'shield':
+            character_data['equipment'][1]['shields'].append(found_item)
+            character_data['equipment'][3]['backpack'] += f", {name.lower()}"
+        elif item_type == 'armor':
+            character_data['equipment'][2]['armors'].append(found_item)
+            character_data['equipment'][3]['backpack'] += f", {name.lower()}"
+        else:
+            # Fallback for unexpected item_type
+            character_data['equipment'][3]['backpack'] += f", {name.lower()}"
+    else:
+        # Not found in equ.json
+        if character_data['equipment'][3]['backpack']:
+            character_data['equipment'][3]['backpack'] += f", {name.lower()}"
+        else:
+            character_data['equipment'][3]['backpack'] = name
+
+    return character_data
 
 
 def add_entry(
@@ -450,10 +518,20 @@ def add_entry(
         is_random: bool = False
 ) -> dict:
     action_type, info = list(entry.items())[0]
-    name = info.get("name")
-    value = info.get("value")
 
     if action_type == "add_attribute":
+        name = info.get("name")
+        value = info.get("value")
+
+        # Handle alternative format: {"add_attribute": {"intelligence": 2}}
+        if name is None and value is None:
+            for attr_name, attr_val in info.items():
+                if attr_name in ["strength", "dexterity", "intelligence", "will", "perception", "health", "defense",
+                                 "healing_rate", "speed", "power", "damage", "insanity", "corruption"]:
+                    name = attr_name
+                    value = attr_val
+                    break
+
         add_attribute(
             name=name,
             value=value,
@@ -462,7 +540,8 @@ def add_entry(
         )
 
     if action_type == "add_language":
-        known = info.get("known", None)
+        name = info.get("name")
+        known = info.get("known", False)  # Default to False instead of None
         add_language(
             name=name,
             character_data=character_data,
@@ -471,6 +550,7 @@ def add_entry(
         )
 
     if action_type == "add_profession":
+        name = info.get("name")
         add_profession(
             name=name,
             character_data=character_data,
@@ -478,6 +558,12 @@ def add_entry(
         )
 
     if action_type == "add_item":
+        # info can be a name string or a dict with details
+        if isinstance(info, dict):
+            name = info.get("name")
+        else:
+            name = info
+
         add_item(
             name=name,
             character_data=character_data,
@@ -490,9 +576,11 @@ def add_entry(
 def bulk_update_attributes(
         character_data: dict,
         is_random: bool = False
-) -> None:
-    actions = character_data.get("actions")
+) -> dict:
+    actions = character_data.get("actions", [])
 
+    # We create a copy or at least handle the list carefully if we were to modify it.
+    # But here we just iterate and apply.
     for entry in actions:
         add_entry(
             entry=entry,
@@ -500,6 +588,9 @@ def bulk_update_attributes(
             is_random=is_random
         )
 
+    # After applying, clear actions to avoid double-applying if called again?
+    # Or keep them as a log of what was applied.
+    # For now, let's keep it as it is but return character_data correctly.
     return character_data
 
 
@@ -562,61 +653,23 @@ def add_money(
         case "złote korony":
             character_data["money"][3]["złote korony"] += amount
 
+    # Update backpack description if it was a manual choice (optional, based on user context)
+    # The wealth logic usually handles backpack, but choices might add items.
+    # Currently items are not fully implemented.
+
     return character_data
 
 
 def add_weapon(item_name: str, character_data: dict):
-    project_root = pathlib.Path(__file__).parent.parent
-    path_to_file = project_root / "data_base" / "equipment" / "equ.json"
-
-    try:
-        with open(path_to_file, "r", encoding="utf8") as file:
-            data = json.load(file)
-    except FileNotFoundError:
-        print(f"File {path_to_file} not found.")
-    all_weapons = data['store']['weapons']
-    item_info = next(
-        (item for item in all_weapons if item["name"].lower() == item_name.lower()),
-        None
-    )
-    character_data['equipment'][0]['weapons'].append(item_info)
-    return item_info
+    return add_item(item_name, character_data)
 
 
 def add_shield(item_name: str, character_data: dict):
-    project_root = pathlib.Path(__file__).parent.parent
-    path_to_file = project_root / "data_base" / "equipment" / "equ.json"
-
-    try:
-        with open(path_to_file, "r", encoding="utf8") as file:
-            data = json.load(file)
-    except FileNotFoundError:
-        print(f"File {path_to_file} not found.")
-    all_shields = data['store']['shields']
-    item_info = next(
-        (item for item in all_shields if item["name"].lower() == item_name.lower()),
-        None
-    )
-    character_data['equipment'][1]['shields'].append(item_info)
-    return item_info
+    return add_item(item_name, character_data)
 
 
 def add_armor(item_name: str, character_data: dict):
-    project_root = pathlib.Path(__file__).parent.parent
-    path_to_file = project_root / "data_base" / "equipment" / "equ.json"
-
-    try:
-        with open(path_to_file, "r", encoding="utf8") as file:
-            data = json.load(file)
-    except FileNotFoundError:
-        print(f"File {path_to_file} not found.")
-    all_armors = data['store']['armors']
-    item_info = next(
-        (item for item in all_armors if item["name"].lower() == item_name.lower()),
-        None
-    )
-    character_data['equipment'][2]['armors'].append(item_info)
-    return item_info
+    return add_item(item_name, character_data)
 
 
 def add_oddity(character_data: dict):
@@ -643,8 +696,52 @@ def get_hero(ancestry, is_random):
     add_wealth(character_data)
     add_oddity(character_data)
 
-    change_choices_to_actions(character_data, is_random=is_random)
+    if not is_random:
+        # Move "any" actions to choices so the user can pick them
+        actions_pool = character_data.get("actions", [])
+        for action in actions_pool[:]:
+            action_type, info = list(action.items())[0]
+            if info.get("name") == "any":
+                # Convert to a choice pool
+                if action_type == "add_attribute":
+                    value = info.get("value", 1)
+                    choice_pool = [
+                        {"add_attribute": {"name": "strength", "value": value}},
+                        {"add_attribute": {"name": "dexterity", "value": value}},
+                        {"add_attribute": {"name": "intelligence", "value": value}},
+                        {"add_attribute": {"name": "will", "value": value}}
+                    ]
+                    character_data["choices"].append(choice_pool)
+                    character_data["actions"].remove(action)
+                elif action_type == "add_profession":
+                    choice_pool = [
+                        {"add_profession": {"name": "naukowa"}},
+                        {"add_profession": {"name": "pospolita"}},
+                        {"add_profession": {"name": "przestępcza"}},
+                        {"add_profession": {"name": "wojenna"}},
+                        {"add_profession": {"name": "religijna"}},
+                        {"add_profession": {"name": "koczownicza"}}
+                    ]
+                    character_data["choices"].append(choice_pool)
+                    character_data["actions"].remove(action)
+                elif action_type == "add_language":
+                    choice_pool = [
+                        {"add_language": {"name": "Wspólny", "known": info.get("known", False)}},
+                        {"add_language": {"name": "Mroczna mowa", "known": info.get("known", False)}},
+                        {"add_language": {"name": "Krasnoludzki", "known": info.get("known", False)}},
+                        {"add_language": {"name": "Elficki", "known": info.get("known", False)}},
+                        {"add_language": {"name": "Wysoki archaik", "known": info.get("known", False)}},
+                        {"add_language": {"name": "Trolli", "known": info.get("known", False)}},
+                        {"add_language": {"name": "Sekretne języki", "known": info.get("known", False)}},
+                        {"add_language": {"name": "Martwe języki", "known": info.get("known", False)}}
+                    ]
+                    character_data["choices"].append(choice_pool)
+                    character_data["actions"].remove(action)
 
-    bulk_update_attributes(character_data=character_data, is_random=is_random)
+    if is_random:
+        change_choices_to_actions(character_data, is_random=is_random)
+        bulk_update_attributes(character_data=character_data, is_random=is_random)
+        fill_pdf(character_data, os.path.join(tempfile.gettempdir(), "hero_card.pdf"))
+
     print(character_data)
     return character_data
