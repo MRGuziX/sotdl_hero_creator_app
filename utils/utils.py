@@ -386,18 +386,20 @@ def add_language(
         if is_random:
             if known and name == "any":
                 # learn to write in a language that you can speak
-                name = random.choice(languages_character_speak)
-                for lang in character_data["general"]["language"]:
-                    if lang['name'] == name:
-                        lang.update(
-                            {'known': True, 'name': name}
-                        )
+                if languages_character_speak:
+                    name = random.choice(languages_character_speak)
+                    for lang in character_data["general"]["language"]:
+                        if lang['name'] == name:
+                            lang.update(
+                                {'known': True, 'name': name}
+                            )
             elif not known and name == "any":
                 # learn to speak in a language that you cannot speak
-                name = random.choice(possible_languages_to_learn)
-                character_data["general"]["language"].append(
-                    {'known': False, 'name': name}
-                )
+                if possible_languages_to_learn:
+                    name = random.choice(possible_languages_to_learn)
+                    character_data["general"]["language"].append(
+                        {'known': False, 'name': name}
+                    )
         else:
             if known:
                 if name == "any":
@@ -416,12 +418,12 @@ def add_language(
                     if possible_languages_to_learn:
                         name = random.choice(possible_languages_to_learn)
 
-                if name not in str(character_languages_data):
+                if name != "any" and name not in str(character_languages_data):
                     character_data["general"]["language"].append(
                         {'known': False, 'name': name}
                     )
-    except IndexError as e:
-        print(e)
+    except (IndexError, ValueError) as e:
+        print(f"Error in add_language: {e}")
     return character_data
 
 
@@ -441,14 +443,27 @@ def add_attribute(
         if name == "any":
             name = random.choice(core_attributes_list)
 
+        # Handle dice roll string values (e.g., "1d6")
+        if isinstance(value, str) and "d" in value.lower():
+            try:
+                # Basic check for dice roll format like "1d6" or "2d6+1"
+                # For now, handle simple "NdM" format as used in human_tables.json
+                parts = value.lower().split("d")
+                if len(parts) == 2:
+                    num_dice = int(parts[0]) if parts[0] else 1
+                    sides = int(parts[1])
+                    value = roll_dice(num_dice, sides)
+            except (ValueError, IndexError):
+                pass
+
         # If name is not 'any', update character_data
         if name != "any" and name is not None:
             original_value = character_data['general'].get(name, 10 if name in core_attributes_list else 0)
             try:
-                character_data["general"][name] = original_value + value
-            except TypeError as e:
-                print(f"Error: {e}! \n"
-                      f"character_data: {character_data}")
+                character_data["general"][name] = original_value + int(value)
+            except (TypeError, ValueError) as e:
+                # Avoid OSError [Errno 22] by not printing the whole character_data
+                print(f"Error updating attribute {name}: {e}")
 
     return character_data
 

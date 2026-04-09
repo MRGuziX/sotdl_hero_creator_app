@@ -21,10 +21,18 @@
             border-radius: 16px;
             font-weight: bold;
             font-family: 'Sigmar One', cursive;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+            transition: background-color 0.2s, box-shadow 0.2s, transform 0.1s;
         }
 
         .red-button:hover {
             background-color: #cc0000;
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.6);
+        }
+
+        .red-button:active {
+            transform: translateY(2px);
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
         }
 
         .ancestry-item {
@@ -32,12 +40,13 @@
             display: inline-block;
             margin: 10px;
             cursor: pointer;
-            transition: transform 0.2s;
+            transition: transform 0.2s, filter 0.2s;
             font-family: 'Sigmar One', cursive;
         }
 
         .ancestry-item:hover {
             transform: scale(1.1);
+            filter: drop-shadow(0 5px 10px rgba(0, 0, 0, 0.7));
         }
 
         .ancestry-img {
@@ -78,7 +87,7 @@
         }
 
         .logo {
-            max-width: 1200px;
+            max-width: 1000px;
             height: auto;
             margin-bottom: 30px;
             position: relative;
@@ -111,9 +120,22 @@
         .corner-img {
             position: fixed;
             bottom: 0;
-            width: 900px;
+            width: 45vw; /* Scale based on viewport width */
+            max-width: 900px; /* Maximum size */
             height: auto;
             z-index: -1;
+        }
+
+        @media (max-width: 768px) {
+            .corner-img {
+                width: 60vw;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .corner-img {
+                width: 80vw;
+            }
         }
 
         .goblin-img {
@@ -209,7 +231,7 @@
 
     <div id="preview-container" style="display: none; margin-top: 30px; position: relative; top: -150px;">
         <h3 style="font-size: 2.5em; color: black; font-family: 'Sigmar One', cursive;">Twoja Karta Postaci:</h3>
-        <iframe id="hero-frame" src="" width="1750px" height="1500px"
+        <iframe id="hero-frame" src="" width="1500px" height="1200px"
                 style="border: 1px solid #ccc; background-color: white;"></iframe>
         <div style="margin-top: 20px;">
             <a id="download-btn" href="#" class="red-button" style="background-color: #4CAF50;">Zapisz na urządzeniu</a>
@@ -254,7 +276,7 @@
                     }
                 });
         } else {
-            const zoomParams = '#zoom=200';
+            const zoomParams = '#zoom=150';
             iframe.src = url + zoomParams;
             if (ancestry === 'random') {
                 downloadBtn.href = `/download_current?download=1`;
