@@ -44,7 +44,7 @@ def roll(ancestry):
         if not is_random:
             fill_pdf(hero_data, OUTPUT_PATH)
 
-        print(hero_data)
+        # print(hero_data)
 
         # 3. Return the filled PDF
     return send_file(
@@ -71,8 +71,6 @@ def confirm_choices():
 
     # Apply actions
     hero_data = bulk_update_attributes(hero_data, is_random=False)
-
-    print(hero_data)
 
     # Fill the PDF
     fill_pdf(hero_data, OUTPUT_PATH)
