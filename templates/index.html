@@ -7,50 +7,91 @@
 
     <title>CWD - Generator Postaci</title>
     <style>
-        .red-button {
-            background-color: #ff4d4d;
+        :root {
+            --footer-clearance: 76px;
+        }
+
+        body {
+            margin: 0;
+            background-color: #2c2c2c;
+            background-image: url("{{ url_for('static', filename='bg.jpg') }}");
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            background-repeat: no-repeat;
             color: white;
-            padding: 15px 15px;
-            text-align: center;
-            text-decoration: none;
-            display: inline-block;
-            font-size: 30px;
-            margin: 10px 2px;
-            cursor: pointer;
-            border: none;
-            border-radius: 16px;
-            font-weight: bold;
+            font-family: Arial, sans-serif;
+            padding-bottom: var(--footer-clearance);
+            box-sizing: border-box;
+        }
+
+        .app-shell {
+            min-height: calc(100vh - var(--footer-clearance));
+            display: flex;
+            gap: 24px;
+            padding: 20px;
+            padding-bottom: calc(20px + var(--footer-clearance));
+            box-sizing: border-box;
+        }
+
+        .left-panel,
+        .info-panel {
+            background: rgba(0, 0, 0, 0.72);
+            backdrop-filter: blur(5px);
+            border-radius: 18px;
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+        }
+
+        .left-panel {
+            width: 400px;
+            min-width: 340px;
+            display: flex;
+            flex-direction: column;
+            padding: 20px;
+            box-sizing: border-box;
+            max-height: calc(100vh - 40px - var(--footer-clearance));
+            overflow: auto;
+        }
+
+        .logo {
+            width: 100%;
+            height: auto;
+            margin-bottom: 12px;
+        }
+
+        .section-title {
+            margin: 8px 0 10px;
             font-family: 'Sigmar One', cursive;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
-            transition: background-color 0.2s, box-shadow 0.2s, transform 0.1s;
+            font-size: 24px;
+            color: #f5f5f5;
         }
 
-        .red-button:hover {
-            background-color: #cc0000;
-            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.6);
-        }
-
-        .red-button:active {
-            transform: translateY(2px);
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+        .ancestry-grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 10px;
         }
 
         .ancestry-item {
             position: relative;
-            display: inline-block;
-            margin: 10px;
             cursor: pointer;
-            transition: transform 0.2s, filter 0.2s;
-            font-family: 'Sigmar One', cursive;
+            transition: all 0.3s ease-in-out;
+            border-radius: 14px;
+            overflow: hidden;
         }
 
         .ancestry-item:hover {
-            transform: scale(1.1);
-            filter: drop-shadow(0 5px 10px rgba(0, 0, 0, 0.7));
+            transform: translateY(-2px) scale(1.02);
+            filter: drop-shadow(0 6px 12px rgba(0, 0, 0, 0.55));
+        }
+
+        .ancestry-item.active {
+            box-shadow: 0 0 0 3px rgba(255, 60, 60, 0.7), 0 0 16px rgba(255, 40, 40, 0.6);
         }
 
         .ancestry-img {
-            width: 240px;
+            width: 100%;
             height: auto;
             display: block;
         }
@@ -60,38 +101,271 @@
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            font-size: 30px;
+            font-size: 23px;
             font-weight: bold;
             color: black;
             text-shadow: 2px 2px 4px white;
             width: 100%;
             text-align: center;
             pointer-events: none;
+            font-family: 'Sigmar One', cursive;
         }
 
-        body {
-            background-color: #2c2c2c;
-            background-image: url("{{ url_for('static', filename='bg.png') }}");
-            background-size: cover;
-            background-position: center;
-            background-attachment: fixed;
-            background-repeat: no-repeat;
-            color: white;
-            font-family: Arial, sans-serif;
+        .decision-toggle {
+            margin-top: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            gap: 10px;
+            font-family: 'Sigmar One', cursive;
+            font-size: 28px;
         }
 
-        .container {
-            text-align: center;
-            margin-top: 50px;
-            padding-bottom: 120px;
+        .mode-state {
+            opacity: 0.7;
+            transition: opacity 0.2s ease-in-out;
         }
 
-        .logo {
-            max-width: 1000px;
-            height: auto;
-            margin-bottom: 30px;
+        .mode-state.active {
+            opacity: 1;
+        }
+
+        .decision-switch {
             position: relative;
-            top: -150px;
+            width: 64px;
+            height: 34px;
+            display: inline-block;
+        }
+
+        .decision-switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            inset: 0;
+            background-color: #8d8d8d;
+            border-radius: 34px;
+            transition: background-color 0.25s ease-in-out;
+        }
+
+        .slider:before {
+            content: "";
+            position: absolute;
+            height: 26px;
+            width: 26px;
+            left: 4px;
+            top: 4px;
+            background-color: white;
+            border-radius: 50%;
+            transition: transform 0.25s ease-in-out;
+        }
+
+        .decision-switch input:checked + .slider {
+            background-color: #29a85a;
+        }
+
+        .decision-switch input:checked + .slider:before {
+            transform: translateX(30px);
+        }
+
+        .left-bottom {
+            margin-top: auto;
+            padding-top: 18px;
+        }
+
+        .generate-button,
+        .save-button,
+        .confirm-button {
+            width: 100%;
+            border: none;
+            border-radius: 14px;
+            padding: 14px 16px;
+            font-size: 24px;
+            font-family: 'Sigmar One', cursive;
+            color: white;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-block;
+            text-align: center;
+            transition: all 0.3s ease-in-out;
+            box-sizing: border-box;
+        }
+
+        .generate-button,
+        .save-button {
+            background: #808080;
+            opacity: 0.45;
+            cursor: not-allowed;
+            pointer-events: none;
+        }
+
+        .generate-button {
+            margin-top: 12px;
+        }
+
+        .generate-button.enabled {
+            background: #cc2626;
+            opacity: 1;
+            cursor: pointer;
+            pointer-events: auto;
+        }
+
+        .save-button.enabled {
+            background: #1f9a3d;
+            opacity: 1;
+            cursor: pointer;
+            pointer-events: auto;
+            animation: pulse 1.6s infinite;
+        }
+
+        .generate-button.enabled:hover,
+        .save-button.enabled:hover,
+        .confirm-button:hover {
+            transform: translateY(-2px);
+            filter: brightness(1.08);
+        }
+
+        .confirm-button {
+            background: #cc2626;
+            margin-top: 12px;
+        }
+
+        @keyframes pulse {
+            0%,
+            100% {
+                box-shadow: 0 0 0 0 rgba(35, 180, 73, 0.55);
+            }
+            70% {
+                box-shadow: 0 0 0 12px rgba(35, 180, 73, 0);
+            }
+        }
+
+        .stage {
+            flex: 1;
+            display: flex;
+            align-items: stretch;
+            gap: 18px;
+            min-width: 0;
+            height: calc(100vh - 40px - var(--footer-clearance));
+            max-height: calc(100vh - 40px - var(--footer-clearance));
+        }
+
+        .stage-left {
+            flex: 0 1 min(560px, 44vw);
+            width: min(560px, 44vw);
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+            min-width: 0;
+            min-height: 0;
+            height: 100%;
+        }
+
+        .info-panel {
+            width: 100%;
+            padding: 20px;
+            box-sizing: border-box;
+            opacity: 0;
+            transform: translateX(-20px);
+            pointer-events: none;
+            transition: all 0.3s ease-in-out;
+        }
+
+        .info-panel.visible {
+            opacity: 1;
+            transform: translateX(0);
+            pointer-events: auto;
+        }
+
+        #info-panel {
+            flex: 0 0 auto;
+            max-height: 52%;
+            overflow-y: auto;
+        }
+
+        .pdf-panel {
+            flex: 1 1 620px;
+            width: 100%;
+            max-width: min(920px, 62vw);
+            min-width: 0;
+            box-sizing: border-box;
+            transform: translateX(20px);
+        }
+
+        .pdf-panel.visible {
+            transform: translateX(0);
+        }
+
+        .info-panel h3 {
+            margin: 0;
+            font-family: 'Sigmar One', cursive;
+            font-size: 28px;
+        }
+
+        .info-text {
+            margin-top: 12px;
+            color: #f2f2f2;
+            line-height: 1.55;
+            opacity: 0;
+            transition: opacity 0.28s ease-in-out;
+        }
+
+        .info-panel.visible .info-text {
+            opacity: 1;
+            transition-delay: 0.2s;
+        }
+
+        .choices-container {
+            display: block;
+            flex: 1 1 auto;
+            min-height: 0;
+            width: 100%;
+            background: rgba(0, 0, 0, 0.72);
+            backdrop-filter: blur(5px);
+            border-radius: 18px;
+            padding: 0 14px;
+            box-sizing: border-box;
+            border: 0 solid rgba(255, 255, 255, 0.12);
+            max-height: 0;
+            opacity: 0;
+            overflow: hidden;
+            transform: translateY(-10px);
+            pointer-events: none;
+            transition: all 0.3s ease-in-out;
+        }
+
+        .choices-container.visible {
+            max-height: none;
+            opacity: 1;
+            transform: translateY(0);
+            pointer-events: auto;
+            padding: 14px;
+            border-width: 1px;
+            overflow-y: auto;
+        }
+
+        .choices-container h3 {
+            margin-top: 0;
+            font-family: 'Sigmar One', cursive;
+        }
+
+        .pdf-panel h3 {
+            margin-top: 0;
+            font-family: 'Sigmar One', cursive;
+        }
+
+        #hero-frame {
+            width: 100%;
+            height: calc(100vh - 220px - var(--footer-clearance));
+            min-height: 720px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 8px;
+            background: white;
         }
 
         .footer {
@@ -99,43 +373,32 @@
             bottom: 0;
             left: 0;
             width: 100%;
-            padding-bottom: 20px;
-            padding-top: 20px;
+            padding: 12px 20px;
             font-size: 14px;
-            color: #888;
+            color: #b9b9b9;
             text-align: center;
-            background-color: rgba(44, 44, 44, 0.8);
+            background-color: rgba(20, 20, 20, 0.82);
             z-index: 100;
+            box-sizing: border-box;
         }
 
         .footer a {
-            color: #888;
+            color: #d0d0d0;
             text-decoration: underline;
         }
 
         .footer a:hover {
-            color: white;
+            color: #fff;
         }
 
         .corner-img {
             position: fixed;
             bottom: 0;
-            width: 45vw; /* Scale based on viewport width */
-            max-width: 900px; /* Maximum size */
+            width: 34vw;
+            max-width: 620px;
             height: auto;
             z-index: -1;
-        }
-
-        @media (max-width: 768px) {
-            .corner-img {
-                width: 60vw;
-            }
-        }
-
-        @media (max-width: 480px) {
-            .corner-img {
-                width: 80vw;
-            }
+            opacity: 0.92;
         }
 
         .goblin-img {
@@ -146,104 +409,117 @@
             right: 0;
         }
 
-        .checkbox-container {
-            margin: 20px 0;
-            font-size: 40px;
-            font-family: 'Sigmar One', cursive;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
-            color: black;
-            position: relative;
-            top: -150px;
-        }
+        @media (max-width: 1080px) {
+            .app-shell {
+                flex-direction: column;
+                padding-bottom: calc(20px + var(--footer-clearance));
+            }
 
-        .checkbox-container input {
-            width: 50px;
-            height: 50px;
-            cursor: pointer;
-        }
+            .left-panel {
+                width: 100%;
+                min-width: 0;
+                max-height: none;
+            }
 
-        .ancestry-selection-title {
-            color: black;
-            font-size: 2.5em; /* Twice the usual h3 size (roughly) */
-            font-family: 'Sigmar One', cursive;
-            position: relative;
-            top: -150px;
-        }
+            .stage {
+                width: 100%;
+                flex-direction: column;
+                height: auto;
+                max-height: none;
+            }
 
-        .separator-line {
-            width: 50%;
-            margin: 30px auto;
-            position: relative;
-            top: -150px;
+            .stage-left,
+            .info-panel,
+            .pdf-panel {
+                width: 100%;
+            }
+
+            #info-panel {
+                max-height: none;
+            }
+
+            #hero-frame {
+                min-height: 620px;
+                height: calc(72vh - var(--footer-clearance));
+            }
+
+            .corner-img {
+                display: none;
+            }
         }
     </style>
 </head>
 <body>
-<div class="container">
-    <img src="{{ url_for('static', filename='cwd_logo.png') }}" alt="CWD Logo" class="logo">
+<div class="app-shell">
+    <aside class="left-panel">
+        <img src="{{ url_for('static', filename='cwd_logo.png') }}" alt="CWD Logo" class="logo">
 
-    <div class="checkbox-container">
-        <input type="checkbox" id="decision-checkbox">
-        <label for="decision-checkbox">Chce podejmować decyzje!</label>
-    </div>
+        <h3 class="section-title">Wybierz pochodzenie postaci</h3>
+        <div class="ancestry-grid" id="ancestry-grid">
+            <div onclick="selectAncestry('human', this)" class="ancestry-item">
+                <img src="{{ url_for('static', filename='ancestry_button.png') }}" alt="Człowiek" class="ancestry-img">
+                <span class="ancestry-name">Człowiek</span>
+            </div>
+            <div onclick="selectAncestry('automaton', this)" class="ancestry-item">
+                <img src="{{ url_for('static', filename='ancestry_button.png') }}" alt="Automaton" class="ancestry-img">
+                <span class="ancestry-name">Automaton</span>
+            </div>
+            <div onclick="selectAncestry('goblin', this)" class="ancestry-item">
+                <img src="{{ url_for('static', filename='ancestry_button.png') }}" alt="Goblin" class="ancestry-img">
+                <span class="ancestry-name">Goblin</span>
+            </div>
+            <div onclick="selectAncestry('dwarf', this)" class="ancestry-item">
+                <img src="{{ url_for('static', filename='ancestry_button.png') }}" alt="Krasnolud" class="ancestry-img">
+                <span class="ancestry-name">Krasnolud</span>
+            </div>
+            <div onclick="selectAncestry('orc', this)" class="ancestry-item">
+                <img src="{{ url_for('static', filename='ancestry_button.png') }}" alt="Ork" class="ancestry-img">
+                <span class="ancestry-name">Ork</span>
+            </div>
+            <div onclick="selectAncestry('changeling', this)" class="ancestry-item">
+                <img src="{{ url_for('static', filename='ancestry_button.png') }}" alt="Odmieniec" class="ancestry-img">
+                <span class="ancestry-name">Odmieniec</span>
+            </div>
+        </div>
 
-    <hr class="separator-line">
+        <div class="decision-toggle">
+            <span id="mode-random" class="mode-state active">🎲</span>
+            <label class="decision-switch" for="decision-switch">
+                <input type="checkbox" id="decision-switch">
+                <span class="slider"></span>
+            </label>
+            <span id="mode-manual" class="mode-state">✅</span>
+        </div>
 
-    <h3 class="ancestry-selection-title">Wybierz pochodzenie postaci:</h3>
-    <div style="display: flex; justify-content: center; flex-wrap: wrap; position: relative; top: -150px;">
-        <div onclick="rollHero('human')" class="ancestry-item">
-            <img src="{{ url_for('static', filename='ancestry_button.png') }}" alt="Człowiek" class="ancestry-img">
-            <span class="ancestry-name">Człowiek</span>
+        <div class="left-bottom">
+            <button id="generate-btn" class="generate-button" onclick="rollHero()">GENERUJ</button>
+            <button id="save-btn" class="save-button" onclick="savePdf()">Zapisz na urządzeniu</button>
         </div>
-        <div onclick="rollHero('automaton')" class="ancestry-item">
-            <img src="{{ url_for('static', filename='ancestry_button.png') }}" alt="Automaton" class="ancestry-img">
-            <span class="ancestry-name">Automaton</span>
-        </div>
-        <div onclick="rollHero('goblin')" class="ancestry-item">
-            <img src="{{ url_for('static', filename='ancestry_button.png') }}" alt="Goblin" class="ancestry-img">
-            <span class="ancestry-name">Goblin</span>
-        </div>
-        <div onclick="rollHero('dwarf')" class="ancestry-item">
-            <img src="{{ url_for('static', filename='ancestry_button.png') }}" alt="Krasnolud" class="ancestry-img">
-            <span class="ancestry-name">Krasnolud</span>
-        </div>
-        <div onclick="rollHero('orc')" class="ancestry-item">
-            <img src="{{ url_for('static', filename='ancestry_button.png') }}" alt="Ork" class="ancestry-img">
-            <span class="ancestry-name">Ork</span>
-        </div>
-        <div onclick="rollHero('changeling')" class="ancestry-item">
-            <img src="{{ url_for('static', filename='ancestry_button.png') }}" alt="Odmieniec" class="ancestry-img">
-            <span class="ancestry-name">Odmieniec</span>
-        </div>
-    </div>
+    </aside>
 
-    <div id="choices-container"
-         style="display: none; margin-top: 30px; text-align: left; max-width: 600px; margin-left: auto; margin-right: auto; background-color: #3d3d3d; padding: 20px; border-radius: 16px; position: relative; top: -150px;">
-        <h3>Twoje wybory:</h3>
-        <div id="choices-list"></div>
-        <div style="text-align: center; margin-top: 20px;">
-            <button onclick="confirmChoices()" class="red-button">Zatwierdź wybory</button>
+    <main class="stage">
+        <div class="stage-left">
+            <section id="info-panel" class="info-panel">
+                <h3 id="info-title">Ancestry name:</h3>
+                <p class="info-text" id="info-text">lorem ipsum</p>
+            </section>
+            <section id="choices-container" class="choices-container">
+                <h3>Twoje wybory:</h3>
+                <div id="choices-list"></div>
+            </section>
         </div>
-    </div>
+        <section id="pdf-panel" class="info-panel pdf-panel">
+            <h3>Twoja Karta Postaci:</h3>
+            <iframe id="hero-frame" src=""></iframe>
+        </section>
+    </main>
+</div>
 
-    <div id="preview-container" style="display: none; margin-top: 30px; position: relative; top: -150px;">
-        <h3 style="font-size: 2.5em; color: black; font-family: 'Sigmar One', cursive;">Twoja Karta Postaci:</h3>
-        <iframe id="hero-frame" src="" width="1500px" height="1200px"
-                style="border: 1px solid #ccc; background-color: white;"></iframe>
-        <div style="margin-top: 20px;">
-            <a id="download-btn" href="#" class="red-button" style="background-color: #4CAF50;">Zapisz na urządzeniu</a>
-        </div>
-    </div>
-
-    <div class="footer">
-        Created by Tomasz Guzik, <a href="https://www.youtube.com/@Guzikologia" target="_blank">Guzikologia</a> |
-        Translation & publishing by Alis.Games, <a href="https://alisgames.pl/pl_PL/" target="_blank">Alis.Games</a> |
-        RPG game by Robert Shwalb, <a href="https://schwalbentertainment.com/shadow-of-the-demon-lord/" target="_blank">Schwalb
-        Entertainment</a>
-    </div>
+<div class="footer">
+    Created by Tomasz Guzik, <a href="https://www.youtube.com/@Guzikologia" target="_blank">Guzikologia</a> |
+    Translation & publishing by Alis.Games, <a href="https://alisgames.pl/pl_PL/" target="_blank">Alis.Games</a> |
+    RPG game by Robert Shwalb, <a href="https://schwalbentertainment.com/shadow-of-the-demon-lord/" target="_blank">Schwalb
+    Entertainment</a>
 </div>
 
 <img src="{{ url_for('static', filename='goblin.png') }}" alt="Goblin" class="corner-img goblin-img">
@@ -251,42 +527,255 @@
 
 <script>
     let currentHeroData = null;
+    let selectedAncestry = null;
+    let currentPdfAncestry = null;
+    let currentDownloadUrl = null;
+    let currentChoicesAncestry = null;
+    let manualChoicesLoaded = false;
+    let manualRequiresSelection = false;
 
-    function rollHero(ancestry) {
-        const previewContainer = document.getElementById('preview-container');
-        const choicesContainer = document.getElementById('choices-container');
+    const ancestryDescriptions = JSON.parse('{{ ancestry_descriptions | tojson | safe }}');
+
+    const ancestryDisplayNames = {
+        human: 'Człowiek',
+        automaton: 'Automaton',
+        goblin: 'Goblin',
+        dwarf: 'Krasnolud',
+        orc: 'Ork',
+        changeling: 'Odmieniec'
+    };
+
+    function isManualMode() {
+        return document.getElementById('decision-switch').checked;
+    }
+
+    function setModeIndicators() {
+        const randomMode = !isManualMode();
+        document.getElementById('mode-random').classList.toggle('active', randomMode);
+        document.getElementById('mode-manual').classList.toggle('active', !randomMode);
+    }
+
+    function areAllChoicesSelected() {
+        if (!currentHeroData || !Array.isArray(currentHeroData.choices)) {
+            return false;
+        }
+
+        for (let i = 0; i < currentHeroData.choices.length; i++) {
+            const choicePool = currentHeroData.choices[i];
+            if (!Array.isArray(choicePool) || choicePool.length === 0) {
+                continue;
+            }
+
+            const radios = document.getElementsByName(`choice-${i}`);
+            if (!radios.length) {
+                continue;
+            }
+
+            let hasSelection = false;
+
+            for (let j = 0; j < radios.length; j++) {
+                if (radios[j].checked) {
+                    hasSelection = true;
+                    break;
+                }
+            }
+
+            if (!hasSelection) {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    function hasSelectableChoices(choices) {
+        if (!Array.isArray(choices)) {
+            return false;
+        }
+
+        return choices.some(choicePool => Array.isArray(choicePool) && choicePool.length > 0);
+    }
+
+    function updateGenerateState() {
+        const generateBtn = document.getElementById('generate-btn');
+        let canGenerate = !!selectedAncestry;
+
+        if (canGenerate && isManualMode()) {
+            if (!manualChoicesLoaded) {
+                canGenerate = false;
+            } else if (manualRequiresSelection) {
+                canGenerate = areAllChoicesSelected();
+            }
+        }
+
+        generateBtn.classList.toggle('enabled', canGenerate);
+    }
+
+    function updateSaveState(isReady = false) {
+        const saveBtn = document.getElementById('save-btn');
+        saveBtn.classList.toggle('enabled', isReady);
+    }
+
+    function showPdfPanel() {
+        document.getElementById('pdf-panel').classList.add('visible');
+    }
+
+    function hidePdfPanel() {
+        document.getElementById('pdf-panel').classList.remove('visible');
+    }
+
+    function showChoicesContainer() {
+        document.getElementById('choices-container').classList.add('visible');
+    }
+
+    function hideChoicesContainer() {
+        document.getElementById('choices-container').classList.remove('visible');
+    }
+
+    function clearManualChoicesState() {
+        currentHeroData = null;
+        currentChoicesAncestry = null;
+        manualChoicesLoaded = false;
+        manualRequiresSelection = false;
+        document.getElementById('choices-list').innerHTML = '';
+    }
+
+    function prepareManualChoices() {
+        if (!selectedAncestry) {
+            return;
+        }
+
+        if (currentChoicesAncestry === selectedAncestry && manualChoicesLoaded) {
+            if (manualRequiresSelection) {
+                showChoicesContainer();
+            } else {
+                hideChoicesContainer();
+            }
+            updateGenerateState();
+            return;
+        }
+
+        clearManualChoicesState();
+        hideChoicesContainer();
+        updateGenerateState();
+
+        const timestamp = new Date().getTime();
+        fetch(`/roll/${selectedAncestry}?t=${timestamp}&is_random=0`)
+            .then(response => {
+                const contentType = response.headers.get('content-type') || '';
+
+                if (!contentType.includes('application/json')) {
+                    manualChoicesLoaded = true;
+                    manualRequiresSelection = false;
+                    currentChoicesAncestry = selectedAncestry;
+                    updateGenerateState();
+                    return null;
+                }
+
+                return response.json();
+            })
+            .then(data => {
+                if (!data) {
+                    return;
+                }
+
+                if (data.status === 'need_choices' && data.hero_data) {
+                    currentHeroData = data.hero_data;
+                    currentChoicesAncestry = selectedAncestry;
+                    manualChoicesLoaded = true;
+                    manualRequiresSelection = hasSelectableChoices(data.hero_data.choices);
+
+                    if (manualRequiresSelection) {
+                        displayChoices(data.hero_data.choices);
+                        showChoicesContainer();
+                    } else {
+                        hideChoicesContainer();
+                    }
+
+                    updateGenerateState();
+                }
+            })
+            .catch(() => {
+                clearManualChoicesState();
+                hideChoicesContainer();
+                updateGenerateState();
+            });
+    }
+
+    function updateInfoPanel(ancestry) {
+        const panel = document.getElementById('info-panel');
+        const title = document.getElementById('info-title');
+        const text = document.getElementById('info-text');
+        const ancestryName = ancestryDisplayNames[ancestry] || ancestry;
+
+        title.textContent = `${ancestryName}:`;
+        text.textContent = ancestryDescriptions[ancestry] || 'Lorem ipsum';
+        panel.classList.add('visible');
+    }
+
+    function selectAncestry(ancestry, clickedElement) {
+        const isDifferentPdfAncestry = !!currentPdfAncestry && currentPdfAncestry !== ancestry;
+
+        selectedAncestry = ancestry;
+        document.querySelectorAll('.ancestry-item').forEach(item => item.classList.remove('active'));
+        clickedElement.classList.add('active');
+        updateInfoPanel(ancestry);
+
+        if (isDifferentPdfAncestry) {
+            hidePdfPanel();
+            currentPdfAncestry = null;
+            currentDownloadUrl = null;
+            updateSaveState(false);
+        }
+
+        clearManualChoicesState();
+
+        if (isManualMode()) {
+            prepareManualChoices();
+        } else {
+            hideChoicesContainer();
+        }
+
+        updateGenerateState();
+
+        if (!currentPdfAncestry) {
+            updateSaveState(false);
+        }
+    }
+
+    function rollHero() {
+        if (!selectedAncestry) {
+            return;
+        }
+
         const iframe = document.getElementById('hero-frame');
-        const downloadBtn = document.getElementById('download-btn');
-        const isDecisionChecked = document.getElementById('decision-checkbox').checked;
-        const isRandom = isDecisionChecked ? '0' : '1';
+        const isManual = isManualMode();
+        const isRandom = isManual ? '0' : '1';
         const timestamp = new Date().getTime();
 
-        previewContainer.style.display = 'none';
-        choicesContainer.style.display = 'none';
+        hidePdfPanel();
 
-        const url = ancestry === 'random' ? `/roll_random?t=${timestamp}&is_random=${isRandom}` : `/roll/${ancestry}?t=${timestamp}&is_random=${isRandom}`;
-
-        if (isDecisionChecked) {
-            fetch(url)
-                .then(response => response.json())
-                .then(data => {
-                    if (data.status === 'need_choices') {
-                        currentHeroData = data.hero_data;
-                        displayChoices(data.hero_data.choices);
-                    }
-                });
-        } else {
-            const zoomParams = '#zoom=150';
+        if (!isManual) {
+            const url = `/roll/${selectedAncestry}?t=${timestamp}&is_random=1`;
+            const zoomParams = '#zoom=110';
             iframe.src = url + zoomParams;
-            if (ancestry === 'random') {
-                downloadBtn.href = `/download_current?download=1`;
-            } else {
-                downloadBtn.href = `/roll/${ancestry}?download=1&is_random=${isRandom}`;
-            }
-            previewContainer.style.display = 'block';
-            setTimeout(() => {
-                previewContainer.scrollIntoView({behavior: 'smooth'});
-            }, 100);
+            currentDownloadUrl = `/roll/${selectedAncestry}?download=1&is_random=1`;
+            currentPdfAncestry = selectedAncestry;
+            showPdfPanel();
+            document.getElementById('info-panel').classList.add('visible');
+            updateSaveState(true);
+            return;
+        }
+
+        if (manualRequiresSelection) {
+            confirmChoices();
+        } else {
+            const manualUrl = `/roll/${selectedAncestry}?t=${timestamp}&is_random=0`;
+            iframe.src = `${manualUrl}#zoom=110`;
+            currentDownloadUrl = `/roll/${selectedAncestry}?download=1&is_random=0`;
+            currentPdfAncestry = selectedAncestry;
+            showPdfPanel();
+            updateSaveState(true);
         }
     }
 
@@ -297,13 +786,13 @@
 
         choices.forEach((choicePool, poolIndex) => {
             const poolDiv = document.createElement('div');
-            poolDiv.style.marginBottom = '20px';
+            poolDiv.style.marginBottom = '14px';
             poolDiv.innerHTML = `<h4>Wybór ${poolIndex + 1}:</h4>`;
 
             choicePool.forEach((option, optionIndex) => {
                 const label = document.createElement('label');
                 label.style.display = 'block';
-                label.style.marginBottom = '5px';
+                label.style.marginBottom = '4px';
                 label.style.cursor = 'pointer';
 
                 const radio = document.createElement('input');
@@ -311,17 +800,17 @@
                 radio.name = `choice-${poolIndex}`;
                 radio.value = optionIndex;
                 radio.style.marginRight = '10px';
-                if (optionIndex === 0) radio.checked = true;
+                radio.addEventListener('change', updateGenerateState);
 
                 let optionText = '';
                 const actionKey = Object.keys(option)[0];
                 const actionVal = option[actionKey];
 
                 const attributeTranslations = {
-                    'strength': 'Siła',
-                    'dexterity': 'Zręczność',
-                    'intelligence': 'Intelekt',
-                    'will': 'Wola'
+                    strength: 'Siła',
+                    dexterity: 'Zręczność',
+                    intelligence: 'Intelekt',
+                    will: 'Wola'
                 };
 
                 if (actionKey === 'add_attribute') {
@@ -343,11 +832,12 @@
                 label.appendChild(document.createTextNode(optionText));
                 poolDiv.appendChild(label);
             });
+
             choicesList.appendChild(poolDiv);
         });
 
-        choicesContainer.style.display = 'block';
-        choicesContainer.scrollIntoView({behavior: 'smooth'});
+        showChoicesContainer();
+        updateGenerateState();
     }
 
     function confirmChoices() {
@@ -359,7 +849,7 @@
             let selectedIndex = 0;
             for (let j = 0; j < radios.length; j++) {
                 if (radios[j].checked) {
-                    selectedIndex = parseInt(radios[j].value);
+                    selectedIndex = parseInt(radios[j].value, 10);
                     break;
                 }
             }
@@ -369,32 +859,59 @@
         fetch('/confirm_choices', {
             method: 'POST',
             headers: {
-                'Content-Type': 'application/json',
+                'Content-Type': 'application/json'
             },
             body: JSON.stringify({
                 hero_data: currentHeroData,
                 selected_choices: selectedChoices
-            }),
+            })
         })
             .then(response => response.json())
             .then(data => {
                 if (data.status === 'success') {
-                    const previewContainer = document.getElementById('preview-container');
                     const iframe = document.getElementById('hero-frame');
-                    const downloadBtn = document.getElementById('download-btn');
                     const timestamp = new Date().getTime();
 
-                    const zoomParams = '#zoom=125';
-                    iframe.src = `${data.download_url}?t=${timestamp}${zoomParams}`;
-                    downloadBtn.href = `${data.download_url}?download=1`;
-                    previewContainer.style.display = 'block';
-                    document.getElementById('choices-container').style.display = 'none';
-                    setTimeout(() => {
-                        previewContainer.scrollIntoView({behavior: 'smooth'});
-                    }, 100);
+                    iframe.src = `${data.download_url}?t=${timestamp}#zoom=110`;
+                    currentDownloadUrl = `${data.download_url}?download=1`;
+                    currentPdfAncestry = selectedAncestry;
+                    showPdfPanel();
+                    hideChoicesContainer();
+                    updateSaveState(true);
                 }
             });
     }
+
+    function savePdf() {
+        const saveBtn = document.getElementById('save-btn');
+        if (!saveBtn.classList.contains('enabled')) {
+            return;
+        }
+
+        if (currentDownloadUrl) {
+            window.location.href = currentDownloadUrl;
+        }
+    }
+
+    document.getElementById('decision-switch').addEventListener('change', function () {
+        setModeIndicators();
+        clearManualChoicesState();
+        hideChoicesContainer();
+        hidePdfPanel();
+        currentPdfAncestry = null;
+        currentDownloadUrl = null;
+        updateSaveState(false);
+
+        if (selectedAncestry && isManualMode()) {
+            prepareManualChoices();
+        }
+
+        updateGenerateState();
+    });
+
+    setModeIndicators();
+    updateGenerateState();
+    updateSaveState(false);
 </script>
 </body>
 </html>

@@ -1,3 +1,4 @@
+import json
 import os
 import random
 import tempfile
@@ -13,11 +14,18 @@ ANCESTRIES = ["human", "automaton", "goblin", "dwarf", "orc", "changeling"]
 
 # Use /tmp for serverless environment compatibility
 OUTPUT_PATH = os.path.join(tempfile.gettempdir(), "hero_card.pdf")
+DESCRIPTIONS_PATH = os.path.join("data_base", "ancestry", "descriptions.json")
+
+
+def load_ancestry_descriptions():
+    with open(DESCRIPTIONS_PATH, "r", encoding="utf-8") as descriptions_file:
+        return json.load(descriptions_file)
 
 
 @app.route('/')
 def index():
-    return render_template('index.html')
+    descriptions = load_ancestry_descriptions()
+    return render_template('index.html', ancestry_descriptions=descriptions)
 
 
 @app.route('/roll/<ancestry>')
