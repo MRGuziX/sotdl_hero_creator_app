@@ -152,11 +152,56 @@
         .book-option {
             display: flex;
             align-items: center;
-            gap: 8px;
-            margin-bottom: 6px;
+            position: relative;
+            margin-bottom: 8px;
             cursor: pointer;
             color: #ededed;
             font-size: 14px;
+            user-select: none;
+        }
+
+        .book-option input {
+            position: absolute;
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .book-option .checkmark {
+            height: 18px;
+            width: 18px;
+            background-color: rgba(0, 0, 0, 0.5);
+            border: 1px solid #555;
+            border-radius: 4px;
+            margin-right: 10px;
+            position: relative;
+            transition: all 0.2s ease-in-out;
+            flex: 0 0 18px;
+        }
+
+        .book-option:hover input ~ .checkmark {
+            border-color: #888;
+        }
+
+        .book-option input:checked ~ .checkmark {
+            border-color: #b30000;
+        }
+
+        .book-option .checkmark:after {
+            content: "";
+            position: absolute;
+            display: none;
+            left: 6px;
+            top: 2px;
+            width: 4px;
+            height: 10px;
+            border: solid #b30000;
+            border-width: 0 2px 2px 0;
+            transform: rotate(45deg);
+        }
+
+        .book-option input:checked ~ .checkmark:after {
+            display: block;
         }
 
         .section-title {
@@ -466,15 +511,57 @@
         }
 
         .choice-option {
-            display: block;
-            margin-bottom: 4px;
+            display: flex;
+            align-items: center;
+            position: relative;
+            margin-bottom: 8px;
             cursor: pointer;
+            color: #e0e0e0;
+            user-select: none;
         }
 
-        .choice-option input[type="radio"],
-        .book-option input[type="checkbox"] {
-            accent-color: #8b0000;
+        .choice-option input[type="radio"] {
+            position: absolute;
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .choice-option .radiomark {
+            height: 18px;
+            width: 18px;
+            background-color: rgba(0, 0, 0, 0.5);
+            border: 1px solid #555;
+            border-radius: 50%;
             margin-right: 10px;
+            position: relative;
+            transition: all 0.2s ease-in-out;
+            flex: 0 0 18px;
+        }
+
+        .choice-option:hover input ~ .radiomark {
+            border-color: #888;
+        }
+
+        .choice-option input:checked ~ .radiomark {
+            border-color: #b30000;
+        }
+
+        .choice-option .radiomark:after {
+            content: "";
+            position: absolute;
+            display: none;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: #b30000;
+        }
+
+        .choice-option input:checked ~ .radiomark:after {
+            display: block;
         }
 
         .left-panel::-webkit-scrollbar,
@@ -617,9 +704,10 @@
                 <button type="button" class="books-toggle" id="books-toggle">⚙ Wybierz księgi</button>
             </div>
             <div class="books-panel" id="books-panel">
-                <label class="book-option"><input type="checkbox" checked> Core</label>
-                <label class="book-option"><input type="checkbox"> Demon Lord's Companion</label>
-                <label class="book-option"><input type="checkbox"> Occult Philosophy</label>
+                <label class="book-option"><input type="checkbox" checked><span class="checkmark"></span>Core</label>
+                <label class="book-option"><input type="checkbox"><span class="checkmark"></span>Demon Lord's Companion</label>
+                <label class="book-option"><input type="checkbox"><span class="checkmark"></span>Occult
+                    Philosophy</label>
             </div>
         </div>
 
@@ -964,6 +1052,9 @@
                 radio.value = optionIndex;
                 radio.addEventListener('change', updateGenerateState);
 
+                const radiomark = document.createElement('span');
+                radiomark.className = 'radiomark';
+
                 let optionText = '';
                 const actionKey = Object.keys(option)[0];
                 const actionVal = option[actionKey];
@@ -991,6 +1082,7 @@
                 }
 
                 label.appendChild(radio);
+                label.appendChild(radiomark);
                 label.appendChild(document.createTextNode(optionText));
                 poolDiv.appendChild(label);
             });
