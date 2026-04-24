@@ -11,8 +11,15 @@
             --footer-clearance: 76px;
         }
 
+        html,
         body {
             margin: 0;
+            padding: 0;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        body {
             background-color: #2c2c2c;
             background-image: url("{{ url_for('static', filename='bg.jpg') }}");
             background-size: cover;
@@ -21,17 +28,16 @@
             background-repeat: no-repeat;
             color: white;
             font-family: Arial, sans-serif;
-            padding-bottom: var(--footer-clearance);
             box-sizing: border-box;
         }
 
         .app-shell {
-            min-height: calc(100vh - var(--footer-clearance));
+            height: calc(100vh - var(--footer-clearance));
             display: flex;
             gap: 24px;
             padding: 20px;
-            padding-bottom: calc(20px + var(--footer-clearance));
             box-sizing: border-box;
+            overflow: hidden;
         }
 
         .left-panel,
@@ -60,6 +66,99 @@
             margin-bottom: 12px;
         }
 
+        .left-panel-tools {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-bottom: 12px;
+            padding: 12px;
+            border-radius: 12px;
+            background: rgba(255, 255, 255, 0.06);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .tool-row {
+            display: flex;
+            width: 100%;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+            margin-bottom: 10px;
+        }
+
+        .tool-row:last-of-type {
+            margin-bottom: 0;
+        }
+
+        .tool-label {
+            font-size: 14px;
+            letter-spacing: 0.4px;
+            color: rgba(255, 255, 255, 0.9);
+            text-transform: uppercase;
+        }
+
+        .level-stepper {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .stepper-btn {
+            width: 30px;
+            height: 30px;
+            border-radius: 8px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            background: rgba(255, 255, 255, 0.1);
+            color: #f3f3f3;
+            font-size: 18px;
+            cursor: pointer;
+            transition: border-color 0.2s ease, background-color 0.2s ease;
+        }
+
+        .stepper-btn:hover {
+            border-color: #8b0000;
+            background: rgba(139, 0, 0, 0.2);
+        }
+
+        #level-value {
+            min-width: 20px;
+            text-align: center;
+            font-size: 18px;
+            font-weight: 700;
+            color: #ffffff;
+        }
+
+        .books-toggle {
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 8px;
+            background: rgba(255, 255, 255, 0.1);
+            color: #f0f0f0;
+            font-size: 14px;
+            padding: 6px 10px;
+            cursor: pointer;
+        }
+
+        .books-panel {
+            display: none;
+            margin-top: 8px;
+            padding-top: 8px;
+            border-top: 1px solid rgba(255, 255, 255, 0.12);
+        }
+
+        .books-panel.visible {
+            display: block;
+        }
+
+        .book-option {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 6px;
+            cursor: pointer;
+            color: #ededed;
+            font-size: 14px;
+        }
+
         .section-title {
             margin: 8px 0 10px;
             font-family: 'Sigmar One', cursive;
@@ -76,39 +175,40 @@
         .ancestry-item {
             position: relative;
             cursor: pointer;
-            transition: all 0.3s ease-in-out;
+            transition: all 0.24s ease-in-out;
             border-radius: 14px;
             overflow: hidden;
+            min-height: 64px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 10px 8px;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.16);
+            box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.03);
         }
 
         .ancestry-item:hover {
-            transform: translateY(-2px) scale(1.02);
-            filter: drop-shadow(0 6px 12px rgba(0, 0, 0, 0.55));
+            transform: translateY(-2px);
+            border-color: #8b0000;
+            box-shadow: inset 0 0 0 1px rgba(139, 0, 0, 0.45), 0 6px 14px rgba(0, 0, 0, 0.42);
         }
 
         .ancestry-item.active {
-            box-shadow: 0 0 0 3px rgba(255, 60, 60, 0.7), 0 0 16px rgba(255, 40, 40, 0.6);
-        }
-
-        .ancestry-img {
-            width: 100%;
-            height: auto;
-            display: block;
+            border-color: #8b0000;
+            box-shadow: inset 0 0 0 1px rgba(139, 0, 0, 0.55), 0 0 0 1px rgba(139, 0, 0, 0.4);
         }
 
         .ancestry-name {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            font-size: 23px;
-            font-weight: bold;
-            color: black;
-            text-shadow: 2px 2px 4px white;
+            font-size: 21px;
+            font-weight: 700;
+            color: #f8f8f8;
+            text-shadow: none;
             width: 100%;
             text-align: center;
             pointer-events: none;
-            font-family: 'Sigmar One', cursive;
+            font-family: 'Merriweather', Georgia, serif;
         }
 
         .decision-toggle {
@@ -209,14 +309,14 @@
         }
 
         .generate-button.enabled {
-            background: #cc2626;
+            background: #8b0000;
             opacity: 1;
             cursor: pointer;
             pointer-events: auto;
         }
 
         .save-button.enabled {
-            background: #1f9a3d;
+            background: #1f6a43;
             opacity: 1;
             cursor: pointer;
             pointer-events: auto;
@@ -231,7 +331,7 @@
         }
 
         .confirm-button {
-            background: #cc2626;
+            background: #8b0000;
             margin-top: 12px;
         }
 
@@ -311,6 +411,10 @@
             margin-top: 12px;
             color: #f2f2f2;
             line-height: 1.55;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
             opacity: 0;
             transition: opacity 0.28s ease-in-out;
         }
@@ -321,14 +425,15 @@
         }
 
         .choices-container {
-            display: block;
+            display: flex;
+            flex-direction: column;
             flex: 1 1 auto;
             min-height: 0;
             width: 100%;
             background: rgba(0, 0, 0, 0.72);
             backdrop-filter: blur(5px);
             border-radius: 18px;
-            padding: 0 14px;
+            padding: 0;
             box-sizing: border-box;
             border: 0 solid rgba(255, 255, 255, 0.12);
             max-height: 0;
@@ -344,14 +449,58 @@
             opacity: 1;
             transform: translateY(0);
             pointer-events: auto;
-            padding: 14px;
             border-width: 1px;
-            overflow-y: auto;
         }
 
-        .choices-container h3 {
+        .choices-scroll {
+            height: 100%;
+            overflow-y: auto;
+            padding: 14px 10px 14px 14px;
+            box-sizing: border-box;
+            min-height: 0;
+        }
+
+        .choices-scroll h3 {
             margin-top: 0;
             font-family: 'Sigmar One', cursive;
+        }
+
+        .choice-option {
+            display: block;
+            margin-bottom: 4px;
+            cursor: pointer;
+        }
+
+        .choice-option input[type="radio"],
+        .book-option input[type="checkbox"] {
+            accent-color: #8b0000;
+            margin-right: 10px;
+        }
+
+        .left-panel::-webkit-scrollbar,
+        #info-panel::-webkit-scrollbar,
+        .choices-scroll::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        .left-panel::-webkit-scrollbar-track,
+        #info-panel::-webkit-scrollbar-track,
+        .choices-scroll::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.08);
+            border-radius: 8px;
+        }
+
+        .left-panel::-webkit-scrollbar-thumb,
+        #info-panel::-webkit-scrollbar-thumb,
+        .choices-scroll::-webkit-scrollbar-thumb {
+            background: rgba(72, 72, 72, 0.9);
+            border-radius: 8px;
+        }
+
+        .left-panel::-webkit-scrollbar-thumb:hover,
+        #info-panel::-webkit-scrollbar-thumb:hover,
+        .choices-scroll::-webkit-scrollbar-thumb:hover {
+            background: rgba(95, 95, 95, 0.95);
         }
 
         .pdf-panel h3 {
@@ -454,30 +603,44 @@
     <aside class="left-panel">
         <img src="{{ url_for('static', filename='cwd_logo.png') }}" alt="CWD Logo" class="logo">
 
-        <h3 class="section-title">Wybierz pochodzenie postaci</h3>
+        <div class="left-panel-tools">
+            <div class="tool-row top-control-row">
+                <span class="tool-label">Poziom postaci</span>
+                <div class="level-stepper">
+                    <button type="button" class="stepper-btn" id="level-down">−</button>
+                    <span id="level-value">0</span>
+                    <button type="button" class="stepper-btn" id="level-up">+</button>
+                </div>
+            </div>
+            <div class="tool-row top-control-row">
+                <span class="tool-label">Źródła</span>
+                <button type="button" class="books-toggle" id="books-toggle">⚙ Wybierz księgi</button>
+            </div>
+            <div class="books-panel" id="books-panel">
+                <label class="book-option"><input type="checkbox" checked> Core</label>
+                <label class="book-option"><input type="checkbox"> Demon Lord's Companion</label>
+                <label class="book-option"><input type="checkbox"> Occult Philosophy</label>
+            </div>
+        </div>
+
+        <h3 class="section-title">Wybierz pochodzenie</h3>
         <div class="ancestry-grid" id="ancestry-grid">
             <div onclick="selectAncestry('human', this)" class="ancestry-item">
-                <img src="{{ url_for('static', filename='ancestry_button.png') }}" alt="Człowiek" class="ancestry-img">
                 <span class="ancestry-name">Człowiek</span>
             </div>
             <div onclick="selectAncestry('automaton', this)" class="ancestry-item">
-                <img src="{{ url_for('static', filename='ancestry_button.png') }}" alt="Automaton" class="ancestry-img">
                 <span class="ancestry-name">Automaton</span>
             </div>
             <div onclick="selectAncestry('goblin', this)" class="ancestry-item">
-                <img src="{{ url_for('static', filename='ancestry_button.png') }}" alt="Goblin" class="ancestry-img">
                 <span class="ancestry-name">Goblin</span>
             </div>
             <div onclick="selectAncestry('dwarf', this)" class="ancestry-item">
-                <img src="{{ url_for('static', filename='ancestry_button.png') }}" alt="Krasnolud" class="ancestry-img">
                 <span class="ancestry-name">Krasnolud</span>
             </div>
             <div onclick="selectAncestry('orc', this)" class="ancestry-item">
-                <img src="{{ url_for('static', filename='ancestry_button.png') }}" alt="Ork" class="ancestry-img">
                 <span class="ancestry-name">Ork</span>
             </div>
             <div onclick="selectAncestry('changeling', this)" class="ancestry-item">
-                <img src="{{ url_for('static', filename='ancestry_button.png') }}" alt="Odmieniec" class="ancestry-img">
                 <span class="ancestry-name">Odmieniec</span>
             </div>
         </div>
@@ -504,8 +667,10 @@
                 <p class="info-text" id="info-text">lorem ipsum</p>
             </section>
             <section id="choices-container" class="choices-container">
-                <h3>Twoje wybory:</h3>
-                <div id="choices-list"></div>
+                <div class="choices-scroll">
+                    <h3>Twoje wybory:</h3>
+                    <div id="choices-list"></div>
+                </div>
             </section>
         </div>
         <section id="pdf-panel" class="info-panel pdf-panel">
@@ -791,15 +956,12 @@
 
             choicePool.forEach((option, optionIndex) => {
                 const label = document.createElement('label');
-                label.style.display = 'block';
-                label.style.marginBottom = '4px';
-                label.style.cursor = 'pointer';
+                label.className = 'choice-option';
 
                 const radio = document.createElement('input');
                 radio.type = 'radio';
                 radio.name = `choice-${poolIndex}`;
                 radio.value = optionIndex;
-                radio.style.marginRight = '10px';
                 radio.addEventListener('change', updateGenerateState);
 
                 let optionText = '';
@@ -907,6 +1069,24 @@
         }
 
         updateGenerateState();
+    });
+
+    const booksToggle = document.getElementById('books-toggle');
+    const booksPanel = document.getElementById('books-panel');
+    const levelValue = document.getElementById('level-value');
+
+    document.getElementById('level-down').addEventListener('click', () => {
+        const current = parseInt(levelValue.textContent, 10);
+        levelValue.textContent = Math.max(0, current - 1).toString();
+    });
+
+    document.getElementById('level-up').addEventListener('click', () => {
+        const current = parseInt(levelValue.textContent, 10);
+        levelValue.textContent = Math.min(10, current + 1).toString();
+    });
+
+    booksToggle.addEventListener('click', () => {
+        booksPanel.classList.toggle('visible');
     });
 
     setModeIndicators();
