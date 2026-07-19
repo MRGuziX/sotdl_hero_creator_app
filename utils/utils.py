@@ -1,8 +1,11 @@
 import json
+import logging
 import os
 import pathlib
 import random
 import tempfile
+
+logger = logging.getLogger(__name__)
 
 from models.action import (
     Action,
@@ -99,6 +102,8 @@ def build_hero(
     data = _load_json(f"data_base/ancestry/{ancestry}/{ancestry}.json")
     ancestry_data = AncestryData.model_validate(data)
 
+    logger.info("Building hero: ancestry=%s", ancestry)
+
     hero = AncestryHero(
         ancestry_name=ancestry_data.general.ancestry_name,
         strength=ancestry_data.general.strength,
@@ -126,6 +131,11 @@ def build_hero(
         if entry is None:
             return
         hero.backstory[category] = entry.description
+        logger.info("  backstory [%s]: %s", category, entry.description[:80])
+        if entry.actions:
+            logger.info("  backstory [%s] adds actions: %s", category, [a.type for a in entry.actions])
+        if entry.choices:
+            logger.info("  backstory [%s] adds %d choice group(s)", category, len(entry.choices))
         actions.extend(entry.actions)
         choices.extend(entry.choices)
 
@@ -192,6 +202,9 @@ def build_hero(
             _update_backstory(get_from_ancestry(roll_dice(1, 6), "apparent_sex", ancestry), "apparent_sex")
             _update_backstory(get_from_ancestry(roll_dice(3, 6), "true_age", ancestry), "true_age")
             _update_backstory(get_from_ancestry(roll_dice(3, 6), "oddity", ancestry), "oddity")
+
+    logger.info("  ancestry actions: %s", [f"{a.type}({a.name})" if hasattr(a, 'name') else a.type for a in actions])
+    logger.info("  ancestry choices: %d group(s)", len(choices))
 
     return hero, actions, choices
 
@@ -313,6 +326,7 @@ def add_item(name: str, hero: AncestryHero, item_data: AddItem | None = None):
 
 
 def apply_action(action: Action, hero: AncestryHero, is_random: bool = False):
+    logger.info("  apply: %s", action.model_dump())
     match action:
         case AddAttribute():
             add_attribute(action.name, action.value, hero, is_random)
@@ -334,10 +348,16 @@ def resolve_choices(
         selected_choices: list[Action] | None = None,
 ) -> list[Action]:
     if is_random:
-        for choice_group in choices:
+        for i, choice_group in enumerate(choices):
             picked = random.choice(choice_group)
+            options = [f"{a.type}({a.name})" if hasattr(a, 'name') else a.type for a in choice_group]
+            picked_label = f"{picked.type}({picked.name})" if hasattr(picked, 'name') else picked.type
+            logger.info("  choice group %d: options=%s -> picked=%s", i, options, picked_label)
             actions.append(picked)
     elif selected_choices:
+        for choice in selected_choices:
+            label = f"{choice.type}({choice.name})" if hasattr(choice, 'name') else choice.type
+            logger.info("  user selected: %s", label)
         actions.extend(selected_choices)
 
     return actions
@@ -369,11 +389,13 @@ def expand_any_to_choices(
 
 def add_wealth(hero: AncestryHero, actions: list[Action], choices: list[Choice]):
     dice_roll = roll_dice(3, 6)
+    logger.info("  wealth roll: %d", dice_roll)
     data = _load_json("data_base/equipment/wealth.json")
 
     for entry_data in data["zamożność"]:
         entry = WealthEntry.model_validate(entry_data)
         if dice_roll in entry.roll:
+            logger.info("  wealth result: %s", entry.description[:60])
             hero.wealth = entry.description
 
             if entry.backpack:
@@ -403,10 +425,12 @@ def add_oddity(hero: AncestryHero):
     for entry in data["kurioza"]:
         if dice_roll in entry["roll"]:
             hero.oddity = entry["description"]
+            logger.info("  oddity roll %d: %s", dice_roll, hero.oddity[:60])
             return
 
 
 def get_hero(ancestry: str, is_random: bool) -> AncestryHero | tuple[AncestryHero, list[Choice]]:
+    logger.info("=== get_hero: ancestry=%s, is_random=%s ===", ancestry, is_random)
     hero, actions, choices = build_hero(ancestry=ancestry)
 
     add_wealth(hero, actions, choices)
@@ -414,16 +438,25 @@ def get_hero(ancestry: str, is_random: bool) -> AncestryHero | tuple[AncestryHer
 
     if not is_random:
         actions, choices = expand_any_to_choices(actions, choices)
+        logger.info("Manual mode: %d actions to apply, %d choice groups for user", len(actions), len(choices))
         for action in actions:
             apply_action(action, hero, is_random=False)
 
         if choices:
+            logger.info("Returning hero with %d unresolved choice group(s)", len(choices))
             return hero, choices
 
     if is_random:
+        logger.info("Random mode: resolving %d choice group(s)", len(choices))
         actions = resolve_choices(hero, actions, choices, is_random=True)
+        logger.info("Applying %d total actions", len(actions))
         for action in actions:
             apply_action(action, hero, is_random=True)
         fill_pdf(hero, os.path.join(tempfile.gettempdir(), "hero_card.pdf"))
 
+    logger.info(
+        "=== Hero complete: %s | STR=%d DEX=%d INT=%d WILL=%d | %d prof(s) | %d lang(s) | wealth=%s ===",
+        hero.ancestry_name, hero.strength, hero.dexterity, hero.intelligence, hero.will,
+        len(hero.professions), len(hero.languages), hero.wealth[:30] if hero.wealth else "none",
+    )
     return hero

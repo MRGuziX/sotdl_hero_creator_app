@@ -1,9 +1,16 @@
 import json
+import logging
 import os
 import random
 import tempfile
 
 from flask import Flask, render_template, send_file, redirect, url_for, request, jsonify
+
+logging.basicConfig(
+    level=logging.INFO,
+    format="%(asctime)s [%(name)s] %(message)s",
+    datefmt="%H:%M:%S",
+)
 
 from models.action import Action
 from models.base_hero import AncestryHero
