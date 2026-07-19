@@ -2,46 +2,105 @@
 
 ## Purpose
 
-- For now you can use only ancestries from the main book
-- This repository provides a Python utility to automate the character creation process for the Shadow of the Demon
-  Lord (SotDL) RPG.
-- It leverages data-driven JSON tables to roll on ancestry tables and assemble a starter "hero" character sheet.
+A web-based character generator for the Shadow of the Demon Lord RPG (Polish edition: "Cień Władcy Demonów").
+Automates the full level 0 character creation process — ancestry selection, backstory rolls, profession assignment,
+wealth, equipment, and PDF character sheet generation.
+
+Supported ancestries (core book): Human, Automaton, Goblin, Dwarf, Orc, Changeling.
+
+## How It Works
+
+### Character Creation Flow
+
+1. User selects an **ancestry** and a **mode** (random or manual)
+2. The app loads ancestry base stats from JSON data files
+3. **Backstory** is rolled on ancestry-specific tables (past, personality, age, body, appearance, etc.)
+4. **Professions** are assigned — some grant additional abilities (e.g. literacy)
+5. **Wealth** is rolled — determines starting money, backpack contents, and equipment choices
+6. **Oddity** is rolled — a random curiosity item
+7. **Actions** (attribute bonuses, professions, languages) are applied to the hero
+8. **Choices** are either resolved randomly or presented to the user as radio buttons
+9. A **PDF character sheet** is generated and displayed in-browser
+
+### Random vs Manual Mode
+
+- **Random mode** (default): all choices are resolved automatically using dice rolls. The PDF is generated immediately.
+- **Manual mode**: actions with `"any"` targets (e.g. "add any attribute +1") are expanded into choice groups. The user
+  picks from radio buttons in the UI, then confirms to generate the PDF.
+
+## Architecture
+
+```
+sotdl_hero_creator_app/
+├── main.py                  # Flask routes and app entry point
+├── models/                  # Pydantic data models
+│   ├── action.py            # Action discriminated union (AddAttribute, AddProfession, etc.)
+│   ├── ancestry.py          # AncestryData + GeneralStats (for loading ancestry JSONs)
+│   ├── base_hero.py         # AncestryHero — the level 0 character model
+│   ├── equipment.py         # Weapon, Armor, Shield, Money, Equipment
+│   ├── language.py          # Language (name, can_speak, can_write)
+│   ├── spell.py             # Spell, Tradition (for future path progression)
+│   ├── tables.py            # RollTableEntry, ProfessionEntry, WealthEntry
+│   └── talent.py            # Talent (name, description, level)
+├── utils/
+│   ├── utils.py             # Core game logic: dice rolling, hero building, action system
+│   └── pdf_creator.py       # PDF form-filling using pypdf
+├── data_base/               # Game data (JSON files)
+│   ├── ancestry/            # Per-ancestry: base stats + roll tables
+│   ├── equipment/           # Equipment store, wealth tables, oddities
+│   ├── professions/         # Profession roll tables
+│   └── spells/              # Spell traditions (fire, water)
+├── templates/
+│   └── index.html           # Single-page UI (Jinja2 + vanilla JS)
+├── pictures/                # Static assets (logo, background, character art)
+└── tests/                   # pytest test suite
+    ├── test_models.py       # Pydantic model unit tests
+    ├── test_utils.py        # Game logic unit tests
+    ├── test_pdf.py          # PDF generation + field verification
+    └── test_app.py          # Flask route integration tests
+```
+
+### Data Models
+
+All game data flows through **Pydantic models** with full type validation:
+
+- **`AncestryHero`** — the mutable character being built (stats, languages, professions, equipment, etc.)
+- **`AncestryData`** — the JSON template loaded from ancestry files (base stats + actions/choices to apply)
+- **`Action`** — a discriminated union (`AddAttribute | AddProfession | AddLanguage | AddItem | GrantLiteracy`) that
+  represents any modification to a hero. Actions use a `type` field for discrimination.
+- **`Choice`** — a list of `Action` options the user (or random roll) picks from
+
+### Action System
+
+The character creation process is driven by an **action/choice pipeline**:
+
+1. Ancestry JSON defines base stats + a list of `actions` (always applied) and `choices` (pick one per group)
+2. Backstory table rolls can add more actions/choices
+3. Wealth rolls add equipment actions/choices
+4. In random mode, choices are resolved via `random.choice()`
+5. In manual mode, `"any"` actions are expanded into choice groups for the UI
+6. All actions are applied to the hero through `apply_action()`, which dispatches on the `Action` type
 
 ## Requirements
 
-- Python 3.11+ recommended (uses typing features like | in type hints)
-- No external dependencies required (only Python standard library)
+- Python 3.12+
+- Dependencies: `Flask`, `pypdf`, `pydantic`
+- For tests: `pytest`
 
-## License Disclaimer
+## Local Development
 
-This application is an independent, unofficial fan-made tool created to facilitate gameplay. It is not affiliated with,
-supported, sponsored, or officially authorized by Schwalb Entertainment, LLC or Alis Games. "Shadow of the Demon
-Lord", "Cień Władcy Demonów", and all associated logos and trademarks are the exclusive property of Schwalb
-Entertainment, LLC.
+```bash
+python -m venv .venv
+source .venv/bin/activate
+pip install -r requirements.txt
+pip install pytest
 
-Mixed Licensing Information
-The source code for this web application (logic, components, and structure) is open-source and released under the MIT
-License. See the LICENSE file in the root directory for full details.
+# Run the app
+python main.py
 
-⚠️ Proprietary Assets Exception:
-The open-source MIT license DOES NOT apply to the graphical assets, illustrations, official icons, logos, and localized
-Polish text/data (translations, game mechanics terminology) found within this repository.
-
-Original game mechanics and world building: ©2015 Schwalb Entertainment, LLC.
-Polish localization and specific visual assets: © Alis Games.
-
-These proprietary materials are All Rights Reserved and are hosted in this public repository strictly for the functional
-purposes of this application, under the direct and explicit permission of the Polish publisher, Alis Games.
-
-You may not extract, clone, modify, redistribute, sublicense, or use these proprietary image and text assets in any
-other projects (commercial or non-commercial) without obtaining separate, written consent from Schwalb Entertainment,
-LLC and Alis Games.
-
-## Credits
-
-- Backend and frontend by Tomasz Guzik | [Guzikologia](https://www.youtube.com/@Guzikologia)
-- Logo and translation by from [Alis.Games](https://alisgames.pl/pl_PL/)
-- RPG game author: [Robert Schwalb](https://schwalbentertainment.com/shadow-of-the-demon-lord/)
+# Run tests
+pytest tests/ -v
+```
 
 ## Deployment on Vercel
 
@@ -51,5 +110,35 @@ This app is ready to be deployed on Vercel.
 2. Vercel will automatically detect the `vercel.json` and `requirements.txt` files.
 3. The app uses the `/tmp` directory for PDF generation, which is compatible with Vercel's serverless environment.
 4. **Note:** Since Vercel functions are stateless, the "Download Current" button may not work reliably if the function
-   instance restarts between the generation and the download. It is recommended to use the download button immediately
-   after generating the hero.
+   instance restarts between the generation and the download. Use the download button immediately after generating.
+
+## Logging
+
+The app logs every step of character creation to stdout (visible in Vercel admin console):
+
+```
+13:41:30 [utils.utils] === get_hero: ancestry=human, is_random=True ===
+13:41:30 [utils.utils] Building hero: ancestry=human
+13:41:30 [utils.utils]   backstory [past]: Przeszedłeś ciężką chorobę.
+13:41:30 [utils.utils]   wealth roll: 7
+13:41:30 [utils.utils]   choice group 0: options=[...] -> picked=add_language(any)
+13:41:30 [utils.utils]   apply: {'type': 'add_attribute', 'name': 'strength', 'value': 1}
+13:41:30 [utils.utils] === Hero complete: Człowiek | STR=11 DEX=10... ===
+```
+
+## License Disclaimer
+
+This application is an independent, unofficial fan-made tool. It is not affiliated with, supported, sponsored, or
+officially authorized by Schwalb Entertainment, LLC or Alis Games. "Shadow of the Demon Lord", "Cień Władcy Demonów",
+and all associated logos and trademarks are the exclusive property of Schwalb Entertainment, LLC.
+
+The source code is open-source under the MIT License. See [LICENSE.md](LICENSE.md) for details.
+
+**Proprietary Assets Exception:** The MIT license does NOT apply to graphical assets, illustrations, official icons,
+logos, and localized Polish text/data. These are All Rights Reserved and used with permission from Alis Games.
+
+## Credits
+
+- Backend and frontend by Tomasz Guzik | [Guzikologia](https://www.youtube.com/@Guzikologia)
+- Logo and translation by [Alis.Games](https://alisgames.pl/pl_PL/)
+- RPG game author: [Robert Schwalb](https://schwalbentertainment.com/shadow-of-the-demon-lord/)
