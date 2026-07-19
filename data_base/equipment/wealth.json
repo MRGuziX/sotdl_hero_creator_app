@@ -1,10 +1,7 @@
 {
   "zamożność": [
     {
-      "roll": [
-        3,
-        4
-      ],
+      "roll": [3, 4],
       "description": "Nędza: Żyjesz na ulicy bez grosza przy duszy.",
       "backpack": "łachmany",
       "money": {
@@ -15,38 +12,31 @@
       "choices": [
         [
           {
-            "add_item": {
-              "name": "Pałka",
-              "damage": "1k6",
-              "grip": "Jednoręczny",
-              "properties": "Finezyjna",
-              "price": "1 sr",
-              "availability": "P",
-              "item_type": "weapon"
-            }
+            "type": "add_item",
+            "name": "Pałka",
+            "damage": "1k6",
+            "grip": "Jednoręczny",
+            "properties": "Finezyjna",
+            "price": "1 sr",
+            "availability": "P",
+            "item_type": "weapon"
           },
           {
-            "add_item": {
-              "name": "Proca",
-              "damage": "1k3",
-              "grip": "Chwyt dowolny",
-              "properties": "Używa kamieni, zasięg (średni)",
-              "price": "5 md",
-              "availability": "P",
-              "item_type": "weapon"
-            }
+            "type": "add_item",
+            "name": "Proca",
+            "damage": "1k3",
+            "grip": "Chwyt dowolny",
+            "properties": "Używa kamieni, zasięg (średni)",
+            "price": "5 md",
+            "availability": "P",
+            "item_type": "weapon"
           }
         ]
       ]
     },
     {
-      "roll": [
-        5,
-        6,
-        7,
-        8
-      ],
-      "description": "Ubóstwo: Żyjesz w podłych warunkach; nigdy nie wiesz, czy kolejnego dnia nie będziesz głodny.",
+      "roll": [5, 6, 7, 8],
+      "description": "Ubóstwo: Żyjesz w podłych warunkach; nigdy nie wiesz, czy kolejnego dnia nie będziesz głodny.",
       "backpack": "kostur, połatane ubranie, sakwa podróżna, bochenek chleba, bukłak z wodą, hubka i krzesiwo, świeca",
       "money": {
         "type": "okrawki",
@@ -55,52 +45,43 @@
       },
       "actions": [
         {
-          "add_item": {
-            "name": "Kostur",
-            "damage": "1k6 + 1",
-            "grip": "Dwuręczny",
-            "properties": "Finezyjna",
-            "price": "5 md",
-            "availability": "P",
-            "item_type": "weapon"
-          }
+          "type": "add_item",
+          "name": "Kostur",
+          "damage": "1k6 + 1",
+          "grip": "Dwuręczny",
+          "properties": "Finezyjna",
+          "price": "5 md",
+          "availability": "P",
+          "item_type": "weapon"
         }
       ],
       "choices": [
         [
           {
-            "add_item": {
-              "name": "Pałka",
-              "damage": "1k6",
-              "grip": "Jednoręczny",
-              "properties": "Finezyjna",
-              "price": "1 sr",
-              "availability": "P",
-              "item_type": "weapon"
-            }
+            "type": "add_item",
+            "name": "Pałka",
+            "damage": "1k6",
+            "grip": "Jednoręczny",
+            "properties": "Finezyjna",
+            "price": "1 sr",
+            "availability": "P",
+            "item_type": "weapon"
           },
           {
-            "add_item": {
-              "name": "Proca",
-              "damage": "1k3",
-              "grip": "Chwyt dowolny",
-              "properties": "Używa kamieni, zasięg (średni)",
-              "price": "5 md",
-              "availability": "P",
-              "item_type": "weapon"
-            }
+            "type": "add_item",
+            "name": "Proca",
+            "damage": "1k3",
+            "grip": "Chwyt dowolny",
+            "properties": "Używa kamieni, zasięg (średni)",
+            "price": "5 md",
+            "availability": "P",
+            "item_type": "weapon"
           }
         ]
       ]
     },
     {
-      "roll": [
-        9,
-        10,
-        11,
-        12,
-        13
-      ],
+      "roll": [9, 10, 11, 12, 13],
       "description": "Klasa średnia: Zarabiasz wystarczająco dużo, by pokryć wszystkie bieżące wydatki.",
       "backpack": "sztylet, kostur, zwykłe ubranie, plecak, racje żywnościowe na tydzień, bukłak z wodą, hubka i krzesiwo, dwie pochodnie",
       "money": {
@@ -110,61 +91,53 @@
       },
       "actions": [
         {
-          "add_item": {
-            "name": "Kostur",
-            "damage": "1k6 + 1",
-            "grip": "Dwuręczny",
-            "properties": "Finezyjna",
-            "price": "5 md",
-            "availability": "P",
-            "item_type": "weapon"
-          }
+          "type": "add_item",
+          "name": "Kostur",
+          "damage": "1k6 + 1",
+          "grip": "Dwuręczny",
+          "properties": "Finezyjna",
+          "price": "5 md",
+          "availability": "P",
+          "item_type": "weapon"
         },
         {
-          "add_item": {
-            "name": "Nóż lub sztylet",
-            "damage": "1k3",
-            "grip": "Chwyt dowolny",
-            "properties": "Finezyjna, miotana, zasięg (bliski)",
-            "price": "5 md",
-            "availability": "P",
-            "item_type": "weapon"
-          }
+          "type": "add_item",
+          "name": "Nóż lub sztylet",
+          "damage": "1k3",
+          "grip": "Chwyt dowolny",
+          "properties": "Finezyjna, miotana, zasięg (bliski)",
+          "price": "5 md",
+          "availability": "P",
+          "item_type": "weapon"
         }
       ],
       "choices": [
         [
           {
-            "add_item": {
-              "name": "Pałka",
-              "damage": "1k6",
-              "grip": "Jednoręczny",
-              "properties": "Finezyjna",
-              "price": "1 sr",
-              "availability": "P",
-              "item_type": "weapon"
-            }
+            "type": "add_item",
+            "name": "Pałka",
+            "damage": "1k6",
+            "grip": "Jednoręczny",
+            "properties": "Finezyjna",
+            "price": "1 sr",
+            "availability": "P",
+            "item_type": "weapon"
           },
           {
-            "add_item": {
-              "name": "Proca",
-              "damage": "1k3",
-              "grip": "Chwyt dowolny",
-              "properties": "Używa kamieni, zasięg (średni)",
-              "price": "5 md",
-              "availability": "P",
-              "item_type": "weapon"
-            }
+            "type": "add_item",
+            "name": "Proca",
+            "damage": "1k3",
+            "grip": "Chwyt dowolny",
+            "properties": "Używa kamieni, zasięg (średni)",
+            "price": "5 md",
+            "availability": "P",
+            "item_type": "weapon"
           }
         ]
       ]
     },
     {
-      "roll": [
-        14,
-        15,
-        16
-      ],
+      "roll": [14, 15, 16],
       "description": "Komfort: Żyjesz na dobrej stopie i zarabiasz na tyle, by móc co nieco odłożyć.",
       "backpack": "sztylet, kostur, wytworne ubranie, plecak, peleryna, racje żywnościowe na tydzień, bukłak z wodą, zwój liny, hubka i krzesiwo, dwie pochodnie, eliksir leczenia",
       "money": {
@@ -174,86 +147,60 @@
       },
       "actions": [
         {
-          "add_item": {
-            "name": "Kostur",
-            "damage": "1k6 + 1",
-            "grip": "Dwuręczny",
-            "properties": "Finezyjna",
-            "price": "5 md",
-            "availability": "P",
-            "item_type": "weapon"
-          }
+          "type": "add_item",
+          "name": "Kostur",
+          "damage": "1k6 + 1",
+          "grip": "Dwuręczny",
+          "properties": "Finezyjna",
+          "price": "5 md",
+          "availability": "P",
+          "item_type": "weapon"
         },
         {
-          "add_item": {
-            "name": "Nóż lub sztylet",
-            "damage": "1k3",
-            "grip": "Chwyt dowolny",
-            "properties": "Finezyjna, miotana, zasięg (bliski)",
-            "price": "5 md",
-            "availability": "P",
-            "item_type": "weapon"
-          }
+          "type": "add_item",
+          "name": "Nóż lub sztylet",
+          "damage": "1k3",
+          "grip": "Chwyt dowolny",
+          "properties": "Finezyjna, miotana, zasięg (bliski)",
+          "price": "5 md",
+          "availability": "P",
+          "item_type": "weapon"
         }
       ],
       "choices": [
         [
           {
-            "add_item": {
-              "name": "Pałka",
-              "damage": "1k6",
-              "grip": "Jednoręczny",
-              "properties": "Finezyjna",
-              "price": "1 sr",
-              "availability": "P",
-              "item_type": "weapon"
-            }
+            "type": "add_item",
+            "name": "Pałka",
+            "damage": "1k6",
+            "grip": "Jednoręczny",
+            "properties": "Finezyjna",
+            "price": "1 sr",
+            "availability": "P",
+            "item_type": "weapon"
           },
           {
-            "add_item": {
-              "name": "Proca",
-              "damage": "1k3",
-              "grip": "Chwyt dowolny",
-              "properties": "Używa kamieni, zasięg (średni)",
-              "price": "5 md",
-              "availability": "P",
-              "item_type": "weapon"
-            }
+            "type": "add_item",
+            "name": "Proca",
+            "damage": "1k3",
+            "grip": "Chwyt dowolny",
+            "properties": "Używa kamieni, zasięg (średni)",
+            "price": "5 md",
+            "availability": "P",
+            "item_type": "weapon"
           }
         ],
         [
-          {
-            "add_item": {
-              "name": "mała tarcza"
-            }
-          },
-          {
-            "add_item": {
-              "name": "zwój z inkantacją kręgu 0"
-            }
-          },
-          {
-            "add_item": {
-              "name": "zestaw uzdrowieciela"
-            }
-          },
-          {
-            "add_item": {
-              "name": "zestaw pisarski"
-            }
-          },
-          {
-            "add_item": {
-              "name": "narzędzia"
-            }
-          }
+          {"type": "add_item", "name": "mała tarcza"},
+          {"type": "add_item", "name": "zwój z inkantacją kręgu 0"},
+          {"type": "add_item", "name": "zestaw uzdrowieciela"},
+          {"type": "add_item", "name": "zestaw pisarski"},
+          {"type": "add_item", "name": "narzędzia"}
         ]
       ]
     },
     {
-      "roll": [
-        17
-      ],
+      "roll": [17],
       "description": "Dobyty: Żyjesz w luksusie. Stać cię na eleganckie ubrania i wszelkie wygody; prawdopodobnie od dłuższego czasu nie zaznałeś żadnego braku.",
       "backpack": "sztylet, ubranie dworzanina, plecak, peleryna, racje żywno- ściowe na tydzień, bukłak z wodą, zwój liny, hubka i krzesiwo, latarnia i dwie butelki oleju, eliksir leczenia",
       "money": {
@@ -263,51 +210,28 @@
       },
       "actions": [
         {
-          "add_item": {
-            "name": "Nóż lub sztylet",
-            "damage": "1k3",
-            "grip": "Chwyt dowolny",
-            "properties": "Finezyjna, miotana, zasięg (bliski)",
-            "price": "5 md",
-            "availability": "P",
-            "item_type": "weapon"
-          }
+          "type": "add_item",
+          "name": "Nóż lub sztylet",
+          "damage": "1k3",
+          "grip": "Chwyt dowolny",
+          "properties": "Finezyjna, miotana, zasięg (bliski)",
+          "price": "5 md",
+          "availability": "P",
+          "item_type": "weapon"
         }
       ],
       "choices": [
         [
-          {
-            "add_item": {
-              "name": "tarcza"
-            }
-          },
-          {
-            "add_item": {
-              "name": "zwój z inkantacją kręgu 0"
-            }
-          },
-          {
-            "add_item": {
-              "name": "zestaw uzdrowieciela"
-            }
-          },
-          {
-            "add_item": {
-              "name": "zestaw pisarski"
-            }
-          },
-          {
-            "add_item": {
-              "name": "narzędzia"
-            }
-          }
+          {"type": "add_item", "name": "tarcza"},
+          {"type": "add_item", "name": "zwój z inkantacją kręgu 0"},
+          {"type": "add_item", "name": "zestaw uzdrowieciela"},
+          {"type": "add_item", "name": "zestaw pisarski"},
+          {"type": "add_item", "name": "narzędzia"}
         ]
       ]
     },
     {
-      "roll": [
-        18
-      ],
+      "roll": [18],
       "description": "Bogactwo: Niczego ci nie brakuje. Zapewne pochodzisz ze szlacheckiego rodu; masz służących i posiadłość lub zamek w najlepszej części miasta. Twoja fortuna przysparza ci zarówno sojuszników, jak i wrogów.",
       "backpack": "sztylet, ubranie szlachcica, peleryna, racje żywnościowe na tydzień, bukłak z wodą, eliksir leczenia. Masz także osobistego posługacza, ochroniarza i trzy konie z siodłami",
       "money": {
@@ -317,15 +241,14 @@
       },
       "actions": [
         {
-          "add_item": {
-            "name": "Nóż lub sztylet",
-            "damage": "1k3",
-            "grip": "Chwyt dowolny",
-            "properties": "Finezyjna, miotana, zasięg (bliski)",
-            "price": "5 md",
-            "availability": "P",
-            "item_type": "weapon"
-          }
+          "type": "add_item",
+          "name": "Nóż lub sztylet",
+          "damage": "1k3",
+          "grip": "Chwyt dowolny",
+          "properties": "Finezyjna, miotana, zasięg (bliski)",
+          "price": "5 md",
+          "availability": "P",
+          "item_type": "weapon"
         }
       ]
     }

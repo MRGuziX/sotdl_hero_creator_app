@@ -85,20 +85,12 @@
     {
         "roll": [1, 2],
         "description": "Czciciel. Głęboko wierzysz w doktryny swojej wiary i przestrzegasz jej praktyk. Potrafisz czytać i pisać w jednym z języków, którymi umiesz mówić.",
-        "add_attribute":
-            {
-                "language": "any",
-                "known": true
-            }
+        "action": {"type": "grant_literacy", "target": "any"}
     },
     {
         "roll": [3, 4],
         "description": "Ewangelista. Podróżujesz z miejsca na miejsce, głosząc słowa swojej wiary wśród tych, którzy chcą słuchać. Żyjesz z datków wiernych. Potrafisz czytać i pisać w jednym z języków, którymi umiesz mówić.",
-        "add_attribute":
-            {
-                "language": "any",
-                "known": true
-            }
+        "action": {"type": "grant_literacy", "target": "any"}
     },
     {
         "roll": [5],
@@ -119,11 +111,7 @@
     {
         "roll": [11, 12],
         "description": "Akolita Nowego Boga. Szkolisz się na kapłana w Kościele Nowego Boga. Potrafisz czytać i pisać w jednym z języków, którymi umiesz mówić.",
-        "add_attribute":
-            {
-                "language": "any",
-                "known": true
-            }
+        "action": {"type": "grant_literacy", "target": "any"}
     },
     {
         "roll": [13],

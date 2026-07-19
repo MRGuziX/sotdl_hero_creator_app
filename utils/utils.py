@@ -3,32 +3,44 @@ import os
 import pathlib
 import random
 import tempfile
-from typing import Any, Literal
 
+from models.action import (
+    Action,
+    AddAttribute,
+    AddItem,
+    AddLanguage,
+    AddProfession,
+    Choice,
+    GrantLiteracy,
+)
+from models.base_hero import AncestryHero
+from models.ancestry import AncestryData
+from models.equipment import Weapon, Armor, Shield
+from models.language import Language
+from models.tables import ProfessionEntry, RollTableEntry, WealthEntry
 from .pdf_creator import fill_pdf
 
+PROJECT_ROOT = pathlib.Path(__file__).parent.parent
 
-# def add_spell(spell_name: str, tradition_name: str) -> Any | None:
-#     tradition = open_json(f"data_base/spells/{tradition_name}_tradition.json")
-#     for spell_level in tradition:
-#         for spell in tradition[spell_level]:
-#             if spell['name'] == spell_name:
-#                 print(spell)
-#                 return spell
-#     return None
+ALL_LANGUAGES = [
+    "Wspólny", "Mroczna mowa", "Krasnoludzki",
+    "Elficki", "Wysoki archaik", "Trolli",
+    "Sekretne języki", "Martwe języki",
+]
+
+CORE_ATTRIBUTES = ["strength", "dexterity", "intelligence", "will"]
+
+SECONDARY_ATTRIBUTES = [
+    "perception", "health", "defense", "healing_rate",
+    "speed", "power", "damage", "insanity", "corruption",
+]
+
+PROFESSION_CATEGORIES = [
+    "naukowa", "pospolita", "przestępcza", "wojenna", "religijna", "koczownicza",
+]
 
 
-def roll_dice(
-        num_dice: int,
-        sides: int
-) -> int:
-    """
-    Method responsible for rolling dice and returning the result.
-    :param num_dice:
-    :param sides:
-    :return:
-    total: int - total sum of all dice rolls
-    """
+def roll_dice(num_dice: int, sides: int) -> int:
     if not isinstance(num_dice, int) or not isinstance(sides, int):
         raise TypeError("Number of dice and number of sides must be integers.")
     if num_dice < 1:
@@ -36,727 +48,382 @@ def roll_dice(
     if sides < 1:
         raise ValueError("Number of sides must be greater than 0.")
 
-    total = 0
-    for _ in range(num_dice):
-        total += random.randint(1, sides)
+    total = sum(random.randint(1, sides) for _ in range(num_dice))
 
     if total < num_dice:
         raise ArithmeticError(f"Minimal value is {num_dice}, and you rolled {total}")
-    elif total > sides * num_dice:
+    if total > sides * num_dice:
         raise ArithmeticError(f"Maximal value is {sides * num_dice}, and you rolled {total}")
 
     return total
 
 
+def _parse_dice_value(value: int | float | str) -> int | float:
+    if isinstance(value, (int, float)):
+        return value
+    if isinstance(value, str) and "d" in value.lower():
+        parts = value.lower().split("d")
+        if len(parts) == 2:
+            num_dice = int(parts[0]) if parts[0] else 1
+            sides = int(parts[1])
+            return roll_dice(num_dice, sides)
+    return int(value)
+
+
+def _load_json(relative_path: str) -> dict:
+    path = PROJECT_ROOT / relative_path
+    with open(path, "r", encoding="utf8") as f:
+        return json.load(f)
+
+
 def get_from_ancestry(
         roll: int,
         category: str,
-        ancestry: str
-) -> None | tuple[dict[str, Any], Any] | dict[str, Any]:
-    project_root = pathlib.Path(__file__).parent.parent
-    path_to_file = project_root / "data_base" / "ancestry" / ancestry / f'{ancestry}_tables.json'
+        ancestry: str,
+) -> RollTableEntry | None:
+    data = _load_json(f"data_base/ancestry/{ancestry}/{ancestry}_tables.json")
 
-    if not isinstance(roll, int) or not isinstance(category, str) or not isinstance(category, str):
-        raise TypeError("'roll', 'category' and 'ancestry' params must be expected types: int, str, str.")
+    if category not in data:
+        raise ValueError(f"Category {category} not found for ancestry {ancestry}")
 
-    try:
-        with open(path_to_file, "r", encoding="utf8") as file:
-            data = json.load(file)
+    for entry_data in data[category]:
+        if roll in entry_data["roll"]:
+            return RollTableEntry.model_validate(entry_data)
 
-        if category not in data:
-            raise ValueError(f"Category {category} not found in {path_to_file}")
-
-        for roll_value in data[category]:
-            if roll in roll_value["roll"]:
-                description = {category: roll_value.get("description", "")}
-                if roll_value.get("actions"):
-                    action = {"actions": roll_value.get("actions")}
-                    return description, action
-                elif roll_value.get("choices"):
-                    action = {"choices": roll_value.get("choices")}
-                    return description, action
-                else:
-                    return description
-
-    except FileNotFoundError:
-        raise FileNotFoundError(f"File {path_to_file} not found.")
+    return None
 
 
 def build_hero(
         ancestry: str,
-) -> dict:
-    project_root = pathlib.Path(__file__).parent.parent
-    path_to_hero = project_root / "data_base" / "ancestry" / ancestry / f"{ancestry}.json"
+) -> tuple[AncestryHero, list[Action], list[Choice]]:
+    data = _load_json(f"data_base/ancestry/{ancestry}/{ancestry}.json")
+    ancestry_data = AncestryData.model_validate(data)
 
-    with open(path_to_hero, "r", encoding="utf8") as file:
-        data = json.load(file)
+    hero = AncestryHero(
+        ancestry_name=ancestry_data.general.ancestry_name,
+        strength=ancestry_data.general.strength,
+        dexterity=ancestry_data.general.dexterity,
+        intelligence=ancestry_data.general.intelligence,
+        will=ancestry_data.general.will,
+        perception=ancestry_data.general.perception,
+        defense=ancestry_data.general.defense,
+        health=ancestry_data.general.health,
+        healing_rate=ancestry_data.general.healing_rate,
+        size=ancestry_data.general.size,
+        speed=ancestry_data.general.speed,
+        power=ancestry_data.general.power,
+        damage=ancestry_data.general.damage,
+        insanity=ancestry_data.general.insanity,
+        corruption=ancestry_data.general.corruption,
+        languages=ancestry_data.general.languages,
+        talents=ancestry_data.talents,
+    )
 
-    def _update_backstory(data: dict, backstory_type: tuple | dict) -> dict:
-        if backstory_type is None:
-            return data
-        if isinstance(backstory_type, tuple):
-            description, action = backstory_type  # it can be 'actions' or 'choices'
-            data["backstory"].update(description)
-            if "actions" in action:
-                # action["actions"] may already be a list; ensure we don't create nested lists
-                actions_payload = action["actions"]
-                if isinstance(actions_payload, list):
-                    data["actions"].extend(actions_payload)
-                else:
-                    data["actions"].append(actions_payload)
-            elif "choices" in action:
-                # action["choices"] is typically a list of dicts; use extend to avoid nested lists
-                choices_payload = action["choices"]
-                if isinstance(choices_payload, list):
-                    data["choices"].extend(choices_payload)
-                else:
-                    data["choices"].append(choices_payload)
-        else:
-            data["backstory"].update(backstory_type)
-        return data
+    actions = list(ancestry_data.actions)
+    choices = list(ancestry_data.choices)
+
+    def _update_backstory(entry: RollTableEntry | None, category: str):
+        if entry is None:
+            return
+        hero.backstory[category] = entry.description
+        actions.extend(entry.actions)
+        choices.extend(entry.choices)
 
     match ancestry:
         case "human":
-            past = get_from_ancestry(roll=roll_dice(1, 20), category="past", ancestry=ancestry)
-            _update_backstory(data, past)
-
-            personality = get_from_ancestry(roll=roll_dice(3, 6), category="personality", ancestry=ancestry)
-            _update_backstory(data, personality)
-
-            religion = get_from_ancestry(roll=roll_dice(3, 6), category="religion", ancestry=ancestry)
-            _update_backstory(data, religion)
-
-            age = get_from_ancestry(roll=roll_dice(3, 6), category="age", ancestry=ancestry)
-            _update_backstory(data, age)
-
-            body = get_from_ancestry(roll=roll_dice(3, 6), category="body", ancestry=ancestry)
-            _update_backstory(data, body)
-
-            appearance = get_from_ancestry(roll=roll_dice(3, 6), category="appearance",
-                                           ancestry=ancestry)
-            _update_backstory(data, appearance)
+            _update_backstory(get_from_ancestry(roll_dice(1, 20), "past", ancestry), "past")
+            _update_backstory(get_from_ancestry(roll_dice(3, 6), "personality", ancestry), "personality")
+            _update_backstory(get_from_ancestry(roll_dice(3, 6), "religion", ancestry), "religion")
+            _update_backstory(get_from_ancestry(roll_dice(3, 6), "age", ancestry), "age")
+            _update_backstory(get_from_ancestry(roll_dice(3, 6), "body", ancestry), "body")
+            _update_backstory(get_from_ancestry(roll_dice(3, 6), "appearance", ancestry), "appearance")
         case "automaton":
-            age = get_from_ancestry(roll=roll_dice(3, 6), category="age", ancestry=ancestry)
-            _update_backstory(data, age)
-
-            function = get_from_ancestry(roll=roll_dice(1, 20), category="function", ancestry=ancestry)
-            _update_backstory(data, function)
-
-            form = get_from_ancestry(roll=roll_dice(3, 6), category="form", ancestry=ancestry)
-            _update_backstory(data, form)
-
-            appearance = get_from_ancestry(roll=roll_dice(3, 6), category="appearance", ancestry=ancestry)
-            _update_backstory(data, appearance)
-
-            personality = get_from_ancestry(roll=roll_dice(3, 6), category="personality", ancestry=ancestry)
-            _update_backstory(data, personality)
-
-            past = get_from_ancestry(roll=roll_dice(1, 20), category="past", ancestry=ancestry)
-            _update_backstory(data, past)
+            _update_backstory(get_from_ancestry(roll_dice(3, 6), "age", ancestry), "age")
+            _update_backstory(get_from_ancestry(roll_dice(1, 20), "function", ancestry), "function")
+            _update_backstory(get_from_ancestry(roll_dice(3, 6), "form", ancestry), "form")
+            _update_backstory(get_from_ancestry(roll_dice(3, 6), "appearance", ancestry), "appearance")
+            _update_backstory(get_from_ancestry(roll_dice(3, 6), "personality", ancestry), "personality")
+            _update_backstory(get_from_ancestry(roll_dice(1, 20), "past", ancestry), "past")
         case "goblin":
-            past = get_from_ancestry(roll=roll_dice(1, 20), category="past", ancestry=ancestry)
-            _update_backstory(data, past)
-
-            personality = get_from_ancestry(roll=roll_dice(3, 6), category="personality", ancestry=ancestry)
-            _update_backstory(data, personality)
-
-            quirk = get_from_ancestry(roll=roll_dice(3, 6), category="quirk", ancestry=ancestry)
-            _update_backstory(data, quirk)
-
-            age = get_from_ancestry(roll=roll_dice(3, 6), category="age", ancestry=ancestry)
-            _update_backstory(data, age)
-
-            body = get_from_ancestry(roll=roll_dice(3, 6), category="body", ancestry=ancestry)
-            _update_backstory(data, body)
-
-            appearance = get_from_ancestry(roll=roll_dice(1, 20), category="appearance",
-                                           ancestry=ancestry)
-            _update_backstory(data, appearance)
+            _update_backstory(get_from_ancestry(roll_dice(1, 20), "past", ancestry), "past")
+            _update_backstory(get_from_ancestry(roll_dice(3, 6), "personality", ancestry), "personality")
+            _update_backstory(get_from_ancestry(roll_dice(3, 6), "quirk", ancestry), "quirk")
+            _update_backstory(get_from_ancestry(roll_dice(3, 6), "age", ancestry), "age")
+            _update_backstory(get_from_ancestry(roll_dice(3, 6), "body", ancestry), "body")
+            _update_backstory(get_from_ancestry(roll_dice(1, 20), "appearance", ancestry), "appearance")
         case "dwarf":
-            past = get_from_ancestry(roll=roll_dice(1, 20), category="past", ancestry=ancestry)
-            _update_backstory(data, past)
-
-            personality = get_from_ancestry(roll=roll_dice(3, 6), category="personality", ancestry=ancestry)
-            _update_backstory(data, personality)
-
-            quirk = get_from_ancestry(roll=roll_dice(1, 20), category="quirk", ancestry=ancestry)
-            _update_backstory(data, quirk)
-
-            age = get_from_ancestry(roll=roll_dice(3, 6), category="age", ancestry=ancestry)
-            _update_backstory(data, age)
-
-            body = get_from_ancestry(roll=roll_dice(3, 6), category="body", ancestry=ancestry)
-            _update_backstory(data, body)
-
-            appearance = get_from_ancestry(roll=roll_dice(3, 6), category="appearance", ancestry=ancestry)
-            _update_backstory(data, appearance)
+            _update_backstory(get_from_ancestry(roll_dice(1, 20), "past", ancestry), "past")
+            _update_backstory(get_from_ancestry(roll_dice(3, 6), "personality", ancestry), "personality")
+            _update_backstory(get_from_ancestry(roll_dice(1, 20), "quirk", ancestry), "quirk")
+            _update_backstory(get_from_ancestry(roll_dice(3, 6), "age", ancestry), "age")
+            _update_backstory(get_from_ancestry(roll_dice(3, 6), "body", ancestry), "body")
+            _update_backstory(get_from_ancestry(roll_dice(3, 6), "appearance", ancestry), "appearance")
         case "orc":
-            past = get_from_ancestry(roll=roll_dice(1, 20), category="past", ancestry=ancestry)
-            _update_backstory(data, past)
-
-            personality = get_from_ancestry(roll=roll_dice(3, 6), category="personality", ancestry=ancestry)
-            _update_backstory(data, personality)
-
-            age = get_from_ancestry(roll=roll_dice(3, 6), category="age", ancestry=ancestry)
-            _update_backstory(data, age)
-
-            body = get_from_ancestry(roll=roll_dice(3, 6), category="body", ancestry=ancestry)
-            _update_backstory(data, body)
-
-            appearance = get_from_ancestry(roll=roll_dice(3, 6), category="appearance", ancestry=ancestry)
-            _update_backstory(data, appearance)
+            _update_backstory(get_from_ancestry(roll_dice(1, 20), "past", ancestry), "past")
+            _update_backstory(get_from_ancestry(roll_dice(3, 6), "personality", ancestry), "personality")
+            _update_backstory(get_from_ancestry(roll_dice(3, 6), "age", ancestry), "age")
+            _update_backstory(get_from_ancestry(roll_dice(3, 6), "body", ancestry), "body")
+            _update_backstory(get_from_ancestry(roll_dice(3, 6), "appearance", ancestry), "appearance")
         case "changeling":
-            origin = get_from_ancestry(roll=roll_dice(3, 6), category="origin", ancestry=ancestry)
+            origin_entry = get_from_ancestry(roll_dice(3, 6), "origin", ancestry)
+            if origin_entry:
+                hero.backstory["origin"] = origin_entry.description
 
-            if origin not in ["goblin", "krasnolud", "człowiek", "ork"]:
-                origin = random.choice(["goblin", "krasnolud", "człowiek", "ork"])
-            match origin:
-                case "goblin":
-                    age = get_from_ancestry(roll=roll_dice(3, 6), category="age", ancestry="goblin")
-                    _update_backstory(data, age)
+            origin = origin_entry.description if origin_entry else ""
+            origin_ancestry_map = {
+                "goblin": "goblin",
+                "krasnolud": "dwarf",
+                "człowiek": "human",
+                "ork": "orc",
+            }
+            origin_key = origin.lower() if origin.lower() in origin_ancestry_map else random.choice(
+                list(origin_ancestry_map.keys()))
+            source_ancestry = origin_ancestry_map[origin_key]
 
-                    body = get_from_ancestry(roll=roll_dice(3, 6), category="body", ancestry="goblin")
-                    _update_backstory(data, body)
+            _update_backstory(get_from_ancestry(roll_dice(3, 6), "age", source_ancestry), "age")
+            _update_backstory(get_from_ancestry(roll_dice(3, 6), "body", source_ancestry), "body")
+            _update_backstory(
+                get_from_ancestry(
+                    roll_dice(1, 20) if source_ancestry == "goblin" else roll_dice(3, 6),
+                    "appearance", source_ancestry,
+                ), "appearance")
 
-                    appearance = get_from_ancestry(roll=roll_dice(1, 20), category="appearance",
-                                                   ancestry="goblin")
-                    _update_backstory(data, appearance)
-                case "krasnolud":
-                    age = get_from_ancestry(roll=roll_dice(3, 6), category="age", ancestry="dwarf")
-                    _update_backstory(data, age)
+            _update_backstory(get_from_ancestry(roll_dice(3, 6), "personality", ancestry), "personality")
+            _update_backstory(get_from_ancestry(roll_dice(1, 6), "apparent_sex", ancestry), "apparent_sex")
+            _update_backstory(get_from_ancestry(roll_dice(3, 6), "true_age", ancestry), "true_age")
+            _update_backstory(get_from_ancestry(roll_dice(3, 6), "oddity", ancestry), "oddity")
 
-                    body = get_from_ancestry(roll=roll_dice(3, 6), category="body", ancestry="dwarf")
-                    _update_backstory(data, body)
-
-                    appearance = get_from_ancestry(roll=roll_dice(3, 6), category="appearance", ancestry="dwarf")
-                    _update_backstory(data, appearance)
-                case "człowiek":
-                    age = get_from_ancestry(roll=roll_dice(3, 6), category="age", ancestry="human")
-                    _update_backstory(data, age)
-
-                    body = get_from_ancestry(roll=roll_dice(3, 6), category="body", ancestry="human")
-                    _update_backstory(data, body)
-
-                    appearance = get_from_ancestry(roll=roll_dice(3, 6), category="appearance", ancestry="human")
-                    _update_backstory(data, appearance)
-                case "ork":
-                    age = get_from_ancestry(roll=roll_dice(3, 6), category="age", ancestry="orc")
-                    _update_backstory(data, age)
-
-                    body = get_from_ancestry(roll=roll_dice(3, 6), category="body", ancestry="orc")
-                    _update_backstory(data, body)
-
-                    appearance = get_from_ancestry(roll=roll_dice(3, 6), category="appearance", ancestry="orc")
-                    _update_backstory(data, appearance)
-
-            personality = get_from_ancestry(roll=roll_dice(3, 6), category="personality", ancestry=ancestry)
-            _update_backstory(data, personality)
-
-            apparent_sex = get_from_ancestry(roll=roll_dice(1, 6), category="apparent_sex", ancestry=ancestry)
-            _update_backstory(data, apparent_sex)
-
-            true_age = get_from_ancestry(roll=roll_dice(3, 6), category="true_age", ancestry=ancestry)
-            _update_backstory(data, true_age)
-
-            oddity = get_from_ancestry(roll=roll_dice(3, 6), category="oddity", ancestry=ancestry)
-            _update_backstory(data, oddity)
-
-    return data
+    return hero, actions, choices
 
 
-def change_choices_to_actions(
-        character_data: dict,
-        is_random: bool = True,
-        selected_choices: list = None
-) -> dict:
-    """
-    Handles user choices from a list of choice dictionaries.
-
-    Args:
-        character_data: The hero's data dictionary
-        is_random: If True, randomly selects options
-        selected_choices: If provided, a list of selected options for each choice pool
-
-    Returns:
-        Updated character_data
-    """
-
-    choices_pool = character_data.get("choices", [])
-
-    if is_random:
-        try:
-            # We need to iterate over a copy of the list because we're modifying it
-            for entry_to_pick in choices_pool[:]:
-                choice = random.choice(entry_to_pick)
-                character_data["actions"].append(choice)
-                character_data["choices"].remove(entry_to_pick)
-        except IndexError:
-            print("No choices left.")
-    elif selected_choices:
-        # selected_choices should be a list of the choices themselves (as sent from frontend)
-        for choice in selected_choices:
-            character_data["actions"].append(choice)
-
-        # Clear choices_pool as they are now actions
-        character_data["choices"] = []
-
-    return character_data
-
-
-def add_profession(
-        name: str,
-        character_data: dict,
-        is_random: bool = True,
-) -> None:
-    project_root = pathlib.Path(__file__).parent.parent
-    path_to_professions = project_root / "data_base" / "professions" / "profession_tables.json"
-
-    roll = roll_dice(1, 20)
-
-    with open(path_to_professions, "r", encoding="utf8") as file:
-        professions = json.load(file)
-
-    professions_list = [
-        "naukowa", "pospolita", "przestępcza", "wojenna", "religijna", "koczownicza"
-    ]
+def add_attribute(name: str, value: int | float | str, hero: AncestryHero, is_random: bool = False):
+    resolved_value = _parse_dice_value(value)
 
     if name == "any":
-        name = random.choice(professions_list)
-    _apply_profession(name, character_data, is_random)
-    return character_data
+        name = random.choice(CORE_ATTRIBUTES)
 
+    if name == "size":
+        hero.size = [resolved_value]
+        return
 
-def _apply_profession(name: str, character_data: dict, is_random: bool):
-    project_root = pathlib.Path(__file__).parent.parent
-    path_to_professions = project_root / "data_base" / "professions" / "profession_tables.json"
-    with open(path_to_professions, "r", encoding="utf8") as file:
-        professions = json.load(file)
+    if name in CORE_ATTRIBUTES or name in SECONDARY_ATTRIBUTES:
+        current = getattr(hero, name)
+        setattr(hero, name, current + int(resolved_value))
 
-    roll = roll_dice(1, 20)
 
-    if name == "naukowa":
-        add_language(
-            name="any",
-            known=True,
-            character_data=character_data,
-            is_random=is_random
-        )
-
-    for roll_value in professions[name]:
-        if roll in roll_value["roll"]:
-            description = roll_value.get("description", "")
-            if roll_value.get("add_attribute"):
-                attr_data = roll_value.get("add_attribute")
-                if "language" in attr_data:
-                    language = attr_data['language']
-                    known = attr_data['known']
-
-                    add_language(
-                        name=language,
-                        known=known,
-                        character_data=character_data,
-                        is_random=is_random
-                    )
-            character_data["professions"].append(description)
-
-
-def add_language(
-        name: str,
-        character_data: dict,
-        known: bool = False,
-        is_random: bool = False
-):
-    languages_list = [
-        "Wspólny", "Mroczna mowa", "Krasnoludzki",
-        "Elficki", "Wysoki archaik", "Trolli",
-        "Sekretne języki", "Martwe języki"
-    ]
-    character_languages_data = character_data["general"].get("language")
-
-    languages_character_speak = [lang["name"] for lang in character_languages_data if lang["known"] is False]
-    languages_character_write = [lang["name"] for lang in character_languages_data if lang["known"] is True]
-    possible_languages_to_learn = []
-    try:
-        possible_languages_to_learn = [lang for lang in languages_list if lang not in str(character_languages_data)]
-        possible_languages_to_learn.extend(languages_character_speak)
-    except Exception as e:
-        print(e)
-
-    try:
-        if is_random:
-            if known and name == "any":
-                # learn to write in a language that you can speak
-                if languages_character_speak:
-                    name = random.choice(languages_character_speak)
-                    for lang in character_data["general"]["language"]:
-                        if lang['name'] == name:
-                            lang.update(
-                                {'known': True, 'name': name}
-                            )
-            elif not known and name == "any":
-                # learn to speak in a language that you cannot speak
-                if possible_languages_to_learn:
-                    name = random.choice(possible_languages_to_learn)
-                    character_data["general"]["language"].append(
-                        {'known': False, 'name': name}
-                    )
-        else:
-            if known:
-                if name == "any":
-                    # If it's still "any" and manual, we might need to pick something.
-                    # Ideally, the user should have chosen.
-                    if languages_character_speak:
-                        name = random.choice(languages_character_speak)
-
-                for lang in character_data["general"]["language"]:
-                    if lang['name'] == name:
-                        lang.update(
-                            {'known': True, 'name': name}
-                        )
-            elif not known:
-                if name == "any":
-                    if possible_languages_to_learn:
-                        name = random.choice(possible_languages_to_learn)
-
-                if name != "any" and name not in str(character_languages_data):
-                    character_data["general"]["language"].append(
-                        {'known': False, 'name': name}
-                    )
-    except (IndexError, ValueError) as e:
-        print(f"Error in add_language: {e}")
-    return character_data
-
-
-def add_attribute(
-        name: str,
-        value: int,
-        character_data: dict,
-        is_random: bool = False
-):
-    core_attributes_list = [
-        "strength", "dexterity", "intelligence", "will"
-    ]
-    secondary_attributes_list = ["perception", "health", "defense", "healing_rate",
-                                 "speed", "power", "damage", "insanity", "corruption"]
-
-    if name in core_attributes_list or name == "any" or name in secondary_attributes_list:
-        if name == "any":
-            name = random.choice(core_attributes_list)
-
-        # Handle dice roll string values (e.g., "1d6")
-        if isinstance(value, str) and "d" in value.lower():
-            try:
-                # Basic check for dice roll format like "1d6" or "2d6+1"
-                # For now, handle simple "NdM" format as used in human_tables.json
-                parts = value.lower().split("d")
-                if len(parts) == 2:
-                    num_dice = int(parts[0]) if parts[0] else 1
-                    sides = int(parts[1])
-                    value = roll_dice(num_dice, sides)
-            except (ValueError, IndexError):
-                pass
-
-        # If name is not 'any', update character_data
-        if name != "any" and name is not None:
-            original_value = character_data['general'].get(name, 10 if name in core_attributes_list else 0)
-            try:
-                character_data["general"][name] = original_value + int(value)
-            except (TypeError, ValueError) as e:
-                # Avoid OSError [Errno 22] by not printing the whole character_data
-                print(f"Error updating attribute {name}: {e}")
-
-    return character_data
-
-
-def add_item(
-        name: str,
-        character_data: dict,
-        is_random: bool = False
-):
-    if not name:
-        return character_data
-
-    project_root = pathlib.Path(__file__).parent.parent
-    path_to_file = project_root / "data_base" / "equipment" / "equ.json"
-
-    try:
-        with open(path_to_file, "r", encoding="utf8") as file:
-            data = json.load(file)
-    except FileNotFoundError:
-        print(f"File {path_to_file} not found.")
-        character_data['equipment'][3]['backpack'] += f", {name.lower()}"
-        return character_data
-
-    store = data.get('store', {})
-    found_item = None
-
-    for category in ['weapons', 'armors', 'shields']:
-        items = store.get(category, [])
-        for item in items:
-            if item.get('name', '').lower() == name.lower():
-                found_item = item
-                break
-        if found_item:
-            break
-
-    if found_item:
-        item_type = found_item.get('item_type')
-        if item_type == 'weapon':
-            character_data['equipment'][0]['weapons'].append(found_item)
-            character_data['equipment'][3]['backpack'] += f", {name.lower()}"
-        elif item_type == 'shield':
-            character_data['equipment'][1]['shields'].append(found_item)
-            character_data['equipment'][3]['backpack'] += f", {name.lower()}"
-        elif item_type == 'armor':
-            character_data['equipment'][2]['armors'].append(found_item)
-            character_data['equipment'][3]['backpack'] += f", {name.lower()}"
-        else:
-            # Fallback for unexpected item_type
-            character_data['equipment'][3]['backpack'] += f", {name.lower()}"
-    else:
-        # Not found in equ.json
-        if character_data['equipment'][3]['backpack']:
-            character_data['equipment'][3]['backpack'] += f", {name.lower()}"
-        else:
-            character_data['equipment'][3]['backpack'] = name
-
-    return character_data
-
-
-def add_entry(
-        entry: dict,
-        character_data: dict,
-        is_random: bool = False
-) -> dict:
-    action_type, info = list(entry.items())[0]
-
-    if action_type == "add_attribute":
-        name = info.get("name")
-        value = info.get("value")
-
-        # Handle alternative format: {"add_attribute": {"intelligence": 2}}
-        if name is None and value is None:
-            for attr_name, attr_val in info.items():
-                if attr_name in ["strength", "dexterity", "intelligence", "will", "perception", "health", "defense",
-                                 "healing_rate", "speed", "power", "damage", "insanity", "corruption"]:
-                    name = attr_name
-                    value = attr_val
-                    break
-
-        add_attribute(
-            name=name,
-            value=value,
-            character_data=character_data,
-            is_random=is_random
-        )
-
-    if action_type == "add_language":
-        name = info.get("name")
-        known = info.get("known", False)  # Default to False instead of None
-        add_language(
-            name=name,
-            character_data=character_data,
-            known=known,
-            is_random=is_random
-        )
-
-    if action_type == "add_profession":
-        name = info.get("name")
-        add_profession(
-            name=name,
-            character_data=character_data,
-            is_random=is_random
-        )
-
-    if action_type == "add_item":
-        # info can be a name string or a dict with details
-        if isinstance(info, dict):
-            name = info.get("name")
-        else:
-            name = info
-
-        add_item(
-            name=name,
-            character_data=character_data,
-            is_random=is_random
-        )
-
-    return character_data
-
-
-def bulk_update_attributes(
-        character_data: dict,
-        is_random: bool = False
-) -> dict:
-    actions = character_data.get("actions", [])
-
-    # We create a copy or at least handle the list carefully if we were to modify it.
-    # But here we just iterate and apply.
-    for entry in actions:
-        add_entry(
-            entry=entry,
-            character_data=character_data,
-            is_random=is_random
-        )
-
-    # After applying, clear actions to avoid double-applying if called again?
-    # Or keep them as a log of what was applied.
-    # For now, let's keep it as it is but return character_data correctly.
-    return character_data
-
-
-def add_wealth(character_data: dict, is_random: bool = True):
-    dice_roll = roll_dice(3, 6)
-
-    project_root = pathlib.Path(__file__).parent.parent
-    path_to_file = project_root / "data_base" / "equipment" / "wealth.json"
-
-    try:
-        with open(path_to_file, "r", encoding="utf8") as file:
-            data = json.load(file)
-    except FileNotFoundError:
-        print(f"File {path_to_file} not found.")
-
-    for roll_range in data["zamożność"]:
-        if dice_roll in roll_range["roll"]:
-            if roll_range.get("backpack", ""):
-                character_data["wealth"] = roll_range["description"]
-
-            if roll_range.get("backpack", ""):
-                character_data['equipment'][3]['backpack'] = roll_range["backpack"]
-
-            if roll_range.get("choices", ""):
-                for choice in roll_range["choices"]:
-                    character_data['choices'].append(choice)
-
-            if roll_range.get("actions", ""):
-                for action in roll_range["actions"]:
-                    character_data['actions'].append(action)
-
-            if roll_range.get("money", ""):
-                amount = roll_dice(
-                    num_dice=roll_range["money"].get("dice_amount"),
-                    sides=roll_range["money"].get("dice_type")
-                )
-
-                add_money(
-                    amount=amount,
-                    money_type=roll_range["money"].get("type"),
-                    character_data=character_data)
-            break
-
-    return character_data
-
-
-def add_money(
-        amount: int,
-        money_type: Literal["okrawki", "miedziaki", "srebrniki", "złote korony"],
-        character_data: dict
-):
-    money_list = ["okrawki", "miedziaki", "srebrniki", "złote korony"]
-
-    if money_type not in money_list:
-        raise ValueError(f"Wrong money type: {money_type}. Choose one of: {money_list}")
-
-    match money_type:
-        case "okrawki":
-            character_data["money"][0]["okrawki"] += amount
-        case "miedziaki":
-            character_data["money"][1]["miedziaki"] += amount
-        case "srebrniki":
-            character_data["money"][2]["srebrniki"] += amount
-        case "złote korony":
-            character_data["money"][3]["złote korony"] += amount
-
-    # Update backpack description if it was a manual choice (optional, based on user context)
-    # The wealth logic usually handles backpack, but choices might add items.
-    # Currently items are not fully implemented.
-
-    return character_data
-
-
-def add_weapon(item_name: str, character_data: dict):
-    return add_item(item_name, character_data)
-
-
-def add_shield(item_name: str, character_data: dict):
-    return add_item(item_name, character_data)
-
-
-def add_armor(item_name: str, character_data: dict):
-    return add_item(item_name, character_data)
-
-
-def add_oddity(character_data: dict):
-    dice_roll = roll_dice(1, 120)
-
-    project_root = pathlib.Path(__file__).parent.parent
-    path_to_file = project_root / "data_base" / "equipment" / "oddity.json"
-
-    try:
-        with open(path_to_file, "r", encoding="utf8") as file:
-            data = json.load(file)
-    except FileNotFoundError:
-        print(f"File {path_to_file} not found.")
-
-    for roll_range in data["kurioza"]:
-        if dice_roll in roll_range["roll"]:
-            character_data["oddity"] = roll_range["description"]
-    return character_data
-
-
-def get_hero(ancestry, is_random):
-    character_data = build_hero(ancestry=ancestry)
-
-    add_wealth(character_data)
-    add_oddity(character_data)
-
-    if not is_random:
-        # Move "any" actions to choices so the user can pick them
-        actions_pool = character_data.get("actions", [])
-        for action in actions_pool[:]:
-            action_type, info = list(action.items())[0]
-            if info.get("name") == "any":
-                # Convert to a choice pool
-                if action_type == "add_attribute":
-                    value = info.get("value", 1)
-                    choice_pool = [
-                        {"add_attribute": {"name": "strength", "value": value}},
-                        {"add_attribute": {"name": "dexterity", "value": value}},
-                        {"add_attribute": {"name": "intelligence", "value": value}},
-                        {"add_attribute": {"name": "will", "value": value}}
-                    ]
-                    character_data["choices"].append(choice_pool)
-                    character_data["actions"].remove(action)
-                elif action_type == "add_profession":
-                    choice_pool = [
-                        {"add_profession": {"name": "naukowa"}},
-                        {"add_profession": {"name": "pospolita"}},
-                        {"add_profession": {"name": "przestępcza"}},
-                        {"add_profession": {"name": "wojenna"}},
-                        {"add_profession": {"name": "religijna"}},
-                        {"add_profession": {"name": "koczownicza"}}
-                    ]
-                    character_data["choices"].append(choice_pool)
-                    character_data["actions"].remove(action)
-                elif action_type == "add_language":
-                    choice_pool = [
-                        {"add_language": {"name": "Wspólny", "known": info.get("known", False)}},
-                        {"add_language": {"name": "Mroczna mowa", "known": info.get("known", False)}},
-                        {"add_language": {"name": "Krasnoludzki", "known": info.get("known", False)}},
-                        {"add_language": {"name": "Elficki", "known": info.get("known", False)}},
-                        {"add_language": {"name": "Wysoki archaik", "known": info.get("known", False)}},
-                        {"add_language": {"name": "Trolli", "known": info.get("known", False)}},
-                        {"add_language": {"name": "Sekretne języki", "known": info.get("known", False)}},
-                        {"add_language": {"name": "Martwe języki", "known": info.get("known", False)}}
-                    ]
-                    character_data["choices"].append(choice_pool)
-                    character_data["actions"].remove(action)
+def add_language(name: str, hero: AncestryHero, can_write: bool = False, is_random: bool = False):
+    spoken_names = [l.name for l in hero.languages if not l.can_write]
+    known_names = [l.name for l in hero.languages]
+    learnable = [l for l in ALL_LANGUAGES if l not in known_names]
+    learnable.extend(spoken_names)
 
     if is_random:
-        change_choices_to_actions(character_data, is_random=is_random)
-        bulk_update_attributes(character_data=character_data, is_random=is_random)
-        fill_pdf(character_data, os.path.join(tempfile.gettempdir(), "hero_card.pdf"))
+        if can_write and name == "any":
+            if spoken_names:
+                name = random.choice(spoken_names)
+                for lang in hero.languages:
+                    if lang.name == name:
+                        lang.can_write = True
+                        return
+        elif not can_write and name == "any":
+            if learnable:
+                name = random.choice(learnable)
+                hero.languages.append(Language(name=name, can_speak=True, can_write=False))
+            return
+    else:
+        if can_write:
+            if name == "any" and spoken_names:
+                name = random.choice(spoken_names)
+            for lang in hero.languages:
+                if lang.name == name:
+                    lang.can_write = True
+                    return
+        else:
+            if name == "any" and learnable:
+                name = random.choice(learnable)
 
-    print(character_data)
-    return character_data
+            if name != "any" and name not in known_names:
+                hero.languages.append(Language(name=name, can_speak=True, can_write=False))
+
+
+def grant_literacy(target: str, hero: AncestryHero, is_random: bool = False):
+    spoken_names = [l.name for l in hero.languages if not l.can_write]
+
+    if target == "any" and spoken_names:
+        target = random.choice(spoken_names)
+
+    for lang in hero.languages:
+        if lang.name == target:
+            lang.can_write = True
+            return
+
+
+def add_profession(name: str, hero: AncestryHero, is_random: bool = True):
+    if name == "any":
+        name = random.choice(PROFESSION_CATEGORIES)
+
+    data = _load_json("data_base/professions/profession_tables.json")
+
+    if name == "naukowa":
+        grant_literacy("any", hero, is_random)
+
+    roll = roll_dice(1, 20)
+    for entry_data in data[name]:
+        entry = ProfessionEntry.model_validate(entry_data)
+        if roll in entry.roll:
+            if entry.action:
+                apply_action(entry.action, hero, is_random)
+            hero.professions.append(entry.description)
+            return
+
+
+def add_item(name: str, hero: AncestryHero, item_data: AddItem | None = None):
+    if not name:
+        return
+
+    if item_data and item_data.item_type == "weapon" and item_data.damage:
+        hero.equipment.weapons.append(Weapon(
+            name=item_data.name,
+            damage=item_data.damage,
+            grip=item_data.grip or "",
+            properties=item_data.properties or "",
+            price=item_data.price or "",
+            availability=item_data.availability or "",
+        ))
+        hero.equipment.backpack.append(name.lower())
+        return
+
+    store_data = _load_json("data_base/equipment/equ.json")
+    store = store_data.get("store", {})
+
+    for category in ["weapons", "armors", "shields"]:
+        for item in store.get(category, []):
+            if item.get("name", "").lower() == name.lower():
+                item_type = item.get("item_type")
+                if item_type == "weapon":
+                    hero.equipment.weapons.append(Weapon.model_validate(item))
+                elif item_type == "shield":
+                    hero.equipment.shields.append(Shield.model_validate(item))
+                elif item_type == "armor":
+                    hero.equipment.armors.append(Armor.model_validate(item))
+                hero.equipment.backpack.append(name.lower())
+                return
+
+    hero.equipment.backpack.append(name.lower())
+
+
+def apply_action(action: Action, hero: AncestryHero, is_random: bool = False):
+    match action:
+        case AddAttribute():
+            add_attribute(action.name, action.value, hero, is_random)
+        case AddProfession():
+            add_profession(action.name, hero, is_random)
+        case AddLanguage():
+            add_language(action.name, hero, action.can_write, is_random)
+        case AddItem():
+            add_item(action.name, hero, action)
+        case GrantLiteracy():
+            grant_literacy(action.target, hero, is_random)
+
+
+def resolve_choices(
+        hero: AncestryHero,
+        actions: list[Action],
+        choices: list[Choice],
+        is_random: bool = True,
+        selected_choices: list[Action] | None = None,
+) -> list[Action]:
+    if is_random:
+        for choice_group in choices:
+            picked = random.choice(choice_group)
+            actions.append(picked)
+    elif selected_choices:
+        actions.extend(selected_choices)
+
+    return actions
+
+
+def expand_any_to_choices(
+        actions: list[Action],
+        choices: list[Choice],
+) -> tuple[list[Action], list[Choice]]:
+    remaining_actions = []
+    for action in actions:
+        match action:
+            case AddAttribute(name="any", value=value):
+                choices.append([
+                    AddAttribute(name=attr, value=value) for attr in CORE_ATTRIBUTES
+                ])
+            case AddProfession(name="any"):
+                choices.append([
+                    AddProfession(name=cat) for cat in PROFESSION_CATEGORIES
+                ])
+            case AddLanguage(name="any", can_write=can_write):
+                choices.append([
+                    AddLanguage(name=lang, can_write=can_write) for lang in ALL_LANGUAGES
+                ])
+            case _:
+                remaining_actions.append(action)
+    return remaining_actions, choices
+
+
+def add_wealth(hero: AncestryHero, actions: list[Action], choices: list[Choice]):
+    dice_roll = roll_dice(3, 6)
+    data = _load_json("data_base/equipment/wealth.json")
+
+    for entry_data in data["zamożność"]:
+        entry = WealthEntry.model_validate(entry_data)
+        if dice_roll in entry.roll:
+            hero.wealth = entry.description
+
+            if entry.backpack:
+                hero.equipment.backpack.append(entry.backpack)
+
+            actions.extend(entry.actions)
+            choices.extend(entry.choices)
+
+            if entry.money:
+                amount = roll_dice(
+                    num_dice=entry.money.dice_amount,
+                    sides=entry.money.dice_type,
+                )
+                money_type = entry.money.type
+                if money_type == "złote korony":
+                    money_type = "zlote_korony"
+                current = getattr(hero.money, money_type)
+                setattr(hero.money, money_type, current + amount)
+
+            break
+
+
+def add_oddity(hero: AncestryHero):
+    dice_roll = roll_dice(1, 120)
+    data = _load_json("data_base/equipment/oddity.json")
+
+    for entry in data["kurioza"]:
+        if dice_roll in entry["roll"]:
+            hero.oddity = entry["description"]
+            return
+
+
+def get_hero(ancestry: str, is_random: bool) -> AncestryHero | tuple[AncestryHero, list[Choice]]:
+    hero, actions, choices = build_hero(ancestry=ancestry)
+
+    add_wealth(hero, actions, choices)
+    add_oddity(hero)
+
+    if not is_random:
+        actions, choices = expand_any_to_choices(actions, choices)
+        for action in actions:
+            apply_action(action, hero, is_random=False)
+
+        if choices:
+            return hero, choices
+
+    if is_random:
+        actions = resolve_choices(hero, actions, choices, is_random=True)
+        for action in actions:
+            apply_action(action, hero, is_random=True)
+        fill_pdf(hero, os.path.join(tempfile.gettempdir(), "hero_card.pdf"))
+
+    return hero

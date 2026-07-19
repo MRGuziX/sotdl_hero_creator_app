@@ -17,14 +17,16 @@
     "damage": 0,
     "insanity": 0,
     "corruption": 0,
-    "language": [
+    "languages": [
       {
         "name": "Wspólny",
-        "known": false
+        "can_speak": true,
+        "can_write": false
       },
       {
         "name": "Mroczna mowa",
-        "known": false
+        "can_speak": true,
+        "can_write": false
       }
     ]
   },
@@ -39,47 +41,28 @@
   "professions": [],
   "spells": [],
   "wealth": "",
-  "money": [
-    {
-      "okrawki": 0
-    },
-    {
-      "miedziaki": 0
-    },
-    {
-      "srebrniki": 0
-    },
-    {
-      "złote korony": 0
-    }
-  ],
+  "money": {
+    "okrawki": 0,
+    "miedziaki": 0,
+    "srebrniki": 0,
+    "zlote_korony": 0
+  },
   "oddity": "",
-  "equipment": [
-    {
-      "weapons": []
-    },
-    {
-      "shields": []
-    },
-    {
-      "armors": []
-    },
-    {
-      "backpack": []
-    }
-  ],
+  "equipment": {
+    "weapons": [],
+    "shields": [],
+    "armors": [],
+    "backpack": []
+  },
   "actions": [
     {
-      "add_profession": {
-        "name": "any"
-      }
+      "type": "add_profession",
+      "name": "any"
     },
     {
-      "add_profession": {
-        "name": "any"
-      }
+      "type": "add_profession",
+      "name": "any"
     }
   ],
-  "choices": [
-  ]
+  "choices": []
 }

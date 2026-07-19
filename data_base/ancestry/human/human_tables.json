@@ -5,22 +5,26 @@
         1
       ],
       "description": "Umarłeś i powróciłeś do żywych. Zaczynasz grę z 1k6 punktów Szaleństwa.",
-      "actions": {
-        "add_attribute": {
-          "insanity": "1d6"
+      "actions": [
+        {
+          "type": "add_attribute",
+          "name": "insanity",
+          "value": "1d6"
         }
-      }
+      ]
     },
     {
       "roll": [
         2
       ],
       "description": "Przez krótki czas byłeś opętany przez demona. Zaczynasz grę z 1 punktem Splugawienia.",
-      "actions": {
-        "add_attribute": {
-          "corruption": 1
+      "actions": [
+        {
+          "type": "add_attribute",
+          "name": "corruption",
+          "value": 1
         }
-      }
+      ]
     },
     {
       "roll": [
@@ -33,11 +37,13 @@
         4
       ],
       "description": "Zabiłeś kogoś z zimną krwią. Zaczynasz grę z 1 punktem Splugawienia.",
-      "actions": {
-        "add_attribute": {
-          "corruption": 1
+      "actions": [
+        {
+          "type": "add_attribute",
+          "name": "corruption",
+          "value": 1
         }
-      }
+      ]
     },
     {
       "roll": [
@@ -50,11 +56,13 @@
         6
       ],
       "description": "Należałeś do kultu i byłeś świadkiem wielu dziwnych rzeczy. Zaczynasz grę z 1 punktem Szaleństwa.",
-      "actions": {
-        "add_attribute": {
-          "insanity": 1
+      "actions": [
+        {
+          "type": "add_attribute",
+          "name": "insanity",
+          "value": 1
         }
-      }
+      ]
     },
     {
       "roll": [
@@ -97,28 +105,25 @@
         13
       ],
       "description": "Odbyłeś wiele podróży w różne strony świata. Umiesz mówić w jednym dodatkowym języku.",
-      "actions": {
-        "add_attribute": {
-          "language": {
-            "name": "Wspólny",
-            "known": false
-          }
+      "actions": [
+        {
+          "type": "add_language",
+          "name": "any",
+          "can_write": false
         }
-      }
+      ]
     },
     {
       "roll": [
         14
       ],
       "description": "Posiadasz formalne wykształcenie. Umiesz czytać i pisać w języku wspólnym.",
-      "actions": {
-        "add_attribute": {
-          "language": {
-            "name": "Wspólny",
-            "known": true
-          }
+      "actions": [
+        {
+          "type": "grant_literacy",
+          "target": "Wspólny"
         }
-      }
+      ]
     },
     {
       "roll": [
@@ -155,11 +160,13 @@
         20
       ],
       "description": "Odziedziczyłeś w spadku pieniądze; zaczynasz grę z 2k6 miedziaków.",
-      "actions": {
-        "add_attribute": {
-          "copper_coins": "2d6"
+      "actions": [
+        {
+          "type": "add_attribute",
+          "name": "copper_coins",
+          "value": "2d6"
         }
-      }
+      ]
     }
   ],
   "personality": [

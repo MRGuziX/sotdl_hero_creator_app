@@ -12,6 +12,7 @@ from models.base_hero import AncestryHero
 from models.equipment import Armor, Equipment, Money, Shield, Weapon
 from models.language import Language
 from models.spell import Spell, Tradition
+from models.tables import MoneyRoll, ProfessionEntry, RollTableEntry, WealthEntry
 from models.talent import Talent
 
 __all__ = [
@@ -29,9 +30,13 @@ __all__ = [
     "GrantLiteracy",
     "Language",
     "Money",
+    "MoneyRoll",
+    "ProfessionEntry",
+    "RollTableEntry",
     "Shield",
     "Spell",
     "Talent",
     "Tradition",
     "Weapon",
+    "WealthEntry",
 ]

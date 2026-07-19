@@ -2,92 +2,88 @@ import pathlib
 
 from pypdf import PdfReader, PdfWriter
 
+from models.base_hero import AncestryHero
 
-def fill_pdf(character_data: dict, output_path: str = "../output/hero_card.pdf"):
+
+def fill_pdf(hero: AncestryHero, output_path: str = "../output/hero_card.pdf"):
     project_root = pathlib.Path(__file__).parent.parent
     template_path = project_root / "data_base" / "card_no_color.pdf"
 
     reader = PdfReader(template_path)
     writer = PdfWriter()
-
     writer.append(reader)
 
-    general = character_data.get("general", {})
-    backstory = character_data.get("backstory", {})
-    money = character_data.get("money", [])
-    equipment = character_data.get("equipment", [])
-
     fields = {
-        "sila": str(general.get("strength", "")),
-        "wola": str(general.get("will", "")),
-        "intelekt": str(general.get("intelligence", "")),
-        "zrecznosc": str(general.get("dexterity", "")),
+        "sila": str(hero.strength),
+        "wola": str(hero.will),
+        "intelekt": str(hero.intelligence),
+        "zrecznosc": str(hero.dexterity),
 
-        "sila_mod": str(general.get("strength", "") - 10),
-        "wola_mod": str(general.get("will", "") - 10),
-        "intelekt_mod": str(general.get("intelligence", "") - 10),
-        "zrecznosc_mod": str(general.get("dexterity", 10) - 10),
+        "sila_mod": str(hero.strength - 10),
+        "wola_mod": str(hero.will - 10),
+        "intelekt_mod": str(hero.intelligence - 10),
+        "zrecznosc_mod": str(hero.dexterity - 10),
 
-        "percepcja": str(general.get("perception", "")),
-        "obrona": str(general.get("defense", "")),
-        "zdrowie": str(general.get("health", "")),
-        "predkosc": str(general.get("speed", "")),
-        "moc": str(general.get("power", "")),
-        "obrazenia": str(general.get("damage", "")),
-        "szalenstwo": str(general.get("insanity", "")),
-        "splugawienie": str(general.get("corruption", "")),
-        "szybkosc_zdrowienia": str(general.get("health", 0) // 4),
-        "rozmiar": str(
-            general.get("size", [1])[0] if isinstance(general.get("size"), list) else general.get("size", "")),
+        "percepcja": str(hero.perception),
+        "obrona": str(hero.defense),
+        "zdrowie": str(hero.health),
+        "predkosc": str(hero.speed),
+        "moc": str(hero.power),
+        "obrazenia": str(hero.damage),
+        "szalenstwo": str(hero.insanity),
+        "splugawienie": str(hero.corruption),
+        "szybkosc_zdrowienia": str(hero.health // 4),
+        "rozmiar": str(hero.size[0]) if hero.size else "1",
 
-        "pochodzenie": str(general.get("ancestry_name", "")),
+        "pochodzenie": hero.ancestry_name,
 
-        "okrawki": str(money[0].get("okrawki", "")) if money[0].get("okrawki") != 0 else "",
-        "miedziaki": str(money[1].get("miedziaki", "")) if money[1].get("miedziaki") != 0 else "",
-        "srebro": str(money[2].get("srebrniki", "")) if money[2].get("srebrniki") != 0 else "",
-        "zloto": str(money[3].get("złote korony", "")) if money[3].get("złote korony") != 0 else "",
+        "okrawki": str(hero.money.okrawki) if hero.money.okrawki else "",
+        "miedziaki": str(hero.money.miedziaki) if hero.money.miedziaki else "",
+        "srebro": str(hero.money.srebrniki) if hero.money.srebrniki else "",
+        "zloto": str(hero.money.zlote_korony) if hero.money.zlote_korony else "",
 
-        "plecak": str(equipment[3].get("backpack", "")) if len(equipment) > 3 else "",
+        "plecak": ", ".join(hero.equipment.backpack) if hero.equipment.backpack else "",
 
-        "wyglad": str(backstory.get("appearance", "")) + " " + str(backstory.get("body", "")) + " " + str(
-            backstory.get("age", "") + " " + backstory.get("form", "")),
-        "osobowosc": str(backstory.get("personality", "")),
-        "zamoznosc": str(character_data.get("wealth", "")).split(":")[0],
+        "wyglad": " ".join(filter(None, [
+            hero.backstory.get("appearance", ""),
+            hero.backstory.get("body", ""),
+            hero.backstory.get("age", ""),
+            hero.backstory.get("form", ""),
+        ])),
+        "osobowosc": hero.backstory.get("personality", ""),
+        "zamoznosc": hero.wealth.split(":")[0] if hero.wealth else "",
     }
 
     notatki_parts = []
-    if backstory.get("past"):
-        notatki_parts.append(str(backstory.get("past")))
+    if hero.backstory.get("past"):
+        notatki_parts.append(hero.backstory["past"])
         notatki_parts.append("")
-    if backstory.get("religion"):
-        notatki_parts.append(str(backstory.get("religion")))
+    if hero.backstory.get("religion"):
+        notatki_parts.append(hero.backstory["religion"])
         notatki_parts.append("")
-    if character_data["general"].get("language"):
-        all_langs = character_data["general"].get("language")
-        lang_known = [lang["name"] for lang in all_langs if lang["known"]]
-        lang_spoken = [lang["name"] for lang in all_langs if not lang["known"]]
+
+    if hero.languages:
+        lang_written = [l.name for l in hero.languages if l.can_write]
+        lang_spoken = [l.name for l in hero.languages if not l.can_write]
         if lang_spoken:
-            notatki_parts.append(f'Języki znane:{str(lang_spoken).replace("'", "").replace("[", " ").replace("]", "")}')
-        if lang_known:
-            notatki_parts.append(f'Języki pisane:{str(lang_known).replace("'", "").replace("[", " ").replace("]", "")}')
+            notatki_parts.append(f"Języki znane: {', '.join(lang_spoken)}")
+        if lang_written:
+            notatki_parts.append(f"Języki pisane: {', '.join(lang_written)}")
         notatki_parts.append("")
-    if character_data.get("professions"):
-        professions = character_data.get('professions', [])
-        if professions:
-            notatki_parts.append(f"Profesje: {', '.join(professions)}")
+
+    if hero.professions:
+        notatki_parts.append(f"Profesje: {', '.join(hero.professions)}")
         notatki_parts.append("")
-    if character_data.get("oddity"):
-        notatki_parts.append(f'Kuriozum: {character_data.get("oddity")}')
+
+    if hero.oddity:
+        notatki_parts.append(f"Kuriozum: {hero.oddity}")
 
     fields["notatki"] = "\n".join(notatki_parts)
 
-    # Add weapons to ekwipunek_1..5
-    weapons = equipment[0].get("weapons", []) if len(equipment) > 0 else []
-    for i, weapon in enumerate(weapons):
-        if i < 5:
-            fields[f"ekwipunek_{i + 1}"] = weapon.get('name', '')
-            fields[f"obrazenia_{i + 1}"] = weapon.get('damage', '')
-            fields[f"cechy_{i + 1}"] = weapon.get('properties', '')
+    for i, weapon in enumerate(hero.equipment.weapons[:5]):
+        fields[f"ekwipunek_{i + 1}"] = weapon.name
+        fields[f"obrazenia_{i + 1}"] = weapon.damage
+        fields[f"cechy_{i + 1}"] = weapon.properties
 
     writer.update_page_form_field_values(writer.pages[0], fields)
 

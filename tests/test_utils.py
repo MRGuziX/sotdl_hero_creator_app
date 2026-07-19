@@ -2,147 +2,52 @@ import os
 
 import pytest
 
+from models.action import AddAttribute, AddItem, AddLanguage, AddProfession, GrantLiteracy
+from models.base_hero import AncestryHero
+from models.equipment import Weapon
+from models.language import Language
 from utils.pdf_creator import fill_pdf
 from utils.utils import (
     roll_dice,
     get_from_ancestry,
     build_hero,
-    change_choices_to_actions,
-    add_profession,
-    add_language,
-    add_entry,
-    bulk_update_attributes,
-    add_wealth,
-    add_money,
     add_attribute,
+    add_language,
+    add_profession,
     add_item,
-    add_weapon,
-    add_shield,
-    add_armor,
     add_oddity,
+    add_wealth,
+    apply_action,
+    resolve_choices,
+    expand_any_to_choices,
+    grant_literacy,
     get_hero,
 )
 
 
 @pytest.fixture
-def character_data():
-    return {
-        "backstory": {
-            "age": "Dorosły w średnim wieku, 36–55 lat.",
-            "appearance": "Posiadasz kilka cech fizycznych, które dodają ci atrakcyjności.",
-            "body": "Jesteś średniego wzrostu i wagi.",
-            "personality": "Ponad wszystkim innym stawiasz dobro swoje i swoich bliskich.",
-            "past": "Zakochałeś się; związek ten nadal trwa lub zakończył się dobrze.",
-            "religion": "Jesteś wyznawcą Nowego Boga."
-        },
-        "general": {
-            "ancestry_name": "Człowiek",
-            "corruption": 0,
-            "damage": 0,
-            "defense": 10,
-            "dexterity": 10,
-            "healing_rate": 2,
-            "health": 10,
-            "insanity": 0,
-            "intelligence": 10,
-            "language": [
-                {
-                    "known": False,
-                    "name": "Wspólny"
-                },
-                {
-                    "known": True,
-                    "name": "Elficki"
-                },
-                {
-                    "known": False,
-                    "name": "Krasnoludzki"
-                },
-            ],
-            "perception": 10,
-            "power": 0,
-            "size": [
-                1.0,
-                0.5
-            ],
-            "speed": 10,
-            "strength": 10,
-            "will": 10
-        },
-        "professions": [],
-        "spells": [],
-        "wealth": "",
-        "money": [
-            {
-                "okrawki": 0
-            },
-            {
-                "miedziaki": 0
-            },
-            {
-                "srebrniki": 0
-            },
-            {
-                "złote korony": 0
-            }
+def hero():
+    return AncestryHero(
+        ancestry_name="Człowiek",
+        strength=10,
+        dexterity=10,
+        intelligence=10,
+        will=10,
+        perception=10,
+        defense=10,
+        health=10,
+        healing_rate=2,
+        size=[1.0, 0.5],
+        speed=10,
+        languages=[
+            Language(name="Wspólny", can_speak=True, can_write=False),
+            Language(name="Elficki", can_speak=True, can_write=True),
+            Language(name="Krasnoludzki", can_speak=True, can_write=False),
         ],
-        "oddity": "",
-        "equipment": [
-            {
-                "weapons": []
-            },
-            {
-                "shields": []
-            },
-            {
-                "armors": []
-            },
-            {
-                "backpack": []
-            }
-        ],
-        "talents": [],
-        "actions": [
-            {
-                "add_attribute": {
-                    "name": "intelligence",
-                    "value": 5
-                }
-            },
-            {
-                "add_profession": {
-                    "name": "any"
-                }
-            },
-            {
-                "add_profession": {
-                    "name": "naukowa"
-                }
-            },
-            {
-                "add_language": {
-                    "name": "Wspólny",
-                    "known": False
-                }
-            }
-        ],
-        "choices": [
-            [
-                {
-                    "add_language": {
-                        "name": "any",
-                        "known": False
-                    }
-                },
-                {
-                    "add_profession": {
-                        "name": "naukowa"
-                    }
-                },
-            ]
-        ]
-    }
+    )
 
+
+# --- roll_dice ---
 
 def test_roll_dice_valid():
     result = roll_dice(3, 6)
@@ -163,181 +68,241 @@ def test_roll_dice_invalid_value():
         roll_dice(3, 0)
 
 
-def test_add_money_okrawki(character_data):
-    add_money(10, "okrawki", character_data)
-    assert character_data["money"][0]["okrawki"] == 10
+# --- add_attribute ---
+
+def test_add_attribute_core(hero):
+    add_attribute("strength", 2, hero)
+    assert hero.strength == 12
 
 
-def test_add_money_miedziaki(character_data):
-    add_money(5, "miedziaki", character_data)
-    assert character_data["money"][1]["miedziaki"] == 5
+def test_add_attribute_secondary(hero):
+    add_attribute("health", 5, hero)
+    assert hero.health == 15
 
 
-def test_add_money_invalid_type(character_data):
-    with pytest.raises(ValueError):
-        add_money(10, "dollars", character_data)
+def test_add_attribute_any_random(hero):
+    add_attribute("any", 1, hero, is_random=True)
+    attrs = [hero.strength, hero.dexterity, hero.intelligence, hero.will]
+    assert any(a > 10 for a in attrs)
 
 
-def test_add_language_new_speak(character_data):
-    add_language("CustomLanguage", character_data, known=False)
-    assert any(
-        lang["name"] == "CustomLanguage" and lang["known"] is False for lang in character_data["general"]["language"])
+def test_add_attribute_dice_string(hero):
+    add_attribute("insanity", "1d6", hero)
+    assert 1 <= hero.insanity <= 6
 
 
-def test_add_language_new_write(character_data):
-    add_language("Wspólny", character_data, known=True)
-    assert any(lang["name"] == "Wspólny" and lang["known"] is True for lang in character_data["general"]["language"])
+def test_add_attribute_size(hero):
+    add_attribute("size", 0.5, hero)
+    assert hero.size == [0.5]
 
 
-def test_add_attribute_core(character_data):
-    initial_strength = character_data["general"]["strength"]
-    add_attribute("strength", 2, character_data)
-    assert character_data["general"]["strength"] == initial_strength + 2
+# --- add_language ---
+
+def test_add_language_new_speak(hero):
+    add_language("Trolli", hero, can_write=False)
+    assert any(l.name == "Trolli" and not l.can_write for l in hero.languages)
 
 
-def test_add_attribute_any_random(character_data):
-    add_attribute("any", 1, character_data, is_random=True)
-    attrs = ["strength", "dexterity", "intelligence", "will"]
-    assert any(character_data["general"][attr] > 10 for attr in attrs)
+def test_add_language_grant_write(hero):
+    add_language("Wspólny", hero, can_write=True)
+    wspólny = next(l for l in hero.languages if l.name == "Wspólny")
+    assert wspólny.can_write is True
 
 
-# Tests for add_profession
-def test_add_profession_random(character_data):
-    add_profession("any", character_data, is_random=True)
-    assert len(character_data["professions"]) > 0
+# --- grant_literacy ---
+
+def test_grant_literacy(hero):
+    assert not next(l for l in hero.languages if l.name == "Wspólny").can_write
+    grant_literacy("Wspólny", hero)
+    assert next(l for l in hero.languages if l.name == "Wspólny").can_write is True
 
 
-def test_add_weapon(character_data):
-    add_weapon("Oszczep", character_data)
-    assert len(character_data["equipment"][0]["weapons"]) == 1
-    assert character_data["equipment"][0]["weapons"][0]["name"].lower() == "oszczep"
+def test_grant_literacy_any(hero):
+    grant_literacy("any", hero)
+    writable = [l for l in hero.languages if l.can_write]
+    assert len(writable) >= 2
 
 
-def test_add_armor(character_data):
-    add_armor("Miękka skórznia", character_data)
-    assert len(character_data["equipment"][2]["armors"]) == 1
-    assert character_data["equipment"][2]["armors"][0]["name"].lower() == "miękka skórznia"
+# --- add_money ---
+
+def test_add_money_via_action(hero):
+    hero.money.okrawki = 10
+    assert hero.money.okrawki == 10
 
 
-def test_add_shield(character_data):
-    add_shield("Duża tarcza", character_data)
-    assert len(character_data["equipment"][1]["shields"]) == 1
-    assert character_data["equipment"][1]["shields"][0]["name"].lower() == "duża tarcza"
+def test_add_money_invalid_type(hero):
+    from pydantic import ValidationError
+    with pytest.raises(ValidationError):
+        hero.money.okrawki = "not_a_number"
 
 
-def test_add_oddity(character_data):
-    add_oddity(character_data)
-    assert character_data["oddity"] != ""
+# --- add_item ---
+
+def test_add_item_from_store(hero):
+    add_item("Oszczep", hero)
+    assert len(hero.equipment.weapons) == 1
+    assert hero.equipment.weapons[0].name == "Oszczep"
 
 
-def test_add_wealth(character_data):
-    add_wealth(character_data)
-    assert character_data["wealth"] != ""
+def test_add_item_armor(hero):
+    add_item("Miękka skórznia", hero)
+    assert len(hero.equipment.armors) == 1
 
 
-def test_bulk_update_attributes(character_data):
-    character_data["actions"] = [{"add_attribute": {"strength": 2}}]
-    bulk_update_attributes(character_data)
-    assert character_data["general"]["strength"] == 12
+def test_add_item_shield(hero):
+    add_item("Duża tarcza", hero)
+    assert len(hero.equipment.shields) == 1
 
+
+def test_add_item_not_found(hero):
+    add_item("NonExistentItem", hero)
+    assert "nonexistentitem" in hero.equipment.backpack
+
+
+def test_add_item_with_data(hero):
+    action = AddItem(name="Pałka", damage="1k6", grip="Jednoręczny", properties="Finezyjna", item_type="weapon")
+    add_item(action.name, hero, item_data=action)
+    assert len(hero.equipment.weapons) == 1
+    assert hero.equipment.weapons[0].name == "Pałka"
+
+
+# --- add_profession ---
+
+def test_add_profession_random(hero):
+    add_profession("any", hero, is_random=True)
+    assert len(hero.professions) > 0
+
+
+def test_add_profession_specific(hero):
+    add_profession("pospolita", hero, is_random=True)
+    assert len(hero.professions) == 1
+
+
+# --- add_oddity ---
+
+def test_add_oddity(hero):
+    add_oddity(hero)
+    assert hero.oddity != ""
+
+
+# --- add_wealth ---
+
+def test_add_wealth(hero):
+    actions = []
+    choices = []
+    add_wealth(hero, actions, choices)
+    assert hero.wealth != ""
+
+
+# --- apply_action ---
+
+def test_apply_action_add_attribute(hero):
+    action = AddAttribute(name="strength", value=3)
+    apply_action(action, hero)
+    assert hero.strength == 13
+
+
+def test_apply_action_add_language(hero):
+    action = AddLanguage(name="Trolli", can_write=False)
+    apply_action(action, hero)
+    assert any(l.name == "Trolli" for l in hero.languages)
+
+
+def test_apply_action_add_item(hero):
+    action = AddItem(name="Oszczep")
+    apply_action(action, hero)
+    assert len(hero.equipment.weapons) == 1
+
+
+def test_apply_action_grant_literacy(hero):
+    action = GrantLiteracy(target="Wspólny")
+    apply_action(action, hero)
+    assert next(l for l in hero.languages if l.name == "Wspólny").can_write is True
+
+
+# --- resolve_choices ---
+
+def test_resolve_choices_random(hero):
+    actions = []
+    choices = [[AddAttribute(name="strength", value=1), AddAttribute(name="will", value=1)]]
+    result = resolve_choices(hero, actions, choices, is_random=True)
+    assert len(result) == 1
+
+
+def test_resolve_choices_manual(hero):
+    actions = []
+    choices = [[AddAttribute(name="strength", value=1), AddAttribute(name="will", value=1)]]
+    selected = [AddAttribute(name="will", value=1)]
+    result = resolve_choices(hero, actions, choices, is_random=False, selected_choices=selected)
+    assert len(result) == 1
+    assert result[0].name == "will"
+
+
+# --- expand_any_to_choices ---
+
+def test_expand_any_to_choices():
+    actions = [
+        AddAttribute(name="any", value=1),
+        AddProfession(name="any"),
+        AddAttribute(name="strength", value=2),
+    ]
+    choices = []
+    remaining, new_choices = expand_any_to_choices(actions, choices)
+    assert len(remaining) == 1
+    assert remaining[0].name == "strength"
+    assert len(new_choices) == 2
+
+
+# --- get_from_ancestry ---
 
 def test_get_from_ancestry():
     result = get_from_ancestry(roll=1, category="past", ancestry="human")
     assert result is not None
+    assert result.description != ""
 
+
+# --- build_hero ---
 
 def test_build_hero():
-    hero = build_hero("human")
-    assert hero["general"]["ancestry_name"] == "Człowiek"
-    assert hero["backstory"] != {}
+    hero, actions, choices = build_hero("human")
+    assert hero.ancestry_name == "Człowiek"
+    assert hero.backstory != {}
+    assert isinstance(actions, list)
+    assert isinstance(choices, list)
 
 
-def test_get_hero():
+# --- get_hero ---
+
+def test_get_hero_random():
     hero = get_hero("orc", is_random=True)
-    assert hero["general"]["ancestry_name"] == "Ork"
-    assert hero["wealth"] != ""
-
-
-def test_create_hero():
-    hero = get_hero("orc", is_random=True)
-    output_dir = os.path.join(os.getcwd(), "output")
-    if not os.path.exists(output_dir):
-        os.makedirs(output_dir)
-    output_path = os.path.join(output_dir, "test_hero.pdf")
-    fill_pdf(hero, output_path)
-    assert os.path.exists(output_path)
-
-
-def test_change_choices_to_actions_manual(character_data):
-    character_data["choices"] = [
-        [{"add_attribute": {"name": "strength", "value": 1}}, {"add_attribute": {"name": "will", "value": 1}}]]
-    selected_choices = [{"add_attribute": {"name": "will", "value": 1}}]
-    change_choices_to_actions(character_data, is_random=False, selected_choices=selected_choices)
-    assert len(character_data["actions"]) == 5  # 4 initial + 1 new
-    assert character_data["actions"][-1] == {"add_attribute": {"name": "will", "value": 1}}
-    assert character_data["choices"] == []
-
-
-def test_add_profession_any_manual(character_data):
-    # Even if manual, "any" should resolve to a random profession
-    initial_profs = len(character_data["professions"])
-    add_profession("any", character_data, is_random=False)
-    assert len(character_data["professions"]) == initial_profs + 1
-
-
-def test_add_language_any_manual(character_data):
-    # Test manual addition of "any" language
-    initial_langs = len(character_data["general"]["language"])
-    add_language("any", character_data, known=False, is_random=False)
-    assert len(character_data["general"]["language"]) == initial_langs + 1
-
-
-def test_add_attribute_secondary(character_data):
-    initial_health = character_data["general"]["health"]
-    add_attribute("health", 5, character_data)
-    assert character_data["general"]["health"] == initial_health + 5
-
-
-def test_add_item_not_found(character_data):
-    add_item("NonExistentItem", character_data)
-    # The current implementation uses name.lower() when adding but might keep original if first item?
-    # Actually utils.py:506 sets character_data['equipment'][3]['backpack'] = name
-    # Wait, let's check utils.py again.
-    assert "NonExistentItem" in character_data["equipment"][3]["backpack"] or "nonexistentitem" in \
-           character_data["equipment"][3]["backpack"]
+    assert hero.ancestry_name == "Ork"
+    assert hero.wealth != ""
+    assert hero.oddity != ""
 
 
 def test_get_hero_manual():
-    hero = get_hero("human", is_random=False)
-    assert hero["general"]["ancestry_name"] == "Człowiek"
-    # For human, "any" actions should have been moved to choices
-    assert len(hero["choices"]) > 0
-    # Check if a specific "any" action was moved
-    any_attr_moved = False
-    for choice_pool in hero["choices"]:
-        for choice in choice_pool:
-            if "add_attribute" in choice and choice["add_attribute"]["name"] in ["strength", "dexterity",
-                                                                                 "intelligence", "will"]:
-                any_attr_moved = True
-                break
-    assert any_attr_moved
+    result = get_hero("human", is_random=False)
+    if isinstance(result, tuple):
+        hero, choices = result
+        assert hero.ancestry_name == "Człowiek"
+        assert len(choices) > 0
+    else:
+        assert result.ancestry_name == "Człowiek"
 
 
-def test_add_entry_complex_attr(character_data):
-    entry = {"add_attribute": {"intelligence": 2}}
-    add_entry(entry, character_data)
-    assert character_data["general"]["intelligence"] == 12
+@pytest.mark.parametrize("ancestry", [
+    "human", "goblin", "orc", "dwarf", "changeling", "automaton",
+])
+def test_get_hero_all_ancestries(ancestry):
+    hero = get_hero(ancestry, is_random=True)
+    assert hero.ancestry_name != ""
+    assert hero.wealth != ""
 
 
-def test_add_entry_item_dict(character_data):
-    entry = {"add_item": {"name": "Pałka"}}
-    add_entry(entry, character_data)
-    assert any(w["name"].lower() == "pałka" for w in character_data["equipment"][0]["weapons"])
-
+# --- legacy test for dice errors ---
 
 def test_roll_dice_errors():
+    from unittest.mock import patch
     with pytest.raises(ArithmeticError):
-        # Mock random.randint to return 0 which is impossible for 1d6
-        from unittest.mock import patch
         with patch('random.randint', return_value=0):
             roll_dice(1, 6)

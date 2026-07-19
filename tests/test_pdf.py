@@ -1,0 +1,104 @@
+import os
+import tempfile
+
+import pytest
+from pypdf import PdfReader
+
+from models.base_hero import AncestryHero
+from models.equipment import Weapon
+from models.language import Language
+from models.talent import Talent
+from utils.pdf_creator import fill_pdf
+from utils.utils import get_hero
+
+
+@pytest.fixture
+def output_path():
+    path = os.path.join(tempfile.gettempdir(), "test_hero_card.pdf")
+    yield path
+    if os.path.exists(path):
+        os.remove(path)
+
+
+@pytest.fixture
+def populated_hero():
+    return AncestryHero(
+        ancestry_name="Człowiek",
+        strength=12, dexterity=11, intelligence=10, will=10,
+        perception=10, defense=10, health=10, healing_rate=2,
+        size=[1.0], speed=10,
+        languages=[
+            Language(name="Wspólny", can_speak=True, can_write=False),
+            Language(name="Elficki", can_speak=True, can_write=True),
+        ],
+        talents=[Talent(name="Odporność", description="Test talent")],
+        professions=["Żołnierz", "Rzemieślnik"],
+        backstory={
+            "past": "Walczył w wojnie.",
+            "personality": "Odważny.",
+            "age": "Dorosły.",
+            "body": "Silny.",
+            "appearance": "Przystojny.",
+            "religion": "Wyznawca Nowego Boga.",
+        },
+        wealth="Klasa średnia",
+        oddity="Stary klucz",
+        equipment={"weapons": [
+            {"name": "Miecz", "damage": "1k6+2", "grip": "Jednoręczny", "properties": ""},
+        ], "shields": [], "armors": [], "backpack": ["plecak", "lina"]},
+    )
+
+
+def test_pdf_generation(populated_hero, output_path):
+    fill_pdf(populated_hero, output_path)
+    assert os.path.exists(output_path)
+
+    with open(output_path, "rb") as f:
+        header = f.read(4)
+    assert header == b"%PDF"
+
+
+def test_pdf_fields_populated(populated_hero, output_path):
+    fill_pdf(populated_hero, output_path)
+    reader = PdfReader(output_path)
+    fields = reader.get_form_text_fields() or {}
+
+    assert fields.get("pochodzenie") == "Człowiek"
+    assert fields.get("sila") == "12"
+    assert fields.get("zrecznosc") == "11"
+    assert fields.get("sila_mod") == "2"
+
+
+def test_pdf_weapons_populated(populated_hero, output_path):
+    fill_pdf(populated_hero, output_path)
+    reader = PdfReader(output_path)
+    fields = reader.get_form_text_fields() or {}
+
+    assert fields.get("ekwipunek_1") == "Miecz"
+    assert fields.get("obrazenia_1") == "1k6+2"
+
+
+@pytest.mark.parametrize("ancestry", [
+    "human", "goblin", "orc", "dwarf", "changeling", "automaton",
+])
+def test_pdf_all_ancestries(ancestry, output_path):
+    hero = get_hero(ancestry, is_random=True)
+    fill_pdf(hero, output_path)
+    assert os.path.exists(output_path)
+
+    with open(output_path, "rb") as f:
+        header = f.read(4)
+    assert header == b"%PDF"
+
+
+def test_pdf_from_full_flow(output_path):
+    hero = get_hero("human", is_random=True)
+
+    fill_pdf(hero, output_path)
+    assert os.path.exists(output_path)
+
+    reader = PdfReader(output_path)
+    fields = reader.get_form_text_fields() or {}
+    assert fields.get("pochodzenie") == "Człowiek"
+    assert hero.wealth != ""
+    assert hero.oddity != ""

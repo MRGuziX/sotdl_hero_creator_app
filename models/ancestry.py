@@ -1,15 +1,14 @@
-from pydantic import BaseModel, ConfigDict
+from pydantic import BaseModel
 
+from models.action import Action, Choice
 from models.equipment import Equipment, Money
 from models.language import Language
+from models.spell import Spell
 from models.talent import Talent
 
 
-class AncestryHero(BaseModel):
-    model_config = ConfigDict(validate_assignment=True)
-
+class GeneralStats(BaseModel):
     ancestry_name: str
-    level: int = 0
     strength: int
     dexterity: int
     intelligence: int
@@ -25,10 +24,17 @@ class AncestryHero(BaseModel):
     insanity: int = 0
     corruption: int = 0
     languages: list[Language] = []
+
+
+class AncestryData(BaseModel):
+    general: GeneralStats
+    backstory: dict = {}
     talents: list[Talent] = []
     professions: list[str] = []
-    backstory: dict = {}
+    spells: list[Spell] = []
     wealth: str = ""
     money: Money = Money()
     oddity: str = ""
     equipment: Equipment = Equipment()
+    actions: list[Action] = []
+    choices: list[Choice] = []
