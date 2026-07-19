@@ -53,14 +53,14 @@
       "description": "Zostałeś stworzony do walki. Zwiększ swoją Siłę lub Zręczność o 2.",
       "actions": [
         {
-          "add_attribute": {
-            "strength": 2
-          }
+          "type": "add_attribute",
+          "name": "strength",
+          "value": 2
         },
         {
-          "add_attribute": {
-            "dexterity": 2
-          }
+          "type": "add_attribute",
+          "name": "dexterity",
+          "value": 2
         }
       ]
     },
@@ -72,11 +72,13 @@
         8
       ],
       "description": "Zostałeś stworzony do pracy. Zwiększ swoją Siłę o 2.",
-      "actions": {
-        "add_attribute": {
-          "strength": 2
+      "actions": [
+        {
+          "type": "add_attribute",
+          "name": "strength",
+          "value": 2
         }
-      }
+      ]
     },
     {
       "roll": [
@@ -88,14 +90,14 @@
       "description": "Zostałeś stworzony do używania magii. Zwiększ swój Intelekt lub Wolę o 2.",
       "actions": [
         {
-          "add_attribute": {
-            "intelligence": 2
-          }
+          "type": "add_attribute",
+          "name": "intelligence",
+          "value": 2
         },
         {
-          "add_attribute": {
-            "will": 2
-          }
+          "type": "add_attribute",
+          "name": "will",
+          "value": 2
         }
       ]
     },
@@ -109,14 +111,14 @@
       "description": "Zostałeś stworzony do szpiegowania lub skrytobójstwa. Zwiększ swoją Zręczność lub Intelekt o 2.",
       "actions": [
         {
-          "add_attribute": {
-            "intelligence": 2
-          }
+          "type": "add_attribute",
+          "name": "intelligence",
+          "value": 2
         },
         {
-          "add_attribute": {
-            "dexterity": 2
-          }
+          "type": "add_attribute",
+          "name": "dexterity",
+          "value": 2
         }
       ]
     },
@@ -128,11 +130,13 @@
         20
       ],
       "description": "Nie znasz funkcji, do której zostałeś stworzony. Zwiększ jeden wybrany atrybut o 2.",
-      "actions": {
-        "add_attribute": {
-          "any": 2
+      "actions": [
+        {
+          "type": "add_attribute",
+          "name": "any",
+          "value": 2
         }
-      }
+      ]
     }
   ],
   "form": [
@@ -143,14 +147,14 @@
       "description": "Niewielki, latający automaton. Zmniejsz swoje Zdrowie o 5 i Rozmiar do 1/2. Potrafisz latać, ale musisz zakończyć ruch lądowaniem, w przeciwnym wypadku spadasz na ziemię. Masz około 1 metra wzrostu i ważysz około 25 kilogramów.",
       "actions": [
         {
-          "add_attribute": {
-            "health": -5
-          }
+          "type": "add_attribute",
+          "name": "health",
+          "value": -5
         },
         {
-          "add_attribute": {
-            "size": 0.5
-          }
+          "type": "add_attribute",
+          "name": "size",
+          "value": 0.5
         }
       ]
     },
@@ -160,11 +164,13 @@
         5
       ],
       "description": "Niewielki automaton przypominający pająka o chwytnych kończynach. Zmniejsz swój Rozmiar do 1/2. Gdy się wspinasz, ignorujesz efekty trudnego terenu. Masz około 1 metra wzrostu i ważysz około 25 kilogramów.",
-      "actions": {
-        "add_attribute": {
-          "size": 0.5
+      "actions": [
+        {
+          "type": "add_attribute",
+          "name": "size",
+          "value": 0.5
         }
-      }
+      ]
     },
     {
       "roll": [
@@ -174,11 +180,13 @@
         9
       ],
       "description": "Mały, człekopodobny automaton. Zmniejsz swój Rozmiar do 1/2. Masz około 120 centymetrów wzrostu i ważysz około 30 kilogramów.",
-      "actions": {
-        "add_attribute": {
-          "size": 0.5
+      "actions": [
+        {
+          "type": "add_attribute",
+          "name": "size",
+          "value": 0.5
         }
-      }
+      ]
     },
     {
       "roll": [
@@ -199,19 +207,19 @@
       "description": "Duży, człekopodobny automaton. Zwiększ swój Rozmiar do 2, ale zmniejsz Prędkość i Obronę o 2. Masz około 3 metrów wzrostu i ważysz około 300 kilogramów.",
       "actions": [
         {
-          "add_attribute": {
-            "size": 2.0
-          }
+          "type": "add_attribute",
+          "name": "size",
+          "value": 2.0
         },
         {
-          "add_attribute": {
-            "speed": -2
-          }
+          "type": "add_attribute",
+          "name": "speed",
+          "value": -2
         },
         {
-          "add_attribute": {
-            "defence": -2
-          }
+          "type": "add_attribute",
+          "name": "defence",
+          "value": -2
         }
       ]
     },
@@ -222,19 +230,19 @@
       "description": "Duży automaton od pasa w dół przypominający konia. Zwiększ swój Rozmiar do 2 i Prędkość o 2. Zmniejsz swoją Obronę o 3. Masz około 2 metrów wzrostu i długości, ważysz około 300 kilogramów.",
       "actions": [
         {
-          "add_attribute": {
-            "size": 2.0
-          }
+          "type": "add_attribute",
+          "name": "size",
+          "value": 2.0
         },
         {
-          "add_attribute": {
-            "speed": 2
-          }
+          "type": "add_attribute",
+          "name": "speed",
+          "value": 2
         },
         {
-          "add_attribute": {
-            "defence": -3
-          }
+          "type": "add_attribute",
+          "name": "defence",
+          "value": -3
         }
       ]
     }
@@ -371,11 +379,13 @@
         1
       ],
       "description": "Twoja dusza pochodzi z Piekła. Zaczynasz grę z 1k3 punktów Splugawienia.",
-      "actions": {
-        "add_attribute": {
-          "corruption": "1d3"
+      "actions": [
+        {
+          "type": "add_attribute",
+          "name": "corruption",
+          "value": "1d3"
         }
-      }
+      ]
     },
     {
       "roll": [
@@ -384,14 +394,14 @@
       "description": "Twoja dusza została wyrwana z Zaświatów, zanim zdążyła zapomnieć swoje poprzednie życie. Zaczynasz grę z 1k6 punktów Szaleństwa i zyskujesz dodatkową profesję.",
       "actions": [
         {
-          "add_attribute": {
-            "insanity": "1d6"
-          }
+          "type": "add_attribute",
+          "name": "insanity",
+          "value": "1d6"
         },
         {
-          "add_attribute": {
-            "profession": "any"
-          }
+          "type": "add_attribute",
+          "name": "profession",
+          "value": "any"
         }
       ]
     },
@@ -502,11 +512,13 @@
         20
       ],
       "description": "Odziedziczyłeś w spadku pieniądze; zaczynasz grę z 2k6 miedziaków.",
-      "actions": {
-        "add_attribute": {
-          "copper_coins": "2d6"
+      "actions": [
+        {
+          "type": "add_attribute",
+          "name": "copper_coins",
+          "value": "2d6"
         }
-      }
+      ]
     }
   ]
 }

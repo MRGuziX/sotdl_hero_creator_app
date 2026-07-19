@@ -1,18 +1,26 @@
 import json
+import logging
 import os
 import random
 import tempfile
 
 from flask import Flask, render_template, send_file, redirect, url_for, request, jsonify
 
+logging.basicConfig(
+    level=logging.INFO,
+    format="%(asctime)s [%(name)s] %(message)s",
+    datefmt="%H:%M:%S",
+)
+
+from models.action import Action
+from models.base_hero import AncestryHero
 from utils.pdf_creator import fill_pdf
-from utils.utils import get_hero
+from utils.utils import get_hero, resolve_choices, apply_action
 
 app = Flask(__name__, static_folder='pictures', static_url_path='/static')
 
 ANCESTRIES = ["human", "automaton", "goblin", "dwarf", "orc", "changeling"]
 
-# Use /tmp for serverless environment compatibility
 OUTPUT_PATH = os.path.join(tempfile.gettempdir(), "hero_card.pdf")
 DESCRIPTIONS_PATH = os.path.join("data_base", "ancestry", "descriptions.json")
 
@@ -33,28 +41,24 @@ def roll(ancestry):
     if ancestry not in ANCESTRIES:
         return "Invalid ancestry", 400
 
-    # Check if download is requested
     download = request.args.get('download', '0') == '1'
     is_random = request.args.get('is_random', '1') == '1'
 
     if not download:
-        # 1. Roll a character
-        hero_data = get_hero(ancestry, is_random=is_random)
+        result = get_hero(ancestry, is_random=is_random)
 
-        if not is_random and hero_data.get("choices"):
-            # If not random and there are choices, return choices as JSON
+        if isinstance(result, tuple):
+            hero, choices = result
             return jsonify({
                 "status": "need_choices",
-                "hero_data": hero_data
+                "hero_data": hero.model_dump(),
+                "choices": [[a.model_dump() for a in group] for group in choices],
             })
 
-        # 2. Fill the PDF (if random, it's already done in get_hero)
+        hero = result
         if not is_random:
-            fill_pdf(hero_data, OUTPUT_PATH)
+            fill_pdf(hero, OUTPUT_PATH)
 
-        # print(hero_data)
-
-        # 3. Return the filled PDF
     return send_file(
         OUTPUT_PATH,
         as_attachment=download,
@@ -72,16 +76,18 @@ def confirm_choices():
     if not hero_data or selected_choices is None:
         return "Missing data", 400
 
-    from utils.utils import change_choices_to_actions, bulk_update_attributes
+    hero = AncestryHero.model_validate(hero_data)
 
-    # Apply selected choices
-    hero_data = change_choices_to_actions(hero_data, is_random=False, selected_choices=selected_choices)
+    parsed_choices = []
+    for choice in selected_choices:
+        from pydantic import TypeAdapter
+        action_adapter = TypeAdapter(Action)
+        parsed_choices.append(action_adapter.validate_python(choice))
 
-    # Apply actions
-    hero_data = bulk_update_attributes(hero_data, is_random=False)
+    for action in parsed_choices:
+        apply_action(action, hero, is_random=False)
 
-    # Fill the PDF
-    fill_pdf(hero_data, OUTPUT_PATH)
+    fill_pdf(hero, OUTPUT_PATH)
 
     return jsonify({"status": "success", "download_url": url_for('download_current')})
 

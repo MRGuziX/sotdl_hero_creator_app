@@ -9,96 +9,63 @@
     "defense": 10,
     "health": 10,
     "healing_rate": 2,
-    "size": [
-      1.0,
-      0.5
-    ],
+    "size": [1.0, 0.5],
     "speed": 10,
     "power": 0,
     "damage": 0,
     "insanity": 0,
     "corruption": 0,
-    "language": [
+    "languages": [
       {
         "name": "Wspólny",
-        "known": false
+        "can_speak": true,
+        "can_write": false
       }
     ]
   },
   "backstory": {},
-  "talents": [
-    {
-      "name": "",
-      "description": "",
-      "level": 0
-    },
-    {
-      "name": "",
-      "description": ""
-    }
-  ],
+  "talents": [],
   "professions": [],
   "spells": [],
   "wealth": "",
-  "money": [
-    {
-      "okrawki": 0
-    },
-    {
-      "miedziaki": 0
-    },
-    {
-      "srebrniki": 0
-    },
-    {
-      "złote korony": 0
-    }
-  ],
+  "money": {
+    "okrawki": 0,
+    "miedziaki": 0,
+    "srebrniki": 0,
+    "zlote_korony": 0
+  },
   "oddity": "",
-  "equipment": [
-    {
-      "weapons": []
-    },
-    {
-      "shields": []
-    },
-    {
-      "armors": []
-    },
-    {
-      "backpack": []
-    }
-  ],
+  "equipment": {
+    "weapons": [],
+    "shields": [],
+    "armors": [],
+    "backpack": []
+  },
   "actions": [
     {
-      "add_attribute": {
-        "name": "any",
-        "value": 1
-      }
+      "type": "add_attribute",
+      "name": "any",
+      "value": 1
     },
     {
-      "add_profession": {
-        "name": "any"
-      }
+      "type": "add_profession",
+      "name": "any"
     },
     {
-      "add_profession": {
-        "name": "any"
-      }
+      "type": "add_profession",
+      "name": "any"
     }
   ],
   "choices": [
     [
       {
-        "add_language": {
-          "name": "any",
-          "known": false
-        }
+        "type": "add_language",
+        "name": "any",
+        "can_write": false
       },
       {
-        "add_profession": {
-          "name": "any"
-        }
+        "type": "add_profession",
+        "name": "any"
       }
     ]
   ]

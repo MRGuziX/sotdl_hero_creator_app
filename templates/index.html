@@ -780,6 +780,7 @@
 
 <script>
     let currentHeroData = null;
+    let currentChoices = null;
     let selectedAncestry = null;
     let currentPdfAncestry = null;
     let currentDownloadUrl = null;
@@ -809,12 +810,12 @@
     }
 
     function areAllChoicesSelected() {
-        if (!currentHeroData || !Array.isArray(currentHeroData.choices)) {
+        if (!currentChoices || !Array.isArray(currentChoices)) {
             return false;
         }
 
-        for (let i = 0; i < currentHeroData.choices.length; i++) {
-            const choicePool = currentHeroData.choices[i];
+        for (let i = 0; i < currentChoices.length; i++) {
+            const choicePool = currentChoices[i];
             if (!Array.isArray(choicePool) || choicePool.length === 0) {
                 continue;
             }
@@ -887,6 +888,7 @@
 
     function clearManualChoicesState() {
         currentHeroData = null;
+        currentChoices = null;
         currentChoicesAncestry = null;
         manualChoicesLoaded = false;
         manualRequiresSelection = false;
@@ -934,12 +936,13 @@
 
                 if (data.status === 'need_choices' && data.hero_data) {
                     currentHeroData = data.hero_data;
+                    currentChoices = data.choices || [];
                     currentChoicesAncestry = selectedAncestry;
                     manualChoicesLoaded = true;
-                    manualRequiresSelection = hasSelectableChoices(data.hero_data.choices);
+                    manualRequiresSelection = hasSelectableChoices(currentChoices);
 
                     if (manualRequiresSelection) {
-                        displayChoices(data.hero_data.choices);
+                        displayChoices(currentChoices);
                         showChoicesContainer();
                     } else {
                         hideChoicesContainer();
@@ -1056,8 +1059,7 @@
                 radiomark.className = 'radiomark';
 
                 let optionText = '';
-                const actionKey = Object.keys(option)[0];
-                const actionVal = option[actionKey];
+                const actionType = option.type;
 
                 const attributeTranslations = {
                     strength: 'Siła',
@@ -1066,17 +1068,20 @@
                     will: 'Wola'
                 };
 
-                if (actionKey === 'add_attribute') {
-                    const attrName = attributeTranslations[actionVal.name] || actionVal.name;
-                    optionText = `Zwiększ ${attrName} o ${actionVal.value}`;
-                } else if (actionKey === 'add_language') {
-                    const langName = actionVal.name === 'any' ? 'Dodatkowy język' : actionVal.name;
+                if (actionType === 'add_attribute') {
+                    const attrName = attributeTranslations[option.name] || option.name;
+                    optionText = `Zwiększ ${attrName} o ${option.value}`;
+                } else if (actionType === 'add_language') {
+                    const langName = option.name === 'any' ? 'Dodatkowy język' : option.name;
                     optionText = `Język: ${langName}`;
-                } else if (actionKey === 'add_profession') {
-                    const profName = actionVal.name === 'any' ? 'Dodatkowa profesja' : actionVal.name;
+                } else if (actionType === 'add_profession') {
+                    const profName = option.name === 'any' ? 'Dodatkowa profesja' : option.name;
                     optionText = `Profesja: ${profName}`;
-                } else if (actionKey === 'add_item') {
-                    optionText = `Przedmiot: ${actionVal.name}`;
+                } else if (actionType === 'add_item') {
+                    optionText = `Przedmiot: ${option.name}`;
+                } else if (actionType === 'grant_literacy') {
+                    const target = option.target === 'any' ? 'dowolny język' : option.target;
+                    optionText = `Nauka pisania: ${target}`;
                 } else {
                     optionText = JSON.stringify(option);
                 }
@@ -1096,9 +1101,8 @@
 
     function confirmChoices() {
         const selectedChoices = [];
-        const choicesPools = currentHeroData.choices;
 
-        for (let i = 0; i < choicesPools.length; i++) {
+        for (let i = 0; i < currentChoices.length; i++) {
             const radios = document.getElementsByName(`choice-${i}`);
             let selectedIndex = 0;
             for (let j = 0; j < radios.length; j++) {
@@ -1107,7 +1111,7 @@
                     break;
                 }
             }
-            selectedChoices.push(choicesPools[i][selectedIndex]);
+            selectedChoices.push(currentChoices[i][selectedIndex]);
         }
 
         fetch('/confirm_choices', {

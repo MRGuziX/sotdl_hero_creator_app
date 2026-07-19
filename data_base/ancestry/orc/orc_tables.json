@@ -164,22 +164,26 @@
         1
       ],
       "description": "Z zimną krwią mordowałeś bezbronnych ludzi. Zyskaj 2 punkty Splugawienia.",
-      "actions": {
-        "add_attribute": {
-          "corruption": 2
+      "actions": [
+        {
+          "type": "add_attribute",
+          "name": "corruption",
+          "value": 2
         }
-      }
+      ]
     },
     {
       "roll": [
         2
       ],
       "description": "Przez krótki czas byłeś opętany przez demona. Zyskaj 1 punkt Splugawienia.",
-      "actions": {
-        "add_attribute": {
-          "corruption": 1
+      "actions": [
+        {
+          "type": "add_attribute",
+          "name": "corruption",
+          "value": 1
         }
-      }
+      ]
     },
     {
       "roll": [
@@ -282,11 +286,13 @@
         19
       ],
       "description": "W snach nawiedzają cię Bogowie Krwi i Żelaza. Zaczynasz grę z 1 punktem Splugawienia.",
-      "actions": {
-        "add_attribute": {
-          "corruption": 1
+      "actions": [
+        {
+          "type": "add_attribute",
+          "name": "corruption",
+          "value": 1
         }
-      }
+      ]
     },
     {
       "roll": [
