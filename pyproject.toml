@@ -1,3 +1,14 @@
+[project]
+name = "sotdl-hero-creator-app"
+version = "0.1.0"
+description = "Web-based Shadow of the Demon Lord hero creator"
+requires-python = ">=3.12"
+dependencies = [
+    "Flask",
+    "pypdf",
+    "pydantic",
+]
+
 [tool.ruff]
 target-version = "py312"
 line-length = 100
