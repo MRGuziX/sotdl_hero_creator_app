@@ -3,9 +3,11 @@ import logging
 import os
 import random
 import tempfile
+import time
+import uuid
 from pathlib import Path
 
-from flask import Flask, jsonify, redirect, render_template, request, send_file, url_for
+from flask import Flask, jsonify, redirect, render_template, request, send_file, session, url_for
 
 from models.action import Action
 from models.base_hero import AncestryHero
@@ -25,15 +27,36 @@ logging.basicConfig(
 )
 
 app = Flask(__name__, static_folder="pictures", static_url_path="/static")
+app.secret_key = os.environ.get("SECRET_KEY", "development-only-secret")
 
 ANCESTRIES = ["human", "automaton", "goblin", "dwarf", "orc", "changeling"]
 
-OUTPUT_PATH = os.path.join(tempfile.gettempdir(), "hero_card.pdf")
-DESCRIPTIONS_PATH = os.path.join("data_base", "ancestry", "descriptions.json")
-NOVICE_PATHS_DIR = Path("data_base/paths/novice")
+PROJECT_ROOT = Path(__file__).resolve().parent
+OUTPUT_DIR = Path(tempfile.gettempdir()) / "sotdl_hero_creator"
+# Kept for compatibility with callers that import this constant.
+OUTPUT_PATH = str(OUTPUT_DIR / "hero_card.pdf")
+DESCRIPTIONS_PATH = PROJECT_ROOT / "data_base" / "ancestry" / "descriptions.json"
+NOVICE_PATHS_DIR = PROJECT_ROOT / "data_base" / "paths" / "novice"
+_MANUAL_CREATIONS = {}
+_MANUAL_CREATION_TTL = 3600
+_MAX_MANUAL_CREATIONS = 1000
 
 
-def load_novice_paths():
+def _session_id() -> str:
+    """Return the stable identifier used to isolate this browser session."""
+    if "creation_id" not in session:
+        session["creation_id"] = uuid.uuid4().hex
+    return session["creation_id"]
+
+
+def _output_path() -> str:
+    """Return the temporary PDF path assigned to the current session."""
+    OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
+    return str(OUTPUT_DIR / f"{_session_id()}.pdf")
+
+
+def load_novice_paths() -> list[dict[str, str]]:
+    """Load available novice paths from the bundled JSON definitions."""
     paths = []
     for path_file in sorted(NOVICE_PATHS_DIR.glob("*.json")):
         if path_file.name == "cleric_religions.json":
@@ -44,7 +67,7 @@ def load_novice_paths():
     return paths
 
 
-def choice_context(hero, choices):
+def choice_context(hero: AncestryHero, choices: list[list[Action]]) -> dict:
     """Return the lists needed to make tradition and spell choices explicit."""
     traditions = sorted(
         {
@@ -78,7 +101,9 @@ def choice_context(hero, choices):
     }
 
 
-def choices_response(hero, choices, choice_cursor=0):
+def choices_response(
+    hero: AncestryHero, choices: list[list[Action]], choice_cursor: int = 0
+) -> dict:
     return {
         "choices": [[a.model_dump() for a in choices[0]]] if choices else [],
         "choice_cursor": choice_cursor,
@@ -86,7 +111,7 @@ def choices_response(hero, choices, choice_cursor=0):
     }
 
 
-def load_ancestry_descriptions():
+def load_ancestry_descriptions() -> dict:
     with open(DESCRIPTIONS_PATH, "r", encoding="utf-8") as descriptions_file:
         return json.load(descriptions_file)
 
@@ -108,7 +133,12 @@ def roll(ancestry):
 
     download = request.args.get("download", "0") == "1"
     is_random = request.args.get("is_random", "1") == "1"
-    level = int(request.args.get("level", "0"))
+    try:
+        level = int(request.args.get("level", "0"))
+    except (TypeError, ValueError):
+        return "Invalid level", 400
+    if level < 0:
+        return "Invalid level", 400
     path_name = request.args.get("path")
 
     if not download:
@@ -118,6 +148,7 @@ def roll(ancestry):
 
         if isinstance(result, tuple):
             hero, choices = result
+            _store_manual_creation(hero, choices, 0)
             return jsonify(
                 {
                     "status": "need_choices",
@@ -129,11 +160,10 @@ def roll(ancestry):
             )
 
         hero = result
-        if not is_random:
-            fill_pdf(hero, OUTPUT_PATH)
+        fill_pdf(hero, _output_path())
 
     return send_file(
-        OUTPUT_PATH,
+        _output_path(),
         as_attachment=download,
         download_name=f"{ancestry}_hero.pdf",
         mimetype="application/pdf",
@@ -143,22 +173,22 @@ def roll(ancestry):
 @app.route("/confirm_choices", methods=["POST"])
 def confirm_choices():
     data = request.get_json(silent=True) or {}
-    hero_data = data.get("hero_data")
     selected_choices = data.get("selected_choices")
     choice_cursor = data.get("choice_cursor", 0)
 
     if (
-        not hero_data
-        or not selected_choices
+        not selected_choices
         or not isinstance(choice_cursor, int)
         or choice_cursor < 0
     ):
         return "Missing data", 400
 
-    try:
-        hero = AncestryHero.model_validate(hero_data)
-    except (TypeError, ValueError):
-        return "Invalid hero data", 400
+    creation = _get_manual_creation()
+    if creation is None:
+        return "No active creation", 400
+    hero, pending_choices, expected_cursor = creation
+    if choice_cursor != expected_cursor:
+        return "Invalid choice cursor", 400
 
     parsed_choices = []
     try:
@@ -170,6 +200,11 @@ def confirm_choices():
     except (TypeError, ValueError):
         return "Invalid choice", 400
 
+    if len(parsed_choices) != 1 or not pending_choices:
+        return "Invalid choice", 400
+    allowed = {action.model_dump_json() for action in pending_choices[0]}
+    if parsed_choices[0].model_dump_json() not in allowed:
+        return "Invalid choice", 400
     for action in parsed_choices:
         apply_action(action, hero, is_random=False)
 
@@ -191,6 +226,7 @@ def confirm_choices():
     filtered_choices = remaining_choices[next_cursor:] if remaining_choices else []
 
     if filtered_choices:
+        _store_manual_creation(hero, filtered_choices, next_cursor)
         return jsonify(
             {
                 "status": "need_choices",
@@ -199,7 +235,8 @@ def confirm_choices():
             }
         )
 
-    fill_pdf(hero, OUTPUT_PATH)
+    _MANUAL_CREATIONS.pop(_session_id(), None)
+    fill_pdf(hero, _output_path())
     return jsonify({"status": "success", "download_url": url_for("download_current")})
 
 
@@ -211,17 +248,47 @@ def roll_random():
 
 @app.route("/download_current")
 def download_current():
-    if not os.path.exists(OUTPUT_PATH):
+    output_path = _output_path()
+    if not os.path.exists(output_path):
         return "No hero generated yet", 404
 
     download = request.args.get("download", "0") == "1"
 
     return send_file(
-        OUTPUT_PATH,
+        output_path,
         as_attachment=download,
         download_name="hero_card.pdf",
         mimetype="application/pdf",
     )
+
+
+def _purge_manual_creations() -> None:
+    """Remove expired pending creations and enforce a bounded process cache."""
+    now = time.monotonic()
+    expired = [
+        key for key, value in _MANUAL_CREATIONS.items()
+        if now - value[3] > _MANUAL_CREATION_TTL
+    ]
+    for key in expired:
+        _MANUAL_CREATIONS.pop(key, None)
+    while len(_MANUAL_CREATIONS) > _MAX_MANUAL_CREATIONS:
+        oldest = min(_MANUAL_CREATIONS, key=lambda key: _MANUAL_CREATIONS[key][3])
+        _MANUAL_CREATIONS.pop(oldest, None)
+
+
+def _store_manual_creation(hero, choices, cursor: int) -> None:
+    """Store pending manual state with a timestamp for bounded cleanup."""
+    _purge_manual_creations()
+    _MANUAL_CREATIONS[_session_id()] = (hero, choices, cursor, time.monotonic())
+
+
+def _get_manual_creation():
+    """Return the current pending creation, or `None` when it is absent/expired."""
+    _purge_manual_creations()
+    creation = _MANUAL_CREATIONS.get(session.get("creation_id"))
+    if creation is None:
+        return None
+    return creation[:3]
 
 
 if __name__ == "__main__":

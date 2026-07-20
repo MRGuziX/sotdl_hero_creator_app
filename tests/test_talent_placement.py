@@ -8,7 +8,6 @@ from utils.pdf_creator import distribute_talents
 
 
 def test_talent_distribution():
-    print("--- Testing Talent Distribution Logic ---")
 
     # 1. Determinacja (Human talent, ~95 chars)
     determinacja = Talent(
@@ -53,14 +52,6 @@ def test_talent_distribution():
 
     assigned, overflow = distribute_talents(talents)
 
-    print(f"Total talents (including tradition): {len(talents)}")
-    print(f"Assigned: {len(assigned)}")
-    print(f"Overflow: {len(overflow)}")
-
-    for box_id, data in assigned.items():
-        print(
-            f"Box {box_id} ({data['box'].capacity} chars): {data['name']} (desc len: {len(data['description'] if data['description'] else '')})"
-        )
 
     # Assertions
     assert "kwadrat_2" in assigned  # determinacja (95 chars)
@@ -78,16 +69,10 @@ def test_talent_distribution():
     assert "Tradycja: Magia Niebiańska" not in assigned_names
     assert len(assigned) == 8  # 9 total - 1 tradition = 8 assigned
 
-    print("\n--- Testing Overflow ---")
     # Add 10 more huge talents to force overflow
     extra_talents = [
         Talent(name=f"Overflow {i}", description="O" * 1500) for i in range(5)
     ]
     assigned_2, overflow_2 = distribute_talents(extra_talents)
-    print(f"Overflow count: {len(overflow_2)}")
     assert len(overflow_2) == 4
 
-
-if __name__ == "__main__":
-    test_talent_distribution()
-    print("\nTest PASSED!")

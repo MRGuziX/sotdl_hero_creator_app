@@ -85,7 +85,7 @@ The character creation process is driven by an **action/choice pipeline**:
 
 - Python 3.12+
 - Dependencies: `Flask`, `pypdf`, `pydantic`
-- For tests: `pytest`
+- Development tools: `pytest`, `ruff`
 
 ## Local Development
 
@@ -93,13 +93,15 @@ The character creation process is driven by an **action/choice pipeline**:
 python -m venv .venv
 source .venv/bin/activate
 pip install -r requirements.txt
-pip install pytest
 
 # Run the app
 python main.py
 
 # Run tests
 pytest tests/ -v
+
+# Run linting
+ruff check .
 ```
 
 ## Deployment on Vercel

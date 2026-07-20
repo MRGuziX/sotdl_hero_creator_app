@@ -1,4 +1,4 @@
-from pydantic import BaseModel, ConfigDict
+from pydantic import BaseModel, ConfigDict, Field
 
 from models.equipment import Equipment, Money
 from models.language import Language
@@ -27,13 +27,13 @@ class AncestryHero(BaseModel):
     damage: int = 0
     insanity: int = 0
     corruption: int = 0
-    languages: list[Language] = []
-    talents: list[Talent] = []
-    spells: list[Spell] = []
-    professions: list[str] = []
-    backstory: dict = {}
+    languages: list[Language] = Field(default_factory=list)
+    talents: list[Talent] = Field(default_factory=list)
+    spells: list[Spell] = Field(default_factory=list)
+    professions: list[str] = Field(default_factory=list)
+    backstory: dict = Field(default_factory=dict)
     wealth: str = ""
-    money: Money = Money()
+    money: Money = Field(default_factory=Money)
     oddity: str = ""
-    equipment: Equipment = Equipment()
+    equipment: Equipment = Field(default_factory=Equipment)
     religion: str = ""
