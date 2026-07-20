@@ -69,6 +69,15 @@ def test_pdf_fields_populated(populated_hero, output_path):
     assert fields.get("sila_mod") == "2"
 
 
+def test_pdf_novice_path_is_populated(output_path):
+    hero = get_hero("human", is_random=True, level=2, path_name="warrior")
+
+    fill_pdf(hero, output_path)
+    fields = PdfReader(output_path).get_form_text_fields() or {}
+
+    assert fields.get("nowicjusz") == "Wojownik"
+
+
 def test_pdf_weapons_populated(populated_hero, output_path):
     fill_pdf(populated_hero, output_path)
     reader = PdfReader(output_path)
@@ -89,6 +98,29 @@ def test_pdf_all_ancestries(ancestry, output_path):
     with open(output_path, "rb") as f:
         header = f.read(4)
     assert header == b"%PDF"
+
+
+def test_pdf_talent_placement(output_path):
+    hero = AncestryHero(
+        ancestry_name="Testowy",
+        strength=10, dexterity=10, intelligence=10, will=10,
+        perception=10, defense=10, health=10, healing_rate=2,
+        size=[1.0], speed=10,
+        talents=[
+            Talent(name="Mały 1", description="S" * 50),
+            Talent(name="Kwadrat 1", description="K" * 200),
+            Talent(name="Średni 1", description="M" * 300),
+            Talent(name="Wielki 1", description="L" * 800),
+        ]
+    )
+    fill_pdf(hero, output_path)
+    reader = PdfReader(output_path)
+    fields = reader.get_form_text_fields() or {}
+
+    assert fields.get("nazwa_talent_maly_1") == "Mały 1"
+    assert fields.get("nazwa_talent_kwadrat_1") == "Kwadrat 1"
+    assert fields.get("nazwa_talent_sredni_1") == "Średni 1"
+    assert fields.get("nazwa_talent_duzy_1") == "Wielki 1"
 
 
 def test_pdf_from_full_flow(output_path):
