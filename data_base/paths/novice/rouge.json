@@ -1,0 +1,162 @@
+{
+  "path_name": "Łotr",
+  "path_type": "novice",
+  "level_benefits": {
+    "1": {
+      "actions": [
+        {
+          "type": "add_attribute",
+          "name": "any",
+          "value": 1
+        },
+        {
+          "type": "add_attribute",
+          "name": "any",
+          "value": 1
+        },
+        {
+          "type": "add_attribute",
+          "name": "health",
+          "value": 3
+        },
+        {
+          "type": "add_talent",
+          "name": "Szybka odnowa",
+          "description": "Możesz użyć akcji, by uleczyć tyle obrażeń, ile wynosi twoja Szybkość Zdrowienia, a następnie poruszyć się o połowę swojej Prędkości, nie prowokując przy tym darmowych ataków. Po wykorzystaniu tego talentu musisz odbyć pełny odpoczynek, zanim będziesz mógł użyć go ponownie."
+        },
+        {
+          "type": "add_talent",
+          "name": "Podstęp",
+          "description": "Raz na rundę możesz uzyskać 1 ułatwienie w rzucie na atak lub teście. Jeśli ułatwienie to wykorzystasz przy ataku, zadajesz nim dodatkowe 1k6 obrażeń."
+        }
+      ],
+      "choices": [
+        [
+          {
+            "type": "add_language",
+            "name": "any"
+          },
+          {
+            "type": "add_profession",
+            "name": "pospolita"
+          },
+          {
+            "type": "add_profession",
+            "name": "koczownicza"
+          },
+          {
+            "type": "add_profession",
+            "name": "przestępcza"
+          }
+        ]
+      ]
+    },
+    "2": {
+      "actions": [
+        {
+          "type": "add_attribute",
+          "name": "health",
+          "value": 3
+        },
+        {
+          "type": "add_talent",
+          "name": "Wykorzystanie okazji",
+          "description": "Raz na rundę, gdy całkowity wynik twojego rzutu na atak wyniesie 20 lub więcej i przewyższy jednocześnie poziom trudności o co najmniej 5, możesz podjąć dodatkową turę krótką lub długą przed końcem bieżącej rundy."
+        }
+      ],
+      "choices": [
+        {
+          "type": "add_talent",
+          "name": "Cios w plecy",
+          "description": "Raz na rundę, gdy atakujesz bronią prostą lub szybką i wykonujesz rzut na atak z co najmniej 1 ułatwieniem, atak ten zadaje dodatkowe 1k6 obrażeń.",
+          "upgrade": "Raz na rundę, gdy atakujesz bronią prostą lub szybką i wykonujesz rzut na atak z co najmniej 1 ułatwieniem, atak ten zadaje dodatkowe 2k6 obrażeń."
+        },
+        {
+          "type": "add_talent",
+          "name": "Pogróżki",
+          "description": "Możesz wykorzystać akcję lub reakcję w swojej turze, by wykonać oparty na Intelekcie rzut na atak przeciwko Woli jednego celu w bliskim zasięgu, który cię widzi i słyszy. Sukces oznacza, że przeciwnik zostaje przestraszony na 1 rundę. Porażka oznacza, że staje się on niewrażliwy na twoje Pogróżki, dopóki nie odbędzie pełnego odpoczynku.",
+          "upgrade": "Możesz wykorzystać akcję lub reakcję w swojej turze, by wykonać oparty na Intelekcie rzut na atak przeciwko Woli jednego celu w bliskim zasięgu, który cię widzi i słyszy. Sukces oznacza, że przeciwnik zostaje przestraszony na 1 rundę. Porażka oznacza, że staje się on niewrażliwy na twoje Pogróżki, dopóki nie odbędzie pełnego odpoczynku. Twoje ataki bronią zadają przestraszonym w ten sposób celom dodatkowe 1k6 obrażeń."
+        },
+        {
+          "type": "add_talent",
+          "name": "Magia",
+          "description": "Zwiększasz swoją Moc o 1 i poznajesz jedną tradycję magiczną. Następnie dwa razy dokonaj wyboru pomiędzy poznaniem dodatkowej tradycji lub nauczeniem się jednego zaklęcia ze znanej ci tradycji.",
+          "upgrade": "Zwiększasz swoją Moc o 2 i poznajesz jedną tradycję magiczną. Następnie trzy razy dokonaj wyboru pomiędzy poznaniem dodatkowej tradycji lub nauczeniem się jednego zaklęcia ze znanej ci tradycji."
+        },
+        {
+          "type": "add_talent",
+          "name": "Wolta",
+          "description": "Możesz wykorzystać akcję, by poruszyć się o połowę swojej Prędkości. Ruch ten nie wywołuje darmowych ataków. W dowolnym punkcie ruchu możesz wykonać atak. Rzut na atak wykonujesz z 1 utrudnieniem, ale zadaje on dodatkowe 1k6 obrażeń.",
+          "upgrade": "Możesz wykorzystać akcję, by poruszyć się o całą wartość swojej Prędkości. Ruch ten nie wywołuje darmowych ataków. W dowolnym punkcie ruchu możesz wykonać atak. Rzut na atak wykonujesz z 1 utrudnieniem, ale zadaje on dodatkowe 1k6 obrażeń."
+        },
+        {
+          "type": "add_talent",
+          "name": "Zwód",
+          "description": "Możesz wykorzystać akcję, by wykonać oparty na Intelekcie rzut na atak przeciwko Intelektowi jednego celu w bliskim zasięgu, który cię słyszy i jest w stanie zrozumieć twoje słowa. Sukces oznacza, że przeciwnik zostaje zauroczony na 1 rundę lub dopóki go nie zaatakujesz. Porażka oznacza, że staje się on niewrażliwy na twój Zwód, dopóki nie odbędzie pełnego odpoczynku.",
+          "upgrade": "Możesz wykorzystać akcję, by wykonać oparty na Intelekcie rzut na atak z 1 ułatwieniem przeciwko Intelektowi jednego celu w bliskim zasięgu, który cię słyszy i nie musi rozumieć Twoich słów. Sukces oznacza, że przeciwnik zostaje zauroczony na 1 rundę lub dopóki go nie zaatakujesz. Porażka oznacza, że staje się on niewrażliwy na twój Zwód, dopóki nie odbędzie pełnego odpoczynku."
+        }
+      ]
+    },
+    "5": {
+      "actions": [
+        {
+          "type": "add_attribute",
+          "name": "health",
+          "value": 3
+        },
+        {
+          "type": "add_talent",
+          "name": "Nieczyste zagrania",
+          "description": "Jeśli wykonujesz rzut na atak z co najmniej 1 ułatwieniem, atak ten zadaje dodatkowe 1k6 obrażeń."
+        },
+        {
+          "type": "add_talent",
+          "name": "Łotrowski spryt",
+          "description": "Możesz użyć Podstępu dwa razy na rundę."
+        }
+      ],
+      "choices": []
+    },
+    "8": {
+      "actions": [
+        {
+          "type": "add_attribute",
+          "name": "health",
+          "value": 3
+        }
+      ],
+      "choices": [
+        {
+          "type": "add_talent",
+          "name": "Cios w plecy",
+          "description": "Raz na rundę, gdy atakujesz bronią prostą lub szybką i wykonujesz rzut na atak z co najmniej 1 ułatwieniem, atak ten zadaje dodatkowe 1k6 obrażeń.",
+          "upgrade": "Raz na rundę, gdy atakujesz bronią prostą lub szybką i wykonujesz rzut na atak z co najmniej 1 ułatwieniem, atak ten zadaje dodatkowe 2k6 obrażeń."
+        },
+        {
+          "type": "add_talent",
+          "name": "Pogróżki",
+          "description": "Możesz wykorzystać akcję lub reakcję w swojej turze, by wykonać oparty na Intelekcie rzut na atak przeciwko Woli jednego celu w bliskim zasięgu, który cię widzi i słyszy. Sukces oznacza, że przeciwnik zostaje przestraszony na 1 rundę. Porażka oznacza, że staje się on niewrażliwy na twoje Pogróżki, dopóki nie odbędzie pełnego odpoczynku.",
+          "upgrade": "Możesz wykorzystać akcję lub reakcję w swojej turze, by wykonać oparty na Intelekcie rzut na atak przeciwko Woli jednego celu w bliskim zasięgu, który cię widzi i słyszy. Sukces oznacza, że przeciwnik zostaje przestraszony na 1 rundę. Porażka oznacza, że staje się on niewrażliwy na twoje Pogróżki, dopóki nie odbędzie pełnego odpoczynku. Twoje ataki bronią zadają przestraszonym w ten sposób celom dodatkowe 1k6 obrażeń."
+        },
+        {
+          "type": "add_talent",
+          "name": "Magia",
+          "description": "Zwiększasz swoją Moc o 1 i poznajesz jedną tradycję magiczną. Następnie dwa razy dokonaj wyboru pomiędzy poznaniem dodatkowej tradycji lub nauczeniem się jednego zaklęcia ze znanej ci tradycji.",
+          "upgrade": "Zwiększasz swoją Moc o 2 i poznajesz jedną tradycję magiczną. Następnie trzy razy dokonaj wyboru pomiędzy poznaniem dodatkowej tradycji lub nauczeniem się jednego zaklęcia ze znanej ci tradycji."
+        },
+        {
+          "type": "add_talent",
+          "name": "Wolta",
+          "description": "Możesz wykorzystać akcję, by poruszyć się o połowę swojej Prędkości. Ruch ten nie wywołuje darmowych ataków. W dowolnym punkcie ruchu możesz wykonać atak. Rzut na atak wykonujesz z 1 utrudnieniem, ale zadaje on dodatkowe 1k6 obrażeń.",
+          "upgrade": "Możesz wykorzystać akcję, by poruszyć się o całą wartość swojej Prędkości. Ruch ten nie wywołuje darmowych ataków. W dowolnym punkcie ruchu możesz wykonać atak. Rzut na atak wykonujesz z 1 utrudnieniem, ale zadaje on dodatkowe 1k6 obrażeń."
+        },
+        {
+          "type": "add_talent",
+          "name": "Zwód",
+          "description": "Możesz wykorzystać akcję, by wykonać oparty na Intelekcie rzut na atak przeciwko Intelektowi jednego celu w bliskim zasięgu, który cię słyszy i jest w stanie zrozumieć twoje słowa. Sukces oznacza, że przeciwnik zostaje zauroczony na 1 rundę lub dopóki go nie zaatakujesz. Porażka oznacza, że staje się on niewrażliwy na twój Zwód, dopóki nie odbędzie pełnego odpoczynku.",
+          "upgrade": "Możesz wykorzystać akcję, by wykonać oparty na Intelekcie rzut na atak z 1 ułatwieniem przeciwko Intelektowi jednego celu w bliskim zasięgu, który cię słyszy i nie musi rozumieć Twoich słów. Sukces oznacza, że przeciwnik zostaje zauroczony na 1 rundę lub dopóki go nie zaatakujesz. Porażka oznacza, że staje się on niewrażliwy na twój Zwód, dopóki nie odbędzie pełnego odpoczynku."
+        }
+      ]
+    }
+  }
+}

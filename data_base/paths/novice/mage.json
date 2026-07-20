@@ -1,0 +1,174 @@
+{
+  "path_name": "Magik",
+  "path_type": "novice",
+  "level_benefits": {
+    "1": {
+      "actions": [
+        {
+          "type": "add_attribute",
+          "name": "any",
+          "value": 1
+        },
+        {
+          "type": "add_attribute",
+          "name": "any",
+          "value": 1
+        },
+        {
+          "type": "add_attribute",
+          "name": "health",
+          "value": 2
+        },
+        {
+          "type": "add_attribute",
+          "name": "power",
+          "value": 1
+        },
+        {
+          "type": "add_profession",
+          "name": "naukowa"
+        },
+        {
+          "type": "add_tradition",
+          "name": "any"
+        },
+        {
+          "type": "add_talent",
+          "name": "Sztuczki",
+          "description": "Gdy poznajesz magiczną tradycję, uczysz się z niej dodatkowego zaklęcia kręgu 0."
+        },
+        {
+          "type": "add_talent",
+          "name": "Wyczucie magii",
+          "description": "Obszar: Sfera o promieniu 5 metrów i punkcie początkowym w zajmowanej przez ciebie przestrzeni. Wyczuwasz obecne na danym obszarze efekty magiczne i ich punkty początkowe."
+        }
+      ],
+      "choices": [
+        [
+          {
+            "type": "add_tradition",
+            "name": "any"
+          },
+          {
+            "type": "add_spell",
+            "name": "known_tradition"
+          }
+        ],
+        [
+          {
+            "type": "add_tradition",
+            "name": "any"
+          },
+          {
+            "type": "add_spell",
+            "name": "known_tradition"
+          }
+        ],
+        [
+          {
+            "type": "add_tradition",
+            "name": "any"
+          },
+          {
+            "type": "add_spell",
+            "name": "known_tradition"
+          }
+        ]
+      ]
+    },
+    "2": {
+      "actions": [
+        {
+          "type": "add_attribute",
+          "name": "health",
+          "value": 2
+        },
+        {
+          "type": "add_talent",
+          "name": "Odzyskanie zaklęcia",
+          "description": "Możesz użyć akcji, by uleczyć tyle obrażeń, ile wynosi twoja Szybkość Zdrowienia, a także odzyskać jedno z wykorzystanych użyć znanego ci zaklęcia. Po wykorzystaniu tego talentu musisz odbyć pełny odpoczynek, zanim będziesz mógł użyć go ponownie."
+        }
+      ],
+      "choices": [
+        [
+          {
+            "type": "add_tradition",
+            "name": "any"
+          },
+          {
+            "type": "add_spell",
+            "name": "known_tradition"
+          }
+        ],
+        [
+          {
+            "type": "add_tradition",
+            "name": "any"
+          },
+          {
+            "type": "add_spell",
+            "name": "known_tradition"
+          }
+        ]
+      ]
+    },
+    "5": {
+      "actions": [
+        {
+          "type": "add_attribute",
+          "name": "health",
+          "value": 2
+        },
+        {
+          "type": "add_attribute",
+          "name": "power",
+          "value": 1
+        },
+        {
+          "type": "add_talent",
+          "name": "Kontrmagia",
+          "description": "Gdy stworzenie, które widzisz, atakuje cię zaklęciem, możesz wykorzystać reakcję, by skontrować czar. Atakująca istota wykonuje rzut na atak z 1 utrudnieniem, a test, który ty wykonujesz, by oprzeć się efektom, zyskuje 1 ułatwienie."
+        }
+      ],
+      "choices": [
+        [
+          {
+            "type": "add_tradition",
+            "name": "any"
+          },
+          {
+            "type": "add_spell",
+            "name": "known_tradition"
+          }
+        ]
+      ]
+    },
+    "8": {
+      "actions": [
+        {
+          "type": "add_attribute",
+          "name": "health",
+          "value": 2
+        },
+        {
+          "type": "add_talent",
+          "name": "Odzyskanie zaklęcia",
+          "description": "Możesz użyć akcji, by uleczyć tyle obrażeń, ile wynosi twoja Szybkość Zdrowienia, a także odzyskać jedno z wykorzystanych użyć znanego ci zaklęcia. Po wykorzystaniu tego talentu musisz odbyć pełny odpoczynek, zanim będziesz mógł użyć go ponownie.",
+          "upgrade": "Możesz użyć akcji, by uleczyć tyle obrażeń, ile wynosi twoja Szybkość Zdrowienia, a także odzyskać dwa z wykorzystanych użyć znanego ci zaklęcia. Po wykorzystaniu tego talentu musisz odbyć pełny odpoczynek, zanim będziesz mógł użyć go ponownie."
+        }
+      ],
+      "choices": [
+        [
+          {
+            "type": "add_tradition",
+            "name": "any"
+          },
+          {
+            "type": "add_spell",
+            "name": "known_tradition"
+          }
+        ]
+      ]
+    }
+  }
+}

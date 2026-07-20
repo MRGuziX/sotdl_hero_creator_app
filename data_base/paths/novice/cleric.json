@@ -153,12 +153,13 @@
         {
           "type": "add_talent",
           "name": "Inspirująca modlitwa",
-          "description": "Gdy używasz Modlitwy na innym stworzeniu, przez 1 rundę wykonujesz rzuty na atak i testy z 1 ułatwieniem.[cite: 4]"
+          "description": "Gdy używasz Modlitwy na innym stworzeniu, przez 1 rundę wykonujesz rzuty na atak i testy z 1 ułatwieniem."
         },
         {
           "type": "add_talent",
-          "name": "Udoskonalona wspólna odnowa",
-          "description": "Możesz użyć Wspólnej odnowy dwukrotnie na każdy pełny odpoczynek.[cite: 4]"
+          "name": "Wspólna odnowa",
+          "description": "Możesz użyć akcji, by natychmiast uleczyć tyle obrażeń, ile wynosi twoja Szybkość Zdrowienia. Następnie wybierz jedno stworzenie inne niż ty w bliskim zasięgu. Ono również leczy tyle obrażeń, ile wynosi jego Szybkość Zdrowienia. Po wykorzystaniu tego talentu musisz odbyć pełny odpoczynek, zanim będziesz mógł użyć go ponownie.",
+          "upgrade": "Możesz użyć akcji, by natychmiast uleczyć tyle obrażeń, ile wynosi twoja Szybkość Zdrowienia. Następnie wybierz jedno stworzenie inne niż ty w bliskim zasięgu. Ono również leczy tyle obrażeń, ile wynosi jego Szybkość Zdrowienia. Po wykorzystaniu tego talentu dwukrotnie, musisz odbyć pełny odpoczynek, zanim będziesz mógł użyć go ponownie."
         }
       ],
       "choices": []
