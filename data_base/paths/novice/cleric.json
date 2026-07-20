@@ -1,0 +1,167 @@
+{
+  "path_name": "Cleric",
+  "path_type": "novice",
+  "level_benefits": {
+    "1": {
+      "actions": [
+        {
+          "type": "add_attribute",
+          "name": "any",
+          "value": 1
+        },
+        {
+          "type": "add_attribute",
+          "name": "any",
+          "value": 1
+        },
+        {
+          "type": "add_attribute",
+          "name": "health",
+          "value": 4
+        },
+        {
+          "type": "add_attribute",
+          "name": "power",
+          "value": 1
+        },
+        {
+          "type": "add_profession",
+          "name": "religijna"
+        },
+        {
+          "type": "add_religion",
+          "name": "any"
+        },
+        {
+          "type": "add_tradition",
+          "name": "religious_tradition"
+        },
+        {
+          "type": "add_talent",
+          "name": "Wspólna odnowa",
+          "description": "Możesz użyć akcji, by natychmiast uleczyć tyle obrażeń, ile wynosi twoja Szybkość Zdrowienia. Następnie wybierz jedno stworzenie inne niż ty w bliskim zasięgu. Ono również leczy tyle obrażeń, ile wynosi jego Szybkość Zdrowienia. Po wykorzystaniu tego talentu musisz odbyć pełny odpoczynek, zanim będziesz mógł użyć go ponownie."
+        }
+      ],
+      "choices": [
+        [
+          {
+            "type": "update_language",
+            "name": "known",
+            "can_speak": true,
+            "can_write": true
+          },
+          {
+            "type": "add_language",
+            "name": "any",
+            "can_speak": true,
+            "can_write": false
+          }
+        ],
+        [
+          {
+            "type": "add_tradition",
+            "name": "religious_tradition"
+          },
+          {
+            "type": "add_spell",
+            "name": "known_tradition"
+          }
+        ],
+        [
+          {
+            "type": "add_tradition",
+            "name": "religious_tradition"
+          },
+          {
+            "type": "add_spell",
+            "name": "known_tradition"
+          }
+        ]
+      ]
+    },
+    "2": {
+      "actions": [
+        {
+          "type": "add_attribute",
+          "name": "health",
+          "value": 4
+        },
+        {
+          "type": "add_talent",
+          "name": "Modlitwa",
+          "description": "Gdy stworzenie w twoim bliskim zasięgu wykonuje rzut na atak lub test, możesz wykorzystać reakcję, by zapewnić mu w tym rzucie 1 ułatwienie."
+        }
+      ],
+      "choices": [
+        [
+          {
+            "type": "add_tradition",
+            "name": "religious_tradition"
+          },
+          {
+            "type": "add_spell",
+            "name": "known_tradition"
+          }
+        ],
+        [
+          {
+            "type": "add_tradition",
+            "name": "religious_tradition"
+          },
+          {
+            "type": "add_spell",
+            "name": "known_tradition"
+          }
+        ]
+      ]
+    },
+    "5": {
+      "actions": [
+        {
+          "type": "add_attribute",
+          "name": "health",
+          "value": 4
+        },
+        {
+          "type": "add_attribute",
+          "name": "power",
+          "value": 1
+        },
+        {
+          "type": "add_spell",
+          "name": "known_tradition"
+        },
+        {
+          "type": "add_talent",
+          "name": "Boskie uderzenie",
+          "description": "Gdy używasz Modlitwy, by zapewnić stworzeniu 1 ułatwienie przy rzucie na atak, jego ataki bronią zadają dodatkowe 1k6 obrażeń."
+        }
+      ],
+      "choices": []
+    },
+    "8": {
+      "actions": [
+        {
+          "type": "add_attribute",
+          "name": "health",
+          "value": 4
+        },
+        {
+          "type": "add_spell",
+          "name": "known_tradition"
+        },
+        {
+          "type": "add_talent",
+          "name": "Inspirująca modlitwa",
+          "description": "Gdy używasz Modlitwy na innym stworzeniu, przez 1 rundę wykonujesz rzuty na atak i testy z 1 ułatwieniem.[cite: 4]"
+        },
+        {
+          "type": "add_talent",
+          "name": "Udoskonalona wspólna odnowa",
+          "description": "Możesz użyć Wspólnej odnowy dwukrotnie na każdy pełny odpoczynek.[cite: 4]"
+        }
+      ],
+      "choices": []
+    }
+  }
+}
