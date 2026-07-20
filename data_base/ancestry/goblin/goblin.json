@@ -33,8 +33,8 @@
   "backstory": {},
   "talents": [
     {
-      "name": "Niewrażliwości",
-      "description": "zauroczenie, a także na choroby i pochodzące od nich obrażenia.",
+      "name": "Niewrażliwość",
+      "description": "Jesteś niewrażliwy na zauroczenie, a także na choroby i pochodzące od nich obrażenia.",
       "level": 0
     },
     {
@@ -84,5 +84,29 @@
       "name": "any"
     }
   ],
-  "choices": []
+  "choices": [],
+  "level_benefits": {
+    "4": {
+      "actions": [
+        {
+          "type": "add_attribute",
+          "name": "health",
+          "value": 4
+        }
+      ],
+      "choices": [
+        [
+          {
+            "type": "add_spell",
+            "name": "any"
+          },
+          {
+            "type": "add_talent",
+            "name": "Odskok",
+            "description": "Gdy stworzenie, które widzisz, chybi, atakując twoją Obronę lub Zręczność, możesz użyć reakcji, by wykonać odwrót."
+          }
+        ]
+      ]
+    }
+  }
 }

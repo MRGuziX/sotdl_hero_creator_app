@@ -12,11 +12,11 @@
     "size": [
       1.0
     ],
-    "speed": 8,
+    "speed": 12,
     "power": 0,
     "damage": 0,
     "insanity": 0,
-    "corruption": 0,
+    "corruption": 1,
     "languages": [
       {
         "name": "Wspólny",
@@ -64,5 +64,29 @@
       "name": "any"
     }
   ],
-  "choices": []
+  "choices": [],
+  "level_benefits": {
+    "4": {
+      "actions": [
+        {
+          "type": "add_attribute",
+          "name": "health",
+          "value": 6
+        }
+      ],
+      "choices": [
+        [
+          {
+            "type": "add_spell",
+            "name": "any"
+          },
+          {
+            "type": "add_talent",
+            "name": "Furia",
+            "description": "Gdy otrzymasz obrażenia, następny rzut na atak przed końcem kolejnej rundy wykonujesz z 1 ułatwieniem."
+          }
+        ]
+      ]
+    }
+  }
 }
