@@ -1,0 +1,131 @@
+{
+  "level_0": [
+    {
+      "name": "PALĄCY PROMIEŃ (s.130 PG)",
+      "tags": [
+        "Magia Niebiańska",
+        "Atak"
+      ],
+      "level": 0,
+      "target": "Jedno stworzenie lub obiekt w średnim zasięgu.",
+      "description": "Z twojej dłoni uderza ognisty promień. Wykonaj oparty na Woli rzut na atak przeciwko Zręczności celu. Sukces oznacza, że otrzymuje on 1k6 obrażeń.",
+      "critical_success": "Rzut na atak 20+: Cel zostaje także oślepiony na 1 rundę."
+    },
+    {
+      "name": "ŚWIATŁO (s.130 PG)",
+      "tags": [
+        "Magia Niebiańska",
+        "Użytkowe"
+      ],
+      "level": 0,
+      "target": "Jeden obiekt w bezpośrednim zasięgu.",
+      "duration": "1 godzina",
+      "description": "Dotykasz celu, który na czas trwania zaklęcia zaczyna emitować światło o promieniu 5 metrów."
+    }
+  ],
+  "level_1": [
+    {
+      "name": "BŁYSK (s.130 PG)",
+      "tags": [
+        "Magia Niebiańska",
+        "Atak"
+      ],
+      "level": 1,
+      "target": "Jedno posiadające zmysł wzroku stworzenie w bliskim zasięgu.",
+      "description": "Przed oczami wybranego stworzenia rozbłyska jasne światło. Wykonaj oparty na Woli rzut na atak przeciwko Percepcji celu. Sukces oznacza, że przeciwnik zostaje oślepiony na 1 rundę.",
+      "critical_success": "Rzut na atak 20+: Cel zostaje oślepiony na 1 minutę."
+    },
+    {
+      "name": "TRWAŁE ŚWIATŁO (s.130 PG)",
+      "tags": [
+        "Magia Niebiańska",
+        "Użytkowe"
+      ],
+      "level": 1,
+      "target": "Jeden obiekt w bezpośrednim zasięgu.",
+      "duration": "8 godzin",
+      "description": "Dotykasz celu, który na czas trwania zaklęcia zaczyna emitować światło o promieniu 10 metrów."
+    },
+    {
+      "name": "TĘCZOWA EKSPLOZJA (s.130 PG)",
+      "tags": [
+        "Magia Niebiańska",
+        "Atak"
+      ],
+      "level": 1,
+      "target": "Punkt w przestrzeni w średnim zasięgu.",
+      "description": "Z czubka twojego palca wylatuje świecąca drobina, która przemieszcza się po linii prostej w kierunku celu. Gdy go osiągnie lub jeśli napotka na swojej drodze posiadające fizyczną postać stworzenie lub przeszkodę, wybucha w feerii barwnego światła. Rozchodzi się ono sferą o punkcie początkowym w miejscu docelowym albo w przestrzeni zajmowanej przez stworzenie lub obiekt na promień 1 metra. Każda posiadająca zmysł wzroku istota wewnątrz tego obszaru musi wykonać udany test Percepcji, w przeciwnym wypadku zostaje zamroczona na 1 rundę."
+    }
+  ],
+  "level_2": [
+    {
+      "name": "ŚWIT (s.130 PG)",
+      "tags": [
+        "Magia Niebiańska",
+        "Użytkowe"
+      ],
+      "level": 2,
+      "area": "Sfera o promieniu 10 metrów i punkcie początkowym w dalekim zasięgu.",
+      "duration": "1 godzina",
+      "description": "Wewnątrz obszaru działania zaklęcia rozchodzi się światło słoneczne, rozpraszając magiczne cienie i mrok wywołane przez zaklęcia 2 lub niższego kręgu."
+    },
+    {
+      "name": "PROMIENIE SŁOŃCA (s.130 PG)",
+      "tags": [
+        "Magia Niebiańska",
+        "Atak"
+      ],
+      "level": 2,
+      "target": "Do trzech stworzeń lub obiektów w średnim zasięgu.",
+      "description": "Z twojej ręki wystrzeliwują trzy ogniste promienie, rozdzielone dowolnie pomiędzy cele. Dla każdego promienia wykonaj oparty na Woli rzut na atak przeciwko Zręczności celu. Sukces oznacza, że otrzymuje on 1k6 obrażeń. Jeśli posiada zmysł wzroku, jest także osłabiony przez 1 rundę.",
+      "critical_success": "Rzut na atak 20+: Cel otrzymuje dodatkowe 1k3 obrażeń."
+    }
+  ],
+  "level_3": [
+    {
+      "name": "PROMIENIOWANIE (s.130 PG)",
+      "tags": [
+        "Magia Niebiańska",
+        "Atak"
+      ],
+      "level": 3,
+      "area": "Sfera o promieniu 3 metrów i punkcie początkowym w dalekim zasięgu.",
+      "duration": "1 minuta",
+      "description": "W obszarze działania zaklęcia rozchodzi się mdłe, zielone światło, które na czas trwania czaru zamienia mrok w cień. Wszystko wewnątrz tego obszaru otrzymuje 1k6 obrażeń w momencie rzucenia zaklęcia oraz na koniec każdej rundy przez czas jego trwania. Każde stworzenie, które otrzyma w ten sposób obrażenia, musi wykonać test Siły. Porażka oznacza, że staje się osłabione i spowolnione na 1 rundę. Sukces oznacza, że otrzymuje tylko połowę obrażeń."
+    },
+    {
+      "name": "SPADAJĄCA GWIAZDA (s.130 PG)",
+      "tags": [
+        "Magia Niebiańska",
+        "Atak"
+      ],
+      "level": 3,
+      "target": "Punkt w przestrzeni w średnim zasięgu.",
+      "description": "W dowolnym punkcie w zasięgu pojawia się drobina białego światła, która pędzi w kierunku celu. Gdy go osiągnie lub jeśli napotka na swojej drodze posiadające fizyczną postać stworzenie lub obiekt, wybucha. Płomienie rozchodzą się sferą o punkcie początkowym w miejscu docelowym albo w przestrzeni zajmowanej przez stworzenie lub obiekt na promień 3 metrów i zadają 2k6 + 2 obrażeń wszystkiemu wewnątrz tego obszaru. Każde znajdujące się tam stworzenie musi wykonać test Siły. Porażka oznacza, że staje się osłabione na 1 rundę, a sukces, że otrzymuje tylko połowę obrażeń."
+    }
+  ],
+  "level_4": [
+    {
+      "name": "SUPERNOWA (s.130 PG)",
+      "tags": [
+        "Magia Niebiańska",
+        "Atak"
+      ],
+      "level": 4,
+      "area": "Sfera o promieniu 8 metrów i punkcie początkowym w bezpośrednim zasięgu.",
+      "description": "W obszarze działania zaklęcia rozchodzi się eksplozja jasnego światła. Każde znajdujące się tam stworzenie – oprócz ciebie – otrzymuje 2k6 + 2 obrażeń i musi wykonać test Siły. Porażka oznacza, że zostaje oślepione na 1 rundę, a sukces, że otrzymuje tylko połowę obrażeń."
+    }
+  ],
+  "level_5": [
+    {
+      "name": "ROZBŁYSK SŁONECZNY (s.130 PG)",
+      "tags": [
+        "Magia Niebiańska",
+        "Atak"
+      ],
+      "level": 5,
+      "area": "Linia o długości 25 metrów i szerokości 1 metra, o punkcie początkowym w bezpośrednim zasięgu.",
+      "description": "Z twojej ręki wystrzeliwuje promień jasnego, palącego światła, który zadaje 3k6 + 3 obrażeń wszystkiemu wewnątrz obszaru działania zaklęcia. Każde stworzenie, które otrzyma w ten sposób obrażenia, musi wykonać test Siły. Porażka oznacza, że zostaje oślepione na 1 minutę, a sukces, że otrzymuje tylko połowę obrażeń."
+    }
+  ]
+}

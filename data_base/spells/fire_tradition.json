@@ -1,30 +1,95 @@
 {
   "level_0": [
-    {
-      "name": "Magic Missile",
-      "description": "A reliable force projectile that automatically hits its target, dealing consistent damage"
-    },
-    {
-      "name": "Light",
-      "description": "Creates a bright light source that illuminates the surrounding area"
-    },
-    {
-      "name": "Detect Magic",
-      "description": "Reveals the presence of magical auras within a short range"
-    }
+      {
+        "name": "KONTROLA PŁOMIENIA (s.136 PG)",
+        "tags": ["Ogień", "Użytkowe"],
+        "level": 0,
+        "target": "Cel: Jeden łatwopalny obiekt o Rozmiarze 1 lub mniejszym w bliskim zasięgu.",
+        "description": "Cel zapala się bądź – jeżeli już płonie – gaśnie."
+      },
+      {
+        "name": "OGNISTY POCISK (s.136 PG)",
+        "tags": ["Ogień", "Atak"],
+        "level": 0,
+        "target": "Jedno stworzenie lub obiekt w dalekim zasięgu.",
+        "description": "Wypuszczasz w stronę celu płonący pocisk. Wykonaj oparty na Woli rzut na atak przeciwko Zręczności przeciwnika. Sukces oznacza, że otrzymuje on 1k6 obrażeń.",
+        "critical_success": "Rzut na atak 20+: Cel otrzymuje dodatkowe 1k6 obrażeń."
+      }
   ],
   "level_1": [
-    {
-      "name": "Fireball",
-      "description": "Launches an explosive ball of fire that deals area damage to multiple targets"
-    },
-    {
-      "name": "Healing Potion",
-      "description": "Restores health points to the target, providing immediate magical healing"
-    },
-    {
-      "name": "Shield",
-      "description": "Creates a magical barrier that increases the caster's defensive capabilities"
-    }
-  ]
-}
+      {
+        "name": "OGNISTY PODMUCH (s.136 PG)",
+        "tags": ["Ogień", "Atak"],
+        "level": 1,
+        "area": "Stożek długości 3 metrów o punkcie początkowym w bezpośrednim zasięgu.",
+        "description": "Z twojej dłoni wystrzeliwują płomienie, zadając 3k6 obrażeń wszystkiemu wewnątrz obszaru działania zaklęcia. Stworzenia, które wykonają udany test Zręczności, otrzymują tylko połowę obrażeń."
+      },
+      {
+        "name": "METEOROID (s.136 PG)",
+        "tags": ["Ogień", "Atak"],
+        "level": 1,
+        "target": "Punkt w przestrzeni w średnim zasięgu.",
+        "description": "Ciskasz płonącym kamieniem. Gdy osiągnie cel lub jeśli napotka na swojej drodze posiadające fizyczną postać stworzenie lub przeszkodę, wybucha. W promieniu 1 metra od punktu początkowego w miejscu docelowym albo w przestrzeni zajmowanej przez istotę lub przedmiot rozchodzi się sfera płomieni, te zaś zadają 2k6 + 2 obrażeń wszystkiemu wewnątrz tego obszaru. Stworzenia, które wykonają udany test Zręczności, otrzymują tylko połowę obrażeń."
+      },
+      {
+        "name": "OCHRONA PRZED OGNIEM (s.136 PG)",
+        "tags": ["Ogień", "Atak"],
+        "level": 1,
+        "target": "Jedno stworzenie w bezpośrednim zasięgu.",
+        "duration": "1 godzina",
+        "description": "Dotknij celu. Przez czas trwania zaklęcia otrzymuje on tylko połowę obrażeń od ognia."
+      }
+    ],
+  "level_2": [
+      {
+        "name": "OGNISTA SALWA (s.136 PG)",
+        "tags": ["Ogień", "Atak"],
+        "level": 2,
+        "target": "Do trzech stworzeń lub obiektów w średnim zasięgu.",
+        "description": "Wypuszczasz trzy płonące pociski, rozdzielone dowolnie pomiędzy cele. Dla każdego pocisku wykonaj oparty na Woli rzut na atak przeciwko Zręczności stworzenia lub obiektu. Sukces oznacza, że cel otrzymuje 1k6 + 1 obrażeń.",
+        "critical_success": "Rzut na atak 20+: Cel otrzymuje dodatkowe 1k3 obrażeń."
+      },
+      {
+        "name": "CAŁUN PŁOMIENI (s.136 PG)",
+        "tags": ["Ogień", "Atak"],
+        "level": 2,
+        "duration": "1 minuta",
+        "description": "Na czas trwania zaklęcia spowijają cię płomienie, oświetlając obszar w promieniu 10 metrów wokół. Płomienie są gorące, ale nie wyrządzają szkody ani tobie, ani przedmiotom, które trzymasz lub masz na sobie. Przez czas trwania zaklęcia otrzymujesz tylko połowę obrażeń od zimna i jesteś odporny na wyczerpanie spowodowane wystawieniem na niską temperaturę. Dodatkowo każde stworzenie, które cię dotknie lub trafi atakiem z użyciem broni białej, otrzymuje 1k6 obrażeń od ognia."
+      }
+    ],
+  "level_3": [
+      {
+        "name": "KULA OGNIA (s.136 PG)",
+        "tags": ["Ogień", "Atak"],
+        "level": 3,
+        "target": "Punkt przestrzeni w dalekim zasięgu.",
+        "description": "Rzucasz płonącą kulą. Gdy osiągnie cel lub jeśli napotka na swojej drodze posiadające fizyczną postać stworzenie lub przeszkodę, wybucha. Płomienie rozchodzą się sferą o punkcie początkowym w miejscu docelowym albo w przestrzeni zajmowanej przez obiekt lub istotę na promień 5 metrów i zadają 5k6 obrażeń wszystkiemu wewnątrz tego obszaru. Stworzenia, które wykonają udany test Zręczności, otrzymują tylko połowę obrażeń."
+      },
+      {
+        "name": "PODPALENIE (s.136 PG)",
+        "tags": ["Ogień", "Atak"],
+        "level": 3,
+        "target": "Jedno stworzenie lub obiekt w średnim zasięgu.",
+        "description": "Cel zaczyna dymić i grozi stanięciem w płomieniach. Wykonaj oparty na Woli rzut na atak przeciwko jego Zręczności. Sukces oznacza, że otrzymuje 4k6 obrażeń i zostaje podpalony.",
+        "critical_success": "Rzut na atak 20+: Cel otrzymuje dodatkowe 2k6 obrażeń."
+      }],
+  "level_4": [
+      {
+        "name": "ŚCIANA PŁOMIENI (s.136 PG)",
+        "tags": ["Ogień", "Atak"],
+        "level": 4,
+        "area": "Linia łamana o długości 10 metrów, wysokości 5 metrów i szerokości 1 metra o punkcie początkowym w dalekim zasięgu.",
+        "duration": "1 minuta",
+        "description": "Obszar działania zaklęcia na czas jego trwania wypełniają płomienie. Przesłaniają one częściowo wszystko, co znajduje się w objętej ścianą płomieni przestrzeni i za nią. Znajdujące się na wskazanym obszarze, a także wchodzące tam stworzenia i obiekty otrzymują 3k6 obrażeń. Na koniec każdej rundy aż do zakończenia efektu wszystkie istoty i łatwopalne przedmioty będące na obszarze działania zaklęcia otrzymują 3k6 obrażeń, a te w bliskim zasięgu od jego krawędzi – 1k6 obrażeń, chyba że wykonają udany test Siły."
+      }],
+  "level_5": [
+      {
+        "name": "PRZYZWANIE DŻINNA OGNIA (s.136 PG)",
+        "tags": ["Ogień", "Użytkowe"],
+        "level": 5,
+        "target": "Sześcian ognia o krawędzi 2 metrów i punkcie początkowym w dalekim zasięgu.",
+        "duration": "1 minuta",
+        "description": "Na koniec rundy, w której rzucasz to zaklęcie, wskazany sześcian ognia zamienia się w dżinna ognia o Rozmiarze 2. Efektów tego czaru nie możesz dobrowolnie zakończyć. Gdy przyzywasz to stworzenie, wykonaj oparty na Woli rzut na atak przeciwko jego Woli. Sukces oznacza, że na czas trwania zaklęcia istota zostaje zniewolona; porażka zaś, że staje się wobec ciebie wroga."
+      }
+    ]
+  }
