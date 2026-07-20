@@ -3,7 +3,7 @@ import logging
 import os
 import pathlib
 import random
-import tempfile
+import re
 
 from pydantic import TypeAdapter
 
@@ -29,8 +29,6 @@ from models.path import PathData
 from models.spell import Spell
 from models.tables import ProfessionEntry, RollTableEntry, WealthEntry
 from models.talent import Talent
-
-from .pdf_creator import fill_pdf
 
 logger = logging.getLogger(__name__)
 
@@ -111,13 +109,20 @@ def roll_dice(num_dice: int, sides: int) -> int:
 def _parse_dice_value(value: int | float | str) -> int | float:
     if isinstance(value, (int, float)):
         return value
-    if isinstance(value, str) and "d" in value.lower():
-        parts = value.lower().split("d")
-        if len(parts) == 2:
-            num_dice = int(parts[0]) if parts[0] else 1
-            sides = int(parts[1])
-            return roll_dice(num_dice, sides)
-    return int(value)
+    if not isinstance(value, str):
+        raise TypeError("Dice value must be a number or string.")
+
+    expression = value.strip().lower()
+    dice_match = re.fullmatch(r"(?:(\d+)?d)(\d+)", expression)
+    if dice_match:
+        num_dice = int(dice_match.group(1) or 1)
+        sides = int(dice_match.group(2))
+        return roll_dice(num_dice, sides)
+
+    try:
+        return int(expression)
+    except ValueError as error:
+        raise ValueError(f"Invalid dice value: {value!r}") from error
 
 
 def _load_json(relative_path: str) -> dict:
@@ -667,6 +672,8 @@ def apply_action(action: Action, hero: AncestryHero, is_random: bool = False):
             add_religion(action.name, hero)
         case UpdateLanguage():
             update_language(action.name, hero, action.can_speak, action.can_write)
+        case _:
+            raise TypeError(f"Unsupported action type: {type(action).__name__}")
 
 
 def _expand_dynamic_choice_group(
@@ -752,10 +759,19 @@ def resolve_choices(
 
 
 def expand_any_to_choices(
-    hero: AncestryHero,
-    actions: list[Action],
-    choices: list[Choice],
+    hero: AncestryHero | list[Action],
+    actions: list[Action] | list[Choice],
+    choices: list[Choice] | None = None,
 ) -> tuple[list[Action], list[Choice]]:
+    if choices is None:
+        choices = actions  # type: ignore[assignment]
+        actions = hero  # type: ignore[assignment]
+        hero = AncestryHero(
+            ancestry_name="", strength=0, dexterity=0, intelligence=0, will=0,
+            perception=0, defense=0, health=0, healing_rate=0, size=[0], speed=0,
+        )
+
+    assert isinstance(hero, AncestryHero)
     remaining_actions = []
     # Use a temporary list for new choices to keep them at the beginning if needed,
     # but actually we want to preserve the relative order of actions converted to choices.
@@ -913,8 +929,6 @@ def get_hero(
         # Then resolve and apply choices one by one
         choice_actions = resolve_choices(hero, [], choices, is_random=True)
         actions.extend(choice_actions)
-
-        fill_pdf(hero, os.path.join(tempfile.gettempdir(), "hero_card.pdf"))
 
     logger.info(
         "=== Hero complete: %s | STR=%d DEX=%d INT=%d WILL=%d | %d prof(s) | %d lang(s) | wealth=%s ===",

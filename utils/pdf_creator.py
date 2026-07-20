@@ -100,7 +100,12 @@ def distribute_talents(talents):
     return assigned, overflow
 
 
-def fill_pdf(hero: AncestryHero, output_path: str = "../output/hero_card.pdf"):
+def fill_pdf(hero: AncestryHero, output_path: str) -> None:
+    """Fill the bundled character-sheet template and write it to `output_path`.
+
+    The hero is read but not mutated. The destination directory must be writable;
+    PDF and filesystem errors are propagated to the caller.
+    """
     project_root = pathlib.Path(__file__).parent.parent
     template_path = project_root / "data_base" / "card_no_color.pdf"
 

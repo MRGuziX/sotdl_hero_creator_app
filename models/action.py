@@ -83,5 +83,5 @@ Choice = list[Action]
 
 
 class LevelBenefit(BaseModel):
-    actions: list[Action] = []
-    choices: list[Choice] = []
+    actions: list[Action] = Field(default_factory=list)
+    choices: list[Choice] = Field(default_factory=list)

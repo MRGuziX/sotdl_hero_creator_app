@@ -1,3 +1,5 @@
 Flask
 pypdf
 pydantic
+pytest
+ruff
