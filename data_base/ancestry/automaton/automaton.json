@@ -59,5 +59,29 @@
       "name": "any"
     }
   ],
-  "choices": []
+  "choices": [],
+  "level_benefits": {
+    "4": {
+      "actions": [
+        {
+          "type": "add_attribute",
+          "name": "health",
+          "value": 5
+        }
+      ],
+      "choices": [
+        [
+          {
+            "type": "add_spell",
+            "name": "any"
+          },
+          {
+            "type": "add_talent",
+            "name": "Wysokie obroty",
+            "description": "W tej turze zyskujesz jedną dodatkową akcję. Na koniec tury rzuć k6. Jeśli wynik jest nieparzysty, na koniec rundy twój mechanizm zatrzymuje się i stajesz się obiektem."
+          }
+        ]
+      ]
+    }
+  }
 }

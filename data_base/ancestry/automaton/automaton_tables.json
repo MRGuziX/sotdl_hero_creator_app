@@ -399,9 +399,8 @@
           "value": "1d6"
         },
         {
-          "type": "add_attribute",
-          "name": "profession",
-          "value": "any"
+          "type": "add_profession",
+          "name": "any"
         }
       ]
     },
