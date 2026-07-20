@@ -1,6 +1,6 @@
 from pydantic import BaseModel
 
-from models.action import Action, Choice
+from models.action import Action, Choice, LevelBenefit
 from models.equipment import Equipment, Money
 from models.language import Language
 from models.spell import Spell
@@ -38,3 +38,4 @@ class AncestryData(BaseModel):
     equipment: Equipment = Equipment()
     actions: list[Action] = []
     choices: list[Choice] = []
+    level_benefits: dict[int, LevelBenefit] = {}

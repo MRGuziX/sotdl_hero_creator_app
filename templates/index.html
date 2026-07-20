@@ -149,6 +149,10 @@
             display: block;
         }
 
+        .source-controls {
+            display: none;
+        }
+
         .book-option {
             display: flex;
             align-items: center;
@@ -699,11 +703,11 @@
                     <button type="button" class="stepper-btn" id="level-up">+</button>
                 </div>
             </div>
-            <div class="tool-row top-control-row">
+            <div class="tool-row top-control-row source-controls" aria-hidden="true">
                 <span class="tool-label">Źródła</span>
                 <button type="button" class="books-toggle" id="books-toggle">⚙ Wybierz księgi</button>
             </div>
-            <div class="books-panel" id="books-panel">
+            <div class="books-panel source-controls" id="books-panel" aria-hidden="true">
                 <label class="book-option"><input type="checkbox" checked><span class="checkmark"></span>Core</label>
                 <label class="book-option"><input type="checkbox"><span class="checkmark"></span>Demon Lord's Companion</label>
                 <label class="book-option"><input type="checkbox"><span class="checkmark"></span>Occult
@@ -733,6 +737,17 @@
             </div>
         </div>
 
+        <div id="path-section" style="display: none; margin-top: 20px;">
+            <h3 class="section-title">Wybierz ścieżkę</h3>
+            <div class="ancestry-grid" id="path-grid">
+                {% for path in novice_paths %}
+                <div onclick="selectPath('{{ path.id }}', this)" class="ancestry-item">
+                    <span class="ancestry-name">{{ path.name }}</span>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+
         <div class="decision-toggle">
             <span id="mode-random" class="mode-state active">🎲</span>
             <label class="decision-switch" for="decision-switch">
@@ -758,6 +773,9 @@
                 <div class="choices-scroll">
                     <h3>Twoje wybory:</h3>
                     <div id="choices-list"></div>
+                    <button id="confirm-choices-btn" class="confirm-button" type="button" onclick="confirmChoices()">
+                        POTWIERDŹ WYBÓR I PRZEJDŹ DALEJ
+                    </button>
                 </div>
             </section>
         </div>
@@ -782,11 +800,13 @@
     let currentHeroData = null;
     let currentChoices = null;
     let selectedAncestry = null;
+    let selectedPath = null;
     let currentPdfAncestry = null;
     let currentDownloadUrl = null;
     let currentChoicesAncestry = null;
     let manualChoicesLoaded = false;
     let manualRequiresSelection = false;
+    let choiceCursor = 0;
 
     const ancestryDescriptions = JSON.parse('{{ ancestry_descriptions | tojson | safe }}');
 
@@ -853,6 +873,11 @@
     function updateGenerateState() {
         const generateBtn = document.getElementById('generate-btn');
         let canGenerate = !!selectedAncestry;
+        const currentLevel = parseInt(document.getElementById('level-value').textContent, 10);
+
+        if (currentLevel >= 1 && !selectedPath) {
+            canGenerate = false;
+        }
 
         if (canGenerate && isManualMode()) {
             if (!manualChoicesLoaded) {
@@ -892,11 +917,42 @@
         currentChoicesAncestry = null;
         manualChoicesLoaded = false;
         manualRequiresSelection = false;
+        choiceCursor = 0;
         document.getElementById('choices-list').innerHTML = '';
+    }
+
+    function selectPath(path, clickedElement) {
+        selectedPath = path;
+        document.querySelectorAll('#path-grid .ancestry-item').forEach(item => item.classList.remove('active'));
+        clickedElement.classList.add('active');
+
+        clearManualChoicesState();
+        if (isManualMode()) {
+            prepareManualChoices();
+        }
+        updateGenerateState();
+    }
+
+    function checkPathSection() {
+        const currentLevel = parseInt(document.getElementById('level-value').textContent, 10);
+        const pathSection = document.getElementById('path-section');
+        if (currentLevel >= 1) {
+            pathSection.style.display = 'block';
+        } else {
+            pathSection.style.display = 'none';
+            selectedPath = null;
+            document.querySelectorAll('#path-grid .ancestry-item').forEach(item => item.classList.remove('active'));
+        }
+        updateGenerateState();
     }
 
     function prepareManualChoices() {
         if (!selectedAncestry) {
+            return;
+        }
+
+        const currentLevel = parseInt(document.getElementById('level-value').textContent, 10);
+        if (currentLevel >= 1 && !selectedPath) {
             return;
         }
 
@@ -915,7 +971,9 @@
         updateGenerateState();
 
         const timestamp = new Date().getTime();
-        fetch(`/roll/${selectedAncestry}?t=${timestamp}&is_random=0`)
+        const level = currentLevel;
+        const path = encodeURIComponent(selectedPath || '');
+        fetch(`/roll/${selectedAncestry}?t=${timestamp}&is_random=0&level=${level}&path=${path}`)
             .then(response => {
                 const contentType = response.headers.get('content-type') || '';
 
@@ -937,6 +995,8 @@
                 if (data.status === 'need_choices' && data.hero_data) {
                     currentHeroData = data.hero_data;
                     currentChoices = data.choices || [];
+                    choiceCursor = data.choice_cursor || 0;
+                    window.choiceContext = data;
                     currentChoicesAncestry = selectedAncestry;
                     manualChoicesLoaded = true;
                     manualRequiresSelection = hasSelectableChoices(currentChoices);
@@ -1008,14 +1068,16 @@
         const isManual = isManualMode();
         const isRandom = isManual ? '0' : '1';
         const timestamp = new Date().getTime();
+        const level = parseInt(document.getElementById('level-value').textContent, 10);
+        const path = encodeURIComponent(selectedPath || '');
 
         hidePdfPanel();
 
         if (!isManual) {
-            const url = `/roll/${selectedAncestry}?t=${timestamp}&is_random=1`;
+            const url = `/roll/${selectedAncestry}?t=${timestamp}&is_random=1&level=${level}&path=${path}`;
             const zoomParams = '#zoom=110';
             iframe.src = url + zoomParams;
-            currentDownloadUrl = `/roll/${selectedAncestry}?download=1&is_random=1`;
+            currentDownloadUrl = `/roll/${selectedAncestry}?download=1&is_random=1&level=${level}&path=${path}`;
             currentPdfAncestry = selectedAncestry;
             showPdfPanel();
             document.getElementById('info-panel').classList.add('visible');
@@ -1026,9 +1088,9 @@
         if (manualRequiresSelection) {
             confirmChoices();
         } else {
-            const manualUrl = `/roll/${selectedAncestry}?t=${timestamp}&is_random=0`;
+            const manualUrl = `/roll/${selectedAncestry}?t=${timestamp}&is_random=0&level=${level}&path=${path}`;
             iframe.src = `${manualUrl}#zoom=110`;
-            currentDownloadUrl = `/roll/${selectedAncestry}?download=1&is_random=0`;
+            currentDownloadUrl = `/roll/${selectedAncestry}?download=1&is_random=0&level=${level}&path=${path}`;
             currentPdfAncestry = selectedAncestry;
             showPdfPanel();
             updateSaveState(true);
@@ -1043,7 +1105,19 @@
         choices.forEach((choicePool, poolIndex) => {
             const poolDiv = document.createElement('div');
             poolDiv.style.marginBottom = '14px';
-            poolDiv.innerHTML = `<h4>Wybór ${poolIndex + 1}:</h4>`;
+            const poolTypes = [...new Set(choicePool.map(option => option.type))];
+            let heading = 'Wybierz jedną opcję:';
+            if (poolTypes.includes('add_tradition')) {
+                const traditions = (window.choiceContext?.available_traditions || []).join(', ');
+                heading = traditions ? `Znane tradycje: ${traditions}` : 'Wybierz tradycję:';
+            } else if (poolTypes.includes('add_spell')) {
+                const grouped = window.choiceContext?.spells_by_tradition || {};
+                const groups = Object.entries(grouped)
+                    .filter(([, spells]) => spells.length)
+                    .map(([tradition, spells]) => `${tradition}: ${spells.join(', ')}`);
+                heading = groups.length ? `Zaklęcia według tradycji — ${groups.join(' | ')}` : 'Wybierz zaklęcie:';
+            }
+            poolDiv.innerHTML = `<h4>${heading}</h4>`;
 
             choicePool.forEach((option, optionIndex) => {
                 const label = document.createElement('label');
@@ -1082,6 +1156,22 @@
                 } else if (actionType === 'grant_literacy') {
                     const target = option.target === 'any' ? 'dowolny język' : option.target;
                     optionText = `Nauka pisania: ${target}`;
+                } else if (actionType === 'add_talent') {
+                    const alreadyKnown = (currentHeroData.talents || []).some(talent =>
+                        talent.name === option.name || talent.name === `${option.name} (poz. 2)`
+                    );
+                    optionText = `Talent: ${option.name}${alreadyKnown ? ' (ULEPSZENIE)' : ''}`;
+                } else if (actionType === 'add_religion') {
+                    const relName = option.name === 'any' ? 'Wybierz religię' : option.name;
+                    optionText = `Religia: ${relName}`;
+                } else if (actionType === 'add_tradition') {
+                    const tradName = option.name === 'religious_tradition' ? 'Tradycja religijna' : option.name;
+                    optionText = `Tradycja: ${tradName}`;
+                } else if (actionType === 'add_spell') {
+                    const spellName = option.name === 'known_tradition' ? 'Czar ze znanej tradycji' : (option.name === 'any' ? 'Dowolny czar' : option.name);
+                    optionText = `Czar: ${spellName}`;
+                } else if (actionType === 'update_language') {
+                    optionText = `Aktualizacja języka: ${option.name}`;
                 } else {
                     optionText = JSON.stringify(option);
                 }
@@ -1104,12 +1194,16 @@
 
         for (let i = 0; i < currentChoices.length; i++) {
             const radios = document.getElementsByName(`choice-${i}`);
-            let selectedIndex = 0;
+            let selectedIndex = -1;
             for (let j = 0; j < radios.length; j++) {
                 if (radios[j].checked) {
                     selectedIndex = parseInt(radios[j].value, 10);
                     break;
                 }
+            }
+            if (selectedIndex < 0 || !currentChoices[i][selectedIndex]) {
+                alert('Wybierz jedną opcję przed przejściem dalej.');
+                return;
             }
             selectedChoices.push(currentChoices[i][selectedIndex]);
         }
@@ -1121,7 +1215,8 @@
             },
             body: JSON.stringify({
                 hero_data: currentHeroData,
-                selected_choices: selectedChoices
+                selected_choices: selectedChoices,
+                choice_cursor: choiceCursor
             })
         })
             .then(response => response.json())
@@ -1136,6 +1231,15 @@
                     showPdfPanel();
                     hideChoicesContainer();
                     updateSaveState(true);
+                    manualRequiresSelection = false;
+                } else if (data.status === 'need_choices') {
+                    currentHeroData = data.hero_data;
+                    currentChoices = data.choices;
+                    choiceCursor = data.choice_cursor || 0;
+                    window.choiceContext = data;
+                    displayChoices(data.choices);
+                    manualRequiresSelection = true;
+                    document.getElementById('choices-container').scrollIntoView({ behavior: 'smooth' });
                 }
             });
     }
@@ -1160,8 +1264,12 @@
         currentDownloadUrl = null;
         updateSaveState(false);
 
-        if (selectedAncestry && isManualMode()) {
-            prepareManualChoices();
+        if (selectedAncestry) {
+            if (isManualMode()) {
+                prepareManualChoices();
+            } else {
+                hideChoicesContainer();
+            }
         }
 
         updateGenerateState();
@@ -1174,11 +1282,19 @@
     document.getElementById('level-down').addEventListener('click', () => {
         const current = parseInt(levelValue.textContent, 10);
         levelValue.textContent = Math.max(0, current - 1).toString();
+        checkPathSection();
+        if (isManualMode() && selectedAncestry) {
+            prepareManualChoices();
+        }
     });
 
     document.getElementById('level-up').addEventListener('click', () => {
         const current = parseInt(levelValue.textContent, 10);
         levelValue.textContent = Math.min(10, current + 1).toString();
+        checkPathSection();
+        if (isManualMode() && selectedAncestry) {
+            prepareManualChoices();
+        }
     });
 
     booksToggle.addEventListener('click', () => {

@@ -1,0 +1,141 @@
+{
+  "level_0": [
+    {
+      "name": "WYCZUCIE ŻYCIA",
+      "tags": [
+        "Życie",
+        "Użytkowe"
+      ],
+      "level": 0,
+      "area": "Sfera o promieniu 5 metrów i punkcie środkowym w zajmowanej przez ciebie przestrzeni.",
+      "duration": "1 minuta",
+      "description": "Poznajesz położenie wszystkich żywych stworzeń wewnątrz obszaru działania zaklęcia. Dopóki czar trwa, nie mogą one zostać przed tobą ukryte."
+    },
+    {
+      "name": "LECZENIE POMNIEJSZYCH RAN",
+      "tags": [
+        "Życie",
+        "Użytkowe"
+      ],
+      "level": 0,
+      "target": "Jedno stworzenie w bezpośrednim zasięgu.",
+      "description": "Dotykasz celu, który następnie leczy tyle obrażeń, ile wynosi połowa jego Szybkości Zdrowienia."
+    }
+  ],
+  "level_1": [
+    {
+      "name": "UZDROWIENIE",
+      "tags": [
+        "Życie",
+        "Użytkowe"
+      ],
+      "level": 1,
+      "target": "Jedno stworzenie w bezpośrednim zasięgu.",
+      "description": "Dotykasz celu, udzielając mu jednej z poniższych korzyści:",
+      "effects": [
+        "Cel pozbywa się jednego z następujących stanów: choroby, wyczerpania, osłabienia lub zatrucia.",
+        "Cel traci 1 punkt Szaleństwa.",
+        "Cel pozbywa się wszelkich kar do Zdrowia.",
+        "Cel leczy tyle obrażeń, ile wynosi połowa jego Szybkości Zdrowienia."
+      ]
+    },
+    {
+      "name": "ŹRÓDŁO ŻYCIA",
+      "tags": [
+        "Życie",
+        "Użytkowe"
+      ],
+      "level": 1,
+      "area": "Sfera o promieniu 2 metrów i punkcie początkowym w bezpośrednim zasięgu.",
+      "duration": "1 minuta",
+      "description": "W obszarze działania czaru rozchodzi się uzdrawiająca energia, która na czas jego trwania porusza się wraz z tobą. Gdy znajdujące się wewnątrz tego obszaru stworzenie leczy obrażenia, leczy dodatkowo liczbę punktów obrażeń równą twojej Mocy."
+    },
+    {
+      "name": "LECZENIE LEKKICH RAN",
+      "tags": [
+        "Życie",
+        "Użytkowe"
+      ],
+      "level": 1,
+      "target": "Jedno stworzenie w bezpośrednim zasięgu.",
+      "description": "Dotykasz celu, który następnie leczy tyle obrażeń, ile wynosi jego Szybkość Zdrowienia."
+    }
+  ],
+  "level_2": [
+    {
+      "name": "LECZENIE ŚREDNICH RAN",
+      "tags": [
+        "Życie",
+        "Użytkowe"
+      ],
+      "level": 2,
+      "target": "Jedno stworzenie w bezpośrednim zasięgu.",
+      "description": "Dotykasz celu, który następnie leczy tyle obrażeń, ile wynosi dwukrotność jego Szybkości Zdrowienia."
+    },
+    {
+      "name": "FALA WITALNOŚCI",
+      "tags": [
+        "Życie",
+        "Użytkowe"
+      ],
+      "level": 2,
+      "target": "Do trzech żywych stworzeń w bliskim zasięgu.",
+      "description": "Każdy cel leczy tyle obrażeń, ile wynosi jego Szybkość Zdrowienia."
+    }
+  ],
+  "level_3": [
+    {
+      "name": "WIĘKSZE UZDROWIENIE",
+      "tags": [
+        "Życie",
+        "Użytkowe"
+      ],
+      "level": 3,
+      "target": "Do trzech stworzeń w bezpośrednim zasięgu.",
+      "description": "Dotykasz celów, udzielając każdemu jednej z poniższych korzyści (możesz wybrać te same lub różne):",
+      "effects": [
+        "Cel pozbywa się jednego z następujących stanów: choroby, wyczerpania, osłabienia lub zatrucia.",
+        "Cel traci 1 punkt Szaleństwa.",
+        "Cel pozbywa się wszelkich kar do Zdrowia.",
+        "Cel leczy tyle obrażeń, ile wynosi połowa jego Szybkości Zdrowienia."
+      ]
+    },
+    {
+      "name": "LECZENIE POWAŻNYCH RAN",
+      "tags": [
+        "Życie",
+        "Użytkowe"
+      ],
+      "level": 3,
+      "target": "Jedno stworzenie w bezpośrednim zasięgu.",
+      "description": "Dotykasz celu, który następnie leczy tyle obrażeń, ile wynosi trzykrotność jego Szybkości Zdrowienia."
+    }
+  ],
+  "level_4": [
+    {
+      "name": "PEŁNE LECZENIE",
+      "tags": [
+        "Życie",
+        "Użytkowe"
+      ],
+      "level": 4,
+      "target": "Jedno stworzenie w bezpośrednim zasięgu.",
+      "description": "Dotykasz celu, który leczy wszystkie otrzymane obrażenia."
+    }
+  ],
+  "level_5": [
+    {
+      "name": "WSKRZESZENIE",
+      "tags": [
+        "Życie",
+        "Użytkowe"
+      ],
+      "level": 5,
+      "target": "Jedno stworzenie w bezpośrednim zasięgu, które umarło najwyżej 24 godziny temu.",
+      "duration": "Koncentracja, do 1 godziny",
+      "description": "Dotknij celu. Musisz utrzymać koncentrację przez 1 godzinę i zachować w tym czasie fizyczny kontakt z jego ciałem. Jeśli nic nie przerwie twojej koncentracji, możliwe jest przywrócenie go do życia.",
+      "mechanics": "Jeśli dusza stworzenia przebywa w Zaświatach, powraca do ciała, a cel wstaje z martwych. Leczy 1 punkt obrażeń i jest osłabiony oraz wyczerpany, dopóki nie odbędzie pełnego odpoczynku. Jeśli dusza stworzenia znajduje się w Piekle, wykonaj test Woli z tyloma utrudnieniami, ile wynosi Splugawienie zmarłego. Sukces oznacza, że udaje ci się go wskrzesić. Porażka oznacza, że jego dusza jest bezpowrotnie stracona.",
+      "sacrifice": "Możesz poświęcić użycie tego zaklęcia, by rzucić pełne leczenie."
+    }
+  ]
+}

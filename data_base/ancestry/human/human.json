@@ -68,5 +68,29 @@
         "name": "any"
       }
     ]
-  ]
+  ],
+  "level_benefits": {
+    "4": {
+      "actions": [
+        {
+          "type": "add_attribute",
+          "name": "health",
+          "value": 5
+        }
+      ],
+      "choices": [
+        [
+          {
+            "type": "add_spell",
+            "name": "any"
+          },
+          {
+            "type": "add_talent",
+            "name": "Determinacja",
+            "description": "Gdy wyrzucisz 1 na kości ułatwienia, możesz rzucić ponownie i wybrać, którego wyniku użyć"
+          }
+        ]
+      ]
+    }
+  }
 }

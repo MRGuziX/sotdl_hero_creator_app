@@ -5,15 +5,14 @@
     "dexterity": 8,
     "intelligence": 9,
     "will": 9,
-    "perception": 10,
+    "perception": 9,
     "defense": 13,
     "health": 9,
     "healing_rate": 2,
     "size": [
-      1.0,
-      0.5
+      1.0
     ],
-    "speed": 10,
+    "speed": 8,
     "power": 0,
     "damage": 0,
     "insanity": 0,
@@ -27,7 +26,18 @@
     ]
   },
   "backstory": {},
-  "talents": [],
+  "talents": [
+    {
+      "name": "Niewrażliwość",
+      "description": "Jesteś niewrażliwy na uśpienie i wyczerpanie, a także na choroby i trucizny oraz pochodzące od nich obrażenia.",
+      "level": 0
+    },
+    {
+      "name": "Klucz",
+      "description": "Gdzieś na twoim ciele, w miejscu, do którego sam nie zdołasz sięgnąć, znajduje się klucz. Gdy zostanie nakręcony i obraca się, na potrzeby mechaniki gry jesteś uznawany za stworzenie. Gdy się zatrzyma, liczysz się jako obiekt i zamiast swoich zwykłych statystyk używasz tych podanych niżej (zamień swoje Zdrowie na wartość startową Zdrowia obiektu). Twój klucz przestaje się obracać, gdy zostaniesz obezwładniony. Zatrzymuje się również na koniec każdej rundy, w trakcie której uzyskałeś wynik 0 lub niższy w rzucie na atak lub teście. Obrażenia, które przekroczą wartość twojego zwykłego Zdrowia, odejmują się od wartości twojego Zdrowia jako obiektu. Jeśli otrzymasz obrażenia równe wartości twojego Zdrowia jako obiektu, zostajesz zniszczony.",
+      "level": 0
+    }
+  ],
   "professions": [],
   "spells": [],
   "wealth": "",
@@ -59,5 +69,29 @@
       "name": "any"
     }
   ],
-  "choices": []
+  "choices": [],
+  "level_benefits": {
+    "4": {
+      "actions": [
+        {
+          "type": "add_attribute",
+          "name": "health",
+          "value": 5
+        }
+      ],
+      "choices": [
+        [
+          {
+            "type": "add_spell",
+            "name": "any"
+          },
+          {
+            "type": "add_talent",
+            "name": "Wysokie obroty",
+            "description": "W tej turze zyskujesz jedną dodatkową akcję. Na koniec tury rzuć k6. Jeśli wynik jest nieparzysty, na koniec rundy twój mechanizm zatrzymuje się i stajesz się obiektem."
+          }
+        ]
+      ]
+    }
+  }
 }

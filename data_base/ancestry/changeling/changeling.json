@@ -7,7 +7,7 @@
     "will": 10,
     "perception": 11,
     "defense": 10,
-    "health": 14,
+    "health": 9,
     "healing_rate": 2,
     "size": [
       1.0
@@ -39,7 +39,7 @@
     },
     {
       "name": "Niewrażliwość",
-      "description": "Niewrażliwość na zauroczenie, a także na choroby i pochodzące od nich obrażenia",
+      "description": "Jesteś niewrażliwy na zauroczenie, a także na choroby i pochodzące od nich obrażenia.",
       "level": 0
     },
     {
@@ -74,5 +74,29 @@
       "name": "any"
     }
   ],
-  "choices": []
+  "choices": [],
+  "level_benefits": {
+    "4": {
+      "actions": [
+        {
+          "type": "add_attribute",
+          "name": "health",
+          "value": 4
+        }
+      ],
+      "choices": [
+        [
+          {
+            "type": "add_spell",
+            "name": "any"
+          },
+          {
+            "type": "add_talent",
+            "name": "Prymat sobowtóra",
+            "description": "W trakcie swojej tury możesz użyć Kradzieży tożsamości jako reakcji. Ponadto gdy skradniesz tożsamość jakiejś istoty, to dopóki naśladujesz jej wygląd, wszelkie ataki przeciw niej wykonujesz z 1 ułatwieniem."
+          }
+        ]
+      ]
+    }
+  }
 }

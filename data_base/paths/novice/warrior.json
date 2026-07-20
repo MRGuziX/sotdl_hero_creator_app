@@ -1,0 +1,109 @@
+{
+  "path_name": "Wojownik",
+  "path_type": "novice",
+  "level_benefits": {
+    "1": {
+      "actions": [
+        {
+          "type": "add_attribute",
+          "name": "any",
+          "value": 1
+        },
+        {
+          "type": "add_attribute",
+          "name": "any",
+          "value": 1
+        },
+        {
+          "type": "add_attribute",
+          "name": "health",
+          "value": 5
+        },
+        {
+          "type": "add_talent",
+          "name": "Chwila wytchnienia",
+          "description": "W swojej turze możesz użyć akcji lub reakcji, by uleczyć natychmiast tyle obrażeń, ile wynosi twoja Szybkość Zdrowienia. Raz na pełny odpoczynek."
+        },
+        {
+          "type": "add_talent",
+          "name": "Wyszkolenie w walce",
+          "description": "Kiedy atakujesz bronią, rzut na atak wykonujesz z 1 ułatwieniem."
+        }
+      ],
+      "choices": [
+        {
+          "type": "add_profession",
+          "name": "pospolita"
+        },
+        {
+          "type": "add_profession",
+          "name": "koczownicza"
+        },
+        {
+          "type": "add_profession",
+          "name": "przestępcza"
+        }
+      ]
+    },
+    "2": {
+      "actions": [
+        {
+          "type": "add_attribute",
+          "name": "health",
+          "value": 5
+        },
+        {
+          "type": "add_talent",
+          "name": "Sprawność bojowa",
+          "description": "Twoje ataki z użyciem broni zadają dodatkowe 1k6 obrażeń."
+        },
+        {
+          "type": "add_talent",
+          "name": "Potężne uderzenie",
+          "description": "Gdy całkowity wynik twojego rzutu na atak wyniesie 20 lub więcej i jednocześnie przewyższy poziom trudności o co najmniej 5, atak ten zadaje dodatkowe 1k6 obrażeń."
+        }
+      ],
+      "choices": []
+    },
+    "5": {
+      "actions": [
+        {
+          "type": "add_attribute",
+          "name": "health",
+          "value": 5
+        },
+        {
+          "type": "add_attribute",
+          "name": "defense",
+          "value": 1
+        },
+        {
+          "type": "add_talent",
+          "name": "Doświadczenie bojowe",
+          "description": "Gdy wykorzystujesz akcję, by wykonać atak bronią, możesz nim zadać dodatkowe 1k6 obrażeń lub wykonać kolejny atak przeciwko innemu celowi w dowolnym momencie przed końcem swojej tury."
+        }
+      ],
+      "choices": []
+    },
+    "8": {
+      "actions": [
+        {
+          "type": "add_attribute",
+          "name": "health",
+          "value": 5
+        },
+        {
+          "type": "add_talent",
+          "name": "Wytrwałość",
+          "description": "Możesz użyć Chwili wytchnienia dwa razy na każdy pełny odpoczynek."
+        },
+        {
+          "type": "add_talent",
+          "name": "Mistrzostwo bojowe",
+          "description": "Gdy wykorzystujesz akcję, by wykonać atak bronią, możesz nim zadać dodatkowe 1k6 obrażeń lub wykonać kolejny atak przeciwko innemu celowi w dowolnym momencie przed końcem swojej tury. Talent ten kumuluje się z Doświadczeniem bojowym. Każdy atak musisz wykonać przeciwko innemu celowi."
+        }
+      ],
+      "choices": []
+    }
+  }
+}

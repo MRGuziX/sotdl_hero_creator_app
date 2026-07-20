@@ -6,7 +6,7 @@
     "intelligence": 10,
     "will": 10,
     "perception": 11,
-    "defense": 10,
+    "defense": 9,
     "health": 14,
     "healing_rate": 3,
     "size": [
@@ -74,5 +74,29 @@
       "name": "any"
     }
   ],
-  "choices": []
+  "choices": [],
+  "level_benefits": {
+    "4": {
+      "actions": [
+        {
+          "type": "add_attribute",
+          "name": "health",
+          "value": 6
+        }
+      ],
+      "choices": [
+        [
+          {
+            "type": "add_spell",
+            "name": "any"
+          },
+          {
+            "type": "add_talent",
+            "name": "Nie do zdarcia",
+            "description": "Możesz użyć akcji, by uleczyć tyle obrażeń, ile wynosi twoja Szybkość Zdrowienia, a także pozbyć się jednego z następujących stanów: wyczerpanie, osłabienie lub zatrucie. Po wykorzystaniu tego talentu musisz odbyć pełny odpoczynek, zanim zdołasz użyć go ponownie."
+          }
+        ]
+      ]
+    }
+  }
 }
