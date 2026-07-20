@@ -6,8 +6,9 @@
       <sourceFolder url="file://$MODULE_DIR$/tests" isTestSource="true" />
       <excludeFolder url="file://$MODULE_DIR$/.idea/dataSources" />
       <excludeFolder url="file://$MODULE_DIR$/.venv" />
+      <excludeFolder url="file://$MODULE_DIR$/.junie" />
     </content>
-    <orderEntry type="jdk" jdkName="Python 3.14 (sotdl_hero_creator_app)" jdkType="Python SDK" />
+    <orderEntry type="jdk" jdkName="Python 3.13 (sotdl_hero_creator_app) (2)" jdkType="Python SDK" />
     <orderEntry type="sourceFolder" forTests="false" />
   </component>
 </module>

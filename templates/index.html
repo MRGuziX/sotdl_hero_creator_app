@@ -149,6 +149,10 @@
             display: block;
         }
 
+        .source-controls {
+            display: none;
+        }
+
         .book-option {
             display: flex;
             align-items: center;
@@ -699,11 +703,11 @@
                     <button type="button" class="stepper-btn" id="level-up">+</button>
                 </div>
             </div>
-            <div class="tool-row top-control-row">
+            <div class="tool-row top-control-row source-controls" aria-hidden="true">
                 <span class="tool-label">Źródła</span>
                 <button type="button" class="books-toggle" id="books-toggle">⚙ Wybierz księgi</button>
             </div>
-            <div class="books-panel" id="books-panel">
+            <div class="books-panel source-controls" id="books-panel" aria-hidden="true">
                 <label class="book-option"><input type="checkbox" checked><span class="checkmark"></span>Core</label>
                 <label class="book-option"><input type="checkbox"><span class="checkmark"></span>Demon Lord's Companion</label>
                 <label class="book-option"><input type="checkbox"><span class="checkmark"></span>Occult

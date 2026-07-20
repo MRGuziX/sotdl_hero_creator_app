@@ -7,8 +7,6 @@ import tempfile
 
 from pydantic import TypeAdapter
 
-logger = logging.getLogger(__name__)
-
 from models.action import (
     Action,
     AddAttribute,
@@ -33,6 +31,8 @@ from models.tables import ProfessionEntry, RollTableEntry, WealthEntry
 from models.talent import Talent
 
 from .pdf_creator import fill_pdf
+
+logger = logging.getLogger(__name__)
 
 PROJECT_ROOT = pathlib.Path(__file__).parent.parent
 
@@ -402,9 +402,9 @@ def add_attribute(
 def add_language(
     name: str, hero: AncestryHero, can_write: bool = False, is_random: bool = False
 ):
-    spoken_names = [l.name for l in hero.languages if not l.can_write]
-    known_names = [l.name for l in hero.languages]
-    learnable = [l for l in ALL_LANGUAGES if l not in known_names]
+    spoken_names = [language.name for language in hero.languages if not language.can_write]
+    known_names = [language.name for language in hero.languages]
+    learnable = [language for language in ALL_LANGUAGES if language not in known_names]
     learnable.extend(spoken_names)
 
     if is_random:
@@ -441,7 +441,7 @@ def add_language(
 
 
 def grant_literacy(target: str, hero: AncestryHero, is_random: bool = False):
-    spoken_names = [l.name for l in hero.languages if not l.can_write]
+    spoken_names = [language.name for language in hero.languages if not language.can_write]
 
     if target == "any" and spoken_names:
         target = random.choice(spoken_names)

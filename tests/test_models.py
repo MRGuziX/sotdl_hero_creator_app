@@ -15,7 +15,7 @@ from models.ancestry import AncestryData
 from models.base_hero import AncestryHero
 from models.equipment import Armor, Equipment, Money, Shield, Weapon
 from models.language import Language
-from models.spell import Spell, Tradition
+from models.spell import Spell
 from models.tables import ProfessionEntry, RollTableEntry, WealthEntry
 from models.talent import Talent
 
@@ -97,6 +97,7 @@ class TestActionDiscriminator:
     def test_add_attribute(self):
         data = {"type": "add_attribute", "name": "strength", "value": 2}
         from pydantic import TypeAdapter
+
         adapter = TypeAdapter(Action)
         action = adapter.validate_python(data)
         assert isinstance(action, AddAttribute)
@@ -106,6 +107,7 @@ class TestActionDiscriminator:
     def test_add_profession(self):
         data = {"type": "add_profession", "name": "any"}
         from pydantic import TypeAdapter
+
         adapter = TypeAdapter(Action)
         action = adapter.validate_python(data)
         assert isinstance(action, AddProfession)
@@ -113,6 +115,7 @@ class TestActionDiscriminator:
     def test_add_language(self):
         data = {"type": "add_language", "name": "Elficki", "can_write": True}
         from pydantic import TypeAdapter
+
         adapter = TypeAdapter(Action)
         action = adapter.validate_python(data)
         assert isinstance(action, AddLanguage)
@@ -121,6 +124,7 @@ class TestActionDiscriminator:
     def test_add_item(self):
         data = {"type": "add_item", "name": "Miecz"}
         from pydantic import TypeAdapter
+
         adapter = TypeAdapter(Action)
         action = adapter.validate_python(data)
         assert isinstance(action, AddItem)
@@ -128,6 +132,7 @@ class TestActionDiscriminator:
     def test_grant_literacy(self):
         data = {"type": "grant_literacy", "target": "any"}
         from pydantic import TypeAdapter
+
         adapter = TypeAdapter(Action)
         action = adapter.validate_python(data)
         assert isinstance(action, GrantLiteracy)
@@ -135,6 +140,7 @@ class TestActionDiscriminator:
     def test_add_attribute_with_dice_string(self):
         data = {"type": "add_attribute", "name": "insanity", "value": "1d6"}
         from pydantic import TypeAdapter
+
         adapter = TypeAdapter(Action)
         action = adapter.validate_python(data)
         assert isinstance(action, AddAttribute)
@@ -143,6 +149,7 @@ class TestActionDiscriminator:
     def test_add_attribute_with_float(self):
         data = {"type": "add_attribute", "name": "size", "value": 0.5}
         from pydantic import TypeAdapter
+
         adapter = TypeAdapter(Action)
         action = adapter.validate_python(data)
         assert isinstance(action, AddAttribute)
@@ -153,9 +160,16 @@ class TestAncestryHero:
     def test_creation(self):
         hero = AncestryHero(
             ancestry_name="Test",
-            strength=10, dexterity=10, intelligence=10, will=10,
-            perception=10, defense=10, health=10, healing_rate=2,
-            size=[1.0], speed=10,
+            strength=10,
+            dexterity=10,
+            intelligence=10,
+            will=10,
+            perception=10,
+            defense=10,
+            health=10,
+            healing_rate=2,
+            size=[1.0],
+            speed=10,
         )
         assert hero.ancestry_name == "Test"
         assert hero.level == 0
@@ -163,9 +177,16 @@ class TestAncestryHero:
     def test_mutation(self):
         hero = AncestryHero(
             ancestry_name="Test",
-            strength=10, dexterity=10, intelligence=10, will=10,
-            perception=10, defense=10, health=10, healing_rate=2,
-            size=[1.0], speed=10,
+            strength=10,
+            dexterity=10,
+            intelligence=10,
+            will=10,
+            perception=10,
+            defense=10,
+            health=10,
+            healing_rate=2,
+            size=[1.0],
+            speed=10,
         )
         hero.strength += 2
         assert hero.strength == 12
@@ -173,18 +194,33 @@ class TestAncestryHero:
     def test_validates_on_mutation(self):
         hero = AncestryHero(
             ancestry_name="Test",
-            strength=10, dexterity=10, intelligence=10, will=10,
-            perception=10, defense=10, health=10, healing_rate=2,
-            size=[1.0], speed=10,
+            strength=10,
+            dexterity=10,
+            intelligence=10,
+            will=10,
+            perception=10,
+            defense=10,
+            health=10,
+            healing_rate=2,
+            size=[1.0],
+            speed=10,
         )
         with pytest.raises(ValidationError):
             hero.strength = "not_a_number"
 
 
 class TestAncestryData:
-    @pytest.mark.parametrize("ancestry", [
-        "human", "goblin", "orc", "dwarf", "changeling", "automaton",
-    ])
+    @pytest.mark.parametrize(
+        "ancestry",
+        [
+            "human",
+            "goblin",
+            "orc",
+            "dwarf",
+            "changeling",
+            "automaton",
+        ],
+    )
     def test_load_ancestry_json(self, ancestry):
         with open(f"data_base/ancestry/{ancestry}/{ancestry}.json") as f:
             data = json.load(f)

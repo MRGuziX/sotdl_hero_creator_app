@@ -1,12 +1,15 @@
-import os
 
 import pytest
 
-from models.action import AddAttribute, AddItem, AddLanguage, AddProfession, GrantLiteracy
+from models.action import (
+    AddAttribute,
+    AddItem,
+    AddLanguage,
+    AddProfession,
+    GrantLiteracy,
+)
 from models.base_hero import AncestryHero
-from models.equipment import Weapon
 from models.language import Language
-from utils.pdf_creator import fill_pdf
 from utils.utils import (
     roll_dice,
     get_from_ancestry,
@@ -49,6 +52,7 @@ def hero():
 
 # --- roll_dice ---
 
+
 def test_roll_dice_valid():
     result = roll_dice(3, 6)
     assert 3 <= result <= 18
@@ -69,6 +73,7 @@ def test_roll_dice_invalid_value():
 
 
 # --- add_attribute ---
+
 
 def test_add_attribute_core(hero):
     add_attribute("strength", 2, hero)
@@ -98,32 +103,35 @@ def test_add_attribute_size(hero):
 
 # --- add_language ---
 
+
 def test_add_language_new_speak(hero):
     add_language("Trolli", hero, can_write=False)
-    assert any(l.name == "Trolli" and not l.can_write for l in hero.languages)
+    assert any(language.name == "Trolli" and not language.can_write for language in hero.languages)
 
 
 def test_add_language_grant_write(hero):
     add_language("Wspólny", hero, can_write=True)
-    wspólny = next(l for l in hero.languages if l.name == "Wspólny")
+    wspólny = next(language for language in hero.languages if language.name == "Wspólny")
     assert wspólny.can_write is True
 
 
 # --- grant_literacy ---
 
+
 def test_grant_literacy(hero):
-    assert not next(l for l in hero.languages if l.name == "Wspólny").can_write
+    assert not next(language for language in hero.languages if language.name == "Wspólny").can_write
     grant_literacy("Wspólny", hero)
-    assert next(l for l in hero.languages if l.name == "Wspólny").can_write is True
+    assert next(language for language in hero.languages if language.name == "Wspólny").can_write is True
 
 
 def test_grant_literacy_any(hero):
     grant_literacy("any", hero)
-    writable = [l for l in hero.languages if l.can_write]
+    writable = [language for language in hero.languages if language.can_write]
     assert len(writable) >= 2
 
 
 # --- add_money ---
+
 
 def test_add_money_via_action(hero):
     hero.money.okrawki = 10
@@ -132,11 +140,13 @@ def test_add_money_via_action(hero):
 
 def test_add_money_invalid_type(hero):
     from pydantic import ValidationError
+
     with pytest.raises(ValidationError):
         hero.money.okrawki = "not_a_number"
 
 
 # --- add_item ---
+
 
 def test_add_item_from_store(hero):
     add_item("Oszczep", hero)
@@ -160,13 +170,20 @@ def test_add_item_not_found(hero):
 
 
 def test_add_item_with_data(hero):
-    action = AddItem(name="Pałka", damage="1k6", grip="Jednoręczny", properties="Finezyjna", item_type="weapon")
+    action = AddItem(
+        name="Pałka",
+        damage="1k6",
+        grip="Jednoręczny",
+        properties="Finezyjna",
+        item_type="weapon",
+    )
     add_item(action.name, hero, item_data=action)
     assert len(hero.equipment.weapons) == 1
     assert hero.equipment.weapons[0].name == "Pałka"
 
 
 # --- add_profession ---
+
 
 def test_add_profession_random(hero):
     add_profession("any", hero, is_random=True)
@@ -180,12 +197,14 @@ def test_add_profession_specific(hero):
 
 # --- add_oddity ---
 
+
 def test_add_oddity(hero):
     add_oddity(hero)
     assert hero.oddity != ""
 
 
 # --- add_wealth ---
+
 
 def test_add_wealth(hero):
     actions = []
@@ -196,6 +215,7 @@ def test_add_wealth(hero):
 
 # --- apply_action ---
 
+
 def test_apply_action_add_attribute(hero):
     action = AddAttribute(name="strength", value=3)
     apply_action(action, hero)
@@ -205,7 +225,7 @@ def test_apply_action_add_attribute(hero):
 def test_apply_action_add_language(hero):
     action = AddLanguage(name="Trolli", can_write=False)
     apply_action(action, hero)
-    assert any(l.name == "Trolli" for l in hero.languages)
+    assert any(language.name == "Trolli" for language in hero.languages)
 
 
 def test_apply_action_add_item(hero):
@@ -217,28 +237,36 @@ def test_apply_action_add_item(hero):
 def test_apply_action_grant_literacy(hero):
     action = GrantLiteracy(target="Wspólny")
     apply_action(action, hero)
-    assert next(l for l in hero.languages if l.name == "Wspólny").can_write is True
+    assert next(language for language in hero.languages if language.name == "Wspólny").can_write is True
 
 
 # --- resolve_choices ---
 
+
 def test_resolve_choices_random(hero):
     actions = []
-    choices = [[AddAttribute(name="strength", value=1), AddAttribute(name="will", value=1)]]
+    choices = [
+        [AddAttribute(name="strength", value=1), AddAttribute(name="will", value=1)]
+    ]
     result = resolve_choices(hero, actions, choices, is_random=True)
     assert len(result) == 1
 
 
 def test_resolve_choices_manual(hero):
     actions = []
-    choices = [[AddAttribute(name="strength", value=1), AddAttribute(name="will", value=1)]]
+    choices = [
+        [AddAttribute(name="strength", value=1), AddAttribute(name="will", value=1)]
+    ]
     selected = [AddAttribute(name="will", value=1)]
-    result = resolve_choices(hero, actions, choices, is_random=False, selected_choices=selected)
+    result = resolve_choices(
+        hero, actions, choices, is_random=False, selected_choices=selected
+    )
     assert len(result) == 1
     assert result[0].name == "will"
 
 
 # --- expand_any_to_choices ---
+
 
 def test_expand_any_to_choices():
     actions = [
@@ -255,6 +283,7 @@ def test_expand_any_to_choices():
 
 # --- get_from_ancestry ---
 
+
 def test_get_from_ancestry():
     result = get_from_ancestry(roll=1, category="past", ancestry="human")
     assert result is not None
@@ -262,6 +291,7 @@ def test_get_from_ancestry():
 
 
 # --- build_hero ---
+
 
 def test_build_hero():
     hero, actions, choices = build_hero("human")
@@ -272,6 +302,7 @@ def test_build_hero():
 
 
 # --- get_hero ---
+
 
 def test_get_hero_random():
     hero = get_hero("orc", is_random=True)
@@ -290,9 +321,17 @@ def test_get_hero_manual():
         assert result.ancestry_name == "Człowiek"
 
 
-@pytest.mark.parametrize("ancestry", [
-    "human", "goblin", "orc", "dwarf", "changeling", "automaton",
-])
+@pytest.mark.parametrize(
+    "ancestry",
+    [
+        "human",
+        "goblin",
+        "orc",
+        "dwarf",
+        "changeling",
+        "automaton",
+    ],
+)
 def test_get_hero_all_ancestries(ancestry):
     hero = get_hero(ancestry, is_random=True)
     assert hero.ancestry_name != ""
@@ -301,8 +340,10 @@ def test_get_hero_all_ancestries(ancestry):
 
 # --- legacy test for dice errors ---
 
+
 def test_roll_dice_errors():
     from unittest.mock import patch
+
     with pytest.raises(ArithmeticError):
-        with patch('random.randint', return_value=0):
+        with patch("random.randint", return_value=0):
             roll_dice(1, 6)

@@ -5,7 +5,6 @@ import pytest
 from pypdf import PdfReader
 
 from models.base_hero import AncestryHero
-from models.equipment import Weapon
 from models.language import Language
 from models.talent import Talent
 from utils.pdf_creator import fill_pdf
@@ -24,9 +23,16 @@ def output_path():
 def populated_hero():
     return AncestryHero(
         ancestry_name="Człowiek",
-        strength=12, dexterity=11, intelligence=10, will=10,
-        perception=10, defense=10, health=10, healing_rate=2,
-        size=[1.0], speed=10,
+        strength=12,
+        dexterity=11,
+        intelligence=10,
+        will=10,
+        perception=10,
+        defense=10,
+        health=10,
+        healing_rate=2,
+        size=[1.0],
+        speed=10,
         languages=[
             Language(name="Wspólny", can_speak=True, can_write=False),
             Language(name="Elficki", can_speak=True, can_write=True),
@@ -43,9 +49,19 @@ def populated_hero():
         },
         wealth="Klasa średnia",
         oddity="Stary klucz",
-        equipment={"weapons": [
-            {"name": "Miecz", "damage": "1k6+2", "grip": "Jednoręczny", "properties": ""},
-        ], "shields": [], "armors": [], "backpack": ["plecak", "lina"]},
+        equipment={
+            "weapons": [
+                {
+                    "name": "Miecz",
+                    "damage": "1k6+2",
+                    "grip": "Jednoręczny",
+                    "properties": "",
+                },
+            ],
+            "shields": [],
+            "armors": [],
+            "backpack": ["plecak", "lina"],
+        },
     )
 
 
@@ -87,9 +103,17 @@ def test_pdf_weapons_populated(populated_hero, output_path):
     assert fields.get("obrazenia_1") == "1k6+2"
 
 
-@pytest.mark.parametrize("ancestry", [
-    "human", "goblin", "orc", "dwarf", "changeling", "automaton",
-])
+@pytest.mark.parametrize(
+    "ancestry",
+    [
+        "human",
+        "goblin",
+        "orc",
+        "dwarf",
+        "changeling",
+        "automaton",
+    ],
+)
 def test_pdf_all_ancestries(ancestry, output_path):
     hero = get_hero(ancestry, is_random=True)
     fill_pdf(hero, output_path)
@@ -103,15 +127,22 @@ def test_pdf_all_ancestries(ancestry, output_path):
 def test_pdf_talent_placement(output_path):
     hero = AncestryHero(
         ancestry_name="Testowy",
-        strength=10, dexterity=10, intelligence=10, will=10,
-        perception=10, defense=10, health=10, healing_rate=2,
-        size=[1.0], speed=10,
+        strength=10,
+        dexterity=10,
+        intelligence=10,
+        will=10,
+        perception=10,
+        defense=10,
+        health=10,
+        healing_rate=2,
+        size=[1.0],
+        speed=10,
         talents=[
             Talent(name="Mały 1", description="S" * 50),
             Talent(name="Kwadrat 1", description="K" * 200),
             Talent(name="Średni 1", description="M" * 300),
             Talent(name="Wielki 1", description="L" * 800),
-        ]
+        ],
     )
     fill_pdf(hero, output_path)
     reader = PdfReader(output_path)

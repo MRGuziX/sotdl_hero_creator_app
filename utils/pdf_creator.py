@@ -184,8 +184,8 @@ def fill_pdf(hero: AncestryHero, output_path: str = "../output/hero_card.pdf"):
         notatki_parts.append("")
 
     if hero.languages:
-        lang_written = [l.name for l in hero.languages if l.can_write]
-        lang_spoken = [l.name for l in hero.languages if not l.can_write]
+        lang_written = [language.name for language in hero.languages if language.can_write]
+        lang_spoken = [language.name for language in hero.languages if not language.can_write]
         if lang_spoken:
             notatki_parts.append(f"Języki znane: {', '.join(lang_spoken)}")
         if lang_written:
