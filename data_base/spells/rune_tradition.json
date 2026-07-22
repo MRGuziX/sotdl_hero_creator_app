@@ -1,0 +1,140 @@
+{
+  "tradition_rules": [
+    {
+      "name": "Charakterystyka Magii Runicznej",
+      "note": "Zaklęcia Magii Runicznej mają postać pisma, które wytwarza magiczne efekty. Wymyśliły je krasnoludy lub trolle."
+    }
+  ],
+  "level_0": [
+    {
+      "name": "RUNA LOKALIZACJI",
+      "tags": [
+        "Magia Runiczna",
+        "Użytkowe"
+      ],
+      "level": 0,
+      "target": "Jedno stworzenie lub obiekt w bezpośrednim zasięgu.",
+      "duration": "1 godzina",
+      "description": "Dotykasz celu i pozostawiasz na nim znak, który utrzymuje się przez czas trwania zaklęcia. Zawsze znasz dokładne położenie stworzenia lub obiektu oznaczonego tą runą."
+    },
+    {
+      "name": "ROZUMIENIE PISMA",
+      "tags": [
+        "Magia Runiczna",
+        "Użytkowe"
+      ],
+      "level": 0,
+      "duration": "1 minuta",
+      "description": "Przez czas trwania zaklęcia potrafisz odczytać i zrozumieć każde pismo, które widzisz."
+    }
+  ],
+  "level_1": [
+    {
+      "name": "PIĘTNO ZAGŁADY",
+      "tags": [
+        "Magia Runiczna",
+        "Atak"
+      ],
+      "level": 1,
+      "target": "Jedno stworzenie w bliskim zasięgu.",
+      "duration": "1 minuta",
+      "description": "Wykonaj oparty na Intelekcie rzut na atak przeciwko Zręczności wybranego stworzenia. Sukces oznacza, że na 1 minutę naznaczasz je runą. Dopóki czar trwa, to raz na rundę, gdy cel otrzyma obrażenia, runa zadaje mu dodatkowe 1k6 obrażeń."
+    },
+    {
+      "name": "GLIF OGNIA",
+      "tags": [
+        "Magia Runiczna",
+        "Atak"
+      ],
+      "level": 1,
+      "target": "Punkt w przestrzeni w bliskim zasięgu.",
+      "duration": "1 minuta",
+      "description": "We wskazanym punkcie na okres trwania zaklęcia pojawia się płonący glif. Gdy rzucasz ten czar, a także na koniec każdej rundy przez czas jego działania, glif emituje płomienie, które rozchodzą się sferą w promieniu 2 metrów od punktu początkowego w zajmowanej przezeń przestrzeni, zadając 1k6 + 2 obrażeń wszystkiemu wewnątrz tego obszaru. Każde znajdujące się tam stworzenie musi wykonać test Zręczności z 1 utrudnieniem, a sukces oznacza, że nie otrzymuje żadnych obrażeń."
+    },
+    {
+      "name": "RUNICZNA TARCZA",
+      "tags": [
+        "Magia Runiczna",
+        "Użytkowe"
+      ],
+      "level": 1,
+      "target": "Jedna tarcza w bezpośrednim zasięgu.",
+      "duration": "1 minuta",
+      "description": "Kreślisz na tarczy runę, a ta pozostaje na niej przez czas trwania zaklęcia. Stworzenia, które zaatakują dzierżącego tarczę z użyciem broni, rzuty na atak wykonują z 1 utrudnieniem."
+    }
+  ],
+  "level_2": [
+    {
+      "name": "RUNICZNE WIĘZIENIE",
+      "tags": [
+        "Magia Runiczna",
+        "Atak"
+      ],
+      "level": 2,
+      "target": "Jedno stworzenie w średnim zasięgu, które widzisz.",
+      "duration": "1 minuta",
+      "description": "Pierścień płonących glifów otacza cel i pozostaje w miejscu przez czas trwania zaklęcia. Jeśli stworzenie opuści tę przestrzeń, to przechodząc przez runy, musi wykonać test Siły z 1 utrudnieniem. Porażka oznacza, że otrzymuje 6k6 obrażeń, a sukces, że tylko połowę z nich."
+    },
+    {
+      "name": "RUNA UKRYCIA",
+      "tags": [
+        "Magia Runiczna",
+        "Użytkowe"
+      ],
+      "level": 2,
+      "target": "Jedno stworzenie w bezpośrednim zasięgu.",
+      "duration": "1 godzina",
+      "description": "Dotykasz celu, na którym pojawia się runiczny znak. Dopóki zaklęcie trwa, stworzenie to nie może być wykryte za pomocą magii, a jeśli na koniec rundy znajduje się na obszarze przesłoniętym, automatycznie ukrywa się, dopóki nie wykorzysta akcji lub nie poruszy się."
+    }
+  ],
+  "level_3": [
+    {
+      "name": "RUNICZNA PUŁAPKA",
+      "tags": [
+        "Magia Runiczna",
+        "Użytkowe"
+      ],
+      "level": 3,
+      "area": "Okrąg na podłożu o promieniu 4 metrów i punkcie początkowym w średnim zasięgu.",
+      "duration": "1 minuta",
+      "description": "W punkcie początkowym zaklęcia na okres jego trwania pojawia się runa. Gdy jakaś istota wkroczy na wskazany obszar oraz na koniec każdej rundy przez czas jego działania, runa emituje pioruny, zadając 2k6 obrażeń wszystkiemu wewnątrz tego obszaru. Każde znajdujące się tam stworzenie musi wykonać test Zręczności. Porażka oznacza, że staje się unieruchomione na 1 rundę, a sukces, że otrzymuje połowę obrażeń."
+    },
+    {
+      "name": "RUNA POTĘGI",
+      "tags": [
+        "Magia Runiczna",
+        "Użytkowe"
+      ],
+      "level": 3,
+      "target": "Jedno stworzenie w bezpośrednim zasięgu.",
+      "duration": "1 minuta",
+      "description": "W miejscu na celu, którego dotkniesz, pojawia się lśniąca runa. Przez czas trwania zaklęcia stworzenie zyskuje 2 ułatwienia we wszystkich rzutach na atak i testach opartych na Sile, a jego ataki bronią białą zadają dodatkowe 2k6 obrażeń."
+    }
+  ],
+  "level_4": [
+    {
+      "name": "RUNICZNA BROŃ",
+      "tags": [
+        "Magia Runiczna",
+        "Użytkowe"
+      ],
+      "level": 4,
+      "target": "Jedna broń w bezpośrednim zasięgu.",
+      "duration": "1 minuta",
+      "description": "Kreślisz świetlistą runę na wybranej broni. Dopóki zaklęcie trwa, ataki z użyciem tego oręża zadają dodatkowe 3k6 obrażeń."
+    }
+  ],
+  "level_5": [
+    {
+      "name": "RUNA MOCY",
+      "tags": [
+        "Magia Runiczna",
+        "Użytkowe"
+      ],
+      "level": 5,
+      "target": "Jedno stworzenie w bezpośrednim zasięgu.",
+      "duration": "1 godzina",
+      "description": "W miejscu na celu, którego dotkniesz, pojawia się lśniąca runa. Przez czas trwania zaklęcia stworzenie to zyskuje 2 ułatwienia we wszystkich rzutach na atak i testach, otrzymuje premię +20 do Zdrowia, a wszystkie jego ataki zadają dodatkowe 1k6 obrażeń."
+    }
+  ]
+}

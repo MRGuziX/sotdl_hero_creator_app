@@ -1,0 +1,135 @@
+{
+  "level_0": [
+    {
+      "name": "UKRYCIE PRZED NIEUMARŁYMI",
+      "tags": [
+        "Nekromancja",
+        "Użytkowe"
+      ],
+      "level": 0,
+      "duration": "1 minuta; patrz niżej.",
+      "description": "Przez czas trwania zaklęcia jesteś ukryty przed nieumarłymi stworzeniami. Efekt ten dobiega końca natychmiast, gdy wykonasz atak."
+    },
+    {
+      "name": "WIDMOWY CHWYT",
+      "tags": [
+        "Nekromancja",
+        "Atak"
+      ],
+      "level": 0,
+      "target": "Jedno stworzenie w średnim zasięgu.",
+      "description": "W stronę celu pędzi cienista ręka. Wykonaj oparty na Intelekcie rzut na atak przeciwko Zręczności stworzenia. Sukces oznacza, że otrzymuje ono 1k3 obrażeń i przez 1 rundę wszystkie rzuty na atak wykonuje z 1 utrudnieniem.",
+      "critical_success": "Rzut na atak 20+: Cel otrzymuje dodatkowe 1k6 obrażeń."
+    }
+  ],
+  "level_1": [
+    {
+      "name": "OŻYWIENIE ZWŁOK",
+      "tags": [
+        "Nekromancja",
+        "Użytkowe"
+      ],
+      "level": 1,
+      "target": "Zwłoki o Rozmiarze 1/2 lub 1 w bezpośrednim zasięgu.",
+      "duration": "Koncentracja, do 1 minuty",
+      "description": "Dotknij celu. Jeśli utrzymasz koncentrację i zachowasz z nim fizyczny kontakt przez 1 minutę, staje się on zniewolonymi ożywionymi zwłokami swojego Rozmiaru.",
+      "sacrifice": "Możesz poświęcić użycie tego zaklęcia, by rzucić widmowy chwyt."
+    },
+    {
+      "name": "RĘCE UMARŁYCH",
+      "tags": [
+        "Nekromancja",
+        "Atak"
+      ],
+      "level": 1,
+      "area": "Okrąg na podłożu o promieniu 5 metrów i punkcie początkowym w bliskim zasięgu.",
+      "duration": "1 minuta",
+      "description": "Przez czas trwania zaklęcia wewnątrz jego obszaru rozchodzi się mrok, a z ziemi wyrastają kościste szpony i gnijące ręce, przez co podłoże staje się trudnym terenem. Każde stworzenie, które znajduje się wewnątrz obszaru działania zaklęcia w momencie rzucenia go, lub takie, które będzie w nim przebywać na koniec rundy, musi wykonać test Zręczności. Porażka oznacza, że otrzymuje 1k6 obrażeń i ulega unieruchomieniu na czas trwania czaru. Jeśli już jest unieruchomione, zamiast tego otrzymuje dodatkowe 1k6 obrażeń. Stworzenie może wykorzystać akcję, by wyrwać się z uchwytu, tym samym pozbywając się tego stanu."
+    },
+    {
+      "name": "ODŁAWIANIE DUSZY",
+      "tags": [
+        "Nekromancja",
+        "Atak"
+      ],
+      "level": 1,
+      "target": "Jedno stworzenie w bliskim zasięgu, które umarło najwyżej 1 rundę temu.",
+      "duration": "4 godziny; patrz niżej.",
+      "description": "Nad celem pojawia się kula przyćmionego światła, która leci ku tobie i przez czas trwania zaklęcia krąży wokół ciebie. Możesz wykorzystać akcję, by natychmiast zakończyć efekt zaklęcia i uleczyć tyle obrażeń, ile wynosi twoja Szybkość Zdrowienia. Dopóki zaklęcie trwa, stworzenia nie da się w żaden sposób przywrócić do życia."
+    }
+  ],
+  "level_2": [
+    {
+      "name": "KOŚCIANE DRZAZGI",
+      "tags": [
+        "Nekromancja",
+        "Atak"
+      ],
+      "level": 2,
+      "target": "Jedno stworzenie w średnim zasięgu, które ma w swoim ciele kości.",
+      "description": "Wykonaj oparty na Intelekcie rzut na atak przeciwko Sile celu. Sukces oznacza, że stworzenie otrzymuje 3k6 + 5 obrażeń. Jeśli wskutek nich zostanie obezwładnione, natychmiast umiera, a jego kości eksplodują w obszarze stożka o długości 3 metrów i punkcie początkowym w zajmowanej przez cel przestrzeni. Wszystko, co się tam znajduje, otrzymuje 1k6 obrażeń; stworzenia mogą ich uniknąć, jeśli zdadzą test Zręczności.",
+      "critical_success": "Rzut na atak 20+: Cel otrzymuje dodatkowe 2k6 obrażeń."
+    },
+    {
+      "name": "WRZESZCZĄCA CZASZKA",
+      "tags": [
+        "Nekromancja",
+        "Atak"
+      ],
+      "level": 2,
+      "target": "Punkt w przestrzeni w bezpośrednim zasięgu.",
+      "duration": "1 minuta, patrz niżej.",
+      "description": "W wybranym punkcie pojawia się lewitująca ludzka czaszka. Może latać, ma Obronę 20 i Zdrowie 10. Gdy otrzyma liczbę obrażeń równą Zdrowiu, rozsypuje się w pył, a efekt zaklęcia natychmiast dobiega końca. Gdy rzucasz to zaklęcie, a także w ramach akcji lub reakcji w czasie swoich tur aż do końca działania czaru, możesz przemieścić czaszkę lotem na odległość do 10 metrów i sprawić, że wyda z siebie krzyk. Wrzask ten rozchodzi się sferą w promieniu 3 metrów, a jej środkiem jest czaszka. Każde stworzenie w obszarze krzyku, które go słyszy, musi wykonać udany test Siły, w przeciwnym wypadku otrzymuje 1k6 + 1 obrażeń."
+    }
+  ],
+  "level_3": [
+    {
+      "name": "KANIBALIZACJA MAGII",
+      "tags": [
+        "Nekromancja",
+        "Atak"
+      ],
+      "level": 3,
+      "target": "Jedno stworzenie w średnim zasięgu.",
+      "description": "Wykonaj oparty na Intelekcie rzut na atak przeciwko Sile celu. Sukces oznacza, że stworzenie otrzymuje 3k6 obrażeń, a ty odzyskujesz jedno użycie zaklęcia 1 lub niższego kręgu.",
+      "critical_success": "Rzut na atak 20+: Cel otrzymuje dodatkowe 2k6 obrażeń, a odzyskane przez ciebie użycie może dotyczyć zaklęcia 2 lub niższego kręgu."
+    },
+    {
+      "name": "STUDNIA MROCZNEJ MOCY",
+      "tags": [
+        "Nekromancja",
+        "Użytkowe"
+      ],
+      "level": 3,
+      "area": "Okrąg na podłożu o promieniu 5 metrów i punkcie początkowym w średnim zasięgu.",
+      "duration": "1 minuta",
+      "description": "W punkcie początkowym zaklęcia pojawia się glif. Dopóki czar trwa, za każdym razem, gdy jakiekolwiek stworzenie wewnątrz tego obszaru otrzyma obrażenia, dostaje także dodatkowe 2k6 obrażeń."
+    }
+  ],
+  "level_4": [
+    {
+      "name": "ZAMKNIĘCIE WRÓT ZAŚWIATÓW",
+      "tags": [
+        "Nekromancja",
+        "Atak"
+      ],
+      "level": 4,
+      "area": "Sfera o promieniu 10 metrów i punkcie początkowym w średnim zasięgu.",
+      "duration": "1 minuta",
+      "description": "W obszarze działania zaklęcia rozchodzą się wici nekromantycznej energii. Przez czas jego trwania znajdujący się na tym obszarze nieumarli wykonują wszystkie ataki i testy z ułatwieniem, a żywe istoty (poza tobą) z 1 utrudnieniem. Ponadto żywe stworzenia o Rozmiarze 1 lub 1/2, które umrą wewnątrz tego obszaru, zmieniają się w zniewolone przez ciebie ożywione zwłoki."
+    }
+  ],
+  "level_5": [
+    {
+      "name": "ARMIA UMARŁYCH",
+      "tags": [
+        "Nekromancja",
+        "Użytkowe"
+      ],
+      "level": 5,
+      "area": "Okrąg na podłożu o promieniu 2 metrów i punkcie początkowym w średnim zasięgu.",
+      "duration": "1 godzina",
+      "description": "Obszar działania zaklęcia na czas jego trwania staje się trudnym terenem. Na koniec rundy, w której rzucisz ten czar, spod ziemi wygrzebuje się i wstaje 2k6 zniewolonych ożywionych zwłok. Wszystkie ożywione zwłoki powołane do istnienia za pomocą tego zaklęcia liczą się jako jedno stworzenie na potrzeby ustalania limitu zniewolonych nieumarłych, których kontrolujesz. Efekt zaklęcia kończy się, gdy wszystkie ożywione zwłoki zostaną zniszczone."
+    }
+  ]
+}

@@ -1,0 +1,132 @@
+{
+  "level_0": [
+    {
+      "name": "MAGICZNY ZAMEK",
+      "tags": [
+        "Ochrona",
+        "Użytkowe"
+      ],
+      "level": 0,
+      "target": "Jeden obiekt w bliskim zasięgu, który można otwierać i zamykać, na przykład drzwi, skrzynia czy okno.",
+      "duration": "1 minuta",
+      "description": "Cel zostaje zamknięty i zatrzaskuje się. Przez czas trwania zaklęcia nikt poza tobą nie zdoła go otworzyć na inne sposoby niż magiczne, choć nadal da się go zniszczyć."
+    },
+    {
+      "name": "ZABEZPIECZENIE MIEJSCA",
+      "tags": [
+        "Ochrona",
+        "Użytkowe"
+      ],
+      "level": 0,
+      "area": "Sfera o promieniu 10 metrów i punkcie początkowym w bezpośrednim zasięgu.",
+      "duration": "6 godzin",
+      "description": "Na powierzchni obszaru działania zaklęcia pojawia się niewidzialne pole energii. Dopóki czar trwa, jesteś świadomy każdej istoty o Rozmiarze 1/2 lub większym, która wkracza z zewnątrz na ten teren. Jeśli w tym czasie śpisz, natychmiast się budzisz."
+    }
+  ],
+  "level_1": [
+    {
+      "name": "USKOK",
+      "tags": [
+        "Ochrona",
+        "Użytkowe"
+      ],
+      "level": 1,
+      "description": "Poruszasz się na odległość do tylu metrów, ile wynosi czterokrotność twojej Prędkości, nie prowokując darmowych ataków. Reakcja: Gdy otrzymasz obrażenia, możesz rzucić to zaklęcie, wykorzystując reakcję. Jeśli tak zrobisz, przemieszczasz się na dwukrotność twojej Prędkości, nie prowokując darmowych ataków."
+    },
+    {
+      "name": "POLE SIŁOWE",
+      "tags": [
+        "Ochrona",
+        "Użytkowe"
+      ],
+      "level": 1,
+      "duration": "1 minuta; patrz niżej.",
+      "description": "Otacza cię niewidzialne pole siłowe, które porusza się wraz z tobą. Ma ono Zdrowie 10. Dopóki zaklęcie trwa, pole otrzymuje obrażenia zamiast ciebie. Jeśli otrzyma liczbę obrażeń równą swojemu Zdrowiu, efekt czaru natychmiast dobiega końca."
+    },
+    {
+      "name": "SANKTUARIUM",
+      "tags": [
+        "Ochrona",
+        "Użytkowe"
+      ],
+      "level": 1,
+      "target": "Jedno stworzenie w bezpośrednim zasięgu.",
+      "duration": "1 minuta; patrz niżej.",
+      "description": "Dotykasz celu, który na czas trwania zaklęcia jest ukryty przed wszystkimi innymi stworzeniami. Efekt czaru dobiega końca natychmiast, gdy cel wykona atak."
+    }
+  ],
+  "level_2": [
+    {
+      "name": "PRZEZORNOŚĆ",
+      "tags": [
+        "Ochrona",
+        "Użytkowe"
+      ],
+      "level": 2,
+      "target": "Jedno stworzenie w bezpośrednim zasięgu.",
+      "duration": "4 godziny",
+      "description": "Dotykasz celu, zwiększając jego czujność i spostrzegawczość. Przez czas trwania zaklęcia stworzenie to zyskuje 1 ułatwienie we wszystkich testach Percepcji i nie może zostać zauroczone, zniewolone, przestraszone, zaskoczone ani magicznie uśpione."
+    },
+    {
+      "name": "WIGOR",
+      "tags": [
+        "Ochrona",
+        "Użytkowe"
+      ],
+      "level": 2,
+      "target": "Jedno stworzenie w bezpośrednim zasięgu.",
+      "duration": "1 godzina",
+      "description": "Dotykasz celu, zapewniając mu na czas trwania zaklęcia premię +10 do Zdrowia."
+    }
+  ],
+  "level_3": [
+    {
+      "name": "OCHRONA PRZED CZARAMI",
+      "tags": [
+        "Ochrona",
+        "Użytkowe"
+      ],
+      "level": 3,
+      "target": "Jedno stworzenie w bezpośrednim zasięgu.",
+      "duration": "1 godzina",
+      "description": "Dotykasz stworzenie, zapewniając mu na czas trwania zaklęcia ochronę przed magią. Dopóki czar trwa, stworzenia atakujące cel zaklęciami wykonują rzuty na atak z 1 utrudnieniem, on sam zaś zyskuje 1 ułatwienie w testach wykonywanych, by odeprzeć efekty zaklęć."
+    },
+    {
+      "name": "POLE OCHRONNE",
+      "tags": [
+        "Ochrona",
+        "Użytkowe"
+      ],
+      "level": 3,
+      "area": "Sfera o promieniu 3 metrów i punkcie początkowym w bezpośrednim zasięgu.",
+      "duration": "1 minuta",
+      "description": "Na powierzchni obszaru działania zaklęcia pojawia się nieruchoma, niewidzialna bariera, która utrzymuje się przez czas jego trwania. Rzucając ten czar, wskazujesz dowolną liczbę stworzeń w średnim zasięgu. Mogą one swobodnie przechodzić i atakować przez barierę. Inne istoty nie są w stanie ani przejść przez barierę, ani wykonywać ataków bronią białą przeciwko celom po drugiej stronie."
+    }
+  ],
+  "level_4": [
+    {
+      "name": "NIETYKALNOŚĆ",
+      "tags": [
+        "Ochrona",
+        "Użytkowe"
+      ],
+      "level": 4,
+      "target": "Jedno stworzenie w bezpośrednim zasięgu.",
+      "duration": "Koncentracja, do 1 minuty",
+      "description": "Dotykasz celu, który na czas trwania zaklęcia staje się niewrażliwy na wszelkie obrażenia."
+    }
+  ],
+  "level_5": [
+    {
+      "name": "SFERA NEGACJI",
+      "tags": [
+        "Ochrona",
+        "Użytkowe"
+      ],
+      "level": 5,
+      "area": "Sfera o promieniu 5 metrów i punkcie początkowym w bezpośrednim zasięgu.",
+      "duration": "1 minuta",
+      "description": "Na powierzchni obszaru działania zaklęcia na czas jego trwania pojawia się nieruchoma, niewidzialna bariera. Rzuty na atak z użyciem czarów 5 lub niższego kręgu wykonywane przeciwko celom znajdującym się za barierą automatycznie kończą się porażką. Ponadto jej wnętrze jest wykluczone z obszaru innych zaklęć 5 lub niższego kręgu. Magia stosowana z wewnątrz bariery nie może mieć punktów początkowych poza jej granicą."
+    }
+  ]
+}

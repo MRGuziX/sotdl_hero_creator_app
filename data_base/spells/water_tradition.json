@@ -1,36 +1,129 @@
 {
   "level_0": [
     {
-      "name": "Magic Missile",
-      "description": "A reliable force projectile that automatically hits its target, dealing consistent damage",
-      "level": 0
+      "name": "ZAMROŻENIE",
+      "tags": [
+        "Woda",
+        "Atak"
+      ],
+      "level": 0,
+      "target": "Jedno stworzenie w bliskim zasięgu.",
+      "description": "Temperatura wokół stworzenia gwałtownie spada. Wykonaj oparty na Woli rzut na atak przeciwko Zręczności celu. Sukces oznacza, że otrzymuje on 1k3 obrażeń i jest unieruchomiony na 1 rundę.",
+      "critical_success": "Rzut na atak 20+: Cel otrzymuje dodatkowe 1k3 obrażeń."
     },
     {
-      "name": "Light",
-      "description": "Creates a bright light source that illuminates the surrounding area",
-      "level": 0
-    },
-    {
-      "name": "Detect Magic",
-      "description": "Reveals the presence of magical auras within a short range",
-      "level": 0
+      "name": "STWORZENIE WODY",
+      "tags": [
+        "Woda",
+        "Użytkowe"
+      ],
+      "level": 0,
+      "target": "Jeden kubek, miska lub inne podobne naczynie w bezpośrednim zasięgu.",
+      "description": "Dotykasz celu, który napełnia się czystą, świeżą wodą."
     }
   ],
   "level_1": [
     {
-      "name": "Fireball",
-      "description": "Launches an explosive ball of fire that deals area damage to multiple targets",
-      "level": 1
+      "name": "UTOPIENIE",
+      "tags": [
+        "Woda",
+        "Atak"
+      ],
+      "level": 1,
+      "target": "Jedno stworzenie w bliskim zasięgu, które oddycha powietrzem.",
+      "description": "W płucach lub analogicznym organie celu gromadzi się woda. Musi on wykonać test Siły; porażka oznacza, że otrzymuje 1k6 + 2 obrażeń i staje się osłabiony. Na koniec każdej rundy, w której pozostaje osłabiony z powodu tego zaklęcia, musi wykonać test Siły z 1 ułatwieniem, sukces zaś oznacza, że pozbywa się tego stanu. Po trzech nieudanych testach cel dusi się i umiera."
     },
     {
-      "name": "Healing Potion",
-      "description": "Restores health points to the target, providing immediate magical healing",
-      "level": 1
+      "name": "LODOWY PODMUCH",
+      "tags": [
+        "Woda",
+        "Atak"
+      ],
+      "level": 1,
+      "area": "Stożek długości 3 metrów o punkcie początkowym w bezpośrednim zasięgu.",
+      "description": "Ciskasz ostrymi odłamkami lodu, które zadają 2k6 + 2 obrażeń wszystkiemu wewnątrz obszaru działania zaklęcia lub ich połowę po udanym teście Zręczności. Podłoże na tym obszarze staje się na 1 rundę trudnym terenem."
     },
     {
-      "name": "Shield",
-      "description": "Creates a magical barrier that increases the caster's defensive capabilities",
-      "level": 1
+      "name": "ŻYCIODAJNA STUDNIA",
+      "tags": [
+        "Woda",
+        "Użytkowe"
+      ],
+      "level": 1,
+      "area": "Półkula o promieniu 2 metrów i punkcie początkowym na podłożu w bliskim zasięgu.",
+      "duration": "1 minuta.",
+      "description": "Obszar działania zaklęcia staje się na czas jego trwania częściowo przesłonięty przez uzdrawiające wody. Znajdujące się tam żywe stworzenia nie muszą pić do czasu odbycia następnego pełnego odpoczynku. Gdy istota wewnątrz obszaru leczy obrażenia, odzyskuje dodatkowe 1k3 punktów Zdrowia."
+    }
+  ],
+  "level_2": [
+    {
+      "name": "GEJZER",
+      "tags": [
+        "Woda",
+        "Atak"
+      ],
+      "level": 2,
+      "area": "Okrąg na podłożu o promieniu 5 metrów i punkcie początkowym w średnim zasięgu.",
+      "description": "Z obszaru działania zaklęcia wybija kolumna gorącej wody, wzlatując na 2k6 metrów w górę, po czym opada na podłożena połowę tej odległości poza granicę obszaru, gasząc nieosłonięte płomienie. Siła strumienia odpycha niezabezpieczone obiekty o Rozmiarze 1 lub mniejszym na 1k6 metrów od punktu początkowego, a każde stworzenie wewnątrz obszaru otrzymuje 2k6 + 2 obrażeń od gorącej wody i musi wykonać test Zręczności. Porażka oznacza, że zostaje powalone, a sukces, że otrzymuje tylko połowę obrażeń."
+    },
+    {
+      "name": "FALA",
+      "tags": [
+        "Woda",
+        "Atak"
+      ],
+      "level": 2,
+      "area": "Linia łamana o długości 10 metrów, wysokości 10 metrów i szerokości 1 metra o punkcie początkowym na podłożu w średnim zasięgu.",
+      "duration": "1 runda.",
+      "description": "W obszarze działania zaklęcia na czas jego trwania wzbiera woda. Częściowo przesłania ona wszystko wewnątrz tego obszaru i poza nim, zapewniając także połowiczną osłonę. Masi też wszystkie znajdujące się tam płomienie. Gdy efekt dobiegnie końca, linia wody załamuje się; możesz wybrać, czy opada w twoją stronę, czy w przeciwną. Ciecz pokrywa obszar o długości i szerokości 10 metrów. Każde znajdujące się tam stworzenie otrzymuje 1k6 obrażeń i musi wykonać test Siły. Porażka oznacza, że zostaje powalone, a sukces, że otrzymuje tylko połowę obrażeń. Następnie woda rozpływa się na kolejne 10 metrów w każdym kierunku, gasząc wszystkie płomienie, których dotknie."
+    }
+  ],
+  "level_3": [
+    {
+      "name": "KULA WODY",
+      "tags": [
+        "Woda",
+        "Atak"
+      ],
+      "level": 3,
+      "area": "Sfera o promieniu 3 metrów i punkcie początkowym w średnim zasięgu.",
+      "duration": "Koncentracja, do 1 minuty.",
+      "description": "Obszar zostaje wypełniony wodą, która utrzymuje się przez czas trwania zaklęcia. Za każdym razem, gdy wykorzystasz akcję, by utrzymać koncentrację na tym czarze, możesz przemieścić kulę i wszystko wewnątrz niej do 5 metrów w dowolnym kierunku. Wszystkie stworzenia znajdujące się w obszarze działania zaklęcia w momencie jego rzucenia zostają uwięzione w kuli, podobnie jak te, na których przestrzeń się ona przemieści. Dopóki czar trwa, na koniec każdej rundy wszelkie oddychające powietrzem istoty uwięzione w kuli muszą wykonać udany test Siły, w przeciwnym wypadku otrzymują 2k6 obrażeń. Uwięzione w kuli stworzenie może wykorzystać akcję, by wykonać test Siły. Sukces oznacza, że wydostaje się na zewnątrz i ląduje powalone w wybranej wolnej przestrzeni w odległości 1 metra od kuli."
+    },
+    {
+      "name": "RWĄCY NURT",
+      "tags": [
+        "Woda",
+        "Atak"
+      ],
+      "level": 3,
+      "target": "Dowolna liczba stworzeń w średnim zasięgu.",
+      "description": "Każdy cel musi wykonać test Siły z 1 utrudnieniem. Porażka oznacza, że wybierasz, czy zostaje przemieszczony o 2k6 metrów ku tobie, czy od ciebie, oraz że staje się zamroczony na 1 rundę. Sukces oznacza, że porusza się tylko o połowę tego dystansu."
+    }
+  ],
+  "level_4": [
+    {
+      "name": "ZLODOWACENIE",
+      "tags": [
+        "Woda",
+        "Atak"
+      ],
+      "level": 4,
+      "area": "Stożek długości 8 metrów o punkcie początkowym w bezpośrednim zasięgu.",
+      "description": "W obszarze działania zaklęcia rozchodzi się zabójczy chłód, natychmiast zamrażający wodę i oparte na wodzie ciecze, takie jak eliksiry. Wszystko, co się tam znajduje, otrzymuje 7k6 obrażeń od zimna. Każde stworzenie, któremu powiedzie się test Siły, dostaje tylko połowę tych obrażeń. Jeśli wskutek tych obrażeń istota zostanie obezwładniona, zamarza na kamień i natychmiast umiera."
+    }
+  ],
+  "level_5": [
+    {
+      "name": "PRZYZWANIE DŻINNA WODY",
+      "tags": [
+        "Woda",
+        "Użytkowe"
+      ],
+      "level": 5,
+      "target": "Sześcian wody, śniegu lub lodu o krawędzi 2 metrów i punkcie początkowym w dalekim zasięgu.",
+      "duration": "1 minuta.",
+      "description": "Na koniec rundy, w której rzucasz to zaklęcie, wskazany sześcian wody, śniegu lub lodu zamienia się w dżinna wody o Rozmiarze 2. Efektów tego czaru nie możesz dobrowolnie zakończyć. Gdy przyzywasz to stworzenie, wykonaj oparty na Woli rzut na atak przeciwko jego Woli. Sukces oznacza, że na czas trwania zaklęcia istota zostaje zniewolona; porażka zaś, że staje się wobec ciebie wroga."
     }
   ]
 }

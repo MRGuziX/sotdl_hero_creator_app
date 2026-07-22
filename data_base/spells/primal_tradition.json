@@ -1,0 +1,132 @@
+{
+  "level_0": [
+    {
+      "name": "SERCE BESTII",
+      "tags": [
+        "Magia Pierwotna",
+        "Użytkowe"
+      ],
+      "level": 0,
+      "duration": "1 minuta",
+      "description": "Twoje oczy zaczynają świecić, ciało pokrywa się futrem, paznokcie zamieniają się w pazury, a zęby – w ostre kły. Na czas trwania zaklęcia zyskujesz zdolność widzenia w ciemności i premię +2 do Prędkości, a twoje ataki bez broni i z użyciem broni naturalnej zadają dodatkowe 1k6 obrażeń."
+    },
+    {
+      "name": "UKRYCIE PRZED ZWIERZĘTAMI",
+      "tags": [
+        "Magia Pierwotna",
+        "Użytkowe"
+      ],
+      "level": 0,
+      "duration": "1 minuta; patrz niżej",
+      "description": "Przez czas trwania zaklęcia jesteś ukryty przed zwierzętami. Efekt ten natychmiast dobiega końca, gdy wykonasz atak."
+    }
+  ],
+  "level_1": [
+    {
+      "name": "JĘZYK BESTII",
+      "tags": [
+        "Magia Pierwotna",
+        "Użytkowe"
+      ],
+      "level": 1,
+      "duration": "1 minuta",
+      "description": "Przez czas trwania zaklęcia możesz porozumieć się z każdym zwierzęciem, które cię słyszy."
+    },
+    {
+      "name": "ZWIERZĘCY TOWARZYSZ",
+      "tags": [
+        "Magia Pierwotna",
+        "Atak"
+      ],
+      "level": 1,
+      "target": "Jedno zwierzę w bliskim zasięgu, które widzisz.",
+      "duration": "Dopóki nie odbędziesz pełnego odpoczynku; patrz niżej.",
+      "description": "Wykonaj oparty na Woli rzut na atak przeciwko Woli celu. Jeśli jesteś pod wpływem zaklęcia język bestii, zyskujesz 1 ułatwienie. Jeśli Zdrowie zwierzęcia jest wyższe niż twoje, czar nie udaje się i tracisz jego użycie. Sukces oznacza, że cel zostaje przez ciebie zauroczony do czasu, dopóki nie odbędziesz pełnego odpoczynku. Towarzyszy ci w wyprawach i pomaga najlepiej, jak potrafi, ale pozostaje pod kontrolą MG. Możesz zauroczyć w ten sposób maksymalnie tyle zwierząt, ile wynosi twoja Moc. Jeśli rzucenie tego zaklęcia spowoduje przekroczenie limitu, stworzenie, które było zauroczone najdłużej, automatycznie wyrywa się spod działania tego efektu.",
+      "critical_success": "Rzut na atak 20+: Cel staje się permanentnie zauroczony."
+    },
+    {
+      "name": "WEZWANIE MAŁEGO ZWIERZĘCIA",
+      "tags": [
+        "Magia Pierwotna",
+        "Użytkowe"
+      ],
+      "level": 1,
+      "area": "Sześcian o krawędzi 1 metra i punkcie początkowym w średnim zasięgu, umiejscowiony na twardym podłożu.",
+      "duration": "1 godzina",
+      "description": "W obszarze działania zaklęcia pojawia się zniewolone małe lub drobne zwierzę. Drobne zwierzę może mieć jedną z następujących cech: wspinaczka, lot, pływanie lub trucizna. Zwierzę należy do gatunku typowego dla otoczenia, w którym rzucasz ten czar. Gdy jego efekt dobiega końca lub stworzenie zostanie obezwładnione, powraca ono tam, skąd przyszło."
+    }
+  ],
+  "level_2": [
+    {
+      "name": "WEZWANIE ŚREDNIEGO ZWIERZĘCIA",
+      "tags": [
+        "Magia Pierwotna",
+        "Użytkowe"
+      ],
+      "level": 2,
+      "area": "Sześcian o krawędzi 1 metra i punkcie początkowym w średnim zasięgu, umiejscowiony na twardym podłożu.",
+      "duration": "1 godzina",
+      "description": "Zaklęcie to działa tak samo, jak wezwanie małego zwierzęcia, z tą różnicą, że w obszarze jego działania pojawia się zniewolone średnie, małe lub drobne zwierzę. Małe lub drobne zwierzę może mieć jedną z następujących cech: wspinaczka, lot, pływanie lub trucizna."
+    },
+    {
+      "name": "OKRUTNA BESTIA",
+      "tags": [
+        "Magia Pierwotna",
+        "Użytkowe"
+      ],
+      "level": 2,
+      "target": "Ty lub jedno zwierzę w bliskim zasięgu.",
+      "duration": "1 minuta",
+      "description": "Cel zamienia się w dziką bestię. Na czas trwania zaklęcia jego Rozmiar zwiększa się do 1 lub o 1, jeżeli już wynosi 1 lub więcej, a jego ataki bez broni i z użyciem broni naturalnej zadają dodatkowe 1k6 obrażeń."
+    }
+  ],
+  "level_3": [
+    {
+      "name": "WEZWANIE DUŻEGO ZWIERZĘCIA",
+      "tags": [
+        "Magia Pierwotna",
+        "Użytkowe"
+      ],
+      "level": 3,
+      "area": "Sześcian o krawędzi 2 metrów i punkcie początkowym w średnim zasięgu, umiejscowiony na twardym podłożu.",
+      "duration": "1 godzina",
+      "description": "Zaklęcie to działa tak samo, jak wezwanie małego zwierzęcia, z tą różnicą, że w obszarze jego działania pojawia się zniewolone duże, średnie lub małe zwierzę. Średnie lub małe zwierzę może mieć jedną z następujących cech: wspinaczka, lot, pływanie lub trucizna."
+    },
+    {
+      "name": "ZRYW",
+      "tags": [
+        "Magia Pierwotna",
+        "Atak"
+      ],
+      "level": 3,
+      "requirements": "Musisz być pod wpływem zaklęcia serce bestii.",
+      "description": "Przemieszczasz się na odległość do tylu metrów, ile wynosi dwukrotność twojej Prędkości. W dowolnym punkcie tego ruchu możesz wykonać atak bez broni lub z użyciem broni naturalnej przeciwko celowi w bezpośrednim zasięgu, używając Woli w miejsce typowego dla tego ataku atrybutu. Sukces oznacza, że cel otrzymuje normalne obrażenia od tego ataku plus dodatkowe 4k6 obrażeń i zostaje powalony."
+    }
+  ],
+  "level_4": [
+    {
+      "name": "ZEW DZICZY",
+      "tags": [
+        "Magia Pierwotna",
+        "Użytkowe"
+      ],
+      "level": 4,
+      "target": "Do pięciu stworzeń w bliskim zasięgu.",
+      "duration": "1 minuta",
+      "description": "Cele zyskują zwierzęce cechy. Na czas trwania zaklęcia każdy z nich otrzymuje premię +10 do Zdrowia i +2 do Prędkości, a jego ataki bez broni i z użyciem broni naturalnej zadają dodatkowe 1k6 obrażeń."
+    }
+  ],
+  "level_5": [
+    {
+      "name": "WEZWANIE WIELKIEGO ZWIERZĘCIA",
+      "tags": [
+        "Magia Pierwotna",
+        "Użytkowe"
+      ],
+      "level": 5,
+      "area": "Sześcian o krawędzi 3 metrów i punkcie początkowym w średnim zasięgu, umiejscowiony na twardym podłożu.",
+      "duration": "1 godzina",
+      "description": "Zaklęcie to działa tak samo, jak wezwanie małego zwierzęcia, z tą różnicą, że w obszarze jego działania pojawia się zniewolone wielkie, duże lub średnie zwierzę. Duże lub średnie zwierzę może mieć jedną z następujących cech: wspinaczka, lot, pływanie lub trucizna."
+    }
+  ]
+}

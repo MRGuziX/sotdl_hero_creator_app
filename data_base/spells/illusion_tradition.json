@@ -1,0 +1,126 @@
+{
+  "level_0": [
+    {
+      "name": "HAŁAS",
+      "tags": [
+        "Iluzja",
+        "Użytkowe"
+      ],
+      "level": 0,
+      "target": "Punkt przestrzeni w średnim zasięgu.",
+      "duration": "1 minuta",
+      "description": "Przez czas trwania zaklęcia we wskazanym punkcie rozlega się wybrany przez ciebie dźwięk. Może to być hałas lub słowa w znanym ci języku, ciche jak szept lub głośne jak grzmot. Możesz wedle uznania zmieniać ten dźwięk, by symulować odgłos uderzających o siebie ostrzy, rozmowę czy zbliżające się i oddalające kroki."
+    },
+    {
+      "name": "PRZEBRANIE",
+      "tags": [
+        "Iluzja",
+        "Użytkowe"
+      ],
+      "level": 0,
+      "target": "Jedno stworzenie w bezpośrednim zasięgu.",
+      "duration": "1 godzina",
+      "description": "Dotykasz celu i tworzysz na nim iluzoryczne przebranie, które utrzymuje się przez czas trwania zaklęcia. Ty ustalasz, jak ono wygląda. Możesz zwiększyć lub zmniejszyć pozorny wzrost i wagę celu maksymalnie o 25%. Potrafisz też zmienić wygląd ubioru i wyposażenia istoty, ale efekt ten nie maskuje dźwięków, które normalnie wydają."
+    }
+  ],
+  "level_1": [
+    {
+      "name": "WYMYSŁ",
+      "tags": [
+        "Iluzja",
+        "Użytkowe"
+      ],
+      "level": 1,
+      "area": "Sześcian o krawędzi 2 metrów i punkcie początkowym w bliskim zasięgu, który widzisz.",
+      "duration": "1 godzina; patrz niżej",
+      "description": "W obszarze działania zaklęcia pojawia się bezgłośna iluzja stworzenia, obiektu lub zjawiska. Jeśli tworzysz iluzję istoty... [Uwaga: tekst w źródle urywa się w tym miejscu z powodu wklejonej tabeli z innego zaklęcia]."
+    },
+    {
+      "name": "ZAWROTY GŁOWY",
+      "tags": [
+        "Iluzja",
+        "Atak"
+      ],
+      "level": 1,
+      "target": "Jedno stworzenie w bliskim zasięgu.",
+      "description": "Celowi wydaje się, że jego najbliższe otoczenie zaczyna wirować. Wykonaj oparty na Intelekcie rzut na atak przeciwko Percepcji stworzenia. Sukces oznacza, że na 1 minutę ogarniają je zawroty głowy. Jeśli będąc pod wpływem zaklęcia, poruszy się podczas swojej tury o więcej niż 2 metry, musi wykonać test Zręczności. Porażka oznacza, że zostaje powalone i kończy swoją turę.",
+      "critical_success": "Rzut na atak 20+: Jeśli cel otrzyma obrażenia, będąc pod wpływem zaklęcia, zostaje także powalony."
+    }
+  ],
+  "level_2": [
+    {
+      "name": "UROJENIA",
+      "tags": [
+        "Iluzja",
+        "Użytkowe"
+      ],
+      "level": 2,
+      "area": "Sześcian o krawędzi 2 metrów i punkcie początkowym w bliskim zasięgu, który widzisz.",
+      "duration": "1 godzina; patrz niżej",
+      "description": "W obszarze działania zaklęcia pojawia się wizualna i dźwiękowa iluzja stworzenia, obiektu lub zjawiska. Jeśli nie widzisz jej na koniec rundy, efekt natychmiast dobiega końca. Jeżeli tworzysz iluzję niebezpiecznego zjawiska, takiego jak ogień czy wrząca woda, stworzenie, które wkroczy na jej przestrzeń, musi wykonać udany test Percepcji, w przeciwnym wypadku otrzymuje 2k6 obrażeń. Jeśli tworzysz iluzję stworzenia, porusza się ono i zachowuje w naturalny, wiarygodny sposób; wartości jego atrybutów, Obrony i Zdrowia równe są twojemu Intelektowi. Iluzja ignoruje wszelkie stany i znika, jeśli zostanie obezwładniona, co oznacza koniec działania czaru. Dopóki zaklęcie trwa, możesz wykorzystać akcję, by przemieścić iluzję o maksymalnie 10 metrów i zaatakować stworzenie w odległości do 1 metra od niej, które ją widzi i uznaje za prawdziwą. Wykonaj oparty na Intelekcie rzut na atak przeciwko Percepcji przeciwnika. Sukces oznacza, że jest przekonany, iż został zraniony, oparzony lub w inny sposób skrzywdzony przez iluzję, i otrzymuje 2k6 obrażeń.",
+      "critical_success": "Rzut na atak 20+: Cel otrzymuje dodatkowe 2k6 obrażeń."
+    },
+    {
+      "name": "NIEWIDZIALNOŚĆ",
+      "tags": [
+        "Iluzja",
+        "Użytkowe"
+      ],
+      "level": 2,
+      "target": "Jedno stworzenie lub obiekt w bezpośrednim zasięgu.",
+      "duration": "1 minuta",
+      "description": "Dotykasz celu, który na czas trwania zaklęcia staje się niewidzialny."
+    }
+  ],
+  "level_3": [
+    {
+      "name": "ZMYŁKA",
+      "tags": [
+        "Iluzja",
+        "Użytkowe"
+      ],
+      "level": 3,
+      "description": "Reakcja: Możesz rzucić to zaklęcie jako reakcję, gdy inne stworzenie wykona przeciwko tobie udany rzut na atak. Jego sukces zamienia się w porażkę, a ty teleportujesz się na wybraną wolną przestrzeń w bliskim zasięgu."
+    },
+    {
+      "name": "FANTOM",
+      "tags": [
+        "Iluzja",
+        "Użytkowe"
+      ],
+      "level": 3,
+      "area": "Sześcian o krawędzi 4 metrów i punkcie początkowym w dalekim zasięgu, który widzisz.",
+      "duration": "1 godzina; patrz niżej",
+      "description": "Wewnątrz obszaru działania zaklęcia pojawia się iluzja stworzenia, obiektu lub zjawiska, która pod każdym względem wydaje się prawdziwa. Jeśli nie widzisz jej na koniec rundy, efekt natychmiast dobiega końca. Jeżeli tworzysz iluzję niebezpiecznego zjawiska, takiego jak ogień czy wrząca woda, stworzenie, które wkroczy na jej przestrzeń, musi wykonać udany test Percepcji, w przeciwnym wypadku otrzymuje 3k6 obrażeń. Jeśli tworzysz iluzję stworzenia, porusza się ono i zachowuje w naturalny, wiarygodny sposób; wartości jego atrybutów, Obrony i Zdrowia równe są twojemu Intelektowi. Iluzja ignoruje wszelkie stany i znika, jeśli zostanie obezwładniona, co oznacza koniec działania czaru. Dopóki zaklęcie trwa, możesz wykorzystać akcję, by przemieścić iluzję o maksymalnie 10 metrów i zaatakować stworzenie w odległości do 1 metra od niej, które ją widzi i uznaje za prawdziwą. Wykonaj oparty na Intelekcie rzut na atak przeciwko Percepcji przeciwnika. Sukces oznacza, że jest przekonany, iż został zraniony, oparzony lub w inny sposób skrzywdzony przez iluzję, i otrzymuje 4k6 obrażeń.",
+      "critical_success": "Rzut na atak 20+: Cel otrzymuje dodatkowe 2k6 obrażeń."
+    }
+  ],
+  "level_4": [
+    {
+      "name": "MIRAŻ",
+      "tags": [
+        "Iluzja",
+        "Użytkowe"
+      ],
+      "level": 4,
+      "area": "Walec o wysokości 5 metrów, promieniu 10 metrów i punkcie początkowym w dalekim zasięgu.",
+      "duration": "Dopóki nie odbędziesz pełnego odpoczynku.",
+      "description": "W obszarze działania zaklęcia na czas jego trwania pojawia się iluzoryczny teren. Wydaje się prawdziwy pod każdym względem – wyglądu, dźwięków, zapachów i tak dalej. Możesz całkowicie zmienić wygląd istniejącego terenu lub zawrzeć jego elementy w swojej iluzji. Iluzja ta jest w stanie zupełnie zamaskować wszelkie cechy topograficzne w obszarze działania zaklęcia, łącznie z najróżniejszymi doznaniami wzrokowymi. Przykładowo zdołasz ukryć płonący ogień i rzucane przez niego światło, ale nadal będzie emitować gorąco i zadawać obrażenia stworzeniom, które się z nim zetkną.",
+      "sacrifice": "Możesz poświęcić użycie tego zaklęcia, by rzucić zaklęcie fantom.",
+      "permanent": "Jeśli zaklęcie to rzucałeś na ten sam obszar codziennie przez miesiąc i jeden dzień, jego efekt staje się permanentny."
+    }
+  ],
+  "level_5": [
+    {
+      "name": "ILUZORYCZNY SOBOWTÓR",
+      "tags": [
+        "Iluzja",
+        "Użytkowe"
+      ],
+      "level": 5,
+      "area": "Sześcian dostatecznej wielkości, by pomieścić stworzenie twojego Rozmiaru, o punkcie początkowym w bliskim zasięgu.",
+      "duration": "1 godzina; patrz niżej",
+      "description": "W obszarze działania zaklęcia tworzysz iluzoryczną kopię siebie. Jest ona identyczna z tobą pod każdym względem. Posiada twoje atrybuty zwykłe i drugorzędne. Ignoruje jednakże wszelkie stany i znika, gdy zostanie obezwładniona, co kończy efekt zaklęcia. Kiedy się poruszasz, możesz także przemieścić swoją kopię w dowolnym kierunku i w dowolny dostępny ci sposób o tyle metrów, ile wynosi twoja Prędkość. Jesteś w stanie rzucać zaklęcia z przestrzeni, którą zajmujesz, lub tej, którą zajmuje sobowtór. Gdy inne stworzenie wykona przeciwko tobie udany rzut na atak, możesz wykorzystać reakcję, by natychmiast zamienić się miejscami ze swoją kopią, która staje się wtedy celem tego ataku."
+    }
+  ]
+}

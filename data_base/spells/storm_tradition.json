@@ -1,0 +1,134 @@
+{
+  "level_0": [
+    {
+      "name": "MGŁA",
+      "tags": [
+        "Magia Burzy",
+        "Użytkowe"
+      ],
+      "level": 0,
+      "area": "Walec o wysokości 3 metrów, promieniu 5 metrów i punkcie początkowym w średnim zasięgu.",
+      "duration": "1 godzina; patrz niżej.",
+      "description": "Po obszarze działania zaklęcia rozchodzi się mgła, częściowo przesłaniając go na czas trwania czaru lub dopóki nie rozproszy jej wiatr."
+    },
+    {
+      "name": "PORAŻENIE",
+      "tags": [
+        "Magia Burzy",
+        "Atak"
+      ],
+      "level": 0,
+      "target": "Jedno stworzenie w bliskim zasięgu.",
+      "description": "Wykonaj oparty na Woli rzut na atak przeciwko Zręczności celu. Jeśli ma on na sobie metalowe przedmioty lub sam jest zrobiony z metalu, zyskujesz 1 ułatwienie. Sukces oznacza, że przeciwnik otrzymuje 1k6 obrażeń.",
+      "critical_success": "Rzut na atak 20+: Cel jest także zamroczony do końca rundy."
+    }
+  ],
+  "level_1": [
+    {
+      "name": "ROZWIDLONY PIORUN",
+      "tags": [
+        "Magia Burzy",
+        "Atak"
+      ],
+      "level": 1,
+      "target": "Do dwóch stworzeń w średnim zasięgu, które są w bliskim zasięgu od siebie.",
+      "description": "Wykonaj oparty na Woli rzut na atak przeciwko Zręczności każdego celu. Jeśli stworzenie ma na sobie metalowe przedmioty lub samo jest zrobione z metalu, zyskujesz 1 ułatwienie. Sukces oznacza, że cel otrzymuje 1k6 + 2 obrażeń.",
+      "critical_success": "Rzut na atak 20+: Cel otrzymuje dodatkowe 1k6 obrażeń."
+    },
+    {
+      "name": "SZADŹ",
+      "tags": [
+        "Magia Burzy",
+        "Atak"
+      ],
+      "level": 1,
+      "area": "Walec o wysokości 3 metrów, promieniu 5 metrów i punkcie początkowym w średnim zasięgu.",
+      "duration": "1 minuta; patrz niżej.",
+      "description": "Po obszarze działania zaklęcia rozchodzi się mgła, częściowo przesłaniając go na okres trwania czaru lub dopóki nie rozproszy jej wiatr. Podłoże w tym obszarze staje się śliskie i tak długo, jak długo działa zaklęcie, zamienia się w trudny teren. Każde stworzenie znajdujące się tam w momencie rzucenia czaru lub na koniec rundy musi wykonać test Siły. Porażka oznacza, że otrzymuje 1k3 obrażeń i ulega spowolnieniu na 1 rundę."
+    },
+    {
+      "name": "OGNIE ŚWIĘTEJ ASTRID",
+      "tags": [
+        "Magia Burzy",
+        "Użytkowe"
+      ],
+      "level": 1,
+      "target": "Do trzech stworzeń lub obiektów w bliskim zasięgu.",
+      "duration": "1 minuta.",
+      "description": "Każdy z celów spowijają nieszkodliwe, zielone płomienie. Stworzenia te i obiekty oświetlają obszar wokół siebie o promieniu 1 metra i nie mogą stać się niewidzialne ani ukryć się przed istotami, które je widzą. Wszystkie rzuty na atak przeciwko tym celom wykonywane są z 1 ułatwieniem."
+    }
+  ],
+  "level_2": [
+    {
+      "name": "PRZYWOŁANIE PIORUNA",
+      "tags": [
+        "Magia Burzy",
+        "Atak"
+      ],
+      "level": 2,
+      "requirements": "Musisz znajdować się na wolnym powietrzu.",
+      "target": "Punkt na podłożu w dalekim zasięgu.",
+      "description": "W cel uderza z nieba piorun, zadając 3k6 + 5 obrażeń wszystkiemu w promieniu 3 metrów od niego. Każde stworzenie, które otrzyma w ten sposób obrażenia, musi wykonać test Siły. Porażka oznacza, że staje się ogłuszone na 1 godzinę, a sukces, że otrzymuje tylko połowę obrażeń.",
+      "sacrifice": "Możesz poświęcić użycie tego zaklęcia, by rzucić czar rozwidlony piorun."
+    },
+    {
+      "name": "TRUJĄCA MGŁA",
+      "tags": [
+        "Magia Burzy",
+        "Atak"
+      ],
+      "level": 2,
+      "area": "Walec o wysokości 2 metrów, promieniu 5 metrów i punkcie początkowym w średnim zasięgu.",
+      "duration": "1 minuta; patrz niżej.",
+      "description": "Po obszarze działania zaklęcia rozchodzi się purpurowa mgła, znacznie przesłaniając go na okres trwania czaru lub dopóki nie rozproszy jej wiatr. Mgła ta jest cięższa od powietrza, osiada więc w szczelinach i zagłębieniach podłoża. Na koniec każdej rundy w czasie działania zaklęcia rzuć k6. Jeśli wynik jest parzysty, chmura odsuwa się o połowę wyniku w metrach od ciebie. Gdy rzucasz to zaklęcie oraz na koniec każdej rundy podczas jego trwania, wszystkie znajdujące w jego obszarze stworzenia muszą wykonać test Siły. Porażka oznacza, że dana istota otrzymuje 1k6 obrażeń i staje się zatruta na 1 rundę. Dopóki pozostaje zatruta w ten sposób, jest także unieruchomiona."
+    }
+  ],
+  "level_3": [
+    {
+      "name": "GRADOBICIE",
+      "tags": [
+        "Magia Burzy",
+        "Atak"
+      ],
+      "level": 3,
+      "area": "Walec o wysokości 2 metrów, promieniu 5 metrów i punkcie początkowym w dalekim zasięgu.",
+      "duration": "1 minuta.",
+      "description": "Po obszarze działania zaklęcia rozchodzą się chmury, częściowo przesłaniając go na okres trwania czaru, a następnie zaczyna padać z nich grad. Dopóki zaklęcie nie dobiegnie końca, stworzenia wewnątrz tego obszaru oraz w odległości do 5 metrów od jego granicy są ogłuszone. Podłoże na tym obszarze pozostaje trudnym terenem, dopóki grad nie stopnieje. W momencie rzucenia zaklęcia, a także na koniec każdej rundy przez czas jego trwania, grad zadaje 3k6 obrażeń każdemu nieosłoniętemu stworzeniu i obiektowi w obszarze działania. Wszystkie istoty, które otrzymają w ten sposób obrażenia, muszą wykonać test Zręczności. Porażka oznacza, że dane stworzenie zostaje powalone, a sukces, że otrzymuje tylko połowę obrażeń."
+    },
+    {
+      "name": "WYŁADOWANIE",
+      "tags": [
+        "Magia Burzy",
+        "Atak"
+      ],
+      "level": 3,
+      "area": "Linia o długości 30 metrów i szerokości 1 metra o punkcie początkowym w bezpośrednim zasięgu.",
+      "description": "Ładunek elektryczny przemieszcza się na odległość 5k6 metrów wzdłuż obszaru działania zaklęcia. Jeśli przed osiągnięciem końca wyznaczonej linii napotka na swej drodze mającą trwałą postać przeszkodę, odbija się od niej i powraca ku tobie w linii prostej, zużywając resztę swojego „ruchu”. Wszystko w obszarze działania zaklęcia otrzymuje 5k6 obrażeń. Każde znajdujące się tam stworzenie musi podjąć test Zręczności; jeśli jest wykonane z metalu lub ma sobie ciężką zbroję, otrzymuje 1 utrudnienie. Istota, która znajduje się na drodze powracającego pioruna, rzuca dwukrotnie. Sukces oznacza, że otrzymuje tylko połowę obrażeń."
+    }
+  ],
+  "level_4": [
+    {
+      "name": "KWAŚNY DESZCZ",
+      "tags": [
+        "Magia Burzy",
+        "Atak"
+      ],
+      "level": 4,
+      "area": "Walec o wysokości 2 metrów, promieniu 5 metrów i punkcie początkowym w dalekim zasięgu.",
+      "duration": "1 minuta.",
+      "description": "Po obszarze działania zaklęcia rozchodzą się chmury, częściowo przesłaniając go na okres trwania czaru, a następnie zaczyna padać z nich zielonkawy deszcz kwasu. W momencie rzucenia zaklęcia, a także na koniec każdej rundy przez czas jego działania, deszcz zadaje 5k6 obrażeń każdemu nieosłoniętemu stworzeniu przebywającemu na wyznaczonym obszarze. Wszystkie istoty, które otrzymają w ten sposób obrażenia, muszą wykonać test Siły, a sukces oznacza, że otrzymują tylko połowę obrażeń."
+    }
+  ],
+  "level_5": [
+    {
+      "name": "ŁAŃCUCH PIORUNÓW",
+      "tags": [
+        "Magia Burzy",
+        "Atak"
+      ],
+      "level": 5,
+      "target": "Jedno stworzenie w dalekim zasięgu; patrz niżej.",
+      "description": "Ciskasz w cel piorunem. Wykonaj oparty na Woli rzut na atak przeciwko Zręczności stworzenia. Jeśli ma ono na sobie metalowe przedmioty lub samo jest zrobione z metalu, zyskujesz 1 ułatwienie. Sukces oznacza, że przeciwnik otrzymuje 8k6 obrażeń, a ty możesz powtórzyć ten atak przeciwko innemu celowi w dalekim zasięgu od pierwszego. Za każdym razem, gdy powtarzasz atak, musisz wybrać istotę, której jeszcze nie zadałeś obrażeń tym użyciem zaklęcia, a także zmniejszyć je o 2k6. Gdy liczba kości obrażeń spadnie do 0, efekt dobiega końca."
+    }
+  ]
+}

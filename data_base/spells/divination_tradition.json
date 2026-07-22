@@ -1,0 +1,127 @@
+{
+  "level_0": [
+    {
+      "name": "PODSŁUCH",
+      "tags": [
+        "Jasnowidzenie",
+        "Użytkowe"
+      ],
+      "level": 0,
+      "duration": "Koncentracja, do 1 minuty",
+      "description": "Wskaż punkt przestrzeni w dalekim zasięgu, który widzisz. Przez czas trwania zaklęcia słyszysz dźwięki tak, jak gdybyś znajdował się we wskazanym punkcie."
+    },
+    {
+      "name": "OLŚNIENIE",
+      "tags": [
+        "Jasnowidzenie",
+        "Użytkowe"
+      ],
+      "level": 0,
+      "description": "Reakcja: Możesz rzucić to zaklęcie jako reakcję, gdy wykonujesz test lub rzut na atak. Rzut k20 wykonujesz dwukrotnie i używasz wyższego z wyników."
+    }
+  ],
+  "level_1": [
+    {
+      "name": "WIESZCZBA",
+      "tags": [
+        "Jasnowidzenie",
+        "Użytkowe"
+      ],
+      "level": 1,
+      "requirements": "Musisz posłużyć się narzędziem do wróżenia, takim jak karty, kości, fusy z herbaty, łodygi krwawnika.",
+      "duration": "Koncentracja, do 1 minuty",
+      "description": "Koncentrujesz się i używasz narzędzi do wróżenia, by zajrzeć w przyszłość. Po wskazanym czasie możesz zadać mistrzowi gry jedno pytanie, na które da się odpowiedzieć „tak” lub „nie”, a on musi odpowiedzieć zgodnie z prawdą."
+    },
+    {
+      "name": "PRZEPOWIEDNIA",
+      "tags": [
+        "Jasnowidzenie",
+        "Użytkowe"
+      ],
+      "level": 1,
+      "target": "Jedno stworzenie w bliskim zasięgu, które widzisz.",
+      "duration": "Koncentracja, do 1 minuty",
+      "description": "Przez czas trwania zaklęcia cel wykonuje rzuty na atak i testy z 3 ułatwieniami, pod warunkiem że cię słyszy."
+    },
+    {
+      "name": "PSYCHOMETRIA",
+      "tags": [
+        "Jasnowidzenie",
+        "Użytkowe"
+      ],
+      "level": 1,
+      "target": "Jeden obiekt w bezpośrednim zasięgu.",
+      "description": "Dotknij celu; dowiadujesz się 1k6 dotyczących go faktów, takich jak miejsce, w którym został wykonany; tożsamość jego poprzedniego właściciela; to, czy obiekt ten jest przeklęty, opętany lub magiczny; a także w jaki sposób poprzedni właściciel go pozyskał lub stracił."
+    }
+  ],
+  "level_2": [
+    {
+      "name": "WRÓŻBA",
+      "tags": [
+        "Jasnowidzenie",
+        "Użytkowe"
+      ],
+      "level": 2,
+      "target": "Jedno stworzenie w bezpośrednim zasięgu.",
+      "duration": "Koncentracja, do 1 minuty",
+      "description": "Koncentrujesz się i czytasz z ręki celu. Po wskazanym czasie odkrywasz wskazówki dotyczące jego przyszłości. Stworzenie zyskuje sześć omenów, które zachowuje przez 1 godzinę lub dopóki nie wykorzysta ostatniego z nich. Gdy wykonuje rzut na atak lub test, może poświęcić omen, by zyskać 2 ułatwienia."
+    },
+    {
+      "name": "PRAWDOSŁYSZENIE",
+      "tags": [
+        "Jasnowidzenie",
+        "Użytkowe"
+      ],
+      "level": 2,
+      "duration": "1 godzina",
+      "description": "Przez czas trwania zaklęcia rozumiesz każdy język, który usłyszysz, a także wiesz, kiedy ktoś mówi prawdę."
+    }
+  ],
+  "level_3": [
+    {
+      "name": "WIDZENIE PRZYSZŁOŚCI",
+      "tags": [
+        "Jasnowidzenie",
+        "Użytkowe"
+      ],
+      "level": 3,
+      "duration": "1 minuta",
+      "description": "Przez czas trwania zaklęcia twój ruch nie prowokuje darmowych ataków, rzuty na atak przeciwko tobie wykonywane są z 2 utrudnieniami, a ty otrzymujesz 2 ułatwienia do testów Zręczności w celu odparcia ataków i innych szkodliwych efektów."
+    },
+    {
+      "name": "LOKALIZACJA",
+      "tags": [
+        "Jasnowidzenie",
+        "Użytkowe"
+      ],
+      "level": 3,
+      "duration": "1 godzina; patrz niżej",
+      "description": "Koncentrujesz się przez 1 minutę, wyobrażając sobie stworzenie lub obiekt. Może to być coś konkretnego, na przykład kielich, z którego ostatnio pił król, lub coś ogólnego, na przykład pułapka. Kiedy skończysz, jesteś świadomy dokładnego położenia wybranej istoty lub przedmiotu, jeżeli znajduje się w średnim zasięgu od ciebie. Dopóki zaklęcie trwa, cel nie może zostać przed tobą ukryty. Poznajesz też ścieżkę, którą należy iść, by dotrzeć do danego obiektu lub stworzenia. Jeśli do tego samego opisu pasuje więcej niż jedna rzecz lub istota, jesteś świadomy położenia każdej z nich."
+    }
+  ],
+  "level_4": [
+    {
+      "name": "WIZJA",
+      "tags": [
+        "Jasnowidzenie",
+        "Użytkowe"
+      ],
+      "level": 4,
+      "duration": "1 godzina; patrz niżej",
+      "description": "Przez czas trwania zaklęcia odnosisz następujące korzyści:\n• W zacienionych i pogrążonych w mroku obszarach widzisz tak samo dobrze, jak w oświetlonych.\n• Widzisz rzeczy ukryte, zakamuflowane i niewidzialne.\n• Dostrzegasz aury wokół obiektów będących pod wpływem magii i automatycznie rozpoznajesz magiczne iluzje.\n• Widzisz prawdziwą postać stworzeń będących pod wpływem zaklęć Transformacji.\n• Możesz wykorzystać akcję, by skupić wzrok i spojrzeć na wskroś przez przeszkody – tak długo, jak utrzymasz koncentrację. Twój wzrok może przeszyć 1 metr drewna, 30 centymetrów kamienia lub 3 centymetry metalu."
+    }
+  ],
+  "level_5": [
+    {
+      "name": "DALEKOWIDZENIE",
+      "tags": [
+        "Jasnowidzenie",
+        "Użytkowe"
+      ],
+      "level": 5,
+      "target": "Kryształowa kula w bezpośrednim zasięgu.",
+      "duration": "Koncentracja do 1 godziny; patrz niżej",
+      "description": "Dotykasz celu i koncentrujesz się przez 1 minutę, wyobrażając sobie miejsce, które widziałeś co najmniej raz, mieszczące się w sześcianie o krawędzi około 10 metrów i znajduje się w odległości do 1,5 kilometra od ciebie. Po tym czasie kryształowa kula wypełnia się mgłą, a następnie ukazuje wyobrażone miejsce. W czasie trwania zaklęcia kula ukazuje to miejsce wszystkim, którzy w nią zajrzą."
+    }
+  ]
+}

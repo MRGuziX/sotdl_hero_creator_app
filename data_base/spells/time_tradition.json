@@ -1,0 +1,128 @@
+{
+  "level_0": [
+    {
+      "name": "OPÓŹNIENIE",
+      "tags": [
+        "Czas",
+        "Atak"
+      ],
+      "level": 0,
+      "target": "Jedno stworzenie w bliskim zasięgu, które widzisz.",
+      "description": "Wykonaj oparty na Intelekcie rzut na atak przeciwko Woli celu. Sukces oznacza, że stworzenie to zostaje spowolnione na 1 minutę.",
+      "critical_success": "Rzut na atak 20+: Cel pozostaje osłabiony, dopóki jest spowolniony tym zaklęciem."
+    },
+    {
+      "name": "POŚPIECH",
+      "tags": [
+        "Czas",
+        "Użytkowe"
+      ],
+      "level": 0,
+      "target": "Jedno stworzenie w bezpośrednim zasięgu, które nie jest wyczerpane.",
+      "duration": "1 minuta",
+      "description": "Dotykasz celu, zapewniając mu na czas trwania zaklęcia premię +10 do Prędkości. Gdy efekt czaru dobiegnie końca, stworzenie staje się wyczerpane na 1 minutę."
+    }
+  ],
+  "level_1": [
+    {
+      "name": "POMNIEJSZY PARADOKS",
+      "tags": [
+        "Czas",
+        "Atak"
+      ],
+      "level": 1,
+      "target": "Jedno stworzenie w bliskim zasięgu, które widzisz.",
+      "description": "Wykonaj oparty na Intelekcie rzut na atak przeciwko Intelektowi celu. Sukces oznacza, że stworzenie to przestaje istnieć na 1 rundę. Po tym czasie pojawia się ponownie w zajmowanej uprzednio przestrzeni lub najbliższej wolnej, jeśli okaże się ona zajęta.",
+      "critical_success": "Rzut na atak 20+: Odzyskujesz poświęcone użycie tego czaru."
+    },
+    {
+      "name": "DRUGIE PODEJŚCIE",
+      "tags": [
+        "Czas",
+        "Użytkowe"
+      ],
+      "level": 1,
+      "duration": "1 minuta",
+      "description": "Przez czas trwania zaklęcia raz na rundę możesz powtórzyć wykonany rzut. Musisz użyć nowego wyniku."
+    },
+    {
+      "name": "SPOWOLNIENIE",
+      "tags": [
+        "Czas",
+        "Atak"
+      ],
+      "level": 1,
+      "target": "Do pięciu stworzeń w średnim zasięgu.",
+      "description": "Każdy cel musi wykonać test Woli. Porażka oznacza, że zostaje spowolniony na 1 minutę."
+    }
+  ],
+  "level_2": [
+    {
+      "name": "PREDYKCJA",
+      "tags": [
+        "Czas",
+        "Użytkowe"
+      ],
+      "level": 2,
+      "duration": "1 minuta",
+      "description": "Przez czas trwania zaklęcia rzuty na atak przeciwko tobie wykonywane są z 1 utrudnieniem. Ponadto zyskujesz 1 ułatwienie we wszystkich testach podejmowanych, by odeprzeć efekty ataków."
+    },
+    {
+      "name": "PRZESKOK CZASU",
+      "tags": [
+        "Czas",
+        "Użytkowe"
+      ],
+      "level": 2,
+      "duration": "1 minuta",
+      "description": "Przenosisz się w przyszłość, znikając z zajmowanej przestrzeni. W dowolnym momencie podczas trwania zaklęcia możesz powrócić na nią lub na najbliższą wolną przestrzeń, jeśli tamta okaże się zajęta. W przeciwnym razie pojawiasz się z powrotem na koniec rundy, w której efekt tego czaru przestaje działać."
+    }
+  ],
+  "level_3": [
+    {
+      "name": "AKCELERACJA",
+      "tags": [
+        "Czas",
+        "Użytkowe"
+      ],
+      "level": 3,
+      "target": "Jedno stworzenie w bezpośrednim zasięgu.",
+      "duration": "1 minuta",
+      "description": "Dotykasz celu. Przez czas trwania zaklęcia może on w każdej rundzie podjąć zarówno turę krótką, jak i długą. Gdy efekt czaru dobiegnie końca, stworzenie staje się wyczerpane na 1k6 minut."
+    },
+    {
+      "name": "ZAHAMOWANIE",
+      "tags": [
+        "Czas",
+        "Atak"
+      ],
+      "level": 3,
+      "area": "Sfera o promieniu 3 metrów i punkcie początkowym w średnim zasięgu.",
+      "description": "Każde stworzenie we wskazanym obszarze musi wykonać udany test Woli, w przeciwnym wypadku staje się spowolnione na 1 minutę. Gdy spowolniona w ten sposób istota podejmuje turę długą, może wykorzystać akcję lub poruszyć się, ale nie obie te rzeczy naraz."
+    }
+  ],
+  "level_4": [
+    {
+      "name": "ROZDWOJENIE",
+      "tags": [
+        "Czas",
+        "Użytkowe"
+      ],
+      "level": 4,
+      "area": "Sześcian dostatecznej wielkości, by pomieścić stworzenie twojego Rozmiaru, o punkcie początkowym w odległości do tylu metrów, ile wynosi twoja Prędkość.",
+      "duration": "1 minuta; patrz niżej",
+      "description": "W obszarze działania zaklęcia pojawia się przyszła wersja ciebie, która pozostaje w teraźniejszości, dopóki czar trwa. W tym czasie w każdej rundzie zarówno ty, jak i twoja przyszła wersja możecie podjąć turę, choć paradoks waszego współistnienia w jednym momencie sprawia, że wszystkie rzuty na atak i testy wykonujecie z 1 utrudnieniem. Obie wersje ciebie mają identyczne wartości atrybutów zwykłych i drugorzędnych. Choć możecie działać osobno, na potrzeby dzielenia zasobów liczycie się jako jedno stworzenie. Jeśli jedna z wersji otrzyma obrażenia lub Szaleństwo, to samo przydarza się drugiej. Jeśli jedna z wersji poświęci użycie zaklęcia, druga również je traci. Stany i korzystne efekty nałożone na jedną z wersji wpływają na obie. Przyszły ty posiada identyczne kopie wszystkich przedmiotów, które trzymasz i masz na sobie – z kilkoma wyjątkami. Po pierwsze jeśli ty lub twój duplikat spożyjecie lub wykorzystacie przedmiot, na przykład wypijecie eliksir leczenia, tracicie obie jego kopie. Ponadto jeśli masz jakiś artefakt, musisz zdecydować, która z wersji nosi go przy sobie. Jeśli jedna z wersji zostanie obezwładniona, drugiej przytrafia się to samo. Jeśli umrzesz, twoje przyszłe „ja” znika. Gdy efekt czaru dobiega końca, ty i twoja przyszła wersja znikacie. Pojawiasz się 1 minutę później w przestrzeni, którą uprzednio zajmowała twoja przyszła wersja lub w najbliższej wolnej, jeśli okaże się ona zajęta."
+    }
+  ],
+  "level_5": [
+    {
+      "name": "PODRÓŻ W CZASIE",
+      "tags": [
+        "Czas",
+        "Użytkowe"
+      ],
+      "level": 5,
+      "description": "Wybierz punkt w czasie oddalony do 100 lat w przyszłości. Przestajesz istnieć. Kiedy czas w grze dotrze do momentu, który wybrałeś, natychmiast pojawiasz się w przestrzeni, którą uprzednio zajmowałeś lub w najbliższej wolnej, jeśli okaże się ona zajęta."
+    }
+  ]
+}

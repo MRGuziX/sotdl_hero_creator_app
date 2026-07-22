@@ -1,0 +1,128 @@
+{
+  "level_0": [
+    {
+      "name": "ODESŁANIE",
+      "tags": [
+        "Teleportacja",
+        "Użytkowe"
+      ],
+      "level": 0,
+      "target": "Jeden obiekt o Rozmiarze 1 lub mniejszym, który trzymasz.",
+      "description": "Cel teleportuje się na wolną przestrzeń w średnim zasięgu."
+    },
+    {
+      "name": "PRZYCIĄGANIE",
+      "tags": [
+        "Teleportacja",
+        "Użytkowe"
+      ],
+      "level": 0,
+      "target": "Jedien obiekt w średnim zasięgu, który da się trzymać w jednej ręce.",
+      "description": "Cel teleportuje się do twojej ręki lub ląduje u twoich stóp, jeśli obie dłonie masz zajęte."
+    }
+  ],
+  "level_1": [
+    {
+      "name": "ROZPŁATANIE",
+      "tags": [
+        "Teleportacja",
+        "Atak"
+      ],
+      "level": 1,
+      "target": "Jedno stworzenie w bliskim zasięgu, które widzisz.",
+      "description": "Wykonaj oparty na Intelekcie rzut na atak przeciwko Sile celu. Sukces oznacza, że otrzymuje on 3k6 obrażeń. Jeśli wskutek tych obrażeń zostanie obezwładniony, umiera natychmiast, a kawałki jego ciała lądują wszędzie wokół.",
+      "critical_success": "Rzut na atak 20+: Cel otrzymuje dodatkowe 1k6 obrażeń."
+    },
+    {
+      "name": "RĘKAW CZARODZIEJA",
+      "tags": [
+        "Teleportacja",
+        "Użytkowe"
+      ],
+      "level": 1,
+      "area": "Dwa sześciany o krawędzi 1 metra w średnim zasięgu.",
+      "duration": "1 minuta.",
+      "description": "W środku każdego z sześcianów otwiera się portal wielkości około 30 centymetrów, który utrzymuje się przez czas trwania zaklęcia. Portale te nie posiadają grubości; każda rzecz włożona do jednego z nich natychmiast wychodzi z drugiego. Gdy efekt czaru dobiegnie końca, portale zamykają się, potencjalnie przecinając znajdującą się w nich rzecz (decyzja należy do MG)."
+    },
+    {
+      "name": "ZAMIANA MIEJSC",
+      "tags": [
+        "Teleportacja",
+        "Użytkowe"
+      ],
+      "level": 1,
+      "target": "Jedno stworzenie w dalekim zasięgu.",
+      "description": "Ty oraz cel teleportujecie się, zamieniając pozycjami. Stawiający opór cel może wykonać test Woli, w którym sukces neguje efekt zaklęcia. Reakcja: Podczas swojej tury możesz rzucić to zaklęcie jako reakcję. Jeśli tak zrobisz, cel musi znajdować się w bliskim zasięgu."
+    }
+  ],
+  "level_2": [
+    {
+      "name": "RELOKACJA",
+      "tags": [
+        "Teleportacja",
+        "Atak"
+      ],
+      "level": 2,
+      "target": "Jedno stworzenie w bezpośrednim zasięgu.",
+      "description": "Wykonaj oparty na Intelekcie rzut na atak przeciwko Zręczności celu. Sukces oznacza, że dotykasz stworzenia i teleportujesz je na wolną przestrzeń o twardym podłożu w średnim zasięgu, którą widzisz.",
+      "critical_success": "Rzut na atak 20+: Wolna przestrzeń może znajdować się w ekstremalnym zasięgu."
+    },
+    {
+      "name": "NA SKRÓTY",
+      "tags": [
+        "Teleportacja",
+        "Użytkowe"
+      ],
+      "level": 2,
+      "description": "Teleportujesz się na wolną przestrzeń w dalekim zasięgu, którą widzisz. Reakcja: Podczas swojej tury możesz rzucić to zaklęcie jako reakcję. Jeśli tak zrobisz, wolna przestrzeń musi znajdować się w średnim zasięgu."
+    }
+  ],
+  "level_3": [
+    {
+      "name": "NIESKRĘPOWANY RUCH",
+      "tags": [
+        "Teleportacja",
+        "Użytkowe"
+      ],
+      "level": 3,
+      "duration": "1 minuta.",
+      "description": "Przez czas trwania zaklęcia podczas każdej swojej tury możesz wykorzystać reakcję, by teleportować się na wolną przestrzeń w średnim zasięgu."
+    },
+    {
+      "name": "SPOJENIE",
+      "tags": [
+        "Teleportacja",
+        "Atak"
+      ],
+      "level": 3,
+      "target": "Jedno stworzenie w średnim zasięgu.",
+      "description": "Wykonaj oparty na Intelekcie rzut na atak przeciwko Woli celu. Sukces oznacza, że stworzenie teleportuje się na wolną przestrzeń o twardym podłożu w średnim zasięgu od ciebie i częściowo spaja się z tym podłożem. Otrzymuje 6k6 obrażeń i zostaje unieruchomione. Jedynymi sposobami pozbycia się tego stanu jest albo zniszczenie obiektu, z którym zespolił się cel, albo wykorzystanie akcji, by odciąć uwięzioną w ten sposób kończynę (zadając istocie obrażenia równe dwukrotności jej Szybkości Zdrowienia).",
+      "critical_success": "Rzut na atak 20+: Cel otrzymuje dodatkowe 2k6 obrażeń i jest oszołomiony przez 1 rundę."
+    }
+  ],
+  "level_4": [
+    {
+      "name": "BLIŹNIACZE PORTALE",
+      "tags": [
+        "Teleportacja",
+        "Użytkowe"
+      ],
+      "level": 4,
+      "area": "Dwa sześciany o krawędzi 2 metrów, jeden o punkcie początkowym w bezpośrednim zasięgu, a drugi w ekstremalnym zasięgu.",
+      "duration": "1 minuta.",
+      "description": "W środku każdego z sześcianów otwiera się portal, który utrzymuje się przez czas trwania zaklęcia. Każdy z nich ma szerokość 1 metra i wysokość 2 metrów; nie posiada grubości, ale ma przód i tył i może być ustawiony w dowolnym kierunku. Wszystko, co wejdzie od przodu do jednego portalu, natychmiast wychodzi na wolną przestrzeń z tyłu drugiego i vice versa."
+    }
+  ],
+  "level_5": [
+    {
+      "name": "WĘDRÓWKA",
+      "tags": [
+        "Teleportacja",
+        "Użytkowe"
+      ],
+      "level": 5,
+      "target": "Do pięciu niestawiających oporu stworzeń w bezpośrednim zasięgu.",
+      "description": "Dotykasz każdego ze stworzeń i nazywasz miejsce docelowe. Wykonaj test Intelektu. Zależnie od tego, jak dobrze je znasz, MG może nałożyć na ten test 1 lub więcej utrudnień. Jeśli nazwiesz miejsce, które nie istnieje, zaklęcie nie udaje się i tracisz jego użycie. Sukces oznacza, że stworzenia teleportują się do wskazanej lokalizacji. Porażka oznacza, że każda istota teleportuje się osobno do wybranej przez MG okolicy oddalonej o 1k20 kilometrów od miejsca docelowego. Jeśli całkowity wynik rzutu wyniesie 0 lub mniej, wszystkie stworzenia otrzymują 10k6 obrażeń i zyskują 1 punkt Szaleństwa. Jeżeli we wskazanej lokalizacji nie ma na tyle wolnej przestrzeni, żeby pomieścić dany cel, otrzymuje on 5k6 obrażeń, zyskuje 1 punkt Szaleństwa i powraca w miejsce startowe. Jeśli obrażenia te skutkują obezwładnieniem postaci, umiera ona natychmiast po przybyciu, zamieniając się w krwawą miazgę z kości i tkanki. Jeśli przestrzeń docelowa nie jest wolna – na przykład znajduje się wewnątrz muru – cel ulega spojeniu z wypełniającym ją materiałem i natychmiast umiera."
+    }
+  ]
+}

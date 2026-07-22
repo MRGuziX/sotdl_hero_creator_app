@@ -1,0 +1,135 @@
+{
+    "level_0": [
+        {
+            "name": "PRZEKLEŃSTWO",
+            "tags": [
+                "Klątwy",
+                "Atak"
+            ],
+            "level": 0,
+            "target": "Jedno stworzenie w bliskim zasięgu, które jest w stanie cię zobaczyć.",
+            "description": "Wykonaj oparty na Intelekcie rzut na atak przeciwko Woli celu. Sukces oznacza, że ofiara zostaje przeklęta na 1 minutę lub dopóki nie otrzyma obrażeń. Staje się wtedy osłabiona, a ty rzuty na atak przeciwko niej wykonujesz z 1 ułatwieniem.",
+            "critical_success": "Rzut na atak 20+: Cel staje się także zamroczony na 1 rundę."
+        },
+        {
+            "name": "KIŁA",
+            "tags": [
+                "Klątwy",
+                "Atak"
+            ],
+            "level": 0,
+            "target": "Jedno żywe stworzenie w bliskim zasięgu.",
+            "description": "Wykonaj oparty na Intelekcie rzut na atak przeciwko Sile celu. Sukces oznacza, że na ciele ofiary wykwitają zielone, wilgotne pęcherze. Otrzymuje ona 1k3 obrażeń od choroby i staje się przestraszona na 1 rundę.",
+            "critical_success": "Rzut na atak 20+: Cel staje się przestraszony na 1 minutę."
+        }
+    ],
+    "level_1": [
+        {
+            "name": "PRZESTRACH",
+            "tags": [
+                "Klątwy",
+                "Atak"
+            ],
+            "level": 1,
+            "target": "Jedno stworzenie w bliskim zasięgu, które jest w stanie cię zobaczyć.",
+            "description": "Wykonaj oparty na Intelekcie rzut na atak przeciwko Woli celu. Sukces oznacza, że ofiara zostaje przestraszona na 1 minutę. W tym czasie może wykorzystać akcję, by wykonać test Woli, a uzyskanie sukcesu pozwoli jej pozbyć się tego stanu.",
+            "critical_success": "Rzut na atak 20+: Przestraszony w ten sposób cel staje się także osłabiony."
+        },
+        {
+            "name": "OKULAWIENIE",
+            "tags": [
+                "Klątwy",
+                "Atak"
+            ],
+            "level": 1,
+            "target": "Jedno stworzenie w bliskim zasięgu.",
+            "description": "Wykonaj oparty na Intelekcie rzut na atak przeciwko Sile celu. Sukces oznacza, że ofiara zostaje spowolniona na 1 minutę.",
+            "critical_success": "Rzut na atak 20+: Cel zostaje także powalony i nie może podnieść się, dopóki jest spowolniony tym zaklęciem."
+        },
+        {
+            "name": "BÓL",
+            "tags": [
+                "Klątwy",
+                "Atak"
+            ],
+            "level": 1,
+            "target": "Jedno stworzenie w bliskim zasięgu.",
+            "description": "Wykonaj oparty na Intelekcie rzut na atak przeciwko Sile celu. Sukces oznacza, że przez 1 minutę za każdym razem, gdy ofiara otrzyma obrażenia, dostaje ich dodatkowe 1k6.",
+            "critical_success": "Rzut na atak 20+: Dodatkowo przez 1 minutę za każdym razem, gdy cel otrzyma obrażenia, staje się zamroczony na 1 rundę."
+        }
+    ],
+    "level_2": [
+        {
+            "name": "PODATNOŚĆ",
+            "tags": [
+                "Klątwy",
+                "Atak"
+            ],
+            "level": 2,
+            "target": "Jedno stworzenie w średnim zasięgu.",
+            "description": "Wykonaj oparty na Intelekcie rzut na atak przeciwko Sile celu. Sukces oznacza, że ofiara zostaje przeklęta na 1 minutę. W tym czasie wszystkie rzuty na atak przeciwko niej wykonywane są z 1 ułatwieniem, a ona sama wszystkie testy w celu odparcia efektów ataków wykonuje z 1 utrudnieniem.",
+            "critical_success": "Rzut na atak 20+: Klątwa ta trwa, dopóki żyjesz lub dopóki jej nie zdejmiesz."
+        },
+        {
+            "name": "SŁABOŚĆ",
+            "tags": [
+                "Klątwy",
+                "Atak"
+            ],
+            "level": 2,
+            "target": "Jedno stworzenie w średnim zasięgu.",
+            "description": "Wykonaj oparty na Intelekcie rzut na atak przeciwko Sile celu. Sukces oznacza, że ofiara zostaje przeklęta na 1 minutę. Otrzymuje wtedy karę -10 do Zdrowia, a wszystkie oparte na Sile lub Zręczności rzuty na atak i testy wykonuje z 1 utrudnieniem.",
+            "critical_success": "Rzut na atak 20+: Klątwa ta trwa, dopóki żyjesz lub dopóki jej nie zdejmiesz."
+        }
+    ],
+    "level_3": [
+        {
+            "name": "TRWOGA",
+            "tags": [
+                "Klątwy",
+                "Atak"
+            ],
+            "level": 3,
+            "area": "Stożek długości 10 metrów o punkcie początkowym w bezpośrednim zasięgu.",
+            "description": "Wewnątrz obszaru działania zaklęcia rozchodzi się fala grozy. Każda znajdująca się na jej drodze istota musi wykonać udany test Woli, w przeciwnym wypadku staje się przestraszona na 1 minutę. Przestraszone w ten sposób stworzenie musi w każdej rundzie podjąć turę krótką, w której wykorzystuje swoją akcję na ucieczkę przed tobą po najbezpieczniejszej dostępnej drodze. Na koniec każdej rundy, jeśli ofiara cię nie widzi, może wykonać test Woli, a przy sukcesie pozbywa się tego stanu."
+        },
+        {
+            "name": "WIEPRZ",
+            "tags": [
+                "Klątwy",
+                "Atak"
+            ],
+            "level": 3,
+            "target": "Do trzech żywych stworzeń w średnim zasięgu, które widzisz.",
+            "duration": "1 minuta; patrz niżej.",
+            "description": "Każdy cel musi wykonać test Siły. Porażka oznacza, że na czas trwania zaklęcia zostaje zamieniony w wieprza (małe zwierzę) wraz ze wszystkim, co ma przy sobie. W tej postaci jest przestraszony i musi w każdej rundzie podjąć turę krótką, w której wykorzystuje swoją akcję na ucieczkę przed tobą po najbezpieczniejszej dostępnej drodze. Efekt zaklęcia zostaje zakończony natychmiast, gdy tylko ofiara otrzyma obrażenia."
+        }
+    ],
+    "level_4": [
+        {
+            "name": "ROPUCHA",
+            "tags": [
+                "Klątwy",
+                "Atak"
+            ],
+            "level": 4,
+            "target": "Jedno żywe stworzenie w średnim zasięgu, które widzisz.",
+            "duration": "Koncentracja do 1 minuty; patrz niżej.",
+            "description": "Wykonaj oparty na Intelekcie rzut na atak przeciwko Sile celu – z 3 ułatwieniami, jeśli jego Zdrowie wynosi 40 lub mniej. Sukces oznacza, że ofiara zamienia się w nieszkodliwą ropuchę (drobne zwierzę) i pozostaje w tej postaci, dopóki utrzymujesz koncentrację (maksymalnie na 1 minutę). Jeśli przez czas działania zaklęcia nic nie przerwie twojej koncentracji, klątwa ta trwa, dopóki żyjesz lub dopóki nie poświęcisz akcji, aby ją zdjąć. Zostaje jednak przełamana, gdy ropuchę z własnej woli pocałuje dziewica.",
+            "critical_success": "Rzut na atak 20+: Nie trzeba spełnić żadnych warunków, aby klątwa trwała, dopóki żyjesz lub dopóki sam nie poświęcisz akcji na jej zdjęcie, mając cel w średnim zasięgu."
+        }
+    ],
+    "level_5": [
+        {
+            "name": "PETRYFIKACJA",
+            "tags": [
+                "Klątwy",
+                "Atak"
+            ],
+            "level": 5,
+            "target": "Jedno stworzenie w średnim zasięgu, które posiada fizyczną postać.",
+            "description": "Wykonaj oparty na Intelekcie rzut na atak przeciwko Sile celu – z 3 ułatwieniami, jeśli jego Zdrowie wynosi 50 lub mniej. Sukces oznacza, że ofiara otrzymuje 7k6 + 10 obrażeń i staje się spowolniona na 1 minutę. Jeśli obrażenia te spowodują obezwładnienie stworzenia, natychmiast ono umiera, a jego ciało zamienia się w kamienny posąg.",
+            "critical_success": "Rzut na atak to 20+: Cel otrzymuje dodatkowe 3k6 obrażeń."
+        }
+    ]
+}

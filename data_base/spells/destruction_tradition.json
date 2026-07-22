@@ -1,0 +1,129 @@
+{
+  "level_0": [
+    {
+      "name": "PĘKNIĘCIE",
+      "tags": [
+        "Zniszczenie",
+        "Atak"
+      ],
+      "level": 0,
+      "target": "Jeden obiekt o Rozmiarze 1/2 lub mniejszym w bliskim zasięgu.",
+      "description": "Otrzymujesz 1 punkt obrażeń. Cel otrzymuje liczbę obrażeń równą swojemu Zdrowiu."
+    },
+    {
+      "name": "RUINA",
+      "tags": [
+        "Zniszczenie",
+        "Atak"
+      ],
+      "level": 0,
+      "target": "Jedno stworzenie lub obiekt w bliskim zasięgu.",
+      "description": "Otrzymujesz 1 punkt obrażeń. Cel otrzymuje 1k6 obrażeń. Jeśli jest to stworzenie, musi wykonać test Siły; w przypadku porażki staje się wyczerpane na 1 minutę."
+    }
+  ],
+  "level_1": [
+    {
+      "name": "ROZPUSZCZENIE",
+      "tags": [
+        "Zniszczenie",
+        "Atak"
+      ],
+      "level": 1,
+      "target": "Jedno stworzenie w bezpośrednim zasięgu posiadające fizyczną postać.",
+      "description": "Otrzymujesz 2 punkty obrażeń. Wykonaj oparty na Woli rzut na atak przeciwko Sile celu. Sukces oznacza, że przeciwnik otrzymuje 1k6 + 1 obrażeń od twojego żrącego dotyku i staje się osłabiony na 1 minutę. Jeśli obrażenia te spowodują obezwładnienie celu, umiera on natychmiast, jego ciało zamienia się w maź, a wszystkie posiadane przedmioty pozostają na ziemi w przestrzeni, którą zajmował.",
+      "critical_success": "Rzut na atak to 20+: Cel otrzymuje dodatkowe 1k6 obrażeń."
+    },
+    {
+      "name": "ROZDARCIE",
+      "tags": [
+        "Zniszczenie",
+        "Atak"
+      ],
+      "level": 1,
+      "target": "Jedno stworzenie w bliskim zasięgu, które widzisz.",
+      "description": "Otrzymujesz 2 punkty obrażeń. Wykonaj oparty na Woli rzut na atak przeciwko Zręczności celu. Sukces oznacza, że przeciwnik otrzymuje 3k6 + 1 obrażeń.",
+      "critical_success": "Rzut na atak 20+: Cel otrzymuje dodatkowe 2k6 obrażeń."
+    },
+    {
+      "name": "ROZTRZASKANIE",
+      "tags": [
+        "Zniszczenie",
+        "Atak"
+      ],
+      "level": 1,
+      "target": "Jeden wykonany ze szkła, metalu lub kamienia obiekt w średnim zasięgu, który widzisz.",
+      "description": "Otrzymujesz 2 punkty obrażeń, a cel – 3k6 obrażeń. Jeśli obrażenia te powodują zniszczenie obiektu, rozpryskuje się on, zadając odłamkami 1k6 obrażeń wszystkiemu w promieniu 2 metrów od punktu początkowego w zajmowanej przez siebie przestrzeni. Stworzenia na tym obszarze, którym powiedzie się test Zręczności, otrzymują tylko połowę obrażeń."
+    }
+  ],
+  "level_2": [
+    {
+      "name": "MOC ENTROPII",
+      "tags": [
+        "Zniszczenie",
+        "Użytkowe"
+      ],
+      "level": 2,
+      "duration": "1 minuta.",
+      "description": "Otrzymujesz 3 punkty obrażeń. W trakcie trwania tego czaru stworzenia, które atakujesz zaklęciami, otrzymują dodatkowe 1k6 obrażeń. Reakcja: Gdy rzucasz zaklęcie ataku, które zadaje obrażenia, możesz wykorzystać reakcję, by rzucić również ten czar, ale jego efekt trwa tylko do końca rundy. Jeśli pierwsze zaklęcie zada obrażenia, cel otrzymuje dodatkowe 2k6 obrażeń."
+    },
+    {
+      "name": "EROZJA",
+      "tags": [
+        "Zniszczenie",
+        "Atak"
+      ],
+      "level": 2,
+      "target": "Jedno posiadające fizyczną postać stworzenie w bliskim zasięgu, które widzisz.",
+      "description": "Otrzymujesz 3 punkty obrażeń. Wykonaj oparty na Woli rzut na atak przeciwko Zręczności celu. Sukces oznacza, że przeciwnik zostaje osłabiony na 1 minutę. Na koniec każdej rundy, w której jest osłabiony tym zaklęciem, otrzymuje 1k6 obrażeń.",
+      "critical_success": "Rzut na atak 20+: Cel otrzymuje dodatkowe 1k6 obrażeń na koniec każdej rundy, w której jest osłabiony tym zaklęciem."
+    }
+  ],
+  "level_3": [
+    {
+      "name": "DETONACJA",
+      "tags": [
+        "Zniszczenie",
+        "Atak"
+      ],
+      "level": 3,
+      "target": "Jeden obiekt o Rozmiarze 1 lub mniejszym w średnim zasięgu, który widzisz. Celem nie może być obiekt, który kiedykolwiek był stworzeniem.",
+      "description": "Otrzymujesz 4 punkty obrażeń. Cel otrzymuje liczbę obrażeń równą swojemu Zdrowiu, a następnie eksploduje chmurą odłamków w promieniu 4 metrów z punktu początkowego w zajmowanej przez siebie przestrzeni, zadając 6k6 obrażeń wszystkiemu wewnątrz tego obszaru. Znajdujące się tam stworzenia, którym powiedzie się test Zręczności, otrzymują tylko połowę obrażeń."
+    },
+    {
+      "name": "WYPAROWANIE",
+      "tags": [
+        "Zniszczenie",
+        "Atak"
+      ],
+      "level": 3,
+      "target": "Jeden obiekt lub posiadające fizyczną postać stworzenie w bezpośrednim zasięgu.",
+      "description": "Otrzymujesz 4 punkty obrażeń. Wykonaj oparty na Woli rzut na atak przeciwko Zręczności celu. Sukces oznacza, że otrzymuje on 6k6 obrażeń i zaczyna wyparowywać. Zniszczony w ten sposób obiekt zamienia się w obłok drobnego pyłu. Stworzenie obezwładnione wskutek tych obrażeń natychmiast umiera i zamienia się w karmazynową chmurę, przez 1 rundę częściowo przesłaniającą przestrzeń, w której się znajdowało.",
+      "critical_success": "Rzut na atak 20+: Cel otrzymuje dodatkowe 2k6 obrażeń."
+    }
+  ],
+  "level_4": [
+    {
+      "name": "DESTRUKCJA",
+      "tags": [
+        "Zniszczenie",
+        "Atak"
+      ],
+      "level": 4,
+      "target": "Jedno stworzenie lub obiekt o Rozmiarze 3 lub mniejszym w średnim zasięgu, które widzisz.",
+      "description": "Otrzymujesz 5 punktów obrażeń. Cel otrzymuje 30 punktów obrażeń."
+    }
+  ],
+  "level_5": [
+    {
+      "name": "DEZINTEGRACJA",
+      "tags": [
+        "Zniszczenie",
+        "Atak"
+      ],
+      "level": 5,
+      "target": "Jeden przedmiot lub posiadające fizyczną postać stworzenie w dalekim zasięgu, które widzisz.",
+      "description": "Otrzymujesz 6 punktów obrażeń. Wykonaj oparty na Woli rzut na atak przeciwko Zręczności celu. Sukces oznacza, że otrzymuje on 9k6 obrażeń. Stworzenie obezwładnione wskutek tych obrażeń natychmiast umiera i w przestrzeni, którą zajmowało, pojawia się mała kupka pyłu.",
+      "critical_success": "Rzut na atak to 20+: Cel otrzymuje dodatkowe 3k6 obrażeń."
+    }
+  ]
+}

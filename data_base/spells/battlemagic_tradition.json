@@ -1,0 +1,118 @@
+{
+  "level_0": [
+    {
+      "name": "ZESPOLONY ATAK",
+      "tags": [
+        "Magia Bitewna",
+        "Atak"
+      ],
+      "level": 0,
+      "description": "Rzucając to zaklęcie, wykonaj atak z użyciem broni i rzuć kośćmi z 1 ułatwieniem. Możesz także użyć Intelektu w miejsce typowego dla tego ataku atrybutu."
+    },
+    {
+      "name": "PRZYSPIESZENIE",
+      "tags": [
+        "Magia Bitewna",
+        "Użytkowe"
+      ],
+      "level": 0,
+      "description": "Przemieszczasz się na odległość wynoszącą maksymalnie dwukrotność twojej Prędkości. Ruch ten nie prowokuje darmowych ataków. Reakcja: Podczas swojej tury możesz rzucić to zaklęcie jako reakcję. Jeśli tak zrobisz, przemieszczasz się na odległość mniejszą lub równą twojej Prędkości, nie prowokując darmowych ataków."
+    }
+  ],
+  "level_1": [
+    {
+      "name": "ZASKLEPIENIE RAN",
+      "tags": [
+        "Magia Bitewna",
+        "Użytkowe"
+      ],
+      "level": 1,
+      "description": "Leczysz tyle punktów obrażeń, ile wynosi twoja Szybkość Zdrowienia. Reakcja: Podczas swojej tury możesz rzucić to zaklęcie jako reakcję. Jeśli tak zrobisz, leczysz liczbę punktów obrażeń równą połowie twojej Szybkości Zdrowienia."
+    },
+    {
+      "name": "POTĘŻNY ATAK",
+      "tags": [
+        "Magia Bitewna",
+        "Atak"
+      ],
+      "level": 1,
+      "description": "Rzucając to zaklęcie, wykonaj atak z użyciem broni i z 1 ułatwieniem. Możesz także użyć Intelektu w miejsce typowego dla tego ataku atrybutu. Sukces oznacza, że cel otrzymuje dodatkowe 2k6 obrażeń."
+    },
+    {
+      "name": "WSTRZĄSAJĄCY ATAK",
+      "tags": [
+        "Magia Bitewna",
+        "Atak"
+      ],
+      "level": 1,
+      "description": "Rzucając to zaklęcie, wykonaj atak z użyciem broni i z 1 ułatwieniem. Możesz także użyć Intelektu w miejsce typowego dla tego ataku atrybutu. Sukces oznacza, że cel otrzymuje obrażenia jak przy normalnym ataku i staje się zamroczony na 1 rundę."
+    }
+  ],
+  "level_2": [
+    {
+      "name": "WIR ŚMIERCI",
+      "tags": [
+        "Magia Bitewna",
+        "Atak"
+      ],
+      "level": 2,
+      "target": "Każde wybrane przez ciebie stworzenie w bezpośrednim zasięgu.",
+      "description": "Wykonujesz wokół siebie szeroki zamach bronią, zadając każdemu celowi 3k6 + 3 obrażeń zamiast normalnej wartości przypisanej do danego oręża. Każdy cel, który wykona udany test Zręczności, otrzymuje tylko połowę tych obrażeń."
+    },
+    {
+      "name": "DRUZGOCĄCY SKOK",
+      "tags": [
+        "Magia Bitewna",
+        "Atak"
+      ],
+      "level": 2,
+      "description": "Przemieszczasz się lotem na wysokość wynoszącą dwukrotność swojej Prędkości, po czym lądujesz. Z miejsca lądowania, z punktu początkowego w twojej przestrzeni, rozchodzi się fala uderzeniowa o promieniu 4 metrów. Każde stworzenie stojące na podłożu musi wykonać test Zręczności. Porażka oznacza, że otrzymuje 2k6 obrażeń i zostaje powalone."
+    }
+  ],
+  "level_3": [
+    {
+      "name": "SPRAWNOŚĆ BOJOWA",
+      "tags": [
+        "Magia Bitewna",
+        "Użytkowe"
+      ],
+      "level": 3,
+      "duration": "1 minuta.",
+      "description": "Zwiększasz swoją skuteczność w walce. Przez czas trwania zaklęcia, gdy atakujesz z użyciem broni, rzut na atak wykonujesz dwukrotnie i używasz lepszego wyniku, a także zadajesz dodatkowe 1k6 obrażeń."
+    },
+    {
+      "name": "BŁYSKAWICZNY SZTURM",
+      "tags": [
+        "Magia Bitewna",
+        "Atak"
+      ],
+      "level": 3,
+      "description": "Przemieszczasz się w linii prostej na odległość wynoszącą maksymalnie dwukrotność twojej Prędkości. Podczas tego ruchu możesz wykonać jeden atak bronią przeciwko każdemu stworzeniu, które znajdzie się w bezpośrednim zasięgu, zadając dodatkowe 1k6 obrażeń. Otrzymujesz 1 utrudnienie do wszystkich rzutów na atak poza pierwszym; wolno ci też użyć Intelektu w miejsce typowego dla nich atrybutu."
+    }
+  ],
+  "level_4": [
+    {
+      "name": "ŚCIANA MIECZY",
+      "tags": [
+        "Magia Bitewna",
+        "Atak"
+      ],
+      "level": 4,
+      "area": "Linia o długości 20 metrów, wysokości 5 metrów i szerokości 2 metrów o punkcie początkowym w dalekim zasięgu.",
+      "duration": "1 godzina.",
+      "description": "W obszarze działania zaklęcia na czas jego trwania powstaje ściana tnących ostrzy. Zapewnia ona całkowitą osłonę wszystkiemu, co znajduje się za nią. Gdy ostrza się pojawiają, wszystko wewnątrz tego obszaru otrzymuje 5k6 obrażeń. Każde stworzenie, które wykona udany test Zręczności, otrzymuje tylko połowę tych obrażeń. Stworzenia mogą przemieszczać się przez obszar działania zaklęcia jak po trudnym terenie. Gdy istota wkroczy na niego z zewnątrz lub jeśli znajduje się w nim na koniec rundy, musi wykonać udany test Zręczności, w przeciwnym wypadku otrzymuje 3k6 obrażeń."
+    }
+  ],
+  "level_5": [
+    {
+      "name": "NAWAŁNICA CIOSÓW",
+      "tags": [
+        "Magia Bitewna",
+        "Atak"
+      ],
+      "level": 5,
+      "area": "Sfera o promieniu równym połowie twojej Prędkości i punkcie początkowym w bezpośrednim zasięgu.",
+      "description": "Poruszając się z zawrotną prędkością, wyprowadzasz serię brutalnych ataków. Każde wybrane przez ciebie stworzenie wewnątrz obszaru działania zaklęcia musi wykonać test Zręczności z 1 utrudnieniem. Porażka oznacza, że otrzymuje ono 4k6 + 3 obrażeń. Następnie poruszasz się o połowę swojej Prędkości. Ruch ten nie prowokuje darmowych ataków."
+    }
+  ]
+}

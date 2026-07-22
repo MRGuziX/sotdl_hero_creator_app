@@ -1,0 +1,122 @@
+{
+  "level_0": [
+    {
+      "name": "PŁYNNA POSTAĆ",
+      "tags": [
+        "Transformacja",
+        "Użytkowe"
+      ],
+      "level": 0,
+      "duration": "1 minuta.",
+      "description": "Przez czas trwania zaklęcia możesz przemieszczać się swobodnie przez przestrzeń zajętą przez inne stworzenia, niezależnie od ich Rozmiaru."
+    },
+    {
+      "name": "MASKA",
+      "tags": [
+        "Transformacja",
+        "Użytkowe"
+      ],
+      "level": 0,
+      "duration": "1 godzina; patrz niżej.",
+      "description": "Odmieniasz swoje ciało tak, by przybrać wygląd innej osoby na czas trwania zaklęcia lub dopóki nie stracisz przytomności. Możesz zmniejszyć lub zwiększyć swój wzrost o maksymalnie 30 centymetrów, wagę o maksymalnie jedną czwartą, a także dokonać innych kosmetycznych zmian. Twoje atrybuty zwykłe i drugorzędne oraz zdolności pozostają takie same, nie jesteś też w stanie zmienić swojego pochodzenia."
+    }
+  ],
+  "level_1": [
+    {
+      "name": "ZWIERZĘCA POSTAĆ",
+      "tags": [
+        "Transformacja",
+        "Użytkowe"
+      ],
+      "level": 1,
+      "duration": "1 minuta.",
+      "description": "Na czas trwania czaru przybierasz formę średniego, małego lub drobnego zwierzęcia. Jeśli zmienisz się w drobne zwierzę, możesz zyskać jedną z następujących cech: wspinaczka, lot lub pływanie."
+    },
+    {
+      "name": "SPRĘŻYSTY KROK",
+      "tags": [
+        "Transformacja",
+        "Użytkowe"
+      ],
+      "level": 1,
+      "duration": "1 minuta.",
+      "description": "Na czas trwania zaklęcia zyskujesz premię +4 do Prędkości i możesz wykorzystać akcję, by skoczyć na odległość 3k6 metrów i bezpiecznie wylądować."
+    },
+    {
+      "name": "TRZEPOT",
+      "tags": [
+        "Transformacja",
+        "Użytkowe"
+      ],
+      "level": 1,
+      "description": "Zamieniasz się w stado szpaków i przemieszczasz lotem maksymalnie na dwukrotność twojej Prędkości, nie prowokując darmowych ataków; możesz przemieszczać się swobodnie przez przestrzeń zajętą przez inne stworzenia niezależnie od ich Rozmiaru. Na zakończenie tego ruchu powracasz do swojej normalnej postaci. Reakcja: Gdy otrzymasz obrażenia, możesz rzucić to zaklęcie, wykorzystując reakcję. Jeśli tak zrobisz, otrzymujesz tylko połowę obrażeń od aktywującego ataku i jesteś w stanie przemieścić się o połowę swojej Prędkości tak, jak opisano wyżej."
+    }
+  ],
+  "level_2": [
+    {
+      "name": "ULEPSZONA ZWIERZĘCA POSTAĆ",
+      "tags": [
+        "Transformacja",
+        "Użytkowe"
+      ],
+      "level": 2,
+      "duration": "1 godzina.",
+      "description": "Na czas trwania czaru przybierasz formę dużego, średniego, małego lub drobnego zwierzęcia. Jeśli zmienisz się w małe lub drobne zwierzę, możesz zyskać jedną z następujących cech: wspinaczka, lot lub pływanie."
+    },
+    {
+      "name": "ZAMIANA W OBIEKT",
+      "tags": [
+        "Transformacja",
+        "Użytkowe"
+      ],
+      "level": 2,
+      "duration": "Koncentracja, do 8 godzin.",
+      "description": "Na czas trwania zaklęcia przybierasz formę obiektu swojego lub mniejszego Rozmiaru i stajesz się fizycznie nie do odróżnienia od niego. Ty decydujesz, jak wygląda twoja nowa postać. Dopóki czar działa, nie możesz mówić, a jedyną akcją, jaką potrafisz podjąć, jest koncentracja na tym zaklęciu. Zachowujesz jednak wszystkie zmysły i postrzegasz swoje otoczenie. Efekt ten natychmiast dobiega końca, gdy otrzymasz obrażenia."
+    }
+  ],
+  "level_3": [
+    {
+      "name": "FORMA MGŁY",
+      "tags": [
+        "Transformacja",
+        "Użytkowe"
+      ],
+      "level": 3,
+      "duration": "Koncentracja, do 1 godziny.",
+      "description": "Na czas trwania zaklęcia przybierasz formę obłoku mgły swojego Rozmiaru. Zapewnia ci ona następujące korzyści i niedogodności:\n• Jesteś niewrażliwy na obrażenia.\n• Ignorujesz efekty ataków przeciwko twojej Sile lub wymagające testu Siły.\n• Zyskujesz zdolność lotu i jesteś w stanie przenikać przez otwory o szerokości pozwalającej na przepływ powietrza, ale nie możesz zajmować przestrzeni wypełnionych cieczami – liczą się dla ciebie jak ciała stałe.\n• Nie możesz spadać. Jesteś niewrażliwy na pochwycenie, unieruchomienie, powalenie i spowolnienie.\n• Nie możesz mówić, wykonywać akcji, rzucać zaklęć ani używać obiektów.\nJeśli na koniec rundy znajdujesz się na obszarze, gdzie wieje wiatr, zostajesz przemieszczony o 2k6 metrów w kierunku ruchu powietrza i otrzymujesz kumulującą się karę -5 do Zdrowia, która utrzymuje się, dopóki nie powrócisz do swojej naturalnej postaci."
+    },
+    {
+      "name": "PRZYSPIESZONE LECZENIE",
+      "tags": [
+        "Transformacja",
+        "Użytkowe"
+      ],
+      "level": 3,
+      "description": "Kiedy rzucasz to zaklęcie, musisz utrzymać koncentrację przez 1 minutę. Jeśli nic jej nie przerwie, to po tym czasie leczysz tyle punktów obrażeń, ile wynosi dwukrotność twojej Szybkości Zdrowienia, a także pozbywasz się następujących stanów: chorób, wyczerpania i zatrucia."
+    }
+  ],
+  "level_4": [
+    {
+      "name": "METALLICUS",
+      "tags": [
+        "Transformacja",
+        "Użytkowe"
+      ],
+      "level": 4,
+      "duration": "1 minuta.",
+      "description": "Twoje ciało staje się zahartowane jak metal. Na czas trwania zaklęcia twoja Obrona wynosi 20, zyskujesz premię +10 do Zdrowia, jesteś niewrażliwy na uśpienie, oślepienie, ogłuszenie, chorobę, wyczerpanie i zatrucie, a także nie możesz zostać przemieszczony wbrew swojej woli. Otrzymujesz tylko połowę obrażeń od zimna, ognia i broni. Jednakże stajesz się też spowolniony i nie możesz jeść, pić ani pływać."
+    }
+  ],
+  "level_5": [
+    {
+      "name": "WIĘKSZA ZWIERZĘCA POSTAĆ",
+      "tags": [
+        "Transformacja",
+        "Użytkowe"
+      ],
+      "level": 5,
+      "duration": "1 godzina.",
+      "description": "Na czas trwania czaru przybierasz formę wielkiego, dużego, średniego, małego lub drobnego zwierzęcia. Jeśli zmienisz się w średnie, małe lub drobne zwierzę, możesz zyskać jedną z następujących cech: wspinaczka, lot lub pływanie."
+    }
+  ]
+}

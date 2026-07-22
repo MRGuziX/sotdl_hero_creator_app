@@ -1,0 +1,127 @@
+{
+  "level_0": [
+    {
+      "name": "DAR CHAOSU",
+      "tags": [
+        "Magia Chaosu",
+        "Użytkowe"
+      ],
+      "level": 0,
+      "duration": "1 minuta",
+      "description": "Przez czas trwania zaklęcia przy każdym rzucie na atak i teście rzucasz kością chaosu (k6). Wyniki nieparzyste odejmujesz od rezultatu na k20, a parzyste do niego dodajesz."
+    },
+    {
+      "name": "BŁĘDNY POCISK",
+      "tags": [
+        "Magia Chaosu",
+        "Atak"
+      ],
+      "level": 0,
+      "target": "Jedno stworzenie lub obiekt w średnim zasięgu.",
+      "description": "Ciskasz w stworzenie lub obiekt mieniącą się kolorami, syczącą kroplą światła. Wykonaj oparty na Woli rzut na atak przeciwko Zręczności celu. Sukces oznacza, że otrzymuje on 1k6 obrażeń. Następnie rzuć k6. Jeśli wypadnie 6, powtórz ten sam atak przeciwko innemu celowi, przyjaznemu lub wrogiemu, w średnim zasięgu od pierwszego. Jeśli dostępny jest więcej niż jeden cel, wybór konkretnego należy do ciebie.",
+      "critical_success": "Rzut na atak to 20+: Cel otrzymuje dodatkowe 1k6 obrażeń."
+    }
+  ],
+  "level_1": [
+    {
+      "name": "KAPRYŚNE ZNISZCZENIE",
+      "tags": [
+        "Magia Chaosu",
+        "Atak"
+      ],
+      "level": 1,
+      "target": "Jedno stworzenie lub obiekt w średnim zasięgu.",
+      "description": "Uderzasz w stworzenie lub obiekt kulą migoczącej energii. Wykonaj oparty na Woli rzut na atak przeciwko Zręczności celu i rzuć k6. Wynik nieparzysty odejmij od rezultatu na k20, a parzysty do niego dodaj. Sukces oznacza, że cel otrzymuje 2k6 obrażeń, plus dodatkowe 2k6 obrażeń, jeśli od rzutu odjąłeś nieparzysty wynik z k6.",
+      "critical_success": "Rzut na atak 20+: Cel teleportuje się na wolną przestrzeń w odległości 1k6 metrów w wybranym przez ciebie kierunku."
+    },
+    {
+      "name": "ZAKRZYWIENIE PRZESTRZENI",
+      "tags": [
+        "Magia Chaosu",
+        "Użytkowe"
+      ],
+      "level": 1,
+      "description": "Rzuć 2k6. Teleportujesz się na wybraną przez siebie wolną przestrzeń w odległości do tylu metrów, jaki uzyskałeś wynik. Reakcja: Podczas swojej tury możesz rzucić to zaklęcie, wykorzystując reakcję. Jeśli tak zrobisz, przebyty dystans określasz, rzucając k6 zamiast 2k6."
+    },
+    {
+      "name": "OPALIZUJĄCA TARCZA",
+      "tags": [
+        "Magia Chaosu",
+        "Użytkowe"
+      ],
+      "level": 1,
+      "duration": "1 godzina; patrz niżej",
+      "description": "Wokół ciebie pojawia się migoczące kolorami pole siłowe. Rzuć k6, a wynik dodaj jako premię do swojej Obrony. Za każdym razem, gdy inne stworzenie wykona atak przeciwko twojej Obronie, premia ta maleje o 1 (do minimum 0, kiedy to działanie zaklęcia dobiega końca)."
+    }
+  ],
+  "level_2": [
+    {
+      "name": "KOLOR MAGII",
+      "tags": [
+        "Magia Chaosu",
+        "Atak"
+      ],
+      "level": 2,
+      "target": "Punkt w przestrzeni w średnim zasięgu.",
+      "description": "Wypuszczasz z ręki mieniącą się kolorami kulę, która pędzi w kierunku celu. Gdy go osiągnie lub jeśli napotka na swojej drodze mające fizyczną postać stworzenie lub przeszkodę, wybucha. Barwna, chaotyczna energia rozchodzi się sferą o punkcie początkowym w miejscu docelowym albo w przestrzeni zajmowanej przez stworzenie lub obiekt na promień 1 metra. Wszystko wewnątrz tego obszaru otrzymuje 1k6 + 1 obrażeń. Jeśli na kości obrażeń wyrzuciłeś liczbę nieparzystą, wszystko wewnątrz obszaru otrzymuje dodatkowe 3k6 obrażeń."
+    },
+    {
+      "name": "MIGOTANIE",
+      "tags": [
+        "Magia Chaosu",
+        "Użytkowe"
+      ],
+      "level": 2,
+      "duration": "1k6 minut",
+      "description": "Zaczynasz na przemian pojawiać się i znikać. Rzuć k6 na koniec każdej rundy aż do końca czasu trwania zaklęcia. Teleportujesz się na wolną przestrzeń w odległości do tylu metrów, jaki wynik uzyskałeś w rzucie. Jeśli jest on nieparzysty, MG wybiera, gdzie się pojawiasz. Jeśli parzysty, wybierasz sam."
+    }
+  ],
+  "level_3": [
+    {
+      "name": "LANCA CHAOSU",
+      "tags": [
+        "Magia Chaosu",
+        "Atak"
+      ],
+      "level": 3,
+      "area": "Linia łamana o długości 15 metrów i szerokości 2 metrów, o punkcie początkowym w bezpośrednim zasięgu.",
+      "description": "W obszarze działania zaklęcia rozchodzi się strumień różnobarwnej energii. Każde stworzenie wewnątrz tego obszaru musi wykonać test Woli. Porażka oznacza, że otrzymuje 5k6 + 5 obrażeń, a sukces, że leczy 2k6 + 5 obrażeń."
+    },
+    {
+      "name": "DZIKA MAGIA",
+      "tags": [
+        "Magia Chaosu",
+        "Użytkowe"
+      ],
+      "level": 3,
+      "area": "Sfera o promieniu 1k6 metrów i punkcie początkowym w bezpośrednim zasięgu.",
+      "description": "W obszarze działania zaklęcia rozchodzą się dziwne dźwięki i osobliwe światła. Rzuć k20, by ustalić efekt czaru:\n\n• 1: Na wolnych przestrzeniach wewnątrz obszaru działania zaklęcia pojawia się 1k6 małych demonów. Zdecydowanie nie są przyjazne.\n• 2-3: Każde stworzenie wewnątrz obszaru działania zaklęcia zyskuje 1 punkt Szaleństwa.\n• 4-5: Każde stworzenie wewnątrz obszaru działania zaklęcia przez 1 rundę wykonuje rzuty na atak i testy z 1 utrudnieniem.\n• 6-8: Każde stworzenie wewnątrz obszaru działania zaklęcia otrzymuje 3k6 + 5 obrażeń lub połowę z tego po udanym teście Siły.\n• 9-13: Odzyskujesz użycie tego czaru.\n• 14-15: Każde stworzenie wewnątrz obszaru działania zaklęcia leczy 3k6 + 5 punktów obrażeń.\n• 16-17: Każde stworzenie wewnątrz obszaru działania zaklęcia przez 1 rundę wykonuje rzuty na atak i testy z 1 ułatwieniem.\n• 18-19: Każde stworzenie wewnątrz obszaru działania zaklęcia może podjąć w tej rundzie dodatkową turę.\n• 20: Odzyskujesz jedno użycie zaklęcia 3 lub niższego kręgu."
+    }
+  ],
+  "level_4": [
+    {
+      "name": "ŚCIANA LUSTER",
+      "tags": [
+        "Magia Chaosu",
+        "Użytkowe"
+      ],
+      "level": 4,
+      "area": "Linia łamana o długości 10 metrów, wysokości 5 metrów i szerokości 1 metra o punkcie początkowym w średnim zasięgu.",
+      "duration": "1 minuta",
+      "description": "W obszarze działania zaklęcia pojawia się lustrzana bariera, która całkowicie przesłania to, co znajduje się za nią. Gdy stworzenie wejdzie na przestrzeń zajętą przez barierę, rzuć k6. Jeśli wynik jest parzysty, przemieszcza się ono o 1 metr przez barierę na wolną przestrzeń po drugiej stronie (w wybranym przez siebie kierunku). Jeśli wynik jest nieparzysty, teleportuje się ono na wybraną przez ciebie wolną przestrzeń o twardym, poziomym podłożu w odległości tylu metrów, ile wynosi wynik rzutu."
+    }
+  ],
+  "level_5": [
+    {
+      "name": "OSOBLIWOŚĆ",
+      "tags": [
+        "Magia Chaosu",
+        "Atak"
+      ],
+      "level": 5,
+      "area": "Sfera o promieniu 10 metrów i punkcie początkowym w dalekim zasięgu.",
+      "duration": "1 runda",
+      "description": "W punkcie początkowym zaklęcia pojawia się wirująca plama koloru, która pozostaje tam na czas trwania czaru. Gdy rzucasz osobliwość, niezabezpieczone obiekty wewnątrz jej obszaru działania przemieszczają się o 2k6 metrów w kierunku punktu początkowego. Każde stworzenie znajdujące się wewnątrz obszaru działania zaklęcia w momencie jego rzucenia lub na niego wchodzące musi wykonać test Siły z 1 utrudnieniem. Porażka oznacza, że przemieszcza się o 2k6 metrów w kierunku punktu początkowego i dopóki czar trwa, nie może się od niego oddalić. Każde stworzenie lub obiekt, które dotrze do punktu początkowego osobliwości, otrzymuje 10k6 obrażeń. Jeśli wskutek tych obrażeń zostanie obezwładnione, dojdzie także do całkowitego wymazania go z rzeczywistości, a jego ciało i dusza ulegną nieodwracalnemu zniszczeniu.\n\nGdy efekt czaru dobiegnie końca, plama wybucha, zadając 4k6 obrażeń wszystkiemu wewnątrz obszaru działania zaklęcia. Każde znajdujące się tam stworzenie musi wykonać test Siły. Porażka oznacza, że zostaje powalone, a sukces, że otrzymuje tylko połowę obrażeń."
+    }
+  ]
+}

@@ -1,0 +1,137 @@
+{
+  "tradition_rules": [
+    {
+      "name": "Efekty uboczne zgłębiania Magii Cienia",
+      "note": "Zgłębianie tajemnic Magii Cienia stopniowo wysysa z maga kolor i witalność. Ubrania szybciej płowieją, włosy tracą połysk, a cera blednie jak kreda. Światło staje się nieprzyjemne i sprawia, że użytkownicy tej tradycji czują się nieswojo w zalanych nim obszarach, choć nie wyrządza im żadnej krzywdy. Mimo to chronią oczy przed bolesną jasnością, zwykle nosząc zakapturzoną pelerynę."
+    }
+  ],
+  "level_0": [
+    {
+      "name": "OSTRZE ZMIERZCHU",
+      "tags": [
+        "Magia Cienia",
+        "Użytkowe"
+      ],
+      "level": 0,
+      "duration": "1 minuta; patrz niżej.",
+      "description": "Pasma cienia tworzą w twojej dłoni materialne ostrze, które istnieje tak długo, jak długo trwa zaklęcie lub dopóki go nie wypuścisz. Funkcjonuje jako szybka, finezyjna broń, którą można trzymać w dowolnej ręce i która zadaje 1k6 obrażeń. Trafienie nim celu znajdującego się na obszarze zacienionym lub pogrążonym w mroku zadaje dodatkowe 1k6 obrażeń. Po rzuceniu tego czaru możesz natychmiast wykonać atak stworzonym ostrzem."
+    },
+    {
+      "name": "ŚCIANA CIEMNOŚCI",
+      "tags": [
+        "Magia Cienia",
+        "Użytkowe"
+      ],
+      "level": 0,
+      "area": "Okrąg o dowolnej orientacji, promieniu 2 metrów i punkcie początkowym w średnim zasięgu.",
+      "duration": "1 minuta.",
+      "description": "Na czas trwania zaklęcia wybrany obszar staje się nieprzejrzysty, całkowicie przesłaniając wszystko wewnątrz niego i za nim, a także tłumiąc światło z naturalnych źródeł."
+    }
+  ],
+  "level_1": [
+    {
+      "name": "CIEMNOŚĆ",
+      "tags": [
+        "Magia Cienia",
+        "Użytkowe"
+      ],
+      "level": 1,
+      "area": "Sfera o promieniu 5 metrów i punkcie początkowym w bliskim zasięgu.",
+      "duration": "1 minuta.",
+      "description": "Obszar działania zaklęcia wypełnia atramentowa ciemność, na czas trwania czaru całkowicie przesłaniając wszystko wewnątrz niego. Mrok ten tłumi wszelkie światło z naturalnych źródeł lub stworzone zaklęciami kręgu 0, a także blokuje dowolny rodzaj niemagicznego widzenia z wyjątkiem prawdziwego widzenia. Jeśli rzucisz to zaklęcie na obiekt, którego dotkniesz, wypełniony mrokiem obszar przemieszcza się wraz z nim. Jeśli przedmiot ten zostanie całkowicie zakryty, efekt zaklęcia ulegnie stłumieniu aż do ponownego odkrycia."
+    },
+    {
+      "name": "WIDZENIE W CIEMNOŚCI",
+      "tags": [
+        "Magia Cienia",
+        "Użytkowe"
+      ],
+      "level": 1,
+      "target": "Jedno stworzenie w bezpośrednim zasięgu.",
+      "duration": "1 godzina.",
+      "description": "Dotykasz celu, który na czas trwania zaklęcia zyskuje zdolność widzenia w ciemności."
+    },
+    {
+      "name": "CIENISTA STRZAŁKA",
+      "tags": [
+        "Magia Cienia",
+        "Atak"
+      ],
+      "level": 1,
+      "target": "Jedno stworzenie w średnim zasięgu.",
+      "description": "Z twojej dłoni wylatuje strzałka usnuta z cienia. Wykonaj oparty na Intelekcie rzut na atak przeciwko Zręczności celu. Sukces oznacza, że stworzenie otrzymuje 2k6 obrażeń i przez 1 minutę wszystkie testy Percepcji wykonuje z 3 utrudnieniami."
+    }
+  ],
+  "level_2": [
+    {
+      "name": "MROCZNE WYNATURZENIE",
+      "tags": [
+        "Magia Cienia",
+        "Użytkowe"
+      ],
+      "level": 2,
+      "area": "Sześcian o krawędzi 1 metra i punkcie początkowym w średnim zasięgu.",
+      "duration": "1 minuta.",
+      "description": "W obszarze działania zaklęcia gromadzą się pasma ciemności, które splatają się w zniewolonego średniego potwora z cechą lotu. Może on mieć dowolny określony przez ciebie wygląd. Jeśli zostanie obezwładniony, efekt zaklęcia dobiega końca."
+    },
+    {
+      "name": "DROGA PRZEZ CIEŃ",
+      "tags": [
+        "Magia Cienia",
+        "Użytkowe"
+      ],
+      "level": 2,
+      "duration": "1 minuta.",
+      "description": "Przez czas trwania zaklęcia, gdy wkraczasz na przestrzeń pogrążoną w cieniu lub w mroku, możesz natychmiast przenieść się na inną wolną przestrzeń pogrążoną w cieniu lub w mroku w średnim zasięgu od tej, do której wszedłeś. Jesteś w stanie przemieścić się w ten sposób raz na rundę."
+    }
+  ],
+  "level_3": [
+    {
+      "name": "CZARNOSTRZAŁY Z ZAŚWIATÓW",
+      "tags": [
+        "Magia Cienia",
+        "Atak"
+      ],
+      "level": 3,
+      "target": "Do trzech stworzeń w średnim zasięgu.",
+      "description": "Z czubków twoich palców wystrzeliwują trzy pociski syczącej ciemności, rozdzielone dowolnie pomiędzy cele. Dla każdej strzały wykonaj oparty na Intelekcie rzut na atak przeciwko Zręczności danego stworzenia. Sukces oznacza, że otrzymuje ono 2k6 obrażeń i zostaje odepchnięte od ciebie na 1k6 metrów.",
+      "critical_success": "Rzut na atak 20+: Cel otrzymuje dodatkowe 1k6 obrażeń."
+    },
+    {
+      "name": "CIENISTA MAGIA",
+      "tags": [
+        "Magia Cienia",
+        "Użytkowe"
+      ],
+      "level": 3,
+      "description": "Wybierz jedno ze znanych ci zaklęć 2 lub niższego kręgu z tradycji innej niż Magia Cienia. Rzucasz to zaklęcie, nie poświęcając jego użycia, nawet jeśli nie masz już jego dostępnych użyć."
+    }
+  ],
+  "level_4": [
+    {
+      "name": "MROCZNE PORTALE",
+      "tags": [
+        "Magia Cienia",
+        "Użytkowe"
+      ],
+      "level": 4,
+      "area": "Sześć sześcianów o krawędzi 1 metra w dalekim zasięgu.",
+      "duration": "1 minuta.",
+      "description": "Sześciany wypełnia ciemność, całkowicie przesłaniając ich wnętrza i blokując wszelkie niemagiczne widzenie z wyjątkiem prawdziwego widzenia. Do każdego z nich przypisz numer od 1 do 6. Gdy do dowolnego sześcianu wkroczy stworzenie, musi ono wykonać test Intelektu, by ustalić, z którego z nich wyjdzie. Jeśli test się powiedzie, istota natychmiast pojawia się w wolnej przestrzeni przy wybranej bryle. Jeśli nie, sześcian wyjściowy ustala się, rzucając k6. W obu przypadkach istota wybiera kierunek, w jakim opuszcza obszar działania zaklęcia."
+    }
+  ],
+  "level_5": [
+    {
+      "name": "ZAPAŚĆ",
+      "tags": [
+        "Magia Cienia",
+        "Atak"
+      ],
+      "level": 5,
+      "target": "Jedno żywe stworzenie w dalekim zasięgu.",
+      "duration": "1 godzina.",
+      "description": "Z twojej dłoni uderza czarny promień. Wykonaj oparty na Intelekcie rzut na atak przeciwko Zręczności celu. Sukces oznacza, że na 1 godzinę stworzenie otrzymuje karę -20 do Zdrowia. Dopóki kara ta się utrzymuje, istota jest także osłabiona.",
+      "critical_success": "Rzut na atak 20+: Kara do Zdrowia zwiększa się do -30."
+    }
+  ]
+}
