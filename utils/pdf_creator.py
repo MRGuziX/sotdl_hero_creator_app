@@ -3,8 +3,35 @@ import pathlib
 from dataclasses import dataclass
 
 from pypdf import PdfReader, PdfWriter
+from reportlab.lib.colors import black
+from reportlab.lib.enums import TA_LEFT
+from reportlab.lib.pagesizes import A4
+from reportlab.lib.styles import ParagraphStyle
+from reportlab.lib.units import mm
+from reportlab.pdfbase import pdfmetrics
+from reportlab.pdfbase.ttfonts import TTFont
+from reportlab.pdfgen.canvas import Canvas
+from reportlab.platypus import Paragraph
 
 from models.base_hero import AncestryHero
+
+SPELL_NAME_FONT = "FirstOrderPL"
+SPELL_FONT = "Athelas"
+SPELL_FONT_BOLD = "Athelas-Bold"
+
+
+def _register_spell_fonts() -> None:
+    fonts_dir = pathlib.Path(__file__).parent.parent / "data_base" / "fonts"
+    name_font_path = fonts_dir / "first_order_pl.ttf"
+    text_font_path = fonts_dir / "athelas.ttc"
+    if not name_font_path.exists() or not text_font_path.exists():
+        raise RuntimeError("Nie znaleziono fontów First Order PL lub Athelas.")
+    if SPELL_NAME_FONT not in pdfmetrics.getRegisteredFontNames():
+        pdfmetrics.registerFont(TTFont(SPELL_NAME_FONT, str(name_font_path)))
+    if SPELL_FONT not in pdfmetrics.getRegisteredFontNames():
+        pdfmetrics.registerFont(TTFont(SPELL_FONT, str(text_font_path), subfontIndex=0))
+    if SPELL_FONT_BOLD not in pdfmetrics.getRegisteredFontNames():
+        pdfmetrics.registerFont(TTFont(SPELL_FONT_BOLD, str(text_font_path), subfontIndex=3))
 
 
 @dataclass
@@ -79,11 +106,7 @@ def distribute_talents(talents):
         # Within the selected size, use the first empty box. If all are full,
         # continue with the next larger size.
         box = next(
-            (
-                candidate
-                for candidate in available_boxes
-                if candidate.capacity >= capacity
-            ),
+            (candidate for candidate in available_boxes if candidate.capacity >= capacity),
             None,
         )
 
@@ -119,13 +142,7 @@ def fill_pdf(hero: AncestryHero, output_path: str) -> None:
     # 2. Prepare all fields
     path_name = hero.path_name or ""
     if path_name:
-        path_file = (
-            project_root
-            / "data_base"
-            / "paths"
-            / "novice"
-            / f"{path_name.lower()}.json"
-        )
+        path_file = project_root / "data_base" / "paths" / "novice" / f"{path_name.lower()}.json"
         if path_file.exists():
             path_name = json.loads(path_file.read_text(encoding="utf-8")).get(
                 "path_name", path_name
@@ -234,4 +251,100 @@ def fill_pdf(hero: AncestryHero, output_path: str) -> None:
 
     with open(output_path, "wb") as output_stream:
         writer.write(output_stream)
+    return output_path
+
+
+def _draw_wrapped_text(
+    canvas: Canvas,
+    text: str,
+    x: float,
+    y: float,
+    width: float,
+    font_size: int,
+    leading: float | None = None,
+) -> float:
+    style = ParagraphStyle(
+        "spell_text",
+        fontName=SPELL_FONT,
+        fontSize=font_size,
+        leading=leading or font_size * 1.2,
+        textColor=black,
+        alignment=TA_LEFT,
+    )
+    paragraph = Paragraph(text.replace("&", "&amp;"), style)
+    _, height = paragraph.wrap(width, A4[1])
+    paragraph.drawOn(canvas, x, y - height)
+    return height
+
+
+def _spell_name_font_size(name: str) -> int:
+    name_length = len(name)
+    if name_length <= 12:
+        return 18
+    if name_length <= 23:
+        return 14
+    return 12
+
+
+def fill_spell_pdf(hero: AncestryHero, output_path: str) -> str:
+    """Create one spell card per known spell using ``spell_card_v1.pdf`` as a background."""
+    template_path = pathlib.Path(__file__).parent.parent / "data_base" / "spell_card_v1.pdf"
+    if not hero.spells:
+        raise ValueError("Nie można utworzyć kart zaklęć bez zaklęć.")
+
+    _register_spell_fonts()
+    overlay_path = pathlib.Path(output_path).with_suffix(".spell-overlay.pdf")
+    canvas = Canvas(str(overlay_path), pagesize=A4)
+    for spell in hero.spells:
+        canvas.setFont(SPELL_NAME_FONT, _spell_name_font_size(spell.name))
+        canvas.drawCentredString(A4[0] / 2, A4[1] - 38 * mm, spell.name)
+        canvas.setFont(SPELL_FONT, 11)
+        canvas.drawString(35 * mm, A4[1] - 58 * mm, f"Poziom: {spell.level}")
+        y = A4[1] - 76 * mm
+        for label, value in (
+            ("Cel", spell.target),
+            ("Obszar", spell.area),
+            ("Czas trwania", spell.duration),
+        ):
+            if value:
+                canvas.setFont(SPELL_FONT_BOLD, 11)
+                canvas.drawString(35 * mm, y, f"{label}:")
+                canvas.setFont(SPELL_FONT, 11)
+                y -= _draw_wrapped_text(canvas, value, 35 * mm + 24 * mm, y + 4, 125 * mm, 11)
+                y -= 4
+        y -= 4
+        canvas.setFont(SPELL_FONT_BOLD, 11)
+        canvas.drawString(35 * mm, y, "Opis:")
+        y -= 5
+        description_size = 9 if len(spell.description) > 250 else 11
+        y -= _draw_wrapped_text(canvas, spell.description, 35 * mm, y, 145 * mm, description_size)
+        if spell.critical_success:
+            y -= 10
+            canvas.setFont(SPELL_FONT_BOLD, 11)
+            critical_prefix = "Rzut na atak 20+:"
+            critical_text = spell.critical_success
+            if critical_text.startswith(critical_prefix):
+                critical_text = critical_text[len(critical_prefix) :].lstrip()
+            canvas.drawString(35 * mm, y, critical_prefix)
+            y -= 5
+            y -= _draw_wrapped_text(canvas, critical_text, 35 * mm, y, 145 * mm, 11)
+        if spell.tags:
+            y -= 10
+            canvas.setFont(SPELL_FONT_BOLD, 11)
+            canvas.drawString(35 * mm, y, "Tagi:")
+            y -= 5
+            _draw_wrapped_text(canvas, ", ".join(spell.tags), 35 * mm, y, 145 * mm, 11)
+        canvas.showPage()
+    canvas.save()
+
+    background = PdfReader(template_path)
+    overlay = PdfReader(overlay_path)
+    writer = PdfWriter()
+    for page in overlay.pages:
+        card = background.pages[0]
+        card.merge_page(page)
+        writer.add_page(card)
+    with open(output_path, "wb") as output_stream:
+        writer.write(output_stream)
+    overlay_path.unlink()
     return output_path
