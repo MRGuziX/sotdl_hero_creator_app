@@ -9,7 +9,11 @@
       "level": 0,
       "target": "Cel: Jeden obiekt o Rozmiarze 2 lub mniejszym w bezpośrednim zasięgu, który otrzymał przynajmniej 1 punkt obrażeń, ale nie został zniszczony.",
       "book_description": "Dotykasz celu, usuwając z niego 1k6 obrażeń.",
-      "card_description": ""
+      "card_description": "",
+      "origin": {
+        "source": "PG",
+        "number": 144
+      }
     },
     {
       "name": "MAGICZNY KLUCZ",
@@ -21,7 +25,11 @@
       "target": "Cel: Jedno stworzenie lub obiekt w bliskim zasięgu.",
       "book_description": "Tworzysz klucz, którym ciskasz w stworzenie lub obiekt. Wykonaj oparty na Intelekcie rzut na atak przeciwko Obronie celu. Sukces oznacza, że otrzymuje on 1k6 + 1 obrażeń i zostaje powalony.",
       "critical_success": "Rzut na atak to 20+: Cel jest także osłabiony do końca rundy.",
-      "card_description": ""
+      "card_description": "",
+      "origin": {
+        "source": "PG",
+        "number": 144
+      }
     }
   ],
   "level_1": [
@@ -36,7 +44,11 @@
       "duration": "Czas działania: 1 minuta.",
       "book_description": "W obszarze działania zaklęcia tworzysz uzbrojoną w kuszę wieżyczkę o Rozmiarze 1. Wieżyczka ma Obronę 5 i Zdrowie równe twojemu Intelektowi. Utrzymuje się przez czas trwania czaru lub dopóki nie zostanie zniszczona. Na koniec każdej rundy strzela w jedno stworzenie lub obiekt w dalekim zasięgu. Wykonaj oparty na Intelekcie rzut na atak przeciwko Obronie celu. Sukces oznacza, że otrzymuje on 2k6 obrażeń.",
       "critical_success": "Rzut na atak to 20+: Cel otrzymuje dodatkowe 1k6 obrażeń.",
-      "card_description": ""
+      "card_description": "",
+      "origin": {
+        "source": "PG",
+        "number": 144
+      }
     },
     {
       "name": "KOLCZATKA",
@@ -48,7 +60,11 @@
       "area": "Obszar: Okrąg na podłożu o promieniu 5 metrów i punkcie początkowym w średnim zasięgu.",
       "duration": "Czas działania: 1 minuta",
       "book_description": "Ze wskazanego punktu wystrzeliwują ostre kawałki metalu, pokrywając na czas trwania zaklęcia wszystkie poziome powierzchnie w obszarze jego działania. Każde znajdujące się tam stworzenie musi wykonać udany test Zręczności, w przeciwnym wypadku otrzymuje 1k6 + 1 obrażeń i zostaje spowolnione. Jeśli jest już spowolnione tym zaklęciem, zostaje powalone i unieruchomione. Istota pozbywa się tych stanów, gdy uleczy dowolną liczbę obrażeń.",
-      "card_description": ""
+      "card_description": "",
+      "origin": {
+        "source": "PG",
+        "number": 144
+      }
     },
     {
       "name": "ISKRZĄCA TARCZA",
@@ -59,7 +75,11 @@
       "level": 1,
       "duration": "Czas działania: 1 minuta.",
       "book_description": "Na swoim przedramieniu tworzysz magiczną tarczę, która utrzymuje się przez czas trwania zaklęcia. Raz na rundę, gdy zostaniesz trafiony bronią białą, z tarczy sypią się iskry, a atakujące stworzenie musi wykonać test Zręczności. Porażka oznacza, że otrzymuje ono 1k6 obrażeń i zostaje odepchnięte na 1k3 metrów od ciebie, a następnie powalone.",
-      "card_description": ""
+      "card_description": "",
+      "origin": {
+        "source": "PG",
+        "number": 145
+      }
     }
   ],
   "level_2": [
@@ -72,7 +92,11 @@
       "level": 2,
       "duration": "Czas działania: Patrz niżej.",
       "book_description": "Tworzysz miotacz ognia, broń o sześciu ładunkach. Pojawia się on w twoich rękach lub u twoich stóp, jeśli masz zajęte dłonie. Po wykorzystaniu ostatniego ładunku rozpada się na części. Stworzenie dzierżące miotacz ognia może wykorzystać akcję i poświęcić ładunek, by z punktu w bezpośrednim zasięgu wystrzelić płomień w linii o długości 5 metrów i szerokości 1 metra. Zadaje on 2k6 obrażeń wszystkiemu w swoim obszarze; każde stworzenie, któremu powiedzie się test Zręczności, otrzymuje tylko połowę z nich. Jeśli dzierżące miotacz ognia stworzenie otrzyma obrażenia od ognia lub elektryczności, broń wybucha. Płomienie rozchodzą się sferą o promieniu 5 metrów z punktu w zajmowanej przez tę istotę przestrzeni i zadają wszystkiemu w tym obszarze 1k6 obrażeń za każdy niezużyty ładunek miotacza. Stworzenia w obszarze wybuchu, którym powiedzie się test Zręczności, otrzymują tylko połowę tych obrażeń.",
-      "card_description": ""
+      "card_description": "",
+      "origin": {
+        "source": "PG",
+        "number": 145
+      }
     },
     {
       "name": "GRANATY",
@@ -83,7 +107,11 @@
       "level": 2,
       "target": "Cel: Do trzech punktów w bliskim zasięgu.",
       "book_description": "Rzucasz trzy granaty, rozdzielone dowolnie pomiędzy cele. Gdy granat osiągnie cel lub jeśli napotka na swojej drodze posiadające fizyczną postać stworzenie lub przeszkodę, wybucha. Eksplozja zadaje 1k6 + 1 obrażeń od ognia wszystkiemu w sferze o promieniu 1 metra i punkcie początkowym w przestrzeni zajmowanej przez daną istotę lub obiekt. Stworzenia w obszarze wybuchu, którym powiedzie się test Zręczności, otrzymują tylko połowę obrażeń.",
-      "card_description": ""
+      "card_description": "",
+      "origin": {
+        "source": "PG",
+        "number": 145
+      }
     }
   ],
   "level_3": [
@@ -97,7 +125,11 @@
       "target": "Cel: Do trzech stworzeń lub obiektów w średnim zasięgu.",
       "book_description": "Z twojej dłoni wystrzeliwuje pięć ostrzy, rozdzielonych dowolnie pomiędzy wybrane stworzenia i obiekty. Dla każdego ostrza wykonaj oparty na Intelekcie rzut na atak przeciwko Obronie celu. Sukces oznacza, że otrzymuje on 2k6 obrażeń.",
       "critical_success": "Rzut na atak to 20+: Cel otrzymuje dodatkowe 1k6 obrażeń.",
-      "card_description": ""
+      "card_description": "",
+      "origin": {
+        "source": "PG",
+        "number": 145
+      }
     },
     {
       "name": "REMONT",
@@ -108,7 +140,11 @@
       "level": 3,
       "target": "Cel: Jeden obiekt o Rozmiarze 3 lub mniejszym w bezpośrednim zasięgu, który otrzymał przynajmniej 1 punkt obrażeń, ale nie został zniszczony.",
       "book_description": "Dotykasz celu, usuwając z niego wszystkie obrażenia.",
-      "card_description": ""
+      "card_description": "",
+      "origin": {
+        "source": "PG",
+        "number": 145
+      }
     }
   ],
   "level_4": [
@@ -122,7 +158,11 @@
       "area": "Obszar: Sześcian o krawędzi 3 metrów i punkcie początkowym w bezpośrednim zasięgu.",
       "duration": "Czas działania: Dopóki nie odbędziesz pełnego odpoczynku; patrz niżej.",
       "book_description": "Koncentrujesz się przez 1 godzinę, podczas której budujesz w obszarze działania zaklęcia mechaniczną zbroję; liczy się ona jako wielki konstrukt. Utrzymuje się on przez czas trwania czaru lub dopóki nie zostanie obezwładniony. Nie może samodzielnie wykonywać akcji ani się poruszać; musisz zająć miejsce w kokpicie, by go pilotować. Będąc we wnętrzu konstruktu, traktujesz jego Zdrowie, Obronę i Prędkość jako własne, a jego ataki i akcje możesz wykonywać w miejsce swoich.",
-      "card_description": ""
+      "card_description": "",
+      "origin": {
+        "source": "PG",
+        "number": 145
+      }
     }
   ],
   "level_5": [
@@ -137,7 +177,11 @@
       "duration": "Czas działania: 1 godzina",
       "book_description": "Dotykasz celu, nasycając go magiczną mocą. Przez czas trwania zaklęcia wszystkie ataki i testy wykonywane z użyciem przedmiotu zyskują 1 ułatwienie. Jeśli jest on bronią, ataki nim zadają dodatkowe 1k6 obrażeń. Jeśli jest zbroją, noszące ją stworzenie zyskuje premię +1 do Obrony.",
       "sacrifice": "Utrwalenie: Jeśli rzucając to zaklęcie, wykorzystasz rzadkie składniki warte 1 złotą koronę, jego efekt utrzymuje się, dopóki nie odbędziesz pełnego odpoczynku. Jeśli będziesz rzucać to zaklęcie w ten sposób na ten sam obiekt codziennie przez miesiąc, tydzień i jeden dzień, jego efekt stanie się permanentny.",
-      "card_description": ""
+      "card_description": "",
+      "origin": {
+        "source": "PG",
+        "number": 145
+      }
     }
   ]
 }

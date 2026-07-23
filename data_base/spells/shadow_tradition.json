@@ -163,7 +163,11 @@
       "area": "Obszar: Sześć sześcianów o krawędzi 1 metra w dalekim zasięgu.",
       "duration": "Czas działania: 1 minuta.",
       "book_description": "Sześciany wypełnia ciemność, całkowicie przesłaniając ich wnętrza i blokując wszelkie niemagiczne widzenie z wyjątkiem prawdziwego widzenia. Do każdego z nich przypisz numer od 1 do 6. Gdy do dowolnego sześcianu wkroczy stworzenie, musi ono wykonać test Intelektu, by ustalić, z którego z nich wyjdzie. Jeśli test się powiedzie, istota natychmiast pojawia się w wolnej przestrzeni przy wybranej bryle. Jeśli nie, sześcian wyjściowy ustala się, rzucając k6. W obu przypadkach istota wybiera kierunek, w jakim opuszcza obszar działania zaklęcia.",
-      "card_description": ""
+      "card_description": "",
+      "origin": {
+        "source": "PG",
+        "number": 146
+      }
     }
   ],
   "level_5": [
@@ -178,7 +182,11 @@
       "duration": "Czas działania: 1 godzina.",
       "book_description": "Z twojej dłoni uderza czarny promień. Wykonaj oparty na Intelekcie rzut na atak przeciwko Zręczności celu. Sukces oznacza, że na 1 godzinę stworzenie otrzymuje karę -20 do Zdrowia. Dopóki kara ta się utrzymuje, istota jest także osłabiona.",
       "critical_success": "Rzut na atak to 20+: Kara do Zdrowia zwiększa się do -30.",
-      "card_description": ""
+      "card_description": "",
+      "origin": {
+        "source": "PG",
+        "number": 129
+      }
     }
   ]
 }

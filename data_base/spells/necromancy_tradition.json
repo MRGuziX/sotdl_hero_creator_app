@@ -9,7 +9,11 @@
       "level": 0,
       "duration": "Czas działania: 1 minuta; patrz niżej.",
       "book_description": "Przez czas trwania zaklęcia jesteś ukryty przed nieumarłymi stworzeniami. Efekt ten dobiega końca natychmiast, gdy wykonasz atak.",
-      "card_description": ""
+      "card_description": "",
+      "origin": {
+        "source": "PG",
+        "number": 133
+      }
     },
     {
       "name": "WIDMOWY CHWYT",
@@ -21,7 +25,11 @@
       "target": "Cel: Jedno stworzenie w średnim zasięgu.",
       "book_description": "W stronę celu pędzi cienista ręka. Wykonaj oparty na Intelekcie rzut na atak przeciwko Zręczności stworzenia. Sukces oznacza, że otrzymuje ono 1k3 obrażeń i przez 1 rundę wszystkie rzuty na atak wykonuje z 1 utrudnieniem.",
       "critical_success": "Rzut na atak to 20+: Cel otrzymuje dodatkowe 1k6 obrażeń.",
-      "card_description": ""
+      "card_description": "",
+      "origin": {
+        "source": "PG",
+        "number": 133
+      }
     }
   ],
   "level_1": [
@@ -36,7 +44,11 @@
       "duration": "Czas działania: Koncentracja, do 1 minuty",
       "book_description": "Dotknij celu. Jeśli utrzymasz koncentrację i zachowasz z nim fizyczny kontakt przez 1 minutę, staje się on zniewolonymi ożywionymi zwłokami swojego Rozmiaru.",
       "sacrifice": "Możesz poświęcić użycie tego zaklęcia, by rzucić widmowy chwyt.",
-      "card_description": ""
+      "card_description": "",
+      "origin": {
+        "source": "PG",
+        "number": 133
+      }
     },
     {
       "name": "RĘCE UMARŁYCH",
@@ -48,7 +60,11 @@
       "area": "Obszar: Okrąg na podłożu o promieniu 5 metrów i punkcie początkowym w bliskim zasięgu.",
       "duration": "Czas działania: 1 minuta",
       "book_description": "Przez czas trwania zaklęcia wewnątrz jego obszaru rozchodzi się mrok, a z ziemi wyrastają kościste szpony i gnijące ręce, przez co podłoże staje się trudnym terenem. Każde stworzenie, które znajduje się wewnątrz obszaru działania zaklęcia w momencie rzucenia go, lub takie, które będzie w nim przebywać na koniec rundy, musi wykonać test Zręczności. Porażka oznacza, że otrzymuje 1k6 obrażeń i ulega unieruchomieniu na czas trwania czaru. Jeśli już jest unieruchomione, zamiast tego otrzymuje dodatkowe 1k6 obrażeń. Stworzenie może wykorzystać akcję, by wyrwać się z uchwytu, tym samym pozbywając się tego stanu.",
-      "card_description": ""
+      "card_description": "",
+      "origin": {
+        "source": "PG",
+        "number": 134
+      }
     },
     {
       "name": "ODŁAWIANIE DUSZY",
@@ -60,7 +76,11 @@
       "target": "Cel: Jedno stworzenie w bliskim zasięgu, które umarło najwyżej 1 rundę temu.",
       "duration": "Czas działania: 4 godziny; patrz niżej.",
       "book_description": "Nad celem pojawia się kula przyćmionego światła, która leci ku tobie i przez czas trwania zaklęcia krąży wokół ciebie. Możesz wykorzystać akcję, by natychmiast zakończyć efekt zaklęcia i uleczyć tyle obrażeń, ile wynosi twoja Szybkość Zdrowienia. Dopóki zaklęcie trwa, stworzenia nie da się w żaden sposób przywrócić do życia.",
-      "card_description": ""
+      "card_description": "",
+      "origin": {
+        "source": "PG",
+        "number": 134
+      }
     }
   ],
   "level_2": [
@@ -74,7 +94,11 @@
       "target": "Cel: Jedno stworzenie w średnim zasięgu, które ma w swoim ciele kości.",
       "book_description": "Wykonaj oparty na Intelekcie rzut na atak przeciwko Sile celu. Sukces oznacza, że stworzenie otrzymuje 3k6 + 5 obrażeń. Jeśli wskutek nich zostanie obezwładnione, natychmiast umiera, a jego kości eksplodują w obszarze stożka o długości 3 metrów i punkcie początkowym w zajmowanej przez cel przestrzeni. Wszystko, co się tam znajduje, otrzymuje 1k6 obrażeń; stworzenia mogą ich uniknąć, jeśli zdadzą test Zręczności.",
       "critical_success": "Rzut na atak to 20+: Cel otrzymuje dodatkowe 2k6 obrażeń.",
-      "card_description": ""
+      "card_description": "",
+      "origin": {
+        "source": "PG",
+        "number": 134
+      }
     },
     {
       "name": "WRZESZCZĄCA CZASZKA",
@@ -86,7 +110,11 @@
       "target": "Cel: Punkt w przestrzeni w bezpośrednim zasięgu.",
       "duration": "Czas działania: 1 minuta, patrz niżej.",
       "book_description": "W wybranym punkcie pojawia się lewitująca ludzka czaszka. Może latać, ma Obronę 20 i Zdrowie 10. Gdy otrzyma liczbę obrażeń równą Zdrowiu, rozsypuje się w pył, a efekt zaklęcia natychmiast dobiega końca. Gdy rzucasz to zaklęcie, a także w ramach akcji lub reakcji w czasie swoich tur aż do końca działania czaru, możesz przemieścić czaszkę lotem na odległość do 10 metrów i sprawić, że wyda z siebie krzyk. Wrzask ten rozchodzi się sferą w promieniu 3 metrów, a jej środkiem jest czaszka. Każde stworzenie w obszarze krzyku, które go słyszy, musi wykonać udany test Siły, w przeciwnym wypadku otrzymuje 1k6 + 1 obrażeń.",
-      "card_description": ""
+      "card_description": "",
+      "origin": {
+        "source": "PG",
+        "number": 134
+      }
     }
   ],
   "level_3": [
@@ -100,7 +128,11 @@
       "target": "Cel: Jedno stworzenie w średnim zasięgu.",
       "book_description": "Wykonaj oparty na Intelekcie rzut na atak przeciwko Sile celu. Sukces oznacza, że stworzenie otrzymuje 3k6 obrażeń, a ty odzyskujesz jedno użycie zaklęcia 1 lub niższego kręgu.",
       "critical_success": "Rzut na atak to 20+: Cel otrzymuje dodatkowe 2k6 obrażeń, a odzyskane przez ciebie użycie może dotyczyć zaklęcia 2 lub niższego kręgu.",
-      "card_description": ""
+      "card_description": "",
+      "origin": {
+        "source": "PG",
+        "number": 134
+      }
     },
     {
       "name": "STUDNIA MROCZNEJ MOCY",
@@ -112,7 +144,11 @@
       "area": "Obszar: Okrąg na podłożu o promieniu 5 metrów i punkcie początkowym w średnim zasięgu.",
       "duration": "Czas działania: 1 minuta",
       "book_description": "W punkcie początkowym zaklęcia pojawia się glif. Dopóki czar trwa, za każdym razem, gdy jakiekolwiek stworzenie wewnątrz tego obszaru otrzyma obrażenia, dostaje także dodatkowe 2k6 obrażeń.",
-      "card_description": ""
+      "card_description": "",
+      "origin": {
+        "source": "PG",
+        "number": 134
+      }
     }
   ],
   "level_4": [
@@ -126,7 +162,11 @@
       "area": "Obszar: Sfera o promieniu 10 metrów i punkcie początkowym w średnim zasięgu.",
       "duration": "Czas działania: 1 minuta",
       "book_description": "W obszarze działania zaklęcia rozchodzą się wici nekromantycznej energii. Przez czas jego trwania znajdujący się na tym obszarze nieumarli wykonują wszystkie ataki i testy z ułatwieniem, a żywe istoty (poza tobą) z 1 utrudnieniem. Ponadto żywe stworzenia o Rozmiarze 1 lub 1/2, które umrą wewnątrz tego obszaru, zmieniają się w zniewolone przez ciebie ożywione zwłoki.",
-      "card_description": ""
+      "card_description": "",
+      "origin": {
+        "source": "PG",
+        "number": 134
+      }
     }
   ],
   "level_5": [
@@ -140,7 +180,11 @@
       "area": "Obszar: Okrąg na podłożu o promieniu 2 metrów i punkcie początkowym w średnim zasięgu.",
       "duration": "Czas działania: 1 godzina",
       "book_description": "Obszar działania zaklęcia na czas jego trwania staje się trudnym terenem. Na koniec rundy, w której rzucisz ten czar, spod ziemi wygrzebuje się i wstaje 2k6 zniewolonych ożywionych zwłok. Wszystkie ożywione zwłoki powołane do istnienia za pomocą tego zaklęcia liczą się jako jedno stworzenie na potrzeby ustalania limitu zniewolonych nieumarłych, których kontrolujesz. Efekt zaklęcia kończy się, gdy wszystkie ożywione zwłoki zostaną zniszczone.",
-      "card_description": ""
+      "card_description": "",
+      "origin": {
+        "source": "PG",
+        "number": 134
+      }
     }
   ]
 }

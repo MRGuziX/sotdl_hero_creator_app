@@ -157,7 +157,11 @@
       "area": "Obszar: Sześcian dostatecznej wielkości, by pomieścić stworzenie twojego Rozmiaru, o punkcie początkowym w odległości do tylu metrów, ile wynosi twoja Prędkość.",
       "duration": "Czas działania: 1 minuta; patrz niżej",
       "book_description": "W obszarze działania zaklęcia pojawia się przyszła wersja ciebie, która pozostaje w teraźniejszości, dopóki czar trwa. W tym czasie w każdej rundzie zarówno ty, jak i twoja przyszła wersja możecie podjąć turę, choć paradoks waszego współistnienia w jednym momencie sprawia, że wszystkie rzuty na atak i testy wykonujecie z 1 utrudnieniem. Obie wersje ciebie mają identyczne wartości atrybutów zwykłych i drugorzędnych. Choć możecie działać osobno, na potrzeby dzielenia zasobów liczycie się jako jedno stworzenie. Jeśli jedna z wersji otrzyma obrażenia lub Szaleństwo, to samo przydarza się drugiej. Jeśli jedna z wersji poświęci użycie zaklęcia, druga również je traci. Stany i korzystne efekty nałożone na jedną z wersji wpływają na obie. Przyszły ty posiada identyczne kopie wszystkich przedmiotów, które trzymasz i masz na sobie – z kilkoma wyjątkami. Po pierwsze jeśli ty lub twój duplikat spożyjecie lub wykorzystacie przedmiot, na przykład wypijecie eliksir leczenia, tracicie obie jego kopie. Ponadto jeśli masz jakiś artefakt, musisz zdecydować, która z wersji nosi go przy sobie. Jeśli jedna z wersji zostanie obezwładniona, drugiej przytrafia się to samo. Jeśli umrzesz, twoje przyszłe „ja” znika. Gdy efekt czaru dobiega końca, ty i twoja przyszła wersja znikacie. Pojawiasz się 1 minutę później w przestrzeni, którą uprzednio zajmowała twoja przyszła wersja lub w najbliższej wolnej, jeśli okaże się ona zajęta.",
-      "card_description": ""
+      "card_description": "",
+      "origin": {
+        "source": "PG",
+        "number": 121
+      }
     }
   ],
   "level_5": [

@@ -127,7 +127,11 @@
       "level": 3,
       "area": "Obszar: Stożek długości 10 metrów o punkcie początkowym w bezpośrednim zasięgu.",
       "book_description": "Wewnątrz obszaru działania zaklęcia rozchodzi się fala grozy. Każda znajdująca się na jej drodze istota musi wykonać udany test Woli, w przeciwnym wypadku staje się przestraszona na 1 minutę. Przestraszone w ten sposób stworzenie musi w każdej rundzie podjąć turę krótką, w której wykorzystuje swoją akcję na ucieczkę przed tobą po najbezpieczniejszej dostępnej drodze. Na koniec każdej rundy, jeśli ofiara cię nie widzi, może wykonać test Woli, a przy sukcesie pozbywa się tego stanu.",
-      "card_description": ""
+      "card_description": "",
+      "origin": {
+        "source": "PG",
+        "number": 125
+      }
     },
     {
       "name": "WIEPRZ",
@@ -139,7 +143,11 @@
       "target": "Cel: Do trzech żywych stworzeń w średnim zasięgu, które widzisz.",
       "duration": "Czas działania: 1 minuta; patrz niżej.",
       "book_description": "Każdy cel musi wykonać test Siły. Porażka oznacza, że na czas trwania zaklęcia zostaje zamieniony w wieprza (małe zwierzę) wraz ze wszystkim, co ma przy sobie. W tej postaci jest przestraszony i musi w każdej rundzie podjąć turę krótką, w której wykorzystuje swoją akcję na ucieczkę przed tobą po najbezpieczniejszej dostępnej drodze. Efekt zaklęcia zostaje zakończony natychmiast, gdy tylko ofiara otrzyma obrażenia.",
-      "card_description": ""
+      "card_description": "",
+      "origin": {
+        "source": "PG",
+        "number": 125
+      }
     }
   ],
   "level_4": [

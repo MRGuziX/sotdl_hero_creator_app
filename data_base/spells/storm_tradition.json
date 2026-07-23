@@ -76,7 +76,11 @@
       "target": "Cel: Do trzech stworzeń lub obiektów w bliskim zasięgu.",
       "duration": "Czas działania: 1 minuta.",
       "book_description": "Każdy z celów spowijają nieszkodliwe, zielone płomienie. Stworzenia te i obiekty oświetlają obszar wokół siebie o promieniu 1 metra i nie mogą stać się niewidzialne ani ukryć się przed istotami, które je widzą. Wszystkie rzuty na atak przeciwko tym celom wykonywane są z 1 ułatwieniem.",
-      "card_description": ""
+      "card_description": "",
+      "origin": {
+        "source": "PG",
+        "number": 127
+      }
     }
   ],
   "level_2": [
@@ -107,7 +111,11 @@
       "area": "Obszar: Walec o wysokości 2 metrów, promieniu 5 metrów i punkcie początkowym w średnim zasięgu.",
       "duration": "Czas działania: 1 minuta; patrz niżej.",
       "book_description": "Po obszarze działania zaklęcia rozchodzi się purpurowa mgła, znacznie przesłaniając go na okres trwania czaru lub dopóki nie rozproszy jej wiatr. Mgła ta jest cięższa od powietrza, osiada więc w szczelinach i zagłębieniach podłoża. Na koniec każdej rundy w czasie działania zaklęcia rzuć k6. Jeśli wynik jest parzysty, chmura odsuwa się o połowę wyniku w metrach od ciebie. Gdy rzucasz to zaklęcie oraz na koniec każdej rundy podczas jego trwania, wszystkie znajdujące w jego obszarze stworzenia muszą wykonać test Siły. Porażka oznacza, że dana istota otrzymuje 1k6 obrażeń i staje się zatruta na 1 rundę. Dopóki pozostaje zatruta w ten sposób, jest także unieruchomiona.",
-      "card_description": ""
+      "card_description": "",
+      "origin": {
+        "source": "PG",
+        "number": 127
+      }
     }
   ],
   "level_3": [
@@ -121,7 +129,11 @@
       "area": "Obszar: Walec o wysokości 2 metrów, promieniu 5 metrów i punkcie początkowym w dalekim zasięgu.",
       "duration": "Czas działania: 1 minuta.",
       "book_description": "Po obszarze działania zaklęcia rozchodzą się chmury, częściowo przesłaniając go na okres trwania czaru, a następnie zaczyna padać z nich grad. Dopóki zaklęcie nie dobiegnie końca, stworzenia wewnątrz tego obszaru oraz w odległości do 5 metrów od jego granicy są ogłuszone. Podłoże na tym obszarze pozostaje trudnym terenem, dopóki grad nie stopnieje. W momencie rzucenia zaklęcia, a także na koniec każdej rundy przez czas jego trwania, grad zadaje 3k6 obrażeń każdemu nieosłoniętemu stworzeniu i obiektowi w obszarze działania. Wszystkie istoty, które otrzymają w ten sposób obrażenia, muszą wykonać test Zręczności. Porażka oznacza, że dane stworzenie zostaje powalone, a sukces, że otrzymuje tylko połowę obrażeń.",
-      "card_description": ""
+      "card_description": "",
+      "origin": {
+        "source": "PG",
+        "number": 127
+      }
     },
     {
       "name": "WYŁADOWANIE",

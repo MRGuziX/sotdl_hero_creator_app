@@ -44,7 +44,11 @@
       "area": "Obszar: Sześcian o krawędzi 2 metrów i punkcie początkowym w bliskim zasięgu, który widzisz.",
       "duration": "Czas działania: 1 godzina; patrz niżej",
       "book_description": "W obszarze działania zaklęcia pojawia się bezgłośna iluzja stworzenia, obiektu lub zjawiska. Jeśli tworzysz iluzję istoty... [Uwaga: tekst w źródle urywa się w tym miejscu z powodu wklejonej tabeli z innego zaklęcia].",
-      "card_description": ""
+      "card_description": "",
+      "origin": {
+        "source": "PG",
+        "number": 122
+      }
     },
     {
       "name": "ZAWROTY GŁOWY",
@@ -144,7 +148,11 @@
       "book_description": "W obszarze działania zaklęcia na czas jego trwania pojawia się iluzoryczny teren. Wydaje się prawdziwy pod każdym względem – wyglądu, dźwięków, zapachów i tak dalej. Możesz całkowicie zmienić wygląd istniejącego terenu lub zawrzeć jego elementy w swojej iluzji. Iluzja ta jest w stanie zupełnie zamaskować wszelkie cechy topograficzne w obszarze działania zaklęcia, łącznie z najróżniejszymi doznaniami wzrokowymi. Przykładowo zdołasz ukryć płonący ogień i rzucane przez niego światło, ale nadal będzie emitować gorąco i zadawać obrażenia stworzeniom, które się z nim zetkną.",
       "sacrifice": "Możesz poświęcić użycie tego zaklęcia, by rzucić zaklęcie fantom.",
       "permanent": "Jeśli zaklęcie to rzucałeś na ten sam obszar codziennie przez miesiąc i jeden dzień, jego efekt staje się permanentny.",
-      "card_description": ""
+      "card_description": "",
+      "origin": {
+        "source": "PG",
+        "number": 123
+      }
     }
   ],
   "level_5": [

@@ -10,7 +10,11 @@
       "target": "Cel: Jedno stworzenie w dalekim zasięgu, które jest w stanie cię zobaczyć.",
       "book_description": "Wykonaj oparty na Intelekcie rzut na atak przeciwko Intelektowi celu. Sukces oznacza, że stworzenie musi się przemieścić na odległość równą lub mniejszą od jego Prędkości.",
       "critical_success": "Rzut na atak to 20+: Odzyskujesz użycie tego czaru.",
-      "card_description": ""
+      "card_description": "",
+      "origin": {
+        "source": "PG",
+        "number": 149
+      }
     },
     {
       "name": "PREZENCJA",
@@ -21,7 +25,11 @@
       "level": 0,
       "duration": "Czas działania: 1 minuta.",
       "book_description": "W czasie trwania zaklęcia stworzenia, które naturalnie mogą czuć pociąg do członków twojego gatunku, wykonują rzuty na atak przeciwko tobie z 1 utrudnieniem.",
-      "card_description": ""
+      "card_description": "",
+      "origin": {
+        "source": "PG",
+        "number": 149
+      }
     }
   ],
   "level_1": [
@@ -35,7 +43,11 @@
       "target": "Cel: Jedno stworzenie w bliskim zasięgu, które jest w stanie cię zobaczyć.",
       "book_description": "Wykonaj oparty na Intelekcie rzut na atak przeciwko Woli celu. Jeśli stworzenie to było atakowane przez ciebie lub członków twojej drużyny od czasu waszego ostatniego pełnego odpoczynku, rzut ten otrzymuje 1 utrudnienie. Sukces oznacza, że istota zostaje zauroczona na 1 godzinę lub dopóki nie otrzyma obrażeń.",
       "critical_success": "Rzut na atak to 20+: Cel zostaje zauroczony na 1k6 godzin lub dopóki nie otrzyma obrażeń.",
-      "card_description": ""
+      "card_description": "",
+      "origin": {
+        "source": "PG",
+        "number": 149
+      }
     },
     {
       "name": "ROZKAZ",
@@ -47,7 +59,11 @@
       "target": "Cel: Jedno stworzenie w bliskim zasięgu, które jest w stanie cię usłyszeć.",
       "book_description": "Wykonaj oparty na Intelekcie rzut na atak przeciwko Woli celu. Jeśli jest on zauroczony, rzut ten otrzymuje 1 ułatwienie. Sukces oznacza, że stworzenie zostaje zniewolone na 1 rundę.",
       "critical_success": "Rzut na atak to 20+: Odzyskujesz użycie tego czaru.",
-      "card_description": ""
+      "card_description": "",
+      "origin": {
+        "source": "PG",
+        "number": 149
+      }
     },
     {
       "name": "PYTANIE",
@@ -59,7 +75,11 @@
       "target": "Cel: Jedno stworzenie w bliskim zasięgu, które jest w stanie cię zobaczyć, usłyszeć i zrozumieć.",
       "book_description": "Zadajesz celowi pytanie, po czym wykonujesz oparty na Intelekcie rzut na atak przeciwko jego Woli. Sukces oznacza, że stworzenie musi odpowiedzieć zgodnie z prawdą i posiadaną wiedzą.",
       "critical_success": "Rzut na atak to 20+: Cel staje się przestraszony na 1 rundę.",
-      "card_description": ""
+      "card_description": "",
+      "origin": {
+        "source": "PG",
+        "number": 149
+      }
     }
   ],
   "level_2": [
@@ -73,7 +93,11 @@
       "target": "Cel: Jedno stworzenie w średnim zasięgu, które jest w stanie cię zobaczyć.",
       "book_description": "Wykonaj oparty na Intelekcie rzut na atak przeciwko Woli celu. Jeśli stworzenie było atakowane przez ciebie lub członków twojej drużyny od czasu waszego ostatniego pełnego odpoczynku, rzut ten otrzymuje 1 utrudnienie. Sukces oznacza, że istota zostaje zniewolona na 1 minutę lub dopóki nie otrzyma obrażeń.",
       "critical_success": "Rzut na atak to 20+: Cel zostaje zniewolony na 1 godzinę lub dopóki nie otrzyma obrażeń.",
-      "card_description": ""
+      "card_description": "",
+      "origin": {
+        "source": "PG",
+        "number": 149
+      }
     },
     {
       "name": "SPĘTANIE UMYSŁU",
@@ -85,7 +109,11 @@
       "target": "Cel: Jedno stworzenie w średnim zasięgu, które jest w stanie cię zobaczyć i usłyszeć.",
       "book_description": "Wykonaj oparty na Intelekcie rzut na atak przeciwko Woli celu. Jeśli stworzenie było atakowane przez ciebie lub członków twojej drużyny od czasu waszego ostatniego pełnego odpoczynku, rzut ten otrzymuje 1 utrudnienie. Sukces oznacza, że istota staje się zamroczona na 1 minutę lub dopóki nie otrzyma obrażeń. W interakcjach społecznych rzuty na atak przeciwko zamroczonemu tym zaklęciem celowi wykonujesz z 1 ułatwieniem.",
       "critical_success": "Rzut na atak to 20+: Dopóki pozostaje zamroczony tym zaklęciem, cel jest również oszołomiony.",
-      "card_description": ""
+      "card_description": "",
+      "origin": {
+        "source": "PG",
+        "number": 149
+      }
     }
   ],
   "level_3": [
@@ -99,7 +127,11 @@
       "target": "Cel: Jedno stworzenie w średnim zasięgu.",
       "book_description": "Wykonaj oparty na Intelekcie rzut na atak przeciwko Woli celu. Sukces oznacza, że stworzenie zostaje unieruchomione na 1 minutę. Dopóki pozostaje unieruchomione tym zaklęciem, jest także przestraszone. Raz na rundę, gdy otrzyma obrażenia, może wykonać test Woli, a sukces oznacza, że przestaje być unieruchomione.",
       "critical_success": "Rzut na atak to 20+: Cel zostaje także powalony i nie może podnieść się, dopóki jest unieruchomiony tym zaklęciem.",
-      "card_description": ""
+      "card_description": "",
+      "origin": {
+        "source": "PG",
+        "number": 149
+      }
     },
     {
       "name": "WARUNKOWANIE",
@@ -111,7 +143,11 @@
       "target": "Cel: Jedno stworzenie w bliskim zasięgu, które jest w stanie cię zobaczyć i usłyszeć.",
       "duration": "Czas działania: Koncentracja do 1 minuty; patrz niżej.",
       "book_description": "Wykonaj oparty na Intelekcie rzut na atak przeciwko Woli celu. Sukces oznacza, że stworzenie zostaje oszołomione na czas trwania zaklęcia lub dopóki nie otrzyma obrażeń. Jeśli utrzymasz koncentrację przez całą minutę, opisz czynność lub ich sekwencję, które nie prowadzą w oczywisty sposób do samobójstwa i które da się streścić w jednym lub dwóch zdaniach. Następnie powiedz, co aktywuje tę czynność, na przykład dotarcie do pewnego miejsca albo usłyszenie określonego słowa lub frazy. Jeśli sugerowane działanie byłoby potencjalnie szkodliwe dla celu, jego bliskich lub własności, może on wykonać test Woli, w którym sukces oznacza, że opiera się warunkowaniu. W przeciwnym wypadku musi wykonać opisaną czynność, jeżeli warunek zostanie spełniony w ciągu najbliższych 8 godzin. Gdy stworzenie wykona zadaną czynność, efekt zaklęcia dobiega końca.",
-      "card_description": ""
+      "card_description": "",
+      "origin": {
+        "source": "PG",
+        "number": 149
+      }
     }
   ],
   "level_4": [
@@ -124,7 +160,11 @@
       "level": 4,
       "target": "Cel: Dowolna liczba stworzeń w bliskim zasięgu.",
       "book_description": "Każdy cel musi wykonać test Woli z 1 utrudnieniem. Porażka oznacza, że zostaje zauroczony, dopóki go nie zaatakujesz lub nie odbędziesz pełnego odpoczynku. Zauroczone w ten sposób stworzenia stają się osłabione, jeśli oddalą się od ciebie poza bliski zasięg.",
-      "card_description": ""
+      "card_description": "",
+      "origin": {
+        "source": "PG",
+        "number": 149
+      }
     }
   ],
   "level_5": [
@@ -138,7 +178,11 @@
       "target": "Cel: Jedno stworzenie w średnim zasięgu.",
       "book_description": "Wykonaj oparty na Intelekcie rzut na atak przeciwko Woli celu. Jeśli był on atakowany przez ciebie lub członków twojej drużyny od czasu waszego ostatniego pełnego odpoczynku, rzut ten otrzymuje 1 utrudnienie. Sukces oznacza, że stworzenie zostaje zauroczone i na czas trwania zaklęcia przestaje się starzeć. Gdy otrzyma obrażenia, może wykonać test Woli, a sukces oznacza, że pozbywa się tego stanu. Jeśli znajdujesz się w dalekim zasięgu od zauroczonego w ten sposób celu, możesz wykorzystać akcję, by wykonać oparty na Intelekcie rzut na atak przeciwko jego Woli. Sukces oznacza, że istota staje się zniewolona na 1 minutę.",
       "critical_success": "Rzut na atak to 20+: Jeśli całkowity wynik początkowego rzutu na atak wynosił 20 lub więcej i przekroczył poziom trudności o 5 lub więcej, kolejne rzuty na atak przeciwko zauroczonemu celowi wykonujesz z 2 ułatwieniami.",
-      "card_description": ""
+      "card_description": "",
+      "origin": {
+        "source": "PG",
+        "number": 149
+      }
     }
   ]
 }
