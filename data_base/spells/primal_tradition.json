@@ -19,7 +19,7 @@
       "level": 0,
       "duration": "Czas działania: 1 minuta; patrz niżej",
       "book_description": "Przez czas trwania zaklęcia jesteś ukryty przed zwierzętami. Efekt ten natychmiast dobiega końca, gdy wykonasz atak.",
-      "card_description": "początkowym w bliskim zasięgu, który widzisz.\nW obszarze działania zaklęcia \npojawia się bezgłośna iluzja \nstworzenia, obiektu lub zjawiska.\nJeśli tworzysz iluzję istoty, zachowuje \nsię ona w naturalny, wiarygodny \nsposób. Jeżeli iluzja zostanie \nzaatakowana lub jeśli nie widzisz jej \nna koniec rundy, efekt natychmiast \ndobiega końca.\nWYMYSŁ\nUżytkowe 1",
+      "card_description": "",
       "origin": {
         "source": "PG",
         "number": 122
@@ -106,7 +106,7 @@
       "level": 3,
       "requirements": "Musisz być pod wpływem zaklęcia serce bestii.",
       "book_description": "Przemieszczasz się na odległość do tylu metrów, ile wynosi dwukrotność twojej Prędkości. W dowolnym punkcie tego ruchu możesz wykonać atak bez broni lub z użyciem broni naturalnej przeciwko celowi w bezpośrednim zasięgu, używając Woli w miejsce typowego dla tego ataku atrybutu. Sukces oznacza, że cel otrzymuje normalne obrażenia od tego ataku plus dodatkowe 4k6 obrażeń i zostaje powalony.",
-      "card_description": "Koncentrujesz się przez 1 minutę, \nwyobrażając sobie stworzenie  l ub \nobiekt. Kiedy skończysz, jesteś \n świadomy dokładnego położenia \n wybranej istoty lub przedmiotu, jeśli \nznajduje się w średnim zasięgu od \nciebie.  Dopóki zaklęcie trwa, cel nie\nmoże zostać przed tobą ukryty. \nPoznajesz też ścieżkę, którą\nnależy iść, by dotrzeć do danego \nobiektu lub stworzenia.\nLOKALIZACJA\nUżytkowe 3",
+      "card_description": "",
       "origin": {
         "source": "PG",
         "number": 124

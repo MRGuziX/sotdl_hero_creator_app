@@ -49,7 +49,7 @@
       "area": "Obszar: Sfera o promieniu 2 metrów i punkcie początkowym w bezpośrednim zasięgu.",
       "duration": "Czas działania: 1 minuta",
       "book_description": "W obszarze działania czaru rozchodzi się uzdrawiająca energia, która na czas jego trwania porusza się wraz z tobą. Gdy znajdujące się wewnątrz tego obszaru stworzenie leczy obrażenia, leczy dodatkowo liczbę punktów obrażeń równą twojej Mocy.",
-      "card_description": "początkowym w bezpośrednim zasięgu.\nRozchodzi się fala grozy. Każda \nznajdująca się na jej drodze istota \nmusi wykonać udany test Woli, \nw przeciwnym wypadku staje się \nprzestraszona na 1 min. \nPrzestraszone stworzenie \nmusi podjąć turę krótką, którą \nwykorzystuje na ucieczkę przed tobą \nNa koniec każdej rundy, jeśli ofiara \ncię nie widzi, może wykonać test \nWoli, a przy sukcesie pozbywa się \ntego stanu.\nTRWOGA\nAtak 3",
+      "card_description": "",
       "origin": {
         "source": "PG",
         "number": 125

@@ -10,7 +10,7 @@
       "target": "Cel: Jedno stworzenie w bliskim zasięgu, które jest w stanie cię zobaczyć.",
       "critical_success": "Rzut na atak to 20+: Cel staje się także zamroczony na 1 rundę.",
       "book_description": "Wykonaj oparty na Intelekcie rzut na atak przeciwko Woli celu. Sukces oznacza, że ofiara zostaje przeklęta na 1 minutę lub dopóki nie otrzyma obrażeń. Staje się wtedy osłabiona, a ty rzuty na atak przeciwko niej wykonujesz z 1 ułatwieniem.",
-      "card_description": "które jest w stanie cię zobaczyć.\nWykonaj oparty na Intelekcie rzut\nna atak przeciwko Woli celu.\nSukces oznacza, że ofiara zostaje \nprzeklęta na 1 min . lub dopóki \nnie otrzyma obrażeń. Staje się \nwtedy osłabiona, a ty rzuty na \natak przeciwko niej wykonujesz \nz 1 ułatwieniem.\nAtak 0",
+      "card_description": "",
       "origin": {
         "source": "PG",
         "number": 125
@@ -26,7 +26,7 @@
       "target": "Cel: Jedno żywe stworzenie w bliskim zasięgu.",
       "critical_success": "Rzut na atak to 20+: Cel staje się przestraszony na 1 minutę.",
       "book_description": "Wykonaj oparty na Intelekcie rzut na atak przeciwko Sile celu. Sukces oznacza, że na ciele ofiary wykwitają zielone, wilgotne pęcherze. Otrzymuje ona 1k3 obrażeń od choroby i staje się przestraszona na 1 rundę.",
-      "card_description": "Wykonaj oparty na Intelekcie rzut \n na atak przeciwko Sile celu. Sukces \noznacza, że na ciele ofiary wykwitają \nzielone, wilgotne pęcherze. Otrzymuje \nona 1k3 obrażeń od choroby i staje się \nprzestraszona na 1 rundę.\nAtak 0",
+      "card_description": "",
       "origin": {
         "source": "PG",
         "number": 125
@@ -44,7 +44,7 @@
       "target": "Cel: Jedno stworzenie w bliskim zasięgu, które jest w stanie cię zobaczyć.",
       "critical_success": "Rzut na atak to 20+: Przestraszony w ten sposób cel staje się także osłabiony.",
       "book_description": "Wykonaj oparty na Intelekcie rzut na atak przeciwko Woli celu. Sukces oznacza, że ofiara zostaje przestraszona na 1 minutę. W tym czasie może wykorzystać akcję, by wykonać test Woli, a uzyskanie sukcesu pozwoli jej pozbyć się tego stanu.",
-      "card_description": "które jest w stanie cię zobaczyć.\nWykonaj oparty na Intelekcie \nrzut  na atak przeciwko Woli celu. \nSukces oznacza, że ofiara zostaje \n przestraszona na 1 min . W tym \nczasie może wykorzystać  akcję, \nby wykonać test Woli, a uzyskanie \nsukcesu pozwoli  jej pozbyć się\ntego stanu.\nAtak 1",
+      "card_description": "",
       "origin": {
         "source": "PG",
         "number": 125
@@ -60,7 +60,7 @@
       "target": "Cel: Jedno stworzenie w bliskim zasięgu.",
       "critical_success": "Rzut na atak to 20+: Cel zostaje także powalony i nie może podnieść się, dopóki jest spowolniony tym zaklęciem.",
       "book_description": "Wykonaj oparty na Intelekcie rzut na atak przeciwko Sile celu. Sukces oznacza, że ofiara zostaje spowolniona na 1 minutę.",
-      "card_description": "Wykonaj oparty na Intelekcie rzut na \natak przeciwko Sile celu.\nSukces oznacza, że ofiara zostaje \nspowolniona na 1 minutę.\nAtak 1",
+      "card_description": "",
       "origin": {
         "source": "PG",
         "number": 125
@@ -76,7 +76,7 @@
       "target": "Cel: Jedno stworzenie w bliskim zasięgu.",
       "critical_success": "Rzut na atak to 20+: Dodatkowo przez 1 minutę za każdym razem, gdy cel otrzyma obrażenia, staje się zamroczony na 1 rundę.",
       "book_description": "Wykonaj oparty na Intelekcie rzut na atak przeciwko Sile celu. Sukces oznacza, że przez 1 minutę za każdym razem, gdy ofiara otrzyma obrażenia, dostaje ich dodatkowe 1k6.",
-      "card_description": "Wykonaj oparty na Intelekcie rzut \n na atak przeciwko Sile celu. Sukces \noznacza, że przez  1 minutę za każdym \nrazem, gdy ofiara otrzyma obrażenia, \ndostaje ich dodatkowe  +1k6.\nAtak 1",
+      "card_description": "",
       "origin": {
         "source": "PG",
         "number": 125
@@ -94,7 +94,7 @@
       "target": "Cel: Jedno stworzenie w średnim zasięgu.",
       "critical_success": "Rzut na atak to 20+: Klątwa ta trwa, dopóki żyjesz lub dopóki jej nie zdejmiesz.",
       "book_description": "Wykonaj oparty na Intelekcie rzut na atak przeciwko Sile celu. Sukces oznacza, że ofiara zostaje przeklęta na 1 minutę. W tym czasie wszystkie rzuty na atak przeciwko niej wykonywane są z 1 ułatwieniem, a ona sama wszystkie testy w celu odparcia efektów ataków wykonuje z 1 utrudnieniem.",
-      "card_description": "Wykonaj oparty na Intelekcie \nrzut  na atak przeciwko Sile celu. \nSukces oznacza, że ofiara zostaje \nprzeklęta na 1 minutę. W tym czasie \nwszystkie rzuty na atak przeciwko \nniej wykonywane są z 1 ułatwieniem, \na ona sama wszystkie testy w celu \nodparcia efektów ataków wykonuje \nz 1 utrudnieniem.\nAtak 2",
+      "card_description": "",
       "origin": {
         "source": "PG",
         "number": 125
@@ -110,7 +110,7 @@
       "target": "Cel: Jedno stworzenie w średnim zasięgu.",
       "critical_success": "Rzut na atak to 20+: Klątwa ta trwa, dopóki żyjesz lub dopóki jej nie zdejmiesz.",
       "book_description": "Wykonaj oparty na Intelekcie rzut na atak przeciwko Sile celu. Sukces oznacza, że ofiara zostaje przeklęta na 1 minutę. Otrzymuje wtedy karę -10 do Zdrowia, a wszystkie oparte na Sile lub Zręczności rzuty na atak i testy wykonuje z 1 utrudnieniem.",
-      "card_description": " Wykonaj oparty na Intelekcie rzut\nna atak przeciwko Sile celu.\nSukces oznacza, że ofiara zostaje \nprzeklęta na 1 minutę. Otrzymuje\nwtedy karę −10 do Zdrowia, \na wszystkie oparte na Sile\nlub Zręczności rzuty na atak i testy \nwykonuje z 1 utrudnieniem.\nAtak  2",
+      "card_description": "",
       "origin": {
         "source": "PG",
         "number": 125
@@ -152,7 +152,7 @@
       "duration": "Czas działania: Koncentracja do 1 minuty; patrz niżej.",
       "critical_success": "Rzut na atak to 20+: Nie trzeba spełnić żadnych warunków, aby klątwa trwała, dopóki żyjesz lub dopóki sam nie poświęcisz akcji na jej zdjęcie, mając cel w średnim zasięgu.",
       "book_description": "Wykonaj oparty na Intelekcie rzut na atak przeciwko Sile celu – z 3 ułatwieniami, jeśli jego Zdrowie wynosi 40 lub mniej. Sukces oznacza, że ofiara zamienia się w nieszkodliwą ropuchę (drobne zwierzę) i pozostaje w tej postaci, dopóki utrzymujesz koncentrację (maksymalnie na 1 minutę). Jeśli przez czas działania zaklęcia nic nie przerwie twojej koncentracji, klątwa ta trwa, dopóki żyjesz lub dopóki nie poświęcisz akcji, aby ją zdjąć. Zostaje jednak przełamana, gdy ropuchę z własnej woli pocałuje dziewica.",
-      "card_description": "zasięgu , które widzisz.\nWykonaj oparty na Intelekcie rzut na\natak przeciwko Sile celu – z 3 ułatwieniami, \njeśli jego Zdrowie wynosi 40 lub mniej. \nSukces oznacza, że ofiara zamienia się \nw ropuchę (drobne zwierzę) i pozostaje w tej \npostaci, dopóki utrzymujesz koncentrację \n(maksymalnie na 1 minutę). Jeśli przez czas \ndziałania zaklęcia nic nie przerwie twojej \nkoncentracji, klątwa ta trwa, dopóki żyjesz \nlub dopóki nie poświęcisz akcji, aby ją zdjąć.\nAtak 4",
+      "card_description": "",
       "origin": {
         "source": "PG",
         "number": 125
@@ -170,7 +170,7 @@
       "target": "Cel: Jedno stworzenie w średnim zasięgu, które posiada fizyczną postać.",
       "critical_success": "Rzut na atak to 20+: Cel otrzymuje dodatkowe 3k6 obrażeń.",
       "book_description": "Wykonaj oparty na Intelekcie rzut na atak przeciwko Sile celu – z 3 ułatwieniami, jeśli jego Zdrowie wynosi 50 lub mniej. Sukces oznacza, że ofiara otrzymuje 7k6 + 10 obrażeń i staje się spowolniona na 1 minutę. Jeśli obrażenia te spowodują obezwładnienie stworzenia, natychmiast ono umiera, a jego ciało zamienia się w kamienny posąg.",
-      "card_description": "które posiada fizyczną postać.\n Wykonaj oparty na Intelekcie\nrzut na atak przeciwko Sile celu\n– z 3 ułatwieniami, jeśli jego\nZdrowie wynosi 50 lub mniej.\nSukces oznacza, że ofiara otrzymuje \n7k6 + 10 obrażeń i staje się spowol-\nniona na 1 min. Jeśli obrażenia te \nspowodują obezwładnienie stworzenia, \nnatychmiast ono umiera, a jego ciało \nzamienia się w kamienny posąg.\nRzut na atak to 20+: Cel otrzymuje \ndodatkowe 3k6 obrażeń.\nAtak 5",
+      "card_description": "",
       "origin": {
         "source": "PG",
         "number": 126

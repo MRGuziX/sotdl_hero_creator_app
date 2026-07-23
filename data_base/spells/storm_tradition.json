@@ -10,7 +10,7 @@
       "area": "Obszar: Walec o wysokości 3 metrów, promieniu 5 metrów i punkcie początkowym w średnim zasięgu.",
       "duration": "Czas działania: 1 godzina; patrz niżej.",
       "book_description": "Po obszarze działania zaklęcia rozchodzi się mgła, częściowo przesłaniając go na czas trwania czaru lub dopóki nie rozproszy jej wiatr.",
-      "card_description": "i punkcie początkowym w średnim zasięgu.\nPo obszarze działania zaklęcia \nrozchodzi się mgła, częściowo \n przesłaniając go na czas trwania \nczaru lub dopóki nie rozproszy \njej wiatr.\nUżytkowe 0",
+      "card_description": "",
       "origin": {
         "source": "PG",
         "number": 127
@@ -26,7 +26,7 @@
       "target": "Cel: Jedno stworzenie w bliskim zasięgu.",
       "critical_success": "Rzut na atak to 20+: Cel jest także zamroczony do końca rundy.",
       "book_description": "Wykonaj oparty na Woli rzut na atak przeciwko Zręczności celu. Jeśli ma on na sobie metalowe przedmioty lub sam jest zrobiony z metalu, zyskujesz 1 ułatwienie. Sukces oznacza, że przeciwnik otrzymuje 1k6 obrażeń.",
-      "card_description": "Wykonaj oparty na Woli rzut na \natak przeciwko Zręczności celu. \nJeśli ma on na sobie metalowe \nprzedmioty lub sam jest zrobiony \nz metalu, zyskujesz 1 ułatwienie. \nSukces  oznacza, że przeciwnik \notrzymuje 1k6 obrażeń.\nAtak 0",
+      "card_description": "",
       "origin": {
         "source": "PG",
         "number": 127
@@ -44,7 +44,7 @@
       "target": "Cel: Do dwóch stworzeń w średnim zasięgu, które są w bliskim zasięgu od siebie.",
       "critical_success": "Rzut na atak to 20+: Cel otrzymuje dodatkowe 1k6 obrażeń.",
       "book_description": "Wykonaj oparty na Woli rzut na atak przeciwko Zręczności każdego celu. Jeśli stworzenie ma na sobie metalowe przedmioty lub samo jest zrobione z metalu, zyskujesz 1 ułatwienie. Sukces oznacza, że cel otrzymuje 1k6 + 2 obrażeń.",
-      "card_description": "które są w bliskim zasięgu od siebie.\nWykonaj oparty na Woli rzut na \natak przeciwko Zręczności każdego \ncelu. Jeśli stworzenie ma na sobie \nmetalowe przedmioty lub samo \njest zrobione z metalu, zyskujesz \n1 ułatwienie. Sukces oznacza, że cel \notrzymuje  1 k6 + 2 obrażeń.",
+      "card_description": "",
       "origin": {
         "source": "PG",
         "number": 127
@@ -60,7 +60,7 @@
       "area": "Obszar: Walec o wysokości 3 metrów, promieniu 5 metrów i punkcie początkowym w średnim zasięgu.",
       "duration": "Czas działania: 1 minuta; patrz niżej.",
       "book_description": "Po obszarze działania zaklęcia rozchodzi się mgła, częściowo przesłaniając go na okres trwania czaru lub dopóki nie rozproszy jej wiatr. Podłoże w tym obszarze staje się śliskie i tak długo, jak długo działa zaklęcie, zamienia się w trudny teren. Każde stworzenie znajdujące się tam w momencie rzucenia czaru lub na koniec rundy musi wykonać test Siły. Porażka oznacza, że otrzymuje 1k3 obrażeń i ulega spowolnieniu na 1 rundę.",
-      "card_description": " i punkcie początkowym w średnim zasięgu.\n Po wybranym obszarze rozchodzi się \npurpurowa mgła, znacznie przesłaniając go \nna okres trwania czaru. Na koniec każdej\nrundy w czasie działania zaklęcia rzuć k6. \nJeśli wynik jest parzysty, chmura odsuwa \nsię o połowę wyniku w metrach od ciebie.\nNa koniec każdej rundy podczas\njego trwania, wszystkie znajdujące w jego \nobszarze stworzenia muszą wykonać test \nSiły. Porażka oznacza, że dana istota\notrzymuje 1k6 obrażeń i staje się zatruta \nna 1 rundę. Dopóki pozostaje zatruta w ten \nsposób, jest także unieruchomiona.\nTRUJĄCA\nMGŁA\nAtak 2",
+      "card_description": "",
       "origin": {
         "source": "PG",
         "number": 127
@@ -90,7 +90,7 @@
       "target": "Cel: Punkt na podłożu w dalekim zasięgu.",
       "sacrifice": "Możesz poświęcić użycie tego zaklęcia, by rzucić czar rozwidlony piorun.",
       "book_description": "W cel uderza z nieba piorun, zadając 3k6 + 5 obrażeń wszystkiemu w promieniu 3 metrów od niego. Każde stworzenie, które otrzyma w ten sposób obrażenia, musi wykonać test Siły. Porażka oznacza, że staje się ogłuszone na 1 godzinę, a sukces, że otrzymuje tylko połowę obrażeń.",
-      "card_description": "Wymagania: Musisz znajdować się\nna  wolnym powietrzu.\nW cel uderza piorun, zadając \n3k6 + 5 obrażeń wszystkiemu \nw promieniu 3m. Każde stworzenie, \nktóre otrzyma w ten sposób \nobrażenia, wykonuje test Siły. \n Porażka oznacza, że staje się \nogłuszone na 1 godzinę, a sukces,\nże otrzymuje tylko połowę obrażeń.\nPoświęcenie: Możesz poświęcić \nużycie tego zaklęcia, by rzucić\nczar rozwidlony piorun.\nPRZYWOŁANIE\nPIORUNA\nAtak 2",
+      "card_description": "",
       "origin": {
         "source": "PG",
         "number": 127
@@ -129,7 +129,7 @@
       "level": 3,
       "area": "Obszar: Linia o długości 30 metrów i szerokości 1 metra o punkcie początkowym w bezpośrednim zasięgu.",
       "book_description": "Ładunek elektryczny przemieszcza się na odległość 5k6 metrów wzdłuż obszaru działania zaklęcia. Jeśli przed osiągnięciem końca wyznaczonej linii napotka na swej drodze mającą trwałą postać przeszkodę, odbija się od niej i powraca ku tobie w linii prostej, zużywając resztę swojego „ruchu”. Wszystko w obszarze działania zaklęcia otrzymuje 5k6 obrażeń. Każde znajdujące się tam stworzenie musi podjąć test Zręczności; jeśli jest wykonane z metalu lub ma sobie ciężką zbroję, otrzymuje 1 utrudnienie. Istota, która znajduje się na drodze powracającego pioruna, rzuca dwukrotnie. Sukces oznacza, że otrzymuje tylko połowę obrażeń.",
-      "card_description": "początkowym w bezpośrednim zasięgu.\nŁadunek przemieszcza się na odległość \n5k6 metrów wzdłuż obszaru działania. \nWszystko w obszarze działania zaklęcia \notrzymuje 5k6 obrażeń. Każde znajdujące \nsię tam stworzenie musi podjąć test \nZręczności; jeśli jest wykonane z metalu \nlub ma sobie ciężką zbroję, otrzymuje \n1 utrudnienie. Sukces oznacza, że \notrzymuje tylko połowę obrażeń. Jeśli \nprzed osiągnięciem końca wyznaczonej \nlinii napotka na swej drodze mającą \ntrwałą postać przeszkodę, odbija się od \nniej i powraca ku tobie w linii prostej, \nzużywając resztę swojego „ruchu”.\nAtak 3",
+      "card_description": "",
       "origin": {
         "source": "PG",
         "number": 128
@@ -147,7 +147,7 @@
       "area": "Obszar: Walec o wysokości 2 metrów, promieniu 5 metrów i punkcie początkowym w dalekim zasięgu.",
       "duration": "Czas działania: 1 minuta.",
       "book_description": "Po obszarze działania zaklęcia rozchodzą się chmury, częściowo przesłaniając go na okres trwania czaru, a następnie zaczyna padać z nich zielonkawy deszcz kwasu. W momencie rzucenia zaklęcia, a także na koniec każdej rundy przez czas jego działania, deszcz zadaje 5k6 obrażeń każdemu nieosłoniętemu stworzeniu przebywającemu na wyznaczonym obszarze. Wszystkie istoty, które otrzymają w ten sposób obrażenia, muszą wykonać test Siły, a sukces oznacza, że otrzymują tylko połowę obrażeń.",
-      "card_description": "i punkcie początkowym w dalekim zasięgu.\n Po obszarze działania zaklęcia \nrozchodzą się chmury, częściowo \nprzesłaniając go na okres jego trwania, \na następnie zaczyna padać z nich \ndeszcz kwasu. W momencie rzucenia \nzaklęcia, a także na koniec każdej \nrundy deszcz zadaje 5k6 obrażeń \nkażdemu nieosłoniętemu stworzeniu \nprzebywającemu na obszarze. \nWszystkie istoty, które otrzymają w ten \nsposób obrażenia, muszą wykonać test \nSiły, a sukces oznacza, że otrzymują \ntylko połowę obrażeń.\nKWAŚNY\nDESZCZ\nAtak 4",
+      "card_description": "",
       "origin": {
         "source": "PG",
         "number": 128
@@ -164,7 +164,7 @@
       "level": 5,
       "target": "Cel: Jedno stworzenie w dalekim zasięgu; patrz niżej.",
       "book_description": "Ciskasz w cel piorunem. Wykonaj oparty na Woli rzut na atak przeciwko Zręczności stworzenia. Jeśli ma ono na sobie metalowe przedmioty lub samo jest zrobione z metalu, zyskujesz 1 ułatwienie. Sukces oznacza, że przeciwnik otrzymuje 8k6 obrażeń, a ty możesz powtórzyć ten atak przeciwko innemu celowi w dalekim zasięgu od pierwszego. Za każdym razem, gdy powtarzasz atak, musisz wybrać istotę, której jeszcze nie zadałeś obrażeń tym użyciem zaklęcia, a także zmniejszyć je o 2k6. Gdy liczba kości obrażeń spadnie do 0, efekt dobiega końca.",
-      "card_description": " Wykonaj oparty na Woli rzut na atak\nprzeciwko Zręczności stworzenia, \nz 1 ułatwieniem jeśli ma ono na \nsobie metalowe przedmioty lub jest \nzrobione z metalu. Sukces oznacza, że \nprzeciwnik otrzymuje 8k6 obrażeń, a ty \nmożesz powtórzyć ten atak przeciwko \ninnemu celowi w dalekim zasięgu \nod pierwszego, któremu jeszcze nie \nzadałeś obrażeń tym użyciem zaklęcia. \nKażdy kolejny piorun zadaje 2k6 \nobrażeń mniej.\nŁAŃCUCH\nPIORUNÓW\nAtak 5",
+      "card_description": "",
       "origin": {
         "source": "PG",
         "number": 128

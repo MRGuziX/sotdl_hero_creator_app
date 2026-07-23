@@ -53,7 +53,7 @@
       "level": 1,
       "target": "Cel: Jeden wykonany ze szkła, metalu lub kamienia obiekt w średnim zasięgu, który widzisz.",
       "book_description": "Otrzymujesz 2 punkty obrażeń, a cel – 3k6 obrażeń. Jeśli obrażenia te powodują zniszczenie obiektu, rozpryskuje się on, zadając odłamkami 1k6 obrażeń wszystkiemu w promieniu 2 metrów od punktu początkowego w zajmowanej przez siebie przestrzeni. Stworzenia na tym obszarze, którym powiedzie się test Zręczności, otrzymują tylko połowę obrażeń.",
-      "card_description": "WYCZUCIE\n MAGII\npoczątkowym w zajmowanej przez ciebie \nprzestrzeni.\nUżytkowe 0\nWyczuwasz obecne na danym \nobszarze efekty magiczne i ich \npunkty początkowe.",
+      "card_description": "",
       "origin": {
         "source": "PG",
         "number": 60

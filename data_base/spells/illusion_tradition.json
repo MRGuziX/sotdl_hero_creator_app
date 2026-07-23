@@ -10,7 +10,7 @@
       "target": "Cel: Punkt przestrzeni w średnim zasięgu.",
       "duration": "Czas działania: 1 minuta",
       "book_description": "Przez czas trwania zaklęcia we wskazanym punkcie rozlega się wybrany przez ciebie dźwięk. Może to być hałas lub słowa w znanym ci języku, ciche jak szept lub głośne jak grzmot. Możesz wedle uznania zmieniać ten dźwięk, by symulować odgłos uderzających o siebie ostrzy, rozmowę czy zbliżające się i oddalające kroki.",
-      "card_description": "Przez czas trwania zaklęcia we \nwskazanym punkcie rozlega się \nwybrany przez ciebie dźwięk. Może \nto być hałas lub słowa w znanym ci \njęzyku, ciche jak szept lub głośne \njak grzmot. Możesz wedle uznania \nzmieniać ten dźwięk, by symulować \nodgłos uderzających o siebie ostrzy, \nrozmowę czy zbliżające się\ni oddalające kroki.\nUżytkowe 0",
+      "card_description": "",
       "origin": {
         "source": "PG",
         "number": 122
@@ -26,7 +26,7 @@
       "target": "Cel: Jedno stworzenie w bezpośrednim zasięgu.",
       "duration": "Czas działania: 1 godzina",
       "book_description": "Dotykasz celu i tworzysz na nim iluzoryczne przebranie, które utrzymuje się przez czas trwania zaklęcia. Ty ustalasz, jak ono wygląda. Możesz zwiększyć lub zmniejszyć pozorny wzrost i wagę celu maksymalnie o 25%. Potrafisz też zmienić wygląd ubioru i wyposażenia istoty, ale efekt ten nie maskuje dźwięków, które normalnie wydają.",
-      "card_description": "Dotykasz celu i tworzysz na nim \niluzoryczne przebranie, które \nutrzymuje się przez czas trwania \nzaklęcia. Ty ustalasz, jak ono \nwygląda. Możesz zwiększyć lub \nzmniejszyć pozorny wzrost i wagę \ncelu maksymalnie o 25%. Potrafisz też \nzmienić wygląd ubioru i wyposażenia \nistoty, ale efekt ten nie maskuje \ndźwięków, które normalnie wydają.\nUżytkowe 0",
+      "card_description": "",
       "origin": {
         "source": "PG",
         "number": 122
@@ -55,7 +55,7 @@
       "target": "Cel: Jedno stworzenie w bliskim zasięgu.",
       "critical_success": "Rzut na atak to 20+: Jeśli cel otrzyma obrażenia, będąc pod wpływem zaklęcia, zostaje także powalony.",
       "book_description": "Celowi wydaje się, że jego najbliższe otoczenie zaczyna wirować. Wykonaj oparty na Intelekcie rzut na atak przeciwko Percepcji stworzenia. Sukces oznacza, że na 1 minutę ogarniają je zawroty głowy. Jeśli będąc pod wpływem zaklęcia, poruszy się podczas swojej tury o więcej niż 2 metry, musi wykonać test Zręczności. Porażka oznacza, że zostaje powalone i kończy swoją turę.",
-      "card_description": " Celowi wydaje się, że jego najbliższe \notoczenie zaczyna wirować.\nWykonaj oparty na Intelekcie rzut na \natak przeciwko Percepcji stworzenia. \nSukces oznacza, że na 1 minutę \nogarniają je zawroty głowy. Jeśli będąc \npod wpływem zaklęcia, poruszy się\npodczas swojej tury o więcej niż 2m, \nmusi wykonać test Zręczności.\nPorażka oznacza, że zostaje powalone \ni kończy swoją turę.",
+      "card_description": "",
       "origin": {
         "source": "PG",
         "number": 123
@@ -74,7 +74,7 @@
       "duration": "Czas działania: 1 godzina; patrz niżej",
       "critical_success": "Rzut na atak to 20+: Cel otrzymuje dodatkowe 2k6 obrażeń.",
       "book_description": "W obszarze działania zaklęcia pojawia się wizualna i dźwiękowa iluzja stworzenia, obiektu lub zjawiska. Jeśli nie widzisz jej na koniec rundy, efekt natychmiast dobiega końca. Jeżeli tworzysz iluzję niebezpiecznego zjawiska, takiego jak ogień czy wrząca woda, stworzenie, które wkroczy na jej przestrzeń, musi wykonać udany test Percepcji, w przeciwnym wypadku otrzymuje 2k6 obrażeń. Jeśli tworzysz iluzję stworzenia, porusza się ono i zachowuje w naturalny, wiarygodny sposób; wartości jego atrybutów, Obrony i Zdrowia równe są twojemu Intelektowi. Iluzja ignoruje wszelkie stany i znika, jeśli zostanie obezwładniona, co oznacza koniec działania czaru. Dopóki zaklęcie trwa, możesz wykorzystać akcję, by przemieścić iluzję o maksymalnie 10 metrów i zaatakować stworzenie w odległości do 1 metra od niej, które ją widzi i uznaje za prawdziwą. Wykonaj oparty na Intelekcie rzut na atak przeciwko Percepcji przeciwnika. Sukces oznacza, że jest przekonany, iż został zraniony, oparzony lub w inny sposób skrzywdzony przez iluzję, i otrzymuje 2k6 obrażeń.",
-      "card_description": "początkowym w bliskim zasięgu , który widzisz.\n W obszarze działania zaklęcia pojawia się \nwizualna i dźwiękowa iluzja stworzenia, obiektu lub \nzjawiska. Jeśli nie widzisz jej na koniec rundy, efekt \nnatychmiast dobiega końca. Iluzje niebezpiecznego \nzjawiska, takiego jak ogień czy wrząca woda - \nstworzenie, które wkroczy na jej przestrzeń, musi \nwykonać udany test Percepcji, lub otrzymuje 2k6 \nobrażeń. Jeśli tworzysz iluzję stworzenia, porusza \nsię ono i zachowuje w naturalny sposób; wartości \njego atrybutów, Obrony i Zdrowia równe są twojemu \nIntelektowi. Iluzja ignoruje wszelkie stany i znika, \njeśli zostanie obezwładniona. Możesz wykorzystać \nakcję, by przemieścić iluzję o maksymalnie 10m \ni zaatakować stworzenie w odległości do 1m od \nniej, które ją widzi i uznaje za prawdziwą. Wykonaj \noparty na Intelekcie rzut na atak przeciwko Percepcji \nprzeciwnika. Sukces oznacza, że jest przekonany, \niż został zraniony, oparzony lub w inny sposób \nskrzywdzony przez iluzję, i otrzymuje 2k6 obrażeń.\n20+: Cel otrzymuje dodatkowe 2k6 obrażeń.\nUżytkowe 2",
+      "card_description": "",
       "origin": {
         "source": "PG",
         "number": 123
@@ -90,7 +90,7 @@
       "target": "Cel: Jedno stworzenie lub obiekt w bezpośrednim zasięgu.",
       "duration": "Czas działania: 1 minuta",
       "book_description": "Dotykasz celu, który na czas trwania zaklęcia staje się niewidzialny.",
-      "card_description": "w bezpośrednim zasięgu.\nDotykasz celu, który na czas trwania \nzaklęcia staje się niewidzialny.\nUżytkowe 2",
+      "card_description": "",
       "origin": {
         "source": "PG",
         "number": 123
@@ -106,7 +106,7 @@
       ],
       "level": 3,
       "book_description": "Reakcja: Możesz rzucić to zaklęcie jako reakcję, gdy inne stworzenie wykona przeciwko tobie udany rzut na atak. Jego sukces zamienia się w porażkę, a ty teleportujesz się na wybraną wolną przestrzeń w bliskim zasięgu.",
-      "card_description": "Reakcja: Możesz rzucić to zaklęcie \njako reakcję, gdy inne stworzenie \nwykona przeciwko tobie udany rzut \nna atak. Jego sukces zamienia się \nw porażkę, a ty teleportujesz się\nna wybraną wolną przestrzeń \nw bliskim zasięgu.\nUżytkowe 3",
+      "card_description": "",
       "origin": {
         "source": "PG",
         "number": 123
@@ -123,7 +123,7 @@
       "duration": "Czas działania: 1 godzina; patrz niżej",
       "critical_success": "Rzut na atak to 20+: Cel otrzymuje dodatkowe 2k6 obrażeń.",
       "book_description": "Wewnątrz obszaru działania zaklęcia pojawia się iluzja stworzenia, obiektu lub zjawiska, która pod każdym względem wydaje się prawdziwa. Jeśli nie widzisz jej na koniec rundy, efekt natychmiast dobiega końca. Jeżeli tworzysz iluzję niebezpiecznego zjawiska, takiego jak ogień czy wrząca woda, stworzenie, które wkroczy na jej przestrzeń, musi wykonać udany test Percepcji, w przeciwnym wypadku otrzymuje 3k6 obrażeń. Jeśli tworzysz iluzję stworzenia, porusza się ono i zachowuje w naturalny, wiarygodny sposób; wartości jego atrybutów, Obrony i Zdrowia równe są twojemu Intelektowi. Iluzja ignoruje wszelkie stany i znika, jeśli zostanie obezwładniona, co oznacza koniec działania czaru. Dopóki zaklęcie trwa, możesz wykorzystać akcję, by przemieścić iluzję o maksymalnie 10 metrów i zaatakować stworzenie w odległości do 1 metra od niej, które ją widzi i uznaje za prawdziwą. Wykonaj oparty na Intelekcie rzut na atak przeciwko Percepcji przeciwnika. Sukces oznacza, że jest przekonany, iż został zraniony, oparzony lub w inny sposób skrzywdzony przez iluzję, i otrzymuje 4k6 obrażeń.",
-      "card_description": "początkowym w dalekim zasięgu.\n Wewnątrz obszaru działania pojawia się iluzja \nstworzenia, obiektu lub zjawiska, jeśli jej nie \nwidzisz jej na koniec rundy, efekt natychmiast \ndobiega końca. Jeżeli tworzysz iluzję niebezpiecz-\nnego zjawiska, stworzenie, które wkroczy na jej \nprzestrzeń, musi wykonać udany test Percepcji, \nlub otrzymuje 3k6 obrażeń. Iluzja stworzenia, \nporusza się ono i zachowuje w naturalny sposób; \nwartości jego atrybutów, Obrony i Zdrowia równe \nsą twojemu Intelektowi. Iluzja ignoruje wszelkie \nstany i znika, jeśli zostanie obezwładniona. \nMożesz wykorzystać akcję, by przemieścić iluzję \no maksymalnie 10m i zaatakować stworzenie \nw odległości do 1m od niej, które ją widzi i uznaje \nza prawdziwą. Wykonaj oparty na Intelekcie \nrzut na atak przeciwko Percepcji przeciwnika. \nSukces oznacza, że jest przekonany, iż został \nzraniony przez iluzję i otrzymuje 4k6 obrażeń.\n20+: Cel otrzymuje  dodatkowe 2k6 obrażeń.\nUżytkowe 3",
+      "card_description": "",
       "origin": {
         "source": "PG",
         "number": 123
@@ -156,7 +156,7 @@
       "area": "Obszar: Sześcian dostatecznej wielkości, by pomieścić stworzenie twojego Rozmiaru, o punkcie początkowym w bliskim zasięgu.",
       "duration": "Czas działania: 1 godzina; patrz niżej",
       "book_description": "W obszarze działania zaklęcia tworzysz iluzoryczną kopię siebie. Jest ona identyczna z tobą pod każdym względem. Posiada twoje atrybuty zwykłe i drugorzędne. Ignoruje jednakże wszelkie stany i znika, gdy zostanie obezwładniona, co kończy efekt zaklęcia. Kiedy się poruszasz, możesz także przemieścić swoją kopię w dowolnym kierunku i w dowolny dostępny ci sposób o tyle metrów, ile wynosi twoja Prędkość. Jesteś w stanie rzucać zaklęcia z przestrzeni, którą zajmujesz, lub tej, którą zajmuje sobowtór. Gdy inne stworzenie wykona przeciwko tobie udany rzut na atak, możesz wykorzystać reakcję, by natychmiast zamienić się miejscami ze swoją kopią, która staje się wtedy celem tego ataku.",
-      "card_description": "początkowym w bliskim zasięgu.\n Tworzysz iluzoryczną kopię samego \nsiebie, która osiada twoje atrybuty zwykłe \ni drugorzędne. Ignoruje jednakże wszelkie \nstany i znika, gdy zostanie obezwładniona.\nKiedy się poruszasz, możesz także \nprzemieścić swoją kopię w dowolnym \nkierunku i w dowolny dostępny ci sposób \no tyle metrów, ile wynosi twoja Prędkość.\nJesteś w stanie rzucać zaklęcia z przestrze-\nni, którą zajmujesz, lub tej, którą zajmuje \nsobowtór. Gdy inne stworzenie wykona \nprzeciwko tobie udany rzut na atak, możesz \nwykorzystać reakcję, by natychmiast \nzamienić się miejscami ze swoją kopią,\nktóra staje się wtedy celem tego ataku.\nILUZORYCZNY \nSOBOWTÓR\nUżytkowe 5",
+      "card_description": "",
       "origin": {
         "source": "PG",
         "number": 123

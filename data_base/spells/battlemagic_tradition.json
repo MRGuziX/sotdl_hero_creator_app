@@ -8,7 +8,7 @@
       ],
       "level": 0,
       "book_description": "Rzucając to zaklęcie, wykonaj atak z użyciem broni i rzuć kośćmi z 1 ułatwieniem. Możesz także użyć Intelektu w miejsce typowego dla tego ataku atrybutu.",
-      "card_description": "Rzucając to zaklęcie, wykonaj atak \nz użyciem broni i rzuć kośćmi \nz 1 ułatwieniem.  Możesz także użyć \nIntelektu w miejsce typowego dla \ntego ataku atrybutu.\nZESPOLONY\nATAK\nAtak 0",
+      "card_description": "",
       "origin": {
         "source": "PG",
         "number": 126
@@ -22,7 +22,7 @@
       ],
       "level": 0,
       "book_description": "Przemieszczasz się na odległość wynoszącą maksymalnie dwukrotność twojej Prędkości. Ruch ten nie prowokuje darmowych ataków. Reakcja: Podczas swojej tury możesz rzucić to zaklęcie jako reakcję. Jeśli tak zrobisz, przemieszczasz się na odległość mniejszą lub równą twojej Prędkości, nie prowokując darmowych ataków.",
-      "card_description": "Przemieszczasz się na odległość \nwynoszącą maksymalnie dwukrotność \ntwojej Prędkości. Ruch ten nie \nprowokuje darmowych ataków.\nReakcja: Podczas swojej tury możesz \nrzucić to zaklęcie jako  reakcję. \nJeśli tak zrobisz, przemieszczasz \nsię na odległość mniejszą lub \nrówną twojej Prędkości, nie \nprowokując darmowych ataków.\nUżytkowe 0",
+      "card_description": "",
       "origin": {
         "source": "PG",
         "number": 126
@@ -38,7 +38,7 @@
       ],
       "level": 1,
       "book_description": "Leczysz tyle punktów obrażeń, ile wynosi twoja Szybkość Zdrowienia. Reakcja: Podczas swojej tury możesz rzucić to zaklęcie jako reakcję. Jeśli tak zrobisz, leczysz liczbę punktów obrażeń równą połowie twojej Szybkości Zdrowienia.",
-      "card_description": "Leczysz tyle punktów obrażeń, ile \nwynosi twoja Szybkość Zdrowienia.\nReakcja: Podczas swojej tury możesz \nrzucić to zaklęcie jako reakcję. \nJeśli tak zrobisz, leczysz liczbę \npunktów obrażeń równą połowie \ntwojej Szybkości Zdrowienia.\nZASKLEPIENIE \nRAN\nUżytkowe 1",
+      "card_description": "",
       "origin": {
         "source": "PG",
         "number": 126
@@ -52,7 +52,7 @@
       ],
       "level": 1,
       "book_description": "Rzucając to zaklęcie, wykonaj atak z użyciem broni i z 1 ułatwieniem. Możesz także użyć Intelektu w miejsce typowego dla tego ataku atrybutu. Sukces oznacza, że cel otrzymuje dodatkowe 2k6 obrażeń.",
-      "card_description": "Rzucając to zaklęcie, wykonaj atak \nz użyciem broni z 1 ułatwieniem. \nMożesz także użyć Intelektu \nw miejsce typowego dla tego ataku \natrybutu. Sukces oznacza, że cel \n otrzymuje dodatkowe 2k6 obrażeń.\nAtak 1",
+      "card_description": "",
       "origin": {
         "source": "PG",
         "number": 126
@@ -66,7 +66,7 @@
       ],
       "level": 1,
       "book_description": "Rzucając to zaklęcie, wykonaj atak z użyciem broni i z 1 ułatwieniem. Możesz także użyć Intelektu w miejsce typowego dla tego ataku atrybutu. Sukces oznacza, że cel otrzymuje obrażenia jak przy normalnym ataku i staje się zamroczony na 1 rundę.",
-      "card_description": "Rzucając to zaklęcie, wykonaj atak \nz użyciem broni i z 1 ułatwieniem. \nMożesz także użyć  Intelektu \nw miejsce typowego dla tego \nataku atrybutu. Sukces oznacza, \nże cel otrzymuje obrażenia jak \nprzy normalnym ataku i staje się \nzamroczony na 1 rundę.\nWSTRZĄSAJĄCY \nATAK\nAtak 1",
+      "card_description": "",
       "origin": {
         "source": "PG",
         "number": 126
@@ -83,7 +83,7 @@
       "level": 2,
       "target": "Cel: Każde wybrane przez ciebie stworzenie w bezpośrednim zasięgu.",
       "book_description": "Wykonujesz wokół siebie szeroki zamach bronią, zadając każdemu celowi 3k6 + 3 obrażeń zamiast normalnej wartości przypisanej do danego oręża. Każdy cel, który wykona udany test Zręczności, otrzymuje tylko połowę tych obrażeń.",
-      "card_description": "w bezpośrednim zasięgu.\nWykonujesz wokół siebie \nszeroki zamach bronią, zadając \nkażdemu celowi 3k6 + 3 obrażeń \nzamiast  normalnej wartości \nprzypisanej do danego oręża. \nKażdy cel, który wykona udany \ntest Zręczności, otrzymuje \ntylko połowę tych obrażeń.\nAtak 2",
+      "card_description": "",
       "origin": {
         "source": "PG",
         "number": 126
@@ -97,7 +97,7 @@
       ],
       "level": 2,
       "book_description": "Przemieszczasz się lotem na wysokość wynoszącą dwukrotność swojej Prędkości, po czym lądujesz. Z miejsca lądowania, z punktu początkowego w twojej przestrzeni, rozchodzi się fala uderzeniowa o promieniu 4 metrów. Każde stworzenie stojące na podłożu musi wykonać test Zręczności. Porażka oznacza, że otrzymuje 2k6 obrażeń i zostaje powalone.",
-      "card_description": "Przemieszczasz się lotem na \nwysokość wynoszącą dwukrotność \nswojej Prędkości, po czym lądujesz. \nZ miejsca lądowania, z punktu \npoczątkowego w twojej przestrzeni, \nrozchodzi się fala uderzeniowa \no promieniu 4 m . Każde stworzenie \nstojące na podłożu musi wykonać \ntest Zręczności. Porażka oznacza, \nże otrzymuje 2k6 obrażeń i zostaje \npowalone.\n DRYZGOCĄCY\n SKOK\nAtak 2",
+      "card_description": "",
       "origin": {
         "source": "PG",
         "number": 126
@@ -114,7 +114,7 @@
       "level": 3,
       "duration": "Czas działania: 1 minuta.",
       "book_description": "Zwiększasz swoją skuteczność w walce. Przez czas trwania zaklęcia, gdy atakujesz z użyciem broni, rzut na atak wykonujesz dwukrotnie i używasz lepszego wyniku, a także zadajesz dodatkowe 1k6 obrażeń.",
-      "card_description": "Zwiększasz swoją skuteczność\n w walce. Przez czas trwania \nzaklęcia, gdy atakujesz z użyciem \nbroni, rzut na atak wykonujesz \ndwukrotnie i używasz lepszego \nwyniku, a także zadajesz \ndodatkowe 1k6 obrażeń.\nSPRAWNOŚĆ\nBOJOWA \nAtak 3",
+      "card_description": "",
       "origin": {
         "source": "PG",
         "number": 127
@@ -128,7 +128,7 @@
       ],
       "level": 3,
       "book_description": "Przemieszczasz się w linii prostej na odległość wynoszącą maksymalnie dwukrotność twojej Prędkości. Podczas tego ruchu możesz wykonać jeden atak bronią przeciwko każdemu stworzeniu, które znajdzie się w bezpośrednim zasięgu, zadając dodatkowe 1k6 obrażeń. Otrzymujesz 1 utrudnienie do wszystkich rzutów na atak poza pierwszym; wolno ci też użyć Intelektu w miejsce typowego dla nich atrybutu.",
-      "card_description": "Przemieszczasz się w linii \nprostej na odległość wynoszącą \nmaksymalnie dwukrotność twojej \nPrędkości. Podczas tego ruchu \nmożesz wykonać jeden atak bronią \nprzeciwko każdemu stworzeniu, \nktóre znajdzie się w bezpośrednim \nzasięgu, zadając dodatkowe 1k6 \nobrażeń. Otrzymujesz 1 utrudnienie \ndo wszystkich rzutów na atak \npoza pierwszym; wolno ci też użyć \nIntelektu w miejsce typowego dla \nnich atrybutu.\nBŁYSKAWICZNY \nSZTURM \nAtak 3",
+      "card_description": "",
       "origin": {
         "source": "PG",
         "number": 127
@@ -146,7 +146,7 @@
       "area": "Obszar: Linia o długości 20 metrów, wysokości 5 metrów i szerokości 2 metrów o punkcie początkowym w dalekim zasięgu.",
       "duration": "Czas działania: 1 godzina.",
       "book_description": "W obszarze działania zaklęcia na czas jego trwania powstaje ściana tnących ostrzy. Zapewnia ona całkowitą osłonę wszystkiemu, co znajduje się za nią. Gdy ostrza się pojawiają, wszystko wewnątrz tego obszaru otrzymuje 5k6 obrażeń. Każde stworzenie, które wykona udany test Zręczności, otrzymuje tylko połowę tych obrażeń. Stworzenia mogą przemieszczać się przez obszar działania zaklęcia jak po trudnym terenie. Gdy istota wkroczy na niego z zewnątrz lub jeśli znajduje się w nim na koniec rundy, musi wykonać udany test Zręczności, w przeciwnym wypadku otrzymuje 3k6 obrażeń.",
-      "card_description": "i szerokości 2m  o punkcie początkowym\nw dalekim zasięgu.\nW obszarze działania zaklęcia na czas \njego trwania powstaje ściana tnących \nostrzy. Zapewnia ona całkowitą osłonę \nwszystkiemu, co znajduje się za nią. Gdy \nostrza się pojawiają, wszystko wewnątrz \ntego obszaru otrzymuje 5k6 obrażeń. \nKażde stworzenie, które wykona udany test \nZręczności, otrzymuje tylko połowę tych \nobrażeń. Stworzenia mogą przemieszczać \nsię przez obszar działania zaklęcia jak \npo trudnym terenie. Gdy istota wkroczy \nna niego z zewnątrz lub jeśli znajduje się \nw nim na koniec rundy, musi wykonać \nudany test Zręczności, w przeciwnym \nwypadku otrzymuje 3k6 obrażeń.\nŚCIANA\nMIECZY\nAtak 4",
+      "card_description": "",
       "origin": {
         "source": "PG",
         "number": 127
@@ -163,7 +163,7 @@
       "level": 5,
       "area": "Obszar: Sfera o promieniu równym połowie twojej Prędkości i punkcie początkowym w bezpośrednim zasięgu.",
       "book_description": "Poruszając się z zawrotną prędkością, wyprowadzasz serię brutalnych ataków. Każde wybrane przez ciebie stworzenie wewnątrz obszaru działania zaklęcia musi wykonać test Zręczności z 1 utrudnieniem. Porażka oznacza, że otrzymuje ono 4k6 + 3 obrażeń. Następnie poruszasz się o połowę swojej Prędkości. Ruch ten nie prowokuje darmowych ataków.",
-      "card_description": "twojej  Prędkości i punkcie początkowym\n w bezpośrednim zasięgu.\nPoruszając się z zawrotną \nprędkością, wyprowadzasz serię \nbrutalnych ataków. Każde wybrane \nprzez ciebie stworzenie wewnątrz \nobszaru działania zaklęcia musi \nwykonać test Zręczności z 1 \nutrudnieniem. Porażka oznacza, że \notrzymuje ono 4k6 + 3 obrażeń. \nNastępnie poruszasz się o połowę \nswojej Prędkości. Ruch ten nie \nprowokuje darmowych ataków.\nNAWAŁNICA\nCIOSÓW \nAtak  5",
+      "card_description": "",
       "origin": {
         "source": "PG",
         "number": 127

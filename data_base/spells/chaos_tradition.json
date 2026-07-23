@@ -9,7 +9,7 @@
       "level": 0,
       "duration": "Czas działania: 1 minuta",
       "book_description": "Przez czas trwania zaklęcia przy każdym rzucie na atak i teście rzucasz kością chaosu (k6). Wyniki nieparzyste odejmujesz od rezultatu na k20, a parzyste do niego dodajesz.",
-      "card_description": "Przez czas trwania zaklęcia przy \nkażdym rzucie na ataki teście rzucasz \nkością chaosu (k6). Wyniki nieparzyste \nodejmujesz od rezultatu na k20, \na parzyste do niego dodajesz.\nUżytkowe 0",
+      "card_description": "",
       "origin": {
         "source": "PG",
         "number": 119
@@ -25,7 +25,7 @@
       "target": "Cel: Jedno stworzenie lub obiekt w średnim zasięgu.",
       "critical_success": "Rzut na atak to 20+: Cel otrzymuje dodatkowe 1k6 obrażeń.",
       "book_description": "Ciskasz w stworzenie lub obiekt mieniącą się kolorami, syczącą kroplą światła. Wykonaj oparty na Woli rzut na atak przeciwko Zręczności celu. Sukces oznacza, że otrzymuje on 1k6 obrażeń. Następnie rzuć k6. Jeśli wypadnie 6, powtórz ten sam atak przeciwko innemu celowi, przyjaznemu lub wrogiemu, w średnim zasięgu od pierwszego. Jeśli dostępny jest więcej niż jeden cel, wybór konkretnego należy do ciebie.",
-      "card_description": "w średnim zasięgu.\n Ciskasz w stworzenie lub obiekt \nmieniącą się kolorami kroplą światła. \nWykonaj oparty na Woli rzut na\natak przeciwko Zręczności celu. \nSukces oznacza, że otrzymuje on \n1k6 obrażeń. Następnie rzuć k6. Jeśli \nwypadnie 6, powtórz ten sam atak \nprzeciwko innemu celowi, przyjaznemu \nlub wrogiemu, w średnim zasięgu od \npierwszego. Jeśli dostępny jest więcej \nniż jeden cel, wybór konkretnego \nnależy do ciebie. \nRzut na atak to 20+: Cel otrzymuje \ndodatkowe 1k6 obrażeń.\nBŁĘDNY\nPOCISK\nAtak 0",
+      "card_description": "",
       "origin": {
         "source": "PG",
         "number": 119
@@ -43,7 +43,7 @@
       "target": "Cel: Jedno stworzenie lub obiekt w średnim zasięgu.",
       "critical_success": "Rzut na atak to 20+: Cel teleportuje się na wolną przestrzeń w odległości 1k6 metrów w wybranym przez ciebie kierunku.",
       "book_description": "Uderzasz w stworzenie lub obiekt kulą migoczącej energii. Wykonaj oparty na Woli rzut na atak przeciwko Zręczności celu i rzuć k6. Wynik nieparzysty odejmij od rezultatu na k20, a parzysty do niego dodaj. Sukces oznacza, że cel otrzymuje 2k6 obrażeń, plus dodatkowe 2k6 obrażeń, jeśli od rzutu odjąłeś nieparzysty wynik z k6.",
-      "card_description": "w średnim zasięgu.\n Uderzasz w stworzenie lub obiekt \nkulą energii. Wykonaj oparty na Woli \nrzut na atak przeciwko Zręczności \ncelu i rzuć k6. Wynik nieparzysty \nodejmij od rezultatu na k20, a parzysty \ndo niego dodaj. Sukces oznacza, \nże cel otrzymuje 2k6 obrażeń, plus \ndodatkowe 2k6 obrażeń, jeśli od rzutu \nodjąłeś nieparzysty wynik z k6.",
+      "card_description": "",
       "origin": {
         "source": "PG",
         "number": 119
@@ -57,7 +57,7 @@
       ],
       "level": 1,
       "book_description": "Rzuć 2k6. Teleportujesz się na wybraną przez siebie wolną przestrzeń w odległości do tylu metrów, jaki uzyskałeś wynik. Reakcja: Podczas swojej tury możesz rzucić to zaklęcie, wykorzystując reakcję. Jeśli tak zrobisz, przebyty dystans określasz, rzucając k6 zamiast 2k6.",
-      "card_description": "Rzuć 2k6. Teleportujesz się na \nwybraną przez siebie wolną \nprzestrzeń w odległości do tylu \nmetrów, jaki uzyskałeś wynik. \nReakcja: Podczas swojej tury możesz \nrzucić to zaklęcie, wykorzystując \nreakcję. Jeśli tak zrobisz, przebyty \ndystans określasz, rzucając 1k6\nzamiast 2k6.\nZAKRZYWIENIE \nPRZESTRZENI\nUżytkowe 1",
+      "card_description": "",
       "origin": {
         "source": "PG",
         "number": 119
@@ -72,7 +72,7 @@
       "level": 1,
       "duration": "Czas działania: 1 godzina; patrz niżej",
       "book_description": "Wokół ciebie pojawia się migoczące kolorami pole siłowe. Rzuć k6, a wynik dodaj jako premię do swojej Obrony. Za każdym razem, gdy inne stworzenie wykona atak przeciwko twojej Obronie, premia ta maleje o 1 (do minimum 0, kiedy to działanie zaklęcia dobiega końca).",
-      "card_description": "Wokół ciebie pojawia się migoczące \nkolorami pole siłowe. Rzuć k6, \na wynik dodaj jako premię do swojej \nObrony. Za każdym razem, gdy inne \nstworzenie wykona atak przeciwko \ntwojej Obronie, premia ta maleje\no 1 (do minimum 0, kiedy to \ndziałanie zaklęcia dobiega końca).\nOPALIZUJĄCA\nTARCZA\nUżytkowe 1",
+      "card_description": "",
       "origin": {
         "source": "PG",
         "number": 119
@@ -89,7 +89,7 @@
       "level": 2,
       "target": "Cel: Punkt w przestrzeni w średnim zasięgu.",
       "book_description": "Wypuszczasz z ręki mieniącą się kolorami kulę, która pędzi w kierunku celu. Gdy go osiągnie lub jeśli napotka na swojej drodze mające fizyczną postać stworzenie lub przeszkodę, wybucha. Barwna, chaotyczna energia rozchodzi się sferą o punkcie początkowym w miejscu docelowym albo w przestrzeni zajmowanej przez stworzenie lub obiekt na promień 1 metra. Wszystko wewnątrz tego obszaru otrzymuje 1k6 + 1 obrażeń. Jeśli na kości obrażeń wyrzuciłeś liczbę nieparzystą, wszystko wewnątrz obszaru otrzymuje dodatkowe 3k6 obrażeń.",
-      "card_description": " Wypuszczasz z ręki mieniącą się kolo-\nrami kulę, która pędzi w kierunku celu. \nGdy go osiągnie lub jeśli napotka na \nswojej drodze mające fizyczną postać \nstworzenie lub przeszkodę, wybucha. \nEnergia rozchodzi się sferą o punkcie \npoczątkowym w miejscu docelowym \nalbo w przestrzeni zajmowanej przez \nstworzenie lub obiekt na promień 1m. \nWszystko wewnątrz tego obszaru \notrzymuje 1k6 + 1 obrażeń. Jeśli na kości \nobrażeń wyrzuciłeś liczbę nieparzystą, \nwszystko wewnątrz obszaru otrzymuje \ndodatkowe 3k6 obrażeń.\nAtak 2",
+      "card_description": "",
       "origin": {
         "source": "PG",
         "number": 119
@@ -104,7 +104,7 @@
       "level": 2,
       "duration": "Czas działania: 1k6 minut",
       "book_description": "Zaczynasz na przemian pojawiać się i znikać. Rzuć k6 na koniec każdej rundy aż do końca czasu trwania zaklęcia. Teleportujesz się na wolną przestrzeń w odległości do tylu metrów, jaki wynik uzyskałeś w rzucie. Jeśli jest on nieparzysty, MG wybiera, gdzie się pojawiasz. Jeśli parzysty, wybierasz sam.",
-      "card_description": "Zaczynasz na przemian pojawiać \nsię i znikać. Rzuć k6 na koniec \nkażdej rundy aż do końca czasu \ntrwania zaklęcia. Teleportujesz się \nna wolną przestrzeń w odległości \ndo tylu metrów, jaki wynik uzyskałeś \nw rzucie. Jeśli jest on nieparzysty, \nMG wybiera, gdzie się pojawiasz. \nJeśli parzysty, wybierasz sam.\nUżytkowe 2",
+      "card_description": "",
       "origin": {
         "source": "PG",
         "number": 119
@@ -121,7 +121,7 @@
       "level": 3,
       "area": "Obszar: Linia łamana o długości 15 metrów i szerokości 2 metrów, o punkcie początkowym w bezpośrednim zasięgu.",
       "book_description": "W obszarze działania zaklęcia rozchodzi się strumień różnobarwnej energii. Każde stworzenie wewnątrz tego obszaru musi wykonać test Woli. Porażka oznacza, że otrzymuje 5k6 + 5 obrażeń, a sukces, że leczy 2k6 + 5 obrażeń.",
-      "card_description": "i szerokości 2m, o punkcie początkowym \n w bezpośrednim zasięgu.\nW obszarze działania zaklęcia \nrozchodzi się strumień różnobarwnej \nenergii. Każde stworzenie wewnątrz \ntego obszaru musi wykonać test \nWoli. Porażka oznacza, że otrzymuje\n5k6 + 5 obrażeń, a sukces, że leczy\n2k6 + 5 obrażeń.\nAtak 3",
+      "card_description": "",
       "origin": {
         "source": "PG",
         "number": 119
@@ -136,7 +136,7 @@
       "level": 3,
       "area": "Obszar: Sfera o promieniu 1k6 metrów i punkcie początkowym w bezpośrednim zasięgu.",
       "book_description": "W obszarze działania zaklęcia rozchodzą się dziwne dźwięki i osobliwe światła. Rzuć k20, by ustalić efekt czaru:\n\n• 1: Na wolnych przestrzeniach wewnątrz obszaru działania zaklęcia pojawia się 1k6 małych demonów. Zdecydowanie nie są przyjazne.\n• 2-3: Każde stworzenie wewnątrz obszaru działania zaklęcia zyskuje 1 punkt Szaleństwa.\n• 4-5: Każde stworzenie wewnątrz obszaru działania zaklęcia przez 1 rundę wykonuje rzuty na atak i testy z 1 utrudnieniem.\n• 6-8: Każde stworzenie wewnątrz obszaru działania zaklęcia otrzymuje 3k6 + 5 obrażeń lub połowę z tego po udanym teście Siły.\n• 9-13: Odzyskujesz użycie tego czaru.\n• 14-15: Każde stworzenie wewnątrz obszaru działania zaklęcia leczy 3k6 + 5 punktów obrażeń.\n• 16-17: Każde stworzenie wewnątrz obszaru działania zaklęcia przez 1 rundę wykonuje rzuty na atak i testy z 1 ułatwieniem.\n• 18-19: Każde stworzenie wewnątrz obszaru działania zaklęcia może podjąć w tej rundzie dodatkową turę.\n• 20: Odzyskujesz jedno użycie zaklęcia 3 lub niższego kręgu.",
-      "card_description": "początkowym w bezpośrednim zasięgu.\nUżytkowe 3\nRzuć k20, by ustalić efekt czaru.\n K20\nEfekt\nPojawia się 1k6 małych, wrogich demonów.\n2-3 Stworzenia zyskują 1 punkt Szaleństwa.\n4-5 Przez 1 rundę stworzenia wykonują rzuty na atak\n i  testy z 1 utrudnieniem.\n6-8 Stworzenia otrzymują 3k6 + 5 obrażeń lub połowę \nz tego po udanym teście Siły.\n9-13 Odzyskujesz użycie tego czaru.\n14-15 Stworzenia leczą 3k6 + 5 punktów obrażeń.\n16-17 Stworzenia przez 1 rundę wykonują rzut na atak \ni testy z 1 ułatwieniem.\n18-19 Stworzenia dysponują w tej rundzie dodatkową turą.\nOdzyskujesz jedno użycie zaklęcia 3 lub niższego \nkręgu.",
+      "card_description": "",
       "origin": {
         "source": "PG",
         "number": 119
@@ -154,7 +154,7 @@
       "area": "Obszar: Linia łamana o długości 10 metrów, wysokości 5 metrów i szerokości 1 metra o punkcie początkowym w średnim zasięgu.",
       "duration": "Czas działania: 1 minuta",
       "book_description": "W obszarze działania zaklęcia pojawia się lustrzana bariera, która całkowicie przesłania to, co znajduje się za nią. Gdy stworzenie wejdzie na przestrzeń zajętą przez barierę, rzuć k6. Jeśli wynik jest parzysty, przemieszcza się ono o 1 metr przez barierę na wolną przestrzeń po drugiej stronie (w wybranym przez siebie kierunku). Jeśli wynik jest nieparzysty, teleportuje się ono na wybraną przez ciebie wolną przestrzeń o twardym, poziomym podłożu w odległości tylu metrów, ile wynosi wynik rzutu.",
-      "card_description": "wysokości 5m i szerokości 1m, o punkcie \npoczątkowym w średnim zasięgu. \nW obszarze działania pojawia się\nlustrzana bariera, która całkowicie \nprzesłania to, co znajduje się za nią.\nGdy stworzenie wejdzie na zajętą przez \nnią przestrzeń, rzuć k6. Jeśli wynik jest \nparzysty, przemieszcza się ono o 1m \nprzez barierę na wolną przestrzeń po \ndrugiej stronie (w wybranym przez siebie \nkierunku). Jeśli wynik jest nieparzysty, \nteleportuje się ono na wybraną przez \nciebie wolną przestrzeń o twardym, \npoziomym podłożu w odległości tylu \nmetrów, ile wynosi wynik rzutu.\nUżytkowe 4",
+      "card_description": "",
       "origin": {
         "source": "PG",
         "number": 120
@@ -172,7 +172,7 @@
       "area": "Obszar: Sfera o promieniu 10 metrów i punkcie początkowym w dalekim zasięgu.",
       "duration": "Czas działania: 1 runda",
       "book_description": "W punkcie początkowym zaklęcia pojawia się wirująca plama koloru, która pozostaje tam na czas trwania czaru. Gdy rzucasz osobliwość, niezabezpieczone obiekty wewnątrz jej obszaru działania przemieszczają się o 2k6 metrów w kierunku punktu początkowego. Każde stworzenie znajdujące się wewnątrz obszaru działania zaklęcia w momencie jego rzucenia lub na niego wchodzące musi wykonać test Siły z 1 utrudnieniem. Porażka oznacza, że przemieszcza się o 2k6 metrów w kierunku punktu początkowego i dopóki czar trwa, nie może się od niego oddalić. Każde stworzenie lub obiekt, które dotrze do punktu początkowego osobliwości, otrzymuje 10k6 obrażeń. Jeśli wskutek tych obrażeń zostanie obezwładnione, dojdzie także do całkowitego wymazania go z rzeczywistości, a jego ciało i dusza ulegną nieodwracalnemu zniszczeniu.\n\nGdy efekt czaru dobiegnie końca, plama wybucha, zadając 4k6 obrażeń wszystkiemu wewnątrz obszaru działania zaklęcia. Każde znajdujące się tam stworzenie musi wykonać test Siły. Porażka oznacza, że zostaje powalone, a sukces, że otrzymuje tylko połowę obrażeń.",
-      "card_description": "W punkcie początkowym pojawia się wirująca\nplama. Gdy rzucasz osobliwość, niezabezpieczone\nobiekty wewnątrz jej obszaru przemieszczają się\no 2k6 metrów w kierunku punktu początkowego.\nKażde stworzenie znajdujące się wewnątrz obszaru\nw momencie jego rzucenia lub na niego wchodzące\nmusi wykonać test Siły z 1 utrudnieniem.\nPorażka oznacza, że przemieszcza się o 2k6\nmetrów w kierunku punktu początkowego i dopóki\nczar trwa , nie może się od niego oddalić.\nStworzenie lub obiekt, które dotrze do punktu\npoczątkowego osobliwości, otrzymuje 10k6\nobrażeń. Jeśli wskutek tych obrażeń zostanie\nobezwładnione, dojdzie także do całkowitego\nwymazania go z rzeczywistości. Gdy efekt czaru\ndobiegnie końca, plama wybucha, zadając 4k6\nobrażeń wszystkiemu wewnątrz obszaru działania\nzaklęcia. Każde znajdujące się tam stworzenie musi\nwykonać test Siły. Porażka oznacza, że zostaje\npowalone, a sukces, że otrzymuje\ntylko połowę obrażeń.",
+      "card_description": "",
       "origin": {
         "source": "PG",
         "number": 120

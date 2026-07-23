@@ -9,7 +9,7 @@
       "level": 0,
       "target": "Cel: Jeden obiekt o Rozmiarze 1 lub mniejszym, który trzymasz.",
       "book_description": "Cel teleportuje się na wolną przestrzeń w średnim zasięgu.",
-      "card_description": "w bliskim zasięgu.\nKażdy z celów spowijają \nnieszkodliwe, zielone płomienie. \nStworzenia  te i obiekty oświetlają \nobszar wokół siebie o promieniu \n1 metra i nie mogą stać się \nniewidzialne ani ukryć się przed \nistotami, które je widzą. Wszystkie \nrzuty na atak przeciwko tym celom \nwykonywane są  z 1 ułatwieniem.\nOGNIE\nŚWIĘTEJ ASTRID\nUżytkowe 1",
+      "card_description": "",
       "origin": {
         "source": "PG",
         "number": 127
@@ -48,7 +48,7 @@
       "area": "Obszar: Dwa sześciany o krawędzi 1 metra w średnim zasięgu.",
       "duration": "Czas działania: 1 minuta.",
       "book_description": "W środku każdego z sześcianów otwiera się portal wielkości około 30 centymetrów, który utrzymuje się przez czas trwania zaklęcia. Portale te nie posiadają grubości; każda rzecz włożona do jednego z nich natychmiast wychodzi z drugiego. Gdy efekt czaru dobiegnie końca, portale zamykają się, potencjalnie przecinając znajdującą się w nich rzecz (decyzja należy do MG).",
-      "card_description": "1 metra w dalekim zasięgu.\nSześciany wypełnia ciemność, \nblokując wszelkie widzenie\nz wyjątkiem prawdziwego widzenia. \nDla każdego sześcianu przypisz \nnumer od 1 do 6. Gdy stworzenie, \nwkroczy do niego, testuje Intelekt, \nby ustalić, z którego z nich wyjdzie. \nJeśli sie powiedzie, istota natychmiast \npojawia się przy  wybranej bryle. Jeśli \nnie, wyjście ustala się, rzucając k6. \nW obu przypadkach istota wybiera \nkierunek, w jakim opuszcza obszar \ndziałania zaklęcia. \nMROCZNE\nPORTALE\nUżytkowe 4",
+      "card_description": "",
       "origin": {
         "source": "PG",
         "number": 129

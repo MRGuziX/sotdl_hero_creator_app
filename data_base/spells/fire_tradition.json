@@ -76,7 +76,7 @@
       "level": 2,
       "duration": "Czas działania: 1 minuta",
       "book_description": "Na czas trwania zaklęcia spowijają cię płomienie, oświetlając obszar w promieniu 10 metrów wokół. Płomienie są gorące, ale nie wyrządzają szkody ani tobie, ani przedmiotom, które trzymasz lub masz na sobie. Przez czas trwania zaklęcia otrzymujesz tylko połowę obrażeń od zimna i jesteś odporny na wyczerpanie spowodowane wystawieniem na niską temperaturę. Dodatkowo każde stworzenie, które cię dotknie lub trafi atakiem z użyciem broni białej, otrzymuje 1k6 obrażeń od ognia.",
-      "card_description": " pełnego odpoczynku.\ni punkcie początkowym w dalekim zasięgu.\n W obszarze działania zaklęcia na czas \njego trwania pojawia się iluzoryczny teren. \nIluzja ta jest w stanie zupełnie zamaskować \nwszelkie cechy topograficzne w obszarze \ndziałania, zdołasz ukryć płonący ogień\ni rzucane przez niego światło, ale nadal\nbędzie emitować gorąco i zadawać \nobrażenia stworzeniom, które się\nz nim zetkną.\nPoświęcenie: Poświęć użycie tego \nzaklęcia, za zaklęcie fantom.\nUtrwalenie: Jeśli rzucałeś codziennie\nprzez miesiąc i jeden dzień, jego efekt\njest permanentny.\nMIRAŻ\nUżytkowe 4",
+      "card_description": "",
       "origin": {
         "source": "PG",
         "number": 123

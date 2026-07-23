@@ -10,7 +10,7 @@
       "target": "Cel: Jedno stworzenie w bliskim zasięgu, które widzisz.",
       "critical_success": "Rzut na atak to 20+: Cel pozostaje osłabiony, dopóki jest spowolniony tym zaklęciem.",
       "book_description": "Wykonaj oparty na Intelekcie rzut na atak przeciwko Woli celu. Sukces oznacza, że stworzenie to zostaje spowolnione na 1 minutę.",
-      "card_description": "które widzisz. \nWykonaj oparty na Intelekcie rzut \nna atak przeciwko Woli celu. Sukces \noznacza, że stworzenie to zostaje \nspowolnione na 1 minutę.\nAtak 0",
+      "card_description": "",
       "origin": {
         "source": "PG",
         "number": 120
@@ -26,7 +26,7 @@
       "target": "Cel: Jedno stworzenie w bezpośrednim zasięgu, które nie jest wyczerpane.",
       "duration": "Czas działania: 1 minuta",
       "book_description": "Dotykasz celu, zapewniając mu na czas trwania zaklęcia premię +10 do Prędkości. Gdy efekt czaru dobiegnie końca, stworzenie staje się wyczerpane na 1 minutę.",
-      "card_description": "które nie jest wyczerpane.\nDotykasz celu, zapewniając mu na \nczas trwania zaklęcia premię +10 do \nPrędkości. Gdy efekt czaru d obiegnie \nkońca, stworzenie staje się\nwyczerpane na 1 minutę.\nUżytkowe 0",
+      "card_description": "",
       "origin": {
         "source": "PG",
         "number": 120
@@ -44,7 +44,7 @@
       "target": "Cel: Jedno stworzenie w bliskim zasięgu, które widzisz.",
       "critical_success": "Rzut na atak to 20+: Odzyskujesz poświęcone użycie tego czaru.",
       "book_description": "Wykonaj oparty na Intelekcie rzut na atak przeciwko Intelektowi celu. Sukces oznacza, że stworzenie to przestaje istnieć na 1 rundę. Po tym czasie pojawia się ponownie w zajmowanej uprzednio przestrzeni lub najbliższej wolnej, jeśli okaże się ona zajęta.",
-      "card_description": "Wykonaj oparty na Intelekcie rzut \nna atak przeciwko Intelektowi celu. \nSukces oznacza, że stworzenie \n to przestaje istnieć na 1 rundę.\nPo tym czasie pojawia się \nponownie w zajmowanej uprzednio \nprzestrzeni lub najbliższej wolnej, \njeśli okaże się ona zajęta. ",
+      "card_description": "",
       "origin": {
         "source": "PG",
         "number": 120
@@ -59,7 +59,7 @@
       "level": 1,
       "duration": "Czas działania: 1 minuta",
       "book_description": "Przez czas trwania zaklęcia raz na rundę możesz powtórzyć wykonany rzut. Musisz użyć nowego wyniku.",
-      "card_description": "Przez czas trwania zaklęcia raz na \nrundę możesz powtórzyć wykonany \nrzut. Musisz użyć nowego wyniku. \nDRUGIE\n PODEJŚCIE\nUżytkowe 1",
+      "card_description": "",
       "origin": {
         "source": "PG",
         "number": 120
@@ -74,7 +74,7 @@
       "level": 1,
       "target": "Cel: Do pięciu stworzeń w średnim zasięgu.",
       "book_description": "Każdy cel musi wykonać test Woli. Porażka oznacza, że zostaje spowolniony na 1 minutę.",
-      "card_description": "Każdy cel musi wykonać test \nWoli. Porażka oznacza, że zostaje \nspowolniony na 1 minutę.\nAtak 1",
+      "card_description": "",
       "origin": {
         "source": "PG",
         "number": 120
@@ -91,7 +91,7 @@
       "level": 2,
       "duration": "Czas działania: 1 minuta",
       "book_description": "Przez czas trwania zaklęcia rzuty na atak przeciwko tobie wykonywane są z 1 utrudnieniem. Ponadto zyskujesz 1 ułatwienie we wszystkich testach podejmowanych, by odeprzeć efekty ataków.",
-      "card_description": "Przez czas trwania zaklęcia rzuty na \natak przeciwko tobie wykonywane są \nz 1 utrudnieniem. Ponadto zyskujesz \n1 ułatwienie we wszystkich testach \npodejmowanych, by odeprzeć\nefekty ataków. \nUżytkowe 2",
+      "card_description": "",
       "origin": {
         "source": "PG",
         "number": 120
@@ -106,7 +106,7 @@
       "level": 2,
       "duration": "Czas działania: 1 minuta",
       "book_description": "Przenosisz się w przyszłość, znikając z zajmowanej przestrzeni. W dowolnym momencie podczas trwania zaklęcia możesz powrócić na nią lub na najbliższą wolną przestrzeń, jeśli tamta okaże się zajęta. W przeciwnym razie pojawiasz się z powrotem na koniec rundy, w której efekt tego czaru przestaje działać.",
-      "card_description": "Przenosisz się w przyszłość. \nW dowolnym momencie podczas \ntrwania zaklęcia możesz powrócić. \nNajpóźniej pojawiasz się na koniec \nrundy, w której efekt tego czaru \n p rzestaje działać.\nPRZESKOK\nCZASU\nUżytkowe 2",
+      "card_description": "",
       "origin": {
         "source": "PG",
         "number": 120
@@ -124,7 +124,7 @@
       "target": "Cel: Jedno stworzenie w bezpośrednim zasięgu.",
       "duration": "Czas działania: 1 minuta",
       "book_description": "Dotykasz celu. Przez czas trwania zaklęcia może on w każdej rundzie podjąć zarówno turę krótką, jak i długą. Gdy efekt czaru dobiegnie końca, stworzenie staje się wyczerpane na 1k6 minut.",
-      "card_description": "Dotykasz celu. Przez czas trwania \nzaklęcia może on w każdej rundzie \npodjąć zarówno turę krótką, jak i długą. \nGdy efekt czaru dobiegnie końca, \nstworzenie staje się wyczerpane\nna 1k6 minut.\nUżytkowe 3",
+      "card_description": "",
       "origin": {
         "source": "PG",
         "number": 121
@@ -139,7 +139,7 @@
       "level": 3,
       "area": "Obszar: Sfera o promieniu 3 metrów i punkcie początkowym w średnim zasięgu.",
       "book_description": "Każde stworzenie we wskazanym obszarze musi wykonać udany test Woli, w przeciwnym wypadku staje się spowolnione na 1 minutę. Gdy spowolniona w ten sposób istota podejmuje turę długą, może wykorzystać akcję lub poruszyć się, ale nie obie te rzeczy naraz.",
-      "card_description": " początkowym w średnim zasięgu.\nKażde stworzenie musi wykonać \nudany test Woli, w przeciwnym \nwypadku staje się spowolnione\nna  1 minutę . Gdy spowolniona \nw ten sposób istota podejmuje turę \ndługą, może wykorzystać akcję lub \nporuszyć się, ale nie obie\nte rzeczy naraz. \nAtak 3",
+      "card_description": "",
       "origin": {
         "source": "PG",
         "number": 121
@@ -168,7 +168,7 @@
       ],
       "level": 5,
       "book_description": "Wybierz punkt w czasie oddalony do 100 lat w przyszłości. Przestajesz istnieć. Kiedy czas w grze dotrze do momentu, który wybrałeś, natychmiast pojawiasz się w przestrzeni, którą uprzednio zajmowałeś lub w najbliższej wolnej, jeśli okaże się ona zajęta.",
-      "card_description": "Wybierz punkt w czasie\noddalony do 100 lat w przyszłości. \nPrzestajesz istnieć. Kiedy czas \nw grze dotrze do momentu, który \nwybrałeś, natychmiast pojawiasz \nsię w przestrzeni, którą uprzednio \nzajmowałeś lub  w najbliższej wolnej, \njeśli okaże się ona zajęta.\nPODRÓŻ\nW CZASIE\nUżytkowe 5",
+      "card_description": "",
       "origin": {
         "source": "PG",
         "number": 121

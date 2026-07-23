@@ -135,7 +135,7 @@
       "target": "Cel: Jedno stworzenie w bezpośrednim zasięgu.",
       "duration": "Czas działania: 1 godzina",
       "book_description": "W miejscu na celu, którego dotkniesz, pojawia się lśniąca runa. Przez czas trwania zaklęcia stworzenie to zyskuje 2 ułatwienia we wszystkich rzutach na atak i testach, otrzymuje premię +20 do Zdrowia, a wszystkie jego ataki zadają dodatkowe 1k6 obrażeń.",
-      "card_description": " W wolnych przestrzeniach \nw bezpośrednim zasięgu wokół ciebie \npojawiają się cztery duplikaty twojej \nosoby. Poruszają się wraz z tobą, \nciągle zamieniając się miejscami, by \nuniemożliwić obserwatorom ustalenie, \nktóra z kopii to prawdziwy ty, ich ruch \nnie prowokuje darmowych ataków. \nGdy inne stworzenie uzyska sukces \nw rzucie na atak przeciwko twojej \nObronie, Sile lub Zręczności, rzuć k20, \nby ustalić, czy atak trafia ciebie, czy \njeden z duplikatów. Jeśli trafiony zostaje \nduplikat, rozpływa się i znika.\nDUPLIKATY\nUżytkowe 1",
+      "card_description": "",
       "origin": {
         "source": "PG",
         "number": 122

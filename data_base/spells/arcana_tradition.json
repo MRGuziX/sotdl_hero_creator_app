@@ -126,7 +126,7 @@
       "level": 5,
       "duration": "Czas działania: 4 godziny; patrz niżej.",
       "book_description": "Na czas trwania zaklęcia zyskujesz premię +5 do Obrony. Kiedy następnym razem stworzenie w bliskim zasięgu uzyska sukces w wykonanym przeciw tobie ataku z użyciem broni, zamienia się on w porażkę, a działanie czaru dobiega końca. Atakujący przeciwnik musi wykonać test Siły. Porażka oznacza, że otrzymuje 10k6 obrażeń, zostaje odepchnięty od ciebie na 2k6 metrów i powalony. Sukces oznacza, że otrzymuje tylko połowę tych obrażeń.",
-      "card_description": "BŁYSK\nstworzenie w bliskim zasięgu.\nPrzed oczami wybranego \nstworzenia rozbłyska jasne światło. \nWykonaj oparty na Woli rzut na atak \nprzeciwko Percepcji celu. Sukces \noznacza, że przeciwnik zostaje \noślepiony na 1 rundę.",
+      "card_description": "",
       "origin": {
         "source": "PG",
         "number": 129
