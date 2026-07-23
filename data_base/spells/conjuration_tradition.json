@@ -92,7 +92,7 @@
       "target": "Cel: Sześcian o krawędzi 10 metrów i punkcie początkowym w średnim zasięgu, umiejscowiony na twardym podłożu.",
       "duration": "Czas działania: 2 godziny.",
       "book_description": "Wewnątrz obszaru działania zaklęcia pojawia się 1k6 wierzchowców (patrz koń). Mogą one mieć dowolny określony przez ciebie wygląd. Przywołane wierzchowce są przyjazne wobec ciebie i stają się zniewolone przez każde stworzenie, które ich dosiądzie.",
-      "sacrifice": "Możesz poświęcić użycie tego zaklęcia, by rzucić przywołanie małego potwora.",
+      "sacrifice": "Poświęcenie: Możesz poświęcić użycie tego zaklęcia, by rzucić przywołanie małego potwora.",
       "card_description": "",
       "origin": {
         "source": "PG",
@@ -161,7 +161,7 @@
       "area": "Obszar: Sześcian o krawędzi 20 metrów i punkcie początkowym w średnim zasięgu, umiejscowiony na twardej lub ciekłej powierzchni.",
       "duration": "Czas działania: 12 godzin; patrz niżej.",
       "book_description": "Musisz utrzymać koncentrację przez 1 minutę, podczas której wyobrażasz sobie budynek lub wyspę. Po tym czasie twoje wyobrażenie materializuje się wewnątrz obszaru działania zaklęcia i utrzymuje się przez czas jego trwania. Jeśli przywołujesz budynek, określasz jego wygląd, w tym liczbę i rozkład wejść, okien i pomieszczeń. W budynku znajdują się łóżka, krzesła, stoły, jedzenie i picie wystarczające dla maksymalnie dziesięciu osób oraz płonący kominek. Jeśli przywołujesz wyspę, znajdują się na niej miejsca noclegowe dla maksymalnie dziesięciu osób, jak w przypadku budynku, ale mają one formę chatek lub namiotów.",
-      "sacrifice": "Możesz poświęcić użycie tego zaklęcia, by rzucić przywołanie dużego potwora.",
+      "sacrifice": "Poświęcenie: Możesz poświęcić użycie tego zaklęcia, by rzucić przywołanie dużego potwora.",
       "card_description": "",
       "origin": {
         "source": "PG",

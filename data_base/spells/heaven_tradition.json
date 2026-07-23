@@ -10,7 +10,7 @@
       "target": "Cel: Jedno stworzenie lub obiekt w średnim zasięgu.",
       "critical_success": "Rzut na atak to 20+: Cel zostaje także oślepiony na 1 rundę.",
       "book_description": "Z twojej dłoni uderza ognisty promień. Wykonaj oparty na Woli rzut na atak przeciwko Zręczności celu. Sukces oznacza, że otrzymuje on 1k6 obrażeń.",
-      "card_description": "",
+      "card_description": "Z twojej dłoni uderza ognisty\npromień. Wykonaj oparty na\nWoli rzut na atak przeciwko\nZręczności celu. Sukces oznacza,\nże otrzymuje on 1k6 obrażeń.",
       "origin": {
         "source": "PG",
         "number": 129
@@ -26,7 +26,7 @@
       "target": "Cel: Jeden obiekt w bezpośrednim zasięgu.",
       "duration": "Czas działania: 1 godzina",
       "book_description": "Dotykasz celu, który na czas trwania zaklęcia zaczyna emitować światło o promieniu 5 metrów.",
-      "card_description": "",
+      "card_description": "Dotykasz celu, który na czas\ntrwania zaklęcia zaczyna\nemitować światło o promieniu\n5 metrów.",
       "origin": {
         "source": "PG",
         "number": 129
@@ -44,7 +44,7 @@
       "target": "Cel: Jedno posiadające zmysł wzroku stworzenie w bliskim zasięgu.",
       "book_description": "Przed oczami wybranego stworzenia rozbłyska jasne światło. Wykonaj oparty na Woli rzut na atak przeciwko Percepcji celu. Sukces oznacza, że przeciwnik zostaje oślepiony na 1 rundę.",
       "critical_success": "Rzut na atak to 20+: Cel zostaje oślepiony na 1 minutę.",
-      "card_description": "",
+      "card_description": "Przed oczami wybranego\nstworzenia rozbłyska jasne światło.\nWykonaj oparty na Woli rzut na atak\nprzeciwko Percepcji celu. Sukces\noznacza, że przeciwnik zostaje\noślepiony na 1 rundę.",
       "origin": {
         "source": "PG",
         "number": 129
@@ -60,7 +60,7 @@
       "target": "Cel: Jeden obiekt w bezpośrednim zasięgu.",
       "duration": "Czas działania: 8 godzin",
       "book_description": "Dotykasz celu, który na czas trwania zaklęcia zaczyna emitować światło o promieniu 10 metrów.",
-      "card_description": "",
+      "card_description": "Dotykasz celu, który na czas\ntrwania zaklęcia zaczyna\nemitować światło o promieniu\n10 metrów.",
       "origin": {
         "source": "PG",
         "number": 129
@@ -75,7 +75,7 @@
       "level": 1,
       "target": "Cel: Punkt w przestrzeni w średnim zasięgu.",
       "book_description": "Z czubka twojego palca wylatuje świecąca drobina, która przemieszcza się po linii prostej w kierunku celu. Gdy go osiągnie lub jeśli napotka na swojej drodze posiadające fizyczną postać stworzenie lub przeszkodę, wybucha w feerii barwnego światła. Rozchodzi się ono sferą o punkcie początkowym w miejscu docelowym albo w przestrzeni zajmowanej przez stworzenie lub obiekt na promień 1 metra. Każda posiadająca zmysł wzroku istota wewnątrz tego obszaru musi wykonać udany test Percepcji, w przeciwnym wypadku zostaje zamroczona na 1 rundę.",
-      "card_description": "",
+      "card_description": "Z czubka twojego palca wylatuje\ndrobina, która przemieszcza się po\nlinii prostej w kierunku celu. Gdy go\nosiągnie lub jeśli napotka na swojej\ndrodze posiadające fizyczną postać\nstworzenie lub przeszkodę, wybucha\nw feerii światła. Rozchodzi się ono sferą\no punkcie początkowym w miejscu\ndocelowym albo w przestrzeni zajmowanej przez stworzenie lub obiekt na\npromień 1m. Każda posiadająca zmysł\nwzroku istota wewnątrz tego obszaru\nmusi wykonać udany test Percepcji lub\nzostaje zamroczona na 1 rundę.",
       "origin": {
         "source": "PG",
         "number": 129
@@ -93,7 +93,7 @@
       "area": "Obszar: Sfera o promieniu 10 metrów i punkcie początkowym w dalekim zasięgu.",
       "duration": "Czas działania: 1 godzina",
       "book_description": "Wewnątrz obszaru działania zaklęcia rozchodzi się światło słoneczne, rozpraszając magiczne cienie i mrok wywołane przez zaklęcia 2 lub niższego kręgu.",
-      "card_description": "",
+      "card_description": "Wewnątrz obszaru działania\nzaklęcia rozchodzi się światło\nsłoneczne, rozpraszając magiczne\ncienie i mrok wywołane przez\nzaklęcia 2 lub niższego kręgu.",
       "origin": {
         "source": "PG",
         "number": 130
@@ -109,7 +109,7 @@
       "target": "Cel: Do trzech stworzeń lub obiektów w średnim zasięgu.",
       "critical_success": "Rzut na atak to 20+: Cel otrzymuje dodatkowe 1k3 obrażeń.",
       "book_description": "Z twojej ręki wystrzeliwują trzy ogniste promienie, rozdzielone dowolnie pomiędzy cele. Dla każdego promienia wykonaj oparty na Woli rzut na atak przeciwko Zręczności celu. Sukces oznacza, że otrzymuje on 1k6 obrażeń. Jeśli posiada zmysł wzroku, jest także osłabiony przez 1 rundę.",
-      "card_description": "",
+      "card_description": "Z twojej ręki wystrzeliwują trzy\nogniste promienie, rozdzielone\ndowolnie pomiędzy cele.\nDla każdego promienia wykonaj\noparty na Woli rzut na atak\nprzeciwko Zręczności celu.\nSukces oznacza, że otrzymuje on\n1k6 obrażeń. Jeśli posiada zmysł\nwzroku, jest także osłabiony\nprzez 1 rundę.",
       "origin": {
         "source": "PG",
         "number": 130
@@ -127,7 +127,7 @@
       "area": "Obszar: Sfera o promieniu 3 metrów i punkcie początkowym w dalekim zasięgu.",
       "duration": "Czas działania: 1 minuta",
       "book_description": "W obszarze działania zaklęcia rozchodzi się mdłe, zielone światło, które na czas trwania czaru zamienia mrok w cień. Wszystko wewnątrz tego obszaru otrzymuje 1k6 obrażeń w momencie rzucenia zaklęcia oraz na koniec każdej rundy przez czas jego trwania. Każde stworzenie, które otrzyma w ten sposób obrażenia, musi wykonać test Siły. Porażka oznacza, że staje się osłabione i spowolnione na 1 rundę. Sukces oznacza, że otrzymuje tylko połowę obrażeń.",
-      "card_description": "",
+      "card_description": "W obszarze działania zaklęcia\nrozchodzi się zielone światło, które na\nczas trwania czaru zamienia mrok\nw cień. Wszystko wewnątrz tego\nobszaru otrzymuje 1k6 obrażeń\nw momencie rzucenia zaklęcia oraz\nna koniec każdej rundy jego trwania.\nKażde stworzenie, które otrzyma w\nten sposób obrażenia, musi wykonać\ntest Siły. Porażka oznacza, że staje się\nosłabione i spowolnione na 1 rundę.\nSukces oznacza, że otrzymuje tylko\npołowę obrażeń.",
       "origin": {
         "source": "PG",
         "number": 130
@@ -142,7 +142,7 @@
       "level": 3,
       "target": "Cel: Punkt w przestrzeni w średnim zasięgu.",
       "book_description": "W dowolnym punkcie w zasięgu pojawia się drobina białego światła, która pędzi w kierunku celu. Gdy go osiągnie lub jeśli napotka na swojej drodze posiadające fizyczną postać stworzenie lub obiekt, wybucha. Płomienie rozchodzą się sferą o punkcie początkowym w miejscu docelowym albo w przestrzeni zajmowanej przez stworzenie lub obiekt na promień 3 metrów i zadają 2k6 + 2 obrażeń wszystkiemu wewnątrz tego obszaru. Każde znajdujące się tam stworzenie musi wykonać test Siły. Porażka oznacza, że staje się osłabione na 1 rundę, a sukces, że otrzymuje tylko połowę obrażeń.",
-      "card_description": "",
+      "card_description": "W dowolnym punkcie w zasięgu\npojawia się drobina białego światła, która\npędzi w kierunku celu. Gdy go osiągnie\nlub jeśli napotka na swojej drodze\nposiadające fizyczną postać stworzenie\nlub obiekt, wybucha. Płomienie rozchodzą się sferą o punkcie początkowym\nw miejscu docelowym albo w przestrzeni\nzajmowanej przez stworzenie lub obiekt\nna promień 3m i zadają 2k6 + 2 obrażeń\nwszystkiemu wewnątrz tego obszaru.\nKażde znajdujące się tam stworzenie\nmusi wykonać test Siły. Porażka oznacza,\nże staje się osłabione na 1 rundę,\na sukces, że otrzymuje tylko\npołowę obrażeń.",
       "origin": {
         "source": "PG",
         "number": 130
@@ -159,7 +159,7 @@
       "level": 4,
       "area": "Obszar: Sfera o promieniu 8 metrów i punkcie początkowym w bezpośrednim zasięgu.",
       "book_description": "W obszarze działania zaklęcia rozchodzi się eksplozja jasnego światła. Każde znajdujące się tam stworzenie – oprócz ciebie – otrzymuje 2k6 + 2 obrażeń i musi wykonać test Siły. Porażka oznacza, że zostaje oślepione na 1 rundę, a sukces, że otrzymuje tylko połowę obrażeń.",
-      "card_description": "",
+      "card_description": "W obszarze działania zaklęcia\nrozchodzi się eksplozja jasnego\nświatła. Każde znajdujące się\ntam stworzenie – oprócz ciebie –\notrzymuje 2k6 + 2 obrażeń i musi\nwykonać test Siły. Porażka oznacza,\nże zostaje oślepione na\n1 rundę, a sukces, że otrzymuje\ntylko połowę obrażeń.",
       "origin": {
         "source": "PG",
         "number": 130
@@ -176,7 +176,7 @@
       "level": 5,
       "area": "Obszar: Linia o długości 25 metrów i szerokości 1 metra, o punkcie początkowym w bezpośrednim zasięgu.",
       "book_description": "Z twojej ręki wystrzeliwuje promień jasnego, palącego światła, który zadaje 3k6 + 3 obrażeń wszystkiemu wewnątrz obszaru działania zaklęcia. Każde stworzenie, które otrzyma w ten sposób obrażenia, musi wykonać test Siły. Porażka oznacza, że zostaje oślepione na 1 minutę, a sukces, że otrzymuje tylko połowę obrażeń.",
-      "card_description": "",
+      "card_description": "Z twojej ręki wystrzeliwuje\npromień jasnego, palącego\nświatła, który zadaje 3k6 + 3\nobrażeń wszystkiemu wewnątrz\nobszaru działania zaklęcia. Każde\nstworzenie, które otrzyma w ten\nsposób obrażenia, musi wykonać\ntest Siły. Porażka oznacza, że\nzostaje oślepione na 1 minutę,\na sukces, że otrzymuje tylko\npołowę obrażeń.",
       "origin": {
         "source": "PG",
         "number": 130

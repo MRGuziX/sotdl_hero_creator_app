@@ -185,7 +185,7 @@
       "duration": "Czas działania: Koncentracja, do 1 godziny",
       "book_description": "Dotknij celu. Musisz utrzymać koncentrację przez 1 godzinę i zachować w tym czasie fizyczny kontakt z jego ciałem. Jeśli nic nie przerwie twojej koncentracji, możliwe jest przywrócenie go do życia.",
       "mechanics": "Jeśli dusza stworzenia przebywa w Zaświatach, powraca do ciała, a cel wstaje z martwych. Leczy 1 punkt obrażeń i jest osłabiony oraz wyczerpany, dopóki nie odbędzie pełnego odpoczynku. Jeśli dusza stworzenia znajduje się w Piekle, wykonaj test Woli z tyloma utrudnieniami, ile wynosi Splugawienie zmarłego. Sukces oznacza, że udaje ci się go wskrzesić. Porażka oznacza, że jego dusza jest bezpowrotnie stracona.",
-      "sacrifice": "Możesz poświęcić użycie tego zaklęcia, by rzucić pełne leczenie.",
+      "sacrifice": "Poświęcenie: Możesz poświęcić użycie tego zaklęcia, by rzucić pełne leczenie.",
       "card_description": "",
       "origin": {
         "source": "PG",

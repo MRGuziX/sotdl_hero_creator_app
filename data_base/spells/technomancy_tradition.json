@@ -176,7 +176,7 @@
       "target": "Cel: Jeden obiekt w bezpośrednim zasięgu.",
       "duration": "Czas działania: 1 godzina",
       "book_description": "Dotykasz celu, nasycając go magiczną mocą. Przez czas trwania zaklęcia wszystkie ataki i testy wykonywane z użyciem przedmiotu zyskują 1 ułatwienie. Jeśli jest on bronią, ataki nim zadają dodatkowe 1k6 obrażeń. Jeśli jest zbroją, noszące ją stworzenie zyskuje premię +1 do Obrony.",
-      "sacrifice": "Utrwalenie: Jeśli rzucając to zaklęcie, wykorzystasz rzadkie składniki warte 1 złotą koronę, jego efekt utrzymuje się, dopóki nie odbędziesz pełnego odpoczynku. Jeśli będziesz rzucać to zaklęcie w ten sposób na ten sam obiekt codziennie przez miesiąc, tydzień i jeden dzień, jego efekt stanie się permanentny.",
+      "sacrifice": "Poświęcenie: Utrwalenie: Jeśli rzucając to zaklęcie, wykorzystasz rzadkie składniki warte 1 złotą koronę, jego efekt utrzymuje się, dopóki nie odbędziesz pełnego odpoczynku. Jeśli będziesz rzucać to zaklęcie w ten sposób na ten sam obiekt codziennie przez miesiąc, tydzień i jeden dzień, jego efekt stanie się permanentny.",
       "card_description": "",
       "origin": {
         "source": "PG",

@@ -1,10 +1,4 @@
 {
-  "tradition_rules": [
-    {
-      "name": "Efekty uboczne zgłębiania Magii Cienia",
-      "note": "Zgłębianie tajemnic Magii Cienia stopniowo wysysa z maga kolor i witalność. Ubrania szybciej płowieją, włosy tracą połysk, a cera blednie jak kreda. Światło staje się nieprzyjemne i sprawia, że użytkownicy tej tradycji czują się nieswojo w zalanych nim obszarach, choć nie wyrządza im żadnej krzywdy. Mimo to chronią oczy przed bolesną jasnością, zwykle nosząc zakapturzoną pelerynę."
-    }
-  ],
   "level_0": [
     {
       "name": "OSTRZE ZMIERZCHU",
@@ -15,7 +9,7 @@
       "level": 0,
       "duration": "Czas działania: 1 minuta; patrz niżej.",
       "book_description": "Pasma cienia tworzą w twojej dłoni materialne ostrze, które istnieje tak długo, jak długo trwa zaklęcie lub dopóki go nie wypuścisz. Funkcjonuje jako szybka, finezyjna broń, którą można trzymać w dowolnej ręce i która zadaje 1k6 obrażeń. Trafienie nim celu znajdującego się na obszarze zacienionym lub pogrążonym w mroku zadaje dodatkowe 1k6 obrażeń. Po rzuceniu tego czaru możesz natychmiast wykonać atak stworzonym ostrzem.",
-      "card_description": "",
+      "card_description": "Pasma cienia tworzą w twojej\ndłoni materialne ostrze, które\nistnieje tak długo, jak długo\ntrwa zaklęcie lub dopóki go nie\nwypuścisz. Funkcjonuje jako\nszybka, finezyjna broń, która\nzadaje 1k6 obrażeń. Trafienie nim\ncelu znajdującego się na obszarze\nzacienionym lub pogrążonym\nw mroku zadaje dodatkowe 1k6\nobrażeń. Po rzuceniu tego czaru\nmożesz natychmiast wykonać atak\nstworzonym ostrzem.",
       "origin": {
         "source": "PG",
         "number": 128
@@ -31,7 +25,7 @@
       "area": "Obszar: Okrąg o dowolnej orientacji, promieniu 2 metrów i punkcie początkowym w średnim zasięgu.",
       "duration": "Czas działania: 1 minuta.",
       "book_description": "Na czas trwania zaklęcia wybrany obszar staje się nieprzejrzysty, całkowicie przesłaniając wszystko wewnątrz niego i za nim, a także tłumiąc światło z naturalnych źródeł.",
-      "card_description": "",
+      "card_description": "Na czas trwania zaklęcia wybrany\nobszar staje się nieprzejrzysty,\ncałkowicie przesłaniając\nwszystko wewnątrz niego i za\nnim, a także tłumiąc światło\nz naturalnych źródeł.",
       "origin": {
         "source": "PG",
         "number": 128
@@ -49,7 +43,7 @@
       "area": "Obszar: Sfera o promieniu 5 metrów i punkcie początkowym w bliskim zasięgu.",
       "duration": "Czas działania: 1 minuta.",
       "book_description": "Obszar działania zaklęcia wypełnia atramentowa ciemność, na czas trwania czaru całkowicie przesłaniając wszystko wewnątrz niego. Mrok ten tłumi wszelkie światło z naturalnych źródeł lub stworzone zaklęciami kręgu 0, a także blokuje dowolny rodzaj niemagicznego widzenia z wyjątkiem prawdziwego widzenia. Jeśli rzucisz to zaklęcie na obiekt, którego dotkniesz, wypełniony mrokiem obszar przemieszcza się wraz z nim. Jeśli przedmiot ten zostanie całkowicie zakryty, efekt zaklęcia ulegnie stłumieniu aż do ponownego odkrycia.",
-      "card_description": "",
+      "card_description": "Atramentowa ciemność, całkowicie\nprzesłania wszystko wewnątrz niej.\nMrok tłumi wszelkie światło lub\nstworzone zaklęciami kręgu 0, blokuje\ndowolny rodzaj niemagicznego\nwidzenia z wyjątkiem prawdziwego\nwidzenia. Jeśli rzucisz to zaklęcie na\nobiekt, którego dotkniesz, wypełniony\nmrokiem obszar przemieszcza się wraz\nz nim. Jeśli przedmiot zostanie zakryty,\nefekt zaklęcia ulegnie stłumieniu,\ndo ponownego odkrycia.",
       "origin": {
         "source": "PG",
         "number": 128
@@ -65,7 +59,7 @@
       "target": "Cel: Jedno stworzenie w bezpośrednim zasięgu.",
       "duration": "Czas działania: 1 godzina.",
       "book_description": "Dotykasz celu, który na czas trwania zaklęcia zyskuje zdolność widzenia w ciemności.",
-      "card_description": "",
+      "card_description": "Dotykasz celu, który na czas\ntrwania zaklęcia zyskuje zdolność\nwidzenia w ciemności.",
       "origin": {
         "source": "PG",
         "number": 128
@@ -80,7 +74,7 @@
       "level": 1,
       "target": "Cel: Jedno stworzenie w średnim zasięgu.",
       "book_description": "Z twojej dłoni wylatuje strzałka usnuta z cienia. Wykonaj oparty na Intelekcie rzut na atak przeciwko Zręczności celu. Sukces oznacza, że stworzenie otrzymuje 2k6 obrażeń i przez 1 minutę wszystkie testy Percepcji wykonuje z 3 utrudnieniami.",
-      "card_description": "",
+      "card_description": "Z twojej dłoni wylatuje strzałka\nusnuta z cienia. Wykonaj oparty na\nIntelekcie rzut na atak przeciwko\nZręczności celu. Sukces oznacza,\nże stworzenie otrzymuje 2k6\nobrażeń i przez 1 minutę wszystkie\ntesty Percepcji wykonuje\nz 3 utrudnieniami.",
       "origin": {
         "source": "PG",
         "number": 128
@@ -98,7 +92,7 @@
       "area": "Obszar: Sześcian o krawędzi 1 metra i punkcie początkowym w średnim zasięgu.",
       "duration": "Czas działania: 1 minuta.",
       "book_description": "W obszarze działania zaklęcia gromadzą się pasma ciemności, które splatają się w zniewolonego średniego potwora z cechą lotu. Może on mieć dowolny określony przez ciebie wygląd. Jeśli zostanie obezwładniony, efekt zaklęcia dobiega końca.",
-      "card_description": "",
+      "card_description": "W obszarze działania zaklęcia\ngromadzą się pasma ciemności,\nktóre splatają się w zniewolonego\nśredniego potwora z cechą lotu.\nMoże on mieć dowolny określony\nprzez ciebie wygląd. Jeśli zostanie\nobezwładniony, efekt zaklęcia\ndobiega końca.",
       "origin": {
         "source": "PG",
         "number": 128
@@ -113,7 +107,7 @@
       "level": 2,
       "duration": "Czas działania: 1 minuta.",
       "book_description": "Przez czas trwania zaklęcia, gdy wkraczasz na przestrzeń pogrążoną w cieniu lub w mroku, możesz natychmiast przenieść się na inną wolną przestrzeń pogrążoną w cieniu lub w mroku w średnim zasięgu od tej, do której wszedłeś. Jesteś w stanie przemieścić się w ten sposób raz na rundę.",
-      "card_description": "",
+      "card_description": "Przez czas trwania zaklęcia, gdy\nwkraczasz na przestrzeń pogrążoną\nw cieniu lub w mroku, możesz\nnatychmiast przenieść się na\ninną wolną przestrzeń pogrążoną\nw cieniu lub w mroku w średnim\nzasięgu od tej, do której wszedłeś.\nJesteś w stanie przemieścić się\nw ten sposób raz na rundę.",
       "origin": {
         "source": "PG",
         "number": 129
@@ -131,7 +125,7 @@
       "target": "Cel: Do trzech stworzeń w średnim zasięgu.",
       "critical_success": "Rzut na atak to 20+: Cel otrzymuje dodatkowe 1k6 obrażeń.",
       "book_description": "Z czubków twoich palców wystrzeliwują trzy pociski syczącej ciemności, rozdzielone dowolnie pomiędzy cele. Dla każdej strzały wykonaj oparty na Intelekcie rzut na atak przeciwko Zręczności danego stworzenia. Sukces oznacza, że otrzymuje ono 2k6 obrażeń i zostaje odepchnięte od ciebie na 1k6 metrów.",
-      "card_description": "",
+      "card_description": "Z czubków twoich palców\nwystrzeliwują trzy pociski syczącej\nciemności, rozdzielone dowolnie\npomiędzy cele. Dla każdej strzały\nwykonaj oparty na Intelekcie rzut\nna atak przeciwko Zręczności\ndanego stworzenia. Sukces\noznacza, że otrzymuje ono 2k6\nobrażeń i zostaje odepchnięte od\nciebie na 1k6 metrów.",
       "origin": {
         "source": "PG",
         "number": 129
@@ -145,7 +139,7 @@
       ],
       "level": 3,
       "book_description": "Wybierz jedno ze znanych ci zaklęć 2 lub niższego kręgu z tradycji innej niż Magia Cienia. Rzucasz to zaklęcie, nie poświęcając jego użycia, nawet jeśli nie masz już jego dostępnych użyć.",
-      "card_description": "",
+      "card_description": "Wybierz jedno ze znanych ci zaklęć\n2 lub niższego kręgu z tradycji\ninnej niż Magia Cienia. Rzucasz\nto zaklęcie, nie poświęcając jego\nużycia, nawet jeśli nie masz już jego\ndostępnych użyć.",
       "origin": {
         "source": "PG",
         "number": 129
@@ -163,7 +157,7 @@
       "area": "Obszar: Sześć sześcianów o krawędzi 1 metra w dalekim zasięgu.",
       "duration": "Czas działania: 1 minuta.",
       "book_description": "Sześciany wypełnia ciemność, całkowicie przesłaniając ich wnętrza i blokując wszelkie niemagiczne widzenie z wyjątkiem prawdziwego widzenia. Do każdego z nich przypisz numer od 1 do 6. Gdy do dowolnego sześcianu wkroczy stworzenie, musi ono wykonać test Intelektu, by ustalić, z którego z nich wyjdzie. Jeśli test się powiedzie, istota natychmiast pojawia się w wolnej przestrzeni przy wybranej bryle. Jeśli nie, sześcian wyjściowy ustala się, rzucając k6. W obu przypadkach istota wybiera kierunek, w jakim opuszcza obszar działania zaklęcia.",
-      "card_description": "",
+      "card_description": "Sześciany wypełnia ciemność,\nblokując wszelkie widzenie\nz wyjątkiem prawdziwego widzenia.\nDla każdego sześcianu przypisz\nnumer od 1 do 6. Gdy stworzenie,\nwkroczy do niego, testuje Intelekt,\nby ustalić, z którego z nich wyjdzie.\nJeśli sie powiedzie, istota natychmiast\npojawia się przy wybranej bryle. Jeśli\nnie, wyjście ustala się, rzucając k6.\nW obu przypadkach istota wybiera\nkierunek, w jakim opuszcza obszar\ndziałania zaklęcia.",
       "origin": {
         "source": "PG",
         "number": 146
@@ -181,8 +175,8 @@
       "target": "Cel: Jedno żywe stworzenie w dalekim zasięgu.",
       "duration": "Czas działania: 1 godzina.",
       "book_description": "Z twojej dłoni uderza czarny promień. Wykonaj oparty na Intelekcie rzut na atak przeciwko Zręczności celu. Sukces oznacza, że na 1 godzinę stworzenie otrzymuje karę -20 do Zdrowia. Dopóki kara ta się utrzymuje, istota jest także osłabiona.",
+      "card_description": "Z twojej dłoni uderza czarny\npromień. Wykonaj oparty na\nIntelekcie rzut na atak przeciwko\nZręczności celu. Sukces oznacza,\nże na 1 godzinę stworzenie\notrzymuje karę −20 do Zdrowia.\nDopóki kara ta się utrzymuje, istota\njest także osłabiona.",
       "critical_success": "Rzut na atak to 20+: Kara do Zdrowia zwiększa się do -30.",
-      "card_description": "",
       "origin": {
         "source": "PG",
         "number": 129

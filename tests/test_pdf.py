@@ -1,6 +1,7 @@
 import json
 import os
 import tempfile
+from io import BytesIO
 
 import pytest
 from pypdf import PdfReader
@@ -10,11 +11,15 @@ from models.language import Language
 from models.spell import Spell
 from models.talent import Talent
 from utils.pdf_creator import (
+    _spell_card_fields,
     _spell_critical_success_y,
     _spell_description_bounds,
     _spell_description_font_size,
     _spell_description_layout,
-    _spell_card_fields,
+    _spell_description_top,
+    _spell_table_top,
+    _spell_effect_value,
+    _format_spell_description,
     _spell_name_bounds,
     _spell_name_font_size,
     fill_pdf,
@@ -196,6 +201,8 @@ def test_spell_card_renders_all_fields_together():
         # ),
         duration="Czas działania: Dopóki nie odbędziesz pełnego odpoczynku; patrz niżej.",
         critical_success="Rzut na atak 20+: Cel otrzymuje dodatkowe 1k6 obrażeń.",
+        requirements="Musisz znajdować się na wolnym powietrzu.",
+        sacrifice="Możesz poświęcić użycie tego zaklęcia.",
         tags=["Magia Testowa", "Atak"],
         level=2,
     )
@@ -216,6 +223,333 @@ def test_spell_card_renders_all_fields_together():
     output_path = os.path.join("output", "filled_spells.pdf")
 
     fill_spell_pdf(hero, output_path)
+
+
+def test_real_storm_and_conjuration_spells_render_from_full_json():
+    lightning_data = {
+        "name": "PRZYWOŁANIE PIORUNA",
+        "tags": ["Magia Burzy", "Atak"],
+        "level": 2,
+        "requirements": "Wymagania: Musisz znajdować się na wolnym powietrzu.",
+        "target": "Cel: Punkt na podłożu w dalekim zasięgu.",
+        "sacrifice": (
+            "Poświęcenie: Możesz poświęcić użycie tego zaklęcia, "
+            "by rzucić czar rozwidlony piorun."
+        ),
+        "book_description": (
+            "W cel uderza z nieba piorun, zadając 3k6 + 5 obrażeń "
+            "wszystkiemu w promieniu 3 metrów od niego. Każde stworzenie, "
+            "które otrzyma w ten sposób obrażenia, musi wykonać test Siły. "
+            "Porażka oznacza, że staje się ogłuszone na 1 godzinę, a sukces, "
+            "że otrzymuje tylko połowę obrażeń."
+        ),
+        "card_description": (
+            "W cel uderza piorun, zadając\n3k6 + 5 obrażeń wszystkiemu\n"
+            "w promieniu 3m. Każde stworzenie,\nktóre otrzyma w ten sposób\n"
+            "obrażenia, wykonuje test Siły.\nPorażka oznacza, że staje się\n"
+            "ogłuszone na 1 godzinę, a sukces,\nże otrzymuje tylko połowę obrażeń."
+        ),
+        "origin": {"source": "PG", "number": 127},
+    }
+    item_data = {
+        "name": "PRZYWOŁANIE UŻYTECZNEGO PRZEDMIOTU",
+        "tags": ["Przywołania", "Użytkowe"],
+        "level": 0,
+        "area": "Obszar: Sześcian o krawędzi 1 metra i punkcie początkowym w zasięgu ręki.",
+        "duration": "Czas działania: 1 minuta.",
+        "book_description": (
+            "Wewnątrz obszaru działania zaklęcia pojawia się przedmiot "
+            "o Rozmiarze 1 lub mniejszym, który nie jest magiczny ani wart "
+            "więcej niż 1 srebrnik."
+        ),
+        "card_description": "",
+        "origin": {"source": "PG", "number": 140},
+    }
+    wall_data = {
+        "name": "ŚCIANA MIECZY",
+        "tags": ["Magia Bitewna", "Atak"],
+        "level": 4,
+        "area": (
+            "Obszar: Linia o długości 20 metrów, wysokości 5 metrów "
+            "i szerokości 2 metrów o punkcie początkowym w dalekim zasięgu."
+        ),
+        "duration": "Czas działania: 1 godzina.",
+        "book_description": (
+            "W obszarze działania zaklęcia na czas jego trwania powstaje "
+            "ściana tnących ostrzy. Zapewnia ona całkowitą osłonę wszystkiemu, "
+            "co znajduje się za nią. Gdy ostrza się pojawiają, wszystko "
+            "wewnątrz tego obszaru otrzymuje 5k6 obrażeń. Każde stworzenie, "
+            "które wykona udany test Zręczności, otrzymuje tylko połowę tych "
+            "obrażeń. Stworzenia mogą przemieszczać się przez obszar działania "
+            "zaklęcia jak po trudnym terenie. Gdy istota wkroczy na niego z "
+            "zewnątrz lub jeśli znajduje się w nim na koniec rundy, musi wykonać "
+            "udany test Zręczności, w przeciwnym wypadku otrzymuje 3k6 obrażeń."
+        ),
+        "card_description": (
+            "W obszarze działania zaklęcia na czas\njego trwania powstaje ściana "
+            "tnących ostrzy. Zapewnia ona całkowitą osłonę\nwszystkiemu, co "
+            "znajduje się za nią. Gdy\nostrza się pojawiają, wszystko wewnątrz\n"
+            "tego obszaru otrzymuje 5k6 obrażeń.\nKażde stworzenie, które wykona "
+            "udany test\nZręczności, otrzymuje tylko połowę tych\nobrażeń. "
+            "Stworzenia mogą przemieszczać\nsię przez obszar działania zaklęcia "
+            "jak\npo trudnym terenie. Gdy istota wkroczy\nna niego z zewnątrz "
+            "lub jeśli znajduje się\nw nim na koniec rundy, musi wykonać\n"
+            "udany test Zręczności, w przeciwnym\nwypadku otrzymuje 3k6 obrażeń."
+        ),
+        "origin": {"source": "PG", "number": 127},
+    }
+    toad_data = {
+        "name": "ROPUCHA",
+        "tags": ["Klątwy", "Atak"],
+        "level": 4,
+        "target": "Cel: Jedno żywe stworzenie w średnim zasięgu, które widzisz.",
+        "duration": "Czas działania: Koncentracja do 1 minuty; patrz niżej.",
+        "critical_success": (
+            "Rzut na atak to 20+: Nie trzeba spełnić żadnych warunków, aby klątwa "
+            "trwała, dopóki żyjesz lub dopóki sam nie poświęcisz akcji na jej "
+            "zdjęcie, mając cel w średnim zasięgu."
+        ),
+        "book_description": (
+            "Wykonaj oparty na Intelekcie rzut na atak przeciwko Sile celu – z 3 "
+            "ułatwieniami, jeśli jego Zdrowie wynosi 40 lub mniej. Sukces oznacza, "
+            "że ofiara zamienia się w nieszkodliwą ropuchę (drobne zwierzę) i "
+            "pozostaje w tej postaci, dopóki utrzymujesz koncentrację (maksymalnie "
+            "na 1 minutę). Jeśli przez czas działania zaklęcia nic nie przerwie "
+            "twojej koncentracji, klątwa ta trwa, dopóki żyjesz lub dopóki nie "
+            "poświęcisz akcji, aby ją zdjąć. Zostaje jednak przełamana, gdy ropuchę "
+            "z własnej woli pocałuje dziewica."
+        ),
+        "card_description": (
+            "Wykonaj oparty na Intelekcie rzut na\n"
+            "atak przeciwko Sile celu – z 3 ułatwieniami,\n"
+            "jeśli jego Zdrowie wynosi 40 lub mniej.\n"
+            "Sukces oznacza, że ofiara zamienia się\n"
+            "w ropuchę (drobne zwierzę) i pozostaje w tej\n"
+            "postaci, dopóki utrzymujesz koncentrację\n"
+            "(maksymalnie na 1 minutę). Jeśli przez czas\n"
+            "działania zaklęcia nic nie przerwie twojej\n"
+            "koncentracji, klątwa ta trwa, dopóki żyjesz\n"
+            "lub dopóki nie poświęcisz akcji, aby ją zdjąć"
+        ),
+        "origin": {"source": "PG", "number": 125},
+    }
+    def load_spell(file_name, level, spell_name):
+        with open(f"data_base/spells/{file_name}.json", encoding="utf-8") as file:
+            data = json.load(file)
+        return next(spell for spell in data[f"level_{level}"] if spell["name"] == spell_name)
+
+    lightning_data = load_spell("storm_tradition", 2, "PRZYWOŁANIE PIORUNA")
+    item_data = load_spell(
+        "conjuration_tradition", 0, "PRZYWOŁANIE UŻYTECZNEGO PRZEDMIOTU"
+    )
+    wall_data = load_spell("chaos_tradition", 1, "ZAKRZYWIENIE PRZESTRZENI")
+    toad_data = load_spell("curse_tradition", 4, "ROPUCHA")
+    vision_data = load_spell("divination_tradition", 4, "WIZJA")
+    illusion_data = load_spell("illusion_tradition", 2, "UROJENIA")
+    duplicates_data = load_spell("illusion_tradition", 1, "DUPLIKATY")
+    mirage_data = load_spell("illusion_tradition", 4, "MIRAŻ")
+    wild_magic_data = load_spell("chaos_tradition", 3, "DZIKA MAGIA")
+    spells = [
+        Spell(**data)
+        for data in (
+            lightning_data,
+            item_data,
+            wall_data,
+            toad_data,
+            vision_data,
+            illusion_data,
+            duplicates_data,
+            mirage_data,
+            wild_magic_data,
+        )
+    ]
+    hero = AncestryHero(
+        ancestry_name="Człowiek",
+        strength=10,
+        dexterity=10,
+        intelligence=10,
+        will=10,
+        perception=10,
+        defense=10,
+        health=10,
+        healing_rate=2,
+        size=[1.0],
+        speed=10,
+        spells=spells,
+    )
+    output_path = os.path.join("output", "filled_spells.pdf")
+
+    fill_spell_pdf(hero, output_path)
+    text = "\n".join(page.extract_text() or "" for page in PdfReader(output_path).pages)
+    rendered_text = "".join(text.split())
+    lightning_fields = _spell_card_fields(spells[0], 1)
+    item_fields = _spell_card_fields(spells[1], 2)
+    wall_fields = _spell_card_fields(spells[2], 3)
+    toad_fields = _spell_card_fields(spells[3], 4)
+    vision_fields = _spell_card_fields(spells[4], 5)
+    illusion_fields = _spell_card_fields(spells[5], 6)
+    duplicates_fields = _spell_card_fields(spells[6], 7)
+    mirage_fields = _spell_card_fields(spells[7], 8)
+    wild_magic_fields = _spell_card_fields(spells[8], 9)
+
+    assert "PRZYWO" in rendered_text
+    assert "U" in rendered_text and "YTECZNEGO" in rendered_text
+    assert lightning_fields["spell_description_card_1"].startswith("W cel")
+    assert lightning_fields["spell_requirements_card_1"] == lightning_data["requirements"]
+    assert lightning_fields["spell_target_card_1"] == lightning_data["target"]
+    assert lightning_fields["spell_sacrifice_card_1"] == lightning_data["sacrifice"]
+    assert item_fields["spell_area_card_2"] == item_data["area"]
+    assert item_fields["spell_duration_card_2"] == item_data["duration"]
+    assert item_fields["spell_description_card_2"] == item_data["book_description"]
+    assert wall_fields["spell_area_card_3"] == wall_data.get("area", "")
+    assert wall_fields["spell_duration_card_3"] == wall_data.get("duration", "")
+    assert wall_fields["spell_description_card_3"] == wall_data["card_description"]
+    assert toad_fields["spell_target_card_4"] == toad_data["target"]
+    assert toad_fields["spell_duration_card_4"] == toad_data["duration"]
+    assert toad_fields["spell_attack_roll_card_4"] == toad_data["critical_success"]
+    assert toad_fields["spell_description_card_4"] == toad_data["card_description"]
+    assert vision_fields["spell_duration_card_5"] == vision_data["duration"]
+    assert vision_fields["spell_description_card_5"] == vision_data["card_description"]
+    assert illusion_fields["spell_area_card_6"] == illusion_data["area"]
+    assert illusion_fields["spell_duration_card_6"] == illusion_data["duration"]
+    assert illusion_fields["spell_attack_roll_card_6"] == illusion_data["critical_success"]
+    assert illusion_fields["spell_description_card_6"] == illusion_data["card_description"]
+    assert duplicates_fields["spell_duration_card_7"] == duplicates_data["duration"]
+    assert duplicates_fields["spell_description_card_7"] == duplicates_data["card_description"]
+    assert duplicates_fields["spell_table_card_7"] == duplicates_data["table"]
+    assert mirage_fields["spell_area_card_8"] == mirage_data["area"]
+    assert mirage_fields["spell_duration_card_8"] == mirage_data["duration"]
+    assert mirage_fields["spell_sacrifice_card_8"] == mirage_data["sacrifice"]
+    assert mirage_fields["spell_permanent_card_8"] == mirage_data["permanent"]
+    assert mirage_fields["spell_description_card_8"] == mirage_data["card_description"]
+    assert wild_magic_fields["spell_area_card_9"] == wild_magic_data["area"]
+    assert wild_magic_fields["spell_description_card_9"] == wild_magic_data["card_description"]
+    assert wild_magic_fields["spell_table_card_9"] == wild_magic_data["table"]
+    assert "piorun" in rendered_text.lower()
+    assert "przedmiot" in rendered_text.lower()
+    assert "zakrzywienie" in rendered_text.lower()
+    assert "ropucha" in rendered_text.lower()
+    assert "wizja" in rendered_text.lower()
+    assert "urojenia" in rendered_text.lower()
+    assert "duplikaty" in rendered_text.lower()
+    assert "miraż" in rendered_text.lower()
+    assert "dzika" in rendered_text.lower()
+
+
+
+def test_spell_card_fields_include_requirements_and_sacrifice():
+    spell = Spell(
+        name="TEST",
+        description="Opis",
+        requirements="Musisz znajdować się na wolnym powietrzu.",
+        sacrifice="Możesz poświęcić użycie tego zaklęcia.",
+    )
+
+    fields = _spell_card_fields(spell, 1)
+
+    assert fields["spell_requirements_card_1"] == spell.requirements
+    assert fields["spell_sacrifice_card_1"] == spell.sacrifice
+
+
+def test_spell_card_fields_include_permanent_effect():
+    spell = Spell(
+        name="TEST",
+        description="Opis",
+        permanent="Jeśli zaklęcie trwa wystarczająco długo, efekt staje się permanentny.",
+    )
+
+    fields = _spell_card_fields(spell, 1)
+
+    assert fields["spell_permanent_card_1"] == spell.permanent
+
+
+def test_spell_card_fields_include_table():
+    table = {
+        "headers": ["Liczba duplikatów", "W duplikat trafia wynik"],
+        "rows": [[4, "16 lub mniej"], [3, "15 lub mniej"], [2, "14 lub mniej"], [1, "10 lub mniej"]],
+    }
+    spell = Spell(name="DUPLIKATY", table=table)
+
+    fields = _spell_card_fields(spell, 1)
+
+    assert fields["spell_table_card_1"] == table
+
+
+def test_spell_table_gives_effect_column_more_space_and_wraps_text():
+    from reportlab.pdfgen.canvas import Canvas
+    from reportlab.pdfbase import pdfmetrics
+    from utils.pdf_creator import SPELL_FONT_BOLD, _draw_spell_table, _spell_table_column_widths
+
+    table = {
+        "headers": ["K20", "Efekt"],
+        "rows": [["4-5", "Stworzenia wykonują bardzo długi efekt, który powinien zawinąć się w komórce tabeli."]],
+    }
+    canvas = Canvas(BytesIO())
+
+    height = _draw_spell_table(canvas, table, 100, 500, 688, 1, 1)
+
+    assert height > 11
+    widths = _spell_table_column_widths(table["headers"], 688)
+    assert widths[0] >= pdfmetrics.stringWidth("K20", SPELL_FONT_BOLD, 6) + 8
+    assert widths[1] >= pdfmetrics.stringWidth("Efekt", SPELL_FONT_BOLD, 6) + 8
+    canvas.save()
+
+
+def test_wild_magic_contains_k20_effect_table():
+    with open("data_base/spells/chaos_tradition.json", encoding="utf-8") as file:
+        data = json.load(file)
+
+    spell = next(spell for spell in data["level_3"] if spell["name"] == "DZIKA MAGIA")
+    table = spell["table"]
+
+    assert table["headers"] == ["K20", "Efekt"]
+    assert [row[0] for row in table["rows"]] == [
+        "1",
+        "2-3",
+        "4-5",
+        "6-8",
+        "9-13",
+        "14-15",
+        "16-17",
+        "18-19",
+        "20",
+    ]
+    assert table["rows"][0][1] == "Pojawia się 1k6 małych, wrogich demonów."
+    assert table["rows"][-1][1] == "Odzyskujesz jedno użycie zaklęcia 3 lub niższego kręgu."
+
+
+@pytest.mark.parametrize(
+    "value",
+    [
+        "Rzut na atak 20+: Nie trzeba spełnić warunków.",
+        "Rzut na atak to 20+: Nie trzeba spełnić warunków.",
+    ],
+)
+def test_spell_effect_prefix_is_not_duplicated(value):
+    assert _spell_effect_value(value, "Rzut na atak 20+:") == "Nie trzeba spełnić warunków."
+
+
+def test_spell_description_starts_each_bullet_on_new_line():
+    formatted = _format_spell_description("Opis. • Pierwszy punkt.\n• Drugi punkt.")
+
+    assert formatted == "Opis.<br/>• Pierwszy punkt.<br/>• Drugi punkt."
+
+
+def test_spell_description_formats_reaction_as_bold_new_section():
+    formatted = _format_spell_description(
+        "Opis zaklęcia. Reakcja: Możesz rzucić zaklęcie jako reakcję."
+    )
+
+    assert formatted == (
+        'Opis zaklęcia.<br/><font name="Athelas-Bold">Reakcja:</font> '
+        "Możesz rzucić zaklęcie jako reakcję."
+    )
+
+
+def test_spell_description_formats_reaction_at_start_without_extra_break():
+    formatted = _format_spell_description("Reakcja: Natychmiastowy efekt.")
+
+    assert formatted == '<font name="Athelas-Bold">Reakcja:</font> Natychmiastowy efekt.'
 
 
 def test_spell_tags_include_level():
@@ -285,6 +619,15 @@ def test_spell_critical_success_moves_below_wrapped_description():
     short_description_y = _spell_critical_success_y(base_y, 20, px_to_y)
     long_description_y = _spell_critical_success_y(base_y, 100, px_to_y)
 
-    assert short_description_y == 640
-    assert long_description_y == 1040
+    assert short_description_y == 620
+    assert long_description_y == 1020
     assert long_description_y > short_description_y
+
+
+def test_spell_description_starts_50_pixels_below_last_technical_field():
+    assert _spell_description_top(135, 300) == 350
+    assert _spell_description_top(135, None) == 470
+
+
+def test_spell_table_starts_25_pixels_below_description():
+    assert _spell_table_top(350, 100, 0.2) == 875

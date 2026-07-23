@@ -12,6 +12,10 @@ class Spell(BaseModel):
     area: str | None = None
     duration: str | None = None
     critical_success: str | None = None
+    requirements: str | None = None
+    sacrifice: str | None = None
+    permanent: str | None = None
+    table: dict | None = None
 
     @model_validator(mode="before")
     @classmethod

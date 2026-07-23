@@ -139,7 +139,7 @@
         "Atak"
       ],
       "level": 3,
-      "requirements": "Musisz być pod wpływem zaklęcia serce bestii.",
+      "requirements": "Wymagania: Musisz być pod wpływem zaklęcia serce bestii.",
       "book_description": "Przemieszczasz się na odległość do tylu metrów, ile wynosi dwukrotność twojej Prędkości. W dowolnym punkcie tego ruchu możesz wykonać atak bez broni lub z użyciem broni naturalnej przeciwko celowi w bezpośrednim zasięgu, używając Woli w miejsce typowego dla tego ataku atrybutu. Sukces oznacza, że cel otrzymuje normalne obrażenia od tego ataku plus dodatkowe 4k6 obrażeń i zostaje powalony.",
       "card_description": "",
       "origin": {

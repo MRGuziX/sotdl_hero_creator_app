@@ -1,10 +1,11 @@
 import json
 import pathlib
+import re
 from dataclasses import dataclass
 from html import escape
 
 from pypdf import PdfReader, PdfWriter
-from reportlab.lib.colors import black
+from reportlab.lib.colors import black, white
 from reportlab.lib.enums import TA_CENTER, TA_LEFT
 from reportlab.lib.pagesizes import A4
 from reportlab.lib.styles import ParagraphStyle
@@ -12,7 +13,7 @@ from reportlab.lib.units import mm
 from reportlab.pdfbase import pdfmetrics
 from reportlab.pdfbase.ttfonts import TTFont
 from reportlab.pdfgen.canvas import Canvas
-from reportlab.platypus import Paragraph
+from reportlab.platypus import Paragraph, Table, TableStyle
 
 from models.base_hero import AncestryHero
 
@@ -31,7 +32,9 @@ SPELL_DESCRIPTION_RIGHT_X = 798
 
 SPELL_TECHNICAL_FIELDS_OFFSET_Y = 155
 SPELL_TECHNICAL_FIELD_GAP_PX = 10
-SPELL_DESCRIPTION_OFFSET_Y = 355
+SPELL_DESCRIPTION_OFFSET_Y = 335
+SPELL_DESCRIPTION_GAP_AFTER_TECHNICAL_PX = 50
+SPELL_TABLE_GAP_AFTER_DESCRIPTION_PX = 25
 SPELL_CRITICAL_SUCCESS_GAP_PX = 50
 SPELL_TAGS_OFFSET_Y = 1000
 
@@ -328,12 +331,95 @@ def _spell_card_fields(spell, card_number: int) -> dict[str, str]:
             spell.card_description or spell.description or ""
         ),
         f"spell_attack_roll_card_{card_number}": spell.critical_success or "",
+        f"spell_requirements_card_{card_number}": spell.requirements or "",
+        f"spell_sacrifice_card_{card_number}": spell.sacrifice or "",
+        f"spell_permanent_card_{card_number}": spell.permanent or "",
+        f"spell_table_card_{card_number}": spell.table or {},
         f"spell_tags_card_{card_number}": (
             f"{', '.join(spell.tags or [])} {spell.level}"
             if spell.tags
             else str(spell.level)
         ),
     }
+
+
+def _draw_spell_table(
+    canvas: Canvas,
+    table_data: dict,
+    left: float,
+    top: float,
+    width: float,
+    px_to_x: float,
+    px_to_y: float,
+) -> float:
+    """Draw a spell table stored as {headers: [...], rows: [[...], ...]}.
+
+    The table is intentionally data-only so it can be loaded directly from JSON.
+    """
+    headers = table_data.get("headers", [])
+    rows = table_data.get("rows", [])
+    if not headers or not rows:
+        return 0
+    table_width = width * px_to_x
+    column_widths = _spell_table_column_widths(headers, table_width)
+    cell_style = ParagraphStyle(
+        "spell_table_cell",
+        fontName=SPELL_FONT,
+        fontSize=6,
+        leading=7,
+        textColor=black,
+        alignment=TA_CENTER,
+    )
+    header_style = ParagraphStyle(
+        "spell_table_header",
+        parent=cell_style,
+        fontName=SPELL_FONT_BOLD,
+        textColor=white,
+    )
+    data = [[Paragraph(escape(str(value)), header_style) for value in headers]]
+    data.extend(
+        [
+            [Paragraph(escape(str(value)), cell_style) for value in row]
+            for row in rows
+        ]
+    )
+    table = Table(data, colWidths=column_widths, hAlign="CENTER")
+    table.setStyle(
+        TableStyle(
+            [
+                ("BACKGROUND", (0, 0), (-1, 0), black),
+                ("TEXTCOLOR", (0, 0), (-1, 0), white),
+                ("ALIGN", (0, 0), (-1, -1), "CENTER"),
+                ("VALIGN", (0, 0), (-1, -1), "MIDDLE"),
+                ("GRID", (0, 0), (-1, -1), 0.5, black),
+                ("TOPPADDING", (0, 0), (-1, -1), 2),
+                ("BOTTOMPADDING", (0, 0), (-1, -1), 2),
+            ]
+        )
+    )
+    _, height = table.wrap(table_width, A4[1])
+    table.drawOn(canvas, left * px_to_x, A4[1] - top * px_to_y - height)
+    return height
+
+
+def _spell_table_column_widths(headers: list, table_width: float) -> list[float]:
+    """Return widths that keep headers on one line and use remaining space."""
+    _register_spell_fonts()
+    header_padding = 8
+    minimum_widths = [
+        pdfmetrics.stringWidth(str(header), SPELL_FONT_BOLD, 6) + header_padding
+        for header in headers
+    ]
+    minimum_total = sum(minimum_widths)
+    if minimum_total >= table_width:
+        scale = table_width / minimum_total
+        return [width * scale for width in minimum_widths]
+
+    remaining = table_width - minimum_total
+    weights = [1 / len(headers)] * len(headers)
+    if len(headers) == 2:
+        weights = [0.2, 0.8]
+    return [minimum + remaining * weight for minimum, weight in zip(minimum_widths, weights)]
 
 
 def _spell_description_bounds(column_px: float) -> tuple[float, float]:
@@ -361,6 +447,43 @@ def _spell_critical_success_y(base_y: float, description_height: float, px_to_y:
     )
 
 
+def _spell_description_top(
+    base_y: float,
+    technical_fields_bottom: float | None,
+) -> float:
+    """Return the description top 50 px below the last technical field."""
+    if technical_fields_bottom is None:
+        return base_y + SPELL_DESCRIPTION_OFFSET_Y
+    return technical_fields_bottom + SPELL_DESCRIPTION_GAP_AFTER_TECHNICAL_PX
+
+
+def _spell_table_top(description_top: float, description_height: float, px_to_y: float) -> float:
+    """Return the table top 25 px below the wrapped description."""
+    return (
+        description_top
+        + description_height / px_to_y
+        + SPELL_TABLE_GAP_AFTER_DESCRIPTION_PX
+    )
+
+
+def _spell_effect_value(value: str, label: str) -> str:
+    """Remove a card label already present in a technical effect value."""
+    prefixes = (label, "Rzut na atak to 20+:") if label == "Rzut na atak 20+:" else (label,)
+    for prefix in prefixes:
+        if value.startswith(prefix):
+            return value[len(prefix) :].strip()
+    return value
+
+
+def _format_spell_description(text: str) -> str:
+    """Format bullets and the ``Reakcja:`` section for a ReportLab paragraph."""
+    escaped = text.replace("&", "&amp;")
+    formatted = re.sub(r"(?<!^)\s*•", "<br/>•", escaped)
+    reaction_label = f'<font name="{SPELL_FONT_BOLD}">Reakcja:</font>'
+    formatted = re.sub(r"(?<!^)\s*Reakcja:\s*", f"<br/>{reaction_label} ", formatted)
+    return re.sub(r"^Reakcja:\s*", f"{reaction_label} ", formatted)
+
+
 def _draw_wrapped_centered(
     canvas: Canvas,
     text: str,
@@ -380,7 +503,7 @@ def _draw_wrapped_centered(
         textColor=black,
         alignment=TA_CENTER,
     )
-    paragraph = Paragraph(text.replace("&", "&amp;"), style)
+    paragraph = Paragraph(_format_spell_description(text), style)
     _, height = paragraph.wrap(width * px_to_x, A4[1])
     paragraph.drawOn(canvas, left * px_to_x, A4[1] - top * px_to_y - height)
     return height
@@ -457,6 +580,7 @@ def fill_spell_pdf(hero: AncestryHero, output_path: str) -> str:
                 px_to_y,
             )
             field_top = base_y + SPELL_TECHNICAL_FIELDS_OFFSET_Y
+            last_technical_field_bottom = None
             for field_name in ("target", "duration", "area"):
                 value = fields[f"spell_{field_name}_card_{card_index}"]
                 if value:
@@ -468,7 +592,12 @@ def fill_spell_pdf(hero: AncestryHero, output_path: str) -> str:
                         px_to_x,
                         px_to_y,
                     )
+                    last_technical_field_bottom = field_top + field_height / px_to_y
                     field_top += field_height / px_to_y + SPELL_TECHNICAL_FIELD_GAP_PX
+            description_top = _spell_description_top(
+                base_y,
+                last_technical_field_bottom,
+            )
             style = ParagraphStyle(
                 "spell_card",
                 fontName=SPELL_FONT,
@@ -477,37 +606,55 @@ def fill_spell_pdf(hero: AncestryHero, output_path: str) -> str:
                 textColor=black,
                 alignment=TA_CENTER,
             )
-            paragraph = Paragraph(description.replace("&", "&amp;"), style)
+            paragraph = Paragraph(_format_spell_description(description), style)
             description_left, description_width = _spell_description_bounds(column)
             width = description_width * px_to_x
             _, height = paragraph.wrap(width, 500 * px_to_y)
             paragraph.drawOn(
                 canvas,
                 description_left * px_to_x,
-                A4[1] - (base_y + SPELL_DESCRIPTION_OFFSET_Y) * px_to_y - height,
+                A4[1] - description_top * px_to_y - height,
             )
-            if fields[f"spell_attack_roll_card_{card_index}"]:
-                critical_value = fields[f"spell_attack_roll_card_{card_index}"]
-                critical_label = "Rzut na atak 20+:"
-                critical = critical_value
-                if critical.startswith(critical_label):
-                    critical = critical[len(critical_label) :].strip()
-                critical_y = _spell_critical_success_y(base_y, height, px_to_y) - 20
-                critical_text = (
-                    f'<font name="{SPELL_FONT_BOLD}">{critical_label}</font> {escape(critical)}'
-                )
-                left, width = _spell_description_bounds(column)
-                _draw_wrapped_centered(
+            table_data = fields[f"spell_table_card_{card_index}"]
+            if table_data:
+                table_top = _spell_table_top(description_top, height, px_to_y)
+                table_height = _draw_spell_table(
                     canvas,
-                    critical_text,
+                    table_data,
+                    description_left,
+                    table_top,
+                    description_width,
+                    px_to_x,
+                    px_to_y,
+                )
+                effect_y = table_top + table_height / px_to_y + SPELL_TECHNICAL_FIELD_GAP_PX
+            else:
+                effect_y = _spell_critical_success_y(base_y, height, px_to_y) - 20
+            effect_fields = (
+                ("spell_attack_roll_card_", "Rzut na atak 20+:"),
+                ("spell_requirements_card_", "Wymagania:"),
+                ("spell_sacrifice_card_", "Poświęcenie:"),
+                ("spell_permanent_card_", "Permanentny efekt:"),
+            )
+            left, width = _spell_description_bounds(column)
+            for field_prefix, label in effect_fields:
+                value = fields[f"{field_prefix}{card_index}"]
+                if not value:
+                    continue
+                value = _spell_effect_value(value, label)
+                effect_text = f'<font name="{SPELL_FONT_BOLD}">{label}</font> {escape(value)}'
+                effect_height = _draw_wrapped_centered(
+                    canvas,
+                    effect_text,
                     left,
-                    critical_y,
+                    effect_y,
                     width,
                     SPELL_FONT,
                     7,
                     px_to_x,
                     px_to_y,
                 )
+                effect_y += effect_height / px_to_y + SPELL_TECHNICAL_FIELD_GAP_PX
             if fields[f"spell_tags_card_{card_index}"]:
                 draw_centered(
                     fields[f"spell_tags_card_{card_index}"],
