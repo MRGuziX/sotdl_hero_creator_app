@@ -280,7 +280,7 @@ def _draw_wrapped_text(
 def _spell_name_font_size(name: str) -> int:
     name_length = len(name)
     if name_length <= 12:
-        return 18
+        return 16
     if name_length <= 23:
         return 14
     return 12
@@ -366,7 +366,7 @@ def fill_spell_pdf(hero: AncestryHero, output_path: str) -> str:
     px_to_x = A4[0] / 2480
     px_to_y = A4[1] / 3508
     columns = (488, 1249, 1991)
-    row_bases = (140, 1332, 2435)
+    row_bases = (135, 1255, 2375)
 
     def draw_centered(
         text: str, x_px: float, y_px: float, size: int, font_name: str = SPELL_FONT
