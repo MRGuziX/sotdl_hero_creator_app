@@ -308,6 +308,49 @@ def _spell_card_fields(spell, card_number: int) -> dict[str, str]:
     }
 
 
+def _spell_description_bounds(column_px: float) -> tuple[float, float]:
+    """Return the left edge and width of a card's description area in pixels."""
+    first_column = 488
+    left_edge = 170
+    right_edge = 798
+    column_step = column_px - first_column
+    return left_edge + column_step, right_edge - left_edge
+
+
+def _spell_name_bounds(column_px: float) -> tuple[float, float]:
+    """Return the original name area, independent of the description area."""
+    first_column = 488
+    left_edge = 170
+    right_edge = 800
+    column_step = column_px - first_column
+    return left_edge + column_step, right_edge - left_edge
+
+
+def _draw_wrapped_centered(
+    canvas: Canvas,
+    text: str,
+    left: float,
+    top: float,
+    width: float,
+    font_name: str,
+    font_size: int,
+    px_to_x: float,
+    px_to_y: float,
+) -> float:
+    style = ParagraphStyle(
+        "spell_name",
+        fontName=font_name,
+        fontSize=font_size,
+        leading=font_size * 1.2,
+        textColor=black,
+        alignment=TA_CENTER,
+    )
+    paragraph = Paragraph(text.replace("&", "&amp;"), style)
+    _, height = paragraph.wrap(width * px_to_x, A4[1])
+    paragraph.drawOn(canvas, left * px_to_x, A4[1] - top * px_to_y - height)
+    return height
+
+
 def fill_spell_pdf(hero: AncestryHero, output_path: str) -> str:
     """Render up to nine spells per page on the 3x3 card template."""
     templates_dir = pathlib.Path(__file__).parent.parent / "data_base"
@@ -322,11 +365,13 @@ def fill_spell_pdf(hero: AncestryHero, output_path: str) -> str:
     canvas = Canvas(str(overlay_path), pagesize=A4)
     px_to_x = A4[0] / 2480
     px_to_y = A4[1] / 3508
-    columns = (488, 1239, 1991)
-    row_bases = (200, 1312, 2415)
+    columns = (488, 1249, 1991)
+    row_bases = (140, 1332, 2435)
 
-    def draw_centered(text: str, x_px: float, y_px: float, size: int) -> None:
-        canvas.setFont(SPELL_FONT, size)
+    def draw_centered(
+        text: str, x_px: float, y_px: float, size: int, font_name: str = SPELL_FONT
+    ) -> None:
+        canvas.setFont(font_name, size)
         canvas.drawCentredString(x_px * px_to_x, A4[1] - y_px * px_to_y, text)
 
     for page_start in range(0, len(hero.spells), 9):
@@ -336,24 +381,46 @@ def fill_spell_pdf(hero: AncestryHero, output_path: str) -> str:
             fields = _spell_card_fields(spell, card_index)
             description = fields[f"spell_description_card_{card_index}"]
             description_size, _ = _spell_description_layout(description)
-            draw_centered(fields[f"spell_name_card_{card_index}"], column, base_y,
-                          _spell_name_font_size(fields[f"spell_name_card_{card_index}"]))
+            name = fields[f"spell_name_card_{card_index}"]
+            name_left, name_width = _spell_name_bounds(column)
+            _draw_wrapped_centered(
+                canvas,
+                name,
+                name_left,
+                base_y,
+                name_width,
+                SPELL_NAME_FONT,
+                _spell_name_font_size(name),
+                px_to_x,
+                px_to_y,
+            )
             for offset, field_name in ((175, "target"), (205, "duration"), (235, "area")):
                 value = fields[f"spell_{field_name}_card_{card_index}"]
                 if value:
                     draw_centered(str(value), column, base_y + offset, 7)
-            style = ParagraphStyle("spell_card", fontName=SPELL_FONT, fontSize=description_size,
-                                   leading=description_size * 1.2, textColor=black,
-                                   alignment=TA_CENTER)
+            style = ParagraphStyle(
+                "spell_card",
+                fontName=SPELL_FONT,
+                fontSize=description_size,
+                leading=description_size * 1.2,
+                textColor=black,
+                alignment=TA_CENTER,
+            )
             paragraph = Paragraph(description.replace("&", "&amp;"), style)
-            width = 680 * px_to_x
+            description_left, description_width = _spell_description_bounds(column)
+            width = description_width * px_to_x
             _, height = paragraph.wrap(width, 500 * px_to_y)
-            paragraph.drawOn(canvas, column * px_to_x - width / 2,
-                             A4[1] - (base_y + 355) * px_to_y - height)
+            paragraph.drawOn(
+                canvas,
+                description_left * px_to_x,
+                A4[1] - (base_y + 355) * px_to_y - height,
+            )
             if fields[f"spell_attack_roll_card_{card_index}"]:
-                critical = fields[f"spell_attack_roll_card_{card_index}"].removeprefix(
-                    "Rzut na atak 20+:"
-                ).strip()
+                critical = (
+                    fields[f"spell_attack_roll_card_{card_index}"]
+                    .removeprefix("Rzut na atak 20+:")
+                    .strip()
+                )
                 draw_centered(f"rzut na atak 20+: {critical}", column, base_y + 400, 7)
             if fields[f"spell_tags_card_{card_index}"]:
                 draw_centered(fields[f"spell_tags_card_{card_index}"], column, base_y + 940, 7)

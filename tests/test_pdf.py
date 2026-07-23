@@ -9,8 +9,10 @@ from models.language import Language
 from models.spell import Spell
 from models.talent import Talent
 from utils.pdf_creator import (
+    _spell_description_bounds,
     _spell_description_font_size,
     _spell_description_layout,
+    _spell_name_bounds,
     _spell_name_font_size,
     fill_pdf,
     fill_spell_pdf,
@@ -174,6 +176,67 @@ def test_pdf_from_full_flow(output_path):
     assert hero.oddity != ""
 
 
+def test_generate_filled_spells_pdf_with_nine_names_in_output():
+    spells = [
+        Spell(
+            name="POWIEW",
+            description="W obszarze działania zaklęcia wywołujesz niewielki powiew, który przemieszcza się wraz z tobą. Rozprasza on zapachy i zwiewa kurz, rozrzuca lekkie przedmioty, takie jak kartki, gasi świece, a większe płomienie pod jego wpływem tańczą i migoczą. Stworzenia wewnątrz obszaru działania zaklęcia, które atakują cię bronią dystansową lub miotaną, wykonują rzuty na atak z 1 utrudnieniem.",
+        ),
+        Spell(
+            name="SZYBOWANIE",
+            description="Reakcja: Możesz rzucić to zaklęcie jako reakcję, gdy widzisz spadający cel. Przez czas trwania zaklęcia nie otrzyma on obrażeń od upadku. Jeśli w momencie zakończenia efektu czaru istota nadal będzie spadać, wartość obrażeń od upadku należy liczyć od miejsca, w którym się znajdowała, gdy zaklęcie przestało działać.",
+        ),
+        Spell(
+            name="PRZYWOŁANIE UŻYTECZNEGO PRZEDMIOTU",
+            description="Ze środka obszaru działania zaklęcia rozchodzi się ogłuszający hałas, zadając 1k6 + 1 obrażeń wszystkiemu wewnątrz. Każde znajdujące się tam stworzenie musi wykonać test Siły; sukces oznacza, że otrzymuje tylko połowę obrażeń. Porażka oznacza, że zostaje ono także ogłuszone na 1 minutę.",
+        ),
+        Spell(
+            name="DAR LATANIA",
+            description="Dotknij celu. Na czas trwania zaklęcia może on latać ze swoją zwykłą Prędkością.",
+        ),
+        Spell(
+            name="PRZYWOŁANIE WICHRU",
+            description="Zawodzący wiatr rozprasza opary, mgłę, dym i gazy w obszarze działania zaklęcia. Nieosłonięte płomienie zostają zgaszone, a lekkie przedmioty zdmuchnięte ku najbliższej granicy obszaru. Każda istota w obszarze działania zaklęcia musi wykonać udany test Siły, w przeciwnym wypadku zostaje odepchnięta od punktu początkowego na 1k6 metrów. Stworzenia latające wykonują ten test z 1 utrudnieniem.",
+        ),
+        Spell(
+            name="ODARCIE ZE SKÓRY",
+            description="Uderzasz w cel porwanym przez wiatr ostrym piaskiem. Wykonaj oparty na Woli rzut na atak przeciwko Sile celu. Sukces oznacza, że otrzymuje on 2k6 + 3 obrażeń. Żywe stworzenie, które zostanie obezwładnione wskutek tego ataku, natychmiast umiera; pozostają po nim jedynie odarte z ciała kości.",
+        ),
+        Spell(
+            name="MARTWE POWIETRZE",
+            description="Przez czas trwania zaklęcia żaden dźwięk ani nie wydobywa się z objętego działaniem obszaru, ani nie dociera do jego wnętrza. Znajdujące się wewnątrz stworzenia są ogłuszone i niewrażliwe na wszelkie ataki dźwiękiem, takie jak zaklęcie grzmot.",
+        ),
+        Spell(
+            name="GWAŁTOWNY PODMUCH",
+            description="Z punktu początkowego dobywa się potężne uderzenie wiatru. Każde stworzenie wewnątrz obszaru działania zaklęcia musi wykonać test Siły; te o Rozmiarze 1 lub mniejszym wykonują go z 1 utrudnieniem. Porażka oznacza, że istota zostaje powalona i odepchnięta od punktu początkowego na 5k6 metrów.",
+        ),
+        Spell(
+            name="PRZEJŚCIE CYKLONU",
+            description="Potężna trąba powietrzna pojawia się na jednym końcu obszaru działania zaklęcia i przemieszcza się ku drugiemu, zadając 3k6 obrażeń wszystkim stworzeniom i obiektom, przez których przestrzeń przejdzie. Każde stworzenie, które otrzyma w ten sposób obrażenia, musi wykonać test Siły. Porażka oznacza, że zostaje odepchnięte o 1k6 metrów, a następnie powalone.",
+        ),
+        # target="...", duration="...", area="...", tags=[...], critical_success="...",
+    ]
+    hero = AncestryHero(
+        ancestry_name="Człowiek",
+        strength=10,
+        dexterity=10,
+        intelligence=10,
+        will=10,
+        perception=10,
+        defense=10,
+        health=10,
+        healing_rate=2,
+        size=[1.0],
+        speed=10,
+        spells=spells,
+    )
+    output_path = os.path.join("output", "filled_spells.pdf")
+
+    fill_spell_pdf(hero, output_path)
+
+    assert os.path.isfile(output_path)
+
+
 @pytest.mark.parametrize(
     ("name_length", "font_size"),
     [(3, 18), (12, 18), (13, 14), (23, 14), (24, 12), (34, 12)],
@@ -204,3 +267,18 @@ def test_spell_description_font_size(description_length, font_size):
 )
 def test_spell_description_layout(description_length, layout):
     assert _spell_description_layout("A" * description_length) == layout
+
+
+@pytest.mark.parametrize("column", [488, 1239, 1991])
+def test_spell_description_bounds_follow_card_edges(column):
+    left, width = _spell_description_bounds(column)
+
+    assert left == 100 + (column - 488)
+    assert width == 688
+
+
+def test_spell_name_uses_card_edges_for_wrapping():
+    left, width = _spell_name_bounds(488)
+
+    assert left == 170
+    assert width == 630
