@@ -9,7 +9,7 @@
       "level": 0,
       "duration": "Czas działania: 1 minuta.",
       "book_description": "Przez czas trwania zaklęcia twoja mowa i śpiew są słyszane w promieniu 1,5 kilometra.",
-      "card_description": "",
+      "card_description": "Przez czas trwania zaklęcia\ntwoja mowa i śpiew są słyszane\nw promieniu 1,5 kilometra.",
       "origin": {
         "source": "PG",
         "number": 136
@@ -25,7 +25,7 @@
       "target": "Cel: Każde wybrane stworzenie w bliskim zasięgu, które cię słyszy.",
       "duration": "Czas działania: 1 godzina; patrz niżej.",
       "book_description": "Musisz utrzymać koncentrację przez 1 minutę, podczas której śpiewasz pieśń. Gdy skończysz, każdy cel musi wykonać test Woli. Porażka oznacza, że dane stworzenie zostaje zauroczone na 1 godzinę lub dopóki nie otrzyma obrażeń.",
-      "card_description": "",
+      "card_description": "Musisz utrzymać koncentrację\nprzez 1 minutę, podczas której\nśpiewasz pieśń. Gdy skończysz,\nkażdy cel musi wykonać test Woli.\nPorażka oznacza, że dane\nstworzenie zostaje zauroczone\nna 1 godzinę lub dopóki\nnie otrzyma obrażeń.",
       "origin": {
         "source": "PG",
         "number": 137
@@ -43,7 +43,7 @@
       "target": "Cel: Każde wybrane stworzenie w bliskim zasięgu, które cię słyszy.",
       "duration": "Czas działania: 1 minuta.",
       "book_description": "Przez czas trwania zaklęcia jego cele nie mogą zostać zauroczone, zniewolone ani przestraszone, dopóki znajdują się w bliskim zasięgu i są w stanie cię słyszeć. Efekt kończy się natychmiast, jeśli przestaniesz śpiewać lub rzucisz inne zaklęcie.",
-      "card_description": "",
+      "card_description": "Przez czas trwania zaklęcia jego\ncele nie mogą zostać zauroczone,\nzniewolone ani przestraszone,\ndopóki znajdują się w bliskim\nzasięgu i są w stanie cię słyszeć.\nEfekt kończy się natychmiast,\njeśli przestaniesz śpiewać lub\nrzucisz inne zaklęcie.",
       "origin": {
         "source": "PG",
         "number": 137
@@ -58,7 +58,7 @@
       "level": 1,
       "duration": "Czas działania: 1 minuta.",
       "book_description": "W momencie rzucenia zaklęcia, a także w trakcie każdej swojej tury w czasie jego trwania, wybierz jedno stworzenie w bliskim zasięgu, które cię słyszy. Cel zyskuje 2 ułatwienia w najbliższym rzucie na atak lub teście. Efekt kończy się natychmiast, jeśli przestaniesz śpiewać lub rzucisz inne zaklęcie.",
-      "card_description": "",
+      "card_description": "W momencie rzucenia zaklęcia,\na także w trakcie każdej swojej\ntury w czasie jego trwania, wybierz\njedno stworzenie w bliskim zasięgu,\nktóre cię słyszy. Cel zyskuje 2\nułatwienia w najbliższym rzucie\nna atak lub teście. Efekt kończy\nsię natychmiast, jeśli przestaniesz\nśpiewać lub rzucisz inne zaklęcie.",
       "origin": {
         "source": "PG",
         "number": 137
@@ -73,7 +73,7 @@
       "level": 1,
       "duration": "Czas działania: 1 minuta.",
       "book_description": "W momencie rzucenia zaklęcia, a także w trakcie każdej swojej tury w czasie jego trwania, wybierz jedno stworzenie w bliskim zasięgu, które cię słyszy. Cel przez 1 rundę zadaje dodatkowe 1k6 obrażeń atakami z użyciem broni. Efekt kończy się natychmiast, jeśli przestaniesz śpiewać lub rzucisz inne zaklęcie.",
-      "card_description": "",
+      "card_description": "W momencie rzucenia zaklęcia,\na także w trakcie każdej swojej\ntury w czasie jego trwania, wybierz\njedno stworzenie w bliskim zasięgu,\nktóre cię słyszy. Cel przez 1 rundę\nzadaje dodatkowe 1k6 obrażeń\natakami z użyciem broni.\nEfekt kończy się natychmiast,\njeśli przestaniesz śpiewać\nlub rzucisz inne zaklęcie.",
       "origin": {
         "source": "PG",
         "number": 137
@@ -90,7 +90,7 @@
       "level": 2,
       "duration": "Czas działania: Koncentracja, do 1 minuty.",
       "book_description": "W momencie rzucenia zaklęcia, a także za każdym razem, gdy wykorzystasz akcję, by utrzymać koncentrację, wybierz jedno stworzenie w bliskim zasięgu, które cię słyszy. Cel musi wykonać udany test Woli, w przeciwnym wypadku zostaje zauroczony na czas trwania czaru. Dopóki pozostaje w ten sposób zauroczony, może podejmować tylko tury długie i jeśli znajduje się dalej niż 10 metrów od ciebie, musi poruszyć się w twoją stronę. Efekt kończy się natychmiast, jeśli przestaniesz śpiewać lub rzucisz inne zaklęcie.",
-      "card_description": "",
+      "card_description": "W momencie rzucenia zaklęcia,\na także za każdym razem, gdy\nwykorzystasz akcję, by utrzymać\nkoncentrację, wybierz jedno\nstworzenie w bliskim zasięgu, które\ncię słyszy. Cel musi wykonać udany\ntest Woli, w przeciwnym wypadku\nzostaje zauroczony na czas trwania\nczaru. Dopóki pozostaje w ten sposób\nzauroczony, może podejmować tylko\ntury długie i jeśli znajduje się dalej niż\n10m od ciebie, musi poruszyć się\nw twoją stronę. Efekt kończy się\nnatychmiast, jeśli przestaniesz\nśpiewać lub rzucisz inne zaklęcie.",
       "origin": {
         "source": "PG",
         "number": 137
@@ -105,7 +105,7 @@
       "level": 2,
       "target": "Cel: Każde wybrane stworzenie w bliskim zasięgu, które cię słyszy.",
       "book_description": "Musisz utrzymać koncentrację i śpiewać pieśń przez 1 minutę. Gdy skończysz, każdy cel, który przez cały ten czas znajdował się w bliskim zasięgu od ciebie, leczy tyle obrażeń, ile wynosi jego Szybkość Zdrowienia.",
-      "card_description": "",
+      "card_description": "Musisz utrzymać koncentrację\ni śpiewać pieśń przez 1 minutę.\nGdy skończysz, każdy cel, który\nprzez cały ten czas znajdował\nsię w bliskim zasięgu od ciebie,\nleczy tyle obrażeń, ile wynosi\njego Szybkość Zdrowienia.",
       "origin": {
         "source": "PG",
         "number": 137
@@ -122,7 +122,7 @@
       "level": 3,
       "duration": "Czas działania: Koncentracja, do 1 minuty.",
       "book_description": "W momencie rzucenia zaklęcia, a także za każdym razem, gdy wykorzystasz akcję, by utrzymać koncentrację, wybierz jedno stworzenie w bliskim zasięgu, które cię słyszy. Cel musi wykonać test Woli. Sukces oznacza, że zyskuje niewrażliwość na to użycie tego zaklęcia, a porażka, że staje się osłabiony na czas jego trwania. Dopóki pozostaje osłabiony w ten sposób, jest także spowolniony.",
-      "card_description": "",
+      "card_description": "Co rundę przy koncentracji\nwybierz jedno stworzenie\nw bliskim zasięgu, które cię słyszy.\nCel musi wykonać test Woli,\nby uniknąć osłabienia. Dopóki\npozostaje osłabiony, jest także\nspowolniony.",
       "origin": {
         "source": "PG",
         "number": 137
@@ -137,7 +137,7 @@
       "level": 3,
       "duration": "Czas działania: Koncentracja, do 1 minuty.",
       "book_description": "W momencie rzucenia zaklęcia, a także za każdym razem, gdy wykorzystasz akcję, by utrzymać koncentrację, wybierz jedno stworzenie w bliskim zasięgu, które cię słyszy. Cel musi wykonać test Woli. Sukces oznacza, że zyskuje niewrażliwość na to użycie tego zaklęcia, a porażka, że staje się przestraszony na czas jego trwania. Dopóki pozostaje przestraszony w ten sposób, musi w każdej turze wykorzystać akcję na ucieczkę przed tobą po najbezpieczniejszej dostępnej drodze. Jeśli na koniec rundy cel nie słyszy cię, pozbywa się tego stanu.",
-      "card_description": "",
+      "card_description": "W momencie rzucenia zaklęcia, a także\nza każdym razem, gdy wykorzystasz\nakcję, by utrzymać koncentrację,\nwybierz jedno stworzenie w bliskim\nzasięgu, które cię słyszy. Cel musi\nwykonać test Woli. Sukces oznacza,\nże zyskuje niewrażliwość na to użycie\ntego zaklęcia, a porażka, że staje się\nprzestraszony na czas jego trwania.\nDopóki pozostaje przestraszony\nw ten sposób, musi w każdej turze\nwykorzystać akcję na ucieczkę przed\ntobą po najbezpieczniejszej dostępnej\ndrodze. Jeśli na koniec rundy cel nie\nsłyszy cię, pozbywa się tego stanu.",
       "origin": {
         "source": "PG",
         "number": 137
@@ -154,7 +154,7 @@
       "level": 4,
       "duration": "Czas działania: Koncentracja, do 1 minuty.",
       "book_description": "W momencie rzucenia zaklęcia, a także za każdym razem, gdy wykorzystasz akcję, by utrzymać koncentrację, wybierz jedno stworzenie w bliskim zasięgu, które cię słyszy. Cel musi wykonać test Woli. Sukces oznacza, że zyskuje niewrażliwość na to użycie tego zaklęcia, a porażka, że staje się spowolniony na czas jego trwania. Dopóki pozostaje spowolniony w ten sposób, jest także wyczerpany. Jeśli na koniec rundy cel nie słyszy cię, pozbywa się tych stanów. Jeśli cel jest już spowolniony, zamiast tego zasypia na 1 godzinę.",
-      "card_description": "",
+      "card_description": "W momencie rzucenia zaklęcia,\na także za każdym razem, gdy\nwykorzystasz akcję, by utrzymać\nkoncentrację, wybierz jedno stworzenie\nw bliskim zasięgu, które cię słyszy.\nCel musi wykonać test Woli. Sukces\noznacza, że zyskuje niewrażliwość na\nto użycie tego zaklęcia, a porażka,\nże staje się spowolniony na czas jego\ntrwania. Dopóki pozostaje spowolniony\nw ten sposób, jest także wyczerpany.\nJeśli na koniec rundy cel nie słyszy cię,\npozbywa się tych stanów. Jeśli cel jest\njuż spowolniony, zamiast tego zasypia\nna 1 godzinę.",
       "origin": {
         "source": "PG",
         "number": 137
@@ -172,7 +172,7 @@
       "target": "Cel: Do trzech stworzeń w bliskim zasięgu, które cię słyszą.",
       "duration": "Czas działania: 1 minuta.",
       "book_description": "Każdy cel zyskuje premię +20 do Zdrowia i +2 do Prędkości, a także 2 ułatwienia we wszystkich testach i rzutach na atak tak długo, jak trwa zaklęcie, i dopóki cię słyszy. Efekt kończy się natychmiast, jeśli przestaniesz śpiewać lub rzucisz inne zaklęcie.",
-      "card_description": "",
+      "card_description": "Każdy cel zyskuje premię +20\ndo Zdrowia i +2 do Prędkości,\na także 2 ułatwienia we wszystkich\ntestach i rzutach na atak dopóki\ncię słyszy. Efekt kończy się\nnatychmiast, jeśli przestaniesz\nśpiewać lub rzucisz inne zaklęcie.",
       "origin": {
         "source": "PG",
         "number": 138

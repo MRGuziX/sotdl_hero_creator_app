@@ -37,6 +37,9 @@ SPELL_DESCRIPTION_GAP_AFTER_TECHNICAL_PX = 50
 SPELL_TABLE_GAP_AFTER_DESCRIPTION_PX = 25
 SPELL_CRITICAL_SUCCESS_GAP_PX = 50
 SPELL_TAGS_OFFSET_Y = 1000
+SPELL_ORIGIN_LEFT_OFFSET_X = 100
+SPELL_ORIGIN_BOTTOM_OFFSET_Y = 1080
+SPELL_ORIGIN_FONT_SIZE = 5
 
 
 def _register_spell_fonts() -> None:
@@ -335,6 +338,7 @@ def _spell_card_fields(spell, card_number: int) -> dict[str, str]:
         f"spell_sacrifice_card_{card_number}": spell.sacrifice or "",
         f"spell_permanent_card_{card_number}": spell.permanent or "",
         f"spell_table_card_{card_number}": spell.table or {},
+        f"spell_origin_card_{card_number}": spell.origin or {},
         f"spell_tags_card_{card_number}": (
             f"{', '.join(spell.tags or [])} {spell.level}"
             if spell.tags
@@ -376,12 +380,12 @@ def _draw_spell_table(
         fontName=SPELL_FONT_BOLD,
         textColor=white,
     )
+    column_count = len(headers)
+    normalized_rows = [list(row[:column_count]) for row in rows]
+    normalized_rows = [row + [""] * (column_count - len(row)) for row in normalized_rows]
     data = [[Paragraph(escape(str(value)), header_style) for value in headers]]
     data.extend(
-        [
-            [Paragraph(escape(str(value)), cell_style) for value in row]
-            for row in rows
-        ]
+        [[Paragraph(escape(str(value)), cell_style) for value in row] for row in normalized_rows]
     )
     table = Table(data, colWidths=column_widths, hAlign="CENTER")
     table.setStyle(
@@ -420,6 +424,17 @@ def _spell_table_column_widths(headers: list, table_width: float) -> list[float]
     if len(headers) == 2:
         weights = [0.2, 0.8]
     return [minimum + remaining * weight for minimum, weight in zip(minimum_widths, weights)]
+
+
+def _spell_origin_text(origin: dict) -> str:
+    """Format the book and page shown in the card's lower-left corner."""
+    if not origin:
+        return ""
+    source = str(origin.get("source", "")).strip()
+    number = origin.get("number")
+    if not source and number is None:
+        return ""
+    return f"{source} {number}".strip()
 
 
 def _spell_description_bounds(column_px: float) -> tuple[float, float]:
@@ -661,6 +676,14 @@ def fill_spell_pdf(hero: AncestryHero, output_path: str) -> str:
                     column,
                     base_y + SPELL_TAGS_OFFSET_Y,
                     7,
+                )
+            origin_text = _spell_origin_text(fields[f"spell_origin_card_{card_index}"])
+            if origin_text:
+                canvas.setFont(SPELL_FONT, SPELL_ORIGIN_FONT_SIZE)
+                canvas.drawString(
+                    (column - SPELL_ORIGIN_LEFT_OFFSET_X) * px_to_x,
+                    A4[1] - (base_y + SPELL_ORIGIN_BOTTOM_OFFSET_Y) * px_to_y,
+                    origin_text,
                 )
         canvas.showPage()
     canvas.save()

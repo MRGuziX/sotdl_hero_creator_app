@@ -16,6 +16,7 @@ class Spell(BaseModel):
     sacrifice: str | None = None
     permanent: str | None = None
     table: dict | None = None
+    origin: dict | None = None
 
     @model_validator(mode="before")
     @classmethod

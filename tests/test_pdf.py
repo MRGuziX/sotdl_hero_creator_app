@@ -18,6 +18,7 @@ from utils.pdf_creator import (
     _spell_description_layout,
     _spell_description_top,
     _spell_table_top,
+    _spell_origin_text,
     _spell_effect_value,
     _format_spell_description,
     _spell_name_bounds,
@@ -349,6 +350,7 @@ def test_real_storm_and_conjuration_spells_render_from_full_json():
     duplicates_data = load_spell("illusion_tradition", 1, "DUPLIKATY")
     mirage_data = load_spell("illusion_tradition", 4, "MIRAŻ")
     wild_magic_data = load_spell("chaos_tradition", 3, "DZIKA MAGIA")
+    healing_data = load_spell("life_tradition", 1, "UZDROWIENIE")
     spells = [
         Spell(**data)
         for data in (
@@ -361,6 +363,7 @@ def test_real_storm_and_conjuration_spells_render_from_full_json():
             duplicates_data,
             mirage_data,
             wild_magic_data,
+            healing_data,
         )
     ]
     hero = AncestryHero(
@@ -391,6 +394,7 @@ def test_real_storm_and_conjuration_spells_render_from_full_json():
     duplicates_fields = _spell_card_fields(spells[6], 7)
     mirage_fields = _spell_card_fields(spells[7], 8)
     wild_magic_fields = _spell_card_fields(spells[8], 9)
+    healing_fields = _spell_card_fields(spells[9], 1)
 
     assert "PRZYWO" in rendered_text
     assert "U" in rendered_text and "YTECZNEGO" in rendered_text
@@ -425,6 +429,8 @@ def test_real_storm_and_conjuration_spells_render_from_full_json():
     assert wild_magic_fields["spell_area_card_9"] == wild_magic_data["area"]
     assert wild_magic_fields["spell_description_card_9"] == wild_magic_data["card_description"]
     assert wild_magic_fields["spell_table_card_9"] == wild_magic_data["table"]
+    assert healing_fields["spell_target_card_1"] == healing_data["target"]
+    assert healing_fields["spell_description_card_1"] == healing_data["card_description"]
     assert "piorun" in rendered_text.lower()
     assert "przedmiot" in rendered_text.lower()
     assert "zakrzywienie" in rendered_text.lower()
@@ -434,6 +440,7 @@ def test_real_storm_and_conjuration_spells_render_from_full_json():
     assert "duplikaty" in rendered_text.lower()
     assert "miraż" in rendered_text.lower()
     assert "dzika" in rendered_text.lower()
+    assert "uzdrowienie" in rendered_text.lower()
 
 
 
@@ -631,3 +638,8 @@ def test_spell_description_starts_50_pixels_below_last_technical_field():
 
 def test_spell_table_starts_25_pixels_below_description():
     assert _spell_table_top(350, 100, 0.2) == 875
+
+
+def test_spell_origin_is_formatted_for_card_footer():
+    assert _spell_origin_text({"source": "PG", "number": 153}) == "PG 153"
+    assert _spell_origin_text({}) == ""

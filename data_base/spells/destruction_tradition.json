@@ -9,7 +9,7 @@
       "level": 0,
       "target": "Cel: Jeden obiekt o Rozmiarze 1/2 lub mniejszym w bliskim zasięgu.",
       "book_description": "Otrzymujesz 1 punkt obrażeń. Cel otrzymuje liczbę obrażeń równą swojemu Zdrowiu.",
-      "card_description": "",
+      "card_description": "Otrzymujesz 1 punkt obrażeń.\nCel otrzymuje liczbę obrażeń\nrówną swojemu Zdrowiu.",
       "origin": {
         "source": "PG",
         "number": 152
@@ -24,7 +24,7 @@
       "level": 0,
       "target": "Cel: Jedno stworzenie lub obiekt w bliskim zasięgu.",
       "book_description": "Otrzymujesz 1 punkt obrażeń. Cel otrzymuje 1k6 obrażeń. Jeśli jest to stworzenie, musi wykonać test Siły; w przypadku porażki staje się wyczerpane na 1 minutę.",
-      "card_description": "",
+      "card_description": "Otrzymujesz 1 punkt obrażeń.\nCel otrzymuje 1k6 obrażeń.\nJeśli jest to stworzenie, musi\nwykonać test Siły; w przypadku\nporażki staje się wyczerpane na\n1 minutę.",
       "origin": {
         "source": "PG",
         "number": 152
@@ -40,9 +40,9 @@
       ],
       "level": 1,
       "target": "Cel: Jedno stworzenie w bezpośrednim zasięgu posiadające fizyczną postać.",
-      "book_description": "Otrzymujesz 2 punkty obrażeń. Wykonaj oparty na Woli rzut na atak przeciwko Sile celu. Sukces oznacza, że przeciwnik otrzymuje 1k6 + 1 obrażeń od twojego żrącego dotyku i staje się osłabiony na 1 minutę. Jeśli obrażenia te spowodują obezwładnienie celu, umiera on natychmiast, jego ciało zamienia się w maź, a wszystkie posiadane przedmioty pozostają na ziemi w przestrzeni, którą zajmował.",
       "critical_success": "Rzut na atak to 20+: Cel otrzymuje dodatkowe 1k6 obrażeń.",
-      "card_description": "",
+      "book_description": "Otrzymujesz 2 punkty obrażeń. Wykonaj oparty na Woli rzut na atak przeciwko Sile celu. Sukces oznacza, że przeciwnik otrzymuje 1k6 + 1 obrażeń od twojego żrącego dotyku i staje się osłabiony na 1 minutę. Jeśli obrażenia te spowodują obezwładnienie celu, umiera on natychmiast, jego ciało zamienia się w maź, a wszystkie posiadane przedmioty pozostają na ziemi w przestrzeni, którą zajmował.",
+      "card_description": "Otrzymujesz 2 punkty obrażeń.\nWykonaj oparty na Woli rzut na atak\nprzeciwko Sile celu. Sukces oznacza, że\nprzeciwnik otrzymuje 1k6 + 1 obrażeń\nod twojego żrącego dotyku i staje się\nosłabiony na 1 minutę. Jeśli obrażenia\nte spowodują obezwładnienie celu,\numiera on natychmiast, jego ciało\nzamienia się w maź, a wszystkie\nposiadane przedmioty pozostają na\nziemi w przestrzeni, którą zajmował.",
       "origin": {
         "source": "PG",
         "number": 37
@@ -58,7 +58,7 @@
       "target": "Cel: Jedno stworzenie w bliskim zasięgu, które widzisz.",
       "book_description": "Otrzymujesz 2 punkty obrażeń. Wykonaj oparty na Woli rzut na atak przeciwko Zręczności celu. Sukces oznacza, że przeciwnik otrzymuje 3k6 + 1 obrażeń.",
       "critical_success": "Rzut na atak to 20+: Cel otrzymuje dodatkowe 2k6 obrażeń.",
-      "card_description": "",
+      "card_description": "Otrzymujesz 2 punkty obrażeń.\nWykonaj oparty na Woli rzut na\natak przeciwko Zręczności celu.\nSukces oznacza, że przeciwnik\notrzymuje 3k6 + 1 obrażeń.",
       "origin": {
         "source": "PG",
         "number": 152
@@ -73,10 +73,10 @@
       "level": 1,
       "target": "Cel: Jeden wykonany ze szkła, metalu lub kamienia obiekt w średnim zasięgu, który widzisz.",
       "book_description": "Otrzymujesz 2 punkty obrażeń, a cel – 3k6 obrażeń. Jeśli obrażenia te powodują zniszczenie obiektu, rozpryskuje się on, zadając odłamkami 1k6 obrażeń wszystkiemu w promieniu 2 metrów od punktu początkowego w zajmowanej przez siebie przestrzeni. Stworzenia na tym obszarze, którym powiedzie się test Zręczności, otrzymują tylko połowę obrażeń.",
-      "card_description": "",
+      "card_description": "Otrzymujesz 2 punkty obrażeń,\na cel – 3k6 obrażeń. Jeśli obrażenia\nte powodują zniszczenie obiektu,\nrozpryskuje się on, zadając odłamkami\n1k6 obrażeń wszystkiemu w promieniu\n2m od punktu początkowego\nw zajmowanej przez siebie przestrzeni.\nStworzenia na tym obszarze, którym\npowiedzie się test Zręczności,\notrzymują tylko połowę obrażeń.",
       "origin": {
         "source": "PG",
-        "number": 60
+        "number": 152
       }
     }
   ],
@@ -90,7 +90,7 @@
       "level": 2,
       "duration": "Czas działania: 1 minuta.",
       "book_description": "Otrzymujesz 3 punkty obrażeń. W trakcie trwania tego czaru stworzenia, które atakujesz zaklęciami, otrzymują dodatkowe 1k6 obrażeń. Reakcja: Gdy rzucasz zaklęcie ataku, które zadaje obrażenia, możesz wykorzystać reakcję, by rzucić również ten czar, ale jego efekt trwa tylko do końca rundy. Jeśli pierwsze zaklęcie zada obrażenia, cel otrzymuje dodatkowe 2k6 obrażeń.",
-      "card_description": "",
+      "card_description": "Otrzymujesz 3 punkty obrażeń.\nW trakcie trwania tego czaru\nstworzenia, które atakujesz\nzaklęciami, otrzymują dodatkowe\n1k6 obrażeń.\nReakcja: Gdy rzucasz zaklęcie ataku,\nktóre zadaje obrażenia, możesz\nwykorzystać reakcję, by rzucić\nrównież ten czar, ale jego efekt trwa\ntylko do końca rundy. Jeśli pierwsze\nzaklęcie zada obrażenia, cel\notrzymuje dodatkowe 2k6 obrażeń.",
       "origin": {
         "source": "PG",
         "number": 152
@@ -104,9 +104,9 @@
       ],
       "level": 2,
       "target": "Cel: Jedno posiadające fizyczną postać stworzenie w bliskim zasięgu, które widzisz.",
-      "book_description": "Otrzymujesz 3 punkty obrażeń. Wykonaj oparty na Woli rzut na atak przeciwko Zręczności celu. Sukces oznacza, że przeciwnik zostaje osłabiony na 1 minutę. Na koniec każdej rundy, w której jest osłabiony tym zaklęciem, otrzymuje 1k6 obrażeń.",
       "critical_success": "Rzut na atak to 20+: Cel otrzymuje dodatkowe 1k6 obrażeń na koniec każdej rundy, w której jest osłabiony tym zaklęciem.",
-      "card_description": "",
+      "book_description": "Otrzymujesz 3 punkty obrażeń. Wykonaj oparty na Woli rzut na atak przeciwko Zręczności celu. Sukces oznacza, że przeciwnik zostaje osłabiony na 1 minutę. Na koniec każdej rundy, w której jest osłabiony tym zaklęciem, otrzymuje 1k6 obrażeń.",
+      "card_description": "Otrzymujesz 3 punkty obrażeń.\nWykonaj oparty na Woli rzut na atak\nprzeciwko Zręczności celu. Sukces\noznacza, że przeciwnik zostaje\nosłabiony na 1 minutę. Na koniec każdej\nrundy, w której jest osłabiony tym\nzaklęciem, otrzymuje 1k6 obrażeń.",
       "origin": {
         "source": "PG",
         "number": 152
@@ -123,7 +123,7 @@
       "level": 3,
       "target": "Cel: Jeden obiekt o Rozmiarze 1 lub mniejszym w średnim zasięgu, który widzisz. Celem nie może być obiekt, który kiedykolwiek był stworzeniem.",
       "book_description": "Otrzymujesz 4 punkty obrażeń. Cel otrzymuje liczbę obrażeń równą swojemu Zdrowiu, a następnie eksploduje chmurą odłamków w promieniu 4 metrów z punktu początkowego w zajmowanej przez siebie przestrzeni, zadając 6k6 obrażeń wszystkiemu wewnątrz tego obszaru. Znajdujące się tam stworzenia, którym powiedzie się test Zręczności, otrzymują tylko połowę obrażeń.",
-      "card_description": "",
+      "card_description": "Otrzymujesz 4 punkty obrażeń.\nCel otrzymuje liczbę obrażeń równą\nswojemu Zdrowiu, a następnie\neksploduje chmurą odłamków\nw promieniu 4 metrów z punktu\npoczątkowego w zajmowanej przez\nsiebie przestrzeni, zadając 6k6 obrażeń\nwszystkiemu wewnątrz tego obszaru.\nZnajdujące się tam stworzenia,\nktórym powiedzie się test Zręczności,\notrzymują tylko połowę obrażeń.",
       "origin": {
         "source": "PG",
         "number": 152
@@ -139,7 +139,7 @@
       "target": "Cel: Jeden obiekt lub posiadające fizyczną postać stworzenie w bezpośrednim zasięgu.",
       "book_description": "Otrzymujesz 4 punkty obrażeń. Wykonaj oparty na Woli rzut na atak przeciwko Zręczności celu. Sukces oznacza, że otrzymuje on 6k6 obrażeń i zaczyna wyparowywać. Zniszczony w ten sposób obiekt zamienia się w obłok drobnego pyłu. Stworzenie obezwładnione wskutek tych obrażeń natychmiast umiera i zamienia się w karmazynową chmurę, przez 1 rundę częściowo przesłaniającą przestrzeń, w której się znajdowało.",
       "critical_success": "Rzut na atak to 20+: Cel otrzymuje dodatkowe 2k6 obrażeń.",
-      "card_description": "",
+      "card_description": "Otrzymujesz 4 punkty obrażeń.\nWykonaj oparty na Woli rzut na atak\nprzeciwko Zręczności celu. Sukces\noznacza, że otrzymuje on 6k6 obrażeń\ni zaczyna wyparowywać. Zniszczony\nw ten sposób obiekt zamienia się\nw obłok drobnego pyłu. Stworzenie\nobezwładnione wskutek tych obrażeń\nnatychmiast umiera i zamienia się\nw karmazynową chmurę, przez 1 rundę\nczęściowo przesłaniającą przestrzeń,\nw której się znajdowało.",
       "origin": {
         "source": "PG",
         "number": 152
@@ -156,7 +156,7 @@
       "level": 4,
       "target": "Cel: Jedno stworzenie lub obiekt o Rozmiarze 3 lub mniejszym w średnim zasięgu, które widzisz.",
       "book_description": "Otrzymujesz 5 punktów obrażeń. Cel otrzymuje 30 punktów obrażeń.",
-      "card_description": "",
+      "card_description": "Otrzymujesz 5 punktów obrażeń.\nCel otrzymuje 30 punktów\nobrażeń.",
       "origin": {
         "source": "PG",
         "number": 153
@@ -172,9 +172,9 @@
       ],
       "level": 5,
       "target": "Cel: Jeden przedmiot lub posiadające fizyczną postać stworzenie w dalekim zasięgu, które widzisz.",
-      "book_description": "Otrzymujesz 6 punktów obrażeń. Wykonaj oparty na Woli rzut na atak przeciwko Zręczności celu. Sukces oznacza, że otrzymuje on 9k6 obrażeń. Stworzenie obezwładnione wskutek tych obrażeń natychmiast umiera i w przestrzeni, którą zajmowało, pojawia się mała kupka pyłu.",
       "critical_success": "Rzut na atak to 20+: Cel otrzymuje dodatkowe 3k6 obrażeń.",
-      "card_description": "",
+      "book_description": "Otrzymujesz 6 punktów obrażeń. Wykonaj oparty na Woli rzut na atak przeciwko Zręczności celu. Sukces oznacza, że otrzymuje on 9k6 obrażeń. Stworzenie obezwładnione wskutek tych obrażeń natychmiast umiera i w przestrzeni, którą zajmowało, pojawia się mała kupka pyłu.",
+      "card_description": "Otrzymujesz 6 punktów obrażeń.\nWykonaj oparty na Woli rzut na atak\nprzeciwko Zręczności celu. Sukces\noznacza, że otrzymuje on 9k6 obrażeń.\nStworzenie obezwładnione wskutek\ntych obrażeń natychmiast umiera\ni w przestrzeni, którą zajmowało,\npojawia się mała kupka pyłu.",
       "origin": {
         "source": "PG",
         "number": 153

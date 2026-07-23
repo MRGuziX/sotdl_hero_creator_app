@@ -10,7 +10,7 @@
       "area": "Obszar: Sfera o promieniu 5 metrów i punkcie środkowym w zajmowanej przez ciebie przestrzeni.",
       "duration": "Czas działania: 1 minuta",
       "book_description": "Poznajesz położenie wszystkich żywych stworzeń wewnątrz obszaru działania zaklęcia. Dopóki czar trwa, nie mogą one zostać przed tobą ukryte.",
-      "card_description": "",
+      "card_description": "Poznajesz położenie wszystkich\nżywych stworzeń wewnątrz\nobszaru działania zaklęcia. Dopóki\nczar trwa, nie mogą one zostać\nprzed tobą ukryte.",
       "origin": {
         "source": "PG",
         "number": 153
@@ -25,7 +25,7 @@
       "level": 0,
       "target": "Cel: Jedno stworzenie w bezpośrednim zasięgu.",
       "book_description": "Dotykasz celu, który następnie leczy tyle obrażeń, ile wynosi połowa jego Szybkości Zdrowienia.",
-      "card_description": "",
+      "card_description": "Dotykasz celu, który\nnastępnie leczy tyle obrażeń,\nile wynosi połowa jego\nSzybkości Zdrowienia.",
       "origin": {
         "source": "PG",
         "number": 153
@@ -42,13 +42,7 @@
       "level": 1,
       "target": "Cel: Jedno stworzenie w bezpośrednim zasięgu.",
       "book_description": "Dotykasz celu, udzielając mu jednej z poniższych korzyści:",
-      "effects": [
-        "Cel pozbywa się jednego z następujących stanów: choroby, wyczerpania, osłabienia lub zatrucia.",
-        "Cel traci 1 punkt Szaleństwa.",
-        "Cel pozbywa się wszelkich kar do Zdrowia.",
-        "Cel leczy tyle obrażeń, ile wynosi połowa jego Szybkości Zdrowienia."
-      ],
-      "card_description": "",
+      "card_description": "Dotykasz celu, udzielając mu jednej\nz poniższych korzyści.\n• Cel pozbywa się jednego z następujących\nstanów: choroby, wyczerpania, osłabienia\nlub zatrucia.\n• Cel traci 1 punkt Szaleństwa.\n• Cel pozbywa się wszelkich kar do Zdrowia.\n• Cel leczy tyle obrażeń, ile wynosi połowa\njego Szybkości Zdrowienia.",
       "origin": {
         "source": "PG",
         "number": 153
@@ -64,7 +58,7 @@
       "area": "Obszar: Sfera o promieniu 2 metrów i punkcie początkowym w bezpośrednim zasięgu.",
       "duration": "Czas działania: 1 minuta",
       "book_description": "W obszarze działania czaru rozchodzi się uzdrawiająca energia, która na czas jego trwania porusza się wraz z tobą. Gdy znajdujące się wewnątrz tego obszaru stworzenie leczy obrażenia, leczy dodatkowo liczbę punktów obrażeń równą twojej Mocy.",
-      "card_description": "",
+      "card_description": "W obszarze działania czaru rozchodzi\nsię uzdrawiająca energia, która na\nczas jego trwania porusza się wraz\nz tobą. Gdy znajdujące się wewnątrz\nstworzenie leczy obrażenia, leczy\ndodatkowo liczbę punktów obrażeń\nrówną twojej Mocy.",
       "origin": {
         "source": "PG",
         "number": 125
@@ -79,7 +73,7 @@
       "level": 1,
       "target": "Cel: Jedno stworzenie w bezpośrednim zasięgu.",
       "book_description": "Dotykasz celu, który następnie leczy tyle obrażeń, ile wynosi jego Szybkość Zdrowienia.",
-      "card_description": "",
+      "card_description": "Dotykasz celu, który następnie\nleczy tyle obrażeń, ile wynosi jego\nSzybkość Zdrowienia.",
       "origin": {
         "source": "PG",
         "number": 153
@@ -96,7 +90,7 @@
       "level": 2,
       "target": "Cel: Jedno stworzenie w bezpośrednim zasięgu.",
       "book_description": "Dotykasz celu, który następnie leczy tyle obrażeń, ile wynosi dwukrotność jego Szybkości Zdrowienia.",
-      "card_description": "",
+      "card_description": "Dotykasz celu, który następnie\nleczy tyle obrażeń, ile wynosi\ndwukrotność jego Szybkości\nZdrowienia.",
       "origin": {
         "source": "PG",
         "number": 153
@@ -111,7 +105,7 @@
       "level": 2,
       "target": "Cel: Do trzech żywych stworzeń w bliskim zasięgu.",
       "book_description": "Każdy cel leczy tyle obrażeń, ile wynosi jego Szybkość Zdrowienia.",
-      "card_description": "",
+      "card_description": "Każdy cel leczy tyle obrażeń, ile\nwynosi jego Szybkość Zdrowienia.",
       "origin": {
         "source": "PG",
         "number": 153
@@ -128,13 +122,7 @@
       "level": 3,
       "target": "Cel: Do trzech stworzeń w bezpośrednim zasięgu.",
       "book_description": "Dotykasz celów, udzielając każdemu jednej z poniższych korzyści (możesz wybrać te same lub różne):",
-      "effects": [
-        "Cel pozbywa się jednego z następujących stanów: choroby, wyczerpania, osłabienia lub zatrucia.",
-        "Cel traci 1 punkt Szaleństwa.",
-        "Cel pozbywa się wszelkich kar do Zdrowia.",
-        "Cel leczy tyle obrażeń, ile wynosi połowa jego Szybkości Zdrowienia."
-      ],
-      "card_description": "",
+      "card_description": "Dotykasz celów, udzielając każdemu\njednej z poniższych korzyści (możesz\nwybrać te same lub różne):\n• Cel pozbywa się jednego z następujących\nstanów: choroby, wyczerpania, osłabienia\nlub zatrucia.\n• Cel traci 1 punkt Szaleństwa.\n• Cel pozbywa się wszelkich kar do Zdrowia.\n• Cel leczy tyle obrażeń, ile wynosi połowa\njego Szybkości Zdrowienia.",
       "origin": {
         "source": "PG",
         "number": 153
@@ -149,7 +137,7 @@
       "level": 3,
       "target": "Cel: Jedno stworzenie w bezpośrednim zasięgu.",
       "book_description": "Dotykasz celu, który następnie leczy tyle obrażeń, ile wynosi trzykrotność jego Szybkości Zdrowienia.",
-      "card_description": "",
+      "card_description": "Dotykasz celu, który następnie\nleczy tyle obrażeń, ile wynosi\ntrzykrotność jego Szybkości\nZdrowienia.",
       "origin": {
         "source": "PG",
         "number": 154
@@ -166,7 +154,7 @@
       "level": 4,
       "target": "Cel: Jedno stworzenie w bezpośrednim zasięgu.",
       "book_description": "Dotykasz celu, który leczy wszystkie otrzymane obrażenia.",
-      "card_description": "",
+      "card_description": "Dotykasz celu, który leczy\nwszystkie otrzymane obrażenia.",
       "origin": {
         "source": "PG",
         "number": 154
@@ -183,10 +171,9 @@
       "level": 5,
       "target": "Cel: Jedno stworzenie w bezpośrednim zasięgu, które umarło najwyżej 24 godziny temu.",
       "duration": "Czas działania: Koncentracja, do 1 godziny",
-      "book_description": "Dotknij celu. Musisz utrzymać koncentrację przez 1 godzinę i zachować w tym czasie fizyczny kontakt z jego ciałem. Jeśli nic nie przerwie twojej koncentracji, możliwe jest przywrócenie go do życia.",
-      "mechanics": "Jeśli dusza stworzenia przebywa w Zaświatach, powraca do ciała, a cel wstaje z martwych. Leczy 1 punkt obrażeń i jest osłabiony oraz wyczerpany, dopóki nie odbędzie pełnego odpoczynku. Jeśli dusza stworzenia znajduje się w Piekle, wykonaj test Woli z tyloma utrudnieniami, ile wynosi Splugawienie zmarłego. Sukces oznacza, że udaje ci się go wskrzesić. Porażka oznacza, że jego dusza jest bezpowrotnie stracona.",
+      "book_description": "Dotknij celu. Musisz utrzymać koncentrację przez 1 godzinę i zachować w tym czasie fizyczny kontakt z jego ciałem. Jeśli nic nie przerwie twojej koncentracji, możliwe jest przywrócenie go do życia.Jeśli dusza stworzenia przebywa w Zaświatach, powraca do ciała, a cel wstaje z martwych. Leczy 1 punkt obrażeń i jest osłabiony oraz wyczerpany, dopóki nie odbędzie pełnego odpoczynku. Jeśli dusza stworzenia znajduje się w Piekle, wykonaj test Woli z tyloma utrudnieniami, ile wynosi Splugawienie zmarłego. Sukces oznacza, że udaje ci się go wskrzesić. Porażka oznacza, że jego dusza jest bezpowrotnie stracona.",
       "sacrifice": "Poświęcenie: Możesz poświęcić użycie tego zaklęcia, by rzucić pełne leczenie.",
-      "card_description": "",
+      "card_description": "Musisz utrzymać koncentrację przez 1 godzinę\ni zachować w tym czasie fizyczny kontakt\nz ciałem celu. Jeśli nic nie przerwie twojej koncentracji, możliwe jest przywrócenie go do życia.\nJeśli dusza stworzenia przebywa w Zaświatach,\npowraca do ciała, a cel wstaje z martwych. Leczy\n1 punkt obrażeń i jest osłabiony oraz wyczerpany,\ndopóki nie odbędzie pełnego odpoczynku.\nJeśli dusza stworzenia znajduje się w Piekle,\nwykonaj test Woli z tyloma utrudnieniami, ile\nwynosi Splugawienie zmarłego. Sukces oznacza,\nże udaje ci się go wskrzesić tak, jak opisano\npowyżej. Porażka oznacza, że jego dusza jest\nbezpowrotnie stracona i nie może zostać\nprzywrócona do ciała za pomocą tego zaklęcia.",
       "origin": {
         "source": "PG",
         "number": 154
