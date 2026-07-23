@@ -7,8 +7,8 @@
         "Użytkowe"
       ],
       "level": 0,
-      "area": "Sfera o promieniu 5 metrów i punkcie środkowym w zajmowanej przez ciebie przestrzeni.",
-      "duration": "1 minuta",
+      "area": "Obszar: Sfera o promieniu 5 metrów i punkcie środkowym w zajmowanej przez ciebie przestrzeni.",
+      "duration": "Czas działania: 1 minuta",
       "description": "Poznajesz położenie wszystkich żywych stworzeń wewnątrz obszaru działania zaklęcia. Dopóki czar trwa, nie mogą one zostać przed tobą ukryte."
     },
     {
@@ -18,7 +18,7 @@
         "Użytkowe"
       ],
       "level": 0,
-      "target": "Jedno stworzenie w bezpośrednim zasięgu.",
+      "target": "Cel: Jedno stworzenie w bezpośrednim zasięgu.",
       "description": "Dotykasz celu, który następnie leczy tyle obrażeń, ile wynosi połowa jego Szybkości Zdrowienia."
     }
   ],
@@ -30,7 +30,7 @@
         "Użytkowe"
       ],
       "level": 1,
-      "target": "Jedno stworzenie w bezpośrednim zasięgu.",
+      "target": "Cel: Jedno stworzenie w bezpośrednim zasięgu.",
       "description": "Dotykasz celu, udzielając mu jednej z poniższych korzyści:",
       "effects": [
         "Cel pozbywa się jednego z następujących stanów: choroby, wyczerpania, osłabienia lub zatrucia.",
@@ -46,9 +46,14 @@
         "Użytkowe"
       ],
       "level": 1,
-      "area": "Sfera o promieniu 2 metrów i punkcie początkowym w bezpośrednim zasięgu.",
-      "duration": "1 minuta",
-      "description": "W obszarze działania czaru rozchodzi się uzdrawiająca energia, która na czas jego trwania porusza się wraz z tobą. Gdy znajdujące się wewnątrz tego obszaru stworzenie leczy obrażenia, leczy dodatkowo liczbę punktów obrażeń równą twojej Mocy."
+      "area": "Obszar: Sfera o promieniu 2 metrów i punkcie początkowym w bezpośrednim zasięgu.",
+      "duration": "Czas działania: 1 minuta",
+      "book_description": "W obszarze działania czaru rozchodzi się uzdrawiająca energia, która na czas jego trwania porusza się wraz z tobą. Gdy znajdujące się wewnątrz tego obszaru stworzenie leczy obrażenia, leczy dodatkowo liczbę punktów obrażeń równą twojej Mocy.",
+      "card_description": "początkowym w bezpośrednim zasięgu.\nRozchodzi się fala grozy. Każda \nznajdująca się na jej drodze istota \nmusi wykonać udany test Woli, \nw przeciwnym wypadku staje się \nprzestraszona na 1 min. \nPrzestraszone stworzenie \nmusi podjąć turę krótką, którą \nwykorzystuje na ucieczkę przed tobą \nNa koniec każdej rundy, jeśli ofiara \ncię nie widzi, może wykonać test \nWoli, a przy sukcesie pozbywa się \ntego stanu.\nTRWOGA\nAtak 3",
+      "origin": {
+        "source": "PG",
+        "number": 125
+      }
     },
     {
       "name": "LECZENIE LEKKICH RAN",
@@ -57,7 +62,7 @@
         "Użytkowe"
       ],
       "level": 1,
-      "target": "Jedno stworzenie w bezpośrednim zasięgu.",
+      "target": "Cel: Jedno stworzenie w bezpośrednim zasięgu.",
       "description": "Dotykasz celu, który następnie leczy tyle obrażeń, ile wynosi jego Szybkość Zdrowienia."
     }
   ],
@@ -69,7 +74,7 @@
         "Użytkowe"
       ],
       "level": 2,
-      "target": "Jedno stworzenie w bezpośrednim zasięgu.",
+      "target": "Cel: Jedno stworzenie w bezpośrednim zasięgu.",
       "description": "Dotykasz celu, który następnie leczy tyle obrażeń, ile wynosi dwukrotność jego Szybkości Zdrowienia."
     },
     {
@@ -79,7 +84,7 @@
         "Użytkowe"
       ],
       "level": 2,
-      "target": "Do trzech żywych stworzeń w bliskim zasięgu.",
+      "target": "Cel: Do trzech żywych stworzeń w bliskim zasięgu.",
       "description": "Każdy cel leczy tyle obrażeń, ile wynosi jego Szybkość Zdrowienia."
     }
   ],
@@ -91,7 +96,7 @@
         "Użytkowe"
       ],
       "level": 3,
-      "target": "Do trzech stworzeń w bezpośrednim zasięgu.",
+      "target": "Cel: Do trzech stworzeń w bezpośrednim zasięgu.",
       "description": "Dotykasz celów, udzielając każdemu jednej z poniższych korzyści (możesz wybrać te same lub różne):",
       "effects": [
         "Cel pozbywa się jednego z następujących stanów: choroby, wyczerpania, osłabienia lub zatrucia.",
@@ -107,7 +112,7 @@
         "Użytkowe"
       ],
       "level": 3,
-      "target": "Jedno stworzenie w bezpośrednim zasięgu.",
+      "target": "Cel: Jedno stworzenie w bezpośrednim zasięgu.",
       "description": "Dotykasz celu, który następnie leczy tyle obrażeń, ile wynosi trzykrotność jego Szybkości Zdrowienia."
     }
   ],
@@ -119,7 +124,7 @@
         "Użytkowe"
       ],
       "level": 4,
-      "target": "Jedno stworzenie w bezpośrednim zasięgu.",
+      "target": "Cel: Jedno stworzenie w bezpośrednim zasięgu.",
       "description": "Dotykasz celu, który leczy wszystkie otrzymane obrażenia."
     }
   ],
@@ -131,8 +136,8 @@
         "Użytkowe"
       ],
       "level": 5,
-      "target": "Jedno stworzenie w bezpośrednim zasięgu, które umarło najwyżej 24 godziny temu.",
-      "duration": "Koncentracja, do 1 godziny",
+      "target": "Cel: Jedno stworzenie w bezpośrednim zasięgu, które umarło najwyżej 24 godziny temu.",
+      "duration": "Czas działania: Koncentracja, do 1 godziny",
       "description": "Dotknij celu. Musisz utrzymać koncentrację przez 1 godzinę i zachować w tym czasie fizyczny kontakt z jego ciałem. Jeśli nic nie przerwie twojej koncentracji, możliwe jest przywrócenie go do życia.",
       "mechanics": "Jeśli dusza stworzenia przebywa w Zaświatach, powraca do ciała, a cel wstaje z martwych. Leczy 1 punkt obrażeń i jest osłabiony oraz wyczerpany, dopóki nie odbędzie pełnego odpoczynku. Jeśli dusza stworzenia znajduje się w Piekle, wykonaj test Woli z tyloma utrudnieniami, ile wynosi Splugawienie zmarłego. Sukces oznacza, że udaje ci się go wskrzesić. Porażka oznacza, że jego dusza jest bezpowrotnie stracona.",
       "sacrifice": "Możesz poświęcić użycie tego zaklęcia, by rzucić pełne leczenie."

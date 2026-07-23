@@ -14,7 +14,7 @@
       ],
       "level": 0,
       "requirements": "Nie możesz mieć na sobie zbroi.",
-      "duration": "4 godziny.",
+      "duration": "Czas działania: 4 godziny.",
       "description": "Tworzysz wokół siebie niewidzialne pole siłowe, które na czas trwania zaklęcia zapewnia ci premię +2 do Obrony. Ponadto chroni cię ono przed normalnymi opadami i lekkim wiatrem, a także dyskomfortem z powodu chłodu i gorąca, choć nadal otrzymujesz obrażenia od zimna i ognia."
     },
     {
@@ -24,7 +24,7 @@
         "Atak"
       ],
       "level": 0,
-      "target": "Jedno stworzenie lub obiekt w dalekim zasięgu.",
+      "target": "Cel: Jedno stworzenie lub obiekt w dalekim zasięgu.",
       "description": "Z czubków twoich palców wystrzeliwuje magiczna strzałka. O ile między tobą a celem nie ma przeszkód, atak ten trafia automatycznie i zadaje 1k3 + 1 obrażeń."
     }
   ],
@@ -36,7 +36,7 @@
         "Użytkowe"
       ],
       "level": 1,
-      "duration": "1 minuta.",
+      "duration": "Czas działania: 1 minuta.",
       "description": "Przez czas trwania zaklęcia osłania cię bariera magicznej energii. Rzuty na atak przeciwko twojej Obronie lub Zręczności wykonywane są z 1 utrudnieniem. Reakcja: Gdy stworzenie wykonuje rzut na atak przeciwko twojej Obronie lub Zręczności, możesz wykorzystać reakcję, by rzucić to zaklęcie. Przeciwnik otrzymuje 3 utrudnienia do swojego ataku, po czym działanie czaru dobiega końca."
     },
     {
@@ -46,7 +46,7 @@
         "Użytkowe"
       ],
       "level": 1,
-      "duration": "1 minuta.",
+      "duration": "Czas działania: 1 minuta.",
       "description": "Przez czas trwania zaklęcia dostrzegasz aury wokół stworzeń, obiektów i obszarów dotkniętych magią. Jeśli pozwoli to MG, rozpoznajesz także tradycje, do jakich należą dane efekty magiczne."
     },
     {
@@ -56,7 +56,7 @@
         "Atak"
       ],
       "level": 1,
-      "target": "Do trzech stworzeń lub obiektów w dalekim zasięgu.",
+      "target": "Cel: Do trzech stworzeń lub obiektów w dalekim zasięgu.",
       "description": "Z czubków twoich palców wystrzeliwuje siedem magicznych strzałek, rozdzielonych dowolnie pomiędzy cele. O ile między tobą a danym celem nie ma przeszkód, atak ten trafia automatycznie. Każda strzałka zadaje 1 punkt obrażeń."
     }
   ],
@@ -68,7 +68,7 @@
         "Użytkowe"
       ],
       "level": 2,
-      "duration": "1 minuta.",
+      "duration": "Czas działania: 1 minuta.",
       "description": "Przez czas trwania czaru rzuty na atak z użyciem zaklęć wykonujesz z 1 ułatwieniem, a testy na odparcie efektów twojej magii wykonywane są z 1 utrudnieniem."
     },
     {
@@ -78,7 +78,7 @@
         "Atak"
       ],
       "level": 2,
-      "target": "Do trzech stworzeń lub obiektów w dalekim zasięgu.",
+      "target": "Cel: Do trzech stworzeń lub obiektów w dalekim zasięgu.",
       "description": "Z czubków twoich palców wystrzeliwują trzy magiczne strzałki, rozdzielone dowolnie pomiędzy cele. O ile między tobą a danym celem nie ma przeszkód, atak ten trafia automatycznie. Każda strzałka zadaje 1 punkt obrażeń, po czym eksploduje w promieniu 1 metra z punktu początkowego w przestrzeni zajętej przez cel. Wszystko na tym obszarze otrzymuje 1k6 + 1 obrażeń lub w przypadku zdanego testu Zręczności – połowę tych obrażeń."
     }
   ],
@@ -90,7 +90,7 @@
         "Atak"
       ],
       "level": 3,
-      "area": "Stożek długości 5 metrów i o punkcie początkowym w bezpośrednim zasięgu.",
+      "area": "Obszar: Stożek długości 5 metrów i o punkcie początkowym w bezpośrednim zasięgu.",
       "description": "Wszystko w obszarze działania zaklęcia otrzymuje 5k6 obrażeń. Każde znajdujące się tam stworzenie musi wykonać test Zręczności, a sukces oznacza, że otrzymuje tylko połowę obrażeń."
     },
     {
@@ -100,7 +100,7 @@
         "Użytkowe"
       ],
       "level": 3,
-      "area": "Sześcian o krawędzi 5 metrów i punkcie początkowym w średnim zasięgu.",
+      "area": "Obszar: Sześcian o krawędzi 5 metrów i punkcie początkowym w średnim zasięgu.",
       "description": "Wszystkie efekty czarów 3 lub niższego kręgu wewnątrz obszaru działania zaklęcia zostają natychmiast zakończone."
     }
   ],
@@ -112,7 +112,7 @@
         "Użytkowe"
       ],
       "level": 4,
-      "duration": "Patrz niżej.",
+      "duration": "Czas działania: Patrz niżej.",
       "description": "Rzuć 1k6 + 3, by ustalić, ile punktów magicznej energii nagromadziłeś. Zachowujesz je, dopóki ich nie wydasz lub nie odbędziesz pełnego odpoczynku. Tak długo, jak dysponujesz choć jednym punktem, nie jesteś w stanie ponownie rzucić akumulacji magii. Możesz rzucić znany ci czar, wydając tyle punktów magicznej energii, ile wynosi jego krąg (minimum 1), nie poświęcając przy tym jego użycia."
     }
   ],
@@ -124,8 +124,13 @@
         "Atak"
       ],
       "level": 5,
-      "duration": "4 godziny; patrz niżej.",
-      "description": "Na czas trwania zaklęcia zyskujesz premię +5 do Obrony. Kiedy następnym razem stworzenie w bliskim zasięgu uzyska sukces w wykonanym przeciw tobie ataku z użyciem broni, zamienia się on w porażkę, a działanie czaru dobiega końca. Atakujący przeciwnik musi wykonać test Siły. Porażka oznacza, że otrzymuje 10k6 obrażeń, zostaje odepchnięty od ciebie na 2k6 metrów i powalony. Sukces oznacza, że otrzymuje tylko połowę tych obrażeń."
+      "duration": "Czas działania: 4 godziny; patrz niżej.",
+      "book_description": "Na czas trwania zaklęcia zyskujesz premię +5 do Obrony. Kiedy następnym razem stworzenie w bliskim zasięgu uzyska sukces w wykonanym przeciw tobie ataku z użyciem broni, zamienia się on w porażkę, a działanie czaru dobiega końca. Atakujący przeciwnik musi wykonać test Siły. Porażka oznacza, że otrzymuje 10k6 obrażeń, zostaje odepchnięty od ciebie na 2k6 metrów i powalony. Sukces oznacza, że otrzymuje tylko połowę tych obrażeń.",
+      "card_description": "BŁYSK\nstworzenie w bliskim zasięgu.\nPrzed oczami wybranego \nstworzenia rozbłyska jasne światło. \nWykonaj oparty na Woli rzut na atak \nprzeciwko Percepcji celu. Sukces \noznacza, że przeciwnik zostaje \noślepiony na 1 rundę.",
+      "origin": {
+        "source": "PG",
+        "number": 129
+      }
     }
   ]
 }

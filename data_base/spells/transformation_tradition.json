@@ -7,7 +7,7 @@
         "Użytkowe"
       ],
       "level": 0,
-      "duration": "1 minuta.",
+      "duration": "Czas działania: 1 minuta.",
       "description": "Przez czas trwania zaklęcia możesz przemieszczać się swobodnie przez przestrzeń zajętą przez inne stworzenia, niezależnie od ich Rozmiaru."
     },
     {
@@ -17,7 +17,7 @@
         "Użytkowe"
       ],
       "level": 0,
-      "duration": "1 godzina; patrz niżej.",
+      "duration": "Czas działania: 1 godzina; patrz niżej.",
       "description": "Odmieniasz swoje ciało tak, by przybrać wygląd innej osoby na czas trwania zaklęcia lub dopóki nie stracisz przytomności. Możesz zmniejszyć lub zwiększyć swój wzrost o maksymalnie 30 centymetrów, wagę o maksymalnie jedną czwartą, a także dokonać innych kosmetycznych zmian. Twoje atrybuty zwykłe i drugorzędne oraz zdolności pozostają takie same, nie jesteś też w stanie zmienić swojego pochodzenia."
     }
   ],
@@ -29,7 +29,7 @@
         "Użytkowe"
       ],
       "level": 1,
-      "duration": "1 minuta.",
+      "duration": "Czas działania: 1 minuta.",
       "description": "Na czas trwania czaru przybierasz formę średniego, małego lub drobnego zwierzęcia. Jeśli zmienisz się w drobne zwierzę, możesz zyskać jedną z następujących cech: wspinaczka, lot lub pływanie."
     },
     {
@@ -39,7 +39,7 @@
         "Użytkowe"
       ],
       "level": 1,
-      "duration": "1 minuta.",
+      "duration": "Czas działania: 1 minuta.",
       "description": "Na czas trwania zaklęcia zyskujesz premię +4 do Prędkości i możesz wykorzystać akcję, by skoczyć na odległość 3k6 metrów i bezpiecznie wylądować."
     },
     {
@@ -60,7 +60,7 @@
         "Użytkowe"
       ],
       "level": 2,
-      "duration": "1 godzina.",
+      "duration": "Czas działania: 1 godzina.",
       "description": "Na czas trwania czaru przybierasz formę dużego, średniego, małego lub drobnego zwierzęcia. Jeśli zmienisz się w małe lub drobne zwierzę, możesz zyskać jedną z następujących cech: wspinaczka, lot lub pływanie."
     },
     {
@@ -70,7 +70,7 @@
         "Użytkowe"
       ],
       "level": 2,
-      "duration": "Koncentracja, do 8 godzin.",
+      "duration": "Czas działania: Koncentracja, do 8 godzin.",
       "description": "Na czas trwania zaklęcia przybierasz formę obiektu swojego lub mniejszego Rozmiaru i stajesz się fizycznie nie do odróżnienia od niego. Ty decydujesz, jak wygląda twoja nowa postać. Dopóki czar działa, nie możesz mówić, a jedyną akcją, jaką potrafisz podjąć, jest koncentracja na tym zaklęciu. Zachowujesz jednak wszystkie zmysły i postrzegasz swoje otoczenie. Efekt ten natychmiast dobiega końca, gdy otrzymasz obrażenia."
     }
   ],
@@ -82,7 +82,7 @@
         "Użytkowe"
       ],
       "level": 3,
-      "duration": "Koncentracja, do 1 godziny.",
+      "duration": "Czas działania: Koncentracja, do 1 godziny.",
       "description": "Na czas trwania zaklęcia przybierasz formę obłoku mgły swojego Rozmiaru. Zapewnia ci ona następujące korzyści i niedogodności:\n• Jesteś niewrażliwy na obrażenia.\n• Ignorujesz efekty ataków przeciwko twojej Sile lub wymagające testu Siły.\n• Zyskujesz zdolność lotu i jesteś w stanie przenikać przez otwory o szerokości pozwalającej na przepływ powietrza, ale nie możesz zajmować przestrzeni wypełnionych cieczami – liczą się dla ciebie jak ciała stałe.\n• Nie możesz spadać. Jesteś niewrażliwy na pochwycenie, unieruchomienie, powalenie i spowolnienie.\n• Nie możesz mówić, wykonywać akcji, rzucać zaklęć ani używać obiektów.\nJeśli na koniec rundy znajdujesz się na obszarze, gdzie wieje wiatr, zostajesz przemieszczony o 2k6 metrów w kierunku ruchu powietrza i otrzymujesz kumulującą się karę -5 do Zdrowia, która utrzymuje się, dopóki nie powrócisz do swojej naturalnej postaci."
     },
     {
@@ -103,7 +103,7 @@
         "Użytkowe"
       ],
       "level": 4,
-      "duration": "1 minuta.",
+      "duration": "Czas działania: 1 minuta.",
       "description": "Twoje ciało staje się zahartowane jak metal. Na czas trwania zaklęcia twoja Obrona wynosi 20, zyskujesz premię +10 do Zdrowia, jesteś niewrażliwy na uśpienie, oślepienie, ogłuszenie, chorobę, wyczerpanie i zatrucie, a także nie możesz zostać przemieszczony wbrew swojej woli. Otrzymujesz tylko połowę obrażeń od zimna, ognia i broni. Jednakże stajesz się też spowolniony i nie możesz jeść, pić ani pływać."
     }
   ],
@@ -115,7 +115,7 @@
         "Użytkowe"
       ],
       "level": 5,
-      "duration": "1 godzina.",
+      "duration": "Czas działania: 1 godzina.",
       "description": "Na czas trwania czaru przybierasz formę wielkiego, dużego, średniego, małego lub drobnego zwierzęcia. Jeśli zmienisz się w średnie, małe lub drobne zwierzę, możesz zyskać jedną z następujących cech: wspinaczka, lot lub pływanie."
     }
   ]

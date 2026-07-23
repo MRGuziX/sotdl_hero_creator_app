@@ -7,7 +7,7 @@
         "Atak"
       ],
       "level": 0,
-      "target": "Jedno stojące na podłożu stworzenie w bliskim zasięgu.",
+      "target": "Cel: Jedno stojące na podłożu stworzenie w bliskim zasięgu.",
       "description": "Z ziemi pod stopami celu wybija ostry kolec. Wykonaj oparty na Woli rzut na atak przeciwko Zręczności przeciwnika. Sukces oznacza, że stworzenie to otrzymuje 1k6 obrażeń i zostaje powalone.",
       "critical_success": "Rzut na atak to 20+: Cel otrzymuje dodatkowe 1k6 obrażeń."
     },
@@ -18,8 +18,8 @@
         "Użytkowe"
       ],
       "level": 0,
-      "target": "Jeden obiekt o Rozmiarze 1 lub mniejszym w bezpośrednim zasięgu, zbudowany z ziemi lub kamienia.",
-      "duration": "Permanentny.",
+      "target": "Cel: Jeden obiekt o Rozmiarze 1 lub mniejszym w bezpośrednim zasięgu, zbudowany z ziemi lub kamienia.",
+      "duration": "Czas działania: Permanentny.",
       "description": "Możesz nadać celowi kształt, jakbyś formował miękką glinę, po czym staje się on tak samo twardy, jak na początku."
     }
   ],
@@ -31,7 +31,7 @@
         "Użytkowe"
       ],
       "level": 1,
-      "duration": "Koncentracja, do 1 minuty.",
+      "duration": "Czas działania: Koncentracja, do 1 minuty.",
       "description": "Twoje ciało pokrywa od stóp do głów warstwa kamienia. W czasie trwania zaklęcia rzuty na atak przeciwko twojej Obronie, Sile lub Zręczności wykonywane są z 1 utrudnieniem, a ty otrzymujesz tylko połowę obrażeń zadawanych bronią. Gdy efekt ten dobiegnie końca, pokrywający cię kamień eksploduje sferą o punkcie początkowym w bezpośrednim zasięgu i o promieniu 1 metra, zadając wszystkiemu wewnątrz tego obszaru oprócz ciebie 1k6 obrażeń za każdą rundę, którą poświęciłeś, koncentrując się na tym zaklęciu. Stworzenia wewnątrz obszaru eksplozji muszą wykonać test Zręczności, w którym sukces oznacza, że otrzymują tylko połowę obrażeń."
     },
     {
@@ -41,7 +41,7 @@
         "Użytkowe"
       ],
       "level": 1,
-      "area": "Stożek długości 3 metrów o punkcie początkowym w bezpośrednim zasięgu.",
+      "area": "Obszar: Stożek długości 3 metrów o punkcie początkowym w bezpośrednim zasięgu.",
       "description": "Ciskasz kamiennymi odłamkami, które zadają 2k6 obrażeń wszystkiemu wewnątrz obszaru działania zaklęcia. Każde znajdujące się na ich drodze stworzenie musi wykonać test Zręczności, a sukces oznacza, że otrzymuje tylko połowę obrażeń. Porażka oznacza, że zadajesz danej istocie krwawiącą ranę, powodującą na koniec każdej rundy 1k6 obrażeń, dopóki przeciwnik nie odzyska jakichkolwiek punktów Zdrowia lub dopóki inne stworzenie nie wykorzysta akcji, by zatamować krwawienie."
     },
     {
@@ -51,8 +51,8 @@
         "Atak"
       ],
       "level": 1,
-      "area": "Okrąg na podłożu o promieniu 4 metrów i punkcie początkowym w bezpośrednim zasięgu.",
-      "duration": "1 runda.",
+      "area": "Obszar: Okrąg na podłożu o promieniu 4 metrów i punkcie początkowym w bezpośrednim zasięgu.",
+      "duration": "Czas działania: 1 runda.",
       "description": "Ziemia drży i chwieje się. Każde stworzenie oprócz ciebie stojące na podłożu wewnątrz obszaru działania zaklęcia lub wkraczające na niego musi wykonać test Zręczności. Porażka oznacza, że zostaje powalone i nie może podnieść się, dopóki efekt czaru nie dobiegnie końca."
     }
   ],
@@ -64,7 +64,7 @@
         "Atak"
       ],
       "level": 2,
-      "area": "Okrąg na podłożu o promieniu 2 metrów i punkcie początkowym w bezpośrednim zasięgu oraz stożek długości 5 metrów o punkcie początkowym w bezpośrednim zasięgu.",
+      "area": "Obszar: Okrąg na podłożu o promieniu 2 metrów i punkcie początkowym w bezpośrednim zasięgu oraz stożek długości 5 metrów o punkcie początkowym w bezpośrednim zasięgu.",
       "description": "Unosisz wierzchnią warstwę podłoża o kształcie koła i ciskasz nią w formie stożka. Podłoże wewnątrz obu obszarów staje się trudnym terenem, dopóki nie zostanie oczyszczone z gruzu. Wszystko wewnątrz stożka otrzymuje 4k6 obrażeń. Stworzenia, które wykonają udany test Zręczności, otrzymują tylko połowę obrażeń."
     },
     {
@@ -74,8 +74,8 @@
         "Użytkowe"
       ],
       "level": 2,
-      "area": "Sześcian ziemi lub kamienia o krawędzi 4 metrów i punkcie początkowym w bezpośrednim zasięgu.",
-      "duration": "Permanentny; patrz niżej.",
+      "area": "Obszar: Sześcian ziemi lub kamienia o krawędzi 4 metrów i punkcie początkowym w bezpośrednim zasięgu.",
+      "duration": "Czas działania: Permanentny; patrz niżej.",
       "description": "Gdy rzucasz to zaklęcie, musisz utrzymać koncentrację i kontakt z obszarem działania czaru przez 1 minutę. Po tym czasie możesz formować znajdujące się tam ziemię i kamień, jak gdyby były miękką gliną. Materiał następnie staje się tak samo twardy, jak na początku. Z pomocą tego zaklęcia zdołasz otwierać przejścia w kamiennych murach, pieczętować drzwi, tworzyć kamienną broń czy oczyszczać drogę z gruzu."
     }
   ],
@@ -87,7 +87,7 @@
         "Atak"
       ],
       "level": 3,
-      "area": "Walec o promieniu 2 metrów i wysokości 10 metrów, o punkcie początkowym na podłożu w średnim zasięgu.",
+      "area": "Obszar: Walec o promieniu 2 metrów i wysokości 10 metrów, o punkcie początkowym na podłożu w średnim zasięgu.",
       "description": "Ziemia zaczyna kipieć, a w powietrze wylatują odłamki skały, które zadają wszystkiemu wewnątrz obszaru działania zaklęcia 5k6 obrażeń. Znajdujące się tam stworzenia i obiekty zostają także odepchnięte na 1k6 metrów od punktu początkowego. Każda taka istota musi wykonać test Siły. Porażka oznacza, że zostaje powalona, a sukces, że otrzymuje tylko połowę obrażeń. Wskutek erupcji podłoże w promieniu 5 metrów od punktu początkowego pokryte jest gruzem i staje się trudnym terenem, dopóki nie zostanie oczyszczone."
     },
     {
@@ -97,8 +97,8 @@
         "Atak"
       ],
       "level": 3,
-      "area": "Sześcian o krawędzi 10 metrów i punkcie początkowym w dalekim zasięgu.",
-      "duration": "1 minuta.",
+      "area": "Obszar: Sześcian o krawędzi 10 metrów i punkcie początkowym w dalekim zasięgu.",
+      "duration": "Czas działania: 1 minuta.",
       "description": "Grawitacja wewnątrz obszaru działania zaklęcia nagle przybiera na sile, zmieniając go na czas trwania czaru w trudny teren. Każde stworzenie wewnątrz tego obszaru lub na niego wkraczające musi wykonać test Siły z 1 utrudnieniem; porażka oznacza, że zostaje powalone i unieruchomione, dopóki działanie zaklęcia nie dobiegnie końca. Unieruchomiona w ten sposób istota nie może się podnieść. Stworzenia latające upadają na podłoże, otrzymując podwójne obrażenia od upadku."
     }
   ],
@@ -110,8 +110,8 @@
         "Atak"
       ],
       "level": 4,
-      "area": "Okrąg na podłożu o promieniu 20 metrów i punkcie początkowym w dalekim zasięgu.",
-      "duration": "1 minuta.",
+      "area": "Obszar: Okrąg na podłożu o promieniu 20 metrów i punkcie początkowym w dalekim zasięgu.",
+      "duration": "Czas działania: 1 minuta.",
       "description": "Ziemia w obszarze działania zaklęcia ulega gwałtownym wstrząsom, stając się na okres trwania czaru trudnym terenem. Gdy rzucasz trzęsienie ziemi oraz na koniec każdej rundy przez czas jego działania, każde stworzenie stojące na tym obszarze musi wykonać test Zręczności. Porażka oznacza, że otrzymuje 1k6 obrażeń i zostaje powalone. Dodatkowo gdy rzucasz to zaklęcie oraz na koniec każdej rundy w czasie jego trwania, każda struktura wewnątrz obszaru otrzymuje 2k6 obrażeń. Struktura zniszczona wskutek tych obrażeń zawala się, a wszystkie stworzenia i obiekty znajdujące się w środku otrzymują 4k6 + 10 obrażeń. Istoty znajdujące się na jej szczycie mogą otrzymać obrażenia od upadku."
     }
   ],
@@ -123,8 +123,8 @@
         "Użytkowe"
       ],
       "level": 5,
-      "target": "Sześcian ziemi lub kamienia o krawędzi 2 metrów i punkcie początkowym w dalekim zasięgu.",
-      "duration": "1 minuta.",
+      "target": "Cel: Sześcian ziemi lub kamienia o krawędzi 2 metrów i punkcie początkowym w dalekim zasięgu.",
+      "duration": "Czas działania: 1 minuta.",
       "description": "Na koniec rundy, w której rzucasz to zaklęcie, wskazany sześcian ziemi lub kamienia zamienia się w dżinna ziemi o Rozmiarze 2. Efektów tego czaru nie można dobrowolnie zakończyć. Gdy działanie zaklęcia dobiegnie końca, przyzwane stworzenie rozpada się, zamieniając podłoże w zajętej przez siebie przestrzeni w trudny teren. Gdy dżinn zostaje przyzwany, wykonaj oparty na Woli rzut na atak przeciwko jego Woli. Sukces oznacza, że na czas trwania zaklęcia istota pozostaje zniewolona; porażka zaś, że staje się wobec ciebie wroga."
     }
   ]

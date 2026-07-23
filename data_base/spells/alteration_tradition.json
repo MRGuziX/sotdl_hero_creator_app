@@ -7,8 +7,8 @@
         "Użytkowe"
       ],
       "level": 0,
-      "target": "Jedno stworzenie w bezpośrednim zasięgu.",
-      "duration": "Koncentracja, do 1 minuty",
+      "target": "Cel: Jedno stworzenie w bezpośrednim zasięgu.",
+      "duration": "Czas działania: Koncentracja, do 1 minuty",
       "description": "Dotknij celu. Jeżeli zna on choć jedan język i dopóki utrzymujesz z nim fizyczny kontakt, to przez czas trwania zaklęcia możesz komunikować się z nim niezależnie od tego, czy mówicie w tym samym języku."
     },
     {
@@ -18,8 +18,8 @@
         "Użytkowe"
       ],
       "level": 0,
-      "target": "Jedno stworzenie w bezpośrednim zasięgu.",
-      "duration": "1 minuta",
+      "target": "Cel: Jedno stworzenie w bezpośrednim zasięgu.",
+      "duration": "Czas działania: 1 minuta",
       "description": "Dotykasz celu, sprawiając, że traci cechy szczególne. Przez czas trwania zaklęcia, gdy próbuje się ukrywać, testy Zręczności wykonuje z 1 ułatwieniem, a stworzenia, które go widzą i wykonują atak przeciwko jego Obronie lub Zręczności, rzucają z 1 utrudnieniem."
     }
   ],
@@ -31,8 +31,8 @@
         "Użytkowe"
       ],
       "level": 1,
-      "target": "Jedno stworzenie w bezpośrednim zasięgu.",
-      "duration": "1 godzina",
+      "target": "Cel: Jedno stworzenie w bezpośrednim zasięgu.",
+      "duration": "Czas działania: 1 godzina",
       "description": "Dotknij celu. Na czas trwania zaklęcia zyskuje on premię +5 do Percepcji. Ponadto w obszarach zacienionych i pogrążonych w mroku widzi tak dobrze, jak w oświetlonych, ale wszelkie testy służące uniknięciu oślepienia lub ogłuszenia wykonuje z 1 utrudnieniem."
     },
     {
@@ -42,8 +42,8 @@
         "Użytkowe"
       ],
       "level": 1,
-      "target": "Jedno stworzenie w bezpośrednim zasięgu.",
-      "duration": "1 godzina",
+      "target": "Cel: Jedno stworzenie w bezpośrednim zasięgu.",
+      "duration": "Czas działania: 1 godzina",
       "description": "Dotknij celu. Przez czas trwania zaklęcia może on poruszać się po ścianach, sufitach i nawisach ze swoją pełną Prędkością i nie musi wykonywać testów, by się wspinać."
     },
     {
@@ -53,8 +53,8 @@
         "Użytkowe"
       ],
       "level": 1,
-      "target": "Jedno stworzenie w bezpośrednim zasięgu.",
-      "duration": "1 godzina",
+      "target": "Cel: Jedno stworzenie w bezpośrednim zasięgu.",
+      "duration": "Czas działania: 1 godzina",
       "description": "Dotknij celu. Przez czas trwania zaklęcia nie musi on wykonywać testów, by pływać. Robi to ze swoją pełną Prędkością, może też oddychać pod wodą."
     }
   ],
@@ -66,8 +66,8 @@
         "Użytkowe"
       ],
       "level": 2,
-      "target": "Jedno stworzenie w bezpośrednim zasięgu.",
-      "duration": "1 minuta",
+      "target": "Cel: Jedno stworzenie w bezpośrednim zasięgu.",
+      "duration": "Czas działania: 1 minuta",
       "description": "Dotknij celu. Wybierz Siłę, Zręczność, Intelekt lub Wolę. Przez czas trwania zaklęcia stworzenie wykonuje rzuty na atak i testy oparte na wybranym atrybucie z 1 ułatwieniem."
     },
     {
@@ -77,8 +77,8 @@
         "Użytkowe"
       ],
       "level": 2,
-      "target": "Jedno stworzenie w bezpośrednim zasięgu.",
-      "duration": "1 minuta",
+      "target": "Cel: Jedno stworzenie w bezpośrednim zasięgu.",
+      "duration": "Czas działania: 1 minuta",
       "description": "Dotknij celu. Na czas trwania zaklęcia zyskuje on premię +5 do Zdrowia, a rzuty na atak przeciw niemu wykonywane są z 1 utrudnieniem."
     }
   ],
@@ -90,8 +90,8 @@
         "Użytkowe"
       ],
       "level": 3,
-      "target": "Jedno stworzenie w bezpośrednim zasięgu.",
-      "duration": "1 minuta",
+      "target": "Cel: Jedno stworzenie w bezpośrednim zasięgu.",
+      "duration": "Czas działania: 1 minuta",
       "description": "Dotykasz celu, a ten rośnie lub maleje na czas trwania zaklęcia. Wszystko, co ma przy sobie, także ulega tej zmianie, choć jeśli upuści jakiś przedmiot, ten natychmiast powraca do swojego pierwotnego Rozmiaru. Jeśli cel rośnie, zyskuje premię +10 do Zdrowia i podwaja swój Rozmiar. Atakami z użyciem broni zadaje dodatkowe 1k6 obrażeń, jeśli nowy Rozmiar to 3 lub mniej; lub dodatkowe 2k6 obrażeń, jeśli nowy Rozmiar to 4 lub więcej. Jeżeli zajmowana przez istotę przestrzeń jest zbyt mała, by pomieścić jej nowy Rozmiar, otrzymuje ona 5k6 obrażeń, a zaklęcie natychmiast przestaje działać. Jeśli cel maleje, jego Rozmiar zmniejsza się o połowę. Stworzenie to zadaje tylko połowę obrażeń atakami z użyciem broni, rzuty na atak i testy oparte na Sile wykonuje z 1 utrudnieniem, a te oparte na Zręczności z 1 ułatwieniem."
     },
     {
@@ -101,8 +101,8 @@
         "Użytkowe"
       ],
       "level": 3,
-      "target": "Jedno żywe stworzenie w bezpośrednim zasięgu.",
-      "duration": "1 minuta",
+      "target": "Cel: Jedno żywe stworzenie w bezpośrednim zasięgu.",
+      "duration": "Czas działania: 1 minuta",
       "description": "Dotknij celu. Przez czas trwania zaklęcia na koniec każdej rundy leczy on tyle obrażeń, ile wynosi połowa jego Szybkości Zdrowienia."
     }
   ],
@@ -114,8 +114,8 @@
         "Użytkowe"
       ],
       "level": 4,
-      "target": "Jedno stworzenie w bezpośrednim zasięgu.",
-      "duration": "1 godzina",
+      "target": "Cel: Jedno stworzenie w bezpośrednim zasięgu.",
+      "duration": "Czas działania: 1 godzina",
       "description": "Dotknij celu. Przez czas trwania zaklęcia może on poruszać się z pełną Prędkością w trudnym terenie, przechodzić swobodnie przez przestrzeń zajętą przez inne stworzenia niezależnie od ich Rozmiaru, a także przechodzić przez otwory o szerokości co najmniej 2 centymetrów. Nie da się go powalić i jest niewrażliwy na pochwycenie, unieruchomienie i spowolnienie."
     }
   ],
@@ -127,8 +127,8 @@
         "Użytkowe"
       ],
       "level": 5,
-      "target": "Jedno stworzenie w bezpośrednim zasięgu.",
-      "duration": "1 godzina",
+      "target": "Cel: Jedno stworzenie w bezpośrednim zasięgu.",
+      "duration": "Czas działania: 1 godzina",
       "description": "Dotknij celu. Wybierz Siłę, Zręczność, Intelekt lub Wolę, a następnie rzuć 1k6. Na czas trwania zaklęcia stworzenie zyskuje premię do wybranego atrybutu równą wyrzuconemu wynikowi, do maksymalnej łącznej wartości 20. Premia ta wpływa także na odpowiedni atrybut drugorzędny."
     }
   ]

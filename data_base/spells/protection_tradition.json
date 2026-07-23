@@ -7,8 +7,8 @@
         "Użytkowe"
       ],
       "level": 0,
-      "target": "Jeden obiekt w bliskim zasięgu, który można otwierać i zamykać, na przykład drzwi, skrzynia czy okno.",
-      "duration": "1 minuta",
+      "target": "Cel: Jeden obiekt w bliskim zasięgu, który można otwierać i zamykać, na przykład drzwi, skrzynia czy okno.",
+      "duration": "Czas działania: 1 minuta",
       "description": "Cel zostaje zamknięty i zatrzaskuje się. Przez czas trwania zaklęcia nikt poza tobą nie zdoła go otworzyć na inne sposoby niż magiczne, choć nadal da się go zniszczyć."
     },
     {
@@ -18,8 +18,8 @@
         "Użytkowe"
       ],
       "level": 0,
-      "area": "Sfera o promieniu 10 metrów i punkcie początkowym w bezpośrednim zasięgu.",
-      "duration": "6 godzin",
+      "area": "Obszar: Sfera o promieniu 10 metrów i punkcie początkowym w bezpośrednim zasięgu.",
+      "duration": "Czas działania: 6 godzin",
       "description": "Na powierzchni obszaru działania zaklęcia pojawia się niewidzialne pole energii. Dopóki czar trwa, jesteś świadomy każdej istoty o Rozmiarze 1/2 lub większym, która wkracza z zewnątrz na ten teren. Jeśli w tym czasie śpisz, natychmiast się budzisz."
     }
   ],
@@ -40,7 +40,7 @@
         "Użytkowe"
       ],
       "level": 1,
-      "duration": "1 minuta; patrz niżej.",
+      "duration": "Czas działania: 1 minuta; patrz niżej.",
       "description": "Otacza cię niewidzialne pole siłowe, które porusza się wraz z tobą. Ma ono Zdrowie 10. Dopóki zaklęcie trwa, pole otrzymuje obrażenia zamiast ciebie. Jeśli otrzyma liczbę obrażeń równą swojemu Zdrowiu, efekt czaru natychmiast dobiega końca."
     },
     {
@@ -50,9 +50,14 @@
         "Użytkowe"
       ],
       "level": 1,
-      "target": "Jedno stworzenie w bezpośrednim zasięgu.",
-      "duration": "1 minuta; patrz niżej.",
-      "description": "Dotykasz celu, który na czas trwania zaklęcia jest ukryty przed wszystkimi innymi stworzeniami. Efekt czaru dobiega końca natychmiast, gdy cel wykona atak."
+      "target": "Cel: Jedno stworzenie w bezpośrednim zasięgu.",
+      "duration": "Czas działania: 1 minuta; patrz niżej.",
+      "book_description": "Dotykasz celu, który na czas trwania zaklęcia jest ukryty przed wszystkimi innymi stworzeniami. Efekt czaru dobiega końca natychmiast, gdy cel wykona atak.",
+      "card_description": " W obszarze działania pojawia się\nprzyszła wersja ciebie, w tym czasie \nw każdej rundzie zarówno ty, jak \ni przyszła wersja możecie podjąć turę, \nchoć wszystkie rzuty na atak i testy \nwykonujecie z 1 utrudnieniem.\nObie wersje ciebie mają identyczne \nwartości atrybutów zwykłych i drugo-\nrzędnych. Jeśli jedna z wersji zostanie \nobezwładniona, drugiej przytrafia się to \nsamo. Jeśli umrzesz, twoje przyszłe „ja”\nznika. Gdy efekt czaru dobiega końca, \nty i twoja przyszła wersja znikacie, ty \npojawiasz się 1 minutę później.\nROZDWOJENIE\nUżytkowe 4",
+      "origin": {
+        "source": "PG",
+        "number": 121
+      }
     }
   ],
   "level_2": [
@@ -63,8 +68,8 @@
         "Użytkowe"
       ],
       "level": 2,
-      "target": "Jedno stworzenie w bezpośrednim zasięgu.",
-      "duration": "4 godziny",
+      "target": "Cel: Jedno stworzenie w bezpośrednim zasięgu.",
+      "duration": "Czas działania: 4 godziny",
       "description": "Dotykasz celu, zwiększając jego czujność i spostrzegawczość. Przez czas trwania zaklęcia stworzenie to zyskuje 1 ułatwienie we wszystkich testach Percepcji i nie może zostać zauroczone, zniewolone, przestraszone, zaskoczone ani magicznie uśpione."
     },
     {
@@ -74,8 +79,8 @@
         "Użytkowe"
       ],
       "level": 2,
-      "target": "Jedno stworzenie w bezpośrednim zasięgu.",
-      "duration": "1 godzina",
+      "target": "Cel: Jedno stworzenie w bezpośrednim zasięgu.",
+      "duration": "Czas działania: 1 godzina",
       "description": "Dotykasz celu, zapewniając mu na czas trwania zaklęcia premię +10 do Zdrowia."
     }
   ],
@@ -87,8 +92,8 @@
         "Użytkowe"
       ],
       "level": 3,
-      "target": "Jedno stworzenie w bezpośrednim zasięgu.",
-      "duration": "1 godzina",
+      "target": "Cel: Jedno stworzenie w bezpośrednim zasięgu.",
+      "duration": "Czas działania: 1 godzina",
       "description": "Dotykasz stworzenie, zapewniając mu na czas trwania zaklęcia ochronę przed magią. Dopóki czar trwa, stworzenia atakujące cel zaklęciami wykonują rzuty na atak z 1 utrudnieniem, on sam zaś zyskuje 1 ułatwienie w testach wykonywanych, by odeprzeć efekty zaklęć."
     },
     {
@@ -98,8 +103,8 @@
         "Użytkowe"
       ],
       "level": 3,
-      "area": "Sfera o promieniu 3 metrów i punkcie początkowym w bezpośrednim zasięgu.",
-      "duration": "1 minuta",
+      "area": "Obszar: Sfera o promieniu 3 metrów i punkcie początkowym w bezpośrednim zasięgu.",
+      "duration": "Czas działania: 1 minuta",
       "description": "Na powierzchni obszaru działania zaklęcia pojawia się nieruchoma, niewidzialna bariera, która utrzymuje się przez czas jego trwania. Rzucając ten czar, wskazujesz dowolną liczbę stworzeń w średnim zasięgu. Mogą one swobodnie przechodzić i atakować przez barierę. Inne istoty nie są w stanie ani przejść przez barierę, ani wykonywać ataków bronią białą przeciwko celom po drugiej stronie."
     }
   ],
@@ -111,8 +116,8 @@
         "Użytkowe"
       ],
       "level": 4,
-      "target": "Jedno stworzenie w bezpośrednim zasięgu.",
-      "duration": "Koncentracja, do 1 minuty",
+      "target": "Cel: Jedno stworzenie w bezpośrednim zasięgu.",
+      "duration": "Czas działania: Koncentracja, do 1 minuty",
       "description": "Dotykasz celu, który na czas trwania zaklęcia staje się niewrażliwy na wszelkie obrażenia."
     }
   ],
@@ -124,8 +129,8 @@
         "Użytkowe"
       ],
       "level": 5,
-      "area": "Sfera o promieniu 5 metrów i punkcie początkowym w bezpośrednim zasięgu.",
-      "duration": "1 minuta",
+      "area": "Obszar: Sfera o promieniu 5 metrów i punkcie początkowym w bezpośrednim zasięgu.",
+      "duration": "Czas działania: 1 minuta",
       "description": "Na powierzchni obszaru działania zaklęcia na czas jego trwania pojawia się nieruchoma, niewidzialna bariera. Rzuty na atak z użyciem czarów 5 lub niższego kręgu wykonywane przeciwko celom znajdującym się za barierą automatycznie kończą się porażką. Ponadto jej wnętrze jest wykluczone z obszaru innych zaklęć 5 lub niższego kręgu. Magia stosowana z wewnątrz bariery nie może mieć punktów początkowych poza jej granicą."
     }
   ]

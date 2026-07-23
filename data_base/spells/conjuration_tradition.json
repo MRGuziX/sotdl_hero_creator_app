@@ -7,8 +7,8 @@
         "Użytkowe"
       ],
       "level": 0,
-      "area": "Sześcian o krawędzi 1 metra i punkcie początkowym w zasięgu ręki.",
-      "duration": "1 minuta.",
+      "area": "Obszar: Sześcian o krawędzi 1 metra i punkcie początkowym w zasięgu ręki.",
+      "duration": "Czas działania: 1 minuta.",
       "description": "Wewnątrz obszaru działania zaklęcia pojawia się przedmiot o Rozmiarze 1 lub mniejszym, który nie jest magiczny ani wart więcej niż 1 srebrnik."
     },
     {
@@ -18,7 +18,7 @@
         "Użytkowe"
       ],
       "level": 0,
-      "target": "Jedna istota w bliskim zasięgu, która została stworzona za pomocą rzuconego przez ciebie zaklęcia Przywołań.",
+      "target": "Cel: Jedna istota w bliskim zasięgu, która została stworzona za pomocą rzuconego przez ciebie zaklęcia Przywołań.",
       "description": "Przemieszczasz cel na odległość nie większą, niż wynosi połowa jego Prędkości."
     }
   ],
@@ -30,8 +30,8 @@
         "Użytkowe"
       ],
       "level": 1,
-      "area": "Sześcian o krawędzi 2 metrów i punkcie początkowym w zasięgu ręki.",
-      "duration": "1 godzina; patrz niżej.",
+      "area": "Obszar: Sześcian o krawędzi 2 metrów i punkcie początkowym w zasięgu ręki.",
+      "duration": "Czas działania: 1 godzina; patrz niżej.",
       "description": "Na znajdujących się wewnątrz obszaru działania zaklęcia poziomych powierzchniach pojawiają się wykwintne dania w ilości zdolnej wyżywić do pięciu stworzeń przez 1 dzień. Potrawy, które nie zostaną spożyte, znikają wraz z zakończeniem efektu czaru."
     },
     {
@@ -41,8 +41,8 @@
         "Użytkowe"
       ],
       "level": 1,
-      "area": "Sześcian o krawędzi 1 metra i punkcie początkowym w średnim zasięgu, umiejscowiony na twardym podłożu.",
-      "duration": "1 minuta.",
+      "area": "Obszar: Sześcian o krawędzi 1 metra i punkcie początkowym w średnim zasięgu, umiejscowiony na twardym podłożu.",
+      "duration": "Czas działania: 1 minuta.",
       "description": "Wewnątrz obszaru działania zaklęcia pojawia się zniewolony mały potwór."
     },
     {
@@ -52,7 +52,7 @@
         "Użytkowe"
       ],
       "level": 1,
-      "duration": "1 godzina.",
+      "duration": "Czas działania: 1 godzina.",
       "description": "W twoich rękach (lub u twoich stóp, jeśli masz zajęte dłonie) pojawia się broń lub kilka sztuk amunicji."
     }
   ],
@@ -64,8 +64,8 @@
         "Użytkowe"
       ],
       "level": 2,
-      "target": "Sześcian o krawędzi 10 metrów i punkcie początkowym w średnim zasięgu, umiejscowiony na twardym podłożu.",
-      "duration": "2 godziny.",
+      "target": "Cel: Sześcian o krawędzi 10 metrów i punkcie początkowym w średnim zasięgu, umiejscowiony na twardym podłożu.",
+      "duration": "Czas działania: 2 godziny.",
       "description": "Wewnątrz obszaru działania zaklęcia pojawia się 1k6 wierzchowców (patrz koń). Mogą one mieć dowolny określony przez ciebie wygląd. Przywołane wierzchowce są przyjazne wobec ciebie i stają się zniewolone przez każde stworzenie, które ich dosiądzie.",
       "sacrifice": "Możesz poświęcić użycie tego zaklęcia, by rzucić przywołanie małego potwora."
     },
@@ -76,8 +76,8 @@
         "Użytkowe"
       ],
       "level": 2,
-      "area": "Sześcian o krawędzi 2 metrów i punkcie początkowym w średnim zasięgu, umiejscowiony na twardym podłożu.",
-      "duration": "1 minuta.",
+      "area": "Obszar: Sześcian o krawędzi 2 metrów i punkcie początkowym w średnim zasięgu, umiejscowiony na twardym podłożu.",
+      "duration": "Czas działania: 1 minuta.",
       "description": "Wewnątrz obszaru działania zaklęcia pojawia się jeden zniewolony średni potwór lub dwa zniewolone małe potwory."
     }
   ],
@@ -89,8 +89,8 @@
         "Użytkowe"
       ],
       "level": 3,
-      "area": "Sześcian o krawędzi 2 metrów i punkcie początkowym w średnim zasięgu, umiejscowiony na twardym podłożu.",
-      "duration": "1 minuta.",
+      "area": "Obszar: Sześcian o krawędzi 2 metrów i punkcie początkowym w średnim zasięgu, umiejscowiony na twardym podłożu.",
+      "duration": "Czas działania: 1 minuta.",
       "description": "Wewnątrz obszaru działania zaklęcia pojawia się jeden zniewolony duży potwór lub dwa zniewolone średnie potwory."
     },
     {
@@ -100,8 +100,8 @@
         "Użytkowe"
       ],
       "level": 3,
-      "area": "Linia łamana o długości 10 metrów, wysokości 5 metrów i szerokości 2 metrów, o punkcie początkowym w dalekim zasięgu i dowolnym kierunku, pod warunkiem że co najmniej dwa krańcowe segmenty opierają się o twarde podłoże.",
-      "duration": "1 godzina; patrz niżej.",
+      "area": "Obszar: Linia łamana o długości 10 metrów, wysokości 5 metrów i szerokości 2 metrów, o punkcie początkowym w dalekim zasięgu i dowolnym kierunku, pod warunkiem że co najmniej dwa krańcowe segmenty opierają się o twarde podłoże.",
+      "duration": "Czas działania: 1 godzina; patrz niżej.",
       "description": "Obszar działania zaklęcia wypełnia na czas jego trwania lub dopóki nie zostanie zniszczony kamienny mur. Zapewnia on całkowitą osłonę wszystkiemu, co znajduje się za nim. Każdy sześcienny fragment muru o krawędzi 1 metra ma Obronę 5, Zdrowie 50 i znika, jeśli zostanie zniszczony."
     }
   ],
@@ -113,8 +113,8 @@
         "Użytkowe"
       ],
       "level": 4,
-      "area": "Sześcian o krawędzi 20 metrów i punkcie początkowym w średnim zasięgu, umiejscowiony na twardej lub ciekłej powierzchni.",
-      "duration": "12 godzin; patrz niżej.",
+      "area": "Obszar: Sześcian o krawędzi 20 metrów i punkcie początkowym w średnim zasięgu, umiejscowiony na twardej lub ciekłej powierzchni.",
+      "duration": "Czas działania: 12 godzin; patrz niżej.",
       "description": "Musisz utrzymać koncentrację przez 1 minutę, podczas której wyobrażasz sobie budynek lub wyspę. Po tym czasie twoje wyobrażenie materializuje się wewnątrz obszaru działania zaklęcia i utrzymuje się przez czas jego trwania. Jeśli przywołujesz budynek, określasz jego wygląd, w tym liczbę i rozkład wejść, okien i pomieszczeń. W budynku znajdują się łóżka, krzesła, stoły, jedzenie i picie wystarczające dla maksymalnie dziesięciu osób oraz płonący kominek. Jeśli przywołujesz wyspę, znajdują się na niej miejsca noclegowe dla maksymalnie dziesięciu osób, jak w przypadku budynku, ale mają one formę chatek lub namiotów.",
       "sacrifice": "Możesz poświęcić użycie tego zaklęcia, by rzucić przywołanie dużego potwora."
     }
@@ -127,8 +127,8 @@
         "Użytkowe"
       ],
       "level": 5,
-      "area": "Sześcian o krawędzi 4 metrów i punkcie początkowym w średnim zasięgu, umiejscowiony na twardym podłożu.",
-      "duration": "1 minuta.",
+      "area": "Obszar: Sześcian o krawędzi 4 metrów i punkcie początkowym w średnim zasięgu, umiejscowiony na twardym podłożu.",
+      "duration": "Czas działania: 1 minuta.",
       "description": "Wewnątrz obszaru działania zaklęcia pojawia się jeden zniewolony wielki potwór lub dwa zniewolone duże potwory."
     }
   ]

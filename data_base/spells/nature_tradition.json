@@ -14,10 +14,10 @@
           "Atak"
         ],
         "level": 0,
-        "target": "Do pięciu żołędzi, orzechów lub ziaren w bezpośrednim zasięgu.",
-        "duration": "1 godzina; patrz niżej.",
+        "target": "Cel: Do pięciu żołędzi, orzechów lub ziaren w bezpośrednim zasięgu.",
+        "duration": "Czas działania: 1 godzina; patrz niżej.",
         "description": "Dotykasz celów, nasycając je magią. Efekt nałożony na każdy żołądź jest aktywny tak długo, jak długo trwa zaklęcie, lub dopóki jakieś stworzenie nie wykona z jego użyciem ataku. Istota może zaatakować magicznym żołędziem, wykonując oparty na Zręczności rzut na atak przeciwko Zręczności przeciwnika lub obiektu w bliskim zasięgu. Sukces oznacza, że cel otrzymuje 1k3 obrażeń i staje się spowolniony na 1 rundę. Jeśli wskutek tych obrażeń zostanie obezwładniony, permanentnie zamienia się w młode drzewko, które od razu zapuszcza korzenie.",
-        "critical_success": "Rzut na atak 20+: Cel otrzymuje dodatkowe 1k6 obrażeń."
+        "critical_success": "Rzut na atak to 20+: Cel otrzymuje dodatkowe 1k6 obrażeń."
       },
       {
         "name": "DĘBOWA SKÓRA",
@@ -26,7 +26,7 @@
           "Użytkowe"
         ],
         "level": 0,
-        "duration": "1 godzina",
+        "duration": "Czas działania: 1 godzina",
         "description": "Na czas trwania zaklęcia zyskujesz premię +2 do Obrony oraz 1 ułatwienie w testach Zręczności wykonywanych, by ukryć się w lesie."
       }
     ],
@@ -38,8 +38,8 @@
           "Użytkowe"
         ],
         "level": 1,
-        "target": "Do trzech świeżych jagód w bezpośrednim zasięgu.",
-        "duration": "8 godzin; patrz niżej.",
+        "target": "Cel: Do trzech świeżych jagód w bezpośrednim zasięgu.",
+        "duration": "Czas działania: 8 godzin; patrz niżej.",
         "description": "Dotykasz celów, nasycając każdy z nich magią na czas trwania zaklęcia lub dopóki nie zostaną zjedzone. Żywe stworzenie może wykorzystać akcję, by spożyć zaklętą jagodę i uleczyć tyle obrażeń, ile wynosi połowa jego Szybkości Zdrowienia."
       },
       {
@@ -49,8 +49,8 @@
           "Użytkowe"
         ],
         "level": 1,
-        "area": "Okrąg na podłożu o promieniu 10 metrów i punkcie początkowym w średnim zasięgu.",
-        "duration": "1 godzina",
+        "area": "Obszar: Okrąg na podłożu o promieniu 10 metrów i punkcie początkowym w średnim zasięgu.",
+        "duration": "Czas działania: 1 godzina",
         "description": "Wewnątrz obszaru działania zaklęcia wyrastają pnącza i chaszcze, zmieniając go w trudny teren. Gdy efekt czaru zakończy się, rośliny więdną i umierają."
       },
       {
@@ -60,8 +60,8 @@
           "Użytkowe"
         ],
         "level": 1,
-        "target": "Pałka lub kostur, które trzymasz w ręce.",
-        "duration": "1 godzina; patrz niżej.",
+        "target": "Cel: Pałka lub kostur, które trzymasz w ręce.",
+        "duration": "Czas działania: 1 godzina; patrz niżej.",
         "description": "Nasycasz wybraną broń magią na czas trwania zaklęcia lub dopóki nie wypuścisz jej z rąk. Dzierżąc ją, zyskujesz premię +2 do Prędkości, a twoje ataki z jej użyciem zadają dodatkowe 1k6 obrażeń."
       }
     ],
@@ -73,7 +73,7 @@
           "Atak"
         ],
         "level": 2,
-        "target": "Do pięciu stworzeń w średnim zasięgu.",
+        "target": "Cel: Do pięciu stworzeń w średnim zasięgu.",
         "description": "Pod stopami celów wyrastają nagle pędy bluszczu. Każde ze stworzeń musi wykonać udany test Zręczności, w przeciwnym wypadku zostaje unieruchomione na 1 minutę. Oplątana istota może wykorzystać akcję, by zerwać z siebie pędy, co pozwala pozbyć się tego stanu."
       },
       {
@@ -83,10 +83,10 @@
           "Atak"
         ],
         "level": 2,
-        "target": "Do pięciu szyszek, orzechów lub ziaren w zasięgu ręki.",
-        "duration": "8 godzin, patrz niżej.",
+        "target": "Cel: Do pięciu szyszek, orzechów lub ziaren w zasięgu ręki.",
+        "duration": "Czas działania: 8 godzin, patrz niżej.",
         "description": "Dotykasz celów, nasycając każdy z nich magią na czas trwania zaklęcia lub dopóki jakieś stworzenie nie wykona z ich użyciem ataku. Zaczarowany przedmiot oświetla obszar wokół siebie o promieniu 5 metrów. Istota może zaatakować płonącą szyszką, wykonując oparty na Zręczności rzut na atak przeciwko Zręczności przeciwnika lub obiektu w średnim zasięgu. Sukces oznacza, że cel otrzymuje 1k6 obrażeń, a wszystko w promieniu 1 metra od niego dostaje 1k3 obrażeń od buchnięcia iskier.",
-        "critical_success": "Rzut na atak 20+: Cel ataku otrzymuje dodatkowe 1k6 obrażeń."
+        "critical_success": "Rzut na atak to 20+: Cel ataku otrzymuje dodatkowe 1k6 obrażeń."
       }
     ],
     "level_3": [
@@ -97,8 +97,8 @@
           "Użytkowe"
         ],
         "level": 3,
-        "area": "Okrąg na podłożu o promieniu 10 metrów i punkcie początkowym w średnim zasięgu.",
-        "duration": "1 minuta",
+        "area": "Obszar: Okrąg na podłożu o promieniu 10 metrów i punkcie początkowym w średnim zasięgu.",
+        "duration": "Czas działania: 1 minuta",
         "description": "Wewnątrz obszaru działania zaklęcia wyrastają ostre jak brzytwy ciernie, zmieniając go w trudny teren. Gdy efekt czaru dobiegnie końca, ciernie więdną i umierają. Każde stworzenie, które wejdzie na obszar działania zaklęcia lub przez niego przejdzie, musi wykonać test Zręczności z 1 utrudnieniem, porażka zaś skutkuje otrzymaniem 1k6 obrażeń."
       },
       {
@@ -108,7 +108,7 @@
           "Użytkowe"
         ],
         "level": 3,
-        "duration": "1 minuta",
+        "duration": "Czas działania: 1 minuta",
         "description": "Na czas trwania zaklęcia przybierasz jaskrawozieloną barwę, wraz ze wszystkim, co trzymasz i masz na sobie. Możesz wtedy wejść na przestrzeń zajmowaną przez żywą roślinę twojego Rozmiaru lub większą, po czym natychmiast przenieść się na wolną przestrzeń obok innej rośliny twojego Rozmiaru lub większej w średnim zasięgu od tej, do której wszedłeś."
       }
     ],
@@ -120,7 +120,7 @@
           "Atak"
         ],
         "level": 4,
-        "target": "Do pięciu stworzeń w średnim zasięgu.",
+        "target": "Cel: Do pięciu stworzeń w średnim zasięgu.",
         "description": "Każdy z celów zostaje zaatakowany przez kolczaste winorośle, które zadają mu 3k6 obrażeń, i musi wykonać test Zręczności. Porażka oznacza, że stworzenie zostaje odepchnięte na 6 metrów w wybranym przez ciebie kierunku, a następnie unieruchomione na 1 minutę. Może wykorzystać akcję, by wykonać test Siły z 1 utrudnieniem, w którym sukces pozwala pozbyć się tego stanu."
       }
     ],
@@ -132,7 +132,7 @@
           "Użytkowe"
         ],
         "level": 5,
-        "duration": "1 minuta",
+        "duration": "Czas działania: 1 minuta",
         "description": "Przekształcasz się w potężne, ożywione drzewo. Przez czas trwania zaklęcia nie możesz rzucać czarów, ale zyskujesz wszystkie poniższe korzyści:\n• Zyskujesz premię +3 do Obrony i +15 do Zdrowia, a twój Rozmiar podwaja się.\n• Zyskujesz 1 ułatwienie w rzutach na atak i testach opartych na Sile.\n• Twoje konary liczą się jako broń biała, która zadaje 3k6 obrażeń.\n• Podczas swojej tury możesz w ramach reakcji poświęcić jedno użycie zaklęcia Natury, by przedłużyć czas trwania tego czaru o liczbę minut równą kręgowi poświęconego zaklęcia."
       }
     ]

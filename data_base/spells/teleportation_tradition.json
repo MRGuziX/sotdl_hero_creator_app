@@ -7,8 +7,13 @@
         "Użytkowe"
       ],
       "level": 0,
-      "target": "Jeden obiekt o Rozmiarze 1 lub mniejszym, który trzymasz.",
-      "description": "Cel teleportuje się na wolną przestrzeń w średnim zasięgu."
+      "target": "Cel: Jeden obiekt o Rozmiarze 1 lub mniejszym, który trzymasz.",
+      "book_description": "Cel teleportuje się na wolną przestrzeń w średnim zasięgu.",
+      "card_description": "w bliskim zasięgu.\nKażdy z celów spowijają \nnieszkodliwe, zielone płomienie. \nStworzenia  te i obiekty oświetlają \nobszar wokół siebie o promieniu \n1 metra i nie mogą stać się \nniewidzialne ani ukryć się przed \nistotami, które je widzą. Wszystkie \nrzuty na atak przeciwko tym celom \nwykonywane są  z 1 ułatwieniem.\nOGNIE\nŚWIĘTEJ ASTRID\nUżytkowe 1",
+      "origin": {
+        "source": "PG",
+        "number": 127
+      }
     },
     {
       "name": "PRZYCIĄGANIE",
@@ -17,7 +22,7 @@
         "Użytkowe"
       ],
       "level": 0,
-      "target": "Jedien obiekt w średnim zasięgu, który da się trzymać w jednej ręce.",
+      "target": "Cel: Jedien obiekt w średnim zasięgu, który da się trzymać w jednej ręce.",
       "description": "Cel teleportuje się do twojej ręki lub ląduje u twoich stóp, jeśli obie dłonie masz zajęte."
     }
   ],
@@ -29,9 +34,9 @@
         "Atak"
       ],
       "level": 1,
-      "target": "Jedno stworzenie w bliskim zasięgu, które widzisz.",
+      "target": "Cel: Jedno stworzenie w bliskim zasięgu, które widzisz.",
       "description": "Wykonaj oparty na Intelekcie rzut na atak przeciwko Sile celu. Sukces oznacza, że otrzymuje on 3k6 obrażeń. Jeśli wskutek tych obrażeń zostanie obezwładniony, umiera natychmiast, a kawałki jego ciała lądują wszędzie wokół.",
-      "critical_success": "Rzut na atak 20+: Cel otrzymuje dodatkowe 1k6 obrażeń."
+      "critical_success": "Rzut na atak to 20+: Cel otrzymuje dodatkowe 1k6 obrażeń."
     },
     {
       "name": "RĘKAW CZARODZIEJA",
@@ -40,9 +45,14 @@
         "Użytkowe"
       ],
       "level": 1,
-      "area": "Dwa sześciany o krawędzi 1 metra w średnim zasięgu.",
-      "duration": "1 minuta.",
-      "description": "W środku każdego z sześcianów otwiera się portal wielkości około 30 centymetrów, który utrzymuje się przez czas trwania zaklęcia. Portale te nie posiadają grubości; każda rzecz włożona do jednego z nich natychmiast wychodzi z drugiego. Gdy efekt czaru dobiegnie końca, portale zamykają się, potencjalnie przecinając znajdującą się w nich rzecz (decyzja należy do MG)."
+      "area": "Obszar: Dwa sześciany o krawędzi 1 metra w średnim zasięgu.",
+      "duration": "Czas działania: 1 minuta.",
+      "book_description": "W środku każdego z sześcianów otwiera się portal wielkości około 30 centymetrów, który utrzymuje się przez czas trwania zaklęcia. Portale te nie posiadają grubości; każda rzecz włożona do jednego z nich natychmiast wychodzi z drugiego. Gdy efekt czaru dobiegnie końca, portale zamykają się, potencjalnie przecinając znajdującą się w nich rzecz (decyzja należy do MG).",
+      "card_description": "1 metra w dalekim zasięgu.\nSześciany wypełnia ciemność, \nblokując wszelkie widzenie\nz wyjątkiem prawdziwego widzenia. \nDla każdego sześcianu przypisz \nnumer od 1 do 6. Gdy stworzenie, \nwkroczy do niego, testuje Intelekt, \nby ustalić, z którego z nich wyjdzie. \nJeśli sie powiedzie, istota natychmiast \npojawia się przy  wybranej bryle. Jeśli \nnie, wyjście ustala się, rzucając k6. \nW obu przypadkach istota wybiera \nkierunek, w jakim opuszcza obszar \ndziałania zaklęcia. \nMROCZNE\nPORTALE\nUżytkowe 4",
+      "origin": {
+        "source": "PG",
+        "number": 129
+      }
     },
     {
       "name": "ZAMIANA MIEJSC",
@@ -51,7 +61,7 @@
         "Użytkowe"
       ],
       "level": 1,
-      "target": "Jedno stworzenie w dalekim zasięgu.",
+      "target": "Cel: Jedno stworzenie w dalekim zasięgu.",
       "description": "Ty oraz cel teleportujecie się, zamieniając pozycjami. Stawiający opór cel może wykonać test Woli, w którym sukces neguje efekt zaklęcia. Reakcja: Podczas swojej tury możesz rzucić to zaklęcie jako reakcję. Jeśli tak zrobisz, cel musi znajdować się w bliskim zasięgu."
     }
   ],
@@ -63,9 +73,9 @@
         "Atak"
       ],
       "level": 2,
-      "target": "Jedno stworzenie w bezpośrednim zasięgu.",
+      "target": "Cel: Jedno stworzenie w bezpośrednim zasięgu.",
       "description": "Wykonaj oparty na Intelekcie rzut na atak przeciwko Zręczności celu. Sukces oznacza, że dotykasz stworzenia i teleportujesz je na wolną przestrzeń o twardym podłożu w średnim zasięgu, którą widzisz.",
-      "critical_success": "Rzut na atak 20+: Wolna przestrzeń może znajdować się w ekstremalnym zasięgu."
+      "critical_success": "Rzut na atak to 20+: Wolna przestrzeń może znajdować się w ekstremalnym zasięgu."
     },
     {
       "name": "NA SKRÓTY",
@@ -85,7 +95,7 @@
         "Użytkowe"
       ],
       "level": 3,
-      "duration": "1 minuta.",
+      "duration": "Czas działania: 1 minuta.",
       "description": "Przez czas trwania zaklęcia podczas każdej swojej tury możesz wykorzystać reakcję, by teleportować się na wolną przestrzeń w średnim zasięgu."
     },
     {
@@ -95,9 +105,9 @@
         "Atak"
       ],
       "level": 3,
-      "target": "Jedno stworzenie w średnim zasięgu.",
+      "target": "Cel: Jedno stworzenie w średnim zasięgu.",
       "description": "Wykonaj oparty na Intelekcie rzut na atak przeciwko Woli celu. Sukces oznacza, że stworzenie teleportuje się na wolną przestrzeń o twardym podłożu w średnim zasięgu od ciebie i częściowo spaja się z tym podłożem. Otrzymuje 6k6 obrażeń i zostaje unieruchomione. Jedynymi sposobami pozbycia się tego stanu jest albo zniszczenie obiektu, z którym zespolił się cel, albo wykorzystanie akcji, by odciąć uwięzioną w ten sposób kończynę (zadając istocie obrażenia równe dwukrotności jej Szybkości Zdrowienia).",
-      "critical_success": "Rzut na atak 20+: Cel otrzymuje dodatkowe 2k6 obrażeń i jest oszołomiony przez 1 rundę."
+      "critical_success": "Rzut na atak to 20+: Cel otrzymuje dodatkowe 2k6 obrażeń i jest oszołomiony przez 1 rundę."
     }
   ],
   "level_4": [
@@ -108,8 +118,8 @@
         "Użytkowe"
       ],
       "level": 4,
-      "area": "Dwa sześciany o krawędzi 2 metrów, jeden o punkcie początkowym w bezpośrednim zasięgu, a drugi w ekstremalnym zasięgu.",
-      "duration": "1 minuta.",
+      "area": "Obszar: Dwa sześciany o krawędzi 2 metrów, jeden o punkcie początkowym w bezpośrednim zasięgu, a drugi w ekstremalnym zasięgu.",
+      "duration": "Czas działania: 1 minuta.",
       "description": "W środku każdego z sześcianów otwiera się portal, który utrzymuje się przez czas trwania zaklęcia. Każdy z nich ma szerokość 1 metra i wysokość 2 metrów; nie posiada grubości, ale ma przód i tył i może być ustawiony w dowolnym kierunku. Wszystko, co wejdzie od przodu do jednego portalu, natychmiast wychodzi na wolną przestrzeń z tyłu drugiego i vice versa."
     }
   ],
@@ -121,7 +131,7 @@
         "Użytkowe"
       ],
       "level": 5,
-      "target": "Do pięciu niestawiających oporu stworzeń w bezpośrednim zasięgu.",
+      "target": "Cel: Do pięciu niestawiających oporu stworzeń w bezpośrednim zasięgu.",
       "description": "Dotykasz każdego ze stworzeń i nazywasz miejsce docelowe. Wykonaj test Intelektu. Zależnie od tego, jak dobrze je znasz, MG może nałożyć na ten test 1 lub więcej utrudnień. Jeśli nazwiesz miejsce, które nie istnieje, zaklęcie nie udaje się i tracisz jego użycie. Sukces oznacza, że stworzenia teleportują się do wskazanej lokalizacji. Porażka oznacza, że każda istota teleportuje się osobno do wybranej przez MG okolicy oddalonej o 1k20 kilometrów od miejsca docelowego. Jeśli całkowity wynik rzutu wyniesie 0 lub mniej, wszystkie stworzenia otrzymują 10k6 obrażeń i zyskują 1 punkt Szaleństwa. Jeżeli we wskazanej lokalizacji nie ma na tyle wolnej przestrzeni, żeby pomieścić dany cel, otrzymuje on 5k6 obrażeń, zyskuje 1 punkt Szaleństwa i powraca w miejsce startowe. Jeśli obrażenia te skutkują obezwładnieniem postaci, umiera ona natychmiast po przybyciu, zamieniając się w krwawą miazgę z kości i tkanki. Jeśli przestrzeń docelowa nie jest wolna – na przykład znajduje się wewnątrz muru – cel ulega spojeniu z wypełniającym ją materiałem i natychmiast umiera."
     }
   ]
