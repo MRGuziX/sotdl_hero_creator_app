@@ -1,7 +1,7 @@
 import json
 import pathlib
-from html import escape
 from dataclasses import dataclass
+from html import escape
 
 from pypdf import PdfReader, PdfWriter
 from reportlab.lib.colors import black
@@ -19,6 +19,21 @@ from models.base_hero import AncestryHero
 SPELL_NAME_FONT = "FirstOrderPL"
 SPELL_FONT = "Athelas"
 SPELL_FONT_BOLD = "Athelas-Bold"
+
+# Spell-card coordinate system, expressed in the template's pixel grid.
+SPELL_CARD_COLUMNS_X = (488, 1249, 1991)
+SPELL_CARD_ROW_BASES_Y = (135, 1255, 2375)
+
+SPELL_NAME_LEFT_X = 170
+SPELL_NAME_RIGHT_X = 800
+SPELL_DESCRIPTION_LEFT_X = 170
+SPELL_DESCRIPTION_RIGHT_X = 798
+
+SPELL_TECHNICAL_FIELDS_OFFSET_Y = 155
+SPELL_TECHNICAL_FIELD_GAP_PX = 10
+SPELL_DESCRIPTION_OFFSET_Y = 355
+SPELL_CRITICAL_SUCCESS_GAP_PX = 50
+SPELL_TAGS_OFFSET_Y = 1000
 
 
 def _register_spell_fonts() -> None:
@@ -289,7 +304,13 @@ def _spell_name_font_size(name: str) -> int:
 
 def _spell_description_layout(description: str) -> tuple[int, str]:
     """Return the description font size and the single card template name."""
-    return (8 if len(description or "") <= 500 else 7), "empty_spell_cards"
+    letters = len(description)
+    if letters <= 500:
+        return 8, "empty_spell_cards"
+    elif letters <= 700:
+        return 7, "empty_spell_cards"
+    else:
+        return 6, "empty_spell_cards"
 
 
 def _spell_description_font_size(description: str) -> int:
@@ -307,31 +328,37 @@ def _spell_card_fields(spell, card_number: int) -> dict[str, str]:
             spell.card_description or spell.description or ""
         ),
         f"spell_attack_roll_card_{card_number}": spell.critical_success or "",
-        f"spell_tags_card_{card_number}": ", ".join(spell.tags or []),
+        f"spell_tags_card_{card_number}": (
+            f"{', '.join(spell.tags or [])} {spell.level}"
+            if spell.tags
+            else str(spell.level)
+        ),
     }
 
 
 def _spell_description_bounds(column_px: float) -> tuple[float, float]:
     """Return the left edge and width of a card's description area in pixels."""
-    first_column = 488
-    left_edge = 170
-    right_edge = 798
-    column_step = column_px - first_column
-    return left_edge + column_step, right_edge - left_edge
+    column_step = column_px - SPELL_CARD_COLUMNS_X[0]
+    return (
+        SPELL_DESCRIPTION_LEFT_X + column_step,
+        SPELL_DESCRIPTION_RIGHT_X - SPELL_DESCRIPTION_LEFT_X,
+    )
 
 
 def _spell_name_bounds(column_px: float) -> tuple[float, float]:
     """Return the original name area, independent of the description area."""
-    first_column = 488
-    left_edge = 170
-    right_edge = 800
-    column_step = column_px - first_column
-    return left_edge + column_step, right_edge - left_edge
+    column_step = column_px - SPELL_CARD_COLUMNS_X[0]
+    return SPELL_NAME_LEFT_X + column_step, SPELL_NAME_RIGHT_X - SPELL_NAME_LEFT_X
 
 
 def _spell_critical_success_y(base_y: float, description_height: float, px_to_y: float) -> float:
     """Return the Y position 50 pixels below the wrapped description."""
-    return base_y + 355 + description_height / px_to_y + 50
+    return (
+        base_y
+        + SPELL_DESCRIPTION_OFFSET_Y
+        + description_height / px_to_y
+        + SPELL_CRITICAL_SUCCESS_GAP_PX
+    )
 
 
 def _draw_wrapped_centered(
@@ -372,10 +399,7 @@ def _draw_spell_field(
     labels = ("Czas działania:", "Czas trwania:", "Cel:", "Obszar:")
     label = next((item for item in labels if text.startswith(item)), "")
     if label:
-        text = (
-            f'<font name="{SPELL_FONT_BOLD}">{escape(label)}</font>'
-            f"{escape(text[len(label):])}"
-        )
+        text = f'<font name="{SPELL_FONT_BOLD}">{escape(label)}</font>{escape(text[len(label) :])}'
     else:
         text = escape(text)
     return _draw_wrapped_centered(
@@ -405,8 +429,6 @@ def fill_spell_pdf(hero: AncestryHero, output_path: str) -> str:
     canvas = Canvas(str(overlay_path), pagesize=A4)
     px_to_x = A4[0] / 2480
     px_to_y = A4[1] / 3508
-    columns = (488, 1249, 1991)
-    row_bases = (135, 1255, 2375)
 
     def draw_centered(
         text: str, x_px: float, y_px: float, size: int, font_name: str = SPELL_FONT
@@ -416,8 +438,8 @@ def fill_spell_pdf(hero: AncestryHero, output_path: str) -> str:
 
     for page_start in range(0, len(hero.spells), 9):
         for card_index, spell in enumerate(hero.spells[page_start : page_start + 9], 1):
-            column = columns[(card_index - 1) % 3]
-            base_y = row_bases[(card_index - 1) // 3]
+            column = SPELL_CARD_COLUMNS_X[(card_index - 1) % 3]
+            base_y = SPELL_CARD_ROW_BASES_Y[(card_index - 1) // 3]
             fields = _spell_card_fields(spell, card_index)
             description = fields[f"spell_description_card_{card_index}"]
             description_size, _ = _spell_description_layout(description)
@@ -434,7 +456,7 @@ def fill_spell_pdf(hero: AncestryHero, output_path: str) -> str:
                 px_to_x,
                 px_to_y,
             )
-            field_top = base_y + 155
+            field_top = base_y + SPELL_TECHNICAL_FIELDS_OFFSET_Y
             for field_name in ("target", "duration", "area"):
                 value = fields[f"spell_{field_name}_card_{card_index}"]
                 if value:
@@ -446,7 +468,7 @@ def fill_spell_pdf(hero: AncestryHero, output_path: str) -> str:
                         px_to_x,
                         px_to_y,
                     )
-                    field_top += field_height / px_to_y + 10
+                    field_top += field_height / px_to_y + SPELL_TECHNICAL_FIELD_GAP_PX
             style = ParagraphStyle(
                 "spell_card",
                 fontName=SPELL_FONT,
@@ -462,18 +484,17 @@ def fill_spell_pdf(hero: AncestryHero, output_path: str) -> str:
             paragraph.drawOn(
                 canvas,
                 description_left * px_to_x,
-                A4[1] - (base_y + 355) * px_to_y - height,
+                A4[1] - (base_y + SPELL_DESCRIPTION_OFFSET_Y) * px_to_y - height,
             )
             if fields[f"spell_attack_roll_card_{card_index}"]:
                 critical_value = fields[f"spell_attack_roll_card_{card_index}"]
                 critical_label = "Rzut na atak 20+:"
                 critical = critical_value
                 if critical.startswith(critical_label):
-                    critical = critical[len(critical_label):].strip()
+                    critical = critical[len(critical_label) :].strip()
                 critical_y = _spell_critical_success_y(base_y, height, px_to_y) - 20
                 critical_text = (
-                    f'<font name="{SPELL_FONT_BOLD}">{critical_label}</font> '
-                    f"{escape(critical)}"
+                    f'<font name="{SPELL_FONT_BOLD}">{critical_label}</font> {escape(critical)}'
                 )
                 left, width = _spell_description_bounds(column)
                 _draw_wrapped_centered(
@@ -488,7 +509,12 @@ def fill_spell_pdf(hero: AncestryHero, output_path: str) -> str:
                     px_to_y,
                 )
             if fields[f"spell_tags_card_{card_index}"]:
-                draw_centered(fields[f"spell_tags_card_{card_index}"], column, base_y + 940, 7)
+                draw_centered(
+                    fields[f"spell_tags_card_{card_index}"],
+                    column,
+                    base_y + SPELL_TAGS_OFFSET_Y,
+                    7,
+                )
         canvas.showPage()
     canvas.save()
 

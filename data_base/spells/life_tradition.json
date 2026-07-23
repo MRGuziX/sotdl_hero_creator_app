@@ -9,7 +9,7 @@
       "level": 0,
       "area": "Obszar: Sfera o promieniu 5 metrów i punkcie środkowym w zajmowanej przez ciebie przestrzeni.",
       "duration": "Czas działania: 1 minuta",
-      "description": "Poznajesz położenie wszystkich żywych stworzeń wewnątrz obszaru działania zaklęcia. Dopóki czar trwa, nie mogą one zostać przed tobą ukryte."
+      "book_description": "Poznajesz położenie wszystkich żywych stworzeń wewnątrz obszaru działania zaklęcia. Dopóki czar trwa, nie mogą one zostać przed tobą ukryte."
     },
     {
       "name": "LECZENIE POMNIEJSZYCH RAN",
@@ -19,7 +19,7 @@
       ],
       "level": 0,
       "target": "Cel: Jedno stworzenie w bezpośrednim zasięgu.",
-      "description": "Dotykasz celu, który następnie leczy tyle obrażeń, ile wynosi połowa jego Szybkości Zdrowienia."
+      "book_description": "Dotykasz celu, który następnie leczy tyle obrażeń, ile wynosi połowa jego Szybkości Zdrowienia."
     }
   ],
   "level_1": [
@@ -31,7 +31,7 @@
       ],
       "level": 1,
       "target": "Cel: Jedno stworzenie w bezpośrednim zasięgu.",
-      "description": "Dotykasz celu, udzielając mu jednej z poniższych korzyści:",
+      "book_description": "Dotykasz celu, udzielając mu jednej z poniższych korzyści:",
       "effects": [
         "Cel pozbywa się jednego z następujących stanów: choroby, wyczerpania, osłabienia lub zatrucia.",
         "Cel traci 1 punkt Szaleństwa.",
@@ -63,7 +63,7 @@
       ],
       "level": 1,
       "target": "Cel: Jedno stworzenie w bezpośrednim zasięgu.",
-      "description": "Dotykasz celu, który następnie leczy tyle obrażeń, ile wynosi jego Szybkość Zdrowienia."
+      "book_description": "Dotykasz celu, który następnie leczy tyle obrażeń, ile wynosi jego Szybkość Zdrowienia."
     }
   ],
   "level_2": [
@@ -75,7 +75,7 @@
       ],
       "level": 2,
       "target": "Cel: Jedno stworzenie w bezpośrednim zasięgu.",
-      "description": "Dotykasz celu, który następnie leczy tyle obrażeń, ile wynosi dwukrotność jego Szybkości Zdrowienia."
+      "book_description": "Dotykasz celu, który następnie leczy tyle obrażeń, ile wynosi dwukrotność jego Szybkości Zdrowienia."
     },
     {
       "name": "FALA WITALNOŚCI",
@@ -85,7 +85,7 @@
       ],
       "level": 2,
       "target": "Cel: Do trzech żywych stworzeń w bliskim zasięgu.",
-      "description": "Każdy cel leczy tyle obrażeń, ile wynosi jego Szybkość Zdrowienia."
+      "book_description": "Każdy cel leczy tyle obrażeń, ile wynosi jego Szybkość Zdrowienia."
     }
   ],
   "level_3": [
@@ -97,7 +97,7 @@
       ],
       "level": 3,
       "target": "Cel: Do trzech stworzeń w bezpośrednim zasięgu.",
-      "description": "Dotykasz celów, udzielając każdemu jednej z poniższych korzyści (możesz wybrać te same lub różne):",
+      "book_description": "Dotykasz celów, udzielając każdemu jednej z poniższych korzyści (możesz wybrać te same lub różne):",
       "effects": [
         "Cel pozbywa się jednego z następujących stanów: choroby, wyczerpania, osłabienia lub zatrucia.",
         "Cel traci 1 punkt Szaleństwa.",
@@ -113,7 +113,7 @@
       ],
       "level": 3,
       "target": "Cel: Jedno stworzenie w bezpośrednim zasięgu.",
-      "description": "Dotykasz celu, który następnie leczy tyle obrażeń, ile wynosi trzykrotność jego Szybkości Zdrowienia."
+      "book_description": "Dotykasz celu, który następnie leczy tyle obrażeń, ile wynosi trzykrotność jego Szybkości Zdrowienia."
     }
   ],
   "level_4": [
@@ -125,7 +125,7 @@
       ],
       "level": 4,
       "target": "Cel: Jedno stworzenie w bezpośrednim zasięgu.",
-      "description": "Dotykasz celu, który leczy wszystkie otrzymane obrażenia."
+      "book_description": "Dotykasz celu, który leczy wszystkie otrzymane obrażenia."
     }
   ],
   "level_5": [
@@ -138,7 +138,7 @@
       "level": 5,
       "target": "Cel: Jedno stworzenie w bezpośrednim zasięgu, które umarło najwyżej 24 godziny temu.",
       "duration": "Czas działania: Koncentracja, do 1 godziny",
-      "description": "Dotknij celu. Musisz utrzymać koncentrację przez 1 godzinę i zachować w tym czasie fizyczny kontakt z jego ciałem. Jeśli nic nie przerwie twojej koncentracji, możliwe jest przywrócenie go do życia.",
+      "book_description": "Dotknij celu. Musisz utrzymać koncentrację przez 1 godzinę i zachować w tym czasie fizyczny kontakt z jego ciałem. Jeśli nic nie przerwie twojej koncentracji, możliwe jest przywrócenie go do życia.",
       "mechanics": "Jeśli dusza stworzenia przebywa w Zaświatach, powraca do ciała, a cel wstaje z martwych. Leczy 1 punkt obrażeń i jest osłabiony oraz wyczerpany, dopóki nie odbędzie pełnego odpoczynku. Jeśli dusza stworzenia znajduje się w Piekle, wykonaj test Woli z tyloma utrudnieniami, ile wynosi Splugawienie zmarłego. Sukces oznacza, że udaje ci się go wskrzesić. Porażka oznacza, że jego dusza jest bezpowrotnie stracona.",
       "sacrifice": "Możesz poświęcić użycie tego zaklęcia, by rzucić pełne leczenie."
     }

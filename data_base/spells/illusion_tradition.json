@@ -43,7 +43,7 @@
       "level": 1,
       "area": "Obszar: Sześcian o krawędzi 2 metrów i punkcie początkowym w bliskim zasięgu, który widzisz.",
       "duration": "Czas działania: 1 godzina; patrz niżej",
-      "description": "W obszarze działania zaklęcia pojawia się bezgłośna iluzja stworzenia, obiektu lub zjawiska. Jeśli tworzysz iluzję istoty... [Uwaga: tekst w źródle urywa się w tym miejscu z powodu wklejonej tabeli z innego zaklęcia]."
+      "book_description": "W obszarze działania zaklęcia pojawia się bezgłośna iluzja stworzenia, obiektu lub zjawiska. Jeśli tworzysz iluzję istoty... [Uwaga: tekst w źródle urywa się w tym miejscu z powodu wklejonej tabeli z innego zaklęcia]."
     },
     {
       "name": "ZAWROTY GŁOWY",
@@ -140,7 +140,7 @@
       "level": 4,
       "area": "Obszar: Walec o wysokości 5 metrów, promieniu 10 metrów i punkcie początkowym w dalekim zasięgu.",
       "duration": "Czas działania: Dopóki nie odbędziesz pełnego odpoczynku.",
-      "description": "W obszarze działania zaklęcia na czas jego trwania pojawia się iluzoryczny teren. Wydaje się prawdziwy pod każdym względem – wyglądu, dźwięków, zapachów i tak dalej. Możesz całkowicie zmienić wygląd istniejącego terenu lub zawrzeć jego elementy w swojej iluzji. Iluzja ta jest w stanie zupełnie zamaskować wszelkie cechy topograficzne w obszarze działania zaklęcia, łącznie z najróżniejszymi doznaniami wzrokowymi. Przykładowo zdołasz ukryć płonący ogień i rzucane przez niego światło, ale nadal będzie emitować gorąco i zadawać obrażenia stworzeniom, które się z nim zetkną.",
+      "book_description": "W obszarze działania zaklęcia na czas jego trwania pojawia się iluzoryczny teren. Wydaje się prawdziwy pod każdym względem – wyglądu, dźwięków, zapachów i tak dalej. Możesz całkowicie zmienić wygląd istniejącego terenu lub zawrzeć jego elementy w swojej iluzji. Iluzja ta jest w stanie zupełnie zamaskować wszelkie cechy topograficzne w obszarze działania zaklęcia, łącznie z najróżniejszymi doznaniami wzrokowymi. Przykładowo zdołasz ukryć płonący ogień i rzucane przez niego światło, ale nadal będzie emitować gorąco i zadawać obrażenia stworzeniom, które się z nim zetkną.",
       "sacrifice": "Możesz poświęcić użycie tego zaklęcia, by rzucić zaklęcie fantom.",
       "permanent": "Jeśli zaklęcie to rzucałeś na ten sam obszar codziennie przez miesiąc i jeden dzień, jego efekt staje się permanentny."
     }

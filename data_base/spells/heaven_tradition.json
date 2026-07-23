@@ -42,7 +42,7 @@
       ],
       "level": 1,
       "target": "Cel: Jedno posiadające zmysł wzroku stworzenie w bliskim zasięgu.",
-      "description": "Przed oczami wybranego stworzenia rozbłyska jasne światło. Wykonaj oparty na Woli rzut na atak przeciwko Percepcji celu. Sukces oznacza, że przeciwnik zostaje oślepiony na 1 rundę.",
+      "book_description": "Przed oczami wybranego stworzenia rozbłyska jasne światło. Wykonaj oparty na Woli rzut na atak przeciwko Percepcji celu. Sukces oznacza, że przeciwnik zostaje oślepiony na 1 rundę.",
       "critical_success": "Rzut na atak to 20+: Cel zostaje oślepiony na 1 minutę."
     },
     {

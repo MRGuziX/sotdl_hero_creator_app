@@ -14,6 +14,7 @@ from utils.pdf_creator import (
     _spell_description_bounds,
     _spell_description_font_size,
     _spell_description_layout,
+    _spell_card_fields,
     _spell_name_bounds,
     _spell_name_font_size,
     fill_pdf,
@@ -215,6 +216,19 @@ def test_spell_card_renders_all_fields_together():
     output_path = os.path.join("output", "filled_spells.pdf")
 
     fill_spell_pdf(hero, output_path)
+
+
+def test_spell_tags_include_level():
+    spell = Spell(
+        name="POWIEW",
+        description="Opis",
+        tags=["Powietrze", "Atak"],
+        level=1,
+    )
+
+    fields = _spell_card_fields(spell, 1)
+
+    assert fields["spell_tags_card_1"] == "Powietrze, Atak 1"
 
 
 @pytest.mark.parametrize(

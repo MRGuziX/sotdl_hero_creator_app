@@ -8,7 +8,7 @@
       ],
       "level": 0,
       "target": "Cel: Jeden obiekt o Rozmiarze 1/2 lub mniejszym w bliskim zasięgu.",
-      "description": "Otrzymujesz 1 punkt obrażeń. Cel otrzymuje liczbę obrażeń równą swojemu Zdrowiu."
+      "book_description": "Otrzymujesz 1 punkt obrażeń. Cel otrzymuje liczbę obrażeń równą swojemu Zdrowiu."
     },
     {
       "name": "RUINA",
@@ -18,7 +18,7 @@
       ],
       "level": 0,
       "target": "Cel: Jedno stworzenie lub obiekt w bliskim zasięgu.",
-      "description": "Otrzymujesz 1 punkt obrażeń. Cel otrzymuje 1k6 obrażeń. Jeśli jest to stworzenie, musi wykonać test Siły; w przypadku porażki staje się wyczerpane na 1 minutę."
+      "book_description": "Otrzymujesz 1 punkt obrażeń. Cel otrzymuje 1k6 obrażeń. Jeśli jest to stworzenie, musi wykonać test Siły; w przypadku porażki staje się wyczerpane na 1 minutę."
     }
   ],
   "level_1": [
@@ -30,7 +30,7 @@
       ],
       "level": 1,
       "target": "Cel: Jedno stworzenie w bezpośrednim zasięgu posiadające fizyczną postać.",
-      "description": "Otrzymujesz 2 punkty obrażeń. Wykonaj oparty na Woli rzut na atak przeciwko Sile celu. Sukces oznacza, że przeciwnik otrzymuje 1k6 + 1 obrażeń od twojego żrącego dotyku i staje się osłabiony na 1 minutę. Jeśli obrażenia te spowodują obezwładnienie celu, umiera on natychmiast, jego ciało zamienia się w maź, a wszystkie posiadane przedmioty pozostają na ziemi w przestrzeni, którą zajmował.",
+      "book_description": "Otrzymujesz 2 punkty obrażeń. Wykonaj oparty na Woli rzut na atak przeciwko Sile celu. Sukces oznacza, że przeciwnik otrzymuje 1k6 + 1 obrażeń od twojego żrącego dotyku i staje się osłabiony na 1 minutę. Jeśli obrażenia te spowodują obezwładnienie celu, umiera on natychmiast, jego ciało zamienia się w maź, a wszystkie posiadane przedmioty pozostają na ziemi w przestrzeni, którą zajmował.",
       "critical_success": "Rzut na atak to 20+: Cel otrzymuje dodatkowe 1k6 obrażeń."
     },
     {
@@ -41,7 +41,7 @@
       ],
       "level": 1,
       "target": "Cel: Jedno stworzenie w bliskim zasięgu, które widzisz.",
-      "description": "Otrzymujesz 2 punkty obrażeń. Wykonaj oparty na Woli rzut na atak przeciwko Zręczności celu. Sukces oznacza, że przeciwnik otrzymuje 3k6 + 1 obrażeń.",
+      "book_description": "Otrzymujesz 2 punkty obrażeń. Wykonaj oparty na Woli rzut na atak przeciwko Zręczności celu. Sukces oznacza, że przeciwnik otrzymuje 3k6 + 1 obrażeń.",
       "critical_success": "Rzut na atak to 20+: Cel otrzymuje dodatkowe 2k6 obrażeń."
     },
     {
@@ -69,7 +69,7 @@
       ],
       "level": 2,
       "duration": "Czas działania: 1 minuta.",
-      "description": "Otrzymujesz 3 punkty obrażeń. W trakcie trwania tego czaru stworzenia, które atakujesz zaklęciami, otrzymują dodatkowe 1k6 obrażeń. Reakcja: Gdy rzucasz zaklęcie ataku, które zadaje obrażenia, możesz wykorzystać reakcję, by rzucić również ten czar, ale jego efekt trwa tylko do końca rundy. Jeśli pierwsze zaklęcie zada obrażenia, cel otrzymuje dodatkowe 2k6 obrażeń."
+      "book_description": "Otrzymujesz 3 punkty obrażeń. W trakcie trwania tego czaru stworzenia, które atakujesz zaklęciami, otrzymują dodatkowe 1k6 obrażeń. Reakcja: Gdy rzucasz zaklęcie ataku, które zadaje obrażenia, możesz wykorzystać reakcję, by rzucić również ten czar, ale jego efekt trwa tylko do końca rundy. Jeśli pierwsze zaklęcie zada obrażenia, cel otrzymuje dodatkowe 2k6 obrażeń."
     },
     {
       "name": "EROZJA",
@@ -79,7 +79,7 @@
       ],
       "level": 2,
       "target": "Cel: Jedno posiadające fizyczną postać stworzenie w bliskim zasięgu, które widzisz.",
-      "description": "Otrzymujesz 3 punkty obrażeń. Wykonaj oparty na Woli rzut na atak przeciwko Zręczności celu. Sukces oznacza, że przeciwnik zostaje osłabiony na 1 minutę. Na koniec każdej rundy, w której jest osłabiony tym zaklęciem, otrzymuje 1k6 obrażeń.",
+      "book_description": "Otrzymujesz 3 punkty obrażeń. Wykonaj oparty na Woli rzut na atak przeciwko Zręczności celu. Sukces oznacza, że przeciwnik zostaje osłabiony na 1 minutę. Na koniec każdej rundy, w której jest osłabiony tym zaklęciem, otrzymuje 1k6 obrażeń.",
       "critical_success": "Rzut na atak to 20+: Cel otrzymuje dodatkowe 1k6 obrażeń na koniec każdej rundy, w której jest osłabiony tym zaklęciem."
     }
   ],
@@ -92,7 +92,7 @@
       ],
       "level": 3,
       "target": "Cel: Jeden obiekt o Rozmiarze 1 lub mniejszym w średnim zasięgu, który widzisz. Celem nie może być obiekt, który kiedykolwiek był stworzeniem.",
-      "description": "Otrzymujesz 4 punkty obrażeń. Cel otrzymuje liczbę obrażeń równą swojemu Zdrowiu, a następnie eksploduje chmurą odłamków w promieniu 4 metrów z punktu początkowego w zajmowanej przez siebie przestrzeni, zadając 6k6 obrażeń wszystkiemu wewnątrz tego obszaru. Znajdujące się tam stworzenia, którym powiedzie się test Zręczności, otrzymują tylko połowę obrażeń."
+      "book_description": "Otrzymujesz 4 punkty obrażeń. Cel otrzymuje liczbę obrażeń równą swojemu Zdrowiu, a następnie eksploduje chmurą odłamków w promieniu 4 metrów z punktu początkowego w zajmowanej przez siebie przestrzeni, zadając 6k6 obrażeń wszystkiemu wewnątrz tego obszaru. Znajdujące się tam stworzenia, którym powiedzie się test Zręczności, otrzymują tylko połowę obrażeń."
     },
     {
       "name": "WYPAROWANIE",
@@ -102,7 +102,7 @@
       ],
       "level": 3,
       "target": "Cel: Jeden obiekt lub posiadające fizyczną postać stworzenie w bezpośrednim zasięgu.",
-      "description": "Otrzymujesz 4 punkty obrażeń. Wykonaj oparty na Woli rzut na atak przeciwko Zręczności celu. Sukces oznacza, że otrzymuje on 6k6 obrażeń i zaczyna wyparowywać. Zniszczony w ten sposób obiekt zamienia się w obłok drobnego pyłu. Stworzenie obezwładnione wskutek tych obrażeń natychmiast umiera i zamienia się w karmazynową chmurę, przez 1 rundę częściowo przesłaniającą przestrzeń, w której się znajdowało.",
+      "book_description": "Otrzymujesz 4 punkty obrażeń. Wykonaj oparty na Woli rzut na atak przeciwko Zręczności celu. Sukces oznacza, że otrzymuje on 6k6 obrażeń i zaczyna wyparowywać. Zniszczony w ten sposób obiekt zamienia się w obłok drobnego pyłu. Stworzenie obezwładnione wskutek tych obrażeń natychmiast umiera i zamienia się w karmazynową chmurę, przez 1 rundę częściowo przesłaniającą przestrzeń, w której się znajdowało.",
       "critical_success": "Rzut na atak to 20+: Cel otrzymuje dodatkowe 2k6 obrażeń."
     }
   ],
@@ -115,7 +115,7 @@
       ],
       "level": 4,
       "target": "Cel: Jedno stworzenie lub obiekt o Rozmiarze 3 lub mniejszym w średnim zasięgu, które widzisz.",
-      "description": "Otrzymujesz 5 punktów obrażeń. Cel otrzymuje 30 punktów obrażeń."
+      "book_description": "Otrzymujesz 5 punktów obrażeń. Cel otrzymuje 30 punktów obrażeń."
     }
   ],
   "level_5": [
@@ -127,7 +127,7 @@
       ],
       "level": 5,
       "target": "Cel: Jeden przedmiot lub posiadające fizyczną postać stworzenie w dalekim zasięgu, które widzisz.",
-      "description": "Otrzymujesz 6 punktów obrażeń. Wykonaj oparty na Woli rzut na atak przeciwko Zręczności celu. Sukces oznacza, że otrzymuje on 9k6 obrażeń. Stworzenie obezwładnione wskutek tych obrażeń natychmiast umiera i w przestrzeni, którą zajmowało, pojawia się mała kupka pyłu.",
+      "book_description": "Otrzymujesz 6 punktów obrażeń. Wykonaj oparty na Woli rzut na atak przeciwko Zręczności celu. Sukces oznacza, że otrzymuje on 9k6 obrażeń. Stworzenie obezwładnione wskutek tych obrażeń natychmiast umiera i w przestrzeni, którą zajmowało, pojawia się mała kupka pyłu.",
       "critical_success": "Rzut na atak to 20+: Cel otrzymuje dodatkowe 3k6 obrażeń."
     }
   ]
