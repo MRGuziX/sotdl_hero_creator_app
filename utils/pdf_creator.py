@@ -1,5 +1,6 @@
 import json
 import pathlib
+from html import escape
 from dataclasses import dataclass
 
 from pypdf import PdfReader, PdfWriter
@@ -302,7 +303,9 @@ def _spell_card_fields(spell, card_number: int) -> dict[str, str]:
         f"spell_target_card_{card_number}": spell.target or "",
         f"spell_duration_card_{card_number}": spell.duration or "",
         f"spell_area_card_{card_number}": spell.area or "",
-        f"spell_description_card_{card_number}": spell.description or "",
+        f"spell_description_card_{card_number}": (
+            spell.card_description or spell.description or ""
+        ),
         f"spell_attack_roll_card_{card_number}": spell.critical_success or "",
         f"spell_tags_card_{card_number}": ", ".join(spell.tags or []),
     }
@@ -324,6 +327,11 @@ def _spell_name_bounds(column_px: float) -> tuple[float, float]:
     right_edge = 800
     column_step = column_px - first_column
     return left_edge + column_step, right_edge - left_edge
+
+
+def _spell_critical_success_y(base_y: float, description_height: float, px_to_y: float) -> float:
+    """Return the Y position 50 pixels below the wrapped description."""
+    return base_y + 355 + description_height / px_to_y + 50
 
 
 def _draw_wrapped_centered(
@@ -349,6 +357,38 @@ def _draw_wrapped_centered(
     _, height = paragraph.wrap(width * px_to_x, A4[1])
     paragraph.drawOn(canvas, left * px_to_x, A4[1] - top * px_to_y - height)
     return height
+
+
+def _draw_spell_field(
+    canvas: Canvas,
+    text: str,
+    column: float,
+    top: float,
+    px_to_x: float,
+    px_to_y: float,
+) -> float:
+    """Draw a centered, wrapped technical field and return its height in points."""
+    left, width = _spell_description_bounds(column)
+    labels = ("Czas działania:", "Czas trwania:", "Cel:", "Obszar:")
+    label = next((item for item in labels if text.startswith(item)), "")
+    if label:
+        text = (
+            f'<font name="{SPELL_FONT_BOLD}">{escape(label)}</font>'
+            f"{escape(text[len(label):])}"
+        )
+    else:
+        text = escape(text)
+    return _draw_wrapped_centered(
+        canvas,
+        text,
+        left,
+        top,
+        width,
+        SPELL_FONT,
+        6,
+        px_to_x,
+        px_to_y,
+    )
 
 
 def fill_spell_pdf(hero: AncestryHero, output_path: str) -> str:
@@ -394,10 +434,19 @@ def fill_spell_pdf(hero: AncestryHero, output_path: str) -> str:
                 px_to_x,
                 px_to_y,
             )
-            for offset, field_name in ((175, "target"), (205, "duration"), (235, "area")):
+            field_top = base_y + 155
+            for field_name in ("target", "duration", "area"):
                 value = fields[f"spell_{field_name}_card_{card_index}"]
                 if value:
-                    draw_centered(str(value), column, base_y + offset, 7)
+                    field_height = _draw_spell_field(
+                        canvas,
+                        str(value),
+                        column,
+                        field_top,
+                        px_to_x,
+                        px_to_y,
+                    )
+                    field_top += field_height / px_to_y + 10
             style = ParagraphStyle(
                 "spell_card",
                 fontName=SPELL_FONT,
@@ -416,12 +465,28 @@ def fill_spell_pdf(hero: AncestryHero, output_path: str) -> str:
                 A4[1] - (base_y + 355) * px_to_y - height,
             )
             if fields[f"spell_attack_roll_card_{card_index}"]:
-                critical = (
-                    fields[f"spell_attack_roll_card_{card_index}"]
-                    .removeprefix("Rzut na atak 20+:")
-                    .strip()
+                critical_value = fields[f"spell_attack_roll_card_{card_index}"]
+                critical_label = "Rzut na atak 20+:"
+                critical = critical_value
+                if critical.startswith(critical_label):
+                    critical = critical[len(critical_label):].strip()
+                critical_y = _spell_critical_success_y(base_y, height, px_to_y) - 20
+                critical_text = (
+                    f'<font name="{SPELL_FONT_BOLD}">{critical_label}</font> '
+                    f"{escape(critical)}"
                 )
-                draw_centered(f"rzut na atak 20+: {critical}", column, base_y + 400, 7)
+                left, width = _spell_description_bounds(column)
+                _draw_wrapped_centered(
+                    canvas,
+                    critical_text,
+                    left,
+                    critical_y,
+                    width,
+                    SPELL_FONT,
+                    7,
+                    px_to_x,
+                    px_to_y,
+                )
             if fields[f"spell_tags_card_{card_index}"]:
                 draw_centered(fields[f"spell_tags_card_{card_index}"], column, base_y + 940, 7)
         canvas.showPage()

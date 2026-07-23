@@ -1,7 +1,7 @@
 {
   "level_0": [
     {
-      "name": "PALĄCY PROMIEŃ (s.130 PG)",
+      "name": "PALĄCY PROMIEŃ",
       "tags": [
         "Magia Niebiańska",
         "Atak"
@@ -17,7 +17,7 @@
       }
     },
     {
-      "name": "ŚWIATŁO (s.130 PG)",
+      "name": "ŚWIATŁO",
       "tags": [
         "Magia Niebiańska",
         "Użytkowe"
@@ -35,7 +35,7 @@
   ],
   "level_1": [
     {
-      "name": "BŁYSK (s.130 PG)",
+      "name": "BŁYSK",
       "tags": [
         "Magia Niebiańska",
         "Atak"
@@ -46,7 +46,7 @@
       "critical_success": "Rzut na atak to 20+: Cel zostaje oślepiony na 1 minutę."
     },
     {
-      "name": "TRWAŁE ŚWIATŁO (s.130 PG)",
+      "name": "TRWAŁE ŚWIATŁO",
       "tags": [
         "Magia Niebiańska",
         "Użytkowe"
@@ -62,7 +62,7 @@
       }
     },
     {
-      "name": "TĘCZOWA EKSPLOZJA (s.130 PG)",
+      "name": "TĘCZOWA EKSPLOZJA",
       "tags": [
         "Magia Niebiańska",
         "Atak"
@@ -79,7 +79,7 @@
   ],
   "level_2": [
     {
-      "name": "ŚWIT (s.130 PG)",
+      "name": "ŚWIT",
       "tags": [
         "Magia Niebiańska",
         "Użytkowe"
@@ -95,7 +95,7 @@
       }
     },
     {
-      "name": "PROMIENIE SŁOŃCA (s.130 PG)",
+      "name": "PROMIENIE SŁOŃCA",
       "tags": [
         "Magia Niebiańska",
         "Atak"
@@ -113,7 +113,7 @@
   ],
   "level_3": [
     {
-      "name": "PROMIENIOWANIE (s.130 PG)",
+      "name": "PROMIENIOWANIE",
       "tags": [
         "Magia Niebiańska",
         "Atak"
@@ -129,7 +129,7 @@
       }
     },
     {
-      "name": "SPADAJĄCA GWIAZDA (s.130 PG)",
+      "name": "SPADAJĄCA GWIAZDA",
       "tags": [
         "Magia Niebiańska",
         "Atak"
@@ -146,7 +146,7 @@
   ],
   "level_4": [
     {
-      "name": "SUPERNOWA (s.130 PG)",
+      "name": "SUPERNOWA",
       "tags": [
         "Magia Niebiańska",
         "Atak"
@@ -163,7 +163,7 @@
   ],
   "level_5": [
     {
-      "name": "ROZBŁYSK SŁONECZNY (s.130 PG)",
+      "name": "ROZBŁYSK SŁONECZNY",
       "tags": [
         "Magia Niebiańska",
         "Atak"

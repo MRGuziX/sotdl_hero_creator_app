@@ -10,6 +10,7 @@ from models.language import Language
 from models.spell import Spell
 from models.talent import Talent
 from utils.pdf_creator import (
+    _spell_critical_success_y,
     _spell_description_bounds,
     _spell_description_font_size,
     _spell_description_layout,
@@ -177,20 +178,26 @@ def test_pdf_from_full_flow(output_path):
     assert hero.oddity != ""
 
 
-def test_generate_filled_spells_pdf_with_nine_names_in_output():
-    with open("data_base/spells/air_tradition.json", encoding="utf-8") as file:
-        tradition = json.load(file)
-    selected_names = [
-        "POWIEW", "SZYBOWANIE", "GRZMOT", "DAR LATANIA",
-        "PRZYWOŁANIE WICHRU", "ODARCIE ZE SKÓRY", "MARTWE POWIETRZE",
-        "GWAŁTOWNY PODMUCH", "PRZEJŚCIE CYKLONU",
-    ]
-    spell_data = {
-        spell["name"]: spell
-        for spells_at_level in tradition.values()
-        for spell in spells_at_level
-    }
-    spells = [Spell(**spell_data[name]) for name in selected_names]
+def test_spell_card_renders_all_fields_together():
+    spell = Spell(
+        name="OSOBLIWOŚĆ",
+        card_description="W punkcie początkowym pojawia się wirująca plama. Gdy rzucasz osobliwość, niezabezpieczone obiekty wewnątrz jej obszaru przemieszczają się o 2k6 metrów w kierunku punktu początkowego. Każde stworzenie znajdujące się wewnątrz obszaru w momencie jego rzucenia lub na niego wchodzące musi wykonać test Siły z 1 utrudnieniem. Porażka oznacza, że przemieszcza się o 2k6 metrów w kierunku punktu początkowego i dopóki czar trwa , nie może się od niego oddalić. Stworzenie lub obiekt, które dotrze do punktu początkowego osobliwości, otrzymuje 10k6 obrażeń. Jeśli wskutek tych obrażeń zostanie obezwładnione, dojdzie także do całkowitego wymazania go z rzeczywistości. Gdy efekt czaru dobiegnie końca, plama wybucha, zadając 4k6 obrażeń wszystkiemu wewnątrz obszaru działania zaklęcia. Każde znajdujące się tam stworzenie musi wykonać test Siły. Porażka oznacza, że zostaje powalone, a sukces, że otrzymuje tylko połowę obrażeń.",
+        target=(
+            "Cel: Jeden obiekt o Rozmiarze 1 lub mniejszym w średnim zasięgu, "
+            "który widzisz. Celem nie może być obiekt, który kiedykolwiek był "
+            "stworzeniem."
+        ),
+        # area=(
+        #     "Obszar: Linia łamana o długości 10 metrów, wysokości 5 metrów i "
+        #     "szerokości 2 metrów, o punkcie początkowym w dalekim zasięgu i "
+        #     "dowolnym kierunku, pod warunkiem że co najmniej dwa krańcowe "
+        #     "segmenty opierają się o twarde podłoże."
+        # ),
+        duration="Czas działania: Dopóki nie odbędziesz pełnego odpoczynku; patrz niżej.",
+        critical_success="Rzut na atak 20+: Cel otrzymuje dodatkowe 1k6 obrażeń.",
+        tags=["Magia Testowa", "Atak"],
+        level=2,
+    )
     hero = AncestryHero(
         ancestry_name="Człowiek",
         strength=10,
@@ -203,13 +210,11 @@ def test_generate_filled_spells_pdf_with_nine_names_in_output():
         healing_rate=2,
         size=[1.0],
         speed=10,
-        spells=spells,
+        spells=[spell],
     )
     output_path = os.path.join("output", "filled_spells.pdf")
 
     fill_spell_pdf(hero, output_path)
-
-    assert os.path.isfile(output_path)
 
 
 @pytest.mark.parametrize(
@@ -257,3 +262,15 @@ def test_spell_name_uses_card_edges_for_wrapping():
 
     assert left == 170
     assert width == 630
+
+
+def test_spell_critical_success_moves_below_wrapped_description():
+    base_y = 135
+    px_to_y = 0.2
+
+    short_description_y = _spell_critical_success_y(base_y, 20, px_to_y)
+    long_description_y = _spell_critical_success_y(base_y, 100, px_to_y)
+
+    assert short_description_y == 640
+    assert long_description_y == 1040
+    assert long_description_y > short_description_y

@@ -528,6 +528,7 @@ def add_spell(name: str, hero: AncestryHero):
                             description=s_data.get("description")
                             or s_data.get("mechanics")
                             or "Brak opisu",
+                            card_description=s_data.get("card_description"),
                             level=s_data.get("level", 0),
                             tags=s_data.get("tags", []),
                             target=s_data.get("target"),
