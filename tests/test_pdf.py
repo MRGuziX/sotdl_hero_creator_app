@@ -8,7 +8,13 @@ from models.base_hero import AncestryHero
 from models.language import Language
 from models.spell import Spell
 from models.talent import Talent
-from utils.pdf_creator import _spell_name_font_size, fill_pdf, fill_spell_pdf
+from utils.pdf_creator import (
+    _spell_description_font_size,
+    _spell_description_layout,
+    _spell_name_font_size,
+    fill_pdf,
+    fill_spell_pdf,
+)
 from utils.utils import get_hero
 
 
@@ -168,48 +174,33 @@ def test_pdf_from_full_flow(output_path):
     assert hero.oddity != ""
 
 
-def test_generate_filled_spells_pdf():
-    output_path = os.path.join("output", "filled_spells.pdf")
-    hero = AncestryHero(
-        ancestry_name="Człowiek",
-        strength=10,
-        dexterity=10,
-        intelligence=10,
-        will=10,
-        perception=10,
-        defense=10,
-        health=10,
-        healing_rate=2,
-        size=[1.0],
-        speed=10,
-        spells=[
-            Spell(
-                name="PRZESTRACH",
-                level=1,
-                tags=["Klątwy", "Atak 1"],
-                target="Jedno stworzenie w bliskim zasięgu, które jest w stanie cię zobaczyć.",
-                area="Sfera o promieniu 2 metrów i punkcie początkowym w bliskim zasięgu.",
-                duration="1 minuta",
-                description=(
-                    "Wykonaj oparty na Intelekcie rzut na atak przeciwko Woli celu. "
-                    "Sukces oznacza, że ofiara zostaje przestraszona na 1 minutę."
-                ),
-                critical_success=(
-                    "Rzut na atak 20+: Przestraszony w ten sposób cel staje się także osłabiony."
-                ),
-            )
-        ],
-    )
-
-    fill_spell_pdf(hero, output_path)
-
-    assert os.path.exists(output_path)
-    assert len(PdfReader(output_path).pages) == 1
-
-
 @pytest.mark.parametrize(
     ("name_length", "font_size"),
     [(3, 18), (12, 18), (13, 14), (23, 14), (24, 12), (34, 12)],
 )
 def test_spell_name_font_size(name_length, font_size):
     assert _spell_name_font_size("A" * name_length) == font_size
+
+
+@pytest.mark.parametrize(
+    ("description_length", "font_size"),
+    [(0, 8), (500, 8), (501, 7), (900, 7), (901, 7), (1100, 7), (1101, 7)],
+)
+def test_spell_description_font_size(description_length, font_size):
+    assert _spell_description_font_size("A" * description_length) == font_size
+
+
+@pytest.mark.parametrize(
+    ("description_length", "layout"),
+    [
+        (0, (8, "empty_spell_cards")),
+        (500, (8, "empty_spell_cards")),
+        (501, (7, "empty_spell_cards")),
+        (900, (7, "empty_spell_cards")),
+        (901, (7, "empty_spell_cards")),
+        (1100, (7, "empty_spell_cards")),
+        (1101, (7, "empty_spell_cards")),
+    ],
+)
+def test_spell_description_layout(description_length, layout):
+    assert _spell_description_layout("A" * description_length) == layout

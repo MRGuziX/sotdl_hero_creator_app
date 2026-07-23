@@ -4,7 +4,7 @@ from dataclasses import dataclass
 
 from pypdf import PdfReader, PdfWriter
 from reportlab.lib.colors import black
-from reportlab.lib.enums import TA_LEFT
+from reportlab.lib.enums import TA_CENTER, TA_LEFT
 from reportlab.lib.pagesizes import A4
 from reportlab.lib.styles import ParagraphStyle
 from reportlab.lib.units import mm
@@ -286,65 +286,87 @@ def _spell_name_font_size(name: str) -> int:
     return 12
 
 
+def _spell_description_layout(description: str) -> tuple[int, str]:
+    """Return the description font size and the single card template name."""
+    return (8 if len(description or "") <= 500 else 7), "empty_spell_cards"
+
+
+def _spell_description_font_size(description: str) -> int:
+    return _spell_description_layout(description)[0]
+
+
+def _spell_card_fields(spell, card_number: int) -> dict[str, str]:
+    """Build the numbered field dictionary used by the 3x3 card loop."""
+    return {
+        f"spell_name_card_{card_number}": spell.name or "",
+        f"spell_target_card_{card_number}": spell.target or "",
+        f"spell_duration_card_{card_number}": spell.duration or "",
+        f"spell_area_card_{card_number}": spell.area or "",
+        f"spell_description_card_{card_number}": spell.description or "",
+        f"spell_attack_roll_card_{card_number}": spell.critical_success or "",
+        f"spell_tags_card_{card_number}": ", ".join(spell.tags or []),
+    }
+
+
 def fill_spell_pdf(hero: AncestryHero, output_path: str) -> str:
-    """Create one spell card per known spell using ``spell_card_v1.pdf`` as a background."""
-    template_path = pathlib.Path(__file__).parent.parent / "data_base" / "spell_card_v1.pdf"
+    """Render up to nine spells per page on the 3x3 card template."""
+    templates_dir = pathlib.Path(__file__).parent.parent / "data_base"
+    template_path = templates_dir / "empty_spell_cards.pdf"
+    output_file = pathlib.Path(output_path)
+    output_file.parent.mkdir(parents=True, exist_ok=True)
     if not hero.spells:
         raise ValueError("Nie można utworzyć kart zaklęć bez zaklęć.")
 
     _register_spell_fonts()
-    overlay_path = pathlib.Path(output_path).with_suffix(".spell-overlay.pdf")
+    overlay_path = output_file.with_suffix(".spell-overlay.pdf")
     canvas = Canvas(str(overlay_path), pagesize=A4)
-    for spell in hero.spells:
-        canvas.setFont(SPELL_NAME_FONT, _spell_name_font_size(spell.name))
-        canvas.drawCentredString(A4[0] / 2, A4[1] - 38 * mm, spell.name)
-        canvas.setFont(SPELL_FONT, 11)
-        canvas.drawString(35 * mm, A4[1] - 58 * mm, f"Poziom: {spell.level}")
-        y = A4[1] - 76 * mm
-        for label, value in (
-            ("Cel", spell.target),
-            ("Obszar", spell.area),
-            ("Czas trwania", spell.duration),
-        ):
-            if value:
-                canvas.setFont(SPELL_FONT_BOLD, 11)
-                canvas.drawString(35 * mm, y, f"{label}:")
-                canvas.setFont(SPELL_FONT, 11)
-                y -= _draw_wrapped_text(canvas, value, 35 * mm + 24 * mm, y + 4, 125 * mm, 11)
-                y -= 4
-        y -= 4
-        canvas.setFont(SPELL_FONT_BOLD, 11)
-        canvas.drawString(35 * mm, y, "Opis:")
-        y -= 5
-        description_size = 9 if len(spell.description) > 250 else 11
-        y -= _draw_wrapped_text(canvas, spell.description, 35 * mm, y, 145 * mm, description_size)
-        if spell.critical_success:
-            y -= 10
-            canvas.setFont(SPELL_FONT_BOLD, 11)
-            critical_prefix = "Rzut na atak 20+:"
-            critical_text = spell.critical_success
-            if critical_text.startswith(critical_prefix):
-                critical_text = critical_text[len(critical_prefix) :].lstrip()
-            canvas.drawString(35 * mm, y, critical_prefix)
-            y -= 5
-            y -= _draw_wrapped_text(canvas, critical_text, 35 * mm, y, 145 * mm, 11)
-        if spell.tags:
-            y -= 10
-            canvas.setFont(SPELL_FONT_BOLD, 11)
-            canvas.drawString(35 * mm, y, "Tagi:")
-            y -= 5
-            _draw_wrapped_text(canvas, ", ".join(spell.tags), 35 * mm, y, 145 * mm, 11)
+    px_to_x = A4[0] / 2480
+    px_to_y = A4[1] / 3508
+    columns = (488, 1239, 1991)
+    row_bases = (200, 1312, 2415)
+
+    def draw_centered(text: str, x_px: float, y_px: float, size: int) -> None:
+        canvas.setFont(SPELL_FONT, size)
+        canvas.drawCentredString(x_px * px_to_x, A4[1] - y_px * px_to_y, text)
+
+    for page_start in range(0, len(hero.spells), 9):
+        for card_index, spell in enumerate(hero.spells[page_start : page_start + 9], 1):
+            column = columns[(card_index - 1) % 3]
+            base_y = row_bases[(card_index - 1) // 3]
+            fields = _spell_card_fields(spell, card_index)
+            description = fields[f"spell_description_card_{card_index}"]
+            description_size, _ = _spell_description_layout(description)
+            draw_centered(fields[f"spell_name_card_{card_index}"], column, base_y,
+                          _spell_name_font_size(fields[f"spell_name_card_{card_index}"]))
+            for offset, field_name in ((175, "target"), (205, "duration"), (235, "area")):
+                value = fields[f"spell_{field_name}_card_{card_index}"]
+                if value:
+                    draw_centered(str(value), column, base_y + offset, 7)
+            style = ParagraphStyle("spell_card", fontName=SPELL_FONT, fontSize=description_size,
+                                   leading=description_size * 1.2, textColor=black,
+                                   alignment=TA_CENTER)
+            paragraph = Paragraph(description.replace("&", "&amp;"), style)
+            width = 680 * px_to_x
+            _, height = paragraph.wrap(width, 500 * px_to_y)
+            paragraph.drawOn(canvas, column * px_to_x - width / 2,
+                             A4[1] - (base_y + 355) * px_to_y - height)
+            if fields[f"spell_attack_roll_card_{card_index}"]:
+                critical = fields[f"spell_attack_roll_card_{card_index}"].removeprefix(
+                    "Rzut na atak 20+:"
+                ).strip()
+                draw_centered(f"rzut na atak 20+: {critical}", column, base_y + 400, 7)
+            if fields[f"spell_tags_card_{card_index}"]:
+                draw_centered(fields[f"spell_tags_card_{card_index}"], column, base_y + 940, 7)
         canvas.showPage()
     canvas.save()
 
-    background = PdfReader(template_path)
     overlay = PdfReader(overlay_path)
     writer = PdfWriter()
     for page in overlay.pages:
-        card = background.pages[0]
+        card = PdfReader(template_path).pages[0]
         card.merge_page(page)
         writer.add_page(card)
-    with open(output_path, "wb") as output_stream:
+    with output_file.open("wb") as output_stream:
         writer.write(output_stream)
     overlay_path.unlink()
     return output_path
