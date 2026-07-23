@@ -37,9 +37,10 @@ SPELL_DESCRIPTION_GAP_AFTER_TECHNICAL_PX = 50
 SPELL_TABLE_GAP_AFTER_DESCRIPTION_PX = 25
 SPELL_CRITICAL_SUCCESS_GAP_PX = 50
 SPELL_TAGS_OFFSET_Y = 1000
-SPELL_ORIGIN_LEFT_OFFSET_X = 100
-SPELL_ORIGIN_BOTTOM_OFFSET_Y = 1080
-SPELL_ORIGIN_FONT_SIZE = 5
+SPELL_ORIGIN_LEFT_OFFSET_X = 320
+SPELL_ORIGIN_CENTER_COLUMN_CORRECTION_PX = 10
+SPELL_ORIGIN_BOTTOM_OFFSET_Y = 980
+SPELL_ORIGIN_FONT_SIZE = 7
 
 
 def _register_spell_fonts() -> None:
@@ -340,9 +341,7 @@ def _spell_card_fields(spell, card_number: int) -> dict[str, str]:
         f"spell_table_card_{card_number}": spell.table or {},
         f"spell_origin_card_{card_number}": spell.origin or {},
         f"spell_tags_card_{card_number}": (
-            f"{', '.join(spell.tags or [])} {spell.level}"
-            if spell.tags
-            else str(spell.level)
+            f"{', '.join(spell.tags or [])} {spell.level}" if spell.tags else str(spell.level)
         ),
     }
 
@@ -437,6 +436,16 @@ def _spell_origin_text(origin: dict) -> str:
     return f"{source} {number}".strip()
 
 
+def _spell_origin_x(column_px: float) -> float:
+    """Return the origin footer X position, correcting the center card's template offset."""
+    correction = (
+        SPELL_ORIGIN_CENTER_COLUMN_CORRECTION_PX
+        if column_px == SPELL_CARD_COLUMNS_X[1]
+        else 0
+    )
+    return column_px - SPELL_ORIGIN_LEFT_OFFSET_X - correction
+
+
 def _spell_description_bounds(column_px: float) -> tuple[float, float]:
     """Return the left edge and width of a card's description area in pixels."""
     column_step = column_px - SPELL_CARD_COLUMNS_X[0]
@@ -474,11 +483,7 @@ def _spell_description_top(
 
 def _spell_table_top(description_top: float, description_height: float, px_to_y: float) -> float:
     """Return the table top 25 px below the wrapped description."""
-    return (
-        description_top
-        + description_height / px_to_y
-        + SPELL_TABLE_GAP_AFTER_DESCRIPTION_PX
-    )
+    return description_top + description_height / px_to_y + SPELL_TABLE_GAP_AFTER_DESCRIPTION_PX
 
 
 def _spell_effect_value(value: str, label: str) -> str:
@@ -681,7 +686,7 @@ def fill_spell_pdf(hero: AncestryHero, output_path: str) -> str:
             if origin_text:
                 canvas.setFont(SPELL_FONT, SPELL_ORIGIN_FONT_SIZE)
                 canvas.drawString(
-                    (column - SPELL_ORIGIN_LEFT_OFFSET_X) * px_to_x,
+                    _spell_origin_x(column) * px_to_x,
                     A4[1] - (base_y + SPELL_ORIGIN_BOTTOM_OFFSET_Y) * px_to_y,
                     origin_text,
                 )

@@ -10,7 +10,7 @@
       "target": "Cel: Jedno stworzenie w bliskim zasięgu.",
       "book_description": "Temperatura wokół stworzenia gwałtownie spada. Wykonaj oparty na Woli rzut na atak przeciwko Zręczności celu. Sukces oznacza, że otrzymuje on 1k3 obrażeń i jest unieruchomiony na 1 rundę.",
       "critical_success": "Rzut na atak to 20+: Cel otrzymuje dodatkowe 1k3 obrażeń.",
-      "card_description": "",
+      "card_description": "Temperatura wokół stworzenia\ngwałtownie spada. Wykonaj oparty\nna Woli rzut na atak przeciwko\nZręczności celu. Sukces oznacza,\nże otrzymuje on 1k3 obrażeń i jest\nunieruchomiony na 1 rundę.",
       "origin": {
         "source": "PG",
         "number": 150
@@ -25,7 +25,7 @@
       "level": 0,
       "target": "Cel: Jeden kubek, miska lub inne podobne naczynie w bezpośrednim zasięgu.",
       "book_description": "Dotykasz celu, który napełnia się czystą, świeżą wodą.",
-      "card_description": "",
+      "card_description": "Dotykasz celu, który napełnia się\nczystą, świeżą wodą.",
       "origin": {
         "source": "PG",
         "number": 150
@@ -42,7 +42,7 @@
       "level": 1,
       "target": "Cel: Jedno stworzenie w bliskim zasięgu, które oddycha powietrzem.",
       "book_description": "W płucach lub analogicznym organie celu gromadzi się woda. Musi on wykonać test Siły; porażka oznacza, że otrzymuje 1k6 + 2 obrażeń i staje się osłabiony. Na koniec każdej rundy, w której pozostaje osłabiony z powodu tego zaklęcia, musi wykonać test Siły z 1 ułatwieniem, sukces zaś oznacza, że pozbywa się tego stanu. Po trzech nieudanych testach cel dusi się i umiera.",
-      "card_description": "",
+      "card_description": "W płucach lub analogicznym\norganie celu gromadzi się woda.\nMusi on wykonać test Siły; porażka\noznacza, że otrzymuje 1k6 + 2 obrażeń\ni staje się osłabiony. Na koniec każdej\nrundy, w której pozostaje osłabiony\nz powodu tego zaklęcia, musi\nwykonać test Siły z 1 ułatwieniem,\nsukces zaś oznacza, że pozbywa się\ntego stanu. Po trzech nieudanych\ntestach cel dusi się i umiera.",
       "origin": {
         "source": "PG",
         "number": 150
@@ -57,7 +57,7 @@
       "level": 1,
       "area": "Obszar: Stożek długości 3 metrów o punkcie początkowym w bezpośrednim zasięgu.",
       "book_description": "Ciskasz ostrymi odłamkami lodu, które zadają 2k6 + 2 obrażeń wszystkiemu wewnątrz obszaru działania zaklęcia lub ich połowę po udanym teście Zręczności. Podłoże na tym obszarze staje się na 1 rundę trudnym terenem.",
-      "card_description": "",
+      "card_description": "Ciskasz ostrymi odłamkami lodu,\nktóre zadają 2k6 + 2 obrażeń lub\nich połowę po udanym teście\nZręczności. Podłoże na tym\nobszarze staje się na 1 rundę\ntrudnym terenem.",
       "origin": {
         "source": "PG",
         "number": 150
@@ -73,7 +73,7 @@
       "area": "Obszar: Półkula o promieniu 2 metrów i punkcie początkowym na podłożu w bliskim zasięgu.",
       "duration": "Czas działania: 1 minuta.",
       "book_description": "Obszar działania zaklęcia staje się na czas jego trwania częściowo przesłonięty przez uzdrawiające wody. Znajdujące się tam żywe stworzenia nie muszą pić do czasu odbycia następnego pełnego odpoczynku. Gdy istota wewnątrz obszaru leczy obrażenia, odzyskuje dodatkowe 1k3 punktów Zdrowia.",
-      "card_description": "",
+      "card_description": "Obszar działania zaklęcia staje się\nna czas jego trwania częściowo\nprzesłonięty przez uzdrawiające\nwody. Znajdujące się tam żywe\nstworzenia nie muszą pić do czasu\nodbycia następnego pełnego\nodpoczynku. Gdy istota wewnątrz\nobszaru leczy obrażenia, odzyskuje\ndodatkowe 1k3 punktów Zdrowia.",
       "origin": {
         "source": "PG",
         "number": 150
@@ -90,7 +90,7 @@
       "level": 2,
       "area": "Obszar: Okrąg na podłożu o promieniu 5 metrów i punkcie początkowym w średnim zasięgu.",
       "book_description": "Z obszaru działania zaklęcia wybija kolumna gorącej wody, wzlatując na 2k6 metrów w górę, po czym opada na podłożena połowę tej odległości poza granicę obszaru, gasząc nieosłonięte płomienie. Siła strumienia odpycha niezabezpieczone obiekty o Rozmiarze 1 lub mniejszym na 1k6 metrów od punktu początkowego, a każde stworzenie wewnątrz obszaru otrzymuje 2k6 + 2 obrażeń od gorącej wody i musi wykonać test Zręczności. Porażka oznacza, że zostaje powalone, a sukces, że otrzymuje tylko połowę obrażeń.",
-      "card_description": "",
+      "card_description": "Z obszaru działania zaklęcia wybija\nkolumna gorącej wody, wzlatując na\n2k6 metrów w górę, po czym opada na\npodłoże na połowę tej odległości poza\ngranicę obszaru, gasząc nieosłonięte\npłomienie. Siła strumienia odpycha\nniezabezpieczone obiekty o Rozmiarze 1\nlub mniejszym na 1k6 metrów od punktu\npoczątkowego, a każde stworzenie\nwewnątrz obszaru otrzymuje 2k6 + 2\nobrażeń od gorącej wody i musi wykonać\ntest Zręczności. Porażka oznacza, że\nzostaje powalone, a sukces, że otrzymuje\ntylko połowę obrażeń.",
       "origin": {
         "source": "PG",
         "number": 150
@@ -106,7 +106,7 @@
       "area": "Obszar: Linia łamana o długości 10 metrów, wysokości 10 metrów i szerokości 1 metra o punkcie początkowym na podłożu w średnim zasięgu.",
       "duration": "Czas działania: 1 runda.",
       "book_description": "W obszarze działania zaklęcia na czas jego trwania wzbiera woda. Częściowo przesłania ona wszystko wewnątrz tego obszaru i poza nim, zapewniając także połowiczną osłonę. Masi też wszystkie znajdujące się tam płomienie. Gdy efekt dobiegnie końca, linia wody załamuje się; możesz wybrać, czy opada w twoją stronę, czy w przeciwną. Ciecz pokrywa obszar o długości i szerokości 10 metrów. Każde znajdujące się tam stworzenie otrzymuje 1k6 obrażeń i musi wykonać test Siły. Porażka oznacza, że zostaje powalone, a sukces, że otrzymuje tylko połowę obrażeń. Następnie woda rozpływa się na kolejne 10 metrów w każdym kierunku, gasząc wszystkie płomienie, których dotknie.",
-      "card_description": "",
+      "card_description": "W obszarze działania zaklęcia na czas jego\ntrwania wzbiera woda. Częściowo przesłania\nona wszystko wewnątrz tego obszaru i poza\nnim, zapewniając także połowiczną osłonę.\nGdy efekt dobiegnie końca, linia wody\nzałamuje się; możesz wybrać, czy opada\nw twoją stronę, czy w przeciwną. Ciecz\npokrywa obszar o długości i szerokości\n10m. Każde znajdujące się tam stworzenie\notrzymuje 1k6 obrażeń i musi wykonać test\nSiły. Porażka oznacza, że zostaje powalone,\na sukces, że otrzymuje tylko połowę\nobrażeń. Następnie woda rozpływa się na\nkolejne 10m w każdym kierunku, gasząc\nwszystkie płomienie, których dotknie.",
       "origin": {
         "source": "PG",
         "number": 150
@@ -124,7 +124,7 @@
       "area": "Obszar: Sfera o promieniu 3 metrów i punkcie początkowym w średnim zasięgu.",
       "duration": "Czas działania: Koncentracja, do 1 minuty.",
       "book_description": "Obszar zostaje wypełniony wodą, która utrzymuje się przez czas trwania zaklęcia. Za każdym razem, gdy wykorzystasz akcję, by utrzymać koncentrację na tym czarze, możesz przemieścić kulę i wszystko wewnątrz niej do 5 metrów w dowolnym kierunku. Wszystkie stworzenia znajdujące się w obszarze działania zaklęcia w momencie jego rzucenia zostają uwięzione w kuli, podobnie jak te, na których przestrzeń się ona przemieści. Dopóki czar trwa, na koniec każdej rundy wszelkie oddychające powietrzem istoty uwięzione w kuli muszą wykonać udany test Siły, w przeciwnym wypadku otrzymują 2k6 obrażeń. Uwięzione w kuli stworzenie może wykorzystać akcję, by wykonać test Siły. Sukces oznacza, że wydostaje się na zewnątrz i ląduje powalone w wybranej wolnej przestrzeni w odległości 1 metra od kuli.",
-      "card_description": "",
+      "card_description": "Obszar zostaje wypełniony wodą, która\nutrzymuje się przez czas trwania zaklęcia.\nZa każdym razem, gdy wykorzystasz akcję, by\nutrzymać koncentrację na tym czarze, możesz\nprzemieścić kulę i wszystko wewnątrz niej do\n5m w dowolnym kierunku. Wszystkie stworzenia znajdujące się w obszarze działania zaklęcia\nw momencie jego rzucenia zostają uwięzione\nw kuli, podobnie jak te, na których przestrzeń\nsię ona przemieści. Dopóki czar trwa, na koniec\nkażdej rundy wszelkie oddychające powietrzem\nistoty uwięzione w kuli muszą wykonać udany\ntest Siły, w przeciwnym wypadku otrzymują\n2k6 obrażeń. Uwięzione w kuli stworzenie\nmoże wykorzystać akcję, by wykonać test\nSiły. Sukces oznacza, że wydostaje się na\nzewnątrz i ląduje powalone w wybranej wolnej\nprzestrzeni w odległości 1m od kuli.",
       "origin": {
         "source": "PG",
         "number": 150
@@ -139,7 +139,7 @@
       "level": 3,
       "target": "Cel: Dowolna liczba stworzeń w średnim zasięgu.",
       "book_description": "Każdy cel musi wykonać test Siły z 1 utrudnieniem. Porażka oznacza, że wybierasz, czy zostaje przemieszczony o 2k6 metrów ku tobie, czy od ciebie, oraz że staje się zamroczony na 1 rundę. Sukces oznacza, że porusza się tylko o połowę tego dystansu.",
-      "card_description": "",
+      "card_description": "Każdy cel musi wykonać test\nSiły z 1 utrudnieniem. Porażka\noznacza, że wybierasz, czy zostaje\nprzemieszczony o 2k6 metrów ku\ntobie, czy od ciebie, oraz że staje\nsię zamroczony na 1 rundę. Sukces\noznacza, że porusza się tylko\no połowę tego dystansu.",
       "origin": {
         "source": "PG",
         "number": 150
@@ -156,7 +156,7 @@
       "level": 4,
       "area": "Obszar: Stożek długości 8 metrów o punkcie początkowym w bezpośrednim zasięgu.",
       "book_description": "W obszarze działania zaklęcia rozchodzi się zabójczy chłód, natychmiast zamrażający wodę i oparte na wodzie ciecze, takie jak eliksiry. Wszystko, co się tam znajduje, otrzymuje 7k6 obrażeń od zimna. Każde stworzenie, któremu powiedzie się test Siły, dostaje tylko połowę tych obrażeń. Jeśli wskutek tych obrażeń istota zostanie obezwładniona, zamarza na kamień i natychmiast umiera.",
-      "card_description": "",
+      "card_description": "W obszarze działania zaklęcia\nrozchodzi się zabójczy chłód,\nnatychmiast zamrażający wodę\ni oparte na wodzie ciecze, takie\njak eliksiry. Wszystko, co się tam\nznajduje, otrzymuje 7k6 obrażeń od\nzimna. Każde stworzenie, któremu\npowiedzie się test Siły, dostaje\ntylko połowę tych obrażeń. Jeśli\nwskutek tych obrażeń istota zostanie\nobezwładniona, zamarza na kamień\ni natychmiast umiera.",
       "origin": {
         "source": "PG",
         "number": 150
@@ -174,7 +174,7 @@
       "target": "Cel: Sześcian wody, śniegu lub lodu o krawędzi 2 metrów i punkcie początkowym w dalekim zasięgu.",
       "duration": "Czas działania: 1 minuta.",
       "book_description": "Na koniec rundy, w której rzucasz to zaklęcie, wskazany sześcian wody, śniegu lub lodu zamienia się w dżinna wody o Rozmiarze 2. Efektów tego czaru nie możesz dobrowolnie zakończyć. Gdy przyzywasz to stworzenie, wykonaj oparty na Woli rzut na atak przeciwko jego Woli. Sukces oznacza, że na czas trwania zaklęcia istota zostaje zniewolona; porażka zaś, że staje się wobec ciebie wroga.",
-      "card_description": "",
+      "card_description": "Na koniec rundy, w której\nrzucasz to zaklęcie, wskazany\nsześcian wody, śniegu lub lodu\nzamienia się w dżinna wody\no Rozmiarze 2. Efektów tego\nczaru nie możesz dobrowolnie\nzakończyć. Gdy przyzywasz to\nstworzenie, wykonaj oparty na\nWoli rzut na atak przeciwko jego\nWoli. Sukces oznacza, że na czas\ntrwania zaklęcia istota zostaje\nzniewolona; porażka zaś, że\nstaje się wobec ciebie wroga.",
       "origin": {
         "source": "PG",
         "number": 150

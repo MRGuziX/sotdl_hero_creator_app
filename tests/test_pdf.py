@@ -19,6 +19,7 @@ from utils.pdf_creator import (
     _spell_description_top,
     _spell_table_top,
     _spell_origin_text,
+    _spell_origin_x,
     _spell_effect_value,
     _format_spell_description,
     _spell_name_bounds,
@@ -351,6 +352,12 @@ def test_real_storm_and_conjuration_spells_render_from_full_json():
     mirage_data = load_spell("illusion_tradition", 4, "MIRAŻ")
     wild_magic_data = load_spell("chaos_tradition", 3, "DZIKA MAGIA")
     healing_data = load_spell("life_tradition", 1, "UZDROWIENIE")
+    hateful_defecation_data = load_spell(
+        "forbidden_tradition", 1, "NIENAWISTNA DEFEKACJA"
+    )
+    soul_swap_data = load_spell("forbidden_tradition", 4, "ZAMIANA DUSZ")
+    vile_fusion_data = load_spell("forbidden_tradition", 5, "NIKCZEMNE ZESPOLENIE")
+    magical_item_data = load_spell("technomancy_tradition", 5, "MAGICZNY PRZEDMIOT")
     spells = [
         Spell(**data)
         for data in (
@@ -364,6 +371,10 @@ def test_real_storm_and_conjuration_spells_render_from_full_json():
             mirage_data,
             wild_magic_data,
             healing_data,
+            hateful_defecation_data,
+            soul_swap_data,
+            vile_fusion_data,
+            magical_item_data,
         )
     ]
     hero = AncestryHero(
@@ -395,6 +406,10 @@ def test_real_storm_and_conjuration_spells_render_from_full_json():
     mirage_fields = _spell_card_fields(spells[7], 8)
     wild_magic_fields = _spell_card_fields(spells[8], 9)
     healing_fields = _spell_card_fields(spells[9], 1)
+    hateful_defecation_fields = _spell_card_fields(spells[10], 2)
+    soul_swap_fields = _spell_card_fields(spells[11], 3)
+    vile_fusion_fields = _spell_card_fields(spells[12], 4)
+    magical_item_fields = _spell_card_fields(spells[13], 5)
 
     assert "PRZYWO" in rendered_text
     assert "U" in rendered_text and "YTECZNEGO" in rendered_text
@@ -431,6 +446,19 @@ def test_real_storm_and_conjuration_spells_render_from_full_json():
     assert wild_magic_fields["spell_table_card_9"] == wild_magic_data["table"]
     assert healing_fields["spell_target_card_1"] == healing_data["target"]
     assert healing_fields["spell_description_card_1"] == healing_data["card_description"]
+    assert hateful_defecation_fields["spell_target_card_2"] == hateful_defecation_data["target"]
+    assert hateful_defecation_fields["spell_attack_roll_card_2"] == hateful_defecation_data["critical_success"]
+    assert hateful_defecation_fields["spell_description_card_2"] == hateful_defecation_data["card_description"]
+    assert soul_swap_fields["spell_target_card_3"] == soul_swap_data["target"]
+    assert soul_swap_fields["spell_attack_roll_card_3"] == soul_swap_data["critical_success"]
+    assert soul_swap_fields["spell_description_card_3"] == soul_swap_data["card_description"]
+    assert vile_fusion_fields["spell_target_card_4"] == vile_fusion_data["target"]
+    assert vile_fusion_fields["spell_attack_roll_card_4"] == vile_fusion_data["critical_success"]
+    assert vile_fusion_fields["spell_description_card_4"] == vile_fusion_data["card_description"]
+    assert magical_item_fields["spell_target_card_5"] == magical_item_data["target"]
+    assert magical_item_fields["spell_duration_card_5"] == magical_item_data["duration"]
+    assert magical_item_fields["spell_permanent_card_5"] == magical_item_data["permanent"]
+    assert magical_item_fields["spell_description_card_5"] == magical_item_data["card_description"]
     assert "piorun" in rendered_text.lower()
     assert "przedmiot" in rendered_text.lower()
     assert "zakrzywienie" in rendered_text.lower()
@@ -441,6 +469,10 @@ def test_real_storm_and_conjuration_spells_render_from_full_json():
     assert "miraż" in rendered_text.lower()
     assert "dzika" in rendered_text.lower()
     assert "uzdrowienie" in rendered_text.lower()
+    assert "nienawistna" in rendered_text.lower()
+    assert "zamiana" in rendered_text.lower()
+    assert "nikczemne" in rendered_text.lower()
+    assert "magiczny" in rendered_text.lower()
 
 
 
@@ -643,3 +675,9 @@ def test_spell_table_starts_25_pixels_below_description():
 def test_spell_origin_is_formatted_for_card_footer():
     assert _spell_origin_text({"source": "PG", "number": 153}) == "PG 153"
     assert _spell_origin_text({}) == ""
+
+
+def test_spell_origin_center_column_is_shifted_left():
+    assert _spell_origin_x(488) == 168
+    assert _spell_origin_x(1249) == 919
+    assert _spell_origin_x(1991) == 1671

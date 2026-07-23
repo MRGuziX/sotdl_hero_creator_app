@@ -9,7 +9,7 @@
       "level": 0,
       "duration": "Czas działania: 1 minuta; patrz niżej.",
       "book_description": "W twojej dłoni pojawia się jaśniejący święty symbol, który utrzymuje się przez czas trwania czaru lub dopóki nie wypuścisz go z ręki. Zapewnia ci on 1 ułatwienie w rzutach na atak z użyciem zaklęć Teurgii.",
-      "card_description": "",
+      "card_description": "W twojej dłoni pojawia się\njaśniejący święty symbol.\nZapewnia ci on 1 ułatwienie\nw rzutach na atak z użyciem\nzaklęć Teurgii.",
       "origin": {
         "source": "PG",
         "number": 147
@@ -25,7 +25,7 @@
       "target": "Cel: Jedno stworzenie w bliskim zasięgu, które jest w stanie cię widzieć i usłyszeć.",
       "book_description": "Wyciągasz swój święty symbol tak, by cel mógł go wiedzieć. Wykonaj oparty na Woli rzut na atak przeciwko Woli stworzenia. Sukces oznacza, że staje się ono przestraszone na 1 rundę.",
       "critical_success": "Rzut na atak to 20+: Cel zostaje także powalony.",
-      "card_description": "",
+      "card_description": "Wyciągasz swój święty symbol\ntak, by cel mógł go widzieć.\nWykonaj oparty na Woli rzut na\natak przeciwko Woli stworzenia\nSukces oznacza, że staje się ono\nprzestraszone na 1 rundę.",
       "origin": {
         "source": "PG",
         "number": 147
@@ -43,7 +43,7 @@
       "target": "Cel: Dowolna liczba stworzeń w bezpośrednim zasięgu.",
       "duration": "Czas działania: 1 minuta.",
       "book_description": "Dotykasz każdego z celów, błogosławiąc je. Przez czas trwania zaklęcia wykonują one wszystkie rzuty na atak i testy z 1 ułatwieniem i nie mogą zostać przestraszone.",
-      "card_description": "",
+      "card_description": "Dotykasz każdego z celów,\nbłogosławiąc je. Przez czas\ntrwania zaklęcia wykonują one\nwszystkie rzuty na atak i testy\nz 1 ułatwieniem i nie mogą zostać\nprzestraszone.",
       "origin": {
         "source": "PG",
         "number": 147
@@ -58,7 +58,7 @@
       "level": 1,
       "area": "Obszar: Sfera o promieniu 5 metrów i punkcie początkowym w bezpośrednim zasięgu.",
       "book_description": "Wyciągasz swój święty symbol, fragment pisma lub inną fizyczną reprezentację twojej wiary, po czym uwalniasz falę świętej mocy, która rozchodzi się po obszarze działania zaklęcia. Każdy znajdujący się tam demon, diabeł, faerie, duch lub nieumarły musi wykonać udany test Woli, w przeciwnym wypadku staje się osłabiony na 1 minutę. Osłabione tym czarem stworzenie nie może podejmować tur krótkich.",
-      "card_description": "",
+      "card_description": "Wyciągasz swój święty symbol lub\ninną fizyczną reprezentację twojej\nwiary, po czym uwalniasz falę świętej\nmocy, która rozchodzi się\npo obszarze działania zaklęcia.\nKażdy znajdujący się tam demon,\ndiabeł, faerie, duch lub nieumarły\nmusi wykonać udany test Woli,\nw przeciwnym wypadku staje się\nosłabiony na 1 minutę. Osłabione\ntym czarem stworzenie nie może\npodejmować tur krótkich.",
       "origin": {
         "source": "PG",
         "number": 147
@@ -74,7 +74,7 @@
       "area": "Obszar: Półkula o promieniu 3 metrów i punkcie początkowym na podłożu w bliskim zasięgu.",
       "duration": "Czas działania: Koncentracja do 1 minuty; patrz niżej.",
       "book_description": "Na czas trwania zaklęcia w jego obszarze działania pojawia się przejrzysta, nieruchoma kopuła. Przez jej powierzchnię nie zdoła przeniknąć nic i nikt z zewnątrz, a wnętrze jest wyłączone z obszaru działania innych zaklęć. Stworzenia i obiekty w środku kopuły są ukryte przed wszystkimi na zewnątrz niej oprócz ciebie. Istota może swobodnie opuścić ten teren, ale nie jest w stanie później na niego powrócić. Efekt kończy się natychmiast, jeśli stworzenie wewnątrz kopuły wykona atak.",
-      "card_description": "",
+      "card_description": "Pojawia się przejrzysta, nieruchoma\nkopuła. Przez jej powierzchnię nie\nzdoła przeniknąć nic i nikt z zewnątrz,\na wnętrze jest wyłączone z obszaru\ndziałania innych zaklęć. Stworzenia\ni obiekty w środku kopuły są ukryte\nprzed wszystkimi na zewnątrz niej\noprócz ciebie. Istota może swobodnie\nopuścić ten teren, ale nie jest w stanie\npóźniej na niego powrócić. Efekt\nkończy się natychmiast, jeśli stworzenie\nwewnątrz kopuły wykona atak.",
       "origin": {
         "source": "PG",
         "number": 147
@@ -93,7 +93,7 @@
       "duration": "Czas działania: 1 minuta.",
       "book_description": "We wskazanym punkcie pojawia się świecący, złoty młot, który unosi się w powietrzu. Dopóki zaklęcie trwa, możesz podczas swojej tury wykorzystać reakcję, by przemieścić młot o maksymalnie 10 metrów i zaatakować stworzenie w odległości 1 metra od niego. Wykonaj oparty na Woli rzut na atak przeciwko Obronie celu. Sukces oznacza, że istota otrzymuje 2k6 obrażeń.",
       "critical_success": "Rzut na atak to 20+: Cel otrzymuje dodatkowe 2k6 obrażeń.",
-      "card_description": "",
+      "card_description": "We wskazanym punkcie\npojawia się świecący, złoty młot,\nktóry unosi się w powietrzu.\nDopóki zaklęcie trwa, możesz\npodczas swojej tury wykorzystać\nreakcję, by przemieścić młot o maksymalnie 10m i zaatakować stworzenie\nw odległości 1m od niego. Wykonaj\noparty na Woli rzut na atak przeciwko\nObronie celu. Sukces oznacza, że\nistota otrzymuje 2k6 obrażeń.",
       "origin": {
         "source": "PG",
         "number": 147
@@ -109,7 +109,7 @@
       "target": "Cel: Jedno stworzenie w bezpośrednim zasięgu.",
       "duration": "Czas działania: 1 minuta; patrz niżej.",
       "book_description": "Dotykasz celu, obdarzając go siedmioma objawieniami, które utrzymują się przez czas trwania zaklęcia lub dopóki nie wykorzysta ostatniego z nich. Gdy cel wykonuje rzut na atak lub test, może poświęcić dowolną liczbę dostępnych mu jeszcze objawień. Każde zapewnia 2 ułatwienia w danym rzucie.",
-      "card_description": "",
+      "card_description": "Dotykasz celu, obdarzając go\nsiedmioma objawieniami, które\nutrzymują się przez czas trwania\nzaklęcia lub dopóki nie wykorzysta\nostatniego z nich. Gdy cel wykonuje\nrzut na atak lub test, może poświęcić\ndowolną liczbę dostępnych mu\njeszcze objawień. Każde zapewnia\n2 ułatwienia w danym rzucie.",
       "origin": {
         "source": "PG",
         "number": 147
@@ -127,7 +127,7 @@
       "target": "Cel: Każde wybrane stworzenie w bliskim zasięgu.",
       "duration": "Czas działania: 1 godzina.",
       "book_description": "Każdy cel zyskuje na czas trwania zaklęcia premię +15 do Zdrowia.",
-      "card_description": "",
+      "card_description": "Każdy cel zyskuje na czas trwania\nzaklęcia premię +15 do Zdrowia.",
       "origin": {
         "source": "PG",
         "number": 147
@@ -142,7 +142,7 @@
       "level": 3,
       "target": "Cel: Punkt na podłożu w średnim zasięgu.",
       "book_description": "W cel uderza piorun, zadając 2k6 + 2 obrażeń każdemu stworzeniu w promieniu 1k6 metrów. Istota, która otrzyma w ten sposób obrażenia, musi wykonać test Zręczności. Porażka oznacza, że staje się zamroczona na 1 rundę, a sukces, że dostaje tylko połowę obrażeń.",
-      "card_description": "",
+      "card_description": "W cel uderza piorun, zadając\n2k6 + 2 obrażeń każdemu stworzeniu\nw promieniu 1k6 metrów. Istota, która\notrzyma w ten sposób obrażenia,\nmusi wykonać test Zręczności\nPorażka oznacza, że staje się\nzamroczona na 1 rundę, a sukces,\nże dostaje tylko połowę obrażeń.",
       "origin": {
         "source": "PG",
         "number": 147
@@ -159,7 +159,7 @@
       "level": 4,
       "duration": "Czas działania: 1 minuta.",
       "book_description": "Wypełnia cię boska moc. Przez czas trwania zaklęcia otrzymujesz tylko połowę obrażeń niezależnie od ich rodzaju, ataki wykonujesz z 1 ułatwieniem, a twoja broń zadaje dodatkowe 2k6 obrażeń.",
-      "card_description": "",
+      "card_description": "Wypełnia cię boska moc. Przez\nczas trwania zaklęcia otrzymujesz\ntylko połowę obrażeń niezależnie\nod ich rodzaju, ataki wykonujesz\nz 1 ułatwieniem, a twoja broń\nzadaje dodatkowe 2k6 obrażeń.",
       "origin": {
         "source": "PG",
         "number": 147
@@ -176,7 +176,7 @@
       "level": 5,
       "area": "Obszar: Walec o wysokości 25 metrów, promieniu 5 metrów i punkcie początkowym na podłożu w ekstremalnym zasięgu.",
       "book_description": "W obszarze działania zaklęcia rozchodzą się płomienie, zadając 7k6 obrażeń każdemu stworzeniu wewnątrz niego. Istota, która wykona udany test Woli, otrzymuje tylko połowę z nich. Wszystkie stworzenia, które zostaną obezwładnione wskutek tych obrażeń, znikają, wymazane z rzeczywistości.",
-      "card_description": "",
+      "card_description": "W obszarze działania zaklęcia\nrozchodzą się płomienie, zadając\n7k6 obrażeń każdemu stworzeniu\nwewnątrz niego. Istota, która wykona\nudany test Woli, otrzymuje tylko\npołowę z nich. Wszystkie stworzenia,\nktóre zostaną obezwładnione\nwskutek tych obrażeń, znikają,\nwymazane z rzeczywistości.",
       "origin": {
         "source": "PG",
         "number": 147
