@@ -136,7 +136,8 @@
       ],
       "level": 3,
       "duration": "Czas działania: 1 godzina; patrz niżej",
-      "book_description": "Koncentrujesz się przez 1 minutę, wyobrażając sobie stworzenie lub obiekt. Może to być coś konkretnego, na przykład kielich, z którego ostatnio pił król, lub coś ogólnego, na przykład pułapka. Kiedy skończysz, jesteś świadomy dokładnego położenia wybranej istoty lub przedmiotu, jeżeli znajduje się w średnim zasięgu od ciebie. Dopóki zaklęcie trwa, cel nie może zostać przed tobą ukryty. Poznajesz też ścieżkę, którą należy iść, by dotrzeć do danego obiektu lub stworzenia. Jeśli do tego samego opisu pasuje więcej niż jedna rzecz lub istota, jesteś świadomy położenia każdej z nich."
+      "book_description": "Koncentrujesz się przez 1 minutę, wyobrażając sobie stworzenie lub obiekt. Może to być coś konkretnego, na przykład kielich, z którego ostatnio pił król, lub coś ogólnego, na przykład pułapka. Kiedy skończysz, jesteś świadomy dokładnego położenia wybranej istoty lub przedmiotu, jeżeli znajduje się w średnim zasięgu od ciebie. Dopóki zaklęcie trwa, cel nie może zostać przed tobą ukryty. Poznajesz też ścieżkę, którą należy iść, by dotrzeć do danego obiektu lub stworzenia. Jeśli do tego samego opisu pasuje więcej niż jedna rzecz lub istota, jesteś świadomy położenia każdej z nich.",
+      "card_description": ""
     }
   ],
   "level_4": [

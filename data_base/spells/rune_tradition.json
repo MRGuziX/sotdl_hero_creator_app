@@ -15,7 +15,8 @@
       "level": 0,
       "target": "Cel: Jedno stworzenie lub obiekt w bezpośrednim zasięgu.",
       "duration": "Czas działania: 1 godzina",
-      "book_description": "Dotykasz celu i pozostawiasz na nim znak, który utrzymuje się przez czas trwania zaklęcia. Zawsze znasz dokładne położenie stworzenia lub obiektu oznaczonego tą runą."
+      "book_description": "Dotykasz celu i pozostawiasz na nim znak, który utrzymuje się przez czas trwania zaklęcia. Zawsze znasz dokładne położenie stworzenia lub obiektu oznaczonego tą runą.",
+      "card_description": ""
     },
     {
       "name": "ROZUMIENIE PISMA",
@@ -25,7 +26,8 @@
       ],
       "level": 0,
       "duration": "Czas działania: 1 minuta",
-      "book_description": "Przez czas trwania zaklęcia potrafisz odczytać i zrozumieć każde pismo, które widzisz."
+      "book_description": "Przez czas trwania zaklęcia potrafisz odczytać i zrozumieć każde pismo, które widzisz.",
+      "card_description": ""
     }
   ],
   "level_1": [
@@ -38,7 +40,8 @@
       "level": 1,
       "target": "Cel: Jedno stworzenie w bliskim zasięgu.",
       "duration": "Czas działania: 1 minuta",
-      "book_description": "Wykonaj oparty na Intelekcie rzut na atak przeciwko Zręczności wybranego stworzenia. Sukces oznacza, że na 1 minutę naznaczasz je runą. Dopóki czar trwa, to raz na rundę, gdy cel otrzyma obrażenia, runa zadaje mu dodatkowe 1k6 obrażeń."
+      "book_description": "Wykonaj oparty na Intelekcie rzut na atak przeciwko Zręczności wybranego stworzenia. Sukces oznacza, że na 1 minutę naznaczasz je runą. Dopóki czar trwa, to raz na rundę, gdy cel otrzyma obrażenia, runa zadaje mu dodatkowe 1k6 obrażeń.",
+      "card_description": ""
     },
     {
       "name": "GLIF OGNIA",
@@ -49,7 +52,8 @@
       "level": 1,
       "target": "Cel: Punkt w przestrzeni w bliskim zasięgu.",
       "duration": "Czas działania: 1 minuta",
-      "book_description": "We wskazanym punkcie na okres trwania zaklęcia pojawia się płonący glif. Gdy rzucasz ten czar, a także na koniec każdej rundy przez czas jego działania, glif emituje płomienie, które rozchodzą się sferą w promieniu 2 metrów od punktu początkowego w zajmowanej przezeń przestrzeni, zadając 1k6 + 2 obrażeń wszystkiemu wewnątrz tego obszaru. Każde znajdujące się tam stworzenie musi wykonać test Zręczności z 1 utrudnieniem, a sukces oznacza, że nie otrzymuje żadnych obrażeń."
+      "book_description": "We wskazanym punkcie na okres trwania zaklęcia pojawia się płonący glif. Gdy rzucasz ten czar, a także na koniec każdej rundy przez czas jego działania, glif emituje płomienie, które rozchodzą się sferą w promieniu 2 metrów od punktu początkowego w zajmowanej przezeń przestrzeni, zadając 1k6 + 2 obrażeń wszystkiemu wewnątrz tego obszaru. Każde znajdujące się tam stworzenie musi wykonać test Zręczności z 1 utrudnieniem, a sukces oznacza, że nie otrzymuje żadnych obrażeń.",
+      "card_description": ""
     },
     {
       "name": "RUNICZNA TARCZA",
@@ -60,7 +64,8 @@
       "level": 1,
       "target": "Cel: Jedna tarcza w bezpośrednim zasięgu.",
       "duration": "Czas działania: 1 minuta",
-      "book_description": "Kreślisz na tarczy runę, a ta pozostaje na niej przez czas trwania zaklęcia. Stworzenia, które zaatakują dzierżącego tarczę z użyciem broni, rzuty na atak wykonują z 1 utrudnieniem."
+      "book_description": "Kreślisz na tarczy runę, a ta pozostaje na niej przez czas trwania zaklęcia. Stworzenia, które zaatakują dzierżącego tarczę z użyciem broni, rzuty na atak wykonują z 1 utrudnieniem.",
+      "card_description": ""
     }
   ],
   "level_2": [
@@ -73,7 +78,8 @@
       "level": 2,
       "target": "Cel: Jedno stworzenie w średnim zasięgu, które widzisz.",
       "duration": "Czas działania: 1 minuta",
-      "book_description": "Pierścień płonących glifów otacza cel i pozostaje w miejscu przez czas trwania zaklęcia. Jeśli stworzenie opuści tę przestrzeń, to przechodząc przez runy, musi wykonać test Siły z 1 utrudnieniem. Porażka oznacza, że otrzymuje 6k6 obrażeń, a sukces, że tylko połowę z nich."
+      "book_description": "Pierścień płonących glifów otacza cel i pozostaje w miejscu przez czas trwania zaklęcia. Jeśli stworzenie opuści tę przestrzeń, to przechodząc przez runy, musi wykonać test Siły z 1 utrudnieniem. Porażka oznacza, że otrzymuje 6k6 obrażeń, a sukces, że tylko połowę z nich.",
+      "card_description": ""
     },
     {
       "name": "RUNA UKRYCIA",
@@ -84,7 +90,8 @@
       "level": 2,
       "target": "Cel: Jedno stworzenie w bezpośrednim zasięgu.",
       "duration": "Czas działania: 1 godzina",
-      "book_description": "Dotykasz celu, na którym pojawia się runiczny znak. Dopóki zaklęcie trwa, stworzenie to nie może być wykryte za pomocą magii, a jeśli na koniec rundy znajduje się na obszarze przesłoniętym, automatycznie ukrywa się, dopóki nie wykorzysta akcji lub nie poruszy się."
+      "book_description": "Dotykasz celu, na którym pojawia się runiczny znak. Dopóki zaklęcie trwa, stworzenie to nie może być wykryte za pomocą magii, a jeśli na koniec rundy znajduje się na obszarze przesłoniętym, automatycznie ukrywa się, dopóki nie wykorzysta akcji lub nie poruszy się.",
+      "card_description": ""
     }
   ],
   "level_3": [
@@ -97,7 +104,8 @@
       "level": 3,
       "area": "Obszar: Okrąg na podłożu o promieniu 4 metrów i punkcie początkowym w średnim zasięgu.",
       "duration": "Czas działania: 1 minuta",
-      "book_description": "W punkcie początkowym zaklęcia na okres jego trwania pojawia się runa. Gdy jakaś istota wkroczy na wskazany obszar oraz na koniec każdej rundy przez czas jego działania, runa emituje pioruny, zadając 2k6 obrażeń wszystkiemu wewnątrz tego obszaru. Każde znajdujące się tam stworzenie musi wykonać test Zręczności. Porażka oznacza, że staje się unieruchomione na 1 rundę, a sukces, że otrzymuje połowę obrażeń."
+      "book_description": "W punkcie początkowym zaklęcia na okres jego trwania pojawia się runa. Gdy jakaś istota wkroczy na wskazany obszar oraz na koniec każdej rundy przez czas jego działania, runa emituje pioruny, zadając 2k6 obrażeń wszystkiemu wewnątrz tego obszaru. Każde znajdujące się tam stworzenie musi wykonać test Zręczności. Porażka oznacza, że staje się unieruchomione na 1 rundę, a sukces, że otrzymuje połowę obrażeń.",
+      "card_description": ""
     },
     {
       "name": "RUNA POTĘGI",
@@ -108,7 +116,8 @@
       "level": 3,
       "target": "Cel: Jedno stworzenie w bezpośrednim zasięgu.",
       "duration": "Czas działania: 1 minuta",
-      "book_description": "W miejscu na celu, którego dotkniesz, pojawia się lśniąca runa. Przez czas trwania zaklęcia stworzenie zyskuje 2 ułatwienia we wszystkich rzutach na atak i testach opartych na Sile, a jego ataki bronią białą zadają dodatkowe 2k6 obrażeń."
+      "book_description": "W miejscu na celu, którego dotkniesz, pojawia się lśniąca runa. Przez czas trwania zaklęcia stworzenie zyskuje 2 ułatwienia we wszystkich rzutach na atak i testach opartych na Sile, a jego ataki bronią białą zadają dodatkowe 2k6 obrażeń.",
+      "card_description": ""
     }
   ],
   "level_4": [
@@ -121,7 +130,8 @@
       "level": 4,
       "target": "Cel: Jedna broń w bezpośrednim zasięgu.",
       "duration": "Czas działania: 1 minuta",
-      "book_description": "Kreślisz świetlistą runę na wybranej broni. Dopóki zaklęcie trwa, ataki z użyciem tego oręża zadają dodatkowe 3k6 obrażeń."
+      "book_description": "Kreślisz świetlistą runę na wybranej broni. Dopóki zaklęcie trwa, ataki z użyciem tego oręża zadają dodatkowe 3k6 obrażeń.",
+      "card_description": ""
     }
   ],
   "level_5": [

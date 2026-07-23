@@ -9,7 +9,8 @@
       "level": 0,
       "area": "Obszar: Sfera o promieniu 5 metrów i punkcie środkowym w zajmowanej przez ciebie przestrzeni.",
       "duration": "Czas działania: 1 minuta",
-      "book_description": "Poznajesz położenie wszystkich żywych stworzeń wewnątrz obszaru działania zaklęcia. Dopóki czar trwa, nie mogą one zostać przed tobą ukryte."
+      "book_description": "Poznajesz położenie wszystkich żywych stworzeń wewnątrz obszaru działania zaklęcia. Dopóki czar trwa, nie mogą one zostać przed tobą ukryte.",
+      "card_description": ""
     },
     {
       "name": "LECZENIE POMNIEJSZYCH RAN",
@@ -19,7 +20,8 @@
       ],
       "level": 0,
       "target": "Cel: Jedno stworzenie w bezpośrednim zasięgu.",
-      "book_description": "Dotykasz celu, który następnie leczy tyle obrażeń, ile wynosi połowa jego Szybkości Zdrowienia."
+      "book_description": "Dotykasz celu, który następnie leczy tyle obrażeń, ile wynosi połowa jego Szybkości Zdrowienia.",
+      "card_description": ""
     }
   ],
   "level_1": [
@@ -37,7 +39,8 @@
         "Cel traci 1 punkt Szaleństwa.",
         "Cel pozbywa się wszelkich kar do Zdrowia.",
         "Cel leczy tyle obrażeń, ile wynosi połowa jego Szybkości Zdrowienia."
-      ]
+      ],
+      "card_description": ""
     },
     {
       "name": "ŹRÓDŁO ŻYCIA",
@@ -63,7 +66,8 @@
       ],
       "level": 1,
       "target": "Cel: Jedno stworzenie w bezpośrednim zasięgu.",
-      "book_description": "Dotykasz celu, który następnie leczy tyle obrażeń, ile wynosi jego Szybkość Zdrowienia."
+      "book_description": "Dotykasz celu, który następnie leczy tyle obrażeń, ile wynosi jego Szybkość Zdrowienia.",
+      "card_description": ""
     }
   ],
   "level_2": [
@@ -75,7 +79,8 @@
       ],
       "level": 2,
       "target": "Cel: Jedno stworzenie w bezpośrednim zasięgu.",
-      "book_description": "Dotykasz celu, który następnie leczy tyle obrażeń, ile wynosi dwukrotność jego Szybkości Zdrowienia."
+      "book_description": "Dotykasz celu, który następnie leczy tyle obrażeń, ile wynosi dwukrotność jego Szybkości Zdrowienia.",
+      "card_description": ""
     },
     {
       "name": "FALA WITALNOŚCI",
@@ -85,7 +90,8 @@
       ],
       "level": 2,
       "target": "Cel: Do trzech żywych stworzeń w bliskim zasięgu.",
-      "book_description": "Każdy cel leczy tyle obrażeń, ile wynosi jego Szybkość Zdrowienia."
+      "book_description": "Każdy cel leczy tyle obrażeń, ile wynosi jego Szybkość Zdrowienia.",
+      "card_description": ""
     }
   ],
   "level_3": [
@@ -103,7 +109,8 @@
         "Cel traci 1 punkt Szaleństwa.",
         "Cel pozbywa się wszelkich kar do Zdrowia.",
         "Cel leczy tyle obrażeń, ile wynosi połowa jego Szybkości Zdrowienia."
-      ]
+      ],
+      "card_description": ""
     },
     {
       "name": "LECZENIE POWAŻNYCH RAN",
@@ -113,7 +120,8 @@
       ],
       "level": 3,
       "target": "Cel: Jedno stworzenie w bezpośrednim zasięgu.",
-      "book_description": "Dotykasz celu, który następnie leczy tyle obrażeń, ile wynosi trzykrotność jego Szybkości Zdrowienia."
+      "book_description": "Dotykasz celu, który następnie leczy tyle obrażeń, ile wynosi trzykrotność jego Szybkości Zdrowienia.",
+      "card_description": ""
     }
   ],
   "level_4": [
@@ -125,7 +133,8 @@
       ],
       "level": 4,
       "target": "Cel: Jedno stworzenie w bezpośrednim zasięgu.",
-      "book_description": "Dotykasz celu, który leczy wszystkie otrzymane obrażenia."
+      "book_description": "Dotykasz celu, który leczy wszystkie otrzymane obrażenia.",
+      "card_description": ""
     }
   ],
   "level_5": [
@@ -140,7 +149,8 @@
       "duration": "Czas działania: Koncentracja, do 1 godziny",
       "book_description": "Dotknij celu. Musisz utrzymać koncentrację przez 1 godzinę i zachować w tym czasie fizyczny kontakt z jego ciałem. Jeśli nic nie przerwie twojej koncentracji, możliwe jest przywrócenie go do życia.",
       "mechanics": "Jeśli dusza stworzenia przebywa w Zaświatach, powraca do ciała, a cel wstaje z martwych. Leczy 1 punkt obrażeń i jest osłabiony oraz wyczerpany, dopóki nie odbędzie pełnego odpoczynku. Jeśli dusza stworzenia znajduje się w Piekle, wykonaj test Woli z tyloma utrudnieniami, ile wynosi Splugawienie zmarłego. Sukces oznacza, że udaje ci się go wskrzesić. Porażka oznacza, że jego dusza jest bezpowrotnie stracona.",
-      "sacrifice": "Możesz poświęcić użycie tego zaklęcia, by rzucić pełne leczenie."
+      "sacrifice": "Możesz poświęcić użycie tego zaklęcia, by rzucić pełne leczenie.",
+      "card_description": ""
     }
   ]
 }
