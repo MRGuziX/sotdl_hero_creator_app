@@ -221,6 +221,26 @@ def test_known_tradition_spell_choice_filters_known_spells_and_power(monkeypatch
     ]
 
 
+def test_placeholder_spell_action_does_not_create_a_spell():
+    hero = AncestryHero(
+        ancestry_name="Człowiek",
+        strength=10,
+        dexterity=10,
+        intelligence=10,
+        will=10,
+        perception=10,
+        defense=10,
+        health=10,
+        healing_rate=1,
+        size=[1.0],
+        speed=10,
+    )
+
+    apply_action(AddSpell(name="known_tradition"), hero)
+
+    assert hero.spells == []
+
+
 def test_repeated_talent_upgrades_existing_talent():
     hero = AncestryHero(
         ancestry_name="Człowiek",

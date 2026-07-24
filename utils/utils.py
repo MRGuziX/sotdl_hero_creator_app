@@ -503,6 +503,11 @@ def add_talent(
 
 
 def add_spell(name: str, hero: AncestryHero):
+    # These names are choice placeholders, not spell records. They must not
+    # become visible fallback cards when a manual choice is submitted early.
+    if name in {"any", "known_tradition"}:
+        return
+
     # Try to find full spell data in known traditions
     known_trads = [
         get_tradition_name_from_talent(t.name)
@@ -528,7 +533,19 @@ def add_spell(name: str, hero: AncestryHero):
                             description=s_data.get("description")
                             or s_data.get("mechanics")
                             or "Brak opisu",
+                            book_description=s_data.get("book_description"),
+                            card_description=s_data.get("card_description"),
                             level=s_data.get("level", 0),
+                            tags=s_data.get("tags", []),
+                            target=s_data.get("target"),
+                            area=s_data.get("area"),
+                            duration=s_data.get("duration"),
+                            critical_success=s_data.get("critical_success"),
+                            requirements=s_data.get("requirements"),
+                            sacrifice=s_data.get("sacrifice"),
+                            permanent=s_data.get("permanent"),
+                            table=s_data.get("table"),
+                            origin=s_data.get("origin"),
                         )
                     )
                     return
