@@ -8,7 +8,7 @@ from models.action import AddTalent
 from models.base_hero import AncestryHero
 from models.spell import Spell
 from models.talent import Talent
-from utils.utils import _expand_dynamic_choice_group
+from utils.utils import TRADITION_FILE_MAP, _expand_dynamic_choice_group, expand_any_to_choices
 from utils.utils import apply_action
 
 
@@ -182,6 +182,30 @@ def test_new_tradition_choice_excludes_known_traditions(monkeypatch):
     assert [choice.name for choice in choices] == ["ogień", "woda"]
 
 
+def test_any_tradition_choice_expands_to_real_traditions():
+    hero = AncestryHero(
+        ancestry_name="Człowiek",
+        ancestry_id="human",
+        strength=10,
+        dexterity=10,
+        intelligence=10,
+        will=10,
+        perception=10,
+        defense=10,
+        health=10,
+        healing_rate=1,
+        size=[1.0, 1.0],
+        speed=10,
+    )
+
+    _, choices = expand_any_to_choices(hero, [AddTradition(name="any")], [])
+    choices = choices[0]
+
+    assert choices
+    assert all(choice.name != "any" for choice in choices)
+    assert {choice.name for choice in choices} == set(TRADITION_FILE_MAP)
+
+
 def test_known_tradition_spell_choice_filters_known_spells_and_power(monkeypatch):
     monkeypatch.setattr(
         "utils.utils._load_json",
@@ -219,6 +243,26 @@ def test_known_tradition_spell_choice_filters_known_spells_and_power(monkeypatch
         "zaklęcie poziomu 1",
         "zaklęcie poziomu 2",
     ]
+
+
+def test_placeholder_spell_action_does_not_create_a_spell():
+    hero = AncestryHero(
+        ancestry_name="Człowiek",
+        strength=10,
+        dexterity=10,
+        intelligence=10,
+        will=10,
+        perception=10,
+        defense=10,
+        health=10,
+        healing_rate=1,
+        size=[1.0],
+        speed=10,
+    )
+
+    apply_action(AddSpell(name="known_tradition"), hero)
+
+    assert hero.spells == []
 
 
 def test_repeated_talent_upgrades_existing_talent():

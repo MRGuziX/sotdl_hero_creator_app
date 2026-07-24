@@ -1,0 +1,1 @@
+"""Validated access to the application's declarative game data."""

@@ -94,6 +94,38 @@ def test_pdf_generation(populated_hero, output_path):
     assert header == b"%PDF"
 
 
+def test_pdf_joins_spell_cards_when_hero_has_spells(populated_hero, output_path):
+    populated_hero.spells.append(Spell(name="Leczenie", description="Opis"))
+
+    fill_pdf(populated_hero, output_path)
+
+    assert len(PdfReader(output_path).pages) == 3
+    assert not os.path.exists(
+        os.path.splitext(output_path)[0] + ".spell-pages.pdf"
+    )
+
+
+def test_pdf_includes_magic_traditions_in_notes(populated_hero, output_path):
+    populated_hero.talents.append(
+        Talent(name="Tradycja: Życie", description="Dostęp do zaklęć tej tradycji")
+    )
+
+    fill_pdf(populated_hero, output_path)
+
+    fields = PdfReader(output_path).get_fields()
+    assert "Życie" in fields["notatki"]["/V"]
+
+
+def test_pdf_does_not_render_placeholder_spell(populated_hero, output_path):
+    populated_hero.spells.append(
+        Spell(name="known_tradition", description="Nowe zaklęcie")
+    )
+
+    fill_pdf(populated_hero, output_path)
+
+    assert len(PdfReader(output_path).pages) == 2
+
+
 def test_pdf_fields_populated(populated_hero, output_path):
     fill_pdf(populated_hero, output_path)
     reader = PdfReader(output_path)

@@ -503,6 +503,11 @@ def add_talent(
 
 
 def add_spell(name: str, hero: AncestryHero):
+    # These names are choice placeholders, not spell records. They must not
+    # become visible fallback cards when a manual choice is submitted early.
+    if name in {"any", "known_tradition"}:
+        return
+
     # Try to find full spell data in known traditions
     known_trads = [
         get_tradition_name_from_talent(t.name)
@@ -528,6 +533,7 @@ def add_spell(name: str, hero: AncestryHero):
                             description=s_data.get("description")
                             or s_data.get("mechanics")
                             or "Brak opisu",
+                            book_description=s_data.get("book_description"),
                             card_description=s_data.get("card_description"),
                             level=s_data.get("level", 0),
                             tags=s_data.get("tags", []),
@@ -537,6 +543,9 @@ def add_spell(name: str, hero: AncestryHero):
                             critical_success=s_data.get("critical_success"),
                             requirements=s_data.get("requirements"),
                             sacrifice=s_data.get("sacrifice"),
+                            permanent=s_data.get("permanent"),
+                            table=s_data.get("table"),
+                            origin=s_data.get("origin"),
                         )
                     )
                     return
@@ -784,6 +793,7 @@ def expand_any_to_choices(
     # Use a temporary list for new choices to keep them at the beginning if needed,
     # but actually we want to preserve the relative order of actions converted to choices.
     new_placeholder_choices = []
+    deferred_placeholder_choices = []
     religions_data = _load_json("data_base/paths/novice/cleric_religions.json")
 
     placeholder_names = ["any", "known", "religious_tradition", "known_tradition"]
@@ -819,14 +829,35 @@ def expand_any_to_choices(
                         AddSpell(name="Zaklęcie 2"),
                     ]
                 )
+            case AddTradition(name="any"):
+                known_traditions = {
+                    tradition
+                    for talent in hero.talents
+                    if (tradition := get_tradition_name_from_talent(talent.name))
+                }
+                available_traditions = [
+                    tradition
+                    for tradition in TRADITION_FILE_MAP
+                    if tradition not in known_traditions
+                ]
+                if available_traditions:
+                    new_placeholder_choices.append(
+                        [
+                            AddTradition(name=tradition)
+                            for tradition in sorted(set(available_traditions))
+                        ]
+                    )
             case AddReligion(name="any"):
                 new_placeholder_choices.append(
                     [AddReligion(name=religion) for religion in religions_data.keys()]
                 )
             case AddTradition(name="religious_tradition"):
-                # Only add as choice if religion is already set, otherwise wait
+                # Keep this placeholder until the religion choice has been
+                # applied. It must be expanded against the mutated hero later.
                 if hero.religion:
                     new_placeholder_choices.append([action])
+                else:
+                    deferred_placeholder_choices.append([action])
             case AddSpell(name="known_tradition"):
                 # Only add as choice if there are traditions to pick from
                 known_trads = [
@@ -841,7 +872,7 @@ def expand_any_to_choices(
                     remaining_actions.append(action)
 
     # Combine: actions-converted-to-choices first, then existing choices
-    all_choices = new_placeholder_choices + choices
+    all_choices = new_placeholder_choices + choices + deferred_placeholder_choices
 
     final_choices = []
     for choice_group in all_choices:

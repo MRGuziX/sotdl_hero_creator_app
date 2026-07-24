@@ -52,6 +52,9 @@ sotdl_hero_creator_app/
 │   └── spells/              # Spell traditions (fire, water)
 ├── templates/
 │   └── index.html           # Single-page UI (Jinja2 + vanilla JS)
+├── static/
+│   ├── css/style.css        # Dark-fantasy theme and responsive layout
+│   └── js/wizard.js          # Progressive wizard and mobile sheet controls
 ├── pictures/                # Static assets (logo, background, character art)
 └── tests/                   # pytest test suite
     ├── test_models.py       # Pydantic model unit tests
@@ -86,6 +89,14 @@ The character creation process is driven by an **action/choice pipeline**:
 - Python 3.12+
 - Dependencies: `Flask`, `pypdf`, `pydantic`
 - Development tools: `pytest`, `ruff`
+
+### Frontend architecture
+
+The page keeps the existing server-authoritative endpoints and legacy DOM contract, while the
+presentation layer is progressively enhanced by `static/css/style.css` and `static/js/wizard.js`.
+The stylesheet provides the dark-fantasy theme, responsive desktop split view, mobile bottom-sheet
+preview, focus states, and step progress indicators. JavaScript adds keyboard-friendly selection tiles,
+progress synchronization, mobile preview toggling, and transient feedback without duplicating game rules.
 
 ## Local Development
 

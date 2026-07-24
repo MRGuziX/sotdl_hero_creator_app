@@ -4,6 +4,8 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Sigmar+One&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('assets', filename='css/style.css') }}">
 
     <title>CWD - Generator Postaci</title>
     <style>
@@ -690,6 +692,12 @@
     </style>
 </head>
 <body>
+<div class="wizard-progress" aria-label="Postęp tworzenia postaci">
+    <span class="progress-label">TWORZENIE POSTACI</span>
+    <ol class="progress-steps" id="progress-steps">
+        {% for step in range(0, 11) %}<li data-step="{{ step }}"><span>{{ step }}</span></li>{% endfor %}
+    </ol>
+</div>
 <div class="app-shell">
     <aside class="left-panel">
         <img src="{{ url_for('static', filename='cwd_logo.png') }}" alt="CWD Logo" class="logo">
@@ -716,7 +724,7 @@
         </div>
 
         <h3 class="section-title">Wybierz pochodzenie</h3>
-        <div class="ancestry-grid" id="ancestry-grid">
+        <div class="ancestry-grid selection-grid" id="ancestry-grid">
             <div onclick="selectAncestry('human', this)" class="ancestry-item">
                 <span class="ancestry-name">Człowiek</span>
             </div>
@@ -739,7 +747,7 @@
 
         <div id="path-section" style="display: none; margin-top: 20px;">
             <h3 class="section-title">Wybierz ścieżkę</h3>
-            <div class="ancestry-grid" id="path-grid">
+            <div class="ancestry-grid selection-grid" id="path-grid">
                 {% for path in novice_paths %}
                 <div onclick="selectPath('{{ path.id }}', this)" class="ancestry-item">
                     <span class="ancestry-name">{{ path.name }}</span>
@@ -758,7 +766,7 @@
         </div>
 
         <div class="left-bottom">
-            <button id="generate-btn" class="generate-button" onclick="rollHero()">GENERUJ</button>
+            <button id="generate-btn" class="generate-button" onclick="rollHero()"><span aria-hidden="true">📜</span> GENERUJ POSTAĆ</button>
             <button id="save-btn" class="save-button" onclick="savePdf()">Zapisz na urządzeniu</button>
         </div>
     </aside>
@@ -785,6 +793,9 @@
         </section>
     </main>
 </div>
+
+<button id="sheet-fab" class="sheet-fab" type="button" aria-controls="pdf-panel" aria-expanded="false">◉ <span>Podgląd karty</span></button>
+<div id="event-toast" class="event-toast" role="status" aria-live="polite"></div>
 
 <div class="footer">
     Created by Tomasz Guzik, <a href="https://www.youtube.com/@Guzikologia" target="_blank">Guzikologia</a> |
@@ -1305,5 +1316,6 @@
     updateGenerateState();
     updateSaveState(false);
 </script>
+<script src="{{ url_for('assets', filename='js/wizard.js') }}" defer></script>
 </body>
 </html>

@@ -9,7 +9,6 @@ from reportlab.lib.colors import black, white
 from reportlab.lib.enums import TA_CENTER, TA_LEFT
 from reportlab.lib.pagesizes import A4
 from reportlab.lib.styles import ParagraphStyle
-from reportlab.lib.units import mm
 from reportlab.pdfbase import pdfmetrics
 from reportlab.pdfbase.ttfonts import TTFont
 from reportlab.pdfgen.canvas import Canvas
@@ -243,6 +242,18 @@ def fill_pdf(hero: AncestryHero, output_path: str) -> None:
         notatki_parts.append(f"Profesje: {', '.join(hero.professions)}")
         notatki_parts.append("")
 
+    traditions = sorted(
+        {
+            tradition
+            for talent in hero.talents
+            if talent.name.startswith("Tradycja: ")
+            for tradition in [talent.name.removeprefix("Tradycja: ")]
+        }
+    )
+    if traditions:
+        notatki_parts.append(f"Tradycje magiczne: {', '.join(traditions)}")
+        notatki_parts.append("")
+
     if overflow_talents:
         notatki_parts.append("TALENTY (NADMIAROWE):")
         for t in overflow_talents:
@@ -273,6 +284,19 @@ def fill_pdf(hero: AncestryHero, output_path: str) -> None:
     # Update Page 2 (pypdf will ignore fields that don't exist on this page)
     if len(writer.pages) > 1:
         writer.update_page_form_field_values(writer.pages[1], fields)
+
+    renderable_spells = [
+        spell
+        for spell in hero.spells
+        if spell.name not in {"any", "known_tradition"} and spell.description != "Nowe zaklęcie"
+    ]
+    if renderable_spells:
+        spell_output_path = pathlib.Path(output_path).with_suffix(".spell-pages.pdf")
+        fill_spell_pdf(hero, str(spell_output_path))
+        spell_reader = PdfReader(spell_output_path)
+        for spell_page in spell_reader.pages:
+            writer.add_page(spell_page)
+        spell_output_path.unlink()
 
     with open(output_path, "wb") as output_stream:
         writer.write(output_stream)
@@ -571,7 +595,12 @@ def fill_spell_pdf(hero: AncestryHero, output_path: str) -> str:
     template_path = templates_dir / "empty_spell_cards.pdf"
     output_file = pathlib.Path(output_path)
     output_file.parent.mkdir(parents=True, exist_ok=True)
-    if not hero.spells:
+    spells = [
+        spell
+        for spell in hero.spells
+        if spell.name not in {"any", "known_tradition"} and spell.description != "Nowe zaklęcie"
+    ]
+    if not spells:
         raise ValueError("Nie można utworzyć kart zaklęć bez zaklęć.")
 
     _register_spell_fonts()
@@ -586,8 +615,8 @@ def fill_spell_pdf(hero: AncestryHero, output_path: str) -> str:
         canvas.setFont(font_name, size)
         canvas.drawCentredString(x_px * px_to_x, A4[1] - y_px * px_to_y, text)
 
-    for page_start in range(0, len(hero.spells), 9):
-        for card_index, spell in enumerate(hero.spells[page_start : page_start + 9], 1):
+    for page_start in range(0, len(spells), 9):
+        for card_index, spell in enumerate(spells[page_start : page_start + 9], 1):
             column = SPELL_CARD_COLUMNS_X[(card_index - 1) % 3]
             base_y = SPELL_CARD_ROW_BASES_Y[(card_index - 1) // 3]
             fields = _spell_card_fields(spell, card_index)

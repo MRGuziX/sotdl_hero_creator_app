@@ -7,10 +7,11 @@ import time
 import uuid
 from pathlib import Path
 
-from flask import Flask, jsonify, redirect, render_template, request, send_file, session, url_for
+from flask import Flask, jsonify, redirect, render_template, request, send_file, send_from_directory, session, url_for
 
 from models.action import Action
 from models.base_hero import AncestryHero
+from domain.creation_state import CreationState
 from utils.pdf_creator import fill_pdf
 from utils.utils import (
     apply_action,
@@ -28,6 +29,12 @@ logging.basicConfig(
 
 app = Flask(__name__, static_folder="pictures", static_url_path="/static")
 app.secret_key = os.environ.get("SECRET_KEY", "development-only-secret")
+
+
+@app.route("/assets/<path:filename>")
+def assets(filename):
+    """Serve extracted presentation assets without changing legacy image URLs."""
+    return send_from_directory(PROJECT_ROOT / "static", filename)
 
 ANCESTRIES = ["human", "automaton", "goblin", "dwarf", "orc", "changeling"]
 
@@ -148,7 +155,7 @@ def roll(ancestry):
 
         if isinstance(result, tuple):
             hero, choices = result
-            _store_manual_creation(hero, choices, 0)
+            _store_manual_creation(CreationState(hero=hero, pending_choices=choices))
             return jsonify(
                 {
                     "status": "need_choices",
@@ -186,8 +193,10 @@ def confirm_choices():
     creation = _get_manual_creation()
     if creation is None:
         return "No active creation", 400
-    hero, pending_choices, expected_cursor = creation
-    if choice_cursor != expected_cursor:
+    state = creation
+    hero = state.hero
+    pending_choices = state.pending_choices
+    if choice_cursor != state.choice_cursor:
         return "Invalid choice cursor", 400
 
     parsed_choices = []
@@ -207,26 +216,20 @@ def confirm_choices():
         return "Invalid choice", 400
     for action in parsed_choices:
         apply_action(action, hero, is_random=False)
+        state.applied_actions.append(action)
 
-    # Re-evaluate choices in case new ones appeared (e.g. religion-dependent traditions)
-    from utils.utils import build_hero, expand_any_to_choices
+    # Re-expand only pending groups against the already-mutated hero. This
+    # preserves dynamic religion/tradition behavior without rebuilding rolls.
+    from utils.utils import expand_any_to_choices
 
-    # We need to get the original benefits to see what's left
-    _, actions, choices = build_hero(
-        hero.ancestry_id, level=hero.level, path_name=hero.path_name
-    )
-
-    # Re-expand choices based on the current hero state (which now has religion, etc.)
-    remaining_actions, remaining_choices = expand_any_to_choices(hero, actions, choices)
-    # The browser always receives and submits exactly the first unresolved
-    # group. Re-expansion may recreate identical option values (for example
-    # for several `add_attribute(any)` actions), so value-based matching is
-    # ambiguous and can make the wizard loop. Advance the explicit cursor.
+    _, remaining_choices = expand_any_to_choices(hero, [], pending_choices[1:])
     next_cursor = choice_cursor + 1
-    filtered_choices = remaining_choices[next_cursor:] if remaining_choices else []
+    filtered_choices = remaining_choices
 
     if filtered_choices:
-        _store_manual_creation(hero, filtered_choices, next_cursor)
+        state.pending_choices = filtered_choices
+        state.choice_cursor = next_cursor
+        _store_manual_creation(state)
         return jsonify(
             {
                 "status": "need_choices",
@@ -267,19 +270,19 @@ def _purge_manual_creations() -> None:
     now = time.monotonic()
     expired = [
         key for key, value in _MANUAL_CREATIONS.items()
-        if now - value[3] > _MANUAL_CREATION_TTL
+        if now - value[1] > _MANUAL_CREATION_TTL
     ]
     for key in expired:
         _MANUAL_CREATIONS.pop(key, None)
     while len(_MANUAL_CREATIONS) > _MAX_MANUAL_CREATIONS:
-        oldest = min(_MANUAL_CREATIONS, key=lambda key: _MANUAL_CREATIONS[key][3])
+        oldest = min(_MANUAL_CREATIONS, key=lambda key: _MANUAL_CREATIONS[key][1])
         _MANUAL_CREATIONS.pop(oldest, None)
 
 
-def _store_manual_creation(hero, choices, cursor: int) -> None:
+def _store_manual_creation(state: CreationState) -> None:
     """Store pending manual state with a timestamp for bounded cleanup."""
     _purge_manual_creations()
-    _MANUAL_CREATIONS[_session_id()] = (hero, choices, cursor, time.monotonic())
+    _MANUAL_CREATIONS[_session_id()] = (state, time.monotonic())
 
 
 def _get_manual_creation():
@@ -288,7 +291,7 @@ def _get_manual_creation():
     creation = _MANUAL_CREATIONS.get(session.get("creation_id"))
     if creation is None:
         return None
-    return creation[:3]
+    return creation[0]
 
 
 if __name__ == "__main__":
