@@ -528,7 +528,15 @@ def add_spell(name: str, hero: AncestryHero):
                             description=s_data.get("description")
                             or s_data.get("mechanics")
                             or "Brak opisu",
+                            card_description=s_data.get("card_description"),
                             level=s_data.get("level", 0),
+                            tags=s_data.get("tags", []),
+                            target=s_data.get("target"),
+                            area=s_data.get("area"),
+                            duration=s_data.get("duration"),
+                            critical_success=s_data.get("critical_success"),
+                            requirements=s_data.get("requirements"),
+                            sacrifice=s_data.get("sacrifice"),
                         )
                     )
                     return

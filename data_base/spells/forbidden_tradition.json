@@ -1,0 +1,190 @@
+{
+  "level_0": [
+    {
+      "name": "CZARNY JĘZYK",
+      "tags": [
+        "Sztuki Zakazane",
+        "Użytkowe"
+      ],
+      "level": 0,
+      "duration": "Czas działania: 1 minuta.",
+      "book_description": "Przez czas trwania zaklęcia oparte na Intelekcie lub Woli rzuty na atak przeciwko demonom, diabłom, duchom i nieumarłym wykonujesz z 1 ułatwieniem.",
+      "card_description": "Przez czas trwania zaklęcia\noparte na Intelekcie lub Woli rzuty\nna atak przeciwko demonom,\ndiabłom, duchom i nieumarłym\nwykonujesz z 1 ułatwieniem.",
+      "origin": {
+        "source": "PG",
+        "number": 142
+      }
+    },
+    {
+      "name": "KRZYWDA",
+      "tags": [
+        "Sztuki Zakazane",
+        "Atak"
+      ],
+      "level": 0,
+      "target": "Cel: Jedno stworzenie w bliskim zasięgu, które widzisz.",
+      "book_description": "Ciało celu rozdzierają niewidzialne ciernie. Wykonaj oparty na Intelekcie rzut na atak przeciwko Sile przeciwnika. Sukces oznacza, że na 1 minutę otrzymuje on karę -5 do Zdrowia.",
+      "critical_success": "Rzut na atak to 20+: Kara do Zdrowia zwiększa się do -10.",
+      "card_description": "Ciało celu rozdzierają\nniewidzialne ciernie. Wykonaj\noparty na Intelekcie rzut na atak\nprzeciwko Sile przeciwnika. Sukces\noznacza, że na 1 minutę otrzymuje\non karę −5 do Zdrowia.",
+      "origin": {
+        "source": "PG",
+        "number": 142
+      }
+    }
+  ],
+  "level_1": [
+    {
+      "name": "POSŁUSZEŃSTWO",
+      "tags": [
+        "Sztuki Zakazane",
+        "Atak"
+      ],
+      "level": 1,
+      "target": "Cel: Jedno żywe stworzenie w bliskim zasięgu.",
+      "book_description": "Usiłujesz przyszpilić duszę celu. Wykonaj oparty na Intelekcie rzut na atak przeciwko Woli stworzenia. Sukces oznacza, że przez najbliższą minutę na koniec każdej rundy musi ono zdecydować, czy otrzymuje 1k6 obrażeń, czy zostaje zniewolone na 1 rundę.",
+      "card_description": "Usiłujesz przyszpilić duszę celu.\nRzuć na Intelekt przeciwko Woli\nstworzenia. Sukces oznacza,\nże przez najbliższą minutę na\nkoniec każdej rundy musi ono\nzdecydować, czy otrzymuje\n1k6 obrażeń, czy zostaje\nzniewolone na 1 rundę.",
+      "origin": {
+        "source": "PG",
+        "number": 142
+      }
+    },
+    {
+      "name": "NIENAWISTNA DEFEKACJA",
+      "tags": [
+        "Sztuki Zakazane",
+        "Atak"
+      ],
+      "level": 1,
+      "target": "Cel: Jedno posiadające fizyczną postać, żywe stworzenie w średnim zasięgu.",
+      "book_description": "Wnętrzności celu skręcają się, wydając głośne burczenie. Jeśli Zdrowie stworzenia wynosi 10 lub mniej, umiera ono natychmiast, brocząc krwią i kałem ze wszystkich otworów ciała. Jeśli Zdrowie ofiary jest wyższe niż 10, wykonaj oparty na Intelekcie rzut na atak przeciwko jej Sile. Sukces oznacza, że cel otrzymuje 1k6 + 2 obrażeń i staje się zamroczony na 1 rundę, a jego trzewia gwałtownie i spektakularnie się opróżniają. Jeśli obrażenia te spowodują obezwładnienie istoty, umiera ona natychmiast, a jej ciało eksploduje w fontannie krwi, flaków i odchodów. Każde stworzenie w promieniu 2 metrów od zajętej przez ofiarę przestrzeni musi wykonać udany test Woli, w przeciwnym wypadku staje się osłabione na 1 rundę.",
+      "critical_success": "Rzut na atak to 20+: Cel otrzymuje dodatkowe 1k6 obrażeń.",
+      "card_description": "Jeśli Zdrowie stworzenia wynosi 10 lub\nmniej, umiera ono natychmiast, brocząc krwią\ni kałem ze wszystkich otworów ciała. Jeśli\nZdrowie ofiary jest wyższe niż 10, wykonaj\noparty na Intelekcie rzut na atak przeciwko jej\nSile. Sukces oznacza, że cel otrzymuje 1k6 +\n2 obrażeń i staje się zamroczony na 1 rundę,\na jego trzewia gwałtownie i spektakularnie\nsię opróżniają. Jeśli obrażenia te spowodują\nobezwładnienie istoty, umiera ona\nnatychmiast. Każde stworzenie w promieniu\n2m od zajętej przez ofiarę przestrzeni musi\nwykonać udany test Woli, w przeciwnym\nwypadku staje się osłabione na 1 rundę.",
+      "origin": {
+        "source": "PG",
+        "number": 142
+      }
+    },
+    {
+      "name": "WYRWANIE JĘZYKA",
+      "tags": [
+        "Sztuki Zakazane",
+        "Atak"
+      ],
+      "level": 1,
+      "target": "Cel: Jedno posiadające zdolność mowy stworzenie w bliskim zasięgu.",
+      "duration": "Czas działania: Koncentracja, do 1 godziny.",
+      "book_description": "Spluwasz na cel. Wykonaj oparty na Intelekcie rzut na atak przeciwko jego Woli. Sukces oznacza, że twój język rozwidla się i przejmujesz kontrolę nad ustami wybranego stworzenia, dopóki utrzymujesz koncentrację, maksymalnie na 1 godzinę. Dopóki efekt zaklęcia trwa, możesz przemawiać ustami ofiary, pod warunkiem że znajdujesz się od niej w odległości nie większej niż 1,5 kilometra. Przemawiając ustami celu, mówisz jego głosem.",
+      "critical_success": "Rzut na atak to 20+: Efekt zaklęcia nie wymaga koncentracji.",
+      "card_description": "Spluwasz na cel. Wykonaj oparty na\nIntelekcie rzut na atak przeciwko jego\nWoli. Sukces oznacza, że twój język\nrozwidla się i przejmujesz kontrolę nad\nustami wybranego stworzenia, dopóki\nutrzymujesz koncentrację. Dopóki efekt\nzaklęcia trwa, możesz przemawiać ustami\nofiary, pod warunkiem , że znajdujesz\nsię od niej w odległości nie większej niż\n1,5 kilometra. Przemawiając ustami celu,\nmówisz jego głosem.",
+      "origin": {
+        "source": "PG",
+        "number": 142
+      }
+    }
+  ],
+  "level_2": [
+    {
+      "name": "ŻARŁOCZNE ROBACTWO",
+      "tags": [
+        "Sztuki Zakazane",
+        "Atak"
+      ],
+      "level": 2,
+      "target": "Cel: Jedno żywe stworzenie w średnim zasięgu.",
+      "duration": "Czas działania: 1 minuta.",
+      "book_description": "Żołądek celu wypełniają wygłodniałe larwy i zadają mu 2k6 obrażeń. Przez czas trwania zaklęcia na koniec każdej rundy stworzenie musi wykonać test Siły; porażka oznacza, że otrzymuje 1k6 obrażeń i staje się osłabione na 1 rundę. Sukces oznacza brak efektu; po uzyskaniu trzech sukcesów, ofiara wymiotuje splątanym kłębem wijących się robaków, po czym efekt zaklęcia dobiega końca. Cel, który wskutek obrażeń zadanych przez to zaklęcie zostanie obezwładniony, umiera natychmiast, a z jego ciała wydobywa się chmara czarnych much, które rozchodzą się w promieniu 5 metrów od punktu w zajmowanej przezeń przestrzeni. Obszar ten staje się znacznie przesłonięty; muchy krążą przez 1 minutę albo dopóki nie zostaną rozproszone wiatrem lub ogniem.",
+      "card_description": "Żołądek celu wypełniają wygłodniałe\nlarwy i zadają mu 2k6 obrażeń. Na koniec\nkażdej rundy stworzenie musi wykonać\ntest Siły; porażka oznacza, że otrzymuje\n1k6 obrażeń i staje się osłabione na 1 rundę.\nSukces oznacza brak efektu; po uzyskaniu\ntrzech sukcesów, ofiara wymiotuje splątanym\nkłębem wijących się robaków, po czym efekt\nzaklęcia dobiega końca. Cel, który wskutek\ntych obrażeń zostanie obezwładniony, umiera natychmiast, a z jego ciała wydobywa się\nchmara czarnych much, które rozchodzą się\nw promieniu 5m od punktu w zajmowanej\nprzezeń przestrzeni. Obszar ten staje się\nznacznie przesłonięty; muchy krążą przez\n1 minutę albo dopóki nie zostaną rozproszone wiatrem lub ogniem.",
+      "origin": {
+        "source": "PG",
+        "number": 143
+      }
+    },
+    {
+      "name": "POZBAWIENIE WZROKU",
+      "tags": [
+        "Sztuki Zakazane",
+        "Atak"
+      ],
+      "level": 2,
+      "target": "Cel: Jedno posiadające zmysł wzroku stworzenie w bliskim zasięgu.",
+      "duration": "Czas działania: Koncentracja do 1 minuty; patrz niżej.",
+      "book_description": "Oczy celu puchną i łzawią. Jeśli jego Zdrowie wynosi 15 lub mniej, otrzymuje 2k6 obrażeń i zostaje oślepiony, a jego gałki oczne eksplodują. Jeśli Zdrowie stworzenia wynosi więcej niż 15, wykonaj oparty na Intelekcie rzut na atak przeciwko jego Sile; jeśli zaś 30 lub więcej, rzut ten wykonaj dodatkowo z 1 utrudnieniem. Sukces oznacza, że ofiara pozostaje oślepiona, dopóki utrzymujesz koncentrację, maksymalnie do 1 minuty. Na koniec każdej rundy podczas trwania zaklęcia istota musi wykonać test Siły, a w razie porażki otrzymuje 1k6 obrażeń. Jeśli przed zakończeniem efektu czaru uzyska w ten sposób trzy porażki, oślepienie staje się permanentne – gałki oczne pękają, a twarz zalewają ciało szkliste i krew.",
+      "critical_success": "Rzut na atak to 20+: Efekt zaklęcia nie wymaga koncentracji.",
+      "card_description": "Jeśli jego Zdrowie celu wynosi 15 lub mniej,\notrzymuje 2k6 obrażeń i zostaje oślepiony,\na jego gałki oczne eksplodują. Jeśli Zdrowie\nstworzenia wynosi więcej niż 15, wykonaj oparty\nna Intelekcie rzut na atak przeciwko jego Sile;\njeśli zaś 30 lub więcej, rzut ten wykonaj\ndodatkowo z 1 utrudnieniem. Sukces oznacza,\nże ofiara pozostaje oślepiona, dopóki utrzymujesz koncentrację, maksymalnie do 1 minuty.\nNa koniec każdej rundy podczas trwania zaklęcia\nistota musi wykonać test Siły, a w razie porażki\notrzymuje 1k6 obrażeń. Jeśli przed zakończeniem\nefektu czaru uzyska w ten sposób trzy porażki,\noślepienie staje się permanentne – gałki oczne\npękają, a twarz zalewają ciało szkliste i krew.",
+      "origin": {
+        "source": "PG",
+        "number": 143
+      }
+    }
+  ],
+  "level_3": [
+    {
+      "name": "KONIEC ŻĄDZY",
+      "tags": [
+        "Sztuki Zakazane",
+        "Atak"
+      ],
+      "level": 3,
+      "target": "Cel: Jedno żywe stworzenie w bliskim zasięgu.",
+      "book_description": "Cel doświadcza ostrego bólu wewnątrz ciała. Wykonaj oparty na Intelekcie rzut na atak przeciwko Sile ofiary. Sukces oznacza, że otrzymuje ona 3k6 obrażeń i staje się zamroczona na 1k6 rund, a marne szczątki jej organów rozrodczych odpadają od ciała.",
+      "critical_success": "Rzut na atak to 20+: Cel otrzymuje dodatkowe 3k6 obrażeń i zostaje powalony; nie może podnieść się, dopóki jest zamroczony tym zaklęciem.",
+      "card_description": "Cel doświadcza ostrego bólu\nwewnątrz ciała. Rzuć na Intelekt\nprzeciwko Sile ofiary. Sukces oznacza,\nże otrzymuje ona 3k6 obrażeń i staje\nsię zamroczona na 1k6 rund, a marne\nszczątki jej organów rozrodczych\nodpadają od ciała.",
+      "origin": {
+        "source": "PG",
+        "number": 143
+      }
+    },
+    {
+      "name": "WYTRYBOWANIE",
+      "tags": [
+        "Sztuki Zakazane",
+        "Atak"
+      ],
+      "level": 3,
+      "target": "Cel: Jedno stworzenie w średnim zasięgu, które ma w swoim ciele kości.",
+      "book_description": "Kości celu zniekształcają się i przemieszczają wewnątrz ciała. Wykonaj oparty na Intelekcie rzut na atak przeciwko Sile ofiary. Sukces oznacza, że otrzymuje ona 6k6 obrażeń. Jeśli wskutek tych obrażeń zostanie obezwładniona, umiera natychmiast; jej kości wyrywają się z ciała, stając się ożywionymi zwłokami o Rozmiarze celu i zajmując po nim przestrzeń. Ożywione zwłoki atakują w każdej rundzie znajdujące się najbliżej nich stworzenie, a jeśli jest ich kilka, wybierają jedno losowo.",
+      "critical_success": "Rzut na atak to 20+: Cel otrzymuje dodatkowe 2k6 obrażeń.",
+      "card_description": "Wykonaj oparty na Intelekcie rzut\nna atak przeciwko Sile ofiary.\nSukces oznacza, że otrzymuje ona 6k6\nobrażeń. Jeśli wskutek tych obrażeń\nzostanie obezwładniona, umiera\nnatychmiast; jej kości wyrywają się\nz ciała, stając się ożywionymi zwłokami\no Rozmiarze celu i zajmując po nim\nprzestrzeń. Ożywione zwłoki atakują\nw każdej rundzie znajdujące się najbliżej\nnich stworzenie, a jeśli jest ich kilka,\nwybierają jedno losowo.",
+      "origin": {
+        "source": "PG",
+        "number": 143
+      }
+    }
+  ],
+  "level_4": [
+    {
+      "name": "ZAMIANA DUSZ",
+      "tags": [
+        "Sztuki Zakazane",
+        "Atak"
+      ],
+      "level": 4,
+      "target": "Cel: Dwa żywe, śmiertelne stworzenia w średnim zasięgu.",
+      "book_description": "Chwytasz dusze dwóch stworzeń. Wykonaj oparty na Intelekcie rzut na atak przeciwko Woli każdego z nich. Sukces oznacza, że cel staje się zamroczony na 1 minutę. Jeśli uzyskasz sukces przeciwko obu ofiarom, ich dusze permanentnie zamieniają się ciałami. Stworzenia te dostają 1k6 punktów Szaleństwa. Każda z dusz przenosi poniższe cechy do nowego ciała, ale poza tym korzysta z nowych atrybutów zwykłych i drugorzędnych oraz zdolności: • Znajomość wszystkich języków i profesji. • Wartości Intelektu i Woli (przelicz Percepcję, jeśli to konieczne). • Wartości Szaleństwa i Splugawienia. • Wszystkie talenty zyskane ze ścieżek. • Wszystkie poznane tradycje i wyuczone zaklęcia.",
+      "critical_success": "Rzut na atak to 20+: Dopóki pozostaje zamroczony tym zaklęciem, cel jest także oszołomiony.",
+      "card_description": "Chwytasz dusze dwóch stworzeń. Wykonaj\noparty na Intelekcie rzut na atak przeciwko\nWoli każdego z nich. Sukces oznacza, że\ncel staje się zamroczony na 1 minutę. Jeśli uzyskasz sukces przeciwko obu ofiarom, ich dusze permanentnie\nzamieniają się ciałami. Stworzenia te dostają\n1k6 punktów Szaleństwa. Każda z dusz przenosi poniższe cechy do nowego ciała:\n• Znajomość języków i profesji.\n• Wartości Intelektu i Woli.\n• Wartości Szaleństwa i Splugawienia.\n• Wszystkie talenty zyskane ze ścieżek.\n• Wszystkie poznane tradycje i wyuczone zaklęcia.",
+      "origin": {
+        "source": "PG",
+        "number": 144
+      }
+    }
+  ],
+  "level_5": [
+    {
+      "name": "NIKCZEMNE ZESPOLENIE",
+      "tags": [
+        "Sztuki Zakazane",
+        "Atak"
+      ],
+      "level": 5,
+      "target": "Cel: Dwa stworzenia w średnim zasięgu, które widzisz i które są w bliskim zasięgu od siebie.",
+      "book_description": "Sylwetki stworzeń przez chwilę wydają się niewyraźne. Wykonaj oparty na Intelekcie rzut na atak przeciwko Sile każdego celu. Sukces oznacza, że ofiara otrzymuje 3k6 obrażeń i staje się osłabiona na 1 minutę. Jeśli uzyskasz sukces przeciwko obu istotom, ich ciała ulegają permanentnemu złączeniu, tworząc pojedyncze stworzenie, które jest osłabione, dopóki nie odbędzie pełnego odpoczynku. Jego wygląd zależy od ciebie. Atrybuty zwykłe i drugorzędne oraz zdolności złączonej istoty zmieniają się w następujący sposób: • By ustalić Siłę, porównaj wartości tego atrybutu u obu celów, po czym wybierz wyższą. To samo zrób dla Zręczności, lecz tym razem wybierz niższą wartość. Każda z ofiar zachowuje własne Intelekt i Wolę. • Istota dostaje 2k6 punktów Szaleństwa, co zastępuje dotychczasowe Szaleństwo obydwu celów (jeśli w ogóle jakieś miały). Wartości Splugawienia obu ofiar zostają zsumowane. • Cele zajmują tę samą przestrzeń, a ich Rozmiary sumują się. Zdrowie nowej istoty to suma wyższej z wartości Zdrowia ofiar i połowy niższej, Prędkość zaś wynosi 6. • Zespolone stworzenie posiada cechy i talenty obu celów; zyskuje cechę przerażający, jeśli żadna z ofiar jej nie posiadała. • Choć mają wspólne ciało, każdy z celów może podjąć w ciągu rundy jedną turę. Jeden z nich musi podjąć turę krótką, a drugi długą; jeśli nie mogą się zdecydować, każdy z nich rzuca k6 i decyduje ten, kto wyrzuci więcej.",
+      "critical_success": "Rzut na atak to 20+: Cel otrzymuje dodatkowe 3k6 obrażeń.",
+      "card_description": "Wykonaj oparty na\nIntelekcie rzut na atak przeciwko Sile\nkażdego celu. Sukces oznacza, że\nofiara otrzymuje 3k6 obrażeń i staje się\nosłabiona na 1 minutę. Sukces\nprzeciwko obu istotom, skutkuje\npermanentnym złączeniem ich ciał, tworząc\npojedyncze stworzenie, które jest\nosłabione, dopóki nie odbędzie\npełnego odpoczynku. Atrybuty oraz zdolności\nzłączonej istoty zmieniają się w następujący sposób. • Siła, wybierz wyższą wartość\ntego atrybutu u obu celów. Zręczność\nwybierz niższą wartość. Ofiary\nzachowują własny Intelekt i Wolę. Prędkość zaś wynosi 6.\n• Szaleństwo wynosi 2k6. Wartości Splugawienia\nobu ofiar zostają zsumowane.\n• Rozmiary sumują się. Zdrowie nowej istoty\nto suma wyższej z wartości Zdrowia ofiar\ni połowy niższej.\n• Zespolone stworzenie posiada cechy i talenty obu celów; zyskuje cechę przerażający.\n• Każdy z celów może podjąć w ciągu rundy\njedną turę. Jeden z nich musi podjąć turę\nkrótką, a drugi długą.",
+      "origin": {
+        "source": "PG",
+        "number": 144
+      }
+    }
+  ]
+}

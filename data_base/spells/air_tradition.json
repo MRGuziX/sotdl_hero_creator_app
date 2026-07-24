@@ -1,0 +1,186 @@
+{
+  "level_0": [
+    {
+      "name": "POWIEW",
+      "tags": [
+        "Powietrze",
+        "Użytkowe"
+      ],
+      "level": 0,
+      "area": "Obszar: Sfera o promieniu 2 metrów i punkcie początkowym w bezpośrednim zasięgu.",
+      "duration": "Czas działania: 1 minuta",
+      "book_description": "W obszarze działania zaklęcia wywołujesz niewielki powiew, który przemieszcza się wraz z tobą. Rozprasza on zapachy i zwiewa kurz, rozrzuca lekkie przedmioty, takie jak kartki, gasi świece, a większe płomienie pod jego wpływem tańczą i migoczą. Stworzenia wewnątrz obszaru działania zaklęcia, które atakują cię bronią dystansową lub miotaną, wykonują rzuty na atak z 1 utrudnieniem.",
+      "card_description": "W obszarze działania zaklęcia\nwywołujesz niewielki powiew,\nktóry przemieszcza się wraz z tobą.\nRozprasza on zapachy\ni zwiewa kurz, rozrzuca lekkie\nprzedmioty, takie jak kartki, gasi\nświece, a większe płomienie pod\njego wpływem tańczą i migoczą.\nStworzenia wewnątrz obszaru działania\nzaklęcia, które atakują cię bronią\ndystansową lub miotaną, wykonują\nrzuty na atak z 1 utrudnieniem.",
+      "origin": {
+        "source": "PG",
+        "number": 138
+      }
+    },
+    {
+      "name": "UDERZENIE WIATRU",
+      "tags": [
+        "Powietrze",
+        "Atak"
+      ],
+      "level": 0,
+      "target": "Cel: Jedno stworzenie lub obiekt w bliskim zasięgu.",
+      "book_description": "W cel uderza silny poryw wiatru. Wykonaj oparty na Woli rzut na atak przeciwko Sile celu. Sukces oznacza, że wiatr odpycha go od ciebie na 1k6 metrów.",
+      "critical_success": "Rzut na atak to 20+: Na koniec tego ruchu cel zostaje powalony.",
+      "card_description": "W cel uderza silny poryw wiatru.\nWykonaj oparty na Woli rzut\nna atak przeciwko Sile celu.\nSukces oznacza, że wiatr odpycha\ngo od ciebie na 1k6 metrów.",
+      "origin": {
+        "source": "PG",
+        "number": 138
+      }
+    }
+  ],
+  "level_1": [
+    {
+      "name": "PRZYWOŁANIE WICHRU",
+      "tags": [
+        "Powietrze",
+        "Atak"
+      ],
+      "level": 1,
+      "area": "Obszar: Stożek długości 3 metrów i punkcie początkowym w bliskim zasięgu.",
+      "book_description": "Zawodzący wiatr rozprasza opary, mgłę, dym i gazy w obszarze działania zaklęcia. Nieosłonięte płomienie zostają zgaszone, a lekkie przedmioty zdmuchnięte ku najbliższej granicy obszaru. Każda istota w obszarze działania zaklęcia musi wykonać udany test Siły, w przeciwnym wypadku zostaje odepchnięta od punktu początkowego na 1k6 metrów. Stworzenia latające wykonują ten test z 1 utrudnieniem.",
+      "card_description": "Zawodzący wiatr rozprasza opary,\nmgłę, dym i gazy w obszarze\ndziałania zaklęcia. Nieosłonięte\npłomienie zostają zgaszone,\na lekkie przedmioty zdmuchnięte\nku najbliższej granicy obszaru.\nKażda istota w obszarze działania\nzaklęcia musi wykonać udany\ntest Siły, w przeciwnym wypadku\nzostaje odepchnięta od punktu\npoczątkowego na 1k6 metrów.\nStworzenia latające wykonują ten\ntest z 1 utrudnieniem.",
+      "origin": {
+        "source": "PG",
+        "number": 138
+      }
+    },
+    {
+      "name": "ODARCIE ZE SKÓRY",
+      "tags": [
+        "Powietrze",
+        "Atak"
+      ],
+      "level": 1,
+      "target": "Cel: Jedno stworzenie lub obiekt w bliskim zasięgu.",
+      "book_description": "Uderzasz w cel porwanym przez wiatr ostrym piaskiem. Wykonaj oparty na Woli rzut na atak przeciwko Sile celu. Sukces oznacza, że otrzymuje on 2k6 + 3 obrażeń. Żywe stworzenie, które zostanie obezwładnione wskutek tego ataku, natychmiast umiera; pozostają po nim jedynie odarte z ciała kości.",
+      "critical_success": "Rzut na atak to 20+: Cel otrzymuje dodatkowe 2k6 obrażeń.",
+      "card_description": "Uderzasz w cel porwanym\nprzez wiatr ostrym piaskiem.\nWykonaj oparty na Woli rzut\nna atak przeciwko Sile celu.\nSukces oznacza, że otrzymuje on\n2k6 + 3 obrażeń. Żywe stworzenie,\nktóre zostanie obezwładnione\nwskutek tego ataku, natychmiast\numiera; pozostają po nim jedynie\nodarte z ciała kości.",
+      "origin": {
+        "source": "PG",
+        "number": 138
+      }
+    },
+    {
+      "name": "SZYBOWANIE",
+      "tags": [
+        "Powietrze",
+        "Użytkowe"
+      ],
+      "level": 1,
+      "target": "Cel: Jedno stworzenie w dalekim zasięgu.",
+      "duration": "Czas działania: 1 minuta",
+      "book_description": "Reakcja: Możesz rzucić to zaklęcie jako reakcję, gdy widzisz spadający cel. Przez czas trwania zaklęcia nie otrzyma on obrażeń od upadku. Jeśli w momencie zakończenia efektu czaru istota nadal będzie spadać, wartość obrażeń od upadku należy liczyć od miejsca, w którym się znajdowała, gdy zaklęcie przestało działać.",
+      "card_description": "Reakcja: Możesz rzucić to\nzaklęcie jako reakcję, gdy widzisz\nspadający cel. Przez czas trwania\nzaklęcia nie otrzyma on obrażeń\nod upadku. Jeśli w momencie\nzakończenia efektu czaru istota\nnadal będzie spadać, wartość\nobrażeń od upadku należy\nliczyć od miejsca, w którym\nsię znajdowała, gdy zaklęcie\nprzestało działać.",
+      "origin": {
+        "source": "PG",
+        "number": 138
+      }
+    }
+  ],
+  "level_2": [
+    {
+      "name": "MARTWE POWIETRZE",
+      "tags": [
+        "Powietrze",
+        "Użytkowe"
+      ],
+      "level": 2,
+      "area": "Obszar: Sfera o promieniu 4 metrów i punkcie początkowym w średnim zasięgu.",
+      "duration": "Czas działania: 1 godzina",
+      "book_description": "Przez czas trwania zaklęcia żaden dźwięk ani nie wydobywa się z objętego działaniem obszaru, ani nie dociera do jego wnętrza. Znajdujące się wewnątrz stworzenia są ogłuszone i niewrażliwe na wszelkie ataki dźwiękiem, takie jak zaklęcie grzmot.",
+      "card_description": "Przez czas trwania zaklęcia żaden\ndźwięk ani nie wydobywa się\nz objętego działaniem obszaru,\nani nie dociera do jego wnętrza.\nZnajdujące się wewnątrz stworzenia\nsą ogłuszone i niewrażliwe na\nwszelkie ataki dźwiękiem, takie\njak zaklęcie grzmot.",
+      "origin": {
+        "source": "PG",
+        "number": 138
+      }
+    },
+    {
+      "name": "GRZMOT",
+      "tags": [
+        "Powietrze",
+        "Atak"
+      ],
+      "level": 2,
+      "area": "Obszar: Sfera o promieniu 10 metrów i punkcie początkowym w średnim zasięgu.",
+      "book_description": "Ze środka obszaru działania zaklęcia rozchodzi się ogłuszający hałas, zadając 1k6 + 1 obrażeń wszystkiemu wewnątrz. Każde znajdujące się tam stworzenie musi wykonać test Siły; sukces oznacza, że otrzymuje tylko połowę obrażeń. Porażka oznacza, że zostaje ono także ogłuszone na 1 minutę.",
+      "card_description": "Ze środka obszaru działania\nzaklęcia rozchodzi się ogłuszający\nhałas, zadając 1k6 + 1 obrażeń\nwszystkiemu wewnątrz.\nKażde znajdujące się tam\nstworzenie musi wykonać test\nSiły; sukces oznacza, że otrzymuje\ntylko połowę obrażeń. Porażka\noznacza, że zostaje ono także\nogłuszone na 1 minutę.",
+      "origin": {
+        "source": "PG",
+        "number": 138
+      }
+    }
+  ],
+  "level_3": [
+    {
+      "name": "DAR LATANIA",
+      "tags": [
+        "Powietrze",
+        "Użytkowe"
+      ],
+      "level": 3,
+      "target": "Cel: Jedno stworzenie w zasięgu ręki.",
+      "duration": "Czas działania: 1 godzina",
+      "book_description": "Dotknij celu. Na czas trwania zaklęcia może on latać ze swoją zwykłą Prędkością.",
+      "card_description": "Dotknij celu. Na czas trwania\nzaklęcia może on latać ze swoją\nzwykłą Prędkością.",
+      "origin": {
+        "source": "PG",
+        "number": 138
+      }
+    },
+    {
+      "name": "GWAŁTOWNY PODMUCH",
+      "tags": [
+        "Powietrze",
+        "Atak"
+      ],
+      "level": 3,
+      "area": "Obszar: Walec o promieniu 4 metrów i wysokości 4 metrów, o punkcie początkowym w dalekim zasięgu.",
+      "book_description": "Z punktu początkowego dobywa się potężne uderzenie wiatru. Każde stworzenie wewnątrz obszaru działania zaklęcia musi wykonać test Siły; te o Rozmiarze 1 lub mniejszym wykonują go z 1 utrudnieniem. Porażka oznacza, że istota zostaje powalona i odepchnięta od punktu początkowego na 5k6 metrów. Jeśli przed przebyciem pełnego dystansu napotka na swej drodze twardą powierzchnię, to zarówno ona sama, jak i powierzchnia otrzymują 1k6 obrażeń plus 1k6 za każde 5 metrów ruchu, które jeszcze pozostały do przebycia (zaokrąglone w dół).",
+      "card_description": "Z punktu początkowego dobywa się\nuderzenie wiatru. Każde stworzenie\nwewnątrz obszaru działania zaklęcia musi\nwykonać test Siły; te o Rozmiarze 1 lub\nmniejszym wykonują go z 1 utrudnieniem.\nPorażka oznacza, że istota zostaje\npowalona i odepchnięta od punktu\npoczątkowego na 5k6 metrów. Jeśli przed\nprzebyciem pełnego dystansu napotka\nna swej drodze twardą powierzchnię, to\nzarówno ona sama, jak i powierzchnia\notrzymują 1k6 obrażeń plus 1k6 za każde\n5m ruchu, które jeszcze pozostały do\nprzebycia (zaokrąglone w dół).",
+      "origin": {
+        "source": "PG",
+        "number": 138
+      }
+    }
+  ],
+  "level_4": [
+    {
+      "name": "PRZEJŚCIE CYKLONU",
+      "tags": [
+        "Powietrze",
+        "Atak"
+      ],
+      "level": 4,
+      "area": "Obszar: Linia o długości 20 metrów, wysokości 10 metrów i szerokości 2 metrów o punkcie początkowym w dalekim zasięgu.",
+      "book_description": "Potężna trąba powietrzna pojawia się na jednym końcu obszaru działania zaklęcia i przemieszcza się ku drugiemu, zadając 3k6 obrażeń wszystkim stworzeniom i obiektom, przez których przestrzeń przejdzie. Każdy niezabezpieczony obiekt, który otrzyma w ten sposób obrażenia, zostaje odepchnięty na 1k6 metrów w wybranym przez ciebie kierunku. Każde stworzenie, które otrzyma w ten sposób obrażenia, musi wykonać test Siły. Porażka oznacza, że zostaje odepchnięte o 1k6 metrów w wybranym przez ciebie kierunku, a następnie powalone. Sukces oznacza, że otrzymuje tylko połowę obrażeń.",
+      "card_description": "Trąba powietrzna pojawia się na jednym\nkońcu obszaru działania zaklęcia\ni przemieszcza się ku drugiemu, zadając\n3k6 obrażeń wszystkim stworzeniom\ni obiektom, przez których przestrzeń\nprzejdzie. Każdy niezabezpieczony obiekt,\nktóry otrzyma w ten sposób obrażenia,\nzostaje odepchnięty na 1k6 metrów\nw wybranym przez ciebie kierunku. Każde\nstworzenie, które otrzyma w ten sposób\nobrażenia, musi wykonać test Siły. Porażka\noznacza, że zostaje odepchnięte o 1k6\nmetrów w wybranym przez ciebie kierunku,\na następnie powalone. Sukces oznacza, że\notrzymuje tylko połowę obrażeń.",
+      "origin": {
+        "source": "PG",
+        "number": 138
+      }
+    }
+  ],
+  "level_5": [
+    {
+      "name": "PRZYZWANIE DŻINNA POWIETRZA",
+      "tags": [
+        "Powietrze",
+        "Użytkowe"
+      ],
+      "level": 5,
+      "target": "Cel: Sześcian o krawędzi 2 metrów wypełniony powietrzem, o punkcie początkowym w dalekim zasięgu.",
+      "duration": "Czas działania: 1 minuta",
+      "book_description": "Na koniec rundy, w której rzucasz to zaklęcie, wskazany sześcian powietrza zamienia się w dżinna powietrza o Rozmiarze 2. Efektów tego czaru nie można dobrowolnie zakończyć. Gdy przyzywasz to stworzenie, wykonaj oparty na Woli rzut na atak przeciwko jego Woli. Sukces oznacza, że na czas trwania zaklęcia istota pozostaje zniewolona; porażka zaś, że staje się wobec ciebie wroga.",
+      "card_description": "Na koniec rundy, w której rzucasz to\nzaklęcie, wskazany sześcian powietrza\nzamienia się w dżinna powietrza\no Rozmiarze 2. Efektów tego czaru nie\nmożna dobrowolnie zakończyć. Gdy\nprzyzywasz to stworzenie, wykonaj\noparty na Woli rzut na atak przeciwko\njego Woli. Sukces oznacza, że na\nczas trwania zaklęcia istota pozostaje\nzniewolona; porażka zaś, że staje się\nwobec ciebie wroga.",
+      "origin": {
+        "source": "PG",
+        "number": 139
+      }
+    }
+  ]
+}
