@@ -1,0 +1,187 @@
+{
+  "level_0": [
+    {
+      "name": "SERCE BESTII",
+      "tags": [
+        "Pierwotna",
+        "Użytkowe"
+      ],
+      "level": 0,
+      "duration": "Czas działania: 1 minuta",
+      "book_description": "Twoje oczy zaczynają świecić, ciało pokrywa się futrem, paznokcie zamieniają się w pazury, a zęby – w ostre kły. Na czas trwania zaklęcia zyskujesz zdolność widzenia w ciemności i premię +2 do Prędkości, a twoje ataki bez broni i z użyciem broni naturalnej zadają dodatkowe 1k6 obrażeń.",
+      "card_description": "Twoje oczy zaczynają świecić,\nciało pokrywa się futrem,\npaznokcie zamieniają się\nw pazury, a zęby – w ostre\nkły. Na czas trwania zaklęcia\nzyskujesz zdolność widzenia\nw ciemności i premię +2 do\nPrędkości, a twoje ataki bez\nbroni i z użyciem broni naturalnej\nzadają dodatkowe 1k6 obrażeń.",
+      "origin": {
+        "source": "PG",
+        "number": 130
+      }
+    },
+    {
+      "name": "UKRYCIE PRZED ZWIERZĘTAMI",
+      "tags": [
+        "Pierwotna",
+        "Użytkowe"
+      ],
+      "level": 0,
+      "duration": "Czas działania: 1 minuta; patrz niżej",
+      "book_description": "Przez czas trwania zaklęcia jesteś ukryty przed zwierzętami. Efekt ten natychmiast dobiega końca, gdy wykonasz atak.",
+      "card_description": "Przez czas trwania zaklęcia\njesteś ukryty przed zwierzętami.\nEfekt ten natychmiast dobiega\nkońca, gdy wykonasz atak.",
+      "origin": {
+        "source": "PG",
+        "number": 122
+      }
+    }
+  ],
+  "level_1": [
+    {
+      "name": "JĘZYK BESTII",
+      "tags": [
+        "Pierwotna",
+        "Użytkowe"
+      ],
+      "level": 1,
+      "duration": "Czas działania: 1 minuta",
+      "book_description": "Przez czas trwania zaklęcia możesz porozumieć się z każdym zwierzęciem, które cię słyszy.",
+      "card_description": "Przez czas trwania zaklęcia\nmożesz porozumieć się z każdym\nzwierzęciem, które cię słyszy.",
+      "origin": {
+        "source": "PG",
+        "number": 130
+      }
+    },
+    {
+      "name": "ZWIERZĘCY TOWARZYSZ",
+      "tags": [
+        "Pierwotna",
+        "Atak"
+      ],
+      "level": 1,
+      "target": "Cel: Jedno zwierzę w bliskim zasięgu, które widzisz.",
+      "duration": "Czas działania: Dopóki nie odbędziesz pełnego odpoczynku; patrz niżej.",
+      "book_description": "Wykonaj oparty na Woli rzut na atak przeciwko Woli celu. Jeśli jesteś pod wpływem zaklęcia język bestii, zyskujesz 1 ułatwienie. Jeśli Zdrowie zwierzęcia jest wyższe niż twoje, czar nie udaje się i tracisz jego użycie. Sukces oznacza, że cel zostaje przez ciebie zauroczony do czasu, dopóki nie odbędziesz pełnego odpoczynku. Towarzyszy ci w wyprawach i pomaga najlepiej, jak potrafi, ale pozostaje pod kontrolą MG. Możesz zauroczyć w ten sposób maksymalnie tyle zwierząt, ile wynosi twoja Moc. Jeśli rzucenie tego zaklęcia spowoduje przekroczenie limitu, stworzenie, które było zauroczone najdłużej, automatycznie wyrywa się spod działania tego efektu.",
+      "critical_success": "Rzut na atak to 20+: Cel staje się permanentnie zauroczony.",
+      "card_description": "Wykonaj oparty na Woli rzut na atak\nprzeciwko Woli celu. Jeśli jesteś pod\nwpływem zaklęcia język bestii, zyskujesz\n1 ułatwienie. Jeśli Zdrowie zwierzęcia\njest wyższe niż twoje, czar nie udaje się\ni tracisz jego użycie. Sukces oznacza, że\ncel zostaje przez ciebie zauroczony do\nczasu, dopóki nie odbędziesz pełnego\nodpoczynku. Pomaga najlepiej, jak\npotrafi, ale pozostaje pod kontrolą\nMG. Możesz zauroczyć w ten sposób\ntyle zwierząt, ile wynosi twoja Moc.",
+      "origin": {
+        "source": "PG",
+        "number": 130
+      }
+    },
+    {
+      "name": "WEZWANIE MAŁEGO ZWIERZĘCIA",
+      "tags": [
+        "Pierwotna",
+        "Użytkowe"
+      ],
+      "level": 1,
+      "area": "Obszar: Sześcian o krawędzi 1 metra i punkcie początkowym w średnim zasięgu, umiejscowiony na twardym podłożu.",
+      "duration": "Czas działania: 1 godzina",
+      "book_description": "W obszarze działania zaklęcia pojawia się zniewolone małe lub drobne zwierzę. Drobne zwierzę może mieć jedną z następujących cech: wspinaczka, lot, pływanie lub trucizna. Zwierzę należy do gatunku typowego dla otoczenia, w którym rzucasz ten czar. Gdy jego efekt dobiega końca lub stworzenie zostanie obezwładnione, powraca ono tam, skąd przyszło.",
+      "card_description": "W obszarze działania zaklęcia\npojawia się zniewolone małe lub\ndrobne zwierzę. Drobne zwierzę\nmoże mieć jedną z następujących\ncech: wspinaczka, lot, pływanie lub\ntrucizna. Zwierzę należy do gatunku\ntypowego dla otoczenia, w którym\nrzucasz ten czar. Gdy jego efekt\ndobiega końca lub stworzenie\nzostanie obezwładnione, powraca\nono tam, skąd przyszło.",
+      "origin": {
+        "source": "PG",
+        "number": 131
+      }
+    }
+  ],
+  "level_2": [
+    {
+      "name": "WEZWANIE ŚREDNIEGO ZWIERZĘCIA",
+      "tags": [
+        "Pierwotna",
+        "Użytkowe"
+      ],
+      "level": 2,
+      "area": "Obszar: Sześcian o krawędzi 1 metra i punkcie początkowym w średnim zasięgu, umiejscowiony na twardym podłożu.",
+      "duration": "Czas działania: 1 godzina",
+      "book_description": "Zaklęcie to działa tak samo, jak wezwanie małego zwierzęcia, z tą różnicą, że w obszarze jego działania pojawia się zniewolone średnie, małe lub drobne zwierzę. Małe lub drobne zwierzę może mieć jedną z następujących cech: wspinaczka, lot, pływanie lub trucizna.",
+      "card_description": "Zaklęcie to działa tak samo, jak\nwezwanie małego zwierzęcia,\nz tą różnicą, że w obszarze jego\ndziałania pojawia się zniewolone\nśrednie, małe lub drobne zwierzę.\nMałe lub drobne zwierzę może\nmieć jedną z następujących cech:\nwspinaczka, lot, pływanie lub\ntrucizna.",
+      "origin": {
+        "source": "PG",
+        "number": 131
+      }
+    },
+    {
+      "name": "OKRUTNA BESTIA",
+      "tags": [
+        "Pierwotna",
+        "Użytkowe"
+      ],
+      "level": 2,
+      "target": "Cel: Ty lub jedno zwierzę w bliskim zasięgu.",
+      "duration": "Czas działania: 1 minuta",
+      "book_description": "Cel zamienia się w dziką bestię. Na czas trwania zaklęcia jego Rozmiar zwiększa się do 1 lub o 1, jeżeli już wynosi 1 lub więcej, a jego ataki bez broni i z użyciem broni naturalnej zadają dodatkowe 1k6 obrażeń.",
+      "card_description": "Cel zamienia się w dziką bestię.\nNa czas trwania zaklęcia jego\nRozmiar zwiększa się do 1\nlub o 1, jeżeli już wynosi 1 lub\nwięcej, a jego ataki bez broni\ni z użyciem broni naturalnej\nzadają dodatkowe 1k6 obrażeń.",
+      "origin": {
+        "source": "PG",
+        "number": 131
+      }
+    }
+  ],
+  "level_3": [
+    {
+      "name": "WEZWANIE DUŻEGO ZWIERZĘCIA",
+      "tags": [
+        "Pierwotna",
+        "Użytkowe"
+      ],
+      "level": 3,
+      "area": "Obszar: Sześcian o krawędzi 2 metrów i punkcie początkowym w średnim zasięgu, umiejscowiony na twardym podłożu.",
+      "duration": "Czas działania: 1 godzina",
+      "book_description": "Zaklęcie to działa tak samo, jak wezwanie małego zwierzęcia, z tą różnicą, że w obszarze jego działania pojawia się zniewolone duże, średnie lub małe zwierzę. Średnie lub małe zwierzę może mieć jedną z następujących cech: wspinaczka, lot, pływanie lub trucizna.",
+      "card_description": "Zaklęcie to działa tak samo, jak\nwezwanie małego zwierzęcia, z tą\nróżnicą, że w obszarze jego działania\npojawia się zniewolone duże,\nśrednie lub małe zwierzę. Średnie\nlub małe zwierzę może mieć jedną\nz następujących cech: wspinaczka,\nlot, pływanie lub trucizna.",
+      "origin": {
+        "source": "PG",
+        "number": 131
+      }
+    },
+    {
+      "name": "ZRYW",
+      "tags": [
+        "Pierwotna",
+        "Atak"
+      ],
+      "level": 3,
+      "requirements": "Wymagania: Musisz być pod wpływem zaklęcia serce bestii.",
+      "book_description": "Przemieszczasz się na odległość do tylu metrów, ile wynosi dwukrotność twojej Prędkości. W dowolnym punkcie tego ruchu możesz wykonać atak bez broni lub z użyciem broni naturalnej przeciwko celowi w bezpośrednim zasięgu, używając Woli w miejsce typowego dla tego ataku atrybutu. Sukces oznacza, że cel otrzymuje normalne obrażenia od tego ataku plus dodatkowe 4k6 obrażeń i zostaje powalony.",
+      "card_description": "Przemieszczasz się na odległość\ndo tylu metrów, ile wynosi\ndwukrotność twojej Prędkości.\nW dowolnym punkcie tego ruchu\nmożesz wykonać atak bez broni\nlub z użyciem broni naturalnej\nprzeciwko celowi w bezpośrednim\nzasięgu, używając Woli w miejsce\ntypowego dla tego ataku atrybutu.\nSukces oznacza, że cel otrzymuje\nnormalne obrażenia od tego ataku\nplus dodatkowe 4k6 obrażeń\ni zostaje powalony.",
+      "origin": {
+        "source": "PG",
+        "number": 124
+      }
+    }
+  ],
+  "level_4": [
+    {
+      "name": "ZEW DZICZY",
+      "tags": [
+        "Pierwotna",
+        "Użytkowe"
+      ],
+      "level": 4,
+      "target": "Cel: Do pięciu stworzeń w bliskim zasięgu.",
+      "duration": "Czas działania: 1 minuta",
+      "book_description": "Cele zyskują zwierzęce cechy. Na czas trwania zaklęcia każdy z nich otrzymuje premię +10 do Zdrowia i +2 do Prędkości, a jego ataki bez broni i z użyciem broni naturalnej zadają dodatkowe 1k6 obrażeń.",
+      "card_description": "Cele zyskują zwierzęce cechy.\nNa czas trwania zaklęcia każdy\nz nich otrzymuje premię +10 do\nZdrowia i +2 do Prędkości, a jego\nataki bez broni i z użyciem broni\nnaturalnej zadają dodatkowe\n1k6 obrażeń.",
+      "origin": {
+        "source": "PG",
+        "number": 131
+      }
+    }
+  ],
+  "level_5": [
+    {
+      "name": "WEZWANIE WIELKIEGO ZWIERZĘCIA",
+      "tags": [
+        "Pierwotna",
+        "Użytkowe"
+      ],
+      "level": 5,
+      "area": "Obszar: Sześcian o krawędzi 3 metrów i punkcie początkowym w średnim zasięgu, umiejscowiony na twardym podłożu.",
+      "duration": "Czas działania: 1 godzina",
+      "book_description": "Zaklęcie to działa tak samo, jak wezwanie małego zwierzęcia, z tą różnicą, że w obszarze jego działania pojawia się zniewolone wielkie, duże lub średnie zwierzę. Duże lub średnie zwierzę może mieć jedną z następujących cech: wspinaczka, lot, pływanie lub trucizna.",
+      "card_description": "Zaklęcie to działa tak samo, jak\nwezwanie małego zwierzęcia, z tą\nróżnicą, że w obszarze jego działania\npojawia się zniewolone wielkie,\nduże lub średnie zwierzę. Duże lub\nśrednie zwierzę może mieć jedną\nz następujących cech: wspinaczka,\nlot, pływanie lub trucizna.",
+      "origin": {
+        "source": "PG",
+        "number": 131
+      }
+    }
+  ]
+}

@@ -3,3 +3,4 @@ pypdf
 pydantic
 pytest
 ruff
+reportlab

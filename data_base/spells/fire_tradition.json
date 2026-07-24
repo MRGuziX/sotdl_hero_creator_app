@@ -1,95 +1,185 @@
 {
   "level_0": [
-      {
-        "name": "KONTROLA PŁOMIENIA (s.136 PG)",
-        "tags": ["Ogień", "Użytkowe"],
-        "level": 0,
-        "target": "Cel: Jeden łatwopalny obiekt o Rozmiarze 1 lub mniejszym w bliskim zasięgu.",
-        "description": "Cel zapala się bądź – jeżeli już płonie – gaśnie."
-      },
-      {
-        "name": "OGNISTY POCISK (s.136 PG)",
-        "tags": ["Ogień", "Atak"],
-        "level": 0,
-        "target": "Jedno stworzenie lub obiekt w dalekim zasięgu.",
-        "description": "Wypuszczasz w stronę celu płonący pocisk. Wykonaj oparty na Woli rzut na atak przeciwko Zręczności przeciwnika. Sukces oznacza, że otrzymuje on 1k6 obrażeń.",
-        "critical_success": "Rzut na atak 20+: Cel otrzymuje dodatkowe 1k6 obrażeń."
+    {
+      "name": "KONTROLA PŁOMIENIA",
+      "tags": [
+        "Ogień",
+        "Użytkowe"
+      ],
+      "level": 0,
+      "target": "Cel: Jeden łatwopalny obiekt o Rozmiarze 1 lub mniejszym w bliskim zasięgu.",
+      "book_description": "Cel zapala się bądź – jeżeli już płonie – gaśnie.",
+      "card_description": "Cel zapala się lub gaśnie jeśli\nwcześniej był zapalony.",
+      "origin": {
+        "source": "PG",
+        "number": 136
       }
+    },
+    {
+      "name": "OGNISTY POCISK",
+      "tags": [
+        "Ogień",
+        "Atak"
+      ],
+      "level": 0,
+      "target": "Cel: Jedno stworzenie lub obiekt w dalekim zasięgu.",
+      "book_description": "Wypuszczasz w stronę celu płonący pocisk. Wykonaj oparty na Woli rzut na atak przeciwko Zręczności przeciwnika. Sukces oznacza, że otrzymuje on 1k6 obrażeń.",
+      "critical_success": "Rzut na atak to 20+: Cel otrzymuje dodatkowe 1k6 obrażeń.",
+      "card_description": "Wypuszczasz w stronę celu\npłonący pocisk. Wykonaj oparty\nna Woli rzut na atak przeciwko\nZręczności przeciwnika.\nSukces oznacza, że otrzymuje\non 1k6 obrażeń.",
+      "origin": {
+        "source": "PG",
+        "number": 136
+      }
+    }
   ],
   "level_1": [
-      {
-        "name": "OGNISTY PODMUCH (s.136 PG)",
-        "tags": ["Ogień", "Atak"],
-        "level": 1,
-        "area": "Stożek długości 3 metrów o punkcie początkowym w bezpośrednim zasięgu.",
-        "description": "Z twojej dłoni wystrzeliwują płomienie, zadając 3k6 obrażeń wszystkiemu wewnątrz obszaru działania zaklęcia. Stworzenia, które wykonają udany test Zręczności, otrzymują tylko połowę obrażeń."
-      },
-      {
-        "name": "METEOROID (s.136 PG)",
-        "tags": ["Ogień", "Atak"],
-        "level": 1,
-        "target": "Punkt w przestrzeni w średnim zasięgu.",
-        "description": "Ciskasz płonącym kamieniem. Gdy osiągnie cel lub jeśli napotka na swojej drodze posiadające fizyczną postać stworzenie lub przeszkodę, wybucha. W promieniu 1 metra od punktu początkowego w miejscu docelowym albo w przestrzeni zajmowanej przez istotę lub przedmiot rozchodzi się sfera płomieni, te zaś zadają 2k6 + 2 obrażeń wszystkiemu wewnątrz tego obszaru. Stworzenia, które wykonają udany test Zręczności, otrzymują tylko połowę obrażeń."
-      },
-      {
-        "name": "OCHRONA PRZED OGNIEM (s.136 PG)",
-        "tags": ["Ogień", "Atak"],
-        "level": 1,
-        "target": "Jedno stworzenie w bezpośrednim zasięgu.",
-        "duration": "1 godzina",
-        "description": "Dotknij celu. Przez czas trwania zaklęcia otrzymuje on tylko połowę obrażeń od ognia."
+    {
+      "name": "OGNISTY PODMUCH",
+      "tags": [
+        "Ogień",
+        "Atak"
+      ],
+      "level": 1,
+      "area": "Obszar: Stożek długości 3 metrów o punkcie początkowym w bezpośrednim zasięgu.",
+      "book_description": "Z twojej dłoni wystrzeliwują płomienie, zadając 3k6 obrażeń wszystkiemu wewnątrz obszaru działania zaklęcia. Stworzenia, które wykonają udany test Zręczności, otrzymują tylko połowę obrażeń.",
+      "card_description": "Z twojej dłoni wystrzeliwują\npłomienie, zadając 3k6 obrażeń\nwszystkiemu wewnątrz obszaru\ndziałania zaklęcia. Stworzenia,\nktóre wykonają udany test\nZręczności, otrzymują tylko\npołowę obrażeń.",
+      "origin": {
+        "source": "PG",
+        "number": 136
       }
-    ],
+    },
+    {
+      "name": "METEOROID",
+      "tags": [
+        "Ogień",
+        "Atak"
+      ],
+      "level": 1,
+      "target": "Cel: Punkt w przestrzeni w średnim zasięgu.",
+      "book_description": "Ciskasz płonącym kamieniem. Gdy osiągnie cel lub jeśli napotka na swojej drodze posiadające fizyczną postać stworzenie lub przeszkodę, wybucha. W promieniu 1 metra od punktu początkowego w miejscu docelowym albo w przestrzeni zajmowanej przez istotę lub przedmiot rozchodzi się sfera płomieni, te zaś zadają 2k6 + 2 obrażeń wszystkiemu wewnątrz tego obszaru. Stworzenia, które wykonają udany test Zręczności, otrzymują tylko połowę obrażeń.",
+      "card_description": "Ciskasz płonącym kamieniem.\nGdy osiągnie cel lub jeśli napotka\nna swojej drodze posiadające fizyczną\npostać stworzenie lub przeszkodę,\nwybucha. W promieniu 1m od punktu\npoczątkowego w miejscu docelowym\nalbo w przestrzeni zajmowanej przez\nistotę lub przedmiot rozchodzi się\nsfera płomieni, te zaś zadają 2k6 +\n2 obrażeń wszystkiemu wewnątrz\ntego obszaru. Stworzenia, które\nwykonają udany test Zręczności,\notrzymują tylko połowę obrażeń.",
+      "origin": {
+        "source": "PG",
+        "number": 136
+      }
+    },
+    {
+      "name": "OCHRONA PRZED OGNIEM",
+      "tags": [
+        "Ogień",
+        "Atak"
+      ],
+      "level": 1,
+      "target": "Cel: Jedno stworzenie w bezpośrednim zasięgu.",
+      "duration": "Czas działania: 1 godzina",
+      "book_description": "Dotknij celu. Przez czas trwania zaklęcia otrzymuje on tylko połowę obrażeń od ognia.",
+      "card_description": "Dotknij celu. Przez czas trwania\nzaklęcia otrzymuje on tylko\npołowę obrażeń od ognia.",
+      "origin": {
+        "source": "PG",
+        "number": 136
+      }
+    }
+  ],
   "level_2": [
-      {
-        "name": "OGNISTA SALWA (s.136 PG)",
-        "tags": ["Ogień", "Atak"],
-        "level": 2,
-        "target": "Do trzech stworzeń lub obiektów w średnim zasięgu.",
-        "description": "Wypuszczasz trzy płonące pociski, rozdzielone dowolnie pomiędzy cele. Dla każdego pocisku wykonaj oparty na Woli rzut na atak przeciwko Zręczności stworzenia lub obiektu. Sukces oznacza, że cel otrzymuje 1k6 + 1 obrażeń.",
-        "critical_success": "Rzut na atak 20+: Cel otrzymuje dodatkowe 1k3 obrażeń."
-      },
-      {
-        "name": "CAŁUN PŁOMIENI (s.136 PG)",
-        "tags": ["Ogień", "Atak"],
-        "level": 2,
-        "duration": "1 minuta",
-        "description": "Na czas trwania zaklęcia spowijają cię płomienie, oświetlając obszar w promieniu 10 metrów wokół. Płomienie są gorące, ale nie wyrządzają szkody ani tobie, ani przedmiotom, które trzymasz lub masz na sobie. Przez czas trwania zaklęcia otrzymujesz tylko połowę obrażeń od zimna i jesteś odporny na wyczerpanie spowodowane wystawieniem na niską temperaturę. Dodatkowo każde stworzenie, które cię dotknie lub trafi atakiem z użyciem broni białej, otrzymuje 1k6 obrażeń od ognia."
+    {
+      "name": "OGNISTA SALWA",
+      "tags": [
+        "Ogień",
+        "Atak"
+      ],
+      "level": 2,
+      "target": "Cel: Do trzech stworzeń lub obiektów w średnim zasięgu.",
+      "book_description": "Wypuszczasz trzy płonące pociski, rozdzielone dowolnie pomiędzy cele. Dla każdego pocisku wykonaj oparty na Woli rzut na atak przeciwko Zręczności stworzenia lub obiektu. Sukces oznacza, że cel otrzymuje 1k6 + 1 obrażeń.",
+      "critical_success": "Rzut na atak to 20+: Cel otrzymuje dodatkowe 1k3 obrażeń.",
+      "card_description": "Wypuszczasz trzy płonące pociski,\nrozdzielone dowolnie pomiędzy\ncele. Dla każdego pocisku wykonaj\noparty na Woli rzut na atak\nprzeciwko Zręczności stworzenia\nlub obiektu. Sukces oznacza, że\ncel otrzymuje 1k6 + 1 obrażeń.",
+      "origin": {
+        "source": "PG",
+        "number": 136
       }
-    ],
+    },
+    {
+      "name": "CAŁUN PŁOMIENI",
+      "tags": [
+        "Ogień",
+        "Atak"
+      ],
+      "level": 2,
+      "duration": "Czas działania: 1 minuta",
+      "book_description": "Na czas trwania zaklęcia spowijają cię płomienie, oświetlając obszar w promieniu 10 metrów wokół. Płomienie są gorące, ale nie wyrządzają szkody ani tobie, ani przedmiotom, które trzymasz lub masz na sobie. Przez czas trwania zaklęcia otrzymujesz tylko połowę obrażeń od zimna i jesteś odporny na wyczerpanie spowodowane wystawieniem na niską temperaturę. Dodatkowo każde stworzenie, które cię dotknie lub trafi atakiem z użyciem broni białej, otrzymuje 1k6 obrażeń od ognia.",
+      "card_description": "Na czas trwania zaklęcia spowijają cię\npłomienie, oświetlając obszar\nw promieniu 10m wokół. Płomienie\nsą gorące, ale nie wyrządzają szkody\nani tobie, ani przedmiotom, które\ntrzymasz lub masz na sobie. Przez\nczas trwania zaklęcia otrzymujesz\ntylko połowę obrażeń od zimna\ni jesteś odporny na wyczerpanie\nspowodowane wystawieniem na\nniską temperaturę. Dodatkowo każde\nstworzenie, które cię dotknie lub trafi\natakiem z użyciem broni białej,\notrzymuje 1k6 obrażeń od ognia.",
+      "origin": {
+        "source": "PG",
+        "number": 136
+      }
+    }
+  ],
   "level_3": [
-      {
-        "name": "KULA OGNIA (s.136 PG)",
-        "tags": ["Ogień", "Atak"],
-        "level": 3,
-        "target": "Punkt przestrzeni w dalekim zasięgu.",
-        "description": "Rzucasz płonącą kulą. Gdy osiągnie cel lub jeśli napotka na swojej drodze posiadające fizyczną postać stworzenie lub przeszkodę, wybucha. Płomienie rozchodzą się sferą o punkcie początkowym w miejscu docelowym albo w przestrzeni zajmowanej przez obiekt lub istotę na promień 5 metrów i zadają 5k6 obrażeń wszystkiemu wewnątrz tego obszaru. Stworzenia, które wykonają udany test Zręczności, otrzymują tylko połowę obrażeń."
-      },
-      {
-        "name": "PODPALENIE (s.136 PG)",
-        "tags": ["Ogień", "Atak"],
-        "level": 3,
-        "target": "Jedno stworzenie lub obiekt w średnim zasięgu.",
-        "description": "Cel zaczyna dymić i grozi stanięciem w płomieniach. Wykonaj oparty na Woli rzut na atak przeciwko jego Zręczności. Sukces oznacza, że otrzymuje 4k6 obrażeń i zostaje podpalony.",
-        "critical_success": "Rzut na atak 20+: Cel otrzymuje dodatkowe 2k6 obrażeń."
-      }],
-  "level_4": [
-      {
-        "name": "ŚCIANA PŁOMIENI (s.136 PG)",
-        "tags": ["Ogień", "Atak"],
-        "level": 4,
-        "area": "Linia łamana o długości 10 metrów, wysokości 5 metrów i szerokości 1 metra o punkcie początkowym w dalekim zasięgu.",
-        "duration": "1 minuta",
-        "description": "Obszar działania zaklęcia na czas jego trwania wypełniają płomienie. Przesłaniają one częściowo wszystko, co znajduje się w objętej ścianą płomieni przestrzeni i za nią. Znajdujące się na wskazanym obszarze, a także wchodzące tam stworzenia i obiekty otrzymują 3k6 obrażeń. Na koniec każdej rundy aż do zakończenia efektu wszystkie istoty i łatwopalne przedmioty będące na obszarze działania zaklęcia otrzymują 3k6 obrażeń, a te w bliskim zasięgu od jego krawędzi – 1k6 obrażeń, chyba że wykonają udany test Siły."
-      }],
-  "level_5": [
-      {
-        "name": "PRZYZWANIE DŻINNA OGNIA (s.136 PG)",
-        "tags": ["Ogień", "Użytkowe"],
-        "level": 5,
-        "target": "Sześcian ognia o krawędzi 2 metrów i punkcie początkowym w dalekim zasięgu.",
-        "duration": "1 minuta",
-        "description": "Na koniec rundy, w której rzucasz to zaklęcie, wskazany sześcian ognia zamienia się w dżinna ognia o Rozmiarze 2. Efektów tego czaru nie możesz dobrowolnie zakończyć. Gdy przyzywasz to stworzenie, wykonaj oparty na Woli rzut na atak przeciwko jego Woli. Sukces oznacza, że na czas trwania zaklęcia istota zostaje zniewolona; porażka zaś, że staje się wobec ciebie wroga."
+    {
+      "name": "KULA OGNIA",
+      "tags": [
+        "Ogień",
+        "Atak"
+      ],
+      "level": 3,
+      "target": "Cel: Punkt przestrzeni w dalekim zasięgu.",
+      "book_description": "Rzucasz płonącą kulą. Gdy osiągnie cel lub jeśli napotka na swojej drodze posiadające fizyczną postać stworzenie lub przeszkodę, wybucha. Płomienie rozchodzą się sferą o punkcie początkowym w miejscu docelowym albo w przestrzeni zajmowanej przez obiekt lub istotę na promień 5 metrów i zadają 5k6 obrażeń wszystkiemu wewnątrz tego obszaru. Stworzenia, które wykonają udany test Zręczności, otrzymują tylko połowę obrażeń.",
+      "card_description": "Rzucasz płonącą kulą. Gdy osiągnie\ncel lub jeśli napotka na swojej\ndrodze posiadające fizyczną postać\nstworzenie lub przeszkodę, wybucha.\nPłomienie rozchodzą się sferą\no punkcie początkowym w miejscu\ndocelowym albo w przestrzeni\nzajmowanej przez obiekt lub istotę\nna promień 5m i zadają 5k6 obrażeń\nwszystkiemu wewnątrz tego obszaru.\nStworzenia, które wykonają\nudany test Zręczności, otrzymują\ntylko połowę obrażeń.",
+      "origin": {
+        "source": "PG",
+        "number": 136
       }
-    ]
-  }
+    },
+    {
+      "name": "PODPALENIE",
+      "tags": [
+        "Ogień",
+        "Atak"
+      ],
+      "level": 3,
+      "target": "Cel: Jedno stworzenie lub obiekt w średnim zasięgu.",
+      "book_description": "Cel zaczyna dymić i grozi stanięciem w płomieniach. Wykonaj oparty na Woli rzut na atak przeciwko jego Zręczności. Sukces oznacza, że otrzymuje 4k6 obrażeń i zostaje podpalony.",
+      "critical_success": "Rzut na atak to 20+: Cel otrzymuje dodatkowe 2k6 obrażeń.",
+      "card_description": "Cel zaczyna dymić i grozi\nstanięciem w płomieniach.\nWykonaj oparty na Woli rzut na\natak przeciwko jego Zręczności.\nSukces oznacza 4k6 obrażeń\ni podpala cel.",
+      "origin": {
+        "source": "PG",
+        "number": 136
+      }
+    }
+  ],
+  "level_4": [
+    {
+      "name": "ŚCIANA PŁOMIENI",
+      "tags": [
+        "Ogień",
+        "Atak"
+      ],
+      "level": 4,
+      "area": "Obszar: Linia łamana o długości 10 metrów, wysokości 5 metrów i szerokości 1 metra o punkcie początkowym w dalekim zasięgu.",
+      "duration": "Czas działania: 1 minuta",
+      "book_description": "Obszar działania zaklęcia na czas jego trwania wypełniają płomienie. Przesłaniają one częściowo wszystko, co znajduje się w objętej ścianą płomieni przestrzeni i za nią. Znajdujące się na wskazanym obszarze, a także wchodzące tam stworzenia i obiekty otrzymują 3k6 obrażeń. Na koniec każdej rundy aż do zakończenia efektu wszystkie istoty i łatwopalne przedmioty będące na obszarze działania zaklęcia otrzymują 3k6 obrażeń, a te w bliskim zasięgu od jego krawędzi – 1k6 obrażeń, chyba że wykonają udany test Siły.",
+      "card_description": "Obszar działania zaklęcia wypełniają\npłomienie, przesłaniając częściowo\nwszystko, co znajduje się w objętej ścianą\npłomieni przestrzeni i za nią. Znajdujące\nsię na wskazanym obszarze, a także\nwchodzące tam stworzenia i obiekty\notrzymują 3k6 obrażeń. Na koniec\nkażdej rundy aż do zakończenia efektu\nwszystkie istoty i łatwopalne przedmioty\nbędące na obszarze działania zaklęcia\notrzymują 3k6 obrażeń, a te w bliskim\nzasięgu od jego krawędzi – 1k6 obrażeń,\nchyba że wykonają udany test Siły.",
+      "origin": {
+        "source": "PG",
+        "number": 136
+      }
+    }
+  ],
+  "level_5": [
+    {
+      "name": "PRZYZWANIE DŻINNA OGNIA",
+      "tags": [
+        "Ogień",
+        "Użytkowe"
+      ],
+      "level": 5,
+      "target": "Cel: Sześcian ognia o krawędzi 2 metrów i punkcie początkowym w dalekim zasięgu.",
+      "duration": "Czas działania: 1 minuta",
+      "book_description": "Na koniec rundy, w której rzucasz to zaklęcie, wskazany sześcian ognia zamienia się w dżinna ognia o Rozmiarze 2. Efektów tego czaru nie możesz dobrowolnie zakończyć. Gdy przyzywasz to stworzenie, wykonaj oparty na Woli rzut na atak przeciwko jego Woli. Sukces oznacza, że na czas trwania zaklęcia istota zostaje zniewolona; porażka zaś, że staje się wobec ciebie wroga.",
+      "card_description": "Na koniec rundy, w której rzucasz\nto zaklęcie, wskazany sześcian\nognia zamienia się w dżinna ognia\no Rozmiarze 2. Efektów tego czaru\nnie możesz dobrowolnie zakończyć.\nGdy przyzywasz to stworzenie,\nwykonaj oparty na Woli rzut na atak\nprzeciwko jego Woli. Sukces oznacza,\nże na czas trwania zaklęcia istota\nzostaje zniewolona; porażka zaś, że\nstaje się wobec ciebie wroga.",
+      "origin": {
+        "source": "PG",
+        "number": 136
+      }
+    }
+  ]
+}

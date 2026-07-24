@@ -1,0 +1,188 @@
+{
+  "level_0": [
+    {
+      "name": "PRZYNĘTA",
+      "tags": [
+        "Uroki",
+        "Atak"
+      ],
+      "level": 0,
+      "target": "Cel: Jedno stworzenie w dalekim zasięgu, które jest w stanie cię zobaczyć.",
+      "book_description": "Wykonaj oparty na Intelekcie rzut na atak przeciwko Intelektowi celu. Sukces oznacza, że stworzenie musi się przemieścić na odległość równą lub mniejszą od jego Prędkości.",
+      "critical_success": "Rzut na atak to 20+: Odzyskujesz użycie tego czaru.",
+      "card_description": "Wykonaj oparty na Intelekcie rzut\nna atak przeciwko Intelektowi celu.\nSukces oznacza, że stworzenie\nmusi się przemieścić na odległość\nrówną lub mniejszą od jego\nPrędkości.",
+      "origin": {
+        "source": "PG",
+        "number": 149
+      }
+    },
+    {
+      "name": "PREZENCJA",
+      "tags": [
+        "Uroki",
+        "Użytkowe"
+      ],
+      "level": 0,
+      "duration": "Czas działania: 1 minuta.",
+      "book_description": "W czasie trwania zaklęcia stworzenia, które naturalnie mogą czuć pociąg do członków twojego gatunku, wykonują rzuty na atak przeciwko tobie z 1 utrudnieniem.",
+      "card_description": "Stworzenia, które naturalnie mogą\nczuć pociąg do członków twojego\ngatunku, wykonują rzuty na atak\nprzeciwko tobie z 1 utrudnieniem.",
+      "origin": {
+        "source": "PG",
+        "number": 149
+      }
+    }
+  ],
+  "level_1": [
+    {
+      "name": "ZAUROCZENIE",
+      "tags": [
+        "Uroki",
+        "Atak"
+      ],
+      "level": 1,
+      "target": "Cel: Jedno stworzenie w bliskim zasięgu, które jest w stanie cię zobaczyć.",
+      "book_description": "Wykonaj oparty na Intelekcie rzut na atak przeciwko Woli celu. Jeśli stworzenie to było atakowane przez ciebie lub członków twojej drużyny od czasu waszego ostatniego pełnego odpoczynku, rzut ten otrzymuje 1 utrudnienie. Sukces oznacza, że istota zostaje zauroczona na 1 godzinę lub dopóki nie otrzyma obrażeń.",
+      "critical_success": "Rzut na atak to 20+: Cel zostaje zauroczony na 1k6 godzin lub dopóki nie otrzyma obrażeń.",
+      "card_description": "Wykonaj oparty na Intelekcie\nrzut na atak przeciwko Woli celu.\nJeśli stworzenie to było atakowane\nprzez ciebie lub członków twojej\ndrużyny od czasu waszego\nostatniego pełnego odpoczynku,\nrzut ten otrzymuje 1 utrudnienie.\nSukces oznacza, że istota zostaje\nzauroczona na 1 godzinę lub dopóki\nnie otrzyma obrażeń.",
+      "origin": {
+        "source": "PG",
+        "number": 149
+      }
+    },
+    {
+      "name": "ROZKAZ",
+      "tags": [
+        "Uroki",
+        "Atak"
+      ],
+      "level": 1,
+      "target": "Cel: Jedno stworzenie w bliskim zasięgu, które jest w stanie cię usłyszeć.",
+      "book_description": "Wykonaj oparty na Intelekcie rzut na atak przeciwko Woli celu. Jeśli jest on zauroczony, rzut ten otrzymuje 1 ułatwienie. Sukces oznacza, że stworzenie zostaje zniewolone na 1 rundę.",
+      "critical_success": "Rzut na atak to 20+: Odzyskujesz użycie tego czaru.",
+      "card_description": "Wykonaj oparty na Intelekcie\nrzut na atak przeciwko Woli celu.\nJeśli jest on zauroczony, rzut\nten otrzymuje 1 ułatwienie.\nSukces oznacza, że stworzenie\nzostaje zniewolone na 1 rundę.",
+      "origin": {
+        "source": "PG",
+        "number": 149
+      }
+    },
+    {
+      "name": "PYTANIE",
+      "tags": [
+        "Uroki",
+        "Atak"
+      ],
+      "level": 1,
+      "target": "Cel: Jedno stworzenie w bliskim zasięgu, które jest w stanie cię zobaczyć, usłyszeć i zrozumieć.",
+      "book_description": "Zadajesz celowi pytanie, po czym wykonujesz oparty na Intelekcie rzut na atak przeciwko jego Woli. Sukces oznacza, że stworzenie musi odpowiedzieć zgodnie z prawdą i posiadaną wiedzą.",
+      "critical_success": "Rzut na atak to 20+: Cel staje się przestraszony na 1 rundę.",
+      "card_description": "Zadajesz celowi pytanie, po czym\nwykonujesz oparty na Intelekcie\nrzut na atak przeciwko jego Woli.\nSukces oznacza, że stworzenie musi\nodpowiedzieć zgodnie z prawdą\ni posiadaną wiedzą.",
+      "origin": {
+        "source": "PG",
+        "number": 149
+      }
+    }
+  ],
+  "level_2": [
+    {
+      "name": "ZNIEWOLENIE",
+      "tags": [
+        "Uroki",
+        "Atak"
+      ],
+      "level": 2,
+      "target": "Cel: Jedno stworzenie w średnim zasięgu, które jest w stanie cię zobaczyć.",
+      "book_description": "Wykonaj oparty na Intelekcie rzut na atak przeciwko Woli celu. Jeśli stworzenie było atakowane przez ciebie lub członków twojej drużyny od czasu waszego ostatniego pełnego odpoczynku, rzut ten otrzymuje 1 utrudnienie. Sukces oznacza, że istota zostaje zniewolona na 1 minutę lub dopóki nie otrzyma obrażeń.",
+      "critical_success": "Rzut na atak to 20+: Cel zostaje zniewolony na 1 godzinę lub dopóki nie otrzyma obrażeń.",
+      "card_description": "Wykonaj oparty na Intelekcie\nrzut na atak przeciwko Woli celu.\nJeśli stworzenie było atakowane\nprzez ciebie lub członków twojej\ndrużyny od czasu waszego\nostatniego pełnego odpoczynku,\nrzut ten otrzymuje 1 utrudnienie.\nSukces oznacza, że istota zostaje\nzniewolona na 1 minutę lub dopóki\nnie otrzyma obrażeń.",
+      "origin": {
+        "source": "PG",
+        "number": 149
+      }
+    },
+    {
+      "name": "SPĘTANIE UMYSŁU",
+      "tags": [
+        "Uroki",
+        "Atak"
+      ],
+      "level": 2,
+      "target": "Cel: Jedno stworzenie w średnim zasięgu, które jest w stanie cię zobaczyć i usłyszeć.",
+      "book_description": "Wykonaj oparty na Intelekcie rzut na atak przeciwko Woli celu. Jeśli stworzenie było atakowane przez ciebie lub członków twojej drużyny od czasu waszego ostatniego pełnego odpoczynku, rzut ten otrzymuje 1 utrudnienie. Sukces oznacza, że istota staje się zamroczona na 1 minutę lub dopóki nie otrzyma obrażeń. W interakcjach społecznych rzuty na atak przeciwko zamroczonemu tym zaklęciem celowi wykonujesz z 1 ułatwieniem.",
+      "critical_success": "Rzut na atak to 20+: Dopóki pozostaje zamroczony tym zaklęciem, cel jest również oszołomiony.",
+      "card_description": "Wykonaj oparty na Intelekcie rzut\nna atak przeciwko Woli celu. Jeśli\nstworzenie było atakowane przez ciebie\nlub członków twojej drużyny od czasu\nwaszego ostatniego pełnego odpoczynku, rzut ten otrzymuje 1 utrudnienie.\nSukces oznacza, że istota staje się\nzamroczona na 1 minutę lub dopóki\nnie otrzyma obrażeń. W interakcjach\nspołecznych rzuty na atak przeciwko\nzamroczonemu tym zaklęciem celowi\nwykonujesz z 1 ułatwieniem.",
+      "origin": {
+        "source": "PG",
+        "number": 149
+      }
+    }
+  ],
+  "level_3": [
+    {
+      "name": "ZASTRASZENIE",
+      "tags": [
+        "Uroki",
+        "Atak"
+      ],
+      "level": 3,
+      "target": "Cel: Jedno stworzenie w średnim zasięgu.",
+      "book_description": "Wykonaj oparty na Intelekcie rzut na atak przeciwko Woli celu. Sukces oznacza, że stworzenie zostaje unieruchomione na 1 minutę. Dopóki pozostaje unieruchomione tym zaklęciem, jest także przestraszone. Raz na rundę, gdy otrzyma obrażenia, może wykonać test Woli, a sukces oznacza, że przestaje być unieruchomione.",
+      "critical_success": "Rzut na atak to 20+: Cel zostaje także powalony i nie może podnieść się, dopóki jest unieruchomiony tym zaklęciem.",
+      "card_description": "Wykonaj oparty na Intelekcie rzut\nna atak przeciwko Woli celu.\nSukces oznacza, że stworzenie\nzostaje unieruchomione na 1 minutę.\nDopóki pozostaje unieruchomione\ntym zaklęciem, jest także\nprzestraszone. Raz na rundę, gdy\notrzyma obrażenia, może wykonać\ntest Woli, a sukces oznacza, że\nprzestaje być unieruchomione.",
+      "origin": {
+        "source": "PG",
+        "number": 149
+      }
+    },
+    {
+      "name": "WARUNKOWANIE",
+      "tags": [
+        "Uroki",
+        "Atak"
+      ],
+      "level": 3,
+      "target": "Cel: Jedno stworzenie w bliskim zasięgu, które jest w stanie cię zobaczyć i usłyszeć.",
+      "duration": "Czas działania: Koncentracja do 1 minuty; patrz niżej.",
+      "book_description": "Wykonaj oparty na Intelekcie rzut na atak przeciwko Woli celu. Sukces oznacza, że stworzenie zostaje oszołomione na czas trwania zaklęcia lub dopóki nie otrzyma obrażeń. Jeśli utrzymasz koncentrację przez całą minutę, opisz czynność lub ich sekwencję, które nie prowadzą w oczywisty sposób do samobójstwa i które da się streścić w jednym lub dwóch zdaniach. Następnie powiedz, co aktywuje tę czynność, na przykład dotarcie do pewnego miejsca albo usłyszenie określonego słowa lub frazy. Jeśli sugerowane działanie byłoby potencjalnie szkodliwe dla celu, jego bliskich lub własności, może on wykonać test Woli, w którym sukces oznacza, że opiera się warunkowaniu. W przeciwnym wypadku musi wykonać opisaną czynność, jeżeli warunek zostanie spełniony w ciągu najbliższych 8 godzin. Gdy stworzenie wykona zadaną czynność, efekt zaklęcia dobiega końca.",
+      "card_description": "Wykonaj oparty na Intelekcie rzut na atak\nprzeciwko Woli celu. Sukces oznacza, że stworzenie zostaje oszołomione na czas trwania\nzaklęcia lub dopóki nie otrzyma obrażeń.\nJeśli utrzymasz koncentrację przez całą\nminutę, opisz czynność lub ich sekwencję,\nktóre nie prowadzą w oczywisty sposób do\nsamobójstwa i które da się streścić w jednym\nlub dwóch zdaniach. Następnie powiedz, co\naktywuje tę czynność. Jeśli sugerowane dzia-\nłanie byłoby potencjalnie szkodliwe dla celu,\njego bliskich lub własności, może on wykonać\ntest Woli, w którym sukces oznacza, że opiera\nsię warunkowaniu. W przeciwnym wypadku\nmusi wykonać opisaną czynność, jeżeli warunek zostanie spełniony w ciągu najbliższych\n8 godzin. Gdy stworzenie wykona zadaną\nczynność, efekt zaklęcia dobiega końca.",
+      "origin": {
+        "source": "PG",
+        "number": 149
+      }
+    }
+  ],
+  "level_4": [
+    {
+      "name": "POKUSA",
+      "tags": [
+        "Uroki",
+        "Atak"
+      ],
+      "level": 4,
+      "target": "Cel: Dowolna liczba stworzeń w bliskim zasięgu.",
+      "book_description": "Każdy cel musi wykonać test Woli z 1 utrudnieniem. Porażka oznacza, że zostaje zauroczony, dopóki go nie zaatakujesz lub nie odbędziesz pełnego odpoczynku. Zauroczone w ten sposób stworzenia stają się osłabione, jeśli oddalą się od ciebie poza bliski zasięg.",
+      "card_description": "Każdy cel musi wykonać test Woli\nz 1 utrudnieniem. Porażka oznacza,\nże zostaje zauroczony, dopóki go\nnie zaatakujesz lub nie odbędziesz\npełnego odpoczynku. Zauroczone\nw ten sposób stworzenia stają się\nosłabione, jeśli oddalą się\nod ciebie poza bliski zasięg.",
+      "origin": {
+        "source": "PG",
+        "number": 149
+      }
+    }
+  ],
+  "level_5": [
+    {
+      "name": "OMOTANIE",
+      "tags": [
+        "Uroki",
+        "Atak"
+      ],
+      "level": 5,
+      "target": "Cel: Jedno stworzenie w średnim zasięgu.",
+      "book_description": "Wykonaj oparty na Intelekcie rzut na atak przeciwko Woli celu. Jeśli był on atakowany przez ciebie lub członków twojej drużyny od czasu waszego ostatniego pełnego odpoczynku, rzut ten otrzymuje 1 utrudnienie. Sukces oznacza, że stworzenie zostaje zauroczone i na czas trwania zaklęcia przestaje się starzeć. Gdy otrzyma obrażenia, może wykonać test Woli, a sukces oznacza, że pozbywa się tego stanu. Jeśli znajdujesz się w dalekim zasięgu od zauroczonego w ten sposób celu, możesz wykorzystać akcję, by wykonać oparty na Intelekcie rzut na atak przeciwko jego Woli. Sukces oznacza, że istota staje się zniewolona na 1 minutę.",
+      "critical_success": "Rzut na atak to 20+: Jeśli całkowity wynik początkowego rzutu na atak wynosił 20 lub więcej i przekroczył poziom trudności o 5 lub więcej, kolejne rzuty na atak przeciwko zauroczonemu celowi wykonujesz z 2 ułatwieniami.",
+      "card_description": "Wykonaj oparty na Intelekcie rzut na atak\nprzeciwko Woli celu. Jeśli był on atakowany\nprzez ciebie lub członków twojej drużyny\nod czasu waszego ostatniego pełnego\nodpoczynku, rzut ten otrzymuje 1 utrudnienie.\nSukces oznacza, że stworzenie zostaje\nzauroczone i na czas trwania zaklęcia przestaje\nsię starzeć. Gdy otrzyma obrażenia, może\nwykonać test Woli, a sukces oznacza, że\npozbywa się tego stanu. Jeśli znajdujesz się\nw dalekim zasięgu od zauroczonego w ten\nsposób celu, możesz wykorzystać akcję, by\nwykonać oparty na Intelekcie rzut na atak\nprzeciwko jego Woli. Sukces oznacza, że\nistota staje się zniewolona na 1 minutę.",
+      "origin": {
+        "source": "PG",
+        "number": 149
+      }
+    }
+  ]
+}
