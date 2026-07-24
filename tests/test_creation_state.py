@@ -62,3 +62,30 @@ def test_creation_state_rejects_wrong_version_and_cursor():
     state = CreationState(hero=_hero(), choice_cursor=1)
     with pytest.raises(CreationStateError, match="cursor"):
         state.validate_cursor(0)
+
+
+def test_required_complete_reflects_pending_choices():
+    action = AddAttribute(name="strength", value=1)
+    state = CreationState(hero=_hero(), pending_choices=[[action]])
+
+    assert state.required_complete is False
+    assert state.public_dict()["required_complete"] is False
+
+    state.pending_choices = []
+
+    assert state.required_complete is True
+    assert state.public_dict()["required_complete"] is True
+
+
+def test_ready_to_finalize_requires_level_ten_and_no_pending_choices():
+    state = CreationState(hero=_hero(), current_level=10)
+
+    assert state.ready_to_finalize is True
+    assert state.public_dict()["ready_to_finalize"] is True
+
+    state.current_level = 9
+    assert state.ready_to_finalize is False
+
+    state.current_level = 10
+    state.pending_choices = [[AddAttribute(name="strength", value=1)]]
+    assert state.ready_to_finalize is False

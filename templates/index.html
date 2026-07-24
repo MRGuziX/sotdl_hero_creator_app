@@ -9,695 +9,18 @@
 
     <title>CWD - Generator Postaci</title>
     <style>
-        :root {
-            --footer-clearance: 76px;
-        }
-
-        html,
         body {
-            margin: 0;
-            padding: 0;
-            height: 100vh;
-            overflow: hidden;
-        }
-
-        body {
-            background-color: #2c2c2c;
             background-image: url("{{ url_for('static', filename='bg.jpg') }}");
             background-size: cover;
             background-position: center;
             background-attachment: fixed;
             background-repeat: no-repeat;
-            color: white;
-            font-family: Arial, sans-serif;
-            box-sizing: border-box;
-        }
-
-        .app-shell {
-            height: calc(100vh - var(--footer-clearance));
-            display: flex;
-            gap: 24px;
-            padding: 20px;
-            box-sizing: border-box;
-            overflow: hidden;
-        }
-
-        .left-panel,
-        .info-panel {
-            background: rgba(0, 0, 0, 0.72);
-            backdrop-filter: blur(5px);
-            border-radius: 18px;
-            border: 1px solid rgba(255, 255, 255, 0.12);
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-        }
-
-        .left-panel {
-            width: 400px;
-            min-width: 340px;
-            display: flex;
-            flex-direction: column;
-            padding: 20px;
-            box-sizing: border-box;
-            max-height: calc(100vh - 40px - var(--footer-clearance));
-            overflow: auto;
-        }
-
-        .logo {
-            width: 100%;
-            height: auto;
-            margin-bottom: 12px;
-        }
-
-        .left-panel-tools {
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-            margin-bottom: 12px;
-            padding: 12px;
-            border-radius: 12px;
-            background: rgba(255, 255, 255, 0.06);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-        }
-
-        .tool-row {
-            display: flex;
-            width: 100%;
-            align-items: center;
-            justify-content: space-between;
-            gap: 12px;
-            margin-bottom: 10px;
-        }
-
-        .tool-row:last-of-type {
-            margin-bottom: 0;
-        }
-
-        .tool-label {
-            font-size: 14px;
-            letter-spacing: 0.4px;
-            color: rgba(255, 255, 255, 0.9);
-            text-transform: uppercase;
-        }
-
-        .level-stepper {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .stepper-btn {
-            width: 30px;
-            height: 30px;
-            border-radius: 8px;
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            background: rgba(255, 255, 255, 0.1);
-            color: #f3f3f3;
-            font-size: 18px;
-            cursor: pointer;
-            transition: border-color 0.2s ease, background-color 0.2s ease;
-        }
-
-        .stepper-btn:hover {
-            border-color: #8b0000;
-            background: rgba(139, 0, 0, 0.2);
-        }
-
-        #level-value {
-            min-width: 20px;
-            text-align: center;
-            font-size: 18px;
-            font-weight: 700;
-            color: #ffffff;
-        }
-
-        .books-toggle {
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            border-radius: 8px;
-            background: rgba(255, 255, 255, 0.1);
-            color: #f0f0f0;
-            font-size: 14px;
-            padding: 6px 10px;
-            cursor: pointer;
-        }
-
-        .books-panel {
-            display: none;
-            margin-top: 8px;
-            padding-top: 8px;
-            border-top: 1px solid rgba(255, 255, 255, 0.12);
-        }
-
-        .books-panel.visible {
-            display: block;
-        }
-
-        .source-controls {
-            display: none;
-        }
-
-        .book-option {
-            display: flex;
-            align-items: center;
-            position: relative;
-            margin-bottom: 8px;
-            cursor: pointer;
-            color: #ededed;
-            font-size: 14px;
-            user-select: none;
-        }
-
-        .book-option input {
-            position: absolute;
-            opacity: 0;
-            width: 0;
-            height: 0;
-        }
-
-        .book-option .checkmark {
-            height: 18px;
-            width: 18px;
-            background-color: rgba(0, 0, 0, 0.5);
-            border: 1px solid #555;
-            border-radius: 4px;
-            margin-right: 10px;
-            position: relative;
-            transition: all 0.2s ease-in-out;
-            flex: 0 0 18px;
-        }
-
-        .book-option:hover input ~ .checkmark {
-            border-color: #888;
-        }
-
-        .book-option input:checked ~ .checkmark {
-            border-color: #b30000;
-        }
-
-        .book-option .checkmark:after {
-            content: "";
-            position: absolute;
-            display: none;
-            left: 6px;
-            top: 2px;
-            width: 4px;
-            height: 10px;
-            border: solid #b30000;
-            border-width: 0 2px 2px 0;
-            transform: rotate(45deg);
-        }
-
-        .book-option input:checked ~ .checkmark:after {
-            display: block;
-        }
-
-        .section-title {
-            margin: 8px 0 10px;
-            font-family: 'Sigmar One', cursive;
-            font-size: 24px;
-            color: #f5f5f5;
-        }
-
-        .ancestry-grid {
-            display: grid;
-            grid-template-columns: repeat(2, minmax(0, 1fr));
-            gap: 10px;
-        }
-
-        .ancestry-item {
-            position: relative;
-            cursor: pointer;
-            transition: all 0.24s ease-in-out;
-            border-radius: 14px;
-            overflow: hidden;
-            min-height: 64px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-            padding: 10px 8px;
-            background: rgba(255, 255, 255, 0.1);
-            border: 1px solid rgba(255, 255, 255, 0.16);
-            box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.03);
-        }
-
-        .ancestry-item:hover {
-            transform: translateY(-2px);
-            border-color: #8b0000;
-            box-shadow: inset 0 0 0 1px rgba(139, 0, 0, 0.45), 0 6px 14px rgba(0, 0, 0, 0.42);
-        }
-
-        .ancestry-item.active {
-            border-color: #8b0000;
-            box-shadow: inset 0 0 0 1px rgba(139, 0, 0, 0.55), 0 0 0 1px rgba(139, 0, 0, 0.4);
-        }
-
-        .ancestry-name {
-            font-size: 21px;
-            font-weight: 700;
-            color: #f8f8f8;
-            text-shadow: none;
-            width: 100%;
-            text-align: center;
-            pointer-events: none;
-            font-family: 'Merriweather', Georgia, serif;
-        }
-
-        .decision-toggle {
-            margin-top: 14px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            width: 100%;
-            gap: 10px;
-            font-family: 'Sigmar One', cursive;
-            font-size: 28px;
-        }
-
-        .mode-state {
-            opacity: 0.7;
-            transition: opacity 0.2s ease-in-out;
-        }
-
-        .mode-state.active {
-            opacity: 1;
-        }
-
-        .decision-switch {
-            position: relative;
-            width: 64px;
-            height: 34px;
-            display: inline-block;
-        }
-
-        .decision-switch input {
-            opacity: 0;
-            width: 0;
-            height: 0;
-        }
-
-        .slider {
-            position: absolute;
-            cursor: pointer;
-            inset: 0;
-            background-color: #8d8d8d;
-            border-radius: 34px;
-            transition: background-color 0.25s ease-in-out;
-        }
-
-        .slider:before {
-            content: "";
-            position: absolute;
-            height: 26px;
-            width: 26px;
-            left: 4px;
-            top: 4px;
-            background-color: white;
-            border-radius: 50%;
-            transition: transform 0.25s ease-in-out;
-        }
-
-        .decision-switch input:checked + .slider {
-            background-color: #29a85a;
-        }
-
-        .decision-switch input:checked + .slider:before {
-            transform: translateX(30px);
-        }
-
-        .left-bottom {
-            margin-top: auto;
-            padding-top: 18px;
-        }
-
-        .generate-button,
-        .save-button,
-        .confirm-button {
-            width: 100%;
-            border: none;
-            border-radius: 14px;
-            padding: 14px 16px;
-            font-size: 24px;
-            font-family: 'Sigmar One', cursive;
-            color: white;
-            cursor: pointer;
-            text-decoration: none;
-            display: inline-block;
-            text-align: center;
-            transition: all 0.3s ease-in-out;
-            box-sizing: border-box;
-        }
-
-        .generate-button,
-        .save-button {
-            background: #808080;
-            opacity: 0.45;
-            cursor: not-allowed;
-            pointer-events: none;
-        }
-
-        .generate-button {
-            margin-top: 12px;
-        }
-
-        .generate-button.enabled {
-            background: #8b0000;
-            opacity: 1;
-            cursor: pointer;
-            pointer-events: auto;
-        }
-
-        .save-button.enabled {
-            background: #1f6a43;
-            opacity: 1;
-            cursor: pointer;
-            pointer-events: auto;
-            animation: pulse 1.6s infinite;
-        }
-
-        .generate-button.enabled:hover,
-        .save-button.enabled:hover,
-        .confirm-button:hover {
-            transform: translateY(-2px);
-            filter: brightness(1.08);
-        }
-
-        .confirm-button {
-            background: #8b0000;
-            margin-top: 12px;
-        }
-
-        @keyframes pulse {
-            0%,
-            100% {
-                box-shadow: 0 0 0 0 rgba(35, 180, 73, 0.55);
-            }
-            70% {
-                box-shadow: 0 0 0 12px rgba(35, 180, 73, 0);
-            }
-        }
-
-        .stage {
-            flex: 1;
-            display: flex;
-            align-items: stretch;
-            gap: 18px;
-            min-width: 0;
-            height: calc(100vh - 40px - var(--footer-clearance));
-            max-height: calc(100vh - 40px - var(--footer-clearance));
-        }
-
-        .stage-left {
-            flex: 0 1 min(560px, 44vw);
-            width: min(560px, 44vw);
-            display: flex;
-            flex-direction: column;
-            gap: 14px;
-            min-width: 0;
-            min-height: 0;
-            height: 100%;
-        }
-
-        .info-panel {
-            width: 100%;
-            padding: 20px;
-            box-sizing: border-box;
-            opacity: 0;
-            transform: translateX(-20px);
-            pointer-events: none;
-            transition: all 0.3s ease-in-out;
-        }
-
-        .info-panel.visible {
-            opacity: 1;
-            transform: translateX(0);
-            pointer-events: auto;
-        }
-
-        #info-panel {
-            flex: 0 0 auto;
-            max-height: 52%;
-            overflow-y: auto;
-        }
-
-        .pdf-panel {
-            flex: 1 1 620px;
-            width: 100%;
-            max-width: min(920px, 62vw);
-            min-width: 0;
-            box-sizing: border-box;
-            transform: translateX(20px);
-        }
-
-        .pdf-panel.visible {
-            transform: translateX(0);
-        }
-
-        .info-panel h3 {
-            margin: 0;
-            font-family: 'Sigmar One', cursive;
-            font-size: 28px;
-        }
-
-        .info-text {
-            margin-top: 12px;
-            color: #f2f2f2;
-            line-height: 1.55;
-            padding: 20px;
-            background: rgba(255, 255, 255, 0.04);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 12px;
-            opacity: 0;
-            transition: opacity 0.28s ease-in-out;
-        }
-
-        .info-panel.visible .info-text {
-            opacity: 1;
-            transition-delay: 0.2s;
-        }
-
-        .choices-container {
-            display: flex;
-            flex-direction: column;
-            flex: 1 1 auto;
-            min-height: 0;
-            width: 100%;
-            background: rgba(0, 0, 0, 0.72);
-            backdrop-filter: blur(5px);
-            border-radius: 18px;
-            padding: 0;
-            box-sizing: border-box;
-            border: 0 solid rgba(255, 255, 255, 0.12);
-            max-height: 0;
-            opacity: 0;
-            overflow: hidden;
-            transform: translateY(-10px);
-            pointer-events: none;
-            transition: all 0.3s ease-in-out;
-        }
-
-        .choices-container.visible {
-            max-height: none;
-            opacity: 1;
-            transform: translateY(0);
-            pointer-events: auto;
-            border-width: 1px;
-        }
-
-        .choices-scroll {
-            height: 100%;
-            overflow-y: auto;
-            padding: 14px 10px 14px 14px;
-            box-sizing: border-box;
-            min-height: 0;
-        }
-
-        .choices-scroll h3 {
-            margin-top: 0;
-            font-family: 'Sigmar One', cursive;
-        }
-
-        .choice-option {
-            display: flex;
-            align-items: center;
-            position: relative;
-            margin-bottom: 8px;
-            cursor: pointer;
-            color: #e0e0e0;
-            user-select: none;
-        }
-
-        .choice-option input[type="radio"] {
-            position: absolute;
-            opacity: 0;
-            width: 0;
-            height: 0;
-        }
-
-        .choice-option .radiomark {
-            height: 18px;
-            width: 18px;
-            background-color: rgba(0, 0, 0, 0.5);
-            border: 1px solid #555;
-            border-radius: 50%;
-            margin-right: 10px;
-            position: relative;
-            transition: all 0.2s ease-in-out;
-            flex: 0 0 18px;
-        }
-
-        .choice-option:hover input ~ .radiomark {
-            border-color: #888;
-        }
-
-        .choice-option input:checked ~ .radiomark {
-            border-color: #b30000;
-        }
-
-        .choice-option .radiomark:after {
-            content: "";
-            position: absolute;
-            display: none;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            width: 10px;
-            height: 10px;
-            border-radius: 50%;
-            background: #b30000;
-        }
-
-        .choice-option input:checked ~ .radiomark:after {
-            display: block;
-        }
-
-        .left-panel::-webkit-scrollbar,
-        #info-panel::-webkit-scrollbar,
-        .choices-scroll::-webkit-scrollbar {
-            width: 8px;
-        }
-
-        .left-panel::-webkit-scrollbar-track,
-        #info-panel::-webkit-scrollbar-track,
-        .choices-scroll::-webkit-scrollbar-track {
-            background: rgba(255, 255, 255, 0.08);
-            border-radius: 8px;
-        }
-
-        .left-panel::-webkit-scrollbar-thumb,
-        #info-panel::-webkit-scrollbar-thumb,
-        .choices-scroll::-webkit-scrollbar-thumb {
-            background: rgba(72, 72, 72, 0.9);
-            border-radius: 8px;
-        }
-
-        .left-panel::-webkit-scrollbar-thumb:hover,
-        #info-panel::-webkit-scrollbar-thumb:hover,
-        .choices-scroll::-webkit-scrollbar-thumb:hover {
-            background: rgba(95, 95, 95, 0.95);
-        }
-
-        .pdf-panel h3 {
-            margin-top: 0;
-            font-family: 'Sigmar One', cursive;
-        }
-
-        #hero-frame {
-            width: 100%;
-            height: calc(100vh - 220px - var(--footer-clearance));
-            min-height: 720px;
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            border-radius: 8px;
-            background: white;
-        }
-
-        .footer {
-            position: fixed;
-            bottom: 0;
-            left: 0;
-            width: 100%;
-            padding: 12px 20px;
-            font-size: 14px;
-            color: #b9b9b9;
-            text-align: center;
-            background-color: rgba(20, 20, 20, 0.82);
-            z-index: 100;
-            box-sizing: border-box;
-        }
-
-        .footer a {
-            color: #d0d0d0;
-            text-decoration: underline;
-        }
-
-        .footer a:hover {
-            color: #fff;
-        }
-
-        .corner-img {
-            position: fixed;
-            bottom: 0;
-            width: 34vw;
-            max-width: 620px;
-            height: auto;
-            z-index: -1;
-            opacity: 0.92;
-        }
-
-        .goblin-img {
-            left: 0;
-        }
-
-        .dwarf-img {
-            right: 0;
-        }
-
-        @media (max-width: 1080px) {
-            .app-shell {
-                flex-direction: column;
-                padding-bottom: calc(20px + var(--footer-clearance));
-            }
-
-            .left-panel {
-                width: 100%;
-                min-width: 0;
-                max-height: none;
-            }
-
-            .stage {
-                width: 100%;
-                flex-direction: column;
-                height: auto;
-                max-height: none;
-            }
-
-            .stage-left,
-            .info-panel,
-            .pdf-panel {
-                width: 100%;
-            }
-
-            #info-panel {
-                max-height: none;
-            }
-
-            #hero-frame {
-                min-height: 620px;
-                height: calc(72vh - var(--footer-clearance));
-            }
-
-            .corner-img {
-                display: none;
-            }
         }
     </style>
+
 </head>
 <body>
-<div class="wizard-progress" aria-label="Postęp tworzenia postaci">
-    <span class="progress-label">TWORZENIE POSTACI</span>
-    <ol class="progress-steps" id="progress-steps">
-        {% for step in range(0, 11) %}<li data-step="{{ step }}"><span>{{ step }}</span></li>{% endfor %}
-    </ol>
-</div>
+<progress-navigator aria-label="Poziomy tworzenia postaci"></progress-navigator>
 <div class="app-shell">
     <aside class="left-panel">
         <img src="{{ url_for('static', filename='cwd_logo.png') }}" alt="CWD Logo" class="logo">
@@ -779,11 +102,7 @@
             </section>
             <section id="choices-container" class="choices-container">
                 <div class="choices-scroll">
-                    <h3>Twoje wybory:</h3>
-                    <div id="choices-list"></div>
-                    <button id="confirm-choices-btn" class="confirm-button" type="button" onclick="confirmChoices()">
-                        POTWIERDŹ WYBÓR I PRZEJDŹ DALEJ
-                    </button>
+                    <step-shell aria-label="Wybory bieżącego poziomu"></step-shell>
                 </div>
             </section>
         </div>
@@ -807,17 +126,15 @@
 <img src="{{ url_for('static', filename='goblin.png') }}" alt="Goblin" class="corner-img goblin-img">
 <img src="{{ url_for('static', filename='dwarf.png') }}" alt="Dwarf" class="corner-img dwarf-img">
 
+<script src="{{ url_for('assets', filename='js/creation_store.js') }}"></script>
 <script>
-    let currentHeroData = null;
-    let currentChoices = null;
     let selectedAncestry = null;
     let selectedPath = null;
     let currentPdfAncestry = null;
     let currentDownloadUrl = null;
-    let currentChoicesAncestry = null;
     let manualChoicesLoaded = false;
     let manualRequiresSelection = false;
-    let choiceCursor = 0;
+    let manualCreationKey = null;
 
     const ancestryDescriptions = JSON.parse('{{ ancestry_descriptions | tojson | safe }}');
 
@@ -840,47 +157,6 @@
         document.getElementById('mode-manual').classList.toggle('active', !randomMode);
     }
 
-    function areAllChoicesSelected() {
-        if (!currentChoices || !Array.isArray(currentChoices)) {
-            return false;
-        }
-
-        for (let i = 0; i < currentChoices.length; i++) {
-            const choicePool = currentChoices[i];
-            if (!Array.isArray(choicePool) || choicePool.length === 0) {
-                continue;
-            }
-
-            const radios = document.getElementsByName(`choice-${i}`);
-            if (!radios.length) {
-                continue;
-            }
-
-            let hasSelection = false;
-
-            for (let j = 0; j < radios.length; j++) {
-                if (radios[j].checked) {
-                    hasSelection = true;
-                    break;
-                }
-            }
-
-            if (!hasSelection) {
-                return false;
-            }
-        }
-
-        return true;
-    }
-
-    function hasSelectableChoices(choices) {
-        if (!Array.isArray(choices)) {
-            return false;
-        }
-
-        return choices.some(choicePool => Array.isArray(choicePool) && choicePool.length > 0);
-    }
-
     function updateGenerateState() {
         const generateBtn = document.getElementById('generate-btn');
         let canGenerate = !!selectedAncestry;
@@ -891,11 +167,9 @@
         }
 
         if (canGenerate && isManualMode()) {
-            if (!manualChoicesLoaded) {
-                canGenerate = false;
-            } else if (manualRequiresSelection) {
-                canGenerate = areAllChoicesSelected();
-            }
+            // Selection itself now happens inside <step-shell>; the main button
+            // only lights up once every required choice has been resolved.
+            canGenerate = manualChoicesLoaded && !manualRequiresSelection;
         }
 
         generateBtn.classList.toggle('enabled', canGenerate);
@@ -923,13 +197,9 @@
     }
 
     function clearManualChoicesState() {
-        currentHeroData = null;
-        currentChoices = null;
-        currentChoicesAncestry = null;
         manualChoicesLoaded = false;
         manualRequiresSelection = false;
-        choiceCursor = 0;
-        document.getElementById('choices-list').innerHTML = '';
+        manualCreationKey = null;
     }
 
     function selectPath(path, clickedElement) {
@@ -967,7 +237,8 @@
             return;
         }
 
-        if (currentChoicesAncestry === selectedAncestry && manualChoicesLoaded) {
+        const key = `${selectedAncestry}|${currentLevel}|${selectedPath || ''}`;
+        if (manualCreationKey === key && manualChoicesLoaded) {
             if (manualRequiresSelection) {
                 showChoicesContainer();
             } else {
@@ -980,49 +251,14 @@
         clearManualChoicesState();
         hideChoicesContainer();
         updateGenerateState();
+        manualCreationKey = key;
 
-        const timestamp = new Date().getTime();
-        const level = currentLevel;
-        const path = encodeURIComponent(selectedPath || '');
-        fetch(`/roll/${selectedAncestry}?t=${timestamp}&is_random=0&level=${level}&path=${path}`)
-            .then(response => {
-                const contentType = response.headers.get('content-type') || '';
-
-                if (!contentType.includes('application/json')) {
-                    manualChoicesLoaded = true;
-                    manualRequiresSelection = false;
-                    currentChoicesAncestry = selectedAncestry;
-                    updateGenerateState();
-                    return null;
-                }
-
-                return response.json();
-            })
-            .then(data => {
-                if (!data) {
-                    return;
-                }
-
-                if (data.status === 'need_choices' && data.hero_data) {
-                    currentHeroData = data.hero_data;
-                    currentChoices = data.choices || [];
-                    choiceCursor = data.choice_cursor || 0;
-                    window.choiceContext = data;
-                    currentChoicesAncestry = selectedAncestry;
-                    manualChoicesLoaded = true;
-                    manualRequiresSelection = hasSelectableChoices(currentChoices);
-
-                    if (manualRequiresSelection) {
-                        displayChoices(currentChoices);
-                        showChoicesContainer();
-                    } else {
-                        hideChoicesContainer();
-                    }
-
-                    updateGenerateState();
-                }
-            })
+        // Delegate to the authoritative creation API; <step-shell> renders the
+        // returned pending choices and the shared listeners below keep the
+        // legacy panel/button state in sync with the store.
+        window.creationStore.start('manual', selectedAncestry, currentLevel, selectedPath)
             .catch(() => {
+                manualCreationKey = null;
                 clearManualChoicesState();
                 hideChoicesContainer();
                 updateGenerateState();
@@ -1077,7 +313,6 @@
 
         const iframe = document.getElementById('hero-frame');
         const isManual = isManualMode();
-        const isRandom = isManual ? '0' : '1';
         const timestamp = new Date().getTime();
         const level = parseInt(document.getElementById('level-value').textContent, 10);
         const path = encodeURIComponent(selectedPath || '');
@@ -1097,162 +332,10 @@
         }
 
         if (manualRequiresSelection) {
-            confirmChoices();
-        } else {
-            const manualUrl = `/roll/${selectedAncestry}?t=${timestamp}&is_random=0&level=${level}&path=${path}`;
-            iframe.src = `${manualUrl}#zoom=110`;
-            currentDownloadUrl = `/roll/${selectedAncestry}?download=1&is_random=0&level=${level}&path=${path}`;
-            currentPdfAncestry = selectedAncestry;
-            showPdfPanel();
-            updateSaveState(true);
+            // Manual choices are submitted through <step-shell>'s own Next/Back
+            // controls; the main button just brings the panel into view.
+            document.getElementById('choices-container').scrollIntoView({ behavior: 'smooth' });
         }
-    }
-
-    function displayChoices(choices) {
-        const choicesList = document.getElementById('choices-list');
-        const choicesContainer = document.getElementById('choices-container');
-        choicesList.innerHTML = '';
-
-        choices.forEach((choicePool, poolIndex) => {
-            const poolDiv = document.createElement('div');
-            poolDiv.style.marginBottom = '14px';
-            const poolTypes = [...new Set(choicePool.map(option => option.type))];
-            let heading = 'Wybierz jedną opcję:';
-            if (poolTypes.includes('add_tradition')) {
-                const traditions = (window.choiceContext?.available_traditions || []).join(', ');
-                heading = traditions ? `Znane tradycje: ${traditions}` : 'Wybierz tradycję:';
-            } else if (poolTypes.includes('add_spell')) {
-                const grouped = window.choiceContext?.spells_by_tradition || {};
-                const groups = Object.entries(grouped)
-                    .filter(([, spells]) => spells.length)
-                    .map(([tradition, spells]) => `${tradition}: ${spells.join(', ')}`);
-                heading = groups.length ? `Zaklęcia według tradycji — ${groups.join(' | ')}` : 'Wybierz zaklęcie:';
-            }
-            poolDiv.innerHTML = `<h4>${heading}</h4>`;
-
-            choicePool.forEach((option, optionIndex) => {
-                const label = document.createElement('label');
-                label.className = 'choice-option';
-
-                const radio = document.createElement('input');
-                radio.type = 'radio';
-                radio.name = `choice-${poolIndex}`;
-                radio.value = optionIndex;
-                radio.addEventListener('change', updateGenerateState);
-
-                const radiomark = document.createElement('span');
-                radiomark.className = 'radiomark';
-
-                let optionText = '';
-                const actionType = option.type;
-
-                const attributeTranslations = {
-                    strength: 'Siła',
-                    dexterity: 'Zręczność',
-                    intelligence: 'Intelekt',
-                    will: 'Wola'
-                };
-
-                if (actionType === 'add_attribute') {
-                    const attrName = attributeTranslations[option.name] || option.name;
-                    optionText = `Zwiększ ${attrName} o ${option.value}`;
-                } else if (actionType === 'add_language') {
-                    const langName = option.name === 'any' ? 'Dodatkowy język' : option.name;
-                    optionText = `Język: ${langName}`;
-                } else if (actionType === 'add_profession') {
-                    const profName = option.name === 'any' ? 'Dodatkowa profesja' : option.name;
-                    optionText = `Profesja: ${profName}`;
-                } else if (actionType === 'add_item') {
-                    optionText = `Przedmiot: ${option.name}`;
-                } else if (actionType === 'grant_literacy') {
-                    const target = option.target === 'any' ? 'dowolny język' : option.target;
-                    optionText = `Nauka pisania: ${target}`;
-                } else if (actionType === 'add_talent') {
-                    const alreadyKnown = (currentHeroData.talents || []).some(talent =>
-                        talent.name === option.name || talent.name === `${option.name} (poz. 2)`
-                    );
-                    optionText = `Talent: ${option.name}${alreadyKnown ? ' (ULEPSZENIE)' : ''}`;
-                } else if (actionType === 'add_religion') {
-                    const relName = option.name === 'any' ? 'Wybierz religię' : option.name;
-                    optionText = `Religia: ${relName}`;
-                } else if (actionType === 'add_tradition') {
-                    const tradName = option.name === 'religious_tradition' ? 'Tradycja religijna' : option.name;
-                    optionText = `Tradycja: ${tradName}`;
-                } else if (actionType === 'add_spell') {
-                    const spellName = option.name === 'known_tradition' ? 'Czar ze znanej tradycji' : (option.name === 'any' ? 'Dowolny czar' : option.name);
-                    optionText = `Czar: ${spellName}`;
-                } else if (actionType === 'update_language') {
-                    optionText = `Aktualizacja języka: ${option.name}`;
-                } else {
-                    optionText = JSON.stringify(option);
-                }
-
-                label.appendChild(radio);
-                label.appendChild(radiomark);
-                label.appendChild(document.createTextNode(optionText));
-                poolDiv.appendChild(label);
-            });
-
-            choicesList.appendChild(poolDiv);
-        });
-
-        showChoicesContainer();
-        updateGenerateState();
-    }
-
-    function confirmChoices() {
-        const selectedChoices = [];
-
-        for (let i = 0; i < currentChoices.length; i++) {
-            const radios = document.getElementsByName(`choice-${i}`);
-            let selectedIndex = -1;
-            for (let j = 0; j < radios.length; j++) {
-                if (radios[j].checked) {
-                    selectedIndex = parseInt(radios[j].value, 10);
-                    break;
-                }
-            }
-            if (selectedIndex < 0 || !currentChoices[i][selectedIndex]) {
-                alert('Wybierz jedną opcję przed przejściem dalej.');
-                return;
-            }
-            selectedChoices.push(currentChoices[i][selectedIndex]);
-        }
-
-        fetch('/confirm_choices', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                hero_data: currentHeroData,
-                selected_choices: selectedChoices,
-                choice_cursor: choiceCursor
-            })
-        })
-            .then(response => response.json())
-            .then(data => {
-                if (data.status === 'success') {
-                    const iframe = document.getElementById('hero-frame');
-                    const timestamp = new Date().getTime();
-
-                    iframe.src = `${data.download_url}?t=${timestamp}#zoom=110`;
-                    currentDownloadUrl = `${data.download_url}?download=1`;
-                    currentPdfAncestry = selectedAncestry;
-                    showPdfPanel();
-                    hideChoicesContainer();
-                    updateSaveState(true);
-                    manualRequiresSelection = false;
-                } else if (data.status === 'need_choices') {
-                    currentHeroData = data.hero_data;
-                    currentChoices = data.choices;
-                    choiceCursor = data.choice_cursor || 0;
-                    window.choiceContext = data;
-                    displayChoices(data.choices);
-                    manualRequiresSelection = true;
-                    document.getElementById('choices-container').scrollIntoView({ behavior: 'smooth' });
-                }
-            });
     }
 
     function savePdf() {
@@ -1265,6 +348,35 @@
             window.location.href = currentDownloadUrl;
         }
     }
+
+    window.creationStore.addEventListener('statechange', () => {
+        const state = window.creationStore.state;
+        manualChoicesLoaded = Boolean(state);
+        manualRequiresSelection = Boolean(
+            state && state.pending_choices.length && state.pending_choices[0].length
+        );
+        if (manualRequiresSelection) {
+            showChoicesContainer();
+        } else if (state) {
+            hideChoicesContainer();
+        }
+        updateGenerateState();
+    });
+
+    window.creationStore.addEventListener('completed', (event) => {
+        const downloadUrl = event.detail && event.detail.downloadUrl;
+        if (!downloadUrl) {
+            return;
+        }
+        const iframe = document.getElementById('hero-frame');
+        const timestamp = new Date().getTime();
+        iframe.src = `${downloadUrl}?t=${timestamp}#zoom=110`;
+        currentDownloadUrl = downloadUrl.includes('?') ? `${downloadUrl}&download=1` : `${downloadUrl}?download=1`;
+        currentPdfAncestry = selectedAncestry;
+        showPdfPanel();
+        hideChoicesContainer();
+        updateSaveState(true);
+    });
 
     document.getElementById('decision-switch').addEventListener('change', function () {
         setModeIndicators();

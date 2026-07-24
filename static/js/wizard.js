@@ -3,20 +3,11 @@
     const fab = document.getElementById("sheet-fab");
     const sheet = document.getElementById("pdf-panel");
     const toast = document.getElementById("event-toast");
-    const steps = [...document.querySelectorAll("#progress-steps li")];
 
     function toggleSheet() {
         if (!sheet || !fab) return;
         const open = sheet.classList.toggle("drawer-open");
         fab.setAttribute("aria-expanded", String(open));
-    }
-    function updateProgress() {
-        const level = Number(document.getElementById("level-value")?.textContent || 0);
-        steps.forEach((step) => {
-            const value = Number(step.dataset.step);
-            step.classList.toggle("active", value === level);
-            step.classList.toggle("complete", value < level);
-        });
     }
     window.showWizardToast = function (message) {
         if (!toast) return;
@@ -26,8 +17,6 @@
         window.__toastTimer = window.setTimeout(() => toast.classList.remove("visible"), 3500);
     };
     fab?.addEventListener("click", toggleSheet);
-    document.getElementById("level-up")?.addEventListener("click", updateProgress);
-    document.getElementById("level-down")?.addEventListener("click", updateProgress);
     document.querySelectorAll(".ancestry-item").forEach((tile) => {
         tile.setAttribute("tabindex", "0");
         tile.setAttribute("role", "button");
@@ -35,5 +24,4 @@
             if (event.key === "Enter" || event.key === " ") { event.preventDefault(); tile.click(); }
         });
     });
-    updateProgress();
 })();

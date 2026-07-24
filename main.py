@@ -7,18 +7,29 @@ import time
 import uuid
 from pathlib import Path
 
-from flask import Flask, jsonify, redirect, render_template, request, send_file, send_from_directory, session, url_for
+from flask import (
+    Flask,
+    jsonify,
+    redirect,
+    render_template,
+    request,
+    send_file,
+    send_from_directory,
+    session,
+    url_for,
+)
 
+from domain.creation_state import CreationState
 from models.action import Action
 from models.base_hero import AncestryHero
-from domain.creation_state import CreationState
 from utils.pdf_creator import fill_pdf
 from utils.utils import (
+    _load_json,
+    advance_hero,
     apply_action,
+    get_hero,
     get_spells_for_tradition,
     get_tradition_name_from_talent,
-    get_hero,
-    _load_json,
 )
 
 logging.basicConfig(
@@ -123,6 +134,184 @@ def load_ancestry_descriptions() -> dict:
         return json.load(descriptions_file)
 
 
+def _creation_response(state: CreationState, download_url: str | None = None) -> dict:
+    """Build the versioned JSON contract used by the component frontend."""
+    public = state.public_dict()
+    response = {
+        "creation_id": state.state_id,
+        "state": public,
+        "step": {
+            "level": state.current_level,
+            "target_level": _target_level(state),
+            "required": not state.required_complete,
+            "ready_to_finalize": state.ready_to_finalize,
+            "available_choices": public["pending_choices"],
+            # Magic/tradition context for the pending step, so the frontend
+            # (MagicDashboard/GrimoirePanel groundwork) can render spell and
+            # tradition choices with their real names/groupings instead of
+            # generic action labels, without duplicating any SotDL rules.
+            **choice_context(state.hero, state.pending_choices[:1]),
+        },
+    }
+    if download_url is not None:
+        response["download_url"] = download_url
+    return response
+
+
+def _target_level(state: CreationState) -> int:
+    """Return the level the player asked to reach when starting this creation."""
+    try:
+        return int(state.creation_inputs.get("target_level", state.current_level))
+    except (TypeError, ValueError):
+        return state.current_level
+
+
+def _advance_state(state: CreationState) -> None:
+    """Mark the current level complete and progress one level at a time
+    toward the requested target level, applying the domain-authoritative
+    level benefits (never re-derived in JS) until new choices are required
+    or the target level is reached. Levels that grant no choices of their
+    own are completed automatically so the stepper never stalls on them.
+    """
+    if not state.pending_choices and state.current_level not in state.completed_steps:
+        state.completed_steps = sorted({*state.completed_steps, state.current_level})
+
+    target_level = _target_level(state)
+    ancestry = state.creation_inputs.get("ancestry")
+    path_name = state.creation_inputs.get("path")
+    while state.current_level < target_level and not state.pending_choices:
+        next_level = state.current_level + 1
+        next_choices = advance_hero(
+            state.hero, ancestry, path_name, state.current_level, next_level, is_random=False,
+        )
+        state.hero.level = next_level
+        state.current_level = next_level
+        if next_choices:
+            state.pending_choices = next_choices
+        else:
+            state.completed_steps = sorted({*state.completed_steps, next_level})
+
+
+@app.post("/api/creations")
+def api_start_creation():
+    """Start a manual or random creation without trusting client hero data."""
+    data = request.get_json(silent=True) or {}
+    mode = data.get("mode", "manual")
+    ancestry = data.get("ancestry")
+    path_name = data.get("path") or None
+    if mode not in {"manual", "random"} or ancestry not in ANCESTRIES:
+        return jsonify({"error": "Unsupported mode or ancestry"}), 400
+    try:
+        level = int(data.get("target_level", 0))
+    except (TypeError, ValueError):
+        return jsonify({"error": "Invalid target level"}), 400
+    if not 0 <= level <= 10:
+        return jsonify({"error": "Invalid target level"}), 400
+
+    creation_inputs = {"ancestry": ancestry, "target_level": level, "path": path_name}
+
+    if mode == "random":
+        # Random mode resolves every choice itself, so there is nothing to
+        # gate step-by-step: build straight to the requested level.
+        hero = get_hero(ancestry, is_random=True, level=level, path_name=path_name)
+        state = CreationState(
+            hero=hero,
+            pending_choices=[],
+            creation_inputs=creation_inputs,
+            mode=mode,
+            current_level=level,
+            completed_steps=list(range(level + 1)),
+        )
+    else:
+        # Manual mode always starts at level 0 and advances one level at a
+        # time as the player resolves each level's choices, mirroring true
+        # SotDL progression instead of flattening every level into one queue.
+        result = get_hero(ancestry, is_random=False, level=0, path_name=path_name)
+        hero, choices = result if isinstance(result, tuple) else (result, [])
+        state = CreationState(
+            hero=hero,
+            pending_choices=choices,
+            creation_inputs=creation_inputs,
+            mode=mode,
+            current_level=0,
+        )
+        _advance_state(state)
+
+    _store_manual_creation(state)
+    return jsonify(_creation_response(state))
+
+
+@app.get("/api/creations/<creation_id>")
+def api_get_creation(creation_id):
+    state = _get_manual_creation()
+    if state is None or state.state_id != creation_id:
+        return jsonify({"error": "Creation not found"}), 404
+    return jsonify(_creation_response(state))
+
+
+@app.post("/api/creations/<creation_id>/steps/<int:level>/choices")
+def api_apply_choices(creation_id, level):
+    state = _get_manual_creation()
+    data = request.get_json(silent=True) or {}
+    if state is None or state.state_id != creation_id:
+        return jsonify({"error": "Creation not found"}), 404
+    if level != state.current_level:
+        return jsonify({"error": "Step is not active"}), 409
+    if data.get("state_version") != state.state_version:
+        return jsonify({"error": "Stale state"}), 409
+    response = confirm_choices()
+    if response.status_code != 200:
+        return response
+    payload = response.get_json(silent=True) or {}
+    if payload.get("status") == "need_choices":
+        _store_manual_creation(state)
+        return jsonify(_creation_response(state))
+    # This level's choice groups were fully consumed. Advance the wizard one
+    # level at a time toward the requested target instead of assuming the
+    # whole creation is finished: only the last level's completion should
+    # trigger the final PDF.
+    state.pending_choices = []
+    download_url = None
+    _advance_state(state)
+    if state.current_level >= _target_level(state) and not state.pending_choices:
+        fill_pdf(state.hero, _output_path())
+        download_url = url_for("download_current")
+    state.touch()
+    _store_manual_creation(state)
+    return jsonify(_creation_response(state, download_url=download_url))
+
+
+@app.post("/api/creations/<creation_id>/rewind")
+def api_rewind_creation(creation_id):
+    state = _get_manual_creation()
+    data = request.get_json(silent=True) or {}
+    if state is None or state.state_id != creation_id:
+        return jsonify({"error": "Creation not found"}), 404
+    try:
+        target = int(data["target_level"])
+    except (KeyError, TypeError, ValueError):
+        return jsonify({"error": "Invalid target level"}), 400
+    if target < 0 or target > state.current_level:
+        return jsonify({"error": "Invalid rewind target"}), 400
+    state.current_level = target
+    state.completed_steps = [step for step in state.completed_steps if step <= target]
+    state.invalidated_levels = [step for step in range(target + 1, 11)]
+    state.touch()
+    _store_manual_creation(state)
+    return jsonify({"state": state.public_dict(), "invalidated_steps": state.invalidated_levels})
+
+
+@app.post("/api/creations/<creation_id>/finalize")
+def api_finalize_creation(creation_id):
+    state = _get_manual_creation()
+    if state is None or state.state_id != creation_id:
+        return jsonify({"error": "Creation not found"}), 404
+    if state.pending_choices:
+        return jsonify({"error": "Creation has unresolved choices"}), 409
+    fill_pdf(state.hero, _output_path())
+    return jsonify({"summary": state.hero.model_dump(mode="json"), "pdf_url": url_for("download_current")})
+
+
 @app.route("/")
 def index():
     descriptions = load_ancestry_descriptions()
@@ -180,7 +369,7 @@ def roll(ancestry):
 @app.route("/confirm_choices", methods=["POST"])
 def confirm_choices():
     data = request.get_json(silent=True) or {}
-    selected_choices = data.get("selected_choices")
+    selected_choices = data.get("selected_choices", data.get("selections"))
     choice_cursor = data.get("choice_cursor", 0)
 
     if (
@@ -229,6 +418,7 @@ def confirm_choices():
     if filtered_choices:
         state.pending_choices = filtered_choices
         state.choice_cursor = next_cursor
+        state.touch()
         _store_manual_creation(state)
         return jsonify(
             {

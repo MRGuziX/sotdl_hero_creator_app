@@ -981,3 +981,39 @@ def get_hero(
         hero.wealth[:30] if hero.wealth else "none",
     )
     return hero
+
+
+def advance_hero(
+    hero: AncestryHero,
+    ancestry: str,
+    path_name: str | None,
+    from_level: int,
+    to_level: int,
+    is_random: bool = False,
+) -> list[Choice]:
+    """Apply the deterministic actions gained moving from `from_level` to
+    `to_level` and return any unresolved choice groups still needed.
+
+    This mirrors the level_benefits handling already used by `build_hero`/
+    `get_hero`, but only for the incremental step, so the wizard can advance
+    one level at a time instead of flattening the whole target level's
+    choices together. Backstory, wealth, and oddity rolls are intentionally
+    not repeated here: they are only granted once, at creation time.
+    """
+    from domain.progression import benefits_between
+
+    logger.info(
+        "advance_hero: %s from level %d to %d (path=%s)",
+        ancestry, from_level, to_level, path_name,
+    )
+    actions, choices = benefits_between(ancestry, path_name, from_level, to_level)
+    remaining_actions, expanded_choices = expand_any_to_choices(hero, actions, choices)
+
+    for action in remaining_actions:
+        apply_action(action, hero, is_random=is_random)
+
+    if is_random:
+        resolve_choices(hero, [], expanded_choices, is_random=True)
+        return []
+
+    return expanded_choices
