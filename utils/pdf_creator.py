@@ -22,7 +22,7 @@ SPELL_FONT = "Athelas"
 SPELL_FONT_BOLD = "Athelas-Bold"
 
 # Spell-card coordinate system, expressed in the template's pixel grid.
-SPELL_CARD_COLUMNS_X = (488, 1249, 1991)
+SPELL_CARD_COLUMNS_X = (500, 1253, 2007)
 SPELL_CARD_ROW_BASES_Y = (135, 1255, 2375)
 
 SPELL_NAME_LEFT_X = 170
@@ -37,10 +37,11 @@ SPELL_DESCRIPTION_GAP_AFTER_TECHNICAL_PX = 50
 SPELL_TABLE_GAP_AFTER_DESCRIPTION_PX = 25
 SPELL_CRITICAL_SUCCESS_GAP_PX = 50
 SPELL_TAGS_OFFSET_Y = 1000
-SPELL_ORIGIN_LEFT_OFFSET_X = 320
-SPELL_ORIGIN_CENTER_COLUMN_CORRECTION_PX = 10
-SPELL_ORIGIN_BOTTOM_OFFSET_Y = 980
-SPELL_ORIGIN_FONT_SIZE = 7
+SPELL_ORIGIN_LEFT_OFFSET_X = 335
+SPELL_ORIGIN_FIRST_ROW_OFFSET_Y = 980
+SPELL_ORIGIN_SECOND_ROW_OFFSET_Y = 970
+SPELL_ORIGIN_THIRD_ROW_OFFSET_Y = 960
+SPELL_ORIGIN_FONT_SIZE = 8
 
 
 def _register_spell_fonts() -> None:
@@ -437,13 +438,18 @@ def _spell_origin_text(origin: dict) -> str:
 
 
 def _spell_origin_x(column_px: float) -> float:
-    """Return the origin footer X position, correcting the center card's template offset."""
-    correction = (
-        SPELL_ORIGIN_CENTER_COLUMN_CORRECTION_PX
-        if column_px == SPELL_CARD_COLUMNS_X[1]
-        else 0
+    """Return the origin footer X position using one offset for every card column."""
+    return column_px - SPELL_ORIGIN_LEFT_OFFSET_X
+
+
+def _spell_origin_offset_y(row_index: int) -> float:
+    """Return the configurable origin footer offset for a zero-based card row."""
+    offsets = (
+        SPELL_ORIGIN_FIRST_ROW_OFFSET_Y,
+        SPELL_ORIGIN_SECOND_ROW_OFFSET_Y,
+        SPELL_ORIGIN_THIRD_ROW_OFFSET_Y,
     )
-    return column_px - SPELL_ORIGIN_LEFT_OFFSET_X - correction
+    return offsets[row_index]
 
 
 def _spell_description_bounds(column_px: float) -> tuple[float, float]:
@@ -685,9 +691,10 @@ def fill_spell_pdf(hero: AncestryHero, output_path: str) -> str:
             origin_text = _spell_origin_text(fields[f"spell_origin_card_{card_index}"])
             if origin_text:
                 canvas.setFont(SPELL_FONT, SPELL_ORIGIN_FONT_SIZE)
+                row_index = (card_index - 1) // 3
                 canvas.drawString(
                     _spell_origin_x(column) * px_to_x,
-                    A4[1] - (base_y + SPELL_ORIGIN_BOTTOM_OFFSET_Y) * px_to_y,
+                    A4[1] - (base_y + _spell_origin_offset_y(row_index)) * px_to_y,
                     origin_text,
                 )
         canvas.showPage()

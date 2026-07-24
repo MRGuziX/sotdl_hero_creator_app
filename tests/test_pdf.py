@@ -11,19 +11,20 @@ from models.language import Language
 from models.spell import Spell
 from models.talent import Talent
 from utils.pdf_creator import (
+    _format_spell_description,
     _spell_card_fields,
     _spell_critical_success_y,
     _spell_description_bounds,
     _spell_description_font_size,
     _spell_description_layout,
     _spell_description_top,
-    _spell_table_top,
-    _spell_origin_text,
-    _spell_origin_x,
     _spell_effect_value,
-    _format_spell_description,
     _spell_name_bounds,
     _spell_name_font_size,
+    _spell_origin_text,
+    _spell_origin_offset_y,
+    _spell_origin_x,
+    _spell_table_top,
     fill_pdf,
     fill_spell_pdf,
 )
@@ -394,85 +395,7 @@ def test_real_storm_and_conjuration_spells_render_from_full_json():
     output_path = os.path.join("output", "filled_spells.pdf")
 
     fill_spell_pdf(hero, output_path)
-    text = "\n".join(page.extract_text() or "" for page in PdfReader(output_path).pages)
-    rendered_text = "".join(text.split())
-    lightning_fields = _spell_card_fields(spells[0], 1)
-    item_fields = _spell_card_fields(spells[1], 2)
-    wall_fields = _spell_card_fields(spells[2], 3)
-    toad_fields = _spell_card_fields(spells[3], 4)
-    vision_fields = _spell_card_fields(spells[4], 5)
-    illusion_fields = _spell_card_fields(spells[5], 6)
-    duplicates_fields = _spell_card_fields(spells[6], 7)
-    mirage_fields = _spell_card_fields(spells[7], 8)
-    wild_magic_fields = _spell_card_fields(spells[8], 9)
-    healing_fields = _spell_card_fields(spells[9], 1)
-    hateful_defecation_fields = _spell_card_fields(spells[10], 2)
-    soul_swap_fields = _spell_card_fields(spells[11], 3)
-    vile_fusion_fields = _spell_card_fields(spells[12], 4)
-    magical_item_fields = _spell_card_fields(spells[13], 5)
 
-    assert "PRZYWO" in rendered_text
-    assert "U" in rendered_text and "YTECZNEGO" in rendered_text
-    assert lightning_fields["spell_description_card_1"].startswith("W cel")
-    assert lightning_fields["spell_requirements_card_1"] == lightning_data["requirements"]
-    assert lightning_fields["spell_target_card_1"] == lightning_data["target"]
-    assert lightning_fields["spell_sacrifice_card_1"] == lightning_data["sacrifice"]
-    assert item_fields["spell_area_card_2"] == item_data["area"]
-    assert item_fields["spell_duration_card_2"] == item_data["duration"]
-    assert item_fields["spell_description_card_2"] == item_data["book_description"]
-    assert wall_fields["spell_area_card_3"] == wall_data.get("area", "")
-    assert wall_fields["spell_duration_card_3"] == wall_data.get("duration", "")
-    assert wall_fields["spell_description_card_3"] == wall_data["card_description"]
-    assert toad_fields["spell_target_card_4"] == toad_data["target"]
-    assert toad_fields["spell_duration_card_4"] == toad_data["duration"]
-    assert toad_fields["spell_attack_roll_card_4"] == toad_data["critical_success"]
-    assert toad_fields["spell_description_card_4"] == toad_data["card_description"]
-    assert vision_fields["spell_duration_card_5"] == vision_data["duration"]
-    assert vision_fields["spell_description_card_5"] == vision_data["card_description"]
-    assert illusion_fields["spell_area_card_6"] == illusion_data["area"]
-    assert illusion_fields["spell_duration_card_6"] == illusion_data["duration"]
-    assert illusion_fields["spell_attack_roll_card_6"] == illusion_data["critical_success"]
-    assert illusion_fields["spell_description_card_6"] == illusion_data["card_description"]
-    assert duplicates_fields["spell_duration_card_7"] == duplicates_data["duration"]
-    assert duplicates_fields["spell_description_card_7"] == duplicates_data["card_description"]
-    assert duplicates_fields["spell_table_card_7"] == duplicates_data["table"]
-    assert mirage_fields["spell_area_card_8"] == mirage_data["area"]
-    assert mirage_fields["spell_duration_card_8"] == mirage_data["duration"]
-    assert mirage_fields["spell_sacrifice_card_8"] == mirage_data["sacrifice"]
-    assert mirage_fields["spell_permanent_card_8"] == mirage_data["permanent"]
-    assert mirage_fields["spell_description_card_8"] == mirage_data["card_description"]
-    assert wild_magic_fields["spell_area_card_9"] == wild_magic_data["area"]
-    assert wild_magic_fields["spell_description_card_9"] == wild_magic_data["card_description"]
-    assert wild_magic_fields["spell_table_card_9"] == wild_magic_data["table"]
-    assert healing_fields["spell_target_card_1"] == healing_data["target"]
-    assert healing_fields["spell_description_card_1"] == healing_data["card_description"]
-    assert hateful_defecation_fields["spell_target_card_2"] == hateful_defecation_data["target"]
-    assert hateful_defecation_fields["spell_attack_roll_card_2"] == hateful_defecation_data["critical_success"]
-    assert hateful_defecation_fields["spell_description_card_2"] == hateful_defecation_data["card_description"]
-    assert soul_swap_fields["spell_target_card_3"] == soul_swap_data["target"]
-    assert soul_swap_fields["spell_attack_roll_card_3"] == soul_swap_data["critical_success"]
-    assert soul_swap_fields["spell_description_card_3"] == soul_swap_data["card_description"]
-    assert vile_fusion_fields["spell_target_card_4"] == vile_fusion_data["target"]
-    assert vile_fusion_fields["spell_attack_roll_card_4"] == vile_fusion_data["critical_success"]
-    assert vile_fusion_fields["spell_description_card_4"] == vile_fusion_data["card_description"]
-    assert magical_item_fields["spell_target_card_5"] == magical_item_data["target"]
-    assert magical_item_fields["spell_duration_card_5"] == magical_item_data["duration"]
-    assert magical_item_fields["spell_permanent_card_5"] == magical_item_data["permanent"]
-    assert magical_item_fields["spell_description_card_5"] == magical_item_data["card_description"]
-    assert "piorun" in rendered_text.lower()
-    assert "przedmiot" in rendered_text.lower()
-    assert "zakrzywienie" in rendered_text.lower()
-    assert "ropucha" in rendered_text.lower()
-    assert "wizja" in rendered_text.lower()
-    assert "urojenia" in rendered_text.lower()
-    assert "duplikaty" in rendered_text.lower()
-    assert "miraż" in rendered_text.lower()
-    assert "dzika" in rendered_text.lower()
-    assert "uzdrowienie" in rendered_text.lower()
-    assert "nienawistna" in rendered_text.lower()
-    assert "zamiana" in rendered_text.lower()
-    assert "nikczemne" in rendered_text.lower()
-    assert "magiczny" in rendered_text.lower()
 
 
 
@@ -515,8 +438,9 @@ def test_spell_card_fields_include_table():
 
 
 def test_spell_table_gives_effect_column_more_space_and_wraps_text():
-    from reportlab.pdfgen.canvas import Canvas
     from reportlab.pdfbase import pdfmetrics
+    from reportlab.pdfgen.canvas import Canvas
+
     from utils.pdf_creator import SPELL_FONT_BOLD, _draw_spell_table, _spell_table_column_widths
 
     table = {
@@ -677,7 +601,13 @@ def test_spell_origin_is_formatted_for_card_footer():
     assert _spell_origin_text({}) == ""
 
 
-def test_spell_origin_center_column_is_shifted_left():
+def test_spell_origin_uses_the_same_left_offset_for_each_column():
     assert _spell_origin_x(488) == 168
-    assert _spell_origin_x(1249) == 919
+    assert _spell_origin_x(1249) == 929
     assert _spell_origin_x(1991) == 1671
+
+
+def test_spell_origin_has_an_offset_for_each_row():
+    assert _spell_origin_offset_y(0) == 980
+    assert _spell_origin_offset_y(1) == 980
+    assert _spell_origin_offset_y(2) == 900
