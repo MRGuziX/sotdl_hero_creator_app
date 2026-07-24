@@ -3,7 +3,7 @@
     {
       "name": "MGŁA",
       "tags": [
-        "Magia Burzy",
+        "Burza",
         "Użytkowe"
       ],
       "level": 0,
@@ -19,7 +19,7 @@
     {
       "name": "PORAŻENIE",
       "tags": [
-        "Magia Burzy",
+        "Burza",
         "Atak"
       ],
       "level": 0,
@@ -37,7 +37,7 @@
     {
       "name": "ROZWIDLONY PIORUN",
       "tags": [
-        "Magia Burzy",
+        "Burza",
         "Atak"
       ],
       "level": 1,
@@ -53,7 +53,7 @@
     {
       "name": "SZADŹ",
       "tags": [
-        "Magia Burzy",
+        "Burza",
         "Atak"
       ],
       "level": 1,
@@ -69,7 +69,7 @@
     {
       "name": "OGNIE ŚWIĘTEJ ASTRID",
       "tags": [
-        "Magia Burzy",
+        "Burza",
         "Użytkowe"
       ],
       "level": 1,
@@ -87,7 +87,7 @@
     {
       "name": "PRZYWOŁANIE PIORUNA",
       "tags": [
-        "Magia Burzy",
+        "Burza",
         "Atak"
       ],
       "level": 2,
@@ -104,7 +104,7 @@
     {
       "name": "TRUJĄCA MGŁA",
       "tags": [
-        "Magia Burzy",
+        "Burza",
         "Atak"
       ],
       "level": 2,
@@ -122,7 +122,7 @@
     {
       "name": "GRADOBICIE",
       "tags": [
-        "Magia Burzy",
+        "Burza",
         "Atak"
       ],
       "level": 3,
@@ -138,7 +138,7 @@
     {
       "name": "WYŁADOWANIE",
       "tags": [
-        "Magia Burzy",
+        "Burza",
         "Atak"
       ],
       "level": 3,
@@ -155,7 +155,7 @@
     {
       "name": "KWAŚNY DESZCZ",
       "tags": [
-        "Magia Burzy",
+        "Burza",
         "Atak"
       ],
       "level": 4,
@@ -173,7 +173,7 @@
     {
       "name": "ŁAŃCUCH PIORUNÓW",
       "tags": [
-        "Magia Burzy",
+        "Burza",
         "Atak"
       ],
       "level": 5,

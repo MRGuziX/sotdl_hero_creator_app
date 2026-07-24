@@ -3,7 +3,7 @@
     {
       "name": "RUNA LOKALIZACJI",
       "tags": [
-        "Magia Runiczna",
+        "Runiczna",
         "Użytkowe"
       ],
       "level": 0,
@@ -19,7 +19,7 @@
     {
       "name": "ROZUMIENIE PISMA",
       "tags": [
-        "Magia Runiczna",
+        "Runiczna",
         "Użytkowe"
       ],
       "level": 0,
@@ -36,7 +36,7 @@
     {
       "name": "PIĘTNO ZAGŁADY",
       "tags": [
-        "Magia Runiczna",
+        "Runiczna",
         "Atak"
       ],
       "level": 1,
@@ -52,7 +52,7 @@
     {
       "name": "GLIF OGNIA",
       "tags": [
-        "Magia Runiczna",
+        "Runiczna",
         "Atak"
       ],
       "level": 1,
@@ -68,7 +68,7 @@
     {
       "name": "RUNICZNA TARCZA",
       "tags": [
-        "Magia Runiczna",
+        "Runiczna",
         "Użytkowe"
       ],
       "level": 1,
@@ -86,7 +86,7 @@
     {
       "name": "RUNICZNE WIĘZIENIE",
       "tags": [
-        "Magia Runiczna",
+        "Runiczna",
         "Atak"
       ],
       "level": 2,
@@ -102,7 +102,7 @@
     {
       "name": "RUNA UKRYCIA",
       "tags": [
-        "Magia Runiczna",
+        "Runiczna",
         "Użytkowe"
       ],
       "level": 2,
@@ -120,7 +120,7 @@
     {
       "name": "RUNICZNA PUŁAPKA",
       "tags": [
-        "Magia Runiczna",
+        "Runiczna",
         "Użytkowe"
       ],
       "level": 3,
@@ -136,7 +136,7 @@
     {
       "name": "RUNA POTĘGI",
       "tags": [
-        "Magia Runiczna",
+        "Runiczna",
         "Użytkowe"
       ],
       "level": 3,
@@ -154,7 +154,7 @@
     {
       "name": "RUNICZNA BROŃ",
       "tags": [
-        "Magia Runiczna",
+        "Runiczna",
         "Użytkowe"
       ],
       "level": 4,
@@ -172,7 +172,7 @@
     {
       "name": "RUNA MOCY",
       "tags": [
-        "Magia Runiczna",
+        "Runiczna",
         "Użytkowe"
       ],
       "level": 5,

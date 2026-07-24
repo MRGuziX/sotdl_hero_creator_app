@@ -35,13 +35,14 @@ SPELL_TECHNICAL_FIELD_GAP_PX = 10
 SPELL_DESCRIPTION_OFFSET_Y = 335
 SPELL_DESCRIPTION_GAP_AFTER_TECHNICAL_PX = 50
 SPELL_TABLE_GAP_AFTER_DESCRIPTION_PX = 25
-SPELL_CRITICAL_SUCCESS_GAP_PX = 50
+SPELL_CRITICAL_SUCCESS_GAP_PX = 0
 SPELL_TAGS_OFFSET_Y = 1000
 SPELL_ORIGIN_LEFT_OFFSET_X = 335
 SPELL_ORIGIN_FIRST_ROW_OFFSET_Y = 980
 SPELL_ORIGIN_SECOND_ROW_OFFSET_Y = 970
 SPELL_ORIGIN_THIRD_ROW_OFFSET_Y = 960
 SPELL_ORIGIN_FONT_SIZE = 8
+SPELL_TABLE_FONT_SIZE = 5
 
 
 def _register_spell_fonts() -> None:
@@ -369,7 +370,7 @@ def _draw_spell_table(
     cell_style = ParagraphStyle(
         "spell_table_cell",
         fontName=SPELL_FONT,
-        fontSize=6,
+        fontSize=SPELL_TABLE_FONT_SIZE,
         leading=7,
         textColor=black,
         alignment=TA_CENTER,
@@ -411,7 +412,7 @@ def _spell_table_column_widths(headers: list, table_width: float) -> list[float]
     _register_spell_fonts()
     header_padding = 8
     minimum_widths = [
-        pdfmetrics.stringWidth(str(header), SPELL_FONT_BOLD, 6) + header_padding
+        pdfmetrics.stringWidth(str(header), SPELL_FONT_BOLD, SPELL_TABLE_FONT_SIZE) + header_padding
         for header in headers
     ]
     minimum_total = sum(minimum_widths)

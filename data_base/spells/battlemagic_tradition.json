@@ -3,7 +3,7 @@
     {
       "name": "ZESPOLONY ATAK",
       "tags": [
-        "Magia Bitewna",
+        "Bitewna",
         "Atak"
       ],
       "level": 0,
@@ -17,7 +17,7 @@
     {
       "name": "PRZYSPIESZENIE",
       "tags": [
-        "Magia Bitewna",
+        "Bitewna",
         "Użytkowe"
       ],
       "level": 0,
@@ -33,7 +33,7 @@
     {
       "name": "ZASKLEPIENIE RAN",
       "tags": [
-        "Magia Bitewna",
+        "Bitewna",
         "Użytkowe"
       ],
       "level": 1,
@@ -47,7 +47,7 @@
     {
       "name": "POTĘŻNY ATAK",
       "tags": [
-        "Magia Bitewna",
+        "Bitewna",
         "Atak"
       ],
       "level": 1,
@@ -61,7 +61,7 @@
     {
       "name": "WSTRZĄSAJĄCY ATAK",
       "tags": [
-        "Magia Bitewna",
+        "Bitewna",
         "Atak"
       ],
       "level": 1,
@@ -77,7 +77,7 @@
     {
       "name": "WIR ŚMIERCI",
       "tags": [
-        "Magia Bitewna",
+        "Bitewna",
         "Atak"
       ],
       "level": 2,
@@ -92,7 +92,7 @@
     {
       "name": "DRUZGOCĄCY SKOK",
       "tags": [
-        "Magia Bitewna",
+        "Bitewna",
         "Atak"
       ],
       "level": 2,
@@ -108,7 +108,7 @@
     {
       "name": "SPRAWNOŚĆ BOJOWA",
       "tags": [
-        "Magia Bitewna",
+        "Bitewna",
         "Użytkowe"
       ],
       "level": 3,
@@ -123,7 +123,7 @@
     {
       "name": "BŁYSKAWICZNY SZTURM",
       "tags": [
-        "Magia Bitewna",
+        "Bitewna",
         "Atak"
       ],
       "level": 3,
@@ -139,7 +139,7 @@
     {
       "name": "ŚCIANA MIECZY",
       "tags": [
-        "Magia Bitewna",
+        "Bitewna",
         "Atak"
       ],
       "level": 4,
@@ -157,7 +157,7 @@
     {
       "name": "NAWAŁNICA CIOSÓW",
       "tags": [
-        "Magia Bitewna",
+        "Bitewna",
         "Atak"
       ],
       "level": 5,

@@ -3,7 +3,7 @@
     {
       "name": "OSTRZE ZMIERZCHU",
       "tags": [
-        "Magia Cienia",
+        "Cień",
         "Użytkowe"
       ],
       "level": 0,
@@ -18,7 +18,7 @@
     {
       "name": "ŚCIANA CIEMNOŚCI",
       "tags": [
-        "Magia Cienia",
+        "Cień",
         "Użytkowe"
       ],
       "level": 0,
@@ -36,7 +36,7 @@
     {
       "name": "CIEMNOŚĆ",
       "tags": [
-        "Magia Cienia",
+        "Cień",
         "Użytkowe"
       ],
       "level": 1,
@@ -52,7 +52,7 @@
     {
       "name": "WIDZENIE W CIEMNOŚCI",
       "tags": [
-        "Magia Cienia",
+        "Cień",
         "Użytkowe"
       ],
       "level": 1,
@@ -68,7 +68,7 @@
     {
       "name": "CIENISTA STRZAŁKA",
       "tags": [
-        "Magia Cienia",
+        "Cień",
         "Atak"
       ],
       "level": 1,
@@ -85,7 +85,7 @@
     {
       "name": "MROCZNE WYNATURZENIE",
       "tags": [
-        "Magia Cienia",
+        "Cień",
         "Użytkowe"
       ],
       "level": 2,
@@ -101,7 +101,7 @@
     {
       "name": "DROGA PRZEZ CIEŃ",
       "tags": [
-        "Magia Cienia",
+        "Cień",
         "Użytkowe"
       ],
       "level": 2,
@@ -118,7 +118,7 @@
     {
       "name": "CZARNOSTRZAŁY Z ZAŚWIATÓW",
       "tags": [
-        "Magia Cienia",
+        "Cień",
         "Atak"
       ],
       "level": 3,
@@ -134,7 +134,7 @@
     {
       "name": "CIENISTA MAGIA",
       "tags": [
-        "Magia Cienia",
+        "Cień",
         "Użytkowe"
       ],
       "level": 3,
@@ -150,7 +150,7 @@
     {
       "name": "MROCZNE PORTALE",
       "tags": [
-        "Magia Cienia",
+        "Cień",
         "Użytkowe"
       ],
       "level": 4,
@@ -168,7 +168,7 @@
     {
       "name": "ZAPAŚĆ",
       "tags": [
-        "Magia Cienia",
+        "Cień",
         "Atak"
       ],
       "level": 5,

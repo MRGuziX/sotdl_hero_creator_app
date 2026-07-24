@@ -3,7 +3,7 @@
     {
       "name": "DAR CHAOSU",
       "tags": [
-        "Magia Chaosu",
+        "Chaos",
         "Użytkowe"
       ],
       "level": 0,
@@ -18,7 +18,7 @@
     {
       "name": "BŁĘDNY POCISK",
       "tags": [
-        "Magia Chaosu",
+        "Chaos",
         "Atak"
       ],
       "level": 0,
@@ -36,7 +36,7 @@
     {
       "name": "KAPRYŚNE ZNISZCZENIE",
       "tags": [
-        "Magia Chaosu",
+        "Chaos",
         "Atak"
       ],
       "level": 1,
@@ -52,7 +52,7 @@
     {
       "name": "ZAKRZYWIENIE PRZESTRZENI",
       "tags": [
-        "Magia Chaosu",
+        "Chaos",
         "Użytkowe"
       ],
       "level": 1,
@@ -66,7 +66,7 @@
     {
       "name": "OPALIZUJĄCA TARCZA",
       "tags": [
-        "Magia Chaosu",
+        "Chaos",
         "Użytkowe"
       ],
       "level": 1,
@@ -83,7 +83,7 @@
     {
       "name": "KOLOR MAGII",
       "tags": [
-        "Magia Chaosu",
+        "Chaos",
         "Atak"
       ],
       "level": 2,
@@ -98,7 +98,7 @@
     {
       "name": "MIGOTANIE",
       "tags": [
-        "Magia Chaosu",
+        "Chaos",
         "Użytkowe"
       ],
       "level": 2,
@@ -115,7 +115,7 @@
     {
       "name": "LANCA CHAOSU",
       "tags": [
-        "Magia Chaosu",
+        "Chaos",
         "Atak"
       ],
       "level": 3,
@@ -130,7 +130,7 @@
     {
       "name": "DZIKA MAGIA",
       "tags": [
-        "Magia Chaosu",
+        "Chaos",
         "Użytkowe"
       ],
       "level": 3,
@@ -191,7 +191,7 @@
     {
       "name": "ŚCIANA LUSTER",
       "tags": [
-        "Magia Chaosu",
+        "Chaos",
         "Użytkowe"
       ],
       "level": 4,
@@ -209,7 +209,7 @@
     {
       "name": "OSOBLIWOŚĆ",
       "tags": [
-        "Magia Chaosu",
+        "Chaos",
         "Atak"
       ],
       "level": 5,
