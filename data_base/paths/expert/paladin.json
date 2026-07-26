@@ -1,0 +1,111 @@
+{
+  "path_name": "Paladyn",
+  "path_type": "expert",
+  "level_benefits": {
+    "3": {
+      "actions": [
+        {
+          "type": "add_attribute",
+          "name": "any",
+          "value": 1
+        },
+        {
+          "type": "add_attribute",
+          "name": "any",
+          "value": 1
+        },
+        {
+          "type": "add_attribute",
+          "name": "health",
+          "value": 4
+        },
+        {
+          "type": "add_attribute",
+          "name": "power",
+          "value": 1
+        },
+        {
+          "type": "add_talent",
+          "name": "Boskie powołanie",
+          "description": "Kiedy masz wykonać test, aby oprzeć się atakowi, możesz poświęcić jedno użycie zaklęcia. W takiej sytuacji wykonujesz rzut z liczbą ułatwień równą kręgowi poświęconego czaru (minimum 1 ułatwienie)."
+        },
+        {
+          "type": "add_talent",
+          "name": "Boskie porażenie",
+          "description": "Gdy uzyskasz sukces w rzucie na atak przy użyciu broni, możesz poświęcić jedno użycie zaklęcia. Atak ten zadaje dodatkowe 1k6 obrażeń razy wartość kręgu poświęconego czaru (minimum 1k6). Jeśli cel jest demonem, diabłem, faerie, duchem lub nieumarłym, obrażenia te zwiększają się o dodatkowe 1k6."
+        },
+        {
+          "type": "add_talent",
+          "name": "Uzdrawiająca wiara",
+          "description": "Możesz poświęcić akcję i jedno użycie czaru, by dotknąć żyjącą istotę w twoim bezpośrednim zasięgu, której Splugawienie wynosi 0, i wybrać jeden z poniższych efektów. • Cel leczy 1k6 obrażeń razy wartość kręgu poświęconego zaklęcia (minimum 1k6). • Jeśli poświęcone zaklęcie było 2 kręgu lub wyższego, możesz oczyścić cel z choroby lub zatrucia."
+        }
+      ],
+      "choices": [
+        [
+          {
+            "type": "add_tradition",
+            "name": "religious_tradition"
+          },
+          {
+            "type": "add_spell",
+            "name": "known_tradition"
+          }
+        ]
+      ]
+    },
+    "6": {
+      "actions": [
+        {
+          "type": "add_attribute",
+          "name": "health",
+          "value": 4
+        },
+        {
+          "type": "add_talent",
+          "name": "Boska witalność",
+          "description": "Jesteś niewrażliwy na chorobę i zatrucie. Nie otrzymujesz z tych źródeł żadnych obrażeń."
+        },
+        {
+          "type": "add_talent",
+          "name": "Wyczucie wrogów",
+          "description": "W swojej turze możesz wykorzystać akcję lub reakcję, by wyostrzyć zmysły i przez 1 minutę wykrywać stworzenia w otoczeniu. Do czasu zakończenia efektu nie zdoła się przed tobą ukryć żadna istota w bliskim zasięgu ani żadna istota o Splugawieniu co najmniej 1 w średnim zasięgu. Nie zyskują one również względem ciebie żadnych premii z przesłonięcia. Możesz użyć tego talentu tyle razy, ile wynosi twoja Moc. Odnawiasz jego użycia po odbyciu pełnego odpoczynku."
+        }
+      ],
+      "choices": [
+        [
+          {
+            "type": "add_spell",
+            "name": "known_tradition"
+          }
+        ]
+      ]
+    },
+    "9": {
+      "actions": [
+        {
+          "type": "add_attribute",
+          "name": "health",
+          "value": 4
+        },
+        {
+          "type": "add_attribute",
+          "name": "power",
+          "value": 1
+        },
+        {
+          "type": "add_talent",
+          "name": "Święty blask",
+          "description": "W swojej turze możesz wykorzystać akcję lub reakcję, by zacząć emitować światło o punkcie początkowym w zajmowanej przez ciebie przestrzeni i promieniu w metrach równym dwukrotności twojej Mocy. Światło przemieszcza się wraz z tobą (jego punkt początkowy pozostaje w zajmowanej przez ciebie przestrzeni) i trwa 1 minutę. Do zakończenia efektu ty i wybrane przez ciebie stworzenia w zasięgu światła nie możecie zostać przestraszeni i zyskujecie 1 ułatwienie w testach opierania się atakom. Dodatkowo wszelkie znajdujące się w obrębie światła demony, diabły, faerie, duchy i nieumarli ulegają osłabieniu, dopóki nie wyjdą poza jego zasięg. (Sam nie stajesz się osłabionym nawet, jeśli również jesteś faerie lub nieumarłym). Możesz użyć tego talentu tyle razy, ile wynosi twoja Moc. Odnawiasz wszystkie jego użycia po odbyciu pełnego odpoczynku."
+        }
+      ],
+      "choices": [
+        [
+          {
+            "type": "add_spell",
+            "name": "known_tradition"
+          }
+        ]
+      ]
+    }
+  }
+}

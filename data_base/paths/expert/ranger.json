@@ -1,0 +1,90 @@
+{
+  "path_name": "Łowca",
+  "path_type": "expert",
+  "level_benefits": {
+    "3": {
+      "actions": [
+        {
+          "type": "add_attribute",
+          "name": "any",
+          "value": 1
+        },
+        {
+          "type": "add_attribute",
+          "name": "any",
+          "value": 1
+        },
+        {
+          "type": "add_attribute",
+          "name": "health",
+          "value": 8
+        },
+        {
+          "type": "add_attribute",
+          "name": "perception",
+          "value": 1
+        },
+        {
+          "type": "add_profession",
+          "name": "koczownicza"
+        },
+        {
+          "type": "add_talent",
+          "name": "Czujność",
+          "description": "Zyskujesz 1 ułatwienie we wszystkich testach Percepcji. Dodatkowo nie możesz zostać zaskoczony, o ile tylko jesteś przytomny."
+        },
+        {
+          "type": "add_talent",
+          "name": "Polowanie",
+          "description": "W swojej turze możesz wykorzystać akcję lub reakcję, by wskazać jedno stworzenie, które widzisz. Cel staje się twoją zdobyczą, dopóki nie użyjesz tego talentu ponownie, nie zostaniesz pozbawiony przytomności lub nie odbędziesz pełnego odpoczynku. Wszystkie rzuty związane z atakowaniem, poszukiwaniem lub tropieniem zdobyczy wykonujesz z 1 ułatwieniem."
+        },
+        {
+          "type": "add_talent",
+          "name": "Tajniki natury",
+          "description": "Testy związane z przypominaniem sobie użytecznych informacji o zwierzętach, roślinach, geografii i naturze wykonujesz z 1 ułatwieniem."
+        }
+      ],
+      "choices": []
+    },
+    "6": {
+      "actions": [
+        {
+          "type": "add_attribute",
+          "name": "health",
+          "value": 4
+        },
+        {
+          "type": "add_talent",
+          "name": "Wprawny przewodnik",
+          "description": "Zawsze wiesz, gdzie leży północ, i zawsze jesteś w stanie wrócić po swoich śladach, tam skąd przybyłeś. Ponadto podczas podróży wszyscy członkowie drużyny o Prędkości niższej niż twoja poruszają się z twoją Prędkością."
+        },
+        {
+          "type": "add_talent",
+          "name": "Wprawny tropiciel",
+          "description": "Gdy znajdujesz trop, możesz wykonać test Intelektu. Sukces oznacza, że dowiadujesz się jednej rzeczy o stworzeniu lub stworzeniach, które zostawiły ślady."
+        }
+      ],
+      "choices": []
+    },
+    "9": {
+      "actions": [
+        {
+          "type": "add_attribute",
+          "name": "health",
+          "value": 4
+        },
+        {
+          "type": "add_talent",
+          "name": "Niezrównany myśliwy",
+          "description": "Stworzenia, które oznaczyłeś jako swoją zdobycz za pomocą talentu Polowanie, nie mogą się przed tobą ukrywać i otrzymują dodatkowe 1k6 obrażeń od twoich ataków."
+        },
+        {
+          "type": "add_talent",
+          "name": "Nieubłagany pościg",
+          "description": "Gdy stworzenie, które oznaczyłeś jako swoją zdobycz za pomocą talentu Polowanie, porusza się, możesz wykorzystać reakcję, by poruszyć się o połowę swojej Prędkości."
+        }
+      ],
+      "choices": []
+    }
+  }
+}

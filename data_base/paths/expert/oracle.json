@@ -1,0 +1,108 @@
+{
+  "path_name": "Wyrocznia",
+  "path_type": "expert",
+  "level_benefits": {
+    "3": {
+      "actions": [
+        {
+          "type": "add_attribute",
+          "name": "any",
+          "value": 1
+        },
+        {
+          "type": "add_attribute",
+          "name": "any",
+          "value": 1
+        },
+        {
+          "type": "add_attribute",
+          "name": "health",
+          "value": 3
+        },
+        {
+          "type": "add_attribute",
+          "name": "power",
+          "value": 1
+        },
+        {
+          "type": "add_talent",
+          "name": "Boska ekstaza",
+          "description": "Możesz wykorzystać akcję, by osiągnąć stan boskiej ekstazy, który trwa 1 minutę. W tym czasie otrzymujesz następujące korzyści. • Zyskujesz +10 Zdrowia. • Jesteś niewrażliwy na zauroczenie, zniewolenie i przestraszenie. • Nie możesz otrzymywać punktów Szaleństwa. • Zyskujesz 1 ułatwienie w rzutach na atak i testach opartych na Intelekcie, Woli lub Percepcji. Gdy efekt ten dobiega końca, musisz wykonać test Woli, w którym porażka oznacza otrzymanie 1 punktu Szaleństwa. Możesz użyć tego talentu tyle razy, ile wynosi twoja Moc. Wykorzystane użycia odzyskujesz po odbyciu pełnego odpoczynku."
+        }
+      ],
+      "choices": [
+        [
+          {
+            "type": "add_language",
+            "name": "any",
+            "can_speak": true,
+            "can_write": true
+          },
+          {
+            "type": "add_profession",
+            "name": "any"
+          }
+        ],
+        [
+          {
+            "type": "add_tradition",
+            "name": "religious_tradition"
+          },
+          {
+            "type": "add_spell",
+            "name": "known_tradition"
+          }
+        ]
+      ]
+    },
+    "6": {
+      "actions": [
+        {
+          "type": "add_attribute",
+          "name": "health",
+          "value": 3
+        },
+        {
+          "type": "add_talent",
+          "name": "Obcowanie z bogami",
+          "description": "Gdy używasz Boskiej ekstazy, możesz zapaść w trans. Jeśli utrzymasz koncentrację do zakończenia efektu, wolno ci zadać nadprzyrodzonej istocie do trzech pytań, na które da się odpowiedzieć „tak”, „nie” lub „być może”. Następnie wykonaj test Woli z 1 utrudnieniem. Sukces oznacza, że MG musi odpowiedzieć na twoje pytania zgodnie z prawdą. Porażka skutkuje otrzymaniem 1 punktu Szaleństwa."
+        }
+      ],
+      "choices": [
+        [
+          {
+            "type": "add_spell",
+            "name": "known_tradition"
+          }
+        ]
+      ]
+    },
+    "9": {
+      "actions": [
+        {
+          "type": "add_attribute",
+          "name": "health",
+          "value": 3
+        },
+        {
+          "type": "add_attribute",
+          "name": "power",
+          "value": 1
+        },
+        {
+          "type": "add_talent",
+          "name": "Awatar",
+          "description": "Podczas Boskiej ekstazy zyskujesz poniższe dodatkowe korzyści: • Otrzymujesz premię +1 do Obrony. • Zyskujesz 1 ułatwienie w rzutach na atak i testach opartych na Sile i Zręczności. • Twoje ataki zadają dodatkowe 1k6 obrażeń."
+        }
+      ],
+      "choices": [
+        [
+          {
+            "type": "add_spell",
+            "name": "known_tradition"
+          }
+        ]
+      ]
+    }
+  }
+}

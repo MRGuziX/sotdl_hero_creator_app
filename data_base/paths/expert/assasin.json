@@ -1,0 +1,93 @@
+{
+  "path_name": "Skrytobójca",
+  "path_type": "expert",
+  "level_benefits": {
+    "3": {
+      "actions": [
+        {
+          "type": "add_attribute",
+          "name": "any",
+          "value": 1
+        },
+        {
+          "type": "add_attribute",
+          "name": "any",
+          "value": 1
+        },
+        {
+          "type": "add_attribute",
+          "name": "perception",
+          "value": 1
+        },
+        {
+          "type": "add_attribute",
+          "name": "health",
+          "value": 3
+        },
+        {
+          "type": "add_talent",
+          "name": "Skrytobójstwo",
+          "description": "Gdy istota zaskoczona lub taka, przed którą jesteś ukryty, otrzymuje obrażenia wskutek twojego ataku, musi wykonać test Siły. Robi to z tyloma ułatwieniami, o ile Rozmiarów jest od ciebie większa. Porażka oznacza, że otrzymuje liczbę obrażeń równą swojemu Zdrowiu."
+        },
+        {
+          "type": "add_talent",
+          "name": "Wprawna charakteryzacja",
+          "description": "Jeśli masz zestaw do charakteryzacji, możesz wykorzystać akcję i jedno użycie zestawu, by zmienić swój wygląd."
+        },
+        {
+          "type": "add_talent",
+          "name": "Dobry refleks",
+          "description": "W trakcie swojej tury możesz w ramach reakcji ukryć się lub wykonać odwrót."
+        }
+      ],
+      "choices": [
+        [
+          {
+            "type": "add_language",
+            "name": "any",
+            "can_speak": true,
+            "can_write": true
+          },
+          {
+            "type": "add_profession",
+            "name": "pospolita"
+          },
+          {
+            "type": "add_profession",
+            "name": "przestępcza"
+          }
+        ]
+      ]
+    },
+    "6": {
+      "actions": [
+        {
+          "type": "add_attribute",
+          "name": "health",
+          "value": 3
+        },
+        {
+          "type": "add_talent",
+          "name": "Przygotowanie trucizny",
+          "description": "Możesz wykorzystać akcję i posłużyć się zestawem alchemika, by przygotować dawkę trucizny. Musisz spędzić co najmniej 1 minutę na koncentracji i zużyć porcję specjalnych składników wartą 5 miedziaków. Po tym czasie tworzysz jedną dawkę trucizny (patrz Rozdział 6). Trucizna zachowuje swoje śmiercionośne właściwości, dopóki nie odbędziesz pełnego odpoczynku."
+        }
+      ],
+      "choices": []
+    },
+    "9": {
+      "actions": [
+        {
+          "type": "add_attribute",
+          "name": "health",
+          "value": 3
+        },
+        {
+          "type": "add_talent",
+          "name": "Oko zabójcy",
+          "description": "W swojej turze możesz wykorzystać akcję, by wybrać jedną istotę w dalekim zasięgu, przed którą jesteś ukryty. Wykonaj test Percepcji. Sukces oznacza, że przez 1 minutę jesteś w stanie uderzać w najczulsze punkty stworzenia. Dopóki efekt ten trwa, każdy atak, który wykonujesz przeciwko temu celowi, zyskuje 1 ułatwienie i zadaje dodatkowe 2k6 obrażeń."
+        }
+      ],
+      "choices": []
+    }
+  }
+}

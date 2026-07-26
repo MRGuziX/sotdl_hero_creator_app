@@ -1,0 +1,99 @@
+{
+  "path_name": "Zwiadowca",
+  "path_type": "expert",
+  "level_benefits": {
+    "3": {
+      "actions": [
+        {
+          "type": "add_attribute",
+          "name": "any",
+          "value": 1
+        },
+        {
+          "type": "add_attribute",
+          "name": "any",
+          "value": 1
+        },
+        {
+          "type": "add_attribute",
+          "name": "perception",
+          "value": 1
+        },
+        {
+          "type": "add_attribute",
+          "name": "health",
+          "value": 3
+        },
+        {
+          "type": "add_attribute",
+          "name": "speed",
+          "value": 2
+        },
+        {
+          "type": "add_talent",
+          "name": "Czujność",
+          "description": "Zyskujesz 1 ułatwienie we wszystkich testach Percepcji. Dodatkowo nie możesz zostać zaskoczony, o ile tylko jesteś przytomny."
+        },
+        {
+          "type": "add_talent",
+          "name": "Przednia straż",
+          "description": "Gdy wykonujesz test, by się ukryć lub skradać, i znajdujesz się dalej niż w bliskim zasięgu od reszty drużyny, zyskujesz 1 ułatwienie."
+        },
+        {
+          "type": "add_talent",
+          "name": "Dobry refleks",
+          "description": "W trakcie swojej tury możesz w ramach reakcji ukryć się lub wykonać odwrót."
+        },
+        {
+          "type": "add_talent",
+          "name": "Bez śladu",
+          "description": "Poruszając się po twardym podłożu, nie zostawiasz śladów, jeśli nie chcesz."
+        }
+      ],
+      "choices": [
+        [
+          {
+            "type": "add_language",
+            "name": "any",
+            "can_speak": true,
+            "can_write": false
+          },
+          {
+            "type": "add_profession",
+            "name": "koczownicza"
+          }
+        ]
+      ]
+    },
+    "6": {
+      "actions": [
+        {
+          "type": "add_attribute",
+          "name": "health",
+          "value": 3
+        },
+        {
+          "type": "add_talent",
+          "name": "Słaby punkt",
+          "description": "W swojej turze możesz wykorzystać akcję lub reakcję, by wskazać jedno stworzenie w swoim bezpośrednim zasięgu. Przez 1 rundę każdy członek twojej drużyny zyskuje 1 ułatwienie w rzutach na atak przeciwko temu celowi."
+        }
+      ],
+      "choices": []
+    },
+    "9": {
+      "actions": [
+        {
+          "type": "add_attribute",
+          "name": "health",
+          "value": 3
+        },
+        {
+          "type": "add_talent",
+          "name": "Cios poniżej pasa",
+          "description": "Gdy cel, na którym użyłeś Słabego punktu, otrzyma obrażenia, możesz wykorzystać reakcję, by go zaatakować."
+        }
+      ],
+      "choices": []
+    }
+  }
+}

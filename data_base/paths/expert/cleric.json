@@ -1,0 +1,117 @@
+{
+  "path_name": "Kapłan",
+  "path_type": "expert",
+  "level_benefits": {
+    "3": {
+      "actions": [
+        {
+          "type": "add_attribute",
+          "name": "any",
+          "value": 1
+        },
+        {
+          "type": "add_attribute",
+          "name": "any",
+          "value": 1
+        },
+        {
+          "type": "add_attribute",
+          "name": "health",
+          "value": 4
+        },
+        {
+          "type": "add_attribute",
+          "name": "power",
+          "value": 1
+        },
+        {
+          "type": "add_talent",
+          "name": "Niezłomny",
+          "description": "Zyskujesz 1 ułatwienie w testach Woli wykonywanych, by oprzeć się efektom cech straszny i przerażający (patrz Rozdział 10)."
+        },
+        {
+          "type": "add_talent",
+          "name": "Symbol wiary",
+          "description": "Wybierz jedną ze znanych ci tradycji magicznych związanych z twoją religią. Gdy wykonujesz atak zaklęciem z tej tradycji, trzymając w ręku lub mając na sobie święty symbol, przy rzucie na atak zyskujesz 1 ułatwienie, a stworzenia, które wykonują testy, by oprzeć się efektom tego ataku, otrzymują 1 utrudnienie."
+        }
+      ],
+      "choices": [
+        [
+          {
+            "type": "add_language",
+            "name": "any",
+            "can_speak": true,
+            "can_write": true
+          },
+          {
+            "type": "add_profession",
+            "name": "naukowa"
+          },
+          {
+            "type": "add_profession",
+            "name": "religijna"
+          }
+        ],
+        [
+          {
+            "type": "add_tradition",
+            "name": "religious_tradition"
+          },
+          {
+            "type": "add_spell",
+            "name": "known_tradition"
+          }
+        ]
+      ]
+    },
+    "6": {
+      "actions": [
+        {
+          "type": "add_attribute",
+          "name": "health",
+          "value": 4
+        },
+        {
+          "type": "add_talent",
+          "name": "Wzmocnienie symbolu",
+          "description": "Gdy rzucasz zadające obrażenia lub leczące zaklęcie z tradycji, którą wybrałeś w ramach talentu Symbol wiary, czar ten zadaje lub leczy dodatkowe 1k6 obrażeń."
+        }
+      ],
+      "choices": [
+        [
+          {
+            "type": "add_spell",
+            "name": "known_tradition"
+          }
+        ]
+      ]
+    },
+    "9": {
+      "actions": [
+        {
+          "type": "add_attribute",
+          "name": "health",
+          "value": 4
+        },
+        {
+          "type": "add_attribute",
+          "name": "power",
+          "value": 1
+        },
+        {
+          "type": "add_talent",
+          "name": "Boska moc",
+          "description": "Korzyści z talentu Symbol wiary odnoszą się do ataków zaklęciami każdej tradycji związanej z twoją religią."
+        }
+      ],
+      "choices": [
+        [
+          {
+            "type": "add_spell",
+            "name": "known_tradition"
+          }
+        ]
+      ]
+    }
+  }
+}

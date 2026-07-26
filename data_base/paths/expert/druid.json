@@ -1,0 +1,120 @@
+{
+  "path_name": "Druid",
+  "path_type": "expert",
+  "level_benefits": {
+    "3": {
+      "actions": [
+        {
+          "type": "add_attribute",
+          "name": "any",
+          "value": 1
+        },
+        {
+          "type": "add_attribute",
+          "name": "any",
+          "value": 1
+        },
+        {
+          "type": "add_attribute",
+          "name": "health",
+          "value": 4
+        },
+        {
+          "type": "add_attribute",
+          "name": "power",
+          "value": 1
+        },
+        {
+          "type": "add_talent",
+          "name": "Tajemnice druidów",
+          "description": "Podczas swojej inicjacji poznałeś odwieczne tajemnice druidów. Pozwalają ci one: • Zidentyfikować dowolne zwierzę lub roślinę, które widzisz. • Ocenić, czy woda lub jedzenie są bezpieczne do spożycia. • Przewidzieć pogodę do 24 godzin naprzód, pod warunkiem że znajdujesz się na zewnątrz i widzisz niebo. • Poruszać się z pełną Prędkością po trudnym terenie, pod warunkiem że powstał on w efekcie naturalnego kształtowania. • Zdecydować, czy chcesz zostawiać ślady, gdy poruszasz się w naturalnym środowisku."
+        }
+      ],
+      "choices": [
+        [
+          {
+            "type": "add_language",
+            "name": "any",
+            "can_speak": true,
+            "can_write": true
+          },
+          {
+            "type": "add_profession",
+            "name": "religijna"
+          },
+          {
+            "type": "add_profession",
+            "name": "koczownicza"
+          }
+        ],
+        [
+          {
+            "type": "add_tradition",
+            "name": "Życie"
+          },
+          {
+            "type": "add_tradition",
+            "name": "Natura"
+          },
+          {
+            "type": "add_tradition",
+            "name": "Magia Pierwotna"
+          },
+          {
+            "type": "add_spell",
+            "name": "known_tradition"
+          }
+        ]
+      ]
+    },
+    "6": {
+      "actions": [
+        {
+          "type": "add_attribute",
+          "name": "health",
+          "value": 4
+        },
+        {
+          "type": "add_talent",
+          "name": "Przejście w drzewie",
+          "description": "Raz na rundę podczas ruchu możesz wejść na przestrzeń zajmowaną przez żywe drzewo, po czym natychmiast przenieść się na przestrzeń zajmowaną przez inne drzewo w średnim zasięgu od tego, do którego wszedłeś. Możesz wyjść z tego samego drzewa, do którego wszedłeś, przemieszczając się na niezajętą przestrzeń."
+        }
+      ],
+      "choices": [
+        [
+          {
+            "type": "add_spell",
+            "name": "known_tradition"
+          }
+        ]
+      ]
+    },
+    "9": {
+      "actions": [
+        {
+          "type": "add_attribute",
+          "name": "health",
+          "value": 4
+        },
+        {
+          "type": "add_attribute",
+          "name": "power",
+          "value": 1
+        },
+        {
+          "type": "add_talent",
+          "name": "Odporność na żywioły",
+          "description": "Nigdy nie musisz się obawiać wyczerpania spowodowanego wystawieniem na działanie żywiołów. Otrzymujesz tylko połowę obrażeń od zimna, elektryczności, grzmotu i ognia."
+        }
+      ],
+      "choices": [
+        [
+          {
+            "type": "add_spell",
+            "name": "known_tradition"
+          }
+        ]
+      ]
+    }
+  }
+}

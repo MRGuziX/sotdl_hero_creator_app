@@ -1,0 +1,104 @@
+{
+  "path_name": "Zaklinacz",
+  "path_type": "expert",
+  "level_benefits": {
+    "3": {
+      "actions": [
+        {
+          "type": "add_attribute",
+          "name": "any",
+          "value": 1
+        },
+        {
+          "type": "add_attribute",
+          "name": "any",
+          "value": 1
+        },
+        {
+          "type": "add_attribute",
+          "name": "health",
+          "value": 3
+        },
+        {
+          "type": "add_attribute",
+          "name": "power",
+          "value": 1
+        },
+        {
+          "type": "add_spell",
+          "name": "Zaklęta broń",
+          "description": "ZAKLĘTA BROŃ ZAKLINACZ, UŻYTKOWE 0 Dotykasz jednej broni w bezpośrednim zasięgu i nasycasz ją magiczną mocą na 4 godziny. Dopóki czar trwa, zyskujesz następujące korzyści. • Broń liczy się jako instrument magiczny. • Rzuty na atak przy użyciu tej broni wykonujesz z 1 ułatwieniem. • Jeśli broń znajduje się w odległości do 1,5 kilometra od ciebie, możesz wykorzystać akcję, by teleportować ją prosto do swoich rąk. Jeśli masz zajęte ręce, pojawi się ona u twoich stóp. • Możesz wykorzystać akcję, by dotknąć zaklętej broni i usunąć z niej wszelkie uszkodzenia, nawet jeśli została zniszczona, pod warunkiem że posiadasz chociaż jeden jej fragment. Poświęcenie: Możesz wykorzystać reakcję i poświęcić użycie tego zaklęcia, dzięki czemu do końca rundy zadajesz zaklętą bronią dodatkowe obrażenia równe twojej Mocy."
+        }
+      ],
+      "choices": [
+        [
+          {
+            "type": "add_tradition",
+            "name": "any"
+          },
+          {
+            "type": "add_spell",
+            "name": "known_tradition"
+          }
+        ]
+      ]
+    },
+    "6": {
+      "actions": [
+        {
+          "type": "add_attribute",
+          "name": "health",
+          "value": 3
+        },
+        {
+          "type": "add_talent",
+          "name": "Nasycenie mocą",
+          "description": "Podczas swojej tury możesz wykorzystać akcję lub reakcję, by jeszcze bardziej nasycić mocą oręż, na który rzuciłeś zaklętą broń. Dotykasz broni i poświęcasz użycie zaklęcia 1 lub wyższego kręgu. Przez 1 minutę emituje ona nieziemskie płomienie, oświetlając obszar w promieniu 10 metrów. Dopóki ów mistyczny ogień płonie, twoje ataki tą bronią zadają dodatkowe 1k6 obrażeń."
+        }
+      ],
+      "choices": [
+        [
+          {
+            "type": "add_tradition",
+            "name": "any"
+          },
+          {
+            "type": "add_spell",
+            "name": "known_tradition"
+          }
+        ]
+      ]
+    },
+    "9": {
+      "actions": [
+        {
+          "type": "add_attribute",
+          "name": "health",
+          "value": 3
+        },
+        {
+          "type": "add_attribute",
+          "name": "power",
+          "value": 1
+        },
+        {
+          "type": "add_talent",
+          "name": "Magiczna broń",
+          "description": "Gdy wykonujesz atak orężem, na który rzuciłeś zaklętą broń, zyskujesz 1 ułatwienie w rzucie na atak, a trafienie zadaje dodatkowe 1k6 obrażeń."
+        }
+      ],
+      "choices": [
+        [
+          {
+            "type": "add_tradition",
+            "name": "any"
+          },
+          {
+            "type": "add_spell",
+            "name": "known_tradition"
+          }
+        ]
+      ]
+    }
+  }
+}

@@ -1,0 +1,121 @@
+{
+  "path_name": "Czarodziej",
+  "path_type": "expert",
+  "level_benefits": {
+    "3": {
+      "actions": [
+        {
+          "type": "add_attribute",
+          "name": "any",
+          "value": 1
+        },
+        {
+          "type": "add_attribute",
+          "name": "any",
+          "value": 1
+        },
+        {
+          "type": "add_attribute",
+          "name": "health",
+          "value": 2
+        },
+        {
+          "type": "add_attribute",
+          "name": "power",
+          "value": 1
+        },
+        {
+          "type": "add_talent",
+          "name": "Grymuar",
+          "description": "Posiadasz księgę wypełnioną wiedzą magiczną. Zapewnia ci ona 1 ułatwienie we wszystkich testach Intelektu związanych z przywoływaniem informacji na temat magii. Zawiera także zaklęcia, które poznałeś w swoich podróżach. Twój grymuar mieści trzy zaklęcia należące do tych kręgów, z których jesteś w stanie rzucać czary, ale nie niższych niż 1. Mogą być z dowolnych tradycji, nawet tych jeszcze przez ciebie niepoznanych. W kontekście zyskiwania Splugawienia zapisanie zaklęcia w twojej księdze liczy się tak samo, jak jego nauczenie się. Gdy nauczysz się zaklęcia już zapisanego w grymuarze, możesz zapisać w księdze kolejny czar co najmniej 1 kręgu, którego byłbyś w stanie się nauczyć i który mógłbyś rzucić. Potrafisz tworzyć kolejne grymuary, by gromadzić w nich więcej zaklęć lub by zastąpić utraconą księgę. Musisz nad tym spędzić 48 godzin i wykorzystać egzotyczne materiały o wartości 5 złotych koron. W gotowej księdze możesz od razu zapisać trzy dowolne zaklęcia należące do kręgów, z których jesteś w stanie rzucać czary."
+        },
+        {
+          "type": "add_talent",
+          "name": "Rzucanie zaklęć z grymuaru",
+          "description": "Trzymając w rękach grymuar, możesz rzucać zapisane w nim zaklęcia, poświęcając użycie znanego ci czaru tego samego lub wyższego kręgu."
+        }
+      ],
+      "choices": [
+        [
+          {
+            "type": "add_language",
+            "name": "any",
+            "can_speak": true,
+            "can_write": true
+          },
+          {
+            "type": "add_profession",
+            "name": "naukowa"
+          }
+        ],
+        [
+          {
+            "type": "add_tradition",
+            "name": "any"
+          },
+          {
+            "type": "add_spell",
+            "name": "known_tradition"
+          }
+        ]
+      ]
+    },
+    "6": {
+      "actions": [
+        {
+          "type": "add_attribute",
+          "name": "health",
+          "value": 2
+        },
+        {
+          "type": "add_talent",
+          "name": "Wprawa w magii",
+          "description": "Zyskujesz 1 dodatkowe użycie każdego znanego ci zaklęcia z kręgów 0 i 1."
+        }
+      ],
+      "choices": [
+        [
+          {
+            "type": "add_tradition",
+            "name": "any"
+          },
+          {
+            "type": "add_spell",
+            "name": "known_tradition"
+          }
+        ]
+      ]
+    },
+    "9": {
+      "actions": [
+        {
+          "type": "add_attribute",
+          "name": "health",
+          "value": 2
+        },
+        {
+          "type": "add_attribute",
+          "name": "power",
+          "value": 1
+        },
+        {
+          "type": "add_talent",
+          "name": "Mistrzostwo w magii",
+          "description": "Opanowałeś do perfekcji sztukę rzucania zaklęć. Zyskujesz 6 punktów zaklęć; gdy posługujesz się magią, możesz wydać liczbę punktów zaklęć równą kręgowi danego czaru (minimum 1 punkt), by rzucić go, nie poświęcając jego użycia (także w sytuacji, gdy nie masz już użyć). Wykorzystane punkty odzyskujesz po odbyciu pełnego odpoczynku."
+        }
+      ],
+      "choices": [
+        [
+          {
+            "type": "add_tradition",
+            "name": "any"
+          },
+          {
+            "type": "add_spell",
+            "name": "known_tradition"
+          }
+        ]
+      ]
+    }
+  }
+}

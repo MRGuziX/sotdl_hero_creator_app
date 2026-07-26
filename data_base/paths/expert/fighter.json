@@ -1,0 +1,159 @@
+{
+  "path_name": "Zbrojny",
+  "path_type": "expert",
+  "level_benefits": {
+    "3": {
+      "actions": [
+        {
+          "type": "add_attribute",
+          "name": "any",
+          "value": 1
+        },
+        {
+          "type": "add_attribute",
+          "name": "any",
+          "value": 1
+        },
+        {
+          "type": "add_attribute",
+          "name": "health",
+          "value": 5
+        },
+        {
+          "type": "add_talent",
+          "name": "Wszystko jest bronią",
+          "description": "Gdy atakujesz dowolną bronią lub bronią improwizowaną, zamieniasz kość obrażeń na 1k6, jeśli jest mniejsza, a także wykonujesz rzut na atak z 1 ułatwieniem. Natomiast przy rozpatrywaniu wymogów pancerza i broni twoja Siła liczy się jako o 2 wyższa."
+        }
+      ],
+      "choices": [
+        [
+          {
+            "type": "add_language",
+            "name": "any",
+            "can_speak": true,
+            "can_write": true
+          },
+          {
+            "type": "add_profession",
+            "name": "any"
+          }
+        ],
+        [
+          {
+            "type": "add_talent",
+            "name": "Siarczyste uderzenie",
+            "description": "Gdy atakujesz ciężką bronią, możesz wykonać rzut na atak z 1 utrudnieniem, by w razie trafienia zadać dodatkowe 2k6 obrażeń."
+          },
+          {
+            "type": "add_talent",
+            "name": "Precyzyjny atak",
+            "description": "Gdy atakujesz bronią szybką, możesz rzucić na atak przeciwko Zręczności celu zamiast jego Obrony."
+          },
+          {
+            "type": "add_talent",
+            "name": "Sprawne przeładowanie",
+            "description": "W swojej turze możesz w ramach reakcji przeładować broń, która ma właściwość przeładowanie."
+          },
+          {
+            "type": "add_talent",
+            "name": "Szybkostrzelność",
+            "description": "Po wykonaniu ataku bronią dystansową, która nie wymaga przeładowania, możesz wykorzystać reakcję, by zaatakować nią ponownie. Drugi rzut na atak wykonujesz z 1 utrudnieniem."
+          },
+          {
+            "type": "add_talent",
+            "name": "Grzmotnięcie tarczą",
+            "description": "Gdy uzyskasz sukces, atakując tarczą, twoje rzuty na atak przeciwko temu samemu celowi zyskują 2 ułatwienia do końca następnej rundy."
+          },
+          {
+            "type": "add_talent",
+            "name": "Uderzenie trzonkiem",
+            "description": "Gdy atakujesz bronią drzewcową lub kosturem, możesz wykorzystać reakcję, by zaatakować drugim końcem tej broni. Wykonujesz rzut na atak z 1 utrudnieniem i w razie trafienia zadajesz 1k6 obrażeń."
+          },
+          {
+            "type": "add_talent",
+            "name": "Walka dwiema broniami",
+            "description": "Gdy atakujesz dwiema broniami, zmniejszasz liczbę utrudnień do ataku o 2."
+          }
+        ]
+      ]
+    },
+    "6": {
+      "actions": [
+        {
+          "type": "add_attribute",
+          "name": "health",
+          "value": 5
+        },
+        {
+          "type": "add_talent",
+          "name": "Wytrzymałość",
+          "description": "Gdy leczysz obrażenia równe twojej Szybkości Zdrowienia, wynosi ona 1/3 twojego Zdrowia."
+        }
+      ],
+      "choices": [
+        [
+          {
+            "type": "add_talent",
+            "name": "Siarczyste uderzenie",
+            "description": "Gdy atakujesz ciężką bronią, możesz wykonać rzut na atak z 1 utrudnieniem, by w razie trafienia zadać dodatkowe 2k6 obrażeń."
+          },
+          {
+            "type": "add_talent",
+            "name": "Precyzyjny atak",
+            "description": "Gdy atakujesz bronią szybką, możesz rzucić na atak przeciwko Zręczności celu zamiast jego Obrony."
+          },
+          {
+            "type": "add_talent",
+            "name": "Sprawne przeładowanie",
+            "description": "W swojej turze możesz w ramach reakcji przeładować broń, która ma właściwość przeładowanie."
+          },
+          {
+            "type": "add_talent",
+            "name": "Szybkostrzelność",
+            "description": "Po wykonaniu ataku bronią dystansową, która nie wymaga przeładowania, możesz wykorzystać reakcję, by zaatakować nią ponownie. Drugi rzut na atak wykonujesz z 1 utrudnieniem."
+          },
+          {
+            "type": "add_talent",
+            "name": "Grzmotnięcie tarczą",
+            "description": "Gdy uzyskasz sukces, atakując tarczą, twoje rzuty na atak przeciwko temu samemu celowi zyskują 2 ułatwienia do końca następnej rundy."
+          },
+          {
+            "type": "add_talent",
+            "name": "Uderzenie trzonkiem",
+            "description": "Gdy atakujesz bronią drzewcową lub kosturem, możesz wykorzystać reakcję, by zaatakować drugim końcem tej broni. Wykonujesz rzut na atak z 1 utrudnieniem i w razie trafienia zadajesz 1k6 obrażeń."
+          },
+          {
+            "type": "add_talent",
+            "name": "Walka dwiema broniami",
+            "description": "Gdy atakujesz dwiema broniami, zmniejszasz liczbę utrudnień do ataku o 2."
+          }
+        ]
+      ]
+    },
+    "9": {
+      "actions": [
+        {
+          "type": "add_attribute",
+          "name": "defense",
+          "value": 1
+        },
+        {
+          "type": "add_attribute",
+          "name": "health",
+          "value": 5
+        },
+        {
+          "type": "add_talent",
+          "name": "Zahartowany",
+          "description": "Testy na opieranie się atakom wykonujesz z 1 ułatwieniem."
+        },
+        {
+          "type": "add_talent",
+          "name": "Mistrz oręża",
+          "description": "Gdy w rzucie na atak bronią wyrzucisz 9 lub mniej na k20, możesz rzucić ponownie. Musisz użyć nowego wyniku, nawet jeśli również wyniesie 9 lub mniej."
+        }
+      ],
+      "choices": []
+    }
+  }
+}

@@ -1,0 +1,129 @@
+{
+  "path_name": "Wiedźma",
+  "path_type": "expert",
+  "level_benefits": {
+    "3": {
+      "actions": [
+        {
+          "type": "add_attribute",
+          "name": "any",
+          "value": 1
+        },
+        {
+          "type": "add_attribute",
+          "name": "any",
+          "value": 1
+        },
+        {
+          "type": "add_attribute",
+          "name": "health",
+          "value": 2
+        },
+        {
+          "type": "add_attribute",
+          "name": "power",
+          "value": 1
+        },
+        {
+          "type": "add_talent",
+          "name": "Wsparcie",
+          "description": "Gdy stworzenie, które cię słyszy i rozumie twoją mowę, wykonuje test, możesz wykorzystać reakcję, by je wesprzeć. Cel zyskuje w tym teście 2 ułatwienia."
+        },
+        {
+          "type": "add_spell",
+          "name": "Wiedźmi ogień",
+          "description": "WIEDŹMI OGIEŃ WIEDŹMA, ATAK 1 Czas trwania: Koncentracja, do 1 minuty. Dopóki zaklęcie trwa, jesteś niewidzialny, a w twoim bezpośrednim zasięgu pojawia się kula zielonego ognia. Gdy efekt kończy działanie, teleportujesz się na wybraną wolną przestrzeń w odległości do 1 metra od kuli ognia. Gdy rzucasz to zaklęcie i za każdym razem, gdy wykorzystujesz akcję na utrzymanie koncentracji, możesz przemieścić kulę na odległość do 10 metrów i zaatakować stworzenie znajdujące się do 1 metra od niej. Wykonaj oparty na Intelekcie lub Woli rzut na atak przeciwko Zręczności celu. Sukces oznacza, że przeciwnik otrzymuje 2k6 obrażeń. Rzut na atak 20+: Cel otrzymuje dodatkowe 1k6 obrażeń."
+        }
+      ],
+      "choices": [
+        [
+          {
+            "type": "add_language",
+            "name": "any",
+            "can_speak": true,
+            "can_write": true
+          },
+          {
+            "type": "add_profession",
+            "name": "naukowa"
+          },
+          {
+            "type": "add_profession",
+            "name": "pospolita"
+          },
+          {
+            "type": "add_profession",
+            "name": "koczownicza"
+          }
+        ],
+        [
+          {
+            "type": "add_tradition",
+            "name": "any"
+          },
+          {
+            "type": "add_spell",
+            "name": "known_tradition"
+          }
+        ]
+      ]
+    },
+    "6": {
+      "actions": [
+        {
+          "type": "add_attribute",
+          "name": "health",
+          "value": 2
+        },
+        {
+          "type": "add_talent",
+          "name": "Latająca miotła",
+          "description": "Możesz wykorzystać akcję i poświęcić użycie zaklęcia, by dotknąć miotły i natchnąć ją magią na liczbę godzin równą sumie twojej Mocy i kręgowi poświęconego zaklęcia. Dopóki efekt trwa, to siedząc na miotle, zyskujesz zdolność lotu. Zdoła ona unieść dodatkowych pasażerów, których suma Rozmiarów nie może przekroczyć 1."
+        }
+      ],
+      "choices": [
+        [
+          {
+            "type": "add_tradition",
+            "name": "any"
+          },
+          {
+            "type": "add_spell",
+            "name": "known_tradition"
+          }
+        ]
+      ]
+    },
+    "9": {
+      "actions": [
+        {
+          "type": "add_attribute",
+          "name": "health",
+          "value": 2
+        },
+        {
+          "type": "add_attribute",
+          "name": "power",
+          "value": 1
+        },
+        {
+          "type": "add_talent",
+          "name": "Trwała więź",
+          "description": "Możesz wykorzystać akcję, by stworzyć więź z jednym stworzeniem w bliskim zasięgu, które cię widzi i słyszy. Jeśli nie stawia ono oporu, więź trwa, dopóki jedno z was nie umrze lub dopóki nie użyjesz tego talentu ponownie. Dopóki efekt trwa, zarówno ty, jak i cel wykonujecie wszystkie testy Percepcji z 1 ułatwieniem, pod warunkiem że znajdujecie się w średnim zasięgu od siebie. Gdy jedno z was leczy obrażenia, drugie leczy połowę tych obrażeń, pod warunkiem że znajdujecie się w średnim zasięgu od siebie. Możesz także wykorzystać akcję, by na widzianej w bliskim zasięgu zwierciadlanej powierzchni przywołać obraz istoty, z którą łączy cię więź. Obraz pozostaje na tej powierzchni, dopóki utrzymujesz koncentrację, ukazując twój cel i obszar w bliskim zasięgu od niego."
+        }
+      ],
+      "choices": [
+        [
+          {
+            "type": "add_tradition",
+            "name": "any"
+          },
+          {
+            "type": "add_spell",
+            "name": "known_tradition"
+          }
+        ]
+      ]
+    }
+  }
+}

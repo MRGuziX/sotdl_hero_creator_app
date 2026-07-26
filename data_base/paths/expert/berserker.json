@@ -1,0 +1,76 @@
+{
+  "path_name": "Berserker",
+  "path_type": "expert",
+  "level_benefits": {
+    "3": {
+      "actions": [
+        {
+          "type": "add_attribute",
+          "name": "any",
+          "value": 1
+        },
+        {
+          "type": "add_attribute",
+          "name": "any",
+          "value": 1
+        },
+        {
+          "type": "add_attribute",
+          "name": "health",
+          "value": 6
+        },
+        {
+          "type": "add_talent",
+          "name": "Berserk",
+          "description": "Gdy otrzymujesz obrażenia i nie jesteś wyczerpany, możesz wpaść w berserk. Pozostajesz w nim przez 1 minutę lub dopóki nie stracisz przytomności i otrzymujesz poniższe premie i kary. • Zyskujesz +10 Zdrowia. • Jesteś niewrażliwy na zauroczenie, zniewolenie i przestraszenie. • Rzuty na atak wykonujesz z 1 utrudnieniem. • Twoje ataki z użyciem broni zadają dodatkowe 2k6 obrażeń. • Jeśli to możliwe, zawsze musisz podjąć szybką turę i zaatakować, w razie potrzeby szarżując. • Gdy berserk dobiegnie końca, stajesz się wyczerpany na 1 minutę i musisz wykonać test Woli. Porażka skutkuje otrzymaniem 1 punktu Szaleństwa."
+        },
+        {
+          "type": "add_talent",
+          "name": "Amok",
+          "description": "Jeśli otrzymanie punktów Szaleństwa oznaczałoby popadnięcie w obłęd (patrz Popadnięcie w obłęd w Rozdziale 2), zamiast tego wpadasz w berserk, nawet jeśli jesteś wyczerpany. W jego trakcie twoją postacią kieruje MG. Na zakończenie każdej rundy rzuca k6. Jeśli wyrzuci 5 lub 6, berserk mija i obniżasz swoje Szaleństwo o 1k6 + modyfikator z Woli (minimum 0). Następnie stajesz się wyczerpany na 1 minutę. Jeśli wpadłeś w berserk, będąc wyczerpanym, to zamiast tego otrzymujesz 1k6 obrażeń."
+        },
+        {
+          "type": "add_talent",
+          "name": "Żelazna skóra",
+          "description": "Gdy nie masz na sobie średniej ani ciężkiej zbroi, twoja Obrona wzrasta o +1."
+        }
+      ],
+      "choices": []
+    },
+    "6": {
+      "actions": [
+        {
+          "type": "add_attribute",
+          "name": "health",
+          "value": 6
+        },
+        {
+          "type": "add_talent",
+          "name": "Dziki szał",
+          "description": "Podczas berserku zyskujesz +2 do Prędkości. Rzuty na atak wymierzone w przestraszone istoty otrzymują 1 ułatwienie."
+        },
+        {
+          "type": "add_talent",
+          "name": "Przerażający szał",
+          "description": "Gdy wpadasz w berserk, każde stworzenie w bliskim zasięgu, które nie jest członkiem twojej drużyny, musi wykonać test Woli, w którym porażka oznacza, że staje się ono przestraszone na 1 rundę."
+        }
+      ],
+      "choices": []
+    },
+    "9": {
+      "actions": [
+        {
+          "type": "add_attribute",
+          "name": "health",
+          "value": 6
+        },
+        {
+          "type": "add_talent",
+          "name": "Uderzenie na oślep",
+          "description": "Gdy atakujesz bronią białą, rzut na atak możesz wykonać z 1 utrudnieniem, by w razie trafienia zadać dodatkowe 2k6 obrażeń."
+        }
+      ],
+      "choices": []
+    }
+  }
+}

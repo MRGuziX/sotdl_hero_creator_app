@@ -1,0 +1,116 @@
+{
+  "path_name": "Wynalazca",
+  "path_type": "expert",
+  "level_benefits": {
+    "3": {
+      "actions": [
+        {
+          "type": "add_attribute",
+          "name": "any",
+          "value": 1
+        },
+        {
+          "type": "add_attribute",
+          "name": "any",
+          "value": 1
+        },
+        {
+          "type": "add_attribute",
+          "name": "health",
+          "value": 2
+        },
+        {
+          "type": "add_attribute",
+          "name": "power",
+          "value": 1
+        },
+        {
+          "type": "add_talent",
+          "name": "Sakwa wynalazcy",
+          "description": "Masz sakwę pełną części, z których konstruujesz przydatny ekwipunek. Zapas części liczy się w złotych koronach, choć dla każdego, kto nie jest wynalazcą, okażą się one bezużyteczne. Wartość twojego zapasu w przeliczeniu na złote korony równa jest dwukrotności poziomu drużyny. Możesz wykorzystać akcję, by sporządzić zbroję, broń, amunicję lub narzędzie, zużywając do tego części o wartości równej cenie przedmiotu. Konstrukcja zajmuje 1 minutę, w trakcie której musisz utrzymać koncentrację, i wymaga użycia zestawu narzędzi. Po upływie tego czasu stworzysz przedmiot, który funkcjonuje do momentu, aż odbędziesz pełny odpoczynek, kiedy to rozpada się z powrotem na części. Z każdym pełnym odpoczynkiem odnawiasz zapas części w Sakwie wynalazcy do dostępnego maksimum. Jeśli stracisz swoją Sakwę wynalazcy, możesz stworzyć nową. Kosztuje to tyle złotych koron, ile wynosi poziom drużyny. Nie możesz mieć naraz więcej niż jednej Sakwy wynalazcy."
+        }
+      ],
+      "choices": [
+        [
+          {
+            "type": "add_language",
+            "name": "any",
+            "can_speak": true,
+            "can_write": true
+          },
+          {
+            "type": "add_profession",
+            "name": "naukowa"
+          }
+        ],
+        [
+          {
+            "type": "add_tradition",
+            "name": "any"
+          },
+          {
+            "type": "add_spell",
+            "name": "known_tradition"
+          }
+        ]
+      ]
+    },
+    "6": {
+      "actions": [
+        {
+          "type": "add_attribute",
+          "name": "health",
+          "value": 2
+        },
+        {
+          "type": "add_talent",
+          "name": "Nasycenie magią",
+          "description": "Możesz wykorzystać akcję, by dotknąć jednego z przedmiotów stworzonych dzięki Sakwie wynalazcy. Następnie koncentrujesz się przez 1 minutę, stale dotykając obiektu; poświęcasz wtedy jedno z dostępnych użyć znanego ci zaklęcia, by zakląć je w przedmiocie. Zaklęcie pozostaje zmagazynowane, dopóki ktoś go nie rzuci lub nie odbędziesz pełnego odpoczynku. Każda istota trzymająca obiekt może wykorzystać akcję, by rzucić ulokowany w nim czar, niezależnie od swojej Mocy."
+        }
+      ],
+      "choices": [
+        [
+          {
+            "type": "add_tradition",
+            "name": "any"
+          },
+          {
+            "type": "add_spell",
+            "name": "known_tradition"
+          }
+        ]
+      ]
+    },
+    "9": {
+      "actions": [
+        {
+          "type": "add_attribute",
+          "name": "health",
+          "value": 2
+        },
+        {
+          "type": "add_attribute",
+          "name": "power",
+          "value": 1
+        },
+        {
+          "type": "add_talent",
+          "name": "Mechaniczni słudzy",
+          "description": "Możesz wykorzystać akcję, by z części trzymanych w Sakwie wynalazcy stworzyć jeden lub więcej małych konstruktów. Materiały o wartości 1 złotej korony pozwalają ci sprawić, że w wolnej przestrzeni w bliskim zasięgu pojawi się jeden zniewolony mały konstrukt. Możesz mu ponadto zapewnić możliwość latania, jeśli wykorzystasz dodatkowe części warte 1 złotą koronę. Konstrukty funkcjonują, dopóki nie zostaną zniszczone lub nie odbędziesz pełnego odpoczynku, kiedy to rozpadają się z powrotem na części."
+        }
+      ],
+      "choices": [
+        [
+          {
+            "type": "add_tradition",
+            "name": "any"
+          },
+          {
+            "type": "add_spell",
+            "name": "known_tradition"
+          }
+        ]
+      ]
+    }
+  }
+}

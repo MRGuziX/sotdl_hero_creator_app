@@ -1,0 +1,109 @@
+{
+  "path_name": "Czarownik",
+  "path_type": "expert",
+  "level_benefits": {
+    "3": {
+      "actions": [
+        {
+          "type": "add_attribute",
+          "name": "any",
+          "value": 1
+        },
+        {
+          "type": "add_attribute",
+          "name": "any",
+          "value": 1
+        },
+        {
+          "type": "add_attribute",
+          "name": "health",
+          "value": 2
+        },
+        {
+          "type": "add_attribute",
+          "name": "power",
+          "value": 1
+        },
+        {
+          "type": "add_talent",
+          "name": "Czarownictwo",
+          "description": "Poznałeś tajemnice czarownictwa. Atakując za pomocą zaklęcia, możesz użyć tego talentu, by w rzucie na atak uzyskać 1 ułatwienie lub nałożyć 1 utrudnienie na testy mające na celu oparcie się jego efektom. Za każdym razem, gdy wykorzystasz ten talent, zyskujesz 1 poziom Napięcia, które reprezentuje twoje wysiłki, by kontrolować pozostałą w twym ciele magiczną energię. Gdy odbędziesz pełny odpoczynek, Napięcie spada do 0."
+        },
+        {
+          "type": "add_talent",
+          "name": "Eksplozja mocy",
+          "description": "Na zakończenie każdej rundy, w której zyskałeś co najmniej 1 poziom Napięcia, musisz wykonać test Woli z liczbą utrudnień równą aktualnemu Napięciu. Porażka skutkuje eksplozją magicznej energii, ta zaś przybiera postać sfery o punkcie środkowym w twoim bezpośrednim zasięgu i promieniu w metrach równym całkowitemu poziomowi Napięcia. Wybuch zadaje wszystkiemu poza tobą w swoim obszarze 1k6 obrażeń za każdy twój punkt Mocy. Stworzenia w obszarze wybuchu, którym powiedzie się test Zręczności, otrzymują tylko połowę tych obrażeń. Wyzwolenie w ten sposób energii sprowadza twoje Napięcie z powrotem do 0."
+        }
+      ],
+      "choices": [
+        [
+          {
+            "type": "add_tradition",
+            "name": "any"
+          },
+          {
+            "type": "add_spell",
+            "name": "known_tradition"
+          }
+        ]
+      ]
+    },
+    "6": {
+      "actions": [
+        {
+          "type": "add_attribute",
+          "name": "health",
+          "value": 2
+        },
+        {
+          "type": "add_talent",
+          "name": "Zaawansowane czarownictwo",
+          "description": "Twoje opanowanie niebezpiecznej magii zwiększa się. Zaawansowane czarownictwo zastępuje talent Czarownictwo. Gdy rzucasz zaklęcie, możesz zdecydować, że zyskujesz 1 poziom Napięcia, by dodać do czaru jeden z poniższych efektów. Dalekosiężne zaklęcie: Jeśli celem zaklęcia jest obszar lub stworzenie inne niż ty, możesz wydłużyć jego zasięg z bezpośredniego do bliskiego, z bliskiego do średniego, ze średniego do długiego lub z długiego do ekstremalnego. Toteż jeśli wybierałbyś dla zaklęcia punkt początkowy leżący w bliskim zasięgu, możesz użyć tego talentu, by zamiast tego wybrać punkt początkowy leżący w średnim zasięgu. Potężne zaklęcie: Jeśli rzucasz zaklęcie, które zadaje lub leczy obrażenia, możesz wykorzystać ten talent, by zwiększyć ich liczbę. Jeśli zaklęcie działa na co najmniej jeden cel, to każdy z nich otrzymuje lub leczy dodatkowe 2k6 obrażeń. Jeśli zaklęcie zadaje lub leczy obrażenia przez pewien czas, to każdorazowo zadaje lub leczy dodatkowe 1k6 obrażeń. Rozszerzone zaklęcie: Jeśli zaklęcie wywołuje efekt obszarowy, podwajasz ten obszar. Przykładowo jeśli czar działa w sferze o promieniu 5 metrów, zwiększasz ów promień do 10 metrów. Wydłużone zaklęcie: Jeśli zaklęcie ma określony czas trwania, możesz go wydłużyć. Czas trwania wynoszący 1 minutę wydłuża się do 10 minut, 10 minut do 1 godziny, 1 godzinę do 8 godzin, a 8 godzin do 24 godzin. Wzmocnione zaklęcie: Atakując za pomocą zaklęcia, możesz użyć tego talentu, by w rzucie na atak uzyskać 2 ułatwienia lub nałożyć 2 utrudnienia na testy mające na celu oparcie się efektom tego czaru."
+        }
+      ],
+      "choices": [
+        [
+          {
+            "type": "add_tradition",
+            "name": "any"
+          },
+          {
+            "type": "add_spell",
+            "name": "known_tradition"
+          }
+        ]
+      ]
+    },
+    "9": {
+      "actions": [
+        {
+          "type": "add_attribute",
+          "name": "health",
+          "value": 2
+        },
+        {
+          "type": "add_attribute",
+          "name": "power",
+          "value": 1
+        },
+        {
+          "type": "add_talent",
+          "name": "Wyzwolenie mocy",
+          "description": "Jeśli twoje Napięcie wynosi co najmniej 1, możesz wyzwolić uderzenie magicznej energii. Wykorzystaj akcję i zmniejsz swoje Napięcie o 1, by wykonać oparte na Intelekcie lub Woli rzut na atak przeciwko Zręczności jednego stworzenia lub obiektowi w średnim zasięgu. Jeśli trafisz, fala mocy uderza w cel i zadaje mu 2k6 obrażeń."
+        }
+      ],
+      "choices": [
+        [
+          {
+            "type": "add_tradition",
+            "name": "any"
+          },
+          {
+            "type": "add_spell",
+            "name": "known_tradition"
+          }
+        ]
+      ]
+    }
+  }
+}

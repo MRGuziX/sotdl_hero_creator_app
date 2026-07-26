@@ -1,0 +1,149 @@
+{
+  "path_name": "Czarnoksiężnik",
+  "path_type": "expert",
+  "level_benefits": {
+    "3": {
+      "actions": [
+        {
+          "type": "add_attribute",
+          "name": "any",
+          "value": 1
+        },
+        {
+          "type": "add_attribute",
+          "name": "any",
+          "value": 1
+        },
+        {
+          "type": "add_attribute",
+          "name": "health",
+          "value": 2
+        },
+        {
+          "type": "add_attribute",
+          "name": "power",
+          "value": 1
+        },
+        {
+          "type": "add_talent",
+          "name": "Kradzież zaklęcia",
+          "description": "Gdy stworzenie w średnim zasięgu rzuca zaklęcie, możesz wykorzystać reakcję, by spróbować je ukraść. Wykonaj oparty na Intelekcie rzut na atak przeciwko Intelektowi czarującego. Sukces oznacza, że zaklęcie nie wywołuje żadnego efektu. Jeśli twoja Moc jest dostatecznie wysoka, byś mógł je rzucić, zyskujesz jedno jego użycie. Zachowujesz je, dopóki nie rzucisz tego czaru lub nie odbędziesz pełnego odpoczynku. Po wykorzystaniu tego talentu musisz odbyć pełny odpoczynek, zanim będziesz mógł użyć go ponownie."
+        },
+        {
+          "type": "add_talent",
+          "name": "Zniknięcie",
+          "description": "Gdy otrzymasz obrażenia, możesz wykorzystać reakcję, by stać się niewidzialnym na 1 rundę lub dopóki nie zaatakujesz. Jeśli dysponujesz użyciem czaru skradzionego talentem Kradzież zaklęcia, możesz poświęcić to użycie, by pozostać niewidzialnym przez 1 minutę."
+        }
+      ],
+      "choices": [
+        [
+          {
+            "type": "add_language",
+            "name": "any",
+            "can_speak": true,
+            "can_write": true
+          },
+          {
+            "type": "add_profession",
+            "name": "przestępcza"
+          }
+        ],
+        [
+          {
+            "type": "add_tradition",
+            "name": "any"
+          },
+          {
+            "type": "add_spell",
+            "name": "known_tradition"
+          }
+        ]
+      ]
+    },
+    "6": {
+      "actions": [
+        {
+          "type": "add_attribute",
+          "name": "health",
+          "value": 2
+        },
+        {
+          "type": "add_talent",
+          "name": "Niewykrywalność",
+          "description": "Nie możesz zostać wytropiony za pomocą magii Jasnowidzenia."
+        },
+        {
+          "type": "add_talent",
+          "name": "Wprawny złodziej zaklęć",
+          "description": "Możesz użyć talentu Kradzież zaklęcia dwa razy na każdy odpoczynek."
+        },
+        {
+          "type": "add_talent",
+          "name": "Kradzież zaklęcia",
+          "description": "Gdy stworzenie w średnim zasięgu rzuca zaklęcie, możesz wykorzystać reakcję, by spróbować je ukraść. Wykonaj oparty na Intelekcie rzut na atak przeciwko Intelektowi czarującego. Sukces oznacza, że zaklęcie nie wywołuje żadnego efektu. Jeśli twoja Moc jest dostatecznie wysoka, byś mógł je rzucić, zyskujesz jedno jego użycie. Zachowujesz je, dopóki nie rzucisz tego czaru lub nie odbędziesz pełnego odpoczynku. Po wykorzystaniu tego talentu musisz odbyć pełny odpoczynek, zanim będziesz mógł użyć go ponownie.",
+          "upgrade": "Możesz użyć talentu Kradzież zaklęcia dwa razy na każdy odpoczynek."
+        }
+      ],
+      "choices": [
+        [
+          {
+            "type": "add_tradition",
+            "name": "any"
+          },
+          {
+            "type": "add_spell",
+            "name": "known_tradition"
+          }
+        ]
+      ]
+    },
+    "9": {
+      "actions": [
+        {
+          "type": "add_attribute",
+          "name": "health",
+          "value": 2
+        },
+        {
+          "type": "add_attribute",
+          "name": "power",
+          "value": 1
+        },
+        {
+          "type": "add_talent",
+          "name": "Mistrz kradzieży zaklęć",
+          "description": "Możesz użyć talentu Kradzież zaklęcia trzy razy na każdy odpoczynek. Kradzież czaru zawsze się powodzi, a tobie wolno go rzucić niezależnie od poziomu twojej Mocy."
+        },
+        {
+          "type": "add_talent",
+          "name": "Przesunięcie",
+          "description": "Gdy używasz talentu Zniknięcie, możesz także teleportować się do wolnej przestrzeni w krótkim zasięgu."
+        },
+        {
+          "type": "add_talent",
+          "name": "Kradzież zaklęcia",
+          "description": "Gdy stworzenie w średnim zasięgu rzuca zaklęcie, możesz wykorzystać reakcję, by spróbować je ukraść. Wykonaj oparty na Intelekcie rzut na atak przeciwko Intelektowi czarującego. Sukces oznacza, że zaklęcie nie wywołuje żadnego efektu. Jeśli twoja Moc jest dostatecznie wysoka, byś mógł je rzucić, zyskujesz jedno jego użycie. Zachowujesz je, dopóki nie rzucisz tego czaru lub nie odbędziesz pełnego odpoczynku. Po wykorzystaniu tego talentu musisz odbyć pełny odpoczynek, zanim będziesz mógł użyć go ponownie.",
+          "upgrade": "Możesz użyć talentu Kradzież zaklęcia trzy razy na każdy odpoczynek. Kradzież czaru zawsze się powodzi, a tobie wolno go rzucić niezależnie od poziomu twojej Mocy."
+        },
+        {
+          "type": "add_talent",
+          "name": "Zniknięcie",
+          "description": "Gdy otrzymasz obrażenia, możesz wykorzystać reakcję, by stać się niewidzialnym na 1 rundę lub dopóki nie zaatakujesz. Jeśli dysponujesz użyciem czaru skradzionego talentem Kradzież zaklęcia, możesz poświęcić to użycie, by pozostać niewidzialnym przez 1 minutę.",
+          "upgrade": "Gdy używasz talentu Zniknięcie, możesz także teleportować się do wolnej przestrzeni w krótkim zasięgu."
+        }
+      ],
+      "choices": [
+        [
+          {
+            "type": "add_tradition",
+            "name": "any"
+          },
+          {
+            "type": "add_spell",
+            "name": "known_tradition"
+          }
+        ]
+      ]
+    }
+  }
+}

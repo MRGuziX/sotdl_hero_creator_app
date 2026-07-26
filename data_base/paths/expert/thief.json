@@ -1,0 +1,212 @@
+{
+  "path_name": "Złodziej",
+  "path_type": "expert",
+  "level_benefits": {
+    "3": {
+      "actions": [
+        {
+          "type": "add_attribute",
+          "name": "any",
+          "value": 1
+        },
+        {
+          "type": "add_attribute",
+          "name": "any",
+          "value": 1
+        },
+        {
+          "type": "add_attribute",
+          "name": "perception",
+          "value": 1
+        },
+        {
+          "type": "add_attribute",
+          "name": "health",
+          "value": 3
+        },
+        {
+          "type": "add_talent",
+          "name": "Dobry refleks",
+          "description": "W trakcie swojej tury możesz w ramach reakcji ukryć się lub wykonać odwrót."
+        }
+      ],
+      "choices": [
+        [
+          {
+            "type": "add_language",
+            "name": "any",
+            "can_speak": true,
+            "can_write": true
+          },
+          {
+            "type": "add_profession",
+            "name": "przestępcza"
+          }
+        ],
+        [
+          {
+            "type": "add_talent",
+            "name": "Bezszelestny ruch",
+            "description": "Zyskujesz 2 ułatwienia w testach na skradanie się."
+          },
+          {
+            "type": "add_talent",
+            "name": "Kradzież kieszonkowa",
+            "description": "Podczas swojej tury możesz wykorzystać akcję lub reakcję, by ukraść obiekt stworzeniu w bezpośrednim zasięgu. Przedmiot ten musi być czymś, co zdołasz trzymać w jednej ręce, a istota sama nie może dzierżyć go w rękach (lub podobnych kończynach). Jeśli widzisz ten obiekt, zabierasz go. Jeśli go nie widzisz, ponieważ sięgasz do sakiewki czy plecaka, MG ustala, jaki przedmiot ukradłeś."
+          },
+          {
+            "type": "add_talent",
+            "name": "Mistrz ucieczek",
+            "description": "Gdy zostaniesz pochwycony, możesz wykorzystać reakcję, by się wyswobodzić. Gdy jesteś związany liną lub skuty kajdanami, możesz wykorzystać akcję, by podjąć próbę wydostania się z więzów. Musisz utrzymać koncentrację przez 1 minutę. Po tym czasie wykonaj test Zręczności. Sukces pozwala na wydostanie się z więzów. Porażka oznacza, że są one zbyt mocne i pozostajesz spętany, dopóki ktoś inny cię nie uwolni."
+          },
+          {
+            "type": "add_talent",
+            "name": "Otwieranie zamków",
+            "description": "Jeśli masz wytrychy, możesz wykorzystać akcję, by otworzyć jeden zamek znajdujący się w bezpośrednim zasięgu. Jeśli MG uzna, że musisz wykonać test, zyskujesz w nim 1 ułatwienie."
+          },
+          {
+            "type": "add_talent",
+            "name": "Ukrycie w cieniu",
+            "description": "Będąc w obszarze co najmniej częściowo przesłoniętym przez cienie, możesz próbować ukryć się nawet, gdy jesteś obserwowany."
+          },
+          {
+            "type": "add_talent",
+            "name": "Wykrycie pułapek",
+            "description": "Testy dotyczące szukania pułapek lub opierania się ich efektom wykonujesz z 1 ułatwieniem."
+          },
+          {
+            "type": "add_talent",
+            "name": "Wyostrzone zmysły",
+            "description": "Zyskujesz 1 ułatwienie we wszystkich testach Percepcji."
+          },
+          {
+            "type": "add_talent",
+            "name": "Zręczna wspinaczka",
+            "description": "Wspinając się, ignorujesz efekty trudnego terenu. Testy na wspinaczkę wykonujesz z 1 ułatwieniem."
+          }
+        ]
+      ]
+    },
+    "6": {
+      "actions": [
+        {
+          "type": "add_attribute",
+          "name": "perception",
+          "value": 1
+        },
+        {
+          "type": "add_attribute",
+          "name": "health",
+          "value": 3
+        },
+        {
+          "type": "add_talent",
+          "name": "Unik",
+          "description": "Podczas swojej tury możesz wykorzystać akcję lub reakcję, by wskazać jedno stworzenie w bliskim zasięgu, które widzisz. Do końca rundy cel wykonuje wszystkie ataki przeciwko tobie z 1 utrudnieniem, a wszystkie testy, które ty wykonujesz, by opierać się jego atakom, zyskują 1 ułatwienie."
+        }
+      ],
+      "choices": [
+        [
+          {
+            "type": "add_talent",
+            "name": "Bezszelestny ruch",
+            "description": "Zyskujesz 2 ułatwienia w testach na skradanie się."
+          },
+          {
+            "type": "add_talent",
+            "name": "Kradzież kieszonkowa",
+            "description": "Podczas swojej tury możesz wykorzystać akcję lub reakcję, by ukraść obiekt stworzeniu w bezpośrednim zasięgu. Przedmiot ten musi być czymś, co zdołasz trzymać w jednej ręce, a istota sama nie może dzierżyć go w rękach (lub podobnych kończynach). Jeśli widzisz ten obiekt, zabierasz go. Jeśli go nie widzisz, ponieważ sięgasz do sakiewki czy plecaka, MG ustala, jaki przedmiot ukradłeś."
+          },
+          {
+            "type": "add_talent",
+            "name": "Mistrz ucieczek",
+            "description": "Gdy zostaniesz pochwycony, możesz wykorzystać reakcję, by się wyswobodzić. Gdy jesteś związany liną lub skuty kajdanami, możesz wykorzystać akcję, by podjąć próbę wydostania się z więzów. Musisz utrzymać koncentrację przez 1 minutę. Po tym czasie wykonaj test Zręczności. Sukces pozwala na wydostanie się z więzów. Porażka oznacza, że są one zbyt mocne i pozostajesz spętany, dopóki ktoś inny cię nie uwolni."
+          },
+          {
+            "type": "add_talent",
+            "name": "Otwieranie zamków",
+            "description": "Jeśli masz wytrychy, możesz wykorzystać akcję, by otworzyć jeden zamek znajdujący się w bezpośrednim zasięgu. Jeśli MG uzna, że musisz wykonać test, zyskujesz w nim 1 ułatwienie."
+          },
+          {
+            "type": "add_talent",
+            "name": "Ukrycie w cieniu",
+            "description": "Będąc w obszarze co najmniej częściowo przesłoniętym przez cienie, możesz próbować ukryć się nawet, gdy jesteś obserwowany."
+          },
+          {
+            "type": "add_talent",
+            "name": "Wykrycie pułapek",
+            "description": "Testy dotyczące szukania pułapek lub opierania się ich efektom wykonujesz z 1 ułatwieniem."
+          },
+          {
+            "type": "add_talent",
+            "name": "Wyostrzone zmysły",
+            "description": "Zyskujesz 1 ułatwienie we wszystkich testach Percepcji."
+          },
+          {
+            "type": "add_talent",
+            "name": "Zręczna wspinaczka",
+            "description": "Wspinając się, ignorujesz efekty trudnego terenu. Testy na wspinaczkę wykonujesz z 1 ułatwieniem."
+          }
+        ]
+      ]
+    },
+    "9": {
+      "actions": [
+        {
+          "type": "add_attribute",
+          "name": "health",
+          "value": 3
+        },
+        {
+          "type": "add_talent",
+          "name": "Oportunizm",
+          "description": "Gdy stworzenie w twoim bezpośrednim zasięgu otrzymuje obrażenia wskutek ataku, możesz wykorzystać reakcję, by je zaatakować."
+        }
+      ],
+      "choices": [
+        [
+          {
+            "type": "add_talent",
+            "name": "Bezszelestny ruch",
+            "description": "Zyskujesz 2 ułatwienia w testach na skradanie się."
+          },
+          {
+            "type": "add_talent",
+            "name": "Kradzież kieszonkowa",
+            "description": "Podczas swojej tury możesz wykorzystać akcję lub reakcję, by ukraść obiekt stworzeniu w bezpośrednim zasięgu. Przedmiot ten musi być czymś, co zdołasz trzymać w jednej ręce, a istota sama nie może dzierżyć go w rękach (lub podobnych kończynach). Jeśli widzisz ten obiekt, zabierasz go. Jeśli go nie widzisz, ponieważ sięgasz do sakiewki czy plecaka, MG ustala, jaki przedmiot ukradłeś."
+          },
+          {
+            "type": "add_talent",
+            "name": "Mistrz ucieczek",
+            "description": "Gdy zostaniesz pochwycony, możesz wykorzystać reakcję, by się wyswobodzić. Gdy jesteś związany liną lub skuty kajdanami, możesz wykorzystać akcję, by podjąć próbę wydostania się z więzów. Musisz utrzymać koncentrację przez 1 minutę. Po tym czasie wykonaj test Zręczności. Sukces pozwala na wydostanie się z więzów. Porażka oznacza, że są one zbyt mocne i pozostajesz spętany, dopóki ktoś inny cię nie uwolni."
+          },
+          {
+            "type": "add_talent",
+            "name": "Otwieranie zamków",
+            "description": "Jeśli masz wytrychy, możesz wykorzystać akcję, by otworzyć jeden zamek znajdujący się w bezpośrednim zasięgu. Jeśli MG uzna, że musisz wykonać test, zyskujesz w nim 1 ułatwienie."
+          },
+          {
+            "type": "add_talent",
+            "name": "Ukrycie w cieniu",
+            "description": "Będąc w obszarze co najmniej częściowo przesłoniętym przez cienie, możesz próbować ukryć się nawet, gdy jesteś obserwowany."
+          },
+          {
+            "type": "add_talent",
+            "name": "Wykrycie pułapek",
+            "description": "Testy dotyczące szukania pułapek lub opierania się ich efektom wykonujesz z 1 ułatwieniem."
+          },
+          {
+            "type": "add_talent",
+            "name": "Wyostrzone zmysły",
+            "description": "Zyskujesz 1 ułatwienie we wszystkich testach Percepcji."
+          },
+          {
+            "type": "add_talent",
+            "name": "Zręczna wspinaczka",
+            "description": "Wspinając się, ignorujesz efekty trudnego terenu. Testy na wspinaczkę wykonujesz z 1 ułatwieniem."
+          }
+        ]
+      ]
+    }
+  }
+}
