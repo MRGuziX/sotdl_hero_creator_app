@@ -138,11 +138,13 @@ def test_confirm_choices_advances_repeated_attribute_groups(client):
 
 
 def test_index_lists_all_novice_paths(client):
+    # The static path grid was replaced by <path-picker>, which renders from
+    # the `PATH_CATALOG.novice` list the server embeds for the page.
     response = client.get("/")
     assert response.status_code == 200
     page = response.get_data(as_text=True)
     for path_id in ("cleric", "mage", "rouge", "warrior"):
-        assert f"selectPath('{path_id}'" in page
+        assert f'"{path_id}"' in page
 
 
 def test_new_novice_paths_can_start_manual_creation(client):

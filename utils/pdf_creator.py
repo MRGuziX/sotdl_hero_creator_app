@@ -164,13 +164,21 @@ def fill_pdf(hero: AncestryHero, output_path: str) -> None:
     assigned_talents, overflow_talents = distribute_talents(hero.talents)
 
     # 2. Prepare all fields
-    path_name = hero.path_name or ""
-    if path_name:
-        path_file = project_root / "data_base" / "paths" / "novice" / f"{path_name.lower()}.json"
+    def _get_path_display_name(tier, path_id):
+        if not path_id:
+            return ""
+        path_file = project_root / "data_base" / "paths" / tier / f"{path_id.lower()}.json"
         if path_file.exists():
-            path_name = json.loads(path_file.read_text(encoding="utf-8")).get(
-                "path_name", path_name
-            )
+            try:
+                data = json.loads(path_file.read_text(encoding="utf-8"))
+                return data.get("path_name", path_id)
+            except Exception:
+                return path_id
+        return path_id
+
+    novice_path = _get_path_display_name("novice", hero.path_name)
+    expert_path = ", ".join([_get_path_display_name("expert", p) for p in hero.expert_path_names])
+    master_path = _get_path_display_name("master", hero.master_path_name)
 
     fields = {
         "sila": str(hero.strength),
@@ -192,7 +200,9 @@ def fill_pdf(hero: AncestryHero, output_path: str) -> None:
         "szybkosc_zdrowienia": str(hero.health // 4),
         "rozmiar": str(hero.size[0]) if hero.size else "1",
         "pochodzenie": hero.ancestry_name,
-        "nowicjusz": path_name,
+        "nowicjusz": novice_path,
+        "ekspert": expert_path,
+        "mistrz": master_path,
         "poziom": str(hero.level),
         "okrawki": str(hero.money.okrawki) if hero.money.okrawki else "",
         "miedziaki": str(hero.money.miedziaki) if hero.money.miedziaki else "",

@@ -92,7 +92,7 @@
         {
           "type": "add_talent",
           "name": "Awatar",
-          "description": "Podczas Boskiej ekstazy zyskujesz poniższe dodatkowe korzyści: • Otrzymujesz premię +1 do Obrony. • Zyskujesz 1 ułatwienie w rzutach na atak i testach opartych na Sile i Zręczności. • Twoje ataki zadają dodatkowe 1k6 obrażeń."
+          "description": "Podczas Boskiej ekstazy zyskujesz poniższe dodatkowe korzyści: • Otrzymujesz premię +1 do Obrony.\n Zyskujesz 1 ułatwienie w rzutach na atak i testach opartych na Sile i Zręczności. \nTwoje ataki zadają dodatkowe 1k6 obrażeń."
         }
       ],
       "choices": [

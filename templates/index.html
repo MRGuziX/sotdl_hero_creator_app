@@ -20,100 +20,26 @@
 
 </head>
 <body>
-<progress-navigator aria-label="Poziomy tworzenia postaci"></progress-navigator>
 <div class="app-shell">
-    <aside class="left-panel">
-        <img src="{{ url_for('static', filename='cwd_logo.png') }}" alt="CWD Logo" class="logo">
-
-        <div class="left-panel-tools">
-            <div class="tool-row top-control-row">
-                <span class="tool-label">Poziom postaci</span>
-                <div class="level-stepper">
-                    <button type="button" class="stepper-btn" id="level-down">−</button>
-                    <span id="level-value">0</span>
-                    <button type="button" class="stepper-btn" id="level-up">+</button>
-                </div>
-            </div>
-            <div class="tool-row top-control-row source-controls" aria-hidden="true">
-                <span class="tool-label">Źródła</span>
-                <button type="button" class="books-toggle" id="books-toggle">⚙ Wybierz księgi</button>
-            </div>
-            <div class="books-panel source-controls" id="books-panel" aria-hidden="true">
-                <label class="book-option"><input type="checkbox" checked><span class="checkmark"></span>Core</label>
-                <label class="book-option"><input type="checkbox"><span class="checkmark"></span>Demon Lord's Companion</label>
-                <label class="book-option"><input type="checkbox"><span class="checkmark"></span>Occult
-                    Philosophy</label>
-            </div>
-        </div>
-
-        <h3 class="section-title">Wybierz pochodzenie</h3>
-        <div class="ancestry-grid selection-grid" id="ancestry-grid">
-            <div onclick="selectAncestry('human', this)" class="ancestry-item">
-                <span class="ancestry-name">Człowiek</span>
-            </div>
-            <div onclick="selectAncestry('automaton', this)" class="ancestry-item">
-                <span class="ancestry-name">Automaton</span>
-            </div>
-            <div onclick="selectAncestry('goblin', this)" class="ancestry-item">
-                <span class="ancestry-name">Goblin</span>
-            </div>
-            <div onclick="selectAncestry('dwarf', this)" class="ancestry-item">
-                <span class="ancestry-name">Krasnolud</span>
-            </div>
-            <div onclick="selectAncestry('orc', this)" class="ancestry-item">
-                <span class="ancestry-name">Ork</span>
-            </div>
-            <div onclick="selectAncestry('changeling', this)" class="ancestry-item">
-                <span class="ancestry-name">Odmieniec</span>
-            </div>
-        </div>
-
-        <div id="path-section" style="display: none; margin-top: 20px;">
-            <h3 class="section-title">Wybierz ścieżkę</h3>
-            <div class="ancestry-grid selection-grid" id="path-grid">
-                {% for path in novice_paths %}
-                <div onclick="selectPath('{{ path.id }}', this)" class="ancestry-item">
-                    <span class="ancestry-name">{{ path.name }}</span>
-                </div>
-                {% endfor %}
-            </div>
-        </div>
-
-        <div class="decision-toggle">
-            <span id="mode-random" class="mode-state active">🎲</span>
-            <label class="decision-switch" for="decision-switch">
-                <input type="checkbox" id="decision-switch">
-                <span class="slider"></span>
-            </label>
-            <span id="mode-manual" class="mode-state">✅</span>
-        </div>
-
-        <div class="left-bottom">
-            <button id="generate-btn" class="generate-button" onclick="rollHero()"><span aria-hidden="true">📜</span> GENERUJ POSTAĆ</button>
-            <button id="save-btn" class="save-button" onclick="savePdf()">Zapisz na urządzeniu</button>
-        </div>
-    </aside>
-
     <main class="stage">
         <div class="stage-left">
-            <section id="info-panel" class="info-panel">
-                <h3 id="info-title">Ancestry name:</h3>
-                <p class="info-text" id="info-text">lorem ipsum</p>
-            </section>
-            <section id="choices-container" class="choices-container">
-                <div class="choices-scroll">
-                    <step-shell aria-label="Wybory bieżącego poziomu"></step-shell>
-                </div>
-            </section>
+            <header class="workspace-header">
+                <img src="{{ url_for('static', filename='cwd_logo.png') }}" alt="CWD Logo" class="logo">
+                <progress-navigator aria-label="Poziomy tworzenia postaci"></progress-navigator>
+            </header>
+            <wizard-shell aria-label="Kreator bohatera"></wizard-shell>
         </div>
-        <section id="pdf-panel" class="info-panel pdf-panel">
-            <h3>Twoja Karta Postaci:</h3>
+
+        <section id="pdf-panel" class="pdf-panel">
+            <div class="pdf-panel-header">
+                <h3>Twoja Karta Postaci:</h3>
+            </div>
             <iframe id="hero-frame" src=""></iframe>
         </section>
     </main>
 </div>
 
-<button id="sheet-fab" class="sheet-fab" type="button" aria-controls="pdf-panel" aria-expanded="false">◉ <span>Podgląd karty</span></button>
+<button id="open-sheet-btn" class="sheet-fab" type="button" aria-controls="pdf-panel" aria-expanded="false">◉ <span>Podgląd karty</span></button>
 <div id="event-toast" class="event-toast" role="status" aria-live="polite"></div>
 
 <div class="footer">
@@ -128,57 +54,17 @@
 
 <script src="{{ url_for('assets', filename='js/creation_store.js') }}"></script>
 <script>
-    let selectedAncestry = null;
-    let selectedPath = null;
-    let currentPdfAncestry = null;
-    let currentDownloadUrl = null;
-    let manualChoicesLoaded = false;
-    let manualRequiresSelection = false;
-    let manualCreationKey = null;
-
-    const ancestryDescriptions = JSON.parse('{{ ancestry_descriptions | tojson | safe }}');
-
-    const ancestryDisplayNames = {
-        human: 'Człowiek',
-        automaton: 'Automaton',
-        goblin: 'Goblin',
-        dwarf: 'Krasnolud',
-        orc: 'Ork',
-        changeling: 'Odmieniec'
+    // Data handed off from the server for the wizard's JS components: the
+    // ancestry tooltip copy used by <ancestry-picker>, and the Novice/
+    // Expert/Master path catalogs used by <path-picker>/<random-config-screen>.
+    window.ancestryDescriptions = JSON.parse('{{ ancestry_descriptions | tojson | safe }}');
+    window.PATH_CATALOG = {
+        novice: JSON.parse('{{ novice_paths | tojson | safe }}'),
+        expert: JSON.parse('{{ expert_paths | tojson | safe }}'),
+        master: JSON.parse('{{ master_paths | tojson | safe }}')
     };
 
-    function isManualMode() {
-        return document.getElementById('decision-switch').checked;
-    }
-
-    function setModeIndicators() {
-        const randomMode = !isManualMode();
-        document.getElementById('mode-random').classList.toggle('active', randomMode);
-        document.getElementById('mode-manual').classList.toggle('active', !randomMode);
-    }
-
-    function updateGenerateState() {
-        const generateBtn = document.getElementById('generate-btn');
-        let canGenerate = !!selectedAncestry;
-        const currentLevel = parseInt(document.getElementById('level-value').textContent, 10);
-
-        if (currentLevel >= 1 && !selectedPath) {
-            canGenerate = false;
-        }
-
-        if (canGenerate && isManualMode()) {
-            // Selection itself now happens inside <step-shell>; the main button
-            // only lights up once every required choice has been resolved.
-            canGenerate = manualChoicesLoaded && !manualRequiresSelection;
-        }
-
-        generateBtn.classList.toggle('enabled', canGenerate);
-    }
-
-    function updateSaveState(isReady = false) {
-        const saveBtn = document.getElementById('save-btn');
-        saveBtn.classList.toggle('enabled', isReady);
-    }
+    let currentDownloadUrl = null;
 
     function showPdfPanel() {
         document.getElementById('pdf-panel').classList.add('visible');
@@ -187,182 +73,11 @@
     function hidePdfPanel() {
         document.getElementById('pdf-panel').classList.remove('visible');
     }
+    window.hidePdfPanel = hidePdfPanel;
 
-    function showChoicesContainer() {
-        document.getElementById('choices-container').classList.add('visible');
-    }
-
-    function hideChoicesContainer() {
-        document.getElementById('choices-container').classList.remove('visible');
-    }
-
-    function clearManualChoicesState() {
-        manualChoicesLoaded = false;
-        manualRequiresSelection = false;
-        manualCreationKey = null;
-    }
-
-    function selectPath(path, clickedElement) {
-        selectedPath = path;
-        document.querySelectorAll('#path-grid .ancestry-item').forEach(item => item.classList.remove('active'));
-        clickedElement.classList.add('active');
-
-        clearManualChoicesState();
-        if (isManualMode()) {
-            prepareManualChoices();
-        }
-        updateGenerateState();
-    }
-
-    function checkPathSection() {
-        const currentLevel = parseInt(document.getElementById('level-value').textContent, 10);
-        const pathSection = document.getElementById('path-section');
-        if (currentLevel >= 1) {
-            pathSection.style.display = 'block';
-        } else {
-            pathSection.style.display = 'none';
-            selectedPath = null;
-            document.querySelectorAll('#path-grid .ancestry-item').forEach(item => item.classList.remove('active'));
-        }
-        updateGenerateState();
-    }
-
-    function prepareManualChoices() {
-        if (!selectedAncestry) {
-            return;
-        }
-
-        const currentLevel = parseInt(document.getElementById('level-value').textContent, 10);
-        if (currentLevel >= 1 && !selectedPath) {
-            return;
-        }
-
-        const key = `${selectedAncestry}|${currentLevel}|${selectedPath || ''}`;
-        if (manualCreationKey === key && manualChoicesLoaded) {
-            if (manualRequiresSelection) {
-                showChoicesContainer();
-            } else {
-                hideChoicesContainer();
-            }
-            updateGenerateState();
-            return;
-        }
-
-        clearManualChoicesState();
-        hideChoicesContainer();
-        updateGenerateState();
-        manualCreationKey = key;
-
-        // Delegate to the authoritative creation API; <step-shell> renders the
-        // returned pending choices and the shared listeners below keep the
-        // legacy panel/button state in sync with the store.
-        window.creationStore.start('manual', selectedAncestry, currentLevel, selectedPath)
-            .catch(() => {
-                manualCreationKey = null;
-                clearManualChoicesState();
-                hideChoicesContainer();
-                updateGenerateState();
-            });
-    }
-
-    function updateInfoPanel(ancestry) {
-        const panel = document.getElementById('info-panel');
-        const title = document.getElementById('info-title');
-        const text = document.getElementById('info-text');
-        const ancestryName = ancestryDisplayNames[ancestry] || ancestry;
-
-        title.textContent = `${ancestryName}:`;
-        text.textContent = ancestryDescriptions[ancestry] || 'Lorem ipsum';
-        panel.classList.add('visible');
-    }
-
-    function selectAncestry(ancestry, clickedElement) {
-        const isDifferentPdfAncestry = !!currentPdfAncestry && currentPdfAncestry !== ancestry;
-
-        selectedAncestry = ancestry;
-        document.querySelectorAll('.ancestry-item').forEach(item => item.classList.remove('active'));
-        clickedElement.classList.add('active');
-        updateInfoPanel(ancestry);
-
-        if (isDifferentPdfAncestry) {
-            hidePdfPanel();
-            currentPdfAncestry = null;
-            currentDownloadUrl = null;
-            updateSaveState(false);
-        }
-
-        clearManualChoicesState();
-
-        if (isManualMode()) {
-            prepareManualChoices();
-        } else {
-            hideChoicesContainer();
-        }
-
-        updateGenerateState();
-
-        if (!currentPdfAncestry) {
-            updateSaveState(false);
-        }
-    }
-
-    function rollHero() {
-        if (!selectedAncestry) {
-            return;
-        }
-
-        const iframe = document.getElementById('hero-frame');
-        const isManual = isManualMode();
-        const timestamp = new Date().getTime();
-        const level = parseInt(document.getElementById('level-value').textContent, 10);
-        const path = encodeURIComponent(selectedPath || '');
-
-        hidePdfPanel();
-
-        if (!isManual) {
-            const url = `/roll/${selectedAncestry}?t=${timestamp}&is_random=1&level=${level}&path=${path}`;
-            const zoomParams = '#zoom=110';
-            iframe.src = url + zoomParams;
-            currentDownloadUrl = `/roll/${selectedAncestry}?download=1&is_random=1&level=${level}&path=${path}`;
-            currentPdfAncestry = selectedAncestry;
-            showPdfPanel();
-            document.getElementById('info-panel').classList.add('visible');
-            updateSaveState(true);
-            return;
-        }
-
-        if (manualRequiresSelection) {
-            // Manual choices are submitted through <step-shell>'s own Next/Back
-            // controls; the main button just brings the panel into view.
-            document.getElementById('choices-container').scrollIntoView({ behavior: 'smooth' });
-        }
-    }
-
-    function savePdf() {
-        const saveBtn = document.getElementById('save-btn');
-        if (!saveBtn.classList.contains('enabled')) {
-            return;
-        }
-
-        if (currentDownloadUrl) {
-            window.location.href = currentDownloadUrl;
-        }
-    }
-
-    window.creationStore.addEventListener('statechange', () => {
-        const state = window.creationStore.state;
-        manualChoicesLoaded = Boolean(state);
-        manualRequiresSelection = Boolean(
-            state && state.pending_choices.length && state.pending_choices[0].length
-        );
-        if (manualRequiresSelection) {
-            showChoicesContainer();
-        } else if (state) {
-            hideChoicesContainer();
-        }
-        updateGenerateState();
-    });
-
+    // The crossroads screen's "Zapisz PDF" button and the random-mode
+    // generate flow both resolve into this same "completed" event, so the
+    // preview iframe/panel logic only lives in one place.
     window.creationStore.addEventListener('completed', (event) => {
         const downloadUrl = event.detail && event.detail.downloadUrl;
         if (!downloadUrl) {
@@ -372,61 +87,22 @@
         const timestamp = new Date().getTime();
         iframe.src = `${downloadUrl}?t=${timestamp}#zoom=110`;
         currentDownloadUrl = downloadUrl.includes('?') ? `${downloadUrl}&download=1` : `${downloadUrl}?download=1`;
-        currentPdfAncestry = selectedAncestry;
         showPdfPanel();
-        hideChoicesContainer();
-        updateSaveState(true);
     });
 
-    document.getElementById('decision-switch').addEventListener('change', function () {
-        setModeIndicators();
-        clearManualChoicesState();
-        hideChoicesContainer();
-        hidePdfPanel();
-        currentPdfAncestry = null;
-        currentDownloadUrl = null;
-        updateSaveState(false);
-
-        if (selectedAncestry) {
-            if (isManualMode()) {
-                prepareManualChoices();
-            } else {
-                hideChoicesContainer();
+    window.creationStore.addEventListener('finalized', (event) => {
+        if (currentDownloadUrl) {
+            if (window.showWizardToast) {
+                window.showWizardToast("Trwa generowanie i zapisywanie karty PDF...");
             }
-        }
-
-        updateGenerateState();
-    });
-
-    const booksToggle = document.getElementById('books-toggle');
-    const booksPanel = document.getElementById('books-panel');
-    const levelValue = document.getElementById('level-value');
-
-    document.getElementById('level-down').addEventListener('click', () => {
-        const current = parseInt(levelValue.textContent, 10);
-        levelValue.textContent = Math.max(0, current - 1).toString();
-        checkPathSection();
-        if (isManualMode() && selectedAncestry) {
-            prepareManualChoices();
+            const link = document.createElement('a');
+            link.href = currentDownloadUrl;
+            link.download = 'Karta_Postaci_SotDL.pdf';
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
         }
     });
-
-    document.getElementById('level-up').addEventListener('click', () => {
-        const current = parseInt(levelValue.textContent, 10);
-        levelValue.textContent = Math.min(10, current + 1).toString();
-        checkPathSection();
-        if (isManualMode() && selectedAncestry) {
-            prepareManualChoices();
-        }
-    });
-
-    booksToggle.addEventListener('click', () => {
-        booksPanel.classList.toggle('visible');
-    });
-
-    setModeIndicators();
-    updateGenerateState();
-    updateSaveState(false);
 </script>
 <script src="{{ url_for('assets', filename='js/wizard.js') }}" defer></script>
 </body>

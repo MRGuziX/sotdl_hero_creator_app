@@ -13,6 +13,8 @@ class AncestryHero(BaseModel):
     ancestry_id: str = "human"
     level: int = 0
     path_name: str | None = None
+    expert_path_names: list[str] = Field(default_factory=list)
+    master_path_name: str | None = None
     strength: int
     dexterity: int
     intelligence: int

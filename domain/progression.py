@@ -1,12 +1,9 @@
 """Progression boundary for ancestry and path benefits."""
 
-import os
-
 from models.action import Action
 from models.ancestry import AncestryData
 from models.base_hero import AncestryHero
-from models.path import PathData
-from utils.utils import PROJECT_ROOT, _load_json, build_hero
+from utils.utils import _collect_path_level_benefits, _load_json, _resolve_paths, build_hero
 
 
 def benefits_for(
@@ -19,12 +16,17 @@ def benefits_for(
 
 def benefits_between(
     ancestry: str,
-    path_name: str | None,
+    paths: dict | None,
     from_level: int,
     to_level: int,
 ) -> tuple[list[Action], list[list[Action]]]:
     """Return only the actions/choice groups gained moving from `from_level`
     (exclusive) up to `to_level` (inclusive).
+
+    `paths` is the `{"novice": ..., "expert": [...], "master": ...}`
+    selection contract: it resolves Expert path files (levels 3-6-9) and
+    Master/second-Expert path files (levels 7-10) alongside the novice path,
+    the same way `build_hero` does for the cumulative case.
 
     This lets the wizard advance one level at a time instead of rebuilding
     the whole hero for the target level. Backstory, wealth, and oddity are
@@ -41,18 +43,11 @@ def benefits_between(
             actions.extend(benefit.actions)
             choices.extend(benefit.choices)
 
-    if to_level >= 1 and path_name:
-        path_file = f"data_base/paths/novice/{path_name.lower()}.json"
-        if os.path.exists(PROJECT_ROOT / path_file):
-            path_data_json = _load_json(path_file)
-            for benefit in path_data_json.get("level_benefits", {}).values():
-                benefit_choices = benefit.get("choices", [])
-                if benefit_choices and isinstance(benefit_choices[0], dict):
-                    benefit["choices"] = [benefit_choices]
-            path_data = PathData.model_validate(path_data_json)
-            for lvl, benefit in path_data.level_benefits.items():
-                if from_level < int(lvl) <= to_level:
-                    actions.extend(benefit.actions)
-                    choices.extend(benefit.choices)
+    if to_level >= 1:
+        resolved_paths = _resolve_paths(paths, None)
+        for absolute_level, benefit in _collect_path_level_benefits(resolved_paths):
+            if from_level < absolute_level <= to_level:
+                actions.extend(benefit.actions)
+                choices.extend(benefit.choices)
 
     return actions, choices

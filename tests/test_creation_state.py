@@ -37,10 +37,11 @@ def test_creation_state_round_trips_hero_actions_and_cursor():
     action = AddAttribute(name="strength", value=1)
     state = CreationState(
         hero=_hero(),
-        pending_choices=[[action]],
+        level_choices=[[action]],
+        total_choices_in_level=1,
         choice_cursor=2,
         creation_inputs={"ancestry": "human", "level": 0},
-        applied_actions=[action],
+        applied_actions=[(0, action)],
         roll_results={"past": 7},
     )
 
@@ -48,8 +49,8 @@ def test_creation_state_round_trips_hero_actions_and_cursor():
 
     assert restored.state_id == state.state_id
     assert restored.choice_cursor == 2
-    assert restored.pending_choices[0][0] == action
-    assert restored.applied_actions == [action]
+    assert restored.level_choices[0][0] == action
+    assert restored.applied_actions == [(0, action)]
     assert restored.roll_results == {"past": 7}
 
 
@@ -66,26 +67,77 @@ def test_creation_state_rejects_wrong_version_and_cursor():
 
 def test_required_complete_reflects_pending_choices():
     action = AddAttribute(name="strength", value=1)
-    state = CreationState(hero=_hero(), pending_choices=[[action]])
+    state = CreationState(hero=_hero(), level_choices=[[action]], total_choices_in_level=1)
 
     assert state.required_complete is False
     assert state.public_dict()["required_complete"] is False
 
-    state.pending_choices = []
-
+    state.choice_cursor = 1
     assert state.required_complete is True
     assert state.public_dict()["required_complete"] is True
 
 
-def test_ready_to_finalize_requires_level_ten_and_no_pending_choices():
-    state = CreationState(hero=_hero(), current_level=10)
+def test_can_finalize_is_available_at_any_level_once_choices_are_resolved():
+    # Finalize/preview is no longer gated behind reaching level 10: it is
+    # always available once a hero exists and has no pending choices.
+    state = CreationState(hero=_hero(), current_level=3)
 
-    assert state.ready_to_finalize is True
-    assert state.public_dict()["ready_to_finalize"] is True
+    assert state.can_finalize is True
+    assert state.public_dict()["can_finalize"] is True
 
-    state.current_level = 9
-    assert state.ready_to_finalize is False
+    state.level_choices = [[AddAttribute(name="strength", value=1)]]
+    state.total_choices_in_level = 1
+    assert state.can_finalize is False
+
+
+def test_can_advance_requires_no_pending_choices_and_level_below_ten():
+    state = CreationState(hero=_hero(), current_level=9)
+
+    assert state.can_advance is True
+    assert state.public_dict()["can_advance"] is True
 
     state.current_level = 10
-    state.pending_choices = [[AddAttribute(name="strength", value=1)]]
-    assert state.ready_to_finalize is False
+    assert state.can_advance is False
+
+    state.current_level = 5
+    state.level_choices = [[AddAttribute(name="strength", value=1)]]
+    state.total_choices_in_level = 1
+    assert state.can_advance is False
+
+
+def test_awaiting_path_pick_flags_novice_expert_and_master_thresholds():
+    state = CreationState(
+        hero=_hero(),
+        current_level=0,
+        creation_inputs={"paths": {"novice": None, "expert": [], "master": None}},
+    )
+    assert state.awaiting_path_pick() is None  # not level 1 yet
+
+    state.current_level = 1
+    assert state.awaiting_path_pick() == "novice"
+
+    state.creation_inputs["paths"]["novice"] = "warrior"
+    assert state.awaiting_path_pick() is None
+
+    state.current_level = 3
+    assert state.awaiting_path_pick() == "expert"
+
+    state.creation_inputs["paths"]["expert"] = ["fighter"]
+    assert state.awaiting_path_pick() is None
+
+    state.current_level = 7
+    assert state.awaiting_path_pick() == "master"
+
+    state.creation_inputs["paths"]["master"] = "duelist"
+    assert state.awaiting_path_pick() is None
+
+    # A second Expert path instead of Master also satisfies the level 7 pick.
+    state.creation_inputs["paths"]["master"] = None
+    state.creation_inputs["paths"]["expert"] = ["fighter", "assasin"]
+    assert state.awaiting_path_pick() is None
+
+    # Pending choices always suppress the path-pick prompt.
+    state.level_choices = [[AddAttribute(name="strength", value=1)]]
+    state.total_choices_in_level = 1
+    state.choice_cursor = 0
+    assert state.awaiting_path_pick() is None

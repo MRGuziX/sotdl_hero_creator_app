@@ -10,7 +10,7 @@ from models.action import Action
 from models.base_hero import AncestryHero
 
 
-CREATION_STATE_VERSION = 1
+CREATION_STATE_VERSION = 3
 
 
 class CreationStateError(ValueError):
@@ -22,10 +22,12 @@ class CreationState:
     """The authoritative mutable hero and its pending deterministic work."""
 
     hero: AncestryHero
-    pending_choices: list[list[Action]] = field(default_factory=list)
+    level_choices: list[list[Action]] = field(default_factory=list)
     choice_cursor: int = 0
+    total_choices_in_level: int = 0
     creation_inputs: dict[str, Any] = field(default_factory=dict)
-    applied_actions: list[Action] = field(default_factory=list)
+    applied_actions: list[tuple[int, Action]] = field(default_factory=list)
+    selections: dict[int, list[int]] = field(default_factory=dict)
     roll_results: dict[str, Any] = field(default_factory=dict)
     mode: str = "manual"
     current_level: int = 0
@@ -42,14 +44,16 @@ class CreationState:
             "state_id": self.state_id,
             "creation_inputs": self.creation_inputs,
             "hero": self.hero.model_dump(mode="json"),
-            "pending_choices": [
+            "level_choices": [
                 [action.model_dump(mode="json") for action in group]
-                for group in self.pending_choices
+                for group in self.level_choices
             ],
             "choice_cursor": self.choice_cursor,
+            "total_choices_in_level": self.total_choices_in_level,
             "applied_actions": [
-                action.model_dump(mode="json") for action in self.applied_actions
+                [lvl, action.model_dump(mode="json")] for lvl, action in self.applied_actions
             ],
+            "selections": {str(k): v for k, v in self.selections.items()},
             "roll_results": self.roll_results,
             "mode": self.mode,
             "current_level": self.current_level,
@@ -67,16 +71,20 @@ class CreationState:
             action_adapter = TypeAdapter(Action)
             return cls(
                 hero=AncestryHero.model_validate(data["hero"]),
-                pending_choices=[
+                level_choices=[
                     [action_adapter.validate_python(action) for action in group]
-                    for group in data.get("pending_choices", [])
+                    for group in data.get("level_choices", [])
                 ],
                 choice_cursor=data["choice_cursor"],
+                total_choices_in_level=data.get("total_choices_in_level", 0),
                 creation_inputs=dict(data.get("creation_inputs", {})),
                 applied_actions=[
-                    action_adapter.validate_python(action)
-                    for action in data.get("applied_actions", [])
+                    (lvl, action_adapter.validate_python(action))
+                    for lvl, action in data.get("applied_actions", [])
                 ],
+                selections={
+                    int(k): v for k, v in data.get("selections", {}).items()
+                },
                 roll_results=dict(data.get("roll_results", {})),
                 version=data["version"],
                 state_id=data["state_id"],
@@ -99,17 +107,63 @@ class CreationState:
         self.state_version += 1
 
     @property
-    def required_complete(self) -> bool:
-        """Return whether every required choice for the current step is resolved."""
-        return not self.pending_choices
+    def pending_choices(self) -> list[list[Action]]:
+        """Return the current active choice group(s) for the wizard."""
+        return self.level_choices[self.choice_cursor:]
 
     @property
-    def ready_to_finalize(self) -> bool:
-        """Return whether the wizard may request the final PDF review/output."""
-        return self.current_level >= 10 and self.required_complete
+    def required_complete(self) -> bool:
+        """Return whether every required choice for the current step is resolved."""
+        return self.choice_cursor >= self.total_choices_in_level
+
+    @property
+    def can_finalize(self) -> bool:
+        """Return whether a hero preview/PDF may be produced right now.
+
+        Once a hero exists and has no unresolved choices, finalize/preview
+        is always available - the wizard is no longer gated behind reaching
+        level 10, so the player can stop and save at any crossroads.
+        """
+        return self.required_complete
+
+    @property
+    def can_advance(self) -> bool:
+        """Return whether the crossroads screen may request advancing one
+        more level via `POST /api/creations/<id>/advance`."""
+        return self.required_complete and self.current_level < 10
+
+    def awaiting_path_pick(self) -> str | None:
+        """Return which path tier still needs to be chosen before the
+        wizard may progress, or `None` when nothing is pending.
+
+        Path picks unlock at level 1 (Novice), level 3 (Expert), and level 7
+        (Master, or a second Expert path instead). They must be recorded
+        before their level_benefits are resolved, so the crossroads screen
+        routes into `<path-picker>` at those levels instead of advancing.
+
+        Random mode resolves every path/level in one shot up front, so it
+        never has anything pending here, regardless of which path tiers
+        were left unset.
+        """
+        if self.mode != "manual" or not self.required_complete:
+            return None
+        paths = self.creation_inputs.get("paths") or {}
+        level = self.current_level
+        if level >= 1 and not paths.get("novice"):
+            return "novice"
+        if level >= 3 and not (paths.get("expert") or []):
+            return "expert"
+        if (
+            level >= 7
+            and not paths.get("master")
+            and len(paths.get("expert") or []) < 2
+        ):
+            return "master"
+        return None
 
     def public_dict(self) -> dict[str, Any]:
         """Return the frontend contract without exposing implementation details."""
+        paths = self.creation_inputs.get("paths") or {"novice": None, "expert": [], "master": None}
         return {
             "state_id": self.state_id,
             "state_version": self.state_version,
@@ -118,11 +172,26 @@ class CreationState:
             "completed_steps": self.completed_steps,
             "invalidated_levels": self.invalidated_levels,
             "hero": self.hero.model_dump(mode="json"),
+            # Chosen path per tier, so the frontend can display/exclude
+            # already-picked Expert paths without re-deriving server logic.
+            "paths": {
+                "novice": paths.get("novice"),
+                "expert": list(paths.get("expert") or []),
+                "master": paths.get("master"),
+            },
+            "level_choices": [
+                [action.model_dump(mode="json") for action in group]
+                for group in self.level_choices
+            ],
             "pending_choices": [
                 [action.model_dump(mode="json") for action in group]
-                for group in self.pending_choices[:1]
+                for group in self.level_choices[self.choice_cursor : self.choice_cursor + 1]
             ],
+            "selections": self.selections.get(self.current_level, []),
             "choice_cursor": self.choice_cursor,
+            "total_choices_in_level": self.total_choices_in_level,
             "required_complete": self.required_complete,
-            "ready_to_finalize": self.ready_to_finalize,
+            "can_finalize": self.can_finalize,
+            "can_advance": self.can_advance,
+            "awaiting_path_pick": self.awaiting_path_pick(),
         }

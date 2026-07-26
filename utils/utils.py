@@ -19,6 +19,7 @@ from models.action import (
     AddTradition,
     Choice,
     GrantLiteracy,
+    LevelBenefit,
     UpdateLanguage,
 )
 from models.ancestry import AncestryData
@@ -33,6 +34,9 @@ from models.talent import Talent
 logger = logging.getLogger(__name__)
 
 PROJECT_ROOT = pathlib.Path(__file__).parent.parent
+NOVICE_PATHS_DIR = PROJECT_ROOT / "data_base" / "paths" / "novice"
+EXPERT_PATHS_DIR = PROJECT_ROOT / "data_base" / "paths" / "expert"
+MASTER_PATHS_DIR = PROJECT_ROOT / "data_base" / "paths" / "master"
 
 ALL_LANGUAGES = [
     "Wspólny",
@@ -131,6 +135,179 @@ def _load_json(relative_path: str) -> dict:
         return json.load(f)
 
 
+def _normalize_path_action(action: dict) -> dict:
+    """Translate the legacy Master-path action aliases (`learn_tradition`/
+    `learn_spell`) onto the existing `add_tradition`/`add_spell` vocabulary,
+    so every path tier validates against the same `Action` union without
+    growing new action types just for a naming difference in the data.
+    """
+    if not isinstance(action, dict):
+        return action
+
+    action_type = action.get("type")
+    if action_type == "learn_tradition":
+        return {"type": "add_tradition", "name": action.get("name", "any")}
+    if action_type == "learn_spell":
+        if "tradition" in action:
+            # A tradition-scoped spell pick reuses the "known_tradition"
+            # placeholder: it is expanded against the hero's known
+            # traditions once the preceding tradition choice is applied.
+            return {"type": "add_spell", "name": "known_tradition"}
+        return {"type": "add_spell", "name": action.get("name", "any")}
+    return action
+
+
+def _normalize_level_benefit_json(benefit: dict) -> dict:
+    """Normalize a raw `level_benefits` entry: wrap legacy flat choice lists
+    into a single nested group (matching `PathData`'s `list[Choice]` shape)
+    and normalize every action within it/`actions` via `_normalize_path_action`.
+    """
+    normalized = dict(benefit)
+    choices = normalized.get("choices", [])
+    if choices and isinstance(choices[0], dict):
+        choices = [choices]
+    normalized["choices"] = [
+        [_normalize_path_action(action) for action in group] for group in choices
+    ]
+    normalized["actions"] = [
+        _normalize_path_action(action) for action in normalized.get("actions", [])
+    ]
+    return normalized
+
+
+def _load_path_data(tier: str, path_name: str) -> PathData | None:
+    """Load and validate a single novice/expert/master path file, or return
+    `None` (with a warning) when it does not exist, mirroring the previous
+    novice-only lookup used by `build_hero`/`benefits_between`.
+    """
+    path_file = f"data_base/paths/{tier}/{path_name.lower()}.json"
+    if not os.path.exists(PROJECT_ROOT / path_file):
+        logger.warning("Path file %s not found", path_file)
+        return None
+
+    path_data_json = dict(_load_json(path_file))
+    path_data_json["level_benefits"] = {
+        level: _normalize_level_benefit_json(benefit)
+        for level, benefit in path_data_json.get("level_benefits", {}).items()
+    }
+    return PathData.model_validate(path_data_json)
+
+
+def _resolve_paths(paths: dict | None, path_name: str | None) -> dict:
+    """Normalize the caller-supplied path selection into the canonical
+    `{"novice": ..., "expert": [...], "master": ...}` shape. `paths` (the
+    new multi-tier contract) always wins; the legacy single `path_name`
+    keyword is kept as a novice-only shorthand for backward compatibility.
+    """
+    if paths:
+        return {
+            "novice": paths.get("novice"),
+            "expert": list(paths.get("expert") or []),
+            "master": paths.get("master"),
+        }
+    return {"novice": path_name, "expert": [], "master": None}
+
+
+def _expert_level_offset(slot_index: int) -> dict[int, int]:
+    """Map an Expert path file's own level keys (3/6/9) onto absolute hero
+    levels. The first Expert path (chosen at level 3) uses its levels as-is.
+    A second Expert path - chosen at the level 7 crossroads instead of a
+    Master path - arrives later, so its 3rd/6th tier benefits are shifted to
+    land on hero level 7/10; its 9th tier has no home within a level 10
+    career and is intentionally dropped.
+    """
+    if slot_index == 1:
+        return {3: 7, 6: 10}
+    return {}
+
+
+def _collect_path_level_benefits(paths: dict) -> list[tuple[int, LevelBenefit]]:
+    """Return `(absolute_hero_level, benefit)` pairs gathered across every
+    configured path tier (novice, up to two Expert paths, and Master),
+    resolving each tier's own file so `build_hero`/`benefits_between` can
+    filter them by level exactly like the ancestry's own level_benefits.
+    """
+    resolved: list[tuple[int, LevelBenefit]] = []
+
+    novice_name = paths.get("novice")
+    if novice_name:
+        data = _load_path_data("novice", novice_name)
+        if data:
+            resolved.extend((int(lvl), benefit) for lvl, benefit in data.level_benefits.items())
+
+    for slot_index, expert_name in enumerate((paths.get("expert") or [])[:2]):
+        if not expert_name:
+            continue
+        data = _load_path_data("expert", expert_name)
+        if not data:
+            continue
+        offset_map = _expert_level_offset(slot_index)
+        for lvl, benefit in data.level_benefits.items():
+            lvl = int(lvl)
+            if slot_index == 0:
+                resolved.append((lvl, benefit))
+            elif lvl in offset_map:
+                resolved.append((offset_map[lvl], benefit))
+
+    master_name = paths.get("master")
+    if master_name:
+        data = _load_path_data("master", master_name)
+        if data:
+            resolved.extend((int(lvl), benefit) for lvl, benefit in data.level_benefits.items())
+
+    return resolved
+
+
+def is_duplicate_expert_path(paths: dict, tier: str, path_id: str) -> bool:
+    """Return whether choosing `path_id` for `tier` would repeat an Expert
+    path already chosen earlier. At the level 7 crossroads a player may add
+    a *second* Expert path instead of a Master one, but never the same
+    Expert path twice.
+    """
+    if tier != "expert" or not path_id:
+        return False
+    existing = [name.lower() for name in (paths.get("expert") or []) if name]
+    return path_id.lower() in existing
+
+
+def benefits_for_new_path_pick(
+    paths_before: dict, tier: str, path_name: str, level: int
+) -> tuple[list[Action], list[list[Action]]]:
+    """Return only the actions/choice groups granted by freshly choosing
+    `path_name` for `tier`, resolved at the exact hero `level` where that
+    pick first unlocks (Novice level 1, Expert level 3, Master or second
+    Expert level 7).
+
+    `paths_before` is the tier selection *before* this pick is recorded; it
+    is used to tell a first Expert path (chosen at level 3) apart from a
+    second one (chosen at the level 7 crossroads instead of a Master path),
+    since a second Expert path's own level 3/6 keys must be shifted to land
+    on hero level 7/10 (see `_expert_level_offset`).
+    """
+    if tier == "expert":
+        slot_index = len(paths_before.get("expert") or [])
+        data = _load_path_data("expert", path_name)
+        if not data:
+            return [], []
+        if slot_index == 0:
+            own_level = level
+        else:
+            offset_map = _expert_level_offset(slot_index)
+            own_level = next(
+                (own for own, mapped in offset_map.items() if mapped == level), None
+            )
+    else:
+        data = _load_path_data(tier, path_name)
+        own_level = level
+
+    if not data or own_level is None:
+        return [], []
+    benefit = data.level_benefits.get(own_level)
+    if not benefit:
+        return [], []
+    return list(benefit.actions), list(benefit.choices)
+
+
 def get_from_ancestry(
     roll: int,
     category: str,
@@ -152,19 +329,31 @@ def build_hero(
     ancestry: str,
     level: int = 0,
     path_name: str | None = None,
+    paths: dict | None = None,
 ) -> tuple[AncestryHero, list[Action], list[Choice]]:
+    """Build a hero's baseline actions/choices for `level`.
+
+    `path_name` is the legacy novice-only path keyword, still accepted for
+    backward compatibility. `paths` is the newer `{"novice": ..., "expert":
+    [...], "master": ...}` contract that also resolves Expert (levels 3-6-9)
+    and Master/second-Expert (levels 7-10) benefits; when present it takes
+    priority over `path_name`.
+    """
+    resolved_paths = _resolve_paths(paths, path_name)
     data = _load_json(f"data_base/ancestry/{ancestry}/{ancestry}.json")
     ancestry_data = AncestryData.model_validate(data)
 
     logger.info(
-        "Building hero: ancestry=%s, level=%d, path=%s", ancestry, level, path_name
+        "Building hero: ancestry=%s, level=%d, paths=%s", ancestry, level, resolved_paths
     )
 
     hero = AncestryHero(
         ancestry_name=ancestry_data.general.ancestry_name,
         ancestry_id=ancestry,
         level=level,
-        path_name=path_name,
+        path_name=resolved_paths.get("novice"),
+        expert_path_names=resolved_paths.get("expert") or [],
+        master_path_name=resolved_paths.get("master"),
         strength=ancestry_data.general.strength,
         dexterity=ancestry_data.general.dexterity,
         intelligence=ancestry_data.general.intelligence,
@@ -192,23 +381,12 @@ def build_hero(
             actions.extend(benefit.actions)
             choices.extend(benefit.choices)
 
-    if level >= 1 and path_name:
-        path_file = f"data_base/paths/novice/{path_name.lower()}.json"
-        if os.path.exists(PROJECT_ROOT / path_file):
-            path_data_json = _load_json(path_file)
-            for benefit in path_data_json.get("level_benefits", {}).values():
-                benefit_choices = benefit.get("choices", [])
-                if benefit_choices and isinstance(benefit_choices[0], dict):
-                    benefit["choices"] = [benefit_choices]
-            path_data = PathData.model_validate(path_data_json)
-            for lvl, benefit in path_data.level_benefits.items():
-                if int(lvl) <= level:
-                    logger.info("  adding path %s level %s benefits", path_name, lvl)
-                    actions.extend(benefit.actions)
-                    choices.extend(benefit.choices)
-
-        else:
-            logger.warning("Path file %s not found", path_file)
+    if level >= 1:
+        for absolute_level, benefit in _collect_path_level_benefits(resolved_paths):
+            if absolute_level <= level:
+                logger.info("  adding path level %d benefits", absolute_level)
+                actions.extend(benefit.actions)
+                choices.extend(benefit.choices)
 
     def _update_backstory(entry: RollTableEntry | None, category: str):
         if entry is None:
@@ -924,18 +1102,57 @@ def add_oddity(hero: AncestryHero):
             return
 
 
+def randomly_pick_paths(target_level: int, existing_paths: dict) -> dict:
+    """Fill missing paths randomly based on the target level for Random mode."""
+    paths = {
+        "novice": existing_paths.get("novice"),
+        "expert": list(existing_paths.get("expert") or []),
+        "master": existing_paths.get("master"),
+    }
+
+    if target_level >= 1 and not paths["novice"]:
+        options = [f.stem for f in NOVICE_PATHS_DIR.glob("*.json") if f.name != "cleric_religions.json"]
+        if options:
+            paths["novice"] = random.choice(options)
+
+    if target_level >= 3 and len(paths["expert"]) < 1:
+        options = [f.stem for f in EXPERT_PATHS_DIR.glob("*.json")]
+        if options:
+            paths["expert"].append(random.choice(options))
+
+    if target_level >= 7:
+        if not paths["master"] and len(paths["expert"]) < 2:
+            if random.choice(["master", "expert"]) == "master":
+                options = [f.stem for f in MASTER_PATHS_DIR.glob("*.json")]
+                if options:
+                    paths["master"] = random.choice(options)
+            else:
+                options = [f.stem for f in EXPERT_PATHS_DIR.glob("*.json") if f.stem not in paths["expert"]]
+                if options:
+                    paths["expert"].append(random.choice(options))
+
+    return paths
+
+
 def get_hero(
-    ancestry: str, is_random: bool, level: int = 0, path_name: str | None = None
+    ancestry: str,
+    is_random: bool,
+    level: int = 0,
+    path_name: str | None = None,
+    paths: dict | None = None,
 ) -> AncestryHero | tuple[AncestryHero, list[Choice]]:
+    resolved_paths = _resolve_paths(paths, path_name)
+    if is_random:
+        resolved_paths = randomly_pick_paths(level, resolved_paths)
     logger.info(
-        "=== get_hero: ancestry=%s, is_random=%s, level=%d, path=%s ===",
+        "=== get_hero: ancestry=%s, is_random=%s, level=%d, paths=%s ===",
         ancestry,
         is_random,
         level,
-        path_name,
+        resolved_paths,
     )
     hero, actions, choices = build_hero(
-        ancestry=ancestry, level=level, path_name=path_name
+        ancestry=ancestry, level=level, paths=resolved_paths
     )
 
     add_wealth(hero, actions, choices)
@@ -990,6 +1207,7 @@ def advance_hero(
     from_level: int,
     to_level: int,
     is_random: bool = False,
+    paths: dict | None = None,
 ) -> list[Choice]:
     """Apply the deterministic actions gained moving from `from_level` to
     `to_level` and return any unresolved choice groups still needed.
@@ -1002,11 +1220,12 @@ def advance_hero(
     """
     from domain.progression import benefits_between
 
+    resolved_paths = _resolve_paths(paths, path_name)
     logger.info(
-        "advance_hero: %s from level %d to %d (path=%s)",
-        ancestry, from_level, to_level, path_name,
+        "advance_hero: %s from level %d to %d (paths=%s)",
+        ancestry, from_level, to_level, resolved_paths,
     )
-    actions, choices = benefits_between(ancestry, path_name, from_level, to_level)
+    actions, choices = benefits_between(ancestry, resolved_paths, from_level, to_level)
     remaining_actions, expanded_choices = expand_any_to_choices(hero, actions, choices)
 
     for action in remaining_actions:
