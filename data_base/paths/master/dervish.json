@@ -1,0 +1,69 @@
+{
+  "path_name": "Derwisz",
+  "path_type": "master",
+  "level_benefits": {
+    "7": {
+      "actions": [
+        {
+          "type": "add_attribute",
+          "name": "any",
+          "value": 1
+        },
+        {
+          "type": "add_attribute",
+          "name": "any",
+          "value": 1
+        },
+        {
+          "type": "add_attribute",
+          "name": "any",
+          "value": 1
+        },
+        {
+          "type": "add_attribute",
+          "name": "health",
+          "value": 5
+        },
+        {
+          "type": "add_talent",
+          "name": "Oburęczność",
+          "description": "Możesz używać dowolnej broni jednoręcznej swoją niedominującą ręką."
+        },
+        {
+          "type": "add_talent",
+          "name": "Oburęczna obrona",
+          "description": "Gdy w każdej ręce trzymasz broń i żadna z nich nie jest tarczą, zyskujesz premię +1 do Obrony."
+        }
+      ],
+      "choices": [
+        [
+          {
+            "type": "add_language",
+            "name": "any",
+            "can_speak": true,
+            "can_write": false
+          },
+          {
+            "type": "add_profession",
+            "name": "any"
+          }
+        ]
+      ]
+    },
+    "10": {
+      "actions": [
+        {
+          "type": "add_attribute",
+          "name": "health",
+          "value": 5
+        },
+        {
+          "type": "add_talent",
+          "name": "Mistrzostwo w dwóch broniach",
+          "description": "Gdy atakujesz dwiema broniami, rzut na atak wykonujesz z 1 ułatwieniem. Jeśli i jednym, i drugim orężem atakujesz ten sam cel, zadajesz dodatkowe 1k6 obrażeń."
+        }
+      ],
+      "choices": []
+    }
+  }
+}

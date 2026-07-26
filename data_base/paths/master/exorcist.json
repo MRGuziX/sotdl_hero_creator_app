@@ -1,0 +1,74 @@
+{
+  "path_name": "Egzorcysta",
+  "path_type": "master",
+  "level_benefits": {
+    "7": {
+      "actions": [
+        {
+          "type": "add_attribute",
+          "name": "any",
+          "value": 1
+        },
+        {
+          "type": "add_attribute",
+          "name": "any",
+          "value": 1
+        },
+        {
+          "type": "add_attribute",
+          "name": "any",
+          "value": 1
+        },
+        {
+          "type": "add_attribute",
+          "name": "health",
+          "value": 4
+        },
+        {
+          "type": "add_attribute",
+          "name": "power",
+          "value": 1
+        },
+        {
+          "type": "learn_spell",
+          "name": "Egzorcyzm",
+          "description": "EGZORCYZM EGZORCYSTA, ATAK 1. Cel: Jedno stworzenie w bliskim zasięgu, które jest zauroczone, zniewolone, przestraszone lub opętane. Jeśli cel jest zauroczony, zniewolony lub przestraszony, pozbywa się tego stanu. Jeśli cel jest opętany, musisz przez 1 minutę mieć go w zasięgu i utrzymać koncentrację. Następnie wykonujesz oparty na Woli atak przeciwko Woli opętującej istoty. Sukces oznacza, że opętanie ulega zakończeniu, a odpowiedzialny za nie byt pojawia się w wolnej przestrzeni w bliskim zasięgu i jest zamroczony przez 1 rundę. Rzut na atak 20+: Opętująca istota jest zamiast tego oszołomiona przez 1 rundę."
+        }
+      ],
+      "choices": [
+        [
+          {
+            "type": "add_language",
+            "name": "any",
+            "can_speak": true,
+            "can_write": false
+          },
+          {
+            "type": "add_profession",
+            "name": "religijną"
+          }
+        ]
+      ]
+    },
+    "10": {
+      "actions": [
+        {
+          "type": "add_attribute",
+          "name": "health",
+          "value": 4
+        },
+        {
+          "type": "add_talent",
+          "name": "Na pohybel nieczystym",
+          "description": "Rzuty na atak przeciwko demonom, diabłom, faerie, duchom i nieumarłym wykonujesz z 1 ułatwieniem. Stworzenia te otrzymują 1 utrudnienie we wszystkich testach wykonywanych, by odeprzeć efekty twoich ataków."
+        },
+        {
+          "type": "add_talent",
+          "name": "Żelazna wola",
+          "description": "Jesteś niewrażliwy na zauroczenie, zniewolenie i przestraszenie. Testy Woli w celu uniknięcia zyskania Szaleństwa wykonujesz z 1 ułatwieniem."
+        }
+      ],
+      "choices": []
+    }
+  }
+}

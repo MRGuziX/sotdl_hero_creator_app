@@ -1,0 +1,69 @@
+{
+  "path_name": "Fechtmistrz",
+  "path_type": "master",
+  "level_benefits": {
+    "7": {
+      "actions": [
+        {
+          "type": "add_attribute",
+          "name": "any",
+          "value": 1
+        },
+        {
+          "type": "add_attribute",
+          "name": "any",
+          "value": 1
+        },
+        {
+          "type": "add_attribute",
+          "name": "any",
+          "value": 1
+        },
+        {
+          "type": "add_attribute",
+          "name": "health",
+          "value": 4
+        },
+        {
+          "type": "add_talent",
+          "name": "Wyzwanie",
+          "description": "Podczas swojej tury możesz wykorzystać akcję lub reakcję, by rzucić wyzwanie jednemu stworzeniu w średnim zasięgu, które cię widzi i słyszy. Wykonaj oparty na Intelekcie rzut na atak przeciwko Woli celu. Sukces oznacza, że przeciwnik przyjął wyzwanie. Efekt trwa, dopóki nie zostanie obezwładniony, nie stracisz przytomności, nie użyjesz tego talentu ponownie lub nie zaatakujesz innego celu. Porażka oznacza, że wróg staje się niewrażliwy na ten talent, dopóki nie odbędzie pełnego odpoczynku. Kiedy wyzwana istota próbuje zaatakować cel inny niż ty, wykonuje rzut z 1 utrudnieniem."
+        },
+        {
+          "type": "add_talent",
+          "name": "Riposta",
+          "description": "Gdy wyzwana przez ciebie istota wykonuje przeciw tobie rzut na atak, możesz wykorzystać reakcję, by nałożyć na ten atak 1 utrudnienie. Jeśli chybi, wyprowadzasz ripostę, atakując cel bronią białą, którą aktualnie dzierżysz. Jeśli jest to broń szybka, zyskujesz 1 ułatwienie."
+        }
+      ],
+      "choices": [
+        [
+          {
+            "type": "add_language",
+            "name": "any",
+            "can_speak": true,
+            "can_write": false
+          },
+          {
+            "type": "add_profession",
+            "name": "any"
+          }
+        ]
+      ]
+    },
+    "10": {
+      "actions": [
+        {
+          "type": "add_attribute",
+          "name": "health",
+          "value": 4
+        },
+        {
+          "type": "add_talent",
+          "name": "Mistrz pojedynków",
+          "description": "Zadajesz dodatkowe 1k6 obrażeń atakami z użyciem broni celom, które znajdują się pod wpływem twojego talentu Wyzwanie."
+        }
+      ],
+      "choices": []
+    }
+  }
+}

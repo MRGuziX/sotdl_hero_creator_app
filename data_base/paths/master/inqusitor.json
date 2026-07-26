@@ -1,0 +1,74 @@
+{
+  "path_name": "Inkwizytor",
+  "path_type": "master",
+  "level_benefits": {
+    "7": {
+      "actions": [
+        {
+          "type": "add_attribute",
+          "name": "any",
+          "value": 1
+        },
+        {
+          "type": "add_attribute",
+          "name": "any",
+          "value": 1
+        },
+        {
+          "type": "add_attribute",
+          "name": "any",
+          "value": 1
+        },
+        {
+          "type": "add_attribute",
+          "name": "health",
+          "value": 3
+        },
+        {
+          "type": "add_talent",
+          "name": "Straszliwa groźba",
+          "description": "Możesz wykorzystać akcję, by zastraszyć jedną istotę w bliskim zasięgu, która jest pod wpływem twojego talentu Lustracja. Wykonaj oparty na Intelekcie rzut na atak przeciwko Woli celu. Sukces oznacza, że przeciwnik jest przestraszony, dopóki cię widzi. Efekt ten dobiega końca, jeśli cel zada ci obrażenia lub odbędzie pełny odpoczynek."
+        },
+        {
+          "type": "add_talent",
+          "name": "Mistrz tortur",
+          "description": "Możesz wykorzystać akcję, by rozpocząć tortury na jednej bezbronnej lub spętanej istocie w bezpośrednim zasięgu. Po co najmniej 1 godzinie koncentracji, w trakcie której używasz na celu narzędzi tortur, wykonaj oparty na Intelekcie rzut na atak przeciwko Woli ofiary. Sukces oznacza, że możesz zadać 1k6 pytań (MG w tajemnicy losuje dokładną ich liczbę), a stworzenie odpowie na nie zgodnie z prawdą i posiadaną wiedzą. Jeśli nie zna odpowiedzi, wymyśli coś, co według niego chcesz usłyszeć, choć to od ciebie zależy, czy potraktujesz to jako prawdę, czy fałsz. Porażka oznacza, że cel staje się niewrażliwy na efekty tego talentu, dopóki nie odbędzie pełnego odpoczynku."
+        },
+        {
+          "type": "add_talent",
+          "name": "Lustracja",
+          "description": "Możesz wykorzystać akcję, by poddać obserwacji jedno stworzenie w średnim zasięgu, które widzisz. Wykonaj oparty na Percepcji rzut na atak przeciwko Intelektowi celu. Sukces oznacza, że istota liczy się jako zlustrowana, dopóki nie odbędzie pełnego odpoczynku, nie stracisz jej z oczu lub nie użyjesz tego talentu ponownie. Porażka oznacza, że staje się niewrażliwa na ten talent, dopóki nie odbędzie pełnego odpoczynku. Dopóki lustrujesz stworzenie, wiesz, gdy próbuje celowo kłamać, a wszystkie ataki przeciw niemu wykonujesz z 1 ułatwieniem."
+        }
+      ],
+      "choices": [
+        [
+          {
+            "type": "add_language",
+            "name": "any",
+            "can_speak": true,
+            "can_write": false
+          },
+          {
+            "type": "add_profession",
+            "name": "any"
+          }
+        ]
+      ]
+    },
+    "10": {
+      "actions": [
+        {
+          "type": "add_attribute",
+          "name": "health",
+          "value": 3
+        },
+        {
+          "type": "add_talent",
+          "name": "Wyrok inkwizytora",
+          "description": "Twoje ataki z użyciem broni przeciw zlustrowanym stworzeniom zadają dodatkowe 1k6 obrażeń."
+        }
+      ],
+      "choices": []
+    }
+  }
+}

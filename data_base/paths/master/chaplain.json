@@ -1,0 +1,73 @@
+{
+  "path_name": "Kapelan",
+  "path_type": "master",
+  "level_benefits": {
+    "7": {
+      "actions": [
+        {
+          "type": "add_attribute",
+          "name": "any",
+          "value": 1
+        },
+        {
+          "type": "add_attribute",
+          "name": "any",
+          "value": 1
+        },
+        {
+          "type": "add_attribute",
+          "name": "any",
+          "value": 1
+        },
+        {
+          "type": "add_attribute",
+          "name": "health",
+          "value": 4
+        },
+        {
+          "type": "add_talent",
+          "name": "Hymn bitewny",
+          "description": "Podczas swojej tury możesz wykorzystać akcję lub reakcję, by zaintonować hymn trwający 1 rundę. Co rundę możesz przedłużyć jego trwanie o kolejną, wykorzystując w swojej turze reakcję. Efekt ten zostaje natychmiast zakończony, jeśli stracisz możliwość mówienia. Dopóki efekt trwa, ty oraz inni członkowie twojej drużyny, którzy pozostają w bliskim zasięgu i cię słyszą, zyskujecie 1 ułatwienie we wszystkich rzutach na atak oraz niewrażliwość na zauroczenie i przestraszenie. Tego talentu możesz użyć trzy razy. Wykorzystane użycia odzyskujesz po odbyciu pełnego odpoczynku."
+        }
+      ],
+      "choices": [
+        [
+          {
+            "type": "add_language",
+            "name": "any",
+            "can_speak": true,
+            "can_write": false
+          },
+          {
+            "type": "add_profession",
+            "name": "wojenną"
+          },
+          {
+            "type": "add_profession",
+            "name": "religijną"
+          }
+        ]
+      ]
+    },
+    "10": {
+      "actions": [
+        {
+          "type": "add_attribute",
+          "name": "health",
+          "value": 4
+        },
+        {
+          "type": "add_talent",
+          "name": "Zagrzewająca pieśń",
+          "description": "Stworzenia będące pod wpływem twojego Hymnu bitewnego zadają dodatkowe 1k6 obrażeń atakami przy użyciu broni."
+        },
+        {
+          "type": "add_talent",
+          "name": "Sukurs",
+          "description": "Możesz wykorzystać akcję i poświęcić użycie talentu Hymn bitewny, by dotknąć jednej istoty. Jeśli cel jest obezwładniony, leczy 1 punkt obrażeń. Jeśli utrzymasz koncentrację przez 1 minutę, opatrując rany stworzenia i mówiąc mu słowa otuchy, zamiast tego leczy ono tyle punktów obrażeń, ile wynosi jego Szybkość Zdrowienia."
+        }
+      ],
+      "choices": []
+    }
+  }
+}

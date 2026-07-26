@@ -1,0 +1,88 @@
+{
+  "path_name": "Jasnowidz",
+  "path_type": "master",
+  "level_benefits": {
+    "7": {
+      "actions": [
+        {
+          "type": "add_attribute",
+          "name": "any",
+          "value": 1
+        },
+        {
+          "type": "add_attribute",
+          "name": "any",
+          "value": 1
+        },
+        {
+          "type": "add_attribute",
+          "name": "any",
+          "value": 1
+        },
+        {
+          "type": "add_attribute",
+          "name": "defense",
+          "value": 1
+        },
+        {
+          "type": "add_attribute",
+          "name": "health",
+          "value": 1
+        },
+        {
+          "type": "add_attribute",
+          "name": "power",
+          "value": 1
+        },
+        {
+          "type": "add_talent",
+          "name": "Omeny",
+          "description": "Wykonując rzut na atak lub test, możesz poświęcić użycie zaklęcia Jasnowidzenia, by uzyskać w rzucie tyle ułatwień, ile wynosi jego krąg."
+        }
+      ],
+      "choices": [
+        [
+          {
+            "type": "add_language",
+            "name": "any",
+            "can_speak": true,
+            "can_write": false
+          },
+          {
+            "type": "add_profession",
+            "name": "any"
+          }
+        ],
+        [
+          {
+            "type": "learn_tradition",
+            "name": "Jasnowidzenia"
+          },
+          {
+            "type": "learn_spell",
+            "tradition": "Jasnowidzenia"
+          }
+        ]
+      ]
+    },
+    "10": {
+      "actions": [
+        {
+          "type": "add_attribute",
+          "name": "health",
+          "value": 1
+        },
+        {
+          "type": "learn_spell",
+          "tradition": "any"
+        },
+        {
+          "type": "add_talent",
+          "name": "Przeczucie",
+          "description": "Za każdym razem, gdy odbędziesz pełny odpoczynek, otrzymujesz trzy przeczucia, które zachowujesz, dopóki ich nie wykorzystasz lub nie odbędziesz pełnego odpoczynku. Dla każdego z nich rzuć k20 i zanotuj wyniki. Gdy stworzenie, które widzisz, wykonuje rzut na atak lub test, możesz wykorzystać jedno z przeczuć, by odpowiadający mu wynik zastąpił ten z rzutu. Tego samego przeczucia nie można użyć więcej niż raz. Jeśli pozostało ci jeszcze co najmniej jedno przeczucie i jesteś przytomny, to nie można cię zaskoczyć; ataki przeciwko tobie wykonywane są z 1 utrudnieniem, ty zaś uzyskujesz 1 ułatwienie w testach na opieranie się efektom ataków."
+        }
+      ],
+      "choices": []
+    }
+  }
+}

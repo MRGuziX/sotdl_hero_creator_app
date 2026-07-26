@@ -1,0 +1,51 @@
+{
+  "path_name": "Goliat",
+  "path_type": "master",
+  "level_benefits": {
+    "7": {
+      "actions": [
+        {
+          "type": "add_attribute",
+          "name": "any",
+          "value": 1
+        },
+        {
+          "type": "add_attribute",
+          "name": "any",
+          "value": 1
+        },
+        {
+          "type": "add_attribute",
+          "name": "any",
+          "value": 1
+        },
+        {
+          "type": "add_attribute",
+          "name": "health",
+          "value": 8
+        },
+        {
+          "type": "add_talent",
+          "name": "Krzepa",
+          "description": "Zyskujesz 1 ułatwienie w rzutach na atak i testach opartych na Sile."
+        }
+      ],
+      "choices": []
+    },
+    "10": {
+      "actions": [
+        {
+          "type": "add_attribute",
+          "name": "health",
+          "value": 8
+        },
+        {
+          "type": "add_talent",
+          "name": "Potężne muskuły",
+          "description": "Dodajesz swój modyfikator z Siły do obrażeń zadawanych przy użyciu broni prostych, wojskowych lub ciężkich."
+        }
+      ],
+      "choices": []
+    }
+  }
+}

@@ -1,0 +1,83 @@
+{
+  "path_name": "Iluzjonista",
+  "path_type": "master",
+  "level_benefits": {
+    "7": {
+      "actions": [
+        {
+          "type": "add_attribute",
+          "name": "any",
+          "value": 1
+        },
+        {
+          "type": "add_attribute",
+          "name": "any",
+          "value": 1
+        },
+        {
+          "type": "add_attribute",
+          "name": "any",
+          "value": 1
+        },
+        {
+          "type": "add_attribute",
+          "name": "health",
+          "value": 2
+        },
+        {
+          "type": "add_attribute",
+          "name": "power",
+          "value": 1
+        },
+        {
+          "type": "add_talent",
+          "name": "Wiarygodne iluzje",
+          "description": "Istoty próbujące wykryć iluzje stworzone przez twoje zaklęcia wykonują testy Percepcji z 2 utrudnieniami. Ponadto gdy atakujesz zaklęciami Iluzji, rzuty na atak wykonujesz z 1 ułatwieniem."
+        }
+      ],
+      "choices": [
+        [
+          {
+            "type": "add_language",
+            "name": "any",
+            "can_speak": true,
+            "can_write": false
+          },
+          {
+            "type": "add_profession",
+            "name": "any"
+          }
+        ],
+        [
+          {
+            "type": "learn_tradition",
+            "name": "Iluzji"
+          },
+          {
+            "type": "learn_spell",
+            "tradition": "Iluzji"
+          }
+        ]
+      ]
+    },
+    "10": {
+      "actions": [
+        {
+          "type": "add_attribute",
+          "name": "health",
+          "value": 2
+        },
+        {
+          "type": "learn_spell",
+          "tradition": "any"
+        },
+        {
+          "type": "add_talent",
+          "name": "Iluzoryczny duplikat",
+          "description": "Gdy otrzymujesz obrażenia od ataku, możesz wykorzystać reakcję, by rzucić k6. Jeśli wypadnie 6, redukujesz te obrażenia do 0 i teleportujesz się w wybraną wolną przestrzeń w bliskim zasięgu."
+        }
+      ],
+      "choices": []
+    }
+  }
+}

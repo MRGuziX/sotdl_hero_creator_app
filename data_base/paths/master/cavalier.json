@@ -1,0 +1,77 @@
+{
+  "path_name": "Kawalerzysta",
+  "path_type": "master",
+  "level_benefits": {
+    "7": {
+      "actions": [
+        {
+          "type": "add_attribute",
+          "name": "any",
+          "value": 1
+        },
+        {
+          "type": "add_attribute",
+          "name": "any",
+          "value": 1
+        },
+        {
+          "type": "add_attribute",
+          "name": "any",
+          "value": 1
+        },
+        {
+          "type": "add_attribute",
+          "name": "health",
+          "value": 5
+        },
+        {
+          "type": "add_talent",
+          "name": "Jeździectwo bojowe",
+          "description": "Walcząc z grzbietu wierzchowca, zyskujesz 1 ułatwienie w rzutach na atak przeciwko celom mniejszym niż ujeżdżane przez ciebie stworzenie."
+        }
+      ],
+      "choices": [
+        [
+          {
+            "type": "add_language",
+            "name": "any",
+            "can_speak": true,
+            "can_write": false
+          },
+          {
+            "type": "add_profession",
+            "name": "pospolitą"
+          },
+          {
+            "type": "add_profession",
+            "name": "wojenną"
+          },
+          {
+            "type": "add_profession",
+            "name": "koczowniczą"
+          }
+        ]
+      ]
+    },
+    "10": {
+      "actions": [
+        {
+          "type": "add_attribute",
+          "name": "health",
+          "value": 5
+        },
+        {
+          "type": "add_talent",
+          "name": "Niszczycielska szarża",
+          "description": "Ataki, które wykonujesz jako część szarży, zadają dodatkowe 1k6 obrażeń – lub dodatkowe 2k6, jeśli walczysz na wierzchowcu."
+        },
+        {
+          "type": "add_talent",
+          "name": "Mistrz jeździectwa",
+          "description": "Twój wierzchowiec zyskuje premię +2 do Obrony i Prędkości."
+        }
+      ],
+      "choices": []
+    }
+  }
+}

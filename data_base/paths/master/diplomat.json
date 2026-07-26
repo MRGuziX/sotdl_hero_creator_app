@@ -1,0 +1,74 @@
+{
+  "path_name": "Dyplomata",
+  "path_type": "master",
+  "level_benefits": {
+    "7": {
+      "actions": [
+        {
+          "type": "add_attribute",
+          "name": "any",
+          "value": 1
+        },
+        {
+          "type": "add_attribute",
+          "name": "any",
+          "value": 1
+        },
+        {
+          "type": "add_attribute",
+          "name": "any",
+          "value": 1
+        },
+        {
+          "type": "add_attribute",
+          "name": "health",
+          "value": 3
+        },
+        {
+          "type": "add_talent",
+          "name": "Mistrz dyplomacji",
+          "description": "W interakcjach społecznych rzuty na atak oparte na Intelekcie lub Woli wykonujesz z 1 ułatwieniem."
+        },
+        {
+          "type": "add_talent",
+          "name": "Litość",
+          "description": "Gdy stworzenie uzyska sukces w rzucie na atak przeciwko tobie, możesz wykorzystać reakcję, by prosić o litość. Jeśli ów przeciwnik cię słyszy i rozumie, wykonaj oparty na Woli rzut na atak przeciwko jego Woli. Sukces oznacza, że zamiast cię trafić, atak chybia, a samo stworzenie zostaje zauroczone na 1 minutę lub dopóki nie zostanie zaatakowane. Porażka oznacza, że cel staje się niewrażliwy na efekty tego talentu, dopóki nie odbędzie pełnego odpoczynku."
+        }
+      ],
+      "choices": [
+        [
+          {
+            "type": "add_language",
+            "name": "any",
+            "can_speak": true,
+            "can_write": false
+          },
+          {
+            "type": "add_profession",
+            "name": "any"
+          }
+        ]
+      ]
+    },
+    "10": {
+      "actions": [
+        {
+          "type": "add_attribute",
+          "name": "health",
+          "value": 3
+        },
+        {
+          "type": "add_talent",
+          "name": "Kojące słowa",
+          "description": "Możesz wykorzystać akcję, by sprawić, że stworzenie w twoim bezpośrednim zasięgu pozbędzie się jednego z następujących stanów: zauroczenia, zniewolenia, zamroczenia lub przestraszenia."
+        },
+        {
+          "type": "add_talent",
+          "name": "Nieoczekiwany sojusznik",
+          "description": "Gdy uzyskasz sukces w rzucie na atak, używając talentu Litość, twój cel zostaje zniewolony na 1 minutę lub dopóki nie zostanie zaatakowany."
+        }
+      ],
+      "choices": []
+    }
+  }
+}

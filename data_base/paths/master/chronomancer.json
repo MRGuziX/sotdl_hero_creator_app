@@ -1,0 +1,83 @@
+{
+  "path_name": "Chronomanta",
+  "path_type": "master",
+  "level_benefits": {
+    "7": {
+      "actions": [
+        {
+          "type": "add_attribute",
+          "name": "any",
+          "value": 1
+        },
+        {
+          "type": "add_attribute",
+          "name": "any",
+          "value": 1
+        },
+        {
+          "type": "add_attribute",
+          "name": "any",
+          "value": 1
+        },
+        {
+          "type": "add_attribute",
+          "name": "health",
+          "value": 2
+        },
+        {
+          "type": "add_attribute",
+          "name": "power",
+          "value": 1
+        },
+        {
+          "type": "add_talent",
+          "name": "Pęd",
+          "description": "Gdy rzucasz zaklęcie z tradycji Czasu, możesz poruszyć się do tylu metrów, ile wynosi twoja Moc. Ruch ten nie prowokuje darmowych ataków."
+        }
+      ],
+      "choices": [
+        [
+          {
+            "type": "add_language",
+            "name": "any",
+            "can_speak": true,
+            "can_write": false
+          },
+          {
+            "type": "add_profession",
+            "name": "any"
+          }
+        ],
+        [
+          {
+            "type": "learn_tradition",
+            "name": "Czasu"
+          },
+          {
+            "type": "learn_spell",
+            "tradition": "Czasu"
+          }
+        ]
+      ]
+    },
+    "10": {
+      "actions": [
+        {
+          "type": "add_attribute",
+          "name": "health",
+          "value": 2
+        },
+        {
+          "type": "learn_spell",
+          "tradition": "any"
+        },
+        {
+          "type": "add_talent",
+          "name": "Prekognicja",
+          "description": "Gdy rzucasz zaklęcie z tradycji Czasu, możesz wykorzystać reakcję, by zajrzeć na kilka sekund w przyszłość, zyskując przebłysk przyszłości. Zachowujesz go, dopóki go nie zużyjesz lub nie odbędziesz pełnego odpoczynku. Gdy jeden z twoich ataków lub testów nie powiedzie się, możesz wykorzystać taki przebłysk przyszłości, by powtórzyć rzut."
+        }
+      ],
+      "choices": []
+    }
+  }
+}

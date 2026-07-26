@@ -1,0 +1,88 @@
+{
+  "path_name": "Aeromanta",
+  "path_type": "master",
+  "level_benefits": {
+    "7": {
+      "actions": [
+        {
+          "type": "add_attribute",
+          "name": "any",
+          "value": 1
+        },
+        {
+          "type": "add_attribute",
+          "name": "any",
+          "value": 1
+        },
+        {
+          "type": "add_attribute",
+          "name": "any",
+          "value": 1
+        },
+        {
+          "type": "add_attribute",
+          "name": "health",
+          "value": 2
+        },
+        {
+          "type": "add_attribute",
+          "name": "speed",
+          "value": 2
+        },
+        {
+          "type": "add_attribute",
+          "name": "power",
+          "value": 1
+        },
+        {
+          "type": "add_talent",
+          "name": "Powietrzny krok",
+          "description": "Gdy rzucasz zaklęcie z tradycji Powietrza, po rozpatrzeniu jego efektów możesz przemieścić się lotem o tyle metrów, ile wynosi krąg czaru +1. Na koniec tego ruchu bezpiecznie lądujesz."
+        }
+      ],
+      "choices": [
+        [
+          {
+            "type": "add_language",
+            "name": "any",
+            "can_speak": true,
+            "can_write": false
+          },
+          {
+            "type": "add_profession",
+            "name": "any"
+          }
+        ],
+        [
+          {
+            "type": "learn_tradition",
+            "name": "Powietrza"
+          },
+          {
+            "type": "learn_spell",
+            "tradition": "Powietrza"
+          }
+        ]
+      ]
+    },
+    "10": {
+      "actions": [
+        {
+          "type": "add_attribute",
+          "name": "health",
+          "value": 2
+        },
+        {
+          "type": "learn_spell",
+          "tradition": "any"
+        },
+        {
+          "type": "add_talent",
+          "name": "Lot",
+          "description": "Zyskujesz zdolność lotu."
+        }
+      ],
+      "choices": []
+    }
+  }
+}

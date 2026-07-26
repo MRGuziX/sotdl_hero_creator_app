@@ -1,0 +1,64 @@
+{
+  "path_name": "Egzekutor",
+  "path_type": "master",
+  "level_benefits": {
+    "7": {
+      "actions": [
+        {
+          "type": "add_attribute",
+          "name": "any",
+          "value": 1
+        },
+        {
+          "type": "add_attribute",
+          "name": "any",
+          "value": 1
+        },
+        {
+          "type": "add_attribute",
+          "name": "any",
+          "value": 1
+        },
+        {
+          "type": "add_attribute",
+          "name": "health",
+          "value": 3
+        },
+        {
+          "type": "add_talent",
+          "name": "Egzekucja",
+          "description": "Raz na rundę, gdy wykorzystujesz akcję, by wykonać atak z użyciem broni przeciwko celowi w bezpośrednim zasięgu, otrzymujesz 1 ułatwienie i w przypadku trafienia zadajesz dodatkowe 1k6 obrażeń. Jeśli obrażenia te miałyby sprawić, że cel stanie się poważnie ranny, musi on wykonać test Siły, w którym porażka oznacza, że otrzymuje obrażenia równe swojemu Zdrowiu. Po tym, jak użyjesz tego talentu, przez 1 rundę wszystkie ataki wykonywane przeciwko tobie zyskują 1 ułatwienie."
+        }
+      ],
+      "choices": [
+        [
+          {
+            "type": "add_language",
+            "name": "any",
+            "can_speak": true,
+            "can_write": false
+          },
+          {
+            "type": "add_profession",
+            "name": "any"
+          }
+        ]
+      ]
+    },
+    "10": {
+      "actions": [
+        {
+          "type": "add_attribute",
+          "name": "health",
+          "value": 3
+        },
+        {
+          "type": "add_talent",
+          "name": "Wyćwiczony atak",
+          "description": "Gdy uzyskasz sukces w rzucie na atak z użyciem broni, możesz wykorzystać reakcję, by zadać maksymalne obrażenia przewidziane dla tego oręża."
+        }
+      ],
+      "choices": []
+    }
+  }
+}

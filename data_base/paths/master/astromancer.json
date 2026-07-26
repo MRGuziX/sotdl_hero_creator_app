@@ -1,0 +1,93 @@
+{
+  "path_name": "Astromanta",
+  "path_type": "master",
+  "level_benefits": {
+    "7": {
+      "actions": [
+        {
+          "type": "add_attribute",
+          "name": "any",
+          "value": 1
+        },
+        {
+          "type": "add_attribute",
+          "name": "any",
+          "value": 1
+        },
+        {
+          "type": "add_attribute",
+          "name": "any",
+          "value": 1
+        },
+        {
+          "type": "add_attribute",
+          "name": "health",
+          "value": 2
+        },
+        {
+          "type": "add_attribute",
+          "name": "power",
+          "value": 1
+        },
+        {
+          "type": "add_talent",
+          "name": "Wewnętrzny blask",
+          "description": "Gdy rzucasz zaklęcie Magii Niebiańskiej, możesz wykorzystać reakcję, by z punktu w zajmowanej przez ciebie przestrzeni wyemitować światło o promieniu w metrach równemu twojej Mocy. Światło przemieszcza się wraz z tobą, cały czas mając za środek ten sam punkt, i utrzymuje się przez 1 minutę lub dopóki nie rzucisz kolejnego niebiańskiego zaklęcia."
+        },
+        {
+          "type": "add_talent",
+          "name": "Palące światło",
+          "description": "Rzucane przez ciebie zaklęcia Magii Niebiańskiej będące atakami zadają dodatkowe 1k6 obrażeń."
+        }
+      ],
+      "choices": [
+        [
+          {
+            "type": "add_language",
+            "name": "any",
+            "can_speak": true,
+            "can_write": false
+          },
+          {
+            "type": "add_profession",
+            "name": "any"
+          }
+        ],
+        [
+          {
+            "type": "learn_tradition",
+            "name": "Magii Niebiańskiej"
+          },
+          {
+            "type": "learn_spell",
+            "tradition": "Magii Niebiańskiej"
+          }
+        ]
+      ]
+    },
+    "10": {
+      "actions": [
+        {
+          "type": "add_attribute",
+          "name": "health",
+          "value": 2
+        },
+        {
+          "type": "learn_spell",
+          "tradition": "any"
+        },
+        {
+          "type": "add_talent",
+          "name": "Oślepiająca łuna",
+          "description": "Gdy wykorzystujesz talent Wewnętrzny blask, każde stworzenie w promieniu 1 metra od ciebie musi wykonać test Siły; porażka oznacza, że zostaje oślepione do końca rundy."
+        },
+        {
+          "type": "add_talent",
+          "name": "Potęga słońca",
+          "description": "Gdy rzucasz zaklęcie Magii Niebiańskiej\nbędące atakiem, w rzucie na atak zyskujesz 1 ułatwienie,\na cele otrzymują 1 utrudnienie we wszelkich testach wykonywanych, by odeprzeć efekty tego czaru."
+        }
+      ],
+      "choices": []
+    }
+  }
+}

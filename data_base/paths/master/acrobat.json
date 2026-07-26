@@ -1,0 +1,69 @@
+{
+  "path_name": "Akrobata",
+  "path_type": "master",
+  "level_benefits": {
+    "7": {
+      "actions": [
+        {
+          "type": "add_attribute",
+          "name": "any",
+          "value": 1
+        },
+        {
+          "type": "add_attribute",
+          "name": "any",
+          "value": 1
+        },
+        {
+          "type": "add_attribute",
+          "name": "any",
+          "value": 1
+        },
+        {
+          "type": "add_attribute",
+          "name": "health",
+          "value": 3
+        },
+        {
+          "type": "add_attribute",
+          "name": "speed",
+          "value": 2
+        },
+        {
+          "type": "add_talent",
+          "name": "Akrobatyka",
+          "description": "Zyskujesz wszystkie poniższe korzyści: Możesz przemieszczać się swobodnie przez przestrzeń zajętą przez inne stworzenia. Poruszasz się z pełną Prędkością w każdym rodzaju trudnego terenu, nawet pływając lub wspinając się. O ile twoja Prędkość jest większa niż 0, możesz podnieść się, nie zużywając ruchu. Gdy masz otrzymać obrażenia od upadku, możesz wykorzystać reakcję, by wykonać test Zręczności. Sukces oznacza, że zmniejszasz ich liczbę o całkowity wynik tego rzutu. Jeśli zredukujesz w ten sposób obrażenia do 0, lądujesz bezpiecznie na nogach."
+        }
+      ],
+      "choices": [
+        [
+          {
+            "type": "add_language",
+            "name": "any",
+            "can_speak": true,
+            "can_write": false
+          },
+          {
+            "type": "add_profession",
+            "name": "any"
+          }
+        ]
+      ]
+    },
+    "10": {
+      "actions": [
+        {
+          "type": "add_attribute",
+          "name": "health",
+          "value": 3
+        },
+        {
+          "type": "add_talent",
+          "name": "Mobilność",
+          "description": "Gdy podejmujesz turę krótką, możesz zarazem poruszyć się, jak i wykonać akcję. Twój ruch nigdy nie prowokuje darmowych ataków."
+        }
+      ],
+      "choices": []
+    }
+  }
+}

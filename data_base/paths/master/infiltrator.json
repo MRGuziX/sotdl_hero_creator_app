@@ -1,0 +1,74 @@
+{
+  "path_name": "Infiltrator",
+  "path_type": "master",
+  "level_benefits": {
+    "7": {
+      "actions": [
+        {
+          "type": "add_attribute",
+          "name": "any",
+          "value": 1
+        },
+        {
+          "type": "add_attribute",
+          "name": "any",
+          "value": 1
+        },
+        {
+          "type": "add_attribute",
+          "name": "any",
+          "value": 1
+        },
+        {
+          "type": "add_attribute",
+          "name": "perception",
+          "value": 1
+        },
+        {
+          "type": "add_attribute",
+          "name": "health",
+          "value": 3
+        },
+        {
+          "type": "add_talent",
+          "name": "Bez twarzy",
+          "description": "Możesz podejmować próby ukrycia się w dowolnych warunkach, nawet jeśli ktoś cię obserwuje lub nie jesteś znacznie przesłonięty ani schowany za trzema czwartymi osłony. Pozostajesz ukryty, dopóki nie wykonasz akcji lub reakcji; wtedy musisz odczekać co najmniej 1 minutę, zanim będziesz mógł użyć tego talentu ponownie. Osoby, z którymi rozmawiasz, będąc ukryty, nie są w stanie przypomnieć sobie szczegółów twojego wyglądu przez 1 minutę po zakończeniu konwersacji, a 1 godzinę później zupełnie zapominają, że w ogóle z tobą rozmawiały. Ponadto w pierwszej rundzie każdej walki, którą zaczynasz, będąc ukrytym, wszystkie rzuty na atak i testy wykonujesz z 1 ułatwieniem. Jeśli w rundzie tej podejmiesz turę krótką, możesz zarówno poruszyć się, jak i wykonać akcję."
+        }
+      ],
+      "choices": [
+        [
+          {
+            "type": "add_language",
+            "name": "any",
+            "can_speak": true,
+            "can_write": false
+          },
+          {
+            "type": "add_profession",
+            "name": "przestępczą"
+          }
+        ]
+      ]
+    },
+    "10": {
+      "actions": [
+        {
+          "type": "add_attribute",
+          "name": "health",
+          "value": 3
+        },
+        {
+          "type": "add_talent",
+          "name": "Zdradziecki cios",
+          "description": "Twoje ataki z użyciem broni zadają dodatkowe 1k6 obrażeń celom zaskoczonym i tym, przed którymi jesteś ukryty."
+        },
+        {
+          "type": "add_talent",
+          "name": "Gra pozorów",
+          "description": "Jeśli jesteś w jakimkolwiek stopniu przesłonięty lub schowany za osłoną, możesz użyć talentu Bez twarzy jako reakcji."
+        }
+      ],
+      "choices": []
+    }
+  }
+}

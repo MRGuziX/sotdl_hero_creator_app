@@ -1,0 +1,71 @@
+{
+  "path_name": "Geomanta",
+  "path_type": "master",
+  "level_benefits": {
+    "7": {
+      "actions": [
+        {
+          "type": "add_attribute",
+          "name": "any",
+          "value": 1
+        },
+        {
+          "type": "add_attribute",
+          "name": "any",
+          "value": 1
+        },
+        {
+          "type": "add_attribute",
+          "name": "any",
+          "value": 1
+        },
+        {
+          "type": "add_attribute",
+          "name": "health",
+          "value": 4
+        },
+        {
+          "type": "add_attribute",
+          "name": "power",
+          "value": 1
+        },
+        {
+          "type": "add_talent",
+          "name": "Kamienna ochrona",
+          "description": "Możesz wykorzystać akcję i poświęcić użycie zaklęcia Ziemi 1 lub wyższego kręgu, by rzucić tyloma k6, ile wynosi krąg czaru i zsumować wyniki. Suma ta stanowi twoją pulę Kamiennej ochrony, która pochłania obrażenia. Dopóki masz w niej co najmniej 1 punkt, to otrzymane obrażenia w pierwszej kolejności odejmujesz od tej puli, a dopiero później od swojego Zdrowia. Efekt dobiega końca, gdy pula się wyczerpie, użyjesz tego talentu ponownie lub odbędziesz pełny odpoczynek."
+        }
+      ],
+      "choices": [
+        [
+          {
+            "type": "learn_tradition",
+            "name": "Ziemi"
+          },
+          {
+            "type": "learn_spell",
+            "tradition": "Ziemi"
+          }
+        ]
+      ]
+    },
+    "10": {
+      "actions": [
+        {
+          "type": "add_attribute",
+          "name": "health",
+          "value": 4
+        },
+        {
+          "type": "learn_spell",
+          "tradition": "any"
+        },
+        {
+          "type": "add_talent",
+          "name": "Przejście przez ziemię",
+          "description": "Ignorujesz negatywne efekty wynikające z przemieszczania się po trudnym terenie będącego ziemią, piaskiem lub skałami. Dodatkowo możesz przechodzić przez przestrzeń zajętą przez ziemię, piasek lub kamień. Jeśli zakończysz swój ruch wewnątrz wypełnionej stałą materią przestrzeni, zostajesz wypchnięty na wolną przestrzeń najbliższą punktowi, w którym wniknąłeś w ziemię."
+        }
+      ],
+      "choices": []
+    }
+  }
+}

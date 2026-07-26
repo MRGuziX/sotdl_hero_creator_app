@@ -1,0 +1,74 @@
+{
+  "path_name": "Inżynier",
+  "path_type": "master",
+  "level_benefits": {
+    "7": {
+      "actions": [
+        {
+          "type": "add_attribute",
+          "name": "any",
+          "value": 1
+        },
+        {
+          "type": "add_attribute",
+          "name": "any",
+          "value": 1
+        },
+        {
+          "type": "add_attribute",
+          "name": "any",
+          "value": 1
+        },
+        {
+          "type": "add_attribute",
+          "name": "health",
+          "value": 3
+        },
+        {
+          "type": "add_talent",
+          "name": "Eidolon",
+          "description": "Tworzysz humanoidalny konstrukt o dowolnym wyglądzie. Eidolon jest wysoki na prawie 4 metry i waży około tony. Możesz mieć tylko jednego takiego sługę naraz. Jeśli twój eidolon zostanie zniszczony, możesz zbudować kolejnego. Wymaga to poświęcenia co najmniej 8 godzin pracy oraz użycia części, które sam stworzysz lub odzyskasz z poprzedniego. Po tym czasie twój nowy mechaniczny sługa jest gotowy. Eidolon nie jest żywą istotą. Nie cierpi z powodu wystawiania się na nieprzyjazne warunki ani z braku zaspokojenia potrzeb. Pozostaje niewrażliwy na efekty, które by go postarzyły. Obezwładniony eidolon przestaje być stworzeniem i traktowany jest jako obiekt. Posiadasz nad nim całkowitą kontrolę, decydujesz, jakie działania podejmuje w każdej swojej turze. Poniżej przedstawiono jego statystyki. EIDOLON Konstrukt, Rozmiar 2 Percepcja: 10 (+0); widzenie w ciemności Obrona: 11; Zdrowie: 50 Siła: 16 (+6), Zręczność: 8 (-2), Intelekt: 5 (-5), Wola: 11 (+1) Prędkość: 6 Niewrażliwość na obrażenia od choroby i trucizny; nie może zyskiwać Szaleństwa; niewrażliwość na uśpienie, zauroczenie, choroby, wyczerpanie, przestraszenie i trucizny. ATAKI Kończyna: (broń biała) +6 (2k6)"
+        },
+        {
+          "type": "add_talent",
+          "name": "Części zamienne",
+          "description": "Możesz wykorzystać akcję, by dotknąć obiektu lub konstruktu (na przykład swojego eidolona) znajdującego się w bezpośrednim zasięgu. Jeśli przez 1 minutę utrzymasz kontakt z celem i zachowasz koncentrację, wykonaj test Intelektu. Sukces oznacza, że cel leczy 2k6 obrażeń. Porażka oznacza, że musisz odbyć pełny odpoczynek, zanim będziesz mógł użyć tego talentu ponownie."
+        }
+      ],
+      "choices": [
+        [
+          {
+            "type": "add_language",
+            "name": "any",
+            "can_speak": true,
+            "can_write": false
+          },
+          {
+            "type": "add_profession",
+            "name": "naukową"
+          }
+        ]
+      ]
+    },
+    "10": {
+      "actions": [
+        {
+          "type": "add_attribute",
+          "name": "health",
+          "value": 3
+        },
+        {
+          "type": "add_talent",
+          "name": "Kokpit",
+          "description": "W swoim eidolonie instalujesz kokpit. Jest to przestrzeń zdolna pomieścić stworzenie o Rozmiarze 1 lub mniejszym, wyposażona w panel sterowania i wygodne siedzenie. Stworzenie o odpowiednim Rozmiarze może zająć kokpit, jeśli jest pusty. Z wewnątrz da się sterować eidolonem. Gdy kierujesz konstruktem, traktujesz jego Obronę, Zdrowie i Prędkość jako własne; możesz też wykonywać jego ataki i akcje zamiast swoich. Zapas powietrza w kokpicie wystarcza na 4 godziny. Stworzenie siedzące w środku może wykorzystać akcję, by otworzyć właz, wywietrzyć wnętrze i ponownie zamknąć właz, odnawiając zapas powietrza. Choć nic nie stoi na przeszkodzie, aby pozostawić właz otwarty na dowolną ilość czasu, to eidolon działa tylko, gdy jest on zamknięty."
+        },
+        {
+          "type": "add_talent",
+          "name": "Potężny eidolon",
+          "description": "Zdrowie eidolona zwiększa się o 25, a jego Obrona o 2."
+        }
+      ],
+      "choices": []
+    }
+  }
+}

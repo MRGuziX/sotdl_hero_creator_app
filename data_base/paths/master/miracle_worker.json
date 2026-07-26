@@ -1,0 +1,56 @@
+{
+  "path_name": "Cudotwórca",
+  "path_type": "master",
+  "level_benefits": {
+    "7": {
+      "actions": [
+        {
+          "type": "add_attribute",
+          "name": "any",
+          "value": 1
+        },
+        {
+          "type": "add_attribute",
+          "name": "any",
+          "value": 1
+        },
+        {
+          "type": "add_attribute",
+          "name": "any",
+          "value": 1
+        },
+        {
+          "type": "add_attribute",
+          "name": "health",
+          "value": 6
+        },
+        {
+          "type": "add_talent",
+          "name": "Stygmaty",
+          "description": "Możesz wykorzystać akcję, by wezwać boską moc. Zyskujesz 1 punkt Szaleństwa i otrzymujesz karę -5 do Zdrowia trwającą, dopóki nie odbędziesz pełnego odpoczynku. Przybierasz postać swojego boga na tyle minut, ile wynosi twoja Moc +1. Każde stworzenie w bliskim zasięgu, które cię widzi i nie jest członkiem twojej drużyny, musi wykonać test Woli z 1 utrudnieniem; porażka oznacza, że jest ono przestraszone do końca trwania tej przemiany. Dopóki masz postać boga, zyskujesz 1 ułatwienie we wszystkich rzutach na atak i testach, a także leczysz 1k6 obrażeń na zakończenie każdej rundy."
+        },
+        {
+          "type": "add_talent",
+          "name": "Dar języków",
+          "description": "Gdy mówisz, każde stworzenie, które zna co najmniej jeden język, jest w stanie cię zrozumieć. Potrafisz także przemawiać grzmiącym głosem, słyszalnym na kilometr."
+        }
+      ],
+      "choices": []
+    },
+    "10": {
+      "actions": [
+        {
+          "type": "add_attribute",
+          "name": "health",
+          "value": 6
+        },
+        {
+          "type": "add_talent",
+          "name": "Czynienie cudów",
+          "description": "Możesz wykorzystać akcję, aby dotknąć pojedynczej istoty. Wybierasz jeden z poniższych efektów i otrzymujesz karę -5 do Zdrowia trwającą, dopóki nie odbędziesz pełnego odpoczynku: Cel leczy tyle obrażeń, ile wynosi jego Szybkość Zdrowienia. Leczysz cel z choroby. Leczysz cel z zatrucia. Zdejmujesz klątwę nałożoną na cel. Cel traci 1k3 punktów Szaleństwa."
+        }
+      ],
+      "choices": []
+    }
+  }
+}

@@ -1,0 +1,64 @@
+{
+  "path_name": "Czempion",
+  "path_type": "master",
+  "level_benefits": {
+    "7": {
+      "actions": [
+        {
+          "type": "add_attribute",
+          "name": "any",
+          "value": 1
+        },
+        {
+          "type": "add_attribute",
+          "name": "any",
+          "value": 1
+        },
+        {
+          "type": "add_attribute",
+          "name": "any",
+          "value": 1
+        },
+        {
+          "type": "add_attribute",
+          "name": "health",
+          "value": 5
+        },
+        {
+          "type": "add_talent",
+          "name": "Postawa bojowa",
+          "description": "Podczas swojej tury możesz wykorzystać akcję lub reakcję, by przyjąć postawę bojową, w której pozostajesz, dopóki się nie poruszysz lub nie stracisz przytomności. W postawie bojowej wszystkie ataki wykonujesz z 1 ułatwieniem, a ataki przeciwko tobie otrzymują 1 utrudnienie."
+        }
+      ],
+      "choices": [
+        [
+          {
+            "type": "add_language",
+            "name": "any",
+            "can_speak": true,
+            "can_write": false
+          },
+          {
+            "type": "add_profession",
+            "name": "any"
+          }
+        ]
+      ]
+    },
+    "10": {
+      "actions": [
+        {
+          "type": "add_attribute",
+          "name": "health",
+          "value": 5
+        },
+        {
+          "type": "add_talent",
+          "name": "Wytrwałość czempiona",
+          "description": "Gdy masz zostać obezwładniony, możesz wykorzystać reakcję, by wykonać test Siły. Jeśli się powiedzie, leczysz tyle punktów obrażeń, ile wynosi twoja Szybkość Zdrowienia, a do tego przez 1 rundę atakami z użyciem broni zadajesz dodatkowe 1k6 obrażeń."
+        }
+      ],
+      "choices": []
+    }
+  }
+}

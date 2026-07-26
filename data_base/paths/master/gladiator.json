@@ -1,0 +1,69 @@
+{
+  "path_name": "Gladiator",
+  "path_type": "master",
+  "level_benefits": {
+    "7": {
+      "actions": [
+        {
+          "type": "add_attribute",
+          "name": "any",
+          "value": 1
+        },
+        {
+          "type": "add_attribute",
+          "name": "any",
+          "value": 1
+        },
+        {
+          "type": "add_attribute",
+          "name": "any",
+          "value": 1
+        },
+        {
+          "type": "add_attribute",
+          "name": "health",
+          "value": 5
+        },
+        {
+          "type": "add_talent",
+          "name": "Nieczysta walka",
+          "description": "Podczas swojej tury możesz wykorzystać akcję lub reakcję, by wykonać oparty na Zręczności rzut na atak przeciwko Percepcji jednego celu w bliskim zasięgu. Sukces oznacza, że ofiara zostaje osłabiona na 1 rundę. Porażka oznacza, że staje się niewrażliwa na twoje techniki Nieczystej walki, dopóki nie odbędzie pełnego odpoczynku."
+        },
+        {
+          "type": "add_talent",
+          "name": "Za wszelką cenę",
+          "description": "Twoje ataki zadają dodatkowe 1k6 obrażeń osłabionym celom."
+        }
+      ],
+      "choices": [
+        [
+          {
+            "type": "add_language",
+            "name": "any",
+            "can_speak": true,
+            "can_write": false
+          },
+          {
+            "type": "add_profession",
+            "name": "wojenną"
+          }
+        ]
+      ]
+    },
+    "10": {
+      "actions": [
+        {
+          "type": "add_attribute",
+          "name": "health",
+          "value": 5
+        },
+        {
+          "type": "add_talent",
+          "name": "Decydujący cios",
+          "description": "Ataki przeciwko celom będącym pod wpływem jakiegokolwiek stanu wykonujesz z 1 ułatwieniem; zadają one także dodatkowe 1k6 obrażeń."
+        }
+      ],
+      "choices": []
+    }
+  }
+}

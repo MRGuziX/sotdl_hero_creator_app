@@ -1,0 +1,76 @@
+{
+  "path_name": "Hydromanta",
+  "path_type": "master",
+  "level_benefits": {
+    "7": {
+      "actions": [
+        {
+          "type": "add_attribute",
+          "name": "any",
+          "value": 1
+        },
+        {
+          "type": "add_attribute",
+          "name": "any",
+          "value": 1
+        },
+        {
+          "type": "add_attribute",
+          "name": "any",
+          "value": 1
+        },
+        {
+          "type": "add_attribute",
+          "name": "health",
+          "value": 3
+        },
+        {
+          "type": "add_attribute",
+          "name": "power",
+          "value": 1
+        },
+        {
+          "type": "add_talent",
+          "name": "Płynność",
+          "description": "Gdy rzucasz zaklęcie Wody, możesz pokryć swoją skórę połyskującą wilgocią, która utrzymuje się przez liczbę rund równą kręgowi zaklęcia. Dopóki efekt ten trwa, nie można cię pochwycić ani unieruchomić; jesteś także w stanie przemieszczać się swobodnie przez przestrzeń zajmowaną przez inne stworzenia."
+        },
+        {
+          "type": "add_talent",
+          "name": "Wprawny pływak",
+          "description": "Pływając, ignorujesz efekty związane z przemieszczaniem się przez trudny teren."
+        }
+      ],
+      "choices": [
+        [
+          {
+            "type": "learn_tradition",
+            "name": "Wody"
+          },
+          {
+            "type": "learn_spell",
+            "tradition": "Wody"
+          }
+        ]
+      ]
+    },
+    "10": {
+      "actions": [
+        {
+          "type": "add_attribute",
+          "name": "health",
+          "value": 3
+        },
+        {
+          "type": "learn_spell",
+          "tradition": "any"
+        },
+        {
+          "type": "add_talent",
+          "name": "Zamiana w wodę",
+          "description": "Możesz wykorzystać akcję i poświęcić użycie zaklęcia Wody, by zamienić swoje ciało w wodę. Pozostajesz w tej postaci przez liczbę rund równą sumie twojej Mocy i kręgu użytego zaklęcia. Podczas swojej tury możesz wykorzystać akcję lub reakcję, by powrócić do normalnej postaci. Na czas trwania efektu zyskujesz poniższe korzyści: Zyskujesz 1 ułatwienie we wszystkich testach Zręczności. Możesz przenikać przez otwory o wielkości pozwalającej na przepływ wody. Otrzymujesz tylko połowę obrażeń zadawanych bronią. Nie możesz zostać pochwycony, unieruchomiony, powalony ani spowolniony. Gdy jesteś zanurzony w wodzie, pozostajesz niewidzialny."
+        }
+      ],
+      "choices": []
+    }
+  }
+}
