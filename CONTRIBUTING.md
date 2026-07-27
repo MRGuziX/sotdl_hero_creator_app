@@ -18,34 +18,47 @@ in your commit.
 ## Project Structure
 
 ```
-models/          # Pydantic data models — the schema for all game data
-utils/utils.py   # Core game logic — dice rolls, hero building, action pipeline
-utils/pdf_creator.py  # PDF character sheet generation
-data_base/       # Game data as JSON files (ancestry stats, roll tables, equipment)
-templates/       # Frontend (single-page Jinja2 + vanilla JS)
-tests/           # pytest test suite (models, utils, PDF, integration)
+main.py              # Flask routes, wizard state management, API endpoints
+models/              # Pydantic data models — the schema for all game data
+domain/              # Domain/business logic (actions, backstory, choices, progression, state)
+data/                # Data access layer (JSON loading and caching)
+utils/utils.py       # Core game logic — dice rolls, hero building, action pipeline
+utils/pdf_creator.py # PDF character sheet generation
+export/              # PDF export pipeline
+data_base/           # Game data as JSON files (ancestry, paths, spells, equipment)
+static/js/           # Frontend (wizard.js web components + creation_store.js state manager)
+templates/           # Single-page Jinja2 template
+tests/               # pytest test suite (11 test files)
 ```
 
 ## Key Concepts
 
-- **AncestryHero** — the mutable Pydantic model representing a character being built
-- **Action** — a discriminated union type (`AddAttribute | AddProfession | AddLanguage | AddItem | GrantLiteracy`)
-  representing any modification to a hero. All actions have a `type` field for discrimination.
+- **AncestryHero** — the mutable Pydantic model representing a character being built (levels 0–10)
+- **Action** — a discriminated union of 10 types representing any modification to a hero:
+  `AddAttribute | AddProfession | AddLanguage | AddItem | GrantLiteracy | AddTalent | AddSpell | AddTradition | AddReligion | UpdateLanguage`.
+  All actions have a `type` field for discrimination.
 - **Choice** — a `list[Action]` where the user (or random roll) picks one
+- **CreationState** — the server-side wizard state machine (current level, cursor, selections, applied actions)
 - **AncestryData** — the Pydantic model for loading ancestry JSON templates
 
 When adding a new action type:
 1. Add the model class to `models/action.py` with a `Literal` type field
 2. Add it to the `Action` union
 3. Handle it in `apply_action()` in `utils/utils.py`
-4. Add UI label translation in `displayChoices()` in `templates/index.html`
+4. If it uses `"any"` placeholder expansion, handle it in `expand_any_to_choices()` and
+   `_expand_dynamic_choice_group()` in `utils/utils.py`
+5. Add UI label rendering in `wizard.js`
 
 When adding a new ancestry:
 1. Create `data_base/ancestry/<name>/<name>.json` following the existing schema
 2. Create `data_base/ancestry/<name>/<name>_tables.json` with backstory roll tables
 3. Add the backstory roll sequence in the `build_hero()` match/case block
 4. Add the ancestry key to `ANCESTRIES` in `main.py`
-5. Add the display name to `ancestryDisplayNames` in `index.html`
+5. Add the display name and description to `data_base/ancestry/descriptions.json`
+
+When adding a new path:
+1. Create `data_base/paths/<tier>/<path_name>.json` with `level_benefits` defining actions and choices per level
+2. Path files follow the `LevelBenefit` schema (actions + choices arrays per level)
 
 ## Running Tests
 
@@ -59,6 +72,12 @@ The test suite covers:
 - **test_utils.py** — dice rolling, attribute/language/profession/item/wealth logic, full hero generation
 - **test_pdf.py** — PDF generation, field population verification, all-ancestry PDF generation
 - **test_app.py** — Flask route integration tests, manual choice flow
+- **test_api.py** — API endpoint tests
+- **test_creation_contract.py** — creation workflow contract tests
+- **test_creation_state.py** — CreationState state machine tests
+- **test_export_boundary.py** — PDF export boundary tests
+- **test_spells_json.py** — spell/tradition JSON data validation
+- **test_talent_placement.py** — talent placement logic tests
 
 ## Commit Message Conventions
 

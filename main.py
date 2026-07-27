@@ -574,20 +574,44 @@ def api_rewind_choice(creation_id):
     if state.choice_cursor <= 0:
         return jsonify({"error": "Cannot rewind further in this level"}), 400
 
-    state.choice_cursor -= 1
-    if state.current_level in state.selections:
-        state.selections[state.current_level].pop()
+    saved_selections = list(state.selections.get(state.current_level, []))
+    saved_selections.pop()
 
-    new_applied = []
-    found_last = False
-    for lvl, act in reversed(state.applied_actions):
-        if not found_last and lvl == state.current_level:
-            found_last = True
-            continue
-        new_applied.append((lvl, act))
-    state.applied_actions = list(reversed(new_applied))
-    
+    state.applied_actions = [
+        (lvl, act) for lvl, act in state.applied_actions
+        if lvl != state.current_level
+    ]
+    state.selections[state.current_level] = []
+
+    actual_level = state.current_level
+    state.current_level = max(0, actual_level - 1)
     rebuild_hero(state)
+    state.current_level = actual_level
+
+    ancestry = state.creation_inputs.get("ancestry")
+    paths = state.creation_inputs.get("paths", {})
+    if actual_level == 0:
+        result = get_hero(ancestry, is_random=False, level=0)
+        _, choices = result if isinstance(result, tuple) else (result, [])
+        state.level_choices = choices
+    else:
+        state.level_choices = advance_hero(
+            state.hero, ancestry, None, actual_level - 1,
+            actual_level, is_random=False, paths=paths,
+        )
+
+    state.choice_cursor = 0
+
+    for sel_idx in saved_selections:
+        group = state.level_choices[state.choice_cursor]
+        if _has_placeholders(group):
+            group = _expand_dynamic_choice_group(state.hero, group)
+            state.level_choices[state.choice_cursor] = group
+        action = group[sel_idx]
+        _apply_selected_choices(state, [action.model_dump(mode="json")], state.choice_cursor)
+
+    state.total_choices_in_level = len(state.level_choices)
+    _try_expand_current_group(state)
     state.touch()
     _store_manual_creation(state)
     return jsonify(_creation_response(state))

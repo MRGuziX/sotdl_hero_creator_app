@@ -3,8 +3,8 @@
 ## Purpose
 
 A web-based character generator for the Shadow of the Demon Lord RPG (Polish edition: "Cień Władcy Demonów").
-Automates the full level 0 character creation process — ancestry selection, backstory rolls, profession assignment,
-wealth, equipment, and PDF character sheet generation.
+Supports the full level 0–10 character lifecycle — ancestry selection, backstory rolls, profession assignment,
+wealth, equipment, novice/expert/master path progression, magic traditions, spells, and PDF character sheet generation.
 
 Supported ancestries (core book): Human, Automaton, Goblin, Dwarf, Orc, Changeling.
 
@@ -18,85 +18,122 @@ Supported ancestries (core book): Human, Automaton, Goblin, Dwarf, Orc, Changeli
 4. **Professions** are assigned — some grant additional abilities (e.g. literacy)
 5. **Wealth** is rolled — determines starting money, backpack contents, and equipment choices
 6. **Oddity** is rolled — a random curiosity item
-7. **Actions** (attribute bonuses, professions, languages) are applied to the hero
-8. **Choices** are either resolved randomly or presented to the user as radio buttons
-9. A **PDF character sheet** is generated and displayed in-browser
+7. **Actions** (attribute bonuses, professions, languages, talents, traditions, spells) are applied to the hero
+8. **Choices** are either resolved randomly or presented to the user in the step-by-step wizard
+9. **Level advancement** (levels 1–10) — the user picks novice/expert/master paths, gains benefits, and resolves
+   new choices at each level via a crossroads screen
+10. A **PDF character sheet** is generated and displayed in-browser
 
 ### Random vs Manual Mode
 
-- **Random mode** (default): all choices are resolved automatically using dice rolls. The PDF is generated immediately.
-- **Manual mode**: actions with `"any"` targets (e.g. "add any attribute +1") are expanded into choice groups. The user
-  picks from radio buttons in the UI, then confirms to generate the PDF.
+- **Random mode**: all choices are resolved automatically using dice rolls. Path selection and target level are
+  configured upfront, then the PDF is generated immediately.
+- **Manual mode**: a step-by-step wizard guides the user through each level. Actions with `"any"` targets
+  (e.g. "add any attribute +1", "add any tradition") are expanded into choice groups. The user picks from
+  selection tiles in the UI, can rewind choices, and advances level-by-level through a crossroads screen.
+
+### Path Progression
+
+At certain levels, the hero picks a **path** that grants new abilities:
+- **Novice paths** (level 1): Magik, Priest, Rogue, Warrior
+- **Expert paths** (level 3): 16 paths including Artificer, Cleric, Druid, Fighter, Sorcerer, Wizard, etc.
+- **Master paths** (level 7): 27+ paths including Aeromancer, Champion, Chronomancer, Duelist, Hexer, etc.
+
+### Magic System
+
+Paths like Magik and Priest grant **magic traditions** (e.g. Fire, Shadow, Necromancy). When a tradition is learned:
+- The hero gains rank 0 spells from that tradition (2 if the hero has the "Sztuczki" talent)
+- At higher levels, the hero can learn higher-rank spells from known traditions or discover new traditions
 
 ## Architecture
 
 ```
 sotdl_hero_creator_app/
-├── main.py                  # Flask routes and app entry point
+├── main.py                  # Flask routes, wizard state management, API endpoints
 ├── models/                  # Pydantic data models
-│   ├── action.py            # Action discriminated union (AddAttribute, AddProfession, etc.)
+│   ├── action.py            # Action discriminated union (10 types) + Choice, LevelBenefit
 │   ├── ancestry.py          # AncestryData + GeneralStats (for loading ancestry JSONs)
-│   ├── base_hero.py         # AncestryHero — the level 0 character model
+│   ├── base_hero.py         # AncestryHero — the mutable character model (levels 0–10)
 │   ├── equipment.py         # Weapon, Armor, Shield, Money, Equipment
 │   ├── language.py          # Language (name, can_speak, can_write)
-│   ├── spell.py             # Spell, Tradition (for future path progression)
+│   ├── path.py              # Path model (novice/expert/master path definitions)
+│   ├── spell.py             # Spell, Tradition
 │   ├── tables.py            # RollTableEntry, ProfessionEntry, WealthEntry
 │   └── talent.py            # Talent (name, description, level)
+├── domain/                  # Domain/business logic
+│   ├── actions.py           # Action execution logic
+│   ├── backstory.py         # Backstory generation
+│   ├── choices.py           # Choice handling
+│   ├── creation_state.py    # CreationState — server-side wizard state machine
+│   ├── hero_builder.py      # Builder pattern for hero assembly
+│   └── progression.py       # Level progression (benefits_between)
+├── data/                    # Data access layer
+│   └── repository.py        # JSON data loading and caching
 ├── utils/
 │   ├── utils.py             # Core game logic: dice rolling, hero building, action system
 │   └── pdf_creator.py       # PDF form-filling using pypdf
+├── export/
+│   └── pdf.py               # PDF export pipeline
 ├── data_base/               # Game data (JSON files)
-│   ├── ancestry/            # Per-ancestry: base stats + roll tables
+│   ├── ancestry/            # Per-ancestry: base stats + roll tables (6 ancestries)
 │   ├── equipment/           # Equipment store, wealth tables, oddities
+│   ├── paths/               # Path definitions (4 novice, 16 expert, 27+ master)
 │   ├── professions/         # Profession roll tables
-│   └── spells/              # Spell traditions (fire, water)
+│   └── spells/              # 30 spell traditions (fire, shadow, necromancy, etc.)
 ├── templates/
-│   └── index.html           # Single-page UI (Jinja2 + vanilla JS)
+│   └── index.html           # Single-page UI (Jinja2 template)
 ├── static/
 │   ├── css/style.css        # Dark-fantasy theme and responsive layout
-│   └── js/wizard.js          # Progressive wizard and mobile sheet controls
+│   └── js/
+│       ├── wizard.js        # Web component wizard UI (step shells, path picker, spell UI)
+│       └── creation_store.js # Client-side state management and API calls
 ├── pictures/                # Static assets (logo, background, character art)
-└── tests/                   # pytest test suite
-    ├── test_models.py       # Pydantic model unit tests
-    ├── test_utils.py        # Game logic unit tests
-    ├── test_pdf.py          # PDF generation + field verification
-    └── test_app.py          # Flask route integration tests
+└── tests/                   # pytest test suite (11 test files)
 ```
 
 ### Data Models
 
 All game data flows through **Pydantic models** with full type validation:
 
-- **`AncestryHero`** — the mutable character being built (stats, languages, professions, equipment, etc.)
+- **`AncestryHero`** — the mutable character being built (stats, languages, professions, equipment, talents, spells, etc.)
 - **`AncestryData`** — the JSON template loaded from ancestry files (base stats + actions/choices to apply)
-- **`Action`** — a discriminated union (`AddAttribute | AddProfession | AddLanguage | AddItem | GrantLiteracy`) that
-  represents any modification to a hero. Actions use a `type` field for discrimination.
-- **`Choice`** — a list of `Action` options the user (or random roll) picks from
+- **`Action`** — a discriminated union of 10 types that represents any modification to a hero:
+  `AddAttribute | AddProfession | AddLanguage | AddItem | GrantLiteracy | AddTalent | AddSpell | AddTradition | AddReligion | UpdateLanguage`
+- **`Choice`** — a `list[Action]` where the user (or random roll) picks one
+- **`LevelBenefit`** — actions and choices granted at a specific level
+- **`CreationState`** — the server-side wizard state machine tracking current level, cursor, selections, and applied actions
 
 ### Action System
 
-The character creation process is driven by an **action/choice pipeline**:
+The character creation and progression process is driven by an **action/choice pipeline**:
 
 1. Ancestry JSON defines base stats + a list of `actions` (always applied) and `choices` (pick one per group)
 2. Backstory table rolls can add more actions/choices
 3. Wealth rolls add equipment actions/choices
-4. In random mode, choices are resolved via `random.choice()`
-5. In manual mode, `"any"` actions are expanded into choice groups for the UI
-6. All actions are applied to the hero through `apply_action()`, which dispatches on the `Action` type
+4. Path definitions add level-specific actions and choices (traditions, spells, talents, attributes)
+5. In random mode, choices are resolved via `random.choice()`
+6. In manual mode, `"any"` placeholders are expanded into concrete choice groups for the wizard UI
+7. Dynamic placeholders like `"known_tradition"` expand based on current hero state (e.g. spells from learned traditions)
+8. All actions are applied to the hero through `apply_action()`, which dispatches on the `Action` type
+9. The wizard supports **rewinding** choices — the hero and choices are rebuilt from scratch and prior selections replayed
 
 ## Requirements
 
 - Python 3.12+
-- Dependencies: `Flask`, `pypdf`, `pydantic`
+- Dependencies: `Flask`, `pypdf`, `pydantic`, `reportlab`, `fonttools`
 - Development tools: `pytest`, `ruff`
 
-### Frontend architecture
+### Frontend Architecture
 
-The page keeps the existing server-authoritative endpoints and legacy DOM contract, while the
-presentation layer is progressively enhanced by `static/css/style.css` and `static/js/wizard.js`.
-The stylesheet provides the dark-fantasy theme, responsive desktop split view, mobile bottom-sheet
-preview, focus states, and step progress indicators. JavaScript adds keyboard-friendly selection tiles,
-progress synchronization, mobile preview toggling, and transient feedback without duplicating game rules.
+The frontend is a single-page app built with **vanilla JavaScript web components** and a server-authoritative
+state model:
+
+- **`creation_store.js`** — client-side state manager that communicates with Flask API endpoints
+  (`/api/creations/...`). Handles creation, advancement, choice submission, rewinding, and finalization.
+- **`wizard.js`** — web components (`StepShell`, `PathPicker`, `CrossroadsScreen`, `RandomConfigScreen`, etc.)
+  that render the step-by-step wizard UI. Includes spell/tradition display with grouped selections.
+- **`style.css`** — dark-fantasy theme, responsive desktop split view, mobile bottom-sheet preview,
+  focus states, and step progress indicators.
 
 ## Local Development
 
