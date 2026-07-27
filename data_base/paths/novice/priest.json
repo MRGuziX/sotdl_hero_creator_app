@@ -33,16 +33,38 @@
           "name": "any"
         },
         {
-          "type": "add_tradition",
-          "name": "religious_tradition"
-        },
-        {
           "type": "add_talent",
           "name": "Wspólna odnowa",
           "description": "Możesz użyć akcji, by natychmiast uleczyć tyle obrażeń, ile wynosi twoja Szybkość Zdrowienia. Następnie wybierz jedno stworzenie inne niż ty w bliskim zasięgu. Ono również leczy tyle obrażeń, ile wynosi jego Szybkość Zdrowienia. Po wykorzystaniu tego talentu musisz odbyć pełny odpoczynek, zanim będziesz mógł użyć go ponownie."
         }
       ],
       "choices": [
+        [
+          {
+            "type": "add_tradition",
+            "name": "religious_tradition"
+          }
+        ],
+        [
+          {
+            "type": "add_tradition",
+            "name": "religious_tradition"
+          },
+          {
+            "type": "add_spell",
+            "name": "known_tradition"
+          }
+        ],
+        [
+          {
+            "type": "add_tradition",
+            "name": "religious_tradition"
+          },
+          {
+            "type": "add_spell",
+            "name": "known_tradition"
+          }
+        ],
         [
           {
             "type": "update_language",
@@ -55,26 +77,6 @@
             "name": "any",
             "can_speak": true,
             "can_write": false
-          }
-        ],
-        [
-          {
-            "type": "add_tradition",
-            "name": "religious_tradition"
-          },
-          {
-            "type": "add_spell",
-            "name": "known_tradition"
-          }
-        ],
-        [
-          {
-            "type": "add_tradition",
-            "name": "religious_tradition"
-          },
-          {
-            "type": "add_spell",
-            "name": "known_tradition"
           }
         ]
       ]

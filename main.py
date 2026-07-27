@@ -24,7 +24,9 @@ from flask import (
 from pydantic import TypeAdapter
 
 from domain.creation_state import CreationState
-from models.action import Action, AddSpell, AddTradition
+from models.action import (
+    Action, AddLanguage, AddProfession, AddSpell, AddTradition, UpdateLanguage,
+)
 from models.base_hero import AncestryHero
 from utils.pdf_creator import fill_pdf
 from utils.utils import (
@@ -215,10 +217,16 @@ def _has_placeholders(group: list) -> bool:
         if isinstance(action, AddTradition) and action.name in ("any", "religious_tradition"):
             return True
         if isinstance(action, AddSpell) and (
-            action.name == "known_tradition"
+            action.name in ("known_tradition", "any")
             or action.name.startswith("tradition:")
             or action.name.startswith("tradition_rank0:")
         ):
+            return True
+        if isinstance(action, AddLanguage) and action.name == "any":
+            return True
+        if isinstance(action, UpdateLanguage) and action.name == "known":
+            return True
+        if isinstance(action, AddProfession) and action.name == "any":
             return True
     return False
 
@@ -230,7 +238,7 @@ def _try_expand_current_group(state: CreationState) -> None:
     if not _has_placeholders(group):
         return
     expanded = _expand_dynamic_choice_group(state.hero, group)
-    if expanded and not _has_placeholders(expanded):
+    if expanded:
         state.level_choices[state.choice_cursor] = expanded
         state.total_choices_in_level = len(state.level_choices)
 
@@ -731,7 +739,7 @@ def _apply_selected_choices(
 
         if current_cursor < len(level_choices) and _has_placeholders(level_choices[current_cursor]):
             expanded = _expand_dynamic_choice_group(hero, level_choices[current_cursor])
-            if expanded and not _has_placeholders(expanded):
+            if expanded:
                 level_choices[current_cursor] = expanded
 
     state.choice_cursor = current_cursor

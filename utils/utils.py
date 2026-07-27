@@ -941,7 +941,7 @@ def _expand_dynamic_choice_group(
                     expanded_group.extend(AddSpell(name=s) for s in spells)
                 else:
                     expanded_group.append(action)
-            case AddSpell(name="known_tradition"):
+            case AddSpell(name="known_tradition") | AddSpell(name="any"):
                 known_traditions = sorted(
                     {
                         tradition
@@ -962,8 +962,56 @@ def _expand_dynamic_choice_group(
                     expanded_group.extend(AddSpell(name=spell) for spell in spells)
                 else:
                     expanded_group.append(action)
+            case UpdateLanguage(name="known"):
+                speak_only = [
+                    lang for lang in hero.languages
+                    if lang.can_speak and not lang.can_write
+                ]
+                if speak_only:
+                    expanded_group.extend(
+                        UpdateLanguage(
+                            name=lang.name,
+                            can_speak=True,
+                            can_write=True,
+                        )
+                        for lang in sorted(speak_only, key=lambda l: l.name)
+                    )
+                else:
+                    expanded_group.append(action)
+            case AddLanguage(name="any", can_write=cw):
+                known_names = {lang.name for lang in hero.languages}
+                learnable = [
+                    lang for lang in ALL_LANGUAGES
+                    if lang not in known_names
+                ]
+                if learnable:
+                    expanded_group.extend(
+                        AddLanguage(name=lang, can_write=cw)
+                        for lang in sorted(learnable)
+                    )
+                else:
+                    expanded_group.append(action)
+            case AddProfession(name="any"):
+                expanded_group.extend(
+                    AddProfession(name=cat)
+                    for cat in PROFESSION_CATEGORIES
+                )
+            case AddTradition(name=tname) if tname in known_traditions:
+                pass
             case _:
                 expanded_group.append(action)
+
+    has_mandatory_tradition = any(
+        isinstance(a, AddTradition)
+        and a.name not in ("any", "religious_tradition")
+        and a.name not in known_traditions
+        for a in choice_group
+    )
+    if has_mandatory_tradition:
+        expanded_group = [
+            a for a in expanded_group if isinstance(a, AddTradition)
+        ]
+
     return expanded_group
 
 
@@ -1071,12 +1119,17 @@ def expand_any_to_choices(
                     ]
                 )
             case AddSpell(name="any"):
-                new_placeholder_choices.append(
-                    [
-                        AddSpell(name="Zaklęcie 1"),
-                        AddSpell(name="Zaklęcie 2"),
-                    ]
-                )
+                known_trads = [
+                    get_tradition_name_from_talent(t.name)
+                    for t in hero.talents
+                    if get_tradition_name_from_talent(t.name)
+                ]
+                if known_trads:
+                    new_placeholder_choices.append(
+                        [AddSpell(name="known_tradition")]
+                    )
+                else:
+                    new_placeholder_choices.append([action])
             case AddTradition(name="any"):
                 known_traditions = {
                     tradition

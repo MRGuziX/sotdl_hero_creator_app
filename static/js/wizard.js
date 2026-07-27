@@ -22,24 +22,24 @@
             return `Zwiększ ${label} o ${option.value}`;
         }
         if (type === "add_language") {
-            return `Język: ${option.name === "any" ? "Dodatkowy język" : option.name}`;
+            return option.name === "any" ? "Dodatkowy język" : option.name;
         }
         if (type === "add_profession") {
-            return `Profesja: ${option.name === "any" ? "Dodatkowa profesja" : option.name}`;
+            return option.name === "any" ? "Dodatkowa profesja" : option.name;
         }
         if (type === "add_item") {
-            return `Przedmiot: ${option.name}`;
+            return option.name;
         }
         if (type === "grant_literacy") {
-            return `Nauka pisania: ${option.target === "any" ? "dowolny język" : option.target}`;
+            return option.target === "any" ? "Dowolny język" : option.target;
         }
         if (type === "add_talent") {
             const talents = (hero && hero.talents) || [];
             const known = talents.some((talent) => talent.name === option.name || talent.name === `${option.name} (poz. 2)`);
-            return `Talent: ${option.name}${known ? " (ULEPSZENIE)" : ""}`;
+            return known ? `${option.name} (ULEPSZENIE)` : option.name;
         }
         if (type === "add_religion") {
-            return `Religia: ${option.name === "any" ? "Wybierz religię" : option.name}`;
+            return option.name === "any" ? "Wybierz religię" : option.name;
         }
         if (type === "add_tradition") {
             if (option.name === "religious_tradition") return "Tradycja religijna";
@@ -47,13 +47,13 @@
         }
         if (type === "add_spell") {
             if (option.name === "known_tradition" || option.name === "any") {
-                return `Czar: ${option.name === "known_tradition" ? "Czar ze znanej tradycji" : "Dowolny czar"}`;
+                return option.name === "known_tradition" ? "Czar ze znanej tradycji" : "Dowolny czar";
             }
             const tradition = traditionForSpell(option.name, magicContext);
-            return tradition ? `Czar: ${option.name} (${tradition})` : `Czar: ${option.name}`;
+            return tradition ? `${option.name} (${tradition})` : option.name;
         }
         if (type === "update_language") {
-            return `Aktualizacja języka: ${option.name}`;
+            return option.name === "known" ? "Znany język" : option.name;
         }
         return JSON.stringify(option);
     }
@@ -355,9 +355,12 @@
 
             const isAttrGroup = currentGroup.every(a => a.type === "add_attribute");
             if (isAttrGroup) {
-                const isPaired = groups[cursor + 1]
-                    && groups[cursor + 1].every(a => a.type === "add_attribute");
-                this._renderAttributeStepper(currentGroup, state, isPaired ? 2 : 1);
+                let consecutiveCount = 1;
+                for (let i = cursor + 1; i < groups.length; i++) {
+                    if (groups[i] && groups[i].every(a => a.type === "add_attribute")) consecutiveCount++;
+                    else break;
+                }
+                this._renderAttributeStepper(currentGroup, state, consecutiveCount);
             } else {
                 this._renderStandardChoice(currentGroup, state, magicContext);
             }
@@ -447,11 +450,11 @@
         }
 
         _renderStandardChoice(group, state, magicContext) {
-            const hasTraditions = group.some(o => o.type === "add_tradition");
+            const types = new Set(group.map(o => o.type));
             const hasSpells = group.some(o => o.type === "add_spell");
 
-            if (hasTraditions && hasSpells) {
-                this._renderMixedTraditionSpellChoice(group, state, magicContext);
+            if (types.size > 1 || hasSpells) {
+                this._renderSectionedChoice(group, state, magicContext);
                 return;
             }
 
@@ -464,55 +467,77 @@
             this._body.append(fieldset);
         }
 
-        _renderMixedTraditionSpellChoice(group, state, magicContext) {
+        _renderSectionedChoice(group, state, magicContext) {
+            const SECTION_LABELS = {
+                add_tradition: "Poznaj nową tradycję",
+                add_spell: "Naucz się zaklęcia",
+                update_language: "Naucz się pisać w języku",
+                add_language: "Naucz się nowego języka",
+                add_profession: "Wybierz profesję",
+                add_religion: "Wybierz religię",
+                add_talent: "Wybierz talent",
+                add_attribute: "Zwiększ atrybut",
+                add_item: "Wybierz przedmiot",
+                grant_literacy: "Naucz się pisać",
+            };
+            const PLACEHOLDERS = new Set([
+                "any", "known", "known_tradition", "religious_tradition",
+            ]);
+            const isPlaceholder = (o) => {
+                const n = o.name || o.target || "";
+                return PLACEHOLDERS.has(n) || n.startsWith("tradition:") || n.startsWith("tradition_rank0:");
+            };
+
             const fieldset = document.createElement("fieldset");
             fieldset.className = "step-card";
             const legend = document.createElement("legend");
             legend.textContent = "Wybierz opcję:";
             fieldset.append(legend);
 
-            const traditions = group.filter(o => o.type === "add_tradition");
-            const spells = group.filter(o => o.type === "add_spell");
+            const seen = new Set();
+            const sections = [];
+            group.forEach(o => {
+                if (!seen.has(o.type)) { seen.add(o.type); sections.push(o.type); }
+            });
 
-            if (traditions.length) {
+            const spellsByTrad = (magicContext && magicContext.spells_by_tradition) || {};
+
+            sections.forEach(type => {
+                const items = group.filter(o => o.type === type && !isPlaceholder(o));
+                if (!items.length) return;
+
                 const heading = document.createElement("h4");
                 heading.className = "choice-section-heading";
-                heading.textContent = "Poznaj nową tradycję";
-                fieldset.append(heading);
-                this._appendRadioOptions(fieldset, traditions, state, magicContext);
-            }
-
-            if (spells.length) {
-                const heading = document.createElement("h4");
-                heading.className = "choice-section-heading";
-                heading.textContent = "Naucz się zaklęcia";
+                heading.textContent = SECTION_LABELS[type] || type;
                 fieldset.append(heading);
 
-                const spellsByTrad = (magicContext && magicContext.spells_by_tradition) || {};
-                const tradNames = Object.keys(spellsByTrad).sort();
-
-                if (tradNames.length > 0) {
-                    tradNames.forEach(trad => {
-                        const tradSpells = spells.filter(s => {
-                            return spellsByTrad[trad] && spellsByTrad[trad].includes(s.name);
+                if (type === "add_spell") {
+                    const tradNames = Object.keys(spellsByTrad).sort();
+                    if (tradNames.length > 0) {
+                        const grouped = new Set();
+                        tradNames.forEach(trad => {
+                            const tradSpells = items.filter(s =>
+                                spellsByTrad[trad] && spellsByTrad[trad].includes(s.name)
+                            );
+                            if (!tradSpells.length) return;
+                            const sub = document.createElement("h5");
+                            sub.className = "choice-tradition-heading";
+                            sub.textContent = trad;
+                            fieldset.append(sub);
+                            this._appendRadioOptions(fieldset, tradSpells, state, magicContext);
+                            tradSpells.forEach(s => grouped.add(s.name));
                         });
-                        if (!tradSpells.length) return;
-                        const sub = document.createElement("h5");
-                        sub.className = "choice-tradition-heading";
-                        sub.textContent = trad;
-                        fieldset.append(sub);
-                        this._appendRadioOptions(fieldset, tradSpells, state, magicContext);
-                    });
-                    const ungrouped = spells.filter(s => {
-                        return !tradNames.some(t => spellsByTrad[t] && spellsByTrad[t].includes(s.name));
-                    });
-                    if (ungrouped.length) {
-                        this._appendRadioOptions(fieldset, ungrouped, state, magicContext);
+                        const ungrouped = items.filter(s => !grouped.has(s.name));
+                        if (ungrouped.length) {
+                            this._appendRadioOptions(fieldset, ungrouped, state, magicContext);
+                        }
+                    } else {
+                        this._appendRadioOptions(fieldset, items, state, magicContext);
                     }
                 } else {
-                    this._appendRadioOptions(fieldset, spells, state, magicContext);
+                    this._appendRadioOptions(fieldset, items, state, magicContext);
                 }
-            }
+            });
 
             this._body.append(fieldset);
         }
