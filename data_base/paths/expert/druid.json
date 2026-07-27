@@ -50,15 +50,15 @@
         [
           {
             "type": "add_tradition",
-            "name": "Życie"
+            "name": "Tradycja Życia"
           },
           {
             "type": "add_tradition",
-            "name": "Natura"
+            "name": "Tradycja Natury"
           },
           {
             "type": "add_tradition",
-            "name": "Magia Pierwotna"
+            "name": "Tradycja Pierwotna"
           },
           {
             "type": "add_spell",

@@ -51,11 +51,11 @@
         [
           {
             "type": "learn_tradition",
-            "name": "Klątw"
+            "name": "Tradycja Klątw"
           },
           {
             "type": "learn_spell",
-            "tradition": "Klątw"
+            "tradition": "Tradycja Klątw"
           }
         ]
       ]

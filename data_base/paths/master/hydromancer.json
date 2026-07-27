@@ -44,11 +44,11 @@
         [
           {
             "type": "learn_tradition",
-            "name": "Wody"
+            "name": "Tradycja Wody"
           },
           {
             "type": "learn_spell",
-            "tradition": "Wody"
+            "tradition": "Tradycja Wody"
           }
         ]
       ]

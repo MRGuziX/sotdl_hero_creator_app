@@ -56,11 +56,11 @@
         [
           {
             "type": "learn_tradition",
-            "name": "Powietrza"
+            "name": "Tradycja Powietrza"
           },
           {
             "type": "learn_spell",
-            "tradition": "Powietrza"
+            "tradition": "Tradycja Powietrza"
           }
         ]
       ]

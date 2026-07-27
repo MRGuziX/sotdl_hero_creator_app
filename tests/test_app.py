@@ -154,7 +154,13 @@ def test_new_novice_paths_can_start_manual_creation(client):
 def test_new_tradition_choice_excludes_known_traditions(monkeypatch):
     monkeypatch.setattr(
         "utils.utils._load_json",
-        lambda path: {"Stara Wiara": ["życie", "ogień", "woda"]},
+        lambda path: {
+            "Stara Wiara": [
+                "Tradycja Życia",
+                "Tradycja Ognia",
+                "Tradycja Wody",
+            ]
+        },
     )
     hero = AncestryHero(
         ancestry_name="Człowiek",
@@ -171,14 +177,17 @@ def test_new_tradition_choice_excludes_known_traditions(monkeypatch):
         size=[1.0, 1.0],
         speed=10,
     )
-    hero.talents.append(Talent(name="Tradycja: życie", description=""))
+    hero.talents.append(Talent(name="Tradycja Życia", description=""))
 
     choices = _expand_dynamic_choice_group(
         hero,
         [AddTradition(name="religious_tradition")],
     )
 
-    assert [choice.name for choice in choices] == ["ogień", "woda"]
+    assert [choice.name for choice in choices] == [
+        "Tradycja Ognia",
+        "Tradycja Wody",
+    ]
 
 
 def test_any_tradition_choice_expands_to_real_traditions():
@@ -229,7 +238,7 @@ def test_known_tradition_spell_choice_filters_known_spells_and_power(monkeypatch
         speed=10,
         power=2,
     )
-    hero.talents.append(Talent(name="Tradycja: Życie", description=""))
+    hero.talents.append(Talent(name="Tradycja Życia", description=""))
     hero.spells.append(Spell(name="leczenie", description="", level=0))
 
     choices = _expand_dynamic_choice_group(

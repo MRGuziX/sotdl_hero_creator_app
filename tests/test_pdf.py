@@ -107,13 +107,13 @@ def test_pdf_joins_spell_cards_when_hero_has_spells(populated_hero, output_path)
 
 def test_pdf_includes_magic_traditions_in_notes(populated_hero, output_path):
     populated_hero.talents.append(
-        Talent(name="Tradycja: Życie", description="Dostęp do zaklęć tej tradycji")
+        Talent(name="Tradycja Życia", description="Dostęp do zaklęć tej tradycji")
     )
 
     fill_pdf(populated_hero, output_path)
 
     fields = PdfReader(output_path).get_fields()
-    assert "Życie" in fields["notatki"]["/V"]
+    assert "Tradycja Życia" in fields["notatki"]["/V"]
 
 
 def test_pdf_does_not_render_placeholder_spell(populated_hero, output_path):

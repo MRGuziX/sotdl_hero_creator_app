@@ -24,10 +24,11 @@ from flask import (
 from pydantic import TypeAdapter
 
 from domain.creation_state import CreationState
-from models.action import Action
+from models.action import Action, AddSpell, AddTradition
 from models.base_hero import AncestryHero
 from utils.pdf_creator import fill_pdf
 from utils.utils import (
+    _expand_dynamic_choice_group,
     load_json as _load_json,
     advance_hero,
     apply_action,
@@ -203,11 +204,40 @@ def rebuild_hero(state: CreationState):
             if action_lvl == lvl:
                 apply_action(action, hero, is_random=False)
 
+    hero.path_name = paths.get("novice")
+    hero.expert_path_names = list(paths.get("expert") or [])
+    hero.master_path_name = paths.get("master")
     state.hero = hero
+
+
+def _has_placeholders(group: list) -> bool:
+    for action in group:
+        if isinstance(action, AddTradition) and action.name in ("any", "religious_tradition"):
+            return True
+        if isinstance(action, AddSpell) and (
+            action.name == "known_tradition"
+            or action.name.startswith("tradition:")
+            or action.name.startswith("tradition_rank0:")
+        ):
+            return True
+    return False
+
+
+def _try_expand_current_group(state: CreationState) -> None:
+    if state.choice_cursor >= len(state.level_choices):
+        return
+    group = state.level_choices[state.choice_cursor]
+    if not _has_placeholders(group):
+        return
+    expanded = _expand_dynamic_choice_group(state.hero, group)
+    if expanded and not _has_placeholders(expanded):
+        state.level_choices[state.choice_cursor] = expanded
+        state.total_choices_in_level = len(state.level_choices)
 
 
 def _creation_response(state: CreationState, download_url: str | None = None) -> dict:
     """Build the versioned JSON contract used by the component frontend."""
+    _try_expand_current_group(state)
     public = state.public_dict()
     total_choices = state.total_choices_in_level
     current_index = min(state.choice_cursor + 1, total_choices) if total_choices else 0
@@ -436,8 +466,13 @@ def api_pick_path(creation_id, tier):
     }
     if tier == "expert":
         paths["expert"] = [*paths.get("expert", []), path_id]
+        state.hero.expert_path_names = list(paths["expert"])
+    elif tier == "novice":
+        paths["novice"] = path_id
+        state.hero.path_name = path_id
     else:
-        paths[tier] = path_id
+        paths["master"] = path_id
+        state.hero.master_path_name = path_id
 
     actions, choices = benefits_for_new_path_pick(
         paths_before, tier, path_id, state.current_level
@@ -644,32 +679,63 @@ def _apply_selected_choices(
     if not parsed_choices or state.choice_cursor >= len(level_choices):
         return False, "Invalid choice", 400
 
-    # Rule: usually 1 choice, but "Sztuczki" talent might allow 2 for spells,
-    # and attribute boosts might be grouped.
-    # For now, let's just support 1 or more based on what the client sent.
-    # We validate each selection against its respective group.
-    
     current_cursor = state.choice_cursor
     for action in parsed_choices:
         if current_cursor >= len(level_choices):
-             return False, "Too many selections", 400
-        
+            return False, "Too many selections", 400
+
         allowed = {a.model_dump_json() for a in level_choices[current_cursor]}
         if action.model_dump_json() not in allowed:
-             return False, f"Invalid choice at step {current_cursor}", 400
-        
+            return False, f"Invalid choice at step {current_cursor}", 400
+
         apply_action(action, hero, is_random=False)
         state.applied_actions.append((state.current_level, action))
-        
-        # Record the index for pre-filling
+
         for idx, opt in enumerate(level_choices[current_cursor]):
             if opt.model_dump_json() == action.model_dump_json():
                 state.selections.setdefault(state.current_level, []).append(idx)
                 break
-        
+
         current_cursor += 1
 
+        if isinstance(action, AddSpell) and action.name not in (
+            "any", "known_tradition",
+        ) and not action.name.startswith("tradition:") and not action.name.startswith("tradition_rank0:"):
+            for i in range(current_cursor, len(level_choices)):
+                group = level_choices[i]
+                if any(isinstance(a, AddSpell) and a.name == action.name for a in group):
+                    filtered = [
+                        a for a in group
+                        if not (isinstance(a, AddSpell) and a.name == action.name)
+                    ]
+                    level_choices[i] = filtered if filtered else group
+
+        if isinstance(action, AddTradition) and action.name not in ("any", "religious_tradition"):
+            rank0 = get_spells_for_tradition(action.name, power_level=0)
+            known = {s.name for s in hero.spells}
+            if [s for s in rank0 if s not in known]:
+                has_sztuczki = any(t.name == "Sztuczki" for t in hero.talents)
+                num_picks = 2 if has_sztuczki else 1
+                for _ in range(num_picks):
+                    marker = AddSpell(name=f"tradition_rank0:{action.name}")
+                    level_choices.insert(current_cursor, [marker])
+
+            for i in range(current_cursor, len(level_choices)):
+                group = level_choices[i]
+                if any(isinstance(a, AddTradition) for a in group):
+                    filtered = [
+                        a for a in group
+                        if not (isinstance(a, AddTradition) and a.name == action.name)
+                    ]
+                    level_choices[i] = filtered if filtered else group
+
+        if current_cursor < len(level_choices) and _has_placeholders(level_choices[current_cursor]):
+            expanded = _expand_dynamic_choice_group(hero, level_choices[current_cursor])
+            if expanded and not _has_placeholders(expanded):
+                level_choices[current_cursor] = expanded
+
     state.choice_cursor = current_cursor
+    state.total_choices_in_level = len(level_choices)
     if state.choice_cursor < len(level_choices):
         return (True, {"status": "need_choices"}, 200)
 

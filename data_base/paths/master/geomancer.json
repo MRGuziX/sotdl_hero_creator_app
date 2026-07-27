@@ -39,11 +39,11 @@
         [
           {
             "type": "learn_tradition",
-            "name": "Ziemi"
+            "name": "Tradycja Ziemi"
           },
           {
             "type": "learn_spell",
-            "tradition": "Ziemi"
+            "tradition": "Tradycja Ziemi"
           }
         ]
       ]

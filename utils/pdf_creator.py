@@ -115,7 +115,7 @@ def distribute_talents(talents):
 
     # Place longer talents first so they do not consume boxes needed by smaller talents.
     sorted_talents = sorted(
-        (talent for talent in talents if not talent.name.startswith("Tradycja: ")),
+        (talent for talent in talents if not talent.name.startswith("Tradycja ")),
         key=lambda talent: len(talent.description or ""),
         reverse=True,
     )
@@ -253,12 +253,9 @@ def fill_pdf(hero: AncestryHero, output_path: str) -> None:
         notatki_parts.append("")
 
     traditions = sorted(
-        {
-            tradition
-            for talent in hero.talents
-            if talent.name.startswith("Tradycja: ")
-            for tradition in [talent.name.removeprefix("Tradycja: ")]
-        }
+        talent.name
+        for talent in hero.talents
+        if talent.name.startswith("Tradycja ")
     )
     if traditions:
         notatki_parts.append(f"Tradycje magiczne: {', '.join(traditions)}")

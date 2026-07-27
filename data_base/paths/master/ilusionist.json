@@ -51,11 +51,11 @@
         [
           {
             "type": "learn_tradition",
-            "name": "Iluzji"
+            "name": "Tradycja Iluzji"
           },
           {
             "type": "learn_spell",
-            "tradition": "Iluzji"
+            "tradition": "Tradycja Iluzji"
           }
         ]
       ]

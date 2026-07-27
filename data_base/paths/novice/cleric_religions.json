@@ -1,6 +1,6 @@
 {
-  "Kościół Nowego Boga": ["Magia Niebiańska", "Teurgia", "Życie"],
-  "Krasnoludzcy przodkowie": ["Magia Bitewna", "Ziemia", "Życie"],
-  "Stara Wiara": ["Natura", "Magia Pierwotna", "Życie"],
-  "Wiedźmiarstwo": ["Klątwy", "Uroki", "Życie"]
+  "Kościół Nowego Boga": ["Tradycja Niebiańska", "Tradycja Teurgi", "Tradycja Życia"],
+  "Krasnoludzcy przodkowie": ["Tradycja Bitewna", "Tradycja Ziemi", "Tradycja Życia"],
+  "Stara Wiara": ["Tradycja Natury", "Tradycja Pierwotna", "Tradycja Życia"],
+  "Wiedźmiarstwo": ["Tradycja Klątw", "Tradycja Uroków", "Tradycja Życia"]
 }

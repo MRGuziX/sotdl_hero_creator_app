@@ -56,11 +56,11 @@
         [
           {
             "type": "learn_tradition",
-            "name": "Jasnowidzenia"
+            "name": "Tradycja Jasnowidzenia"
           },
           {
             "type": "learn_spell",
-            "tradition": "Jasnowidzenia"
+            "tradition": "Tradycja Jasnowidzenia"
           }
         ]
       ]

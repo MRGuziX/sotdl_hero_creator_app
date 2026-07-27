@@ -56,11 +56,11 @@
         [
           {
             "type": "learn_tradition",
-            "name": "Magii Niebiańskiej"
+            "name": "Tradycja Niebiańska"
           },
           {
             "type": "learn_spell",
-            "tradition": "Magii Niebiańskiej"
+            "tradition": "Tradycja Niebiańska"
           }
         ]
       ]

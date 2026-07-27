@@ -73,20 +73,36 @@ PROFESSION_CATEGORIES = [
 ]
 
 TRADITION_FILE_MAP = {
-    "Magia Niebiańska": "heaven_tradition.json",
-    "Życie": "life_tradition.json",
-    "Magia Ognia": "fire_tradition.json",
-    "Ogień": "fire_tradition.json",
-    "Magia Wody": "water_tradition.json",
-    "Woda": "water_tradition.json",
-    "Magia Bitewna": "battle_tradition.json",
-    "Ziemia": "earth_tradition.json",
-    "Natura": "nature_tradition.json",
-    "Magia Pierwotna": "primal_tradition.json",
-    "Klątwy": "curse_tradition.json",
-    "Uroki": "enchantment_tradition.json",
-    "Teurgia": "theurgy_tradition.json",
-    "Wiedźmiarstwo": "witchcraft_tradition.json",
+    "Tradycja Powietrza": "air_tradition.json",
+    "Tradycja Przemian": "alteration_tradition.json",
+    "Tradycja Arkanów": "arcana_tradition.json",
+    "Tradycja Bitewna": "battlemagic_tradition.json",
+    "Tradycja Chaosu": "chaos_tradition.json",
+    "Tradycja Przywołania": "conjuration_tradition.json",
+    "Tradycja Klątw": "curse_tradition.json",
+    "Tradycja Zniszczenia": "destruction_tradition.json",
+    "Tradycja Jasnowidzenia": "divination_tradition.json",
+    "Tradycja Ziemi": "earth_tradition.json",
+    "Tradycja Uroków": "enchantment_tradition.json",
+    "Tradycja Ognia": "fire_tradition.json",
+    "Tradycja Zakazana": "forbidden_tradition.json",
+    "Tradycja Niebiańska": "heaven_tradition.json",
+    "Tradycja Iluzji": "illusion_tradition.json",
+    "Tradycja Życia": "life_tradition.json",
+    "Tradycja Natury": "nature_tradition.json",
+    "Tradycja Nekromancji": "necromancy_tradition.json",
+    "Tradycja Pierwotna": "primal_tradition.json",
+    "Tradycja Ochrony": "protection_tradition.json",
+    "Tradycja Run": "rune_tradition.json",
+    "Tradycja Cieni": "shadow_tradition.json",
+    "Tradycja Pieśni": "song_tradition.json",
+    "Tradycja Burzy": "storm_tradition.json",
+    "Tradycja Technomancji": "technomancy_tradition.json",
+    "Tradycja Teleportacji": "teleportation_tradition.json",
+    "Tradycja Teurgi": "theurgy_tradition.json",
+    "Tradycja Czasu": "time_tradition.json",
+    "Tradycja Transformacji": "transformation_tradition.json",
+    "Tradycja Wody": "water_tradition.json",
 }
 
 
@@ -142,11 +158,11 @@ def _normalize_path_action(action: dict) -> dict:
     if action_type == "learn_tradition":
         return {"type": "add_tradition", "name": action.get("name", "any")}
     if action_type == "learn_spell":
-        if "tradition" in action:
-            # A tradition-scoped spell pick reuses the "known_tradition"
-            # placeholder: it is expanded against the hero's known
-            # traditions once the preceding tradition choice is applied.
+        tradition = action.get("tradition")
+        if tradition == "any":
             return {"type": "add_spell", "name": "known_tradition"}
+        if tradition:
+            return {"type": "add_spell", "name": f"tradition:{tradition}"}
         return {"type": "add_spell", "name": action.get("name", "any")}
     return action
 
@@ -677,7 +693,11 @@ def add_talent(
 def add_spell(name: str, hero: AncestryHero):
     # These names are choice placeholders, not spell records. They must not
     # become visible fallback cards when a manual choice is submitted early.
-    if name in {"any", "known_tradition"}:
+    if (
+        name in {"any", "known_tradition"}
+        or name.startswith("tradition:")
+        or name.startswith("tradition_rank0:")
+    ):
         return
 
     # Try to find full spell data in known traditions
@@ -727,14 +747,8 @@ def add_spell(name: str, hero: AncestryHero):
 
 
 def add_tradition(name: str, hero: AncestryHero):
-    # For now we just store it in a way that can be seen, maybe as a talent or just a note
-    # Actually, hero should probably have a list of traditions
     hero.talents.append(
-        Talent(
-            name=f"Tradycja: {name}",
-            description="Dostęp do zaklęć tej tradycji",
-            level=0,
-        )
+        Talent(name=name, description="Dostęp do zaklęć tej tradycji", level=0)
     )
 
 
@@ -759,8 +773,8 @@ def update_language(
 
 
 def get_tradition_name_from_talent(talent_name: str) -> str | None:
-    if talent_name.startswith("Tradycja: "):
-        return talent_name.replace("Tradycja: ", "")
+    if talent_name in TRADITION_FILE_MAP:
+        return talent_name
     return None
 
 
@@ -877,6 +891,17 @@ def _expand_dynamic_choice_group(
     expanded_group = []
     for action in choice_group:
         match action:
+            case AddTradition(name="any"):
+                available = [
+                    t for t in sorted(TRADITION_FILE_MAP)
+                    if t not in known_traditions
+                ]
+                if available:
+                    expanded_group.extend(
+                        AddTradition(name=t) for t in available
+                    )
+                else:
+                    expanded_group.append(action)
             case AddTradition(name="religious_tradition"):
                 traditions = [
                     tradition
@@ -888,6 +913,32 @@ def _expand_dynamic_choice_group(
                         AddTradition(name=tradition)
                         for tradition in sorted(set(traditions))
                     )
+                else:
+                    expanded_group.append(action)
+            case AddSpell(name=spell_name) if spell_name.startswith("tradition_rank0:"):
+                tradition_name = spell_name[len("tradition_rank0:"):]
+                known_spells = {spell.name for spell in hero.spells}
+                spells = sorted(
+                    spell
+                    for spell in get_spells_for_tradition(tradition_name, 0)
+                    if spell not in known_spells
+                )
+                if spells:
+                    expanded_group.extend(AddSpell(name=s) for s in spells)
+                else:
+                    expanded_group.append(action)
+            case AddSpell(name=spell_name) if spell_name.startswith("tradition:"):
+                tradition_name = spell_name[len("tradition:"):]
+                known_spells = {spell.name for spell in hero.spells}
+                spells = sorted(
+                    spell
+                    for spell in get_spells_for_tradition(
+                        tradition_name, hero.power
+                    )
+                    if spell not in known_spells
+                )
+                if spells:
+                    expanded_group.extend(AddSpell(name=s) for s in spells)
                 else:
                     expanded_group.append(action)
             case AddSpell(name="known_tradition"):
@@ -931,9 +982,19 @@ def resolve_choices(
             if isinstance(picked, dict):
                 picked = TypeAdapter(Action).validate_python(picked)
 
-            # Apply immediately to help subsequent choices (e.g. pick tradition, then pick spell from it)
             apply_action(picked, hero, is_random=True)
             actions.append(picked)
+
+            if isinstance(picked, AddTradition) and picked.name not in ("any", "religious_tradition"):
+                rank0 = get_spells_for_tradition(picked.name, power_level=0)
+                known = {s.name for s in hero.spells}
+                available = [s for s in rank0 if s not in known]
+                has_sztuczki = any(t.name == "Sztuczki" for t in hero.talents)
+                num_picks = min(2 if has_sztuczki else 1, len(available))
+                for spell_name in random.sample(available, num_picks) if available else []:
+                    spell_action = AddSpell(name=spell_name)
+                    apply_action(spell_action, hero, is_random=True)
+                    actions.append(spell_action)
     elif selected_choices:
         for choice in selected_choices:
             label = (
@@ -1046,7 +1107,6 @@ def expand_any_to_choices(
                 else:
                     deferred_placeholder_choices.append([action])
             case AddSpell(name="known_tradition"):
-                # Only add as choice if there are traditions to pick from
                 known_trads = [
                     get_tradition_name_from_talent(t.name)
                     for t in hero.talents
@@ -1054,6 +1114,8 @@ def expand_any_to_choices(
                 ]
                 if known_trads:
                     new_placeholder_choices.append([action])
+            case AddSpell(name=sn) if sn.startswith("tradition:"):
+                new_placeholder_choices.append([action])
             case _:
                 if not is_placeholder:
                     remaining_actions.append(action)

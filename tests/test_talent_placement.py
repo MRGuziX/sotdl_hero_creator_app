@@ -35,7 +35,7 @@ def test_talent_distribution():
 
     # 6. A tradition (should be skipped)
     tradition = Talent(
-        name="Tradycja: Magia Niebiańska", description="Dostęp do zaklęć"
+        name="Tradycja Niebiańska", description="Dostęp do zaklęć"
     )
 
     talents = [
@@ -66,7 +66,7 @@ def test_talent_distribution():
 
     # Check that tradition was NOT assigned and NOT in overflow
     assigned_names = [d["name"] for d in assigned.values()]
-    assert "Tradycja: Magia Niebiańska" not in assigned_names
+    assert "Tradycja Niebiańska" not in assigned_names
     assert len(assigned) == 8  # 9 total - 1 tradition = 8 assigned
 
     # Add 10 more huge talents to force overflow

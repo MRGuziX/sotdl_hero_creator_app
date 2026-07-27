@@ -51,11 +51,11 @@
         [
           {
             "type": "learn_tradition",
-            "name": "Czasu"
+            "name": "Tradycja Czasu"
           },
           {
             "type": "learn_spell",
-            "tradition": "Czasu"
+            "tradition": "Tradycja Czasu"
           }
         ]
       ]

@@ -42,7 +42,8 @@
             return `Religia: ${option.name === "any" ? "Wybierz religię" : option.name}`;
         }
         if (type === "add_tradition") {
-            return `Tradycja: ${option.name === "religious_tradition" ? "Tradycja religijna" : option.name}`;
+            if (option.name === "religious_tradition") return "Tradycja religijna";
+            return option.name;
         }
         if (type === "add_spell") {
             if (option.name === "known_tradition" || option.name === "any") {
@@ -236,6 +237,9 @@
             heading.textContent = "Wybierz pochodzenie";
             this.append(heading);
 
+            const body = document.createElement("div");
+            body.className = "wizard-scroll-body";
+
             const grid = document.createElement("div");
             grid.className = "ancestry-grid";
             const list = [
@@ -273,7 +277,8 @@
                 card.addEventListener("keydown", (e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); card.click(); } });
                 grid.append(card);
             });
-            this.append(grid);
+            body.append(grid);
+            this.append(body);
 
             const footer = document.createElement("div");
             footer.className = "step-shell-footer";
@@ -345,6 +350,9 @@
                 return;
             }
 
+            this._body = document.createElement("div");
+            this._body.className = "wizard-scroll-body";
+
             const isAttrGroup = currentGroup.every(a => a.type === "add_attribute");
             if (isAttrGroup) {
                 const isPaired = groups[cursor + 1]
@@ -354,6 +362,7 @@
                 this._renderStandardChoice(currentGroup, state, magicContext);
             }
 
+            this.append(this._body);
             this._renderFooter(state);
         }
 
@@ -425,7 +434,7 @@
                 panel.append(row);
             });
 
-            this.append(panel);
+            this._body.append(panel);
             updateUI();
 
             this._submit = async () => {
@@ -438,36 +447,98 @@
         }
 
         _renderStandardChoice(group, state, magicContext) {
-            const isMagic = group.some(a => a.type === "add_tradition" || a.type === "add_spell");
-            const isProf = group.some(a => a.type === "add_profession" || a.type === "add_language");
+            const hasTraditions = group.some(o => o.type === "add_tradition");
+            const hasSpells = group.some(o => o.type === "add_spell");
 
-            if (isMagic || isProf) {
-                this._renderModalChoice(group, state, magicContext, isMagic ? "Magia" : "Profesje");
-            } else {
-                this._renderRadioChoice(group, state, magicContext);
+            if (hasTraditions && hasSpells) {
+                this._renderMixedTraditionSpellChoice(group, state, magicContext);
+                return;
             }
+
+            const fieldset = document.createElement("fieldset");
+            fieldset.className = "step-card";
+            const legend = document.createElement("legend");
+            legend.textContent = "Wybierz opcję:";
+            fieldset.append(legend);
+            this._appendRadioOptions(fieldset, group, state, magicContext);
+            this._body.append(fieldset);
         }
 
-        _renderRadioChoice(group, state, magicContext) {
+        _renderMixedTraditionSpellChoice(group, state, magicContext) {
             const fieldset = document.createElement("fieldset");
             fieldset.className = "step-card";
             const legend = document.createElement("legend");
             legend.textContent = "Wybierz opcję:";
             fieldset.append(legend);
 
-            group.forEach((opt, idx) => {
+            const traditions = group.filter(o => o.type === "add_tradition");
+            const spells = group.filter(o => o.type === "add_spell");
+
+            if (traditions.length) {
+                const heading = document.createElement("h4");
+                heading.className = "choice-section-heading";
+                heading.textContent = "Poznaj nową tradycję";
+                fieldset.append(heading);
+                this._appendRadioOptions(fieldset, traditions, state, magicContext);
+            }
+
+            if (spells.length) {
+                const heading = document.createElement("h4");
+                heading.className = "choice-section-heading";
+                heading.textContent = "Naucz się zaklęcia";
+                fieldset.append(heading);
+
+                const spellsByTrad = (magicContext && magicContext.spells_by_tradition) || {};
+                const tradNames = Object.keys(spellsByTrad).sort();
+
+                if (tradNames.length > 0) {
+                    tradNames.forEach(trad => {
+                        const tradSpells = spells.filter(s => {
+                            return spellsByTrad[trad] && spellsByTrad[trad].includes(s.name);
+                        });
+                        if (!tradSpells.length) return;
+                        const sub = document.createElement("h5");
+                        sub.className = "choice-tradition-heading";
+                        sub.textContent = trad;
+                        fieldset.append(sub);
+                        this._appendRadioOptions(fieldset, tradSpells, state, magicContext);
+                    });
+                    const ungrouped = spells.filter(s => {
+                        return !tradNames.some(t => spellsByTrad[t] && spellsByTrad[t].includes(s.name));
+                    });
+                    if (ungrouped.length) {
+                        this._appendRadioOptions(fieldset, ungrouped, state, magicContext);
+                    }
+                } else {
+                    this._appendRadioOptions(fieldset, spells, state, magicContext);
+                }
+            }
+
+            this._body.append(fieldset);
+        }
+
+        _appendRadioOptions(container, options, state, magicContext) {
+            const group = this._body?.closest("step-shell") || this;
+            options.forEach((opt, idx) => {
+                const globalIdx = Array.from(container.closest("fieldset")?.querySelectorAll("input[name='choice']") || []).length;
                 const label = document.createElement("label");
                 label.className = "step-option";
-                const radio = document.createElement("input");
-                radio.type = "radio"; radio.name = "choice"; radio.value = idx;
-                radio.checked = this._selections.some(s => JSON.stringify(s) === JSON.stringify(opt));
-                radio.addEventListener("change", () => this._selections = [opt]);
+                const input = document.createElement("input");
+                input.type = "radio";
+                input.name = "choice";
+                input.value = globalIdx;
+                input.checked = this._selections.some(s => JSON.stringify(s) === JSON.stringify(opt));
+                input.addEventListener("change", () => {
+                    this._selections = [opt];
+                    const nextBtn = this.querySelector(".step-next-button");
+                    if (nextBtn) nextBtn.disabled = false;
+                });
                 const mark = document.createElement("span");
                 mark.className = "step-option-mark";
                 const text = document.createElement("span");
                 text.className = "step-option-text";
                 text.textContent = describeOption(opt, state.hero, magicContext);
-                label.append(radio, mark, text);
+                label.append(input, mark, text);
 
                 if (opt.description) {
                     const tooltipBtn = document.createElement("button");
@@ -481,79 +552,8 @@
                     label.append(tooltipBtn);
                 }
 
-                fieldset.append(label);
+                container.append(label);
             });
-            this.append(fieldset);
-        }
-
-        _renderModalChoice(group, state, magicContext, labelText) {
-            const btn = document.createElement("button");
-            btn.className = "confirm-button";
-            btn.textContent = `Otwórz wybór: ${labelText}`;
-            
-            const container = document.createElement("div");
-            container.className = "choices-container";
-            
-            const scroll = document.createElement("div");
-            scroll.className = "choices-scroll";
-            
-            const isSpellStep = group.every(a => a.type === "add_spell");
-            const hasSztuczki = state.hero.talents.some(t => t.name === "Sztuczki");
-            const requiredCount = (isSpellStep && hasSztuczki) ? 2 : 1;
-            
-            const counter = document.createElement("h3");
-            counter.className = "magic-counter";
-            if (requiredCount > 1) counter.classList.add("highlight-text");
-            const updateCounter = () => {
-                counter.textContent = `Wybierz ${requiredCount} ${requiredCount > 1 ? "zaklęcia" : "opcję"} (${this._selections.length}/${requiredCount})`;
-                const nextBtn = this.querySelector(".step-next-button");
-                if (nextBtn) nextBtn.disabled = this._selections.length !== requiredCount;
-            };
-
-            group.forEach((opt, idx) => {
-                const tile = document.createElement("label");
-                tile.className = "step-option";
-                const input = document.createElement("input");
-                input.type = requiredCount > 1 ? "checkbox" : "radio";
-                input.name = "modal-choice";
-                input.checked = this._selections.some(s => JSON.stringify(s) === JSON.stringify(opt));
-                input.addEventListener("change", () => {
-                    if (input.checked) {
-                        if (requiredCount === 1) this._selections = [opt];
-                        else if (this._selections.length < requiredCount) this._selections.push(opt);
-                        else input.checked = false;
-                    } else {
-                        this._selections = this._selections.filter(s => JSON.stringify(s) !== JSON.stringify(opt));
-                    }
-                    updateCounter();
-                });
-                const mark = document.createElement("span");
-                mark.className = "step-option-mark";
-                const text = document.createElement("span");
-                text.className = "step-option-text";
-                text.textContent = describeOption(opt, state.hero, magicContext);
-                tile.append(input, mark, text);
-
-                if (opt.description) {
-                    const tooltipBtn = document.createElement("button");
-                    tooltipBtn.type = "button"; tooltipBtn.className = "ancestry-tooltip-trigger inner-tooltip";
-                    tooltipBtn.textContent = "ⓘ";
-                    tooltipBtn.addEventListener("click", (e) => {
-                        e.preventDefault();
-                        e.stopPropagation();
-                        WizardPopover.toggle(tooltipBtn, opt.description);
-                    });
-                    tile.append(tooltipBtn);
-                }
-
-                scroll.append(tile);
-            });
-
-            container.append(counter, scroll);
-            btn.addEventListener("click", () => container.classList.toggle("visible"));
-            
-            this.append(btn, container);
-            updateCounter();
         }
 
         _renderFooter(state) {
@@ -568,6 +568,7 @@
             });
             const next = document.createElement("button");
             next.className = "confirm-button step-next-button"; next.textContent = "Dalej";
+            next.disabled = this._selections.length === 0;
             next.addEventListener("click", () => this._submit());
             footer.append(back, next);
             this.append(footer);
@@ -592,12 +593,15 @@
             heading.textContent = `Wybierz Ścieżkę ${tier === "novice" ? "Nowicjusza" : tier === "expert" ? "Eksperta" : "Mistrza"}`;
             this.append(heading);
 
+            const body = document.createElement("div");
+            body.className = "wizard-scroll-body";
+
             if (tier === "expert" || tier === "master") {
                 const search = document.createElement("input");
                 search.className = "path-picker-search"; search.placeholder = "Szukaj...";
                 search.value = this._search;
                 search.addEventListener("input", (e) => { this._search = e.target.value; this._cursorPos = e.target.selectionStart; this.render(); });
-                this.append(search);
+                body.append(search);
                 if (this._search) { search.focus(); search.setSelectionRange(this._cursorPos, this._cursorPos); }
             }
 
@@ -613,12 +617,12 @@
                 card.addEventListener("click", () => { this._selected = p.id; this._selectedTier = tier; this.render(); });
                 grid.append(card);
             });
-            this.append(grid);
-            
+            body.append(grid);
+
             if (tier === "master") {
                 const hint = document.createElement("p");
                 hint.className = "path-picker-hint"; hint.textContent = "...lub wybierz drugą Ścieżkę Eksperta:";
-                this.append(hint);
+                body.append(hint);
                 const expertGrid = document.createElement("div");
                 expertGrid.className = "ancestry-grid";
                 const chosen = new Set(this.store.state.paths.expert);
@@ -630,9 +634,10 @@
                     card.addEventListener("click", () => { this._selected = p.id; this._selectedTier = "expert"; this.render(); });
                     expertGrid.append(card);
                 });
-                this.append(expertGrid);
+                body.append(expertGrid);
             }
 
+            this.append(body);
             const footer = document.createElement("div");
             footer.className = "step-shell-footer";
             const back = document.createElement("button");
@@ -658,9 +663,12 @@
             const heading = document.createElement("h3");
             heading.className = "section-title"; 
             heading.textContent = state.current_level >= 10 ? "Bohater gotowy!" : `Poziom ${state.current_level} osiągnięty`;
+            const body = document.createElement("div");
+            body.className = "wizard-scroll-body";
             const summary = document.createElement("p");
             summary.className = "crossroads-summary";
             summary.textContent = state.current_level >= 10 ? "Wszystkie wybory zostały dokonane." : "Zapisz aktualny stan karty PDF lub awansuj bohatera dalej.";
+            body.append(summary);
             const actions = document.createElement("div");
             actions.className = "crossroads-actions";
             const save = document.createElement("button");
@@ -694,7 +702,8 @@
                 actions.append(adv);
             }
             
-            this.append(heading, summary, actions);
+            body.append(actions);
+            this.append(heading, body);
 
             if (state.mode !== "random") {
                 const footer = document.createElement("div");
@@ -947,9 +956,16 @@
     const sheet = document.getElementById("pdf-panel");
     const toast = document.getElementById("event-toast");
 
+    const closeBtn = document.getElementById("close-pdf-panel");
+
     fab?.addEventListener("click", () => {
         const open = sheet.classList.toggle("drawer-open");
         fab.setAttribute("aria-expanded", String(open));
+    });
+
+    closeBtn?.addEventListener("click", () => {
+        sheet.classList.remove("drawer-open");
+        fab.setAttribute("aria-expanded", "false");
     });
 
     window.showWizardToast = (msg) => {
