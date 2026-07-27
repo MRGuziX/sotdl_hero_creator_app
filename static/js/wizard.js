@@ -734,8 +734,18 @@
                 const footer = document.createElement("div");
                 footer.className = "step-shell-footer";
                 const back = document.createElement("button");
-                back.className = "step-back-button"; back.textContent = "Wstecz";
-                back.addEventListener("click", () => window.creationStore.rewindChoice());
+                back.className = "step-back-button"; back.textContent = "🔄 Od początku";
+                back.addEventListener("click", () => {
+                    window.creationStore.reset();
+                    const shell = document.querySelector("wizard-shell");
+                    if (shell) {
+                        shell._screen = "menu";
+                        shell._lvl = 0;
+                        shell._mode = null;
+                        shell.render();
+                        window.dispatchEvent(new CustomEvent("ui-screen-change"));
+                    }
+                });
                 footer.append(back);
                 this.append(footer);
             }

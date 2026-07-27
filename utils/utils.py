@@ -1001,13 +1001,17 @@ def _expand_dynamic_choice_group(
             case _:
                 expanded_group.append(action)
 
+    has_spell_placeholder = any(
+        isinstance(a, AddSpell) and a.name in ("known_tradition", "any")
+        for a in choice_group
+    )
     has_mandatory_tradition = any(
         isinstance(a, AddTradition)
         and a.name not in ("any", "religious_tradition")
         and a.name not in known_traditions
         for a in choice_group
     )
-    if has_mandatory_tradition:
+    if has_mandatory_tradition and not has_spell_placeholder:
         expanded_group = [
             a for a in expanded_group if isinstance(a, AddTradition)
         ]
