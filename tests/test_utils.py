@@ -338,12 +338,8 @@ def test_get_hero_all_ancestries(ancestry):
     assert hero.wealth != ""
 
 
-# --- legacy test for dice errors ---
-
-
-def test_roll_dice_errors():
-    from unittest.mock import patch
-
-    with pytest.raises(ArithmeticError):
-        with patch("random.randint", return_value=0):
-            roll_dice(1, 6)
+def test_roll_dice_type_errors():
+    with pytest.raises(TypeError):
+        roll_dice("1", 6)
+    with pytest.raises(TypeError):
+        roll_dice(1, "6")

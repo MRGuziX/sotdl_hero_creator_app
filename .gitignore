@@ -3,3 +3,9 @@
 /.idea/
 /.venv/
 /TO DO.md
+__pycache__/
+*.pyc
+*.pyo
+.env
+.mypy_cache/
+.pytest_cache/

@@ -4,10 +4,17 @@ version = "0.1.0"
 description = "Web-based Shadow of the Demon Lord hero creator"
 requires-python = ">=3.12"
 dependencies = [
-    "Flask",
-    "pypdf",
-    "reportlab",
-    "pydantic",
+    "Flask==3.1.3",
+    "fonttools==4.63.0",
+    "pypdf==6.14.2",
+    "reportlab==5.0.0",
+    "pydantic==2.13.4",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest==9.1.1",
+    "ruff==0.16.0",
 ]
 
 [tool.ruff]

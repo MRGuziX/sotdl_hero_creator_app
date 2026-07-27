@@ -98,16 +98,7 @@ def roll_dice(num_dice: int, sides: int) -> int:
     if sides < 1:
         raise ValueError("Number of sides must be greater than 0.")
 
-    total = sum(random.randint(1, sides) for _ in range(num_dice))
-
-    if total < num_dice:
-        raise ArithmeticError(f"Minimal value is {num_dice}, and you rolled {total}")
-    if total > sides * num_dice:
-        raise ArithmeticError(
-            f"Maximal value is {sides * num_dice}, and you rolled {total}"
-        )
-
-    return total
+    return sum(random.randint(1, sides) for _ in range(num_dice))
 
 
 def _parse_dice_value(value: int | float | str) -> int | float:
@@ -133,6 +124,9 @@ def _load_json(relative_path: str) -> dict:
     path = PROJECT_ROOT / relative_path
     with open(path, "r", encoding="utf8") as f:
         return json.load(f)
+
+
+load_json = _load_json
 
 
 def _normalize_path_action(action: dict) -> dict:
@@ -773,12 +767,12 @@ def get_tradition_name_from_talent(talent_name: str) -> str | None:
 def get_spells_for_tradition(tradition_name: str, power_level: int) -> list[str]:
     filename = TRADITION_FILE_MAP.get(tradition_name)
     if not filename:
-        logger.warning(f"No file mapping for tradition: {tradition_name}")
+        logger.warning("No file mapping for tradition: %s", tradition_name)
         return []
 
     path = f"data_base/spells/{filename}"
     if not os.path.exists(PROJECT_ROOT / path):
-        logger.warning(f"Spell file not found: {path}")
+        logger.warning("Spell file not found: %s", path)
         return []
 
     data = _load_json(path)
@@ -958,7 +952,21 @@ def expand_any_to_choices(
     actions: list[Action] | list[Choice],
     choices: list[Choice] | None = None,
 ) -> tuple[list[Action], list[Choice]]:
+    """Expand placeholder actions (``name="any"``, etc.) into concrete choice groups.
+
+    Supports two calling conventions:
+      - ``expand_any_to_choices(hero, actions, choices)`` — uses *hero* to filter
+        already-known languages/traditions.
+      - ``expand_any_to_choices(actions, choices)`` — *choices* is omitted; the first
+        two positional args are re-interpreted as *actions* and *choices*, and a
+        zeroed-out dummy hero is used.
+    """
     if choices is None:
+        if not isinstance(hero, list):
+            raise TypeError(
+                "When choices is omitted, first arg must be list[Action], "
+                f"got {type(hero).__name__}"
+            )
         choices = actions  # type: ignore[assignment]
         actions = hero  # type: ignore[assignment]
         hero = AncestryHero(
@@ -966,7 +974,8 @@ def expand_any_to_choices(
             perception=0, defense=0, health=0, healing_rate=0, size=[0], speed=0,
         )
 
-    assert isinstance(hero, AncestryHero)
+    if not isinstance(hero, AncestryHero):
+        raise TypeError(f"Expected AncestryHero, got {type(hero).__name__}")
     remaining_actions = []
     # Use a temporary list for new choices to keep them at the beginning if needed,
     # but actually we want to preserve the relative order of actions converted to choices.

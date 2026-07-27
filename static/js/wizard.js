@@ -88,7 +88,7 @@
         static open(trigger, content) {
             this.init();
             this.currentTarget = trigger;
-            this.el.innerHTML = content;
+            this.el.textContent = content;
             
             // Set visibility to hidden to measure first
             this.el.style.visibility = "hidden";
@@ -143,9 +143,16 @@
         connectedCallback() {
             this.store = window.creationStore;
             this.render();
-            this.store.addEventListener("statechange", () => this.render());
-            window.addEventListener("ui-level-change", () => this.render());
-            window.addEventListener("ui-screen-change", () => this.render());
+            this._onStateChange = () => this.render();
+            this._onUiChange = () => this.render();
+            this.store.addEventListener("statechange", this._onStateChange);
+            window.addEventListener("ui-level-change", this._onUiChange);
+            window.addEventListener("ui-screen-change", this._onUiChange);
+        }
+        disconnectedCallback() {
+            this.store.removeEventListener("statechange", this._onStateChange);
+            window.removeEventListener("ui-level-change", this._onUiChange);
+            window.removeEventListener("ui-screen-change", this._onUiChange);
         }
 
         updateVisibility() {
@@ -338,12 +345,11 @@
                 return;
             }
 
-            // Check if it's an attribute boost (Increase two DIFFERENT attributes)
-            const isAttributeBoost = currentGroup.length === 4 && currentGroup.every(a => a.type === "add_attribute");
-            const hasSecondAttributeBoost = isAttributeBoost && groups[cursor + 1] && groups[cursor + 1].length === 4 && groups[cursor + 1].every(a => a.type === "add_attribute");
-
-            if (isAttributeBoost && hasSecondAttributeBoost) {
-                this._renderAttributeBoosts(currentGroup, groups[cursor + 1], state);
+            const isAttrGroup = currentGroup.every(a => a.type === "add_attribute");
+            if (isAttrGroup) {
+                const isPaired = groups[cursor + 1]
+                    && groups[cursor + 1].every(a => a.type === "add_attribute");
+                this._renderAttributeStepper(currentGroup, state, isPaired ? 2 : 1);
             } else {
                 this._renderStandardChoice(currentGroup, state, magicContext);
             }
@@ -351,67 +357,81 @@
             this._renderFooter(state);
         }
 
-        _renderAttributeBoosts(group1, group2, state) {
-            const tools = document.createElement("div");
-            tools.className = "left-panel-tools";
-            
-            const selectedAttrs = new Set();
+        _renderAttributeStepper(group, state, requiredCount) {
+            const panel = document.createElement("div");
+            panel.className = "left-panel-tools";
+
+            const attrs = group.map(a => a.name);
+            const selected = new Map();
+            this._selections.forEach(s => selected.set(s.name, s));
+
             const updateUI = () => {
-                const rows = tools.querySelectorAll(".tool-row");
-                rows.forEach(row => {
+                panel.querySelectorAll(".tool-row").forEach(row => {
                     const attr = row.dataset.attr;
-                    const plusBtn = row.querySelector(".stepper-btn:last-child");
-                    plusBtn.disabled = selectedAttrs.has(attr) || selectedAttrs.size >= 2;
+                    const isSelected = selected.has(attr);
+                    const plusBtn = row.querySelector(".stepper-plus");
+                    const minusBtn = row.querySelector(".stepper-minus");
+                    const val = row.querySelector(".stepper-value");
+                    plusBtn.disabled = isSelected || selected.size >= requiredCount;
+                    minusBtn.disabled = !isSelected;
+                    val.textContent = isSelected ? state.hero[attr] + 1 : state.hero[attr];
+                    if (isSelected) val.classList.add("highlight-text");
+                    else val.classList.remove("highlight-text");
                 });
                 const nextBtn = this.querySelector(".step-next-button");
-                if (nextBtn) nextBtn.disabled = selectedAttrs.size !== 2;
+                if (nextBtn) nextBtn.disabled = selected.size !== requiredCount;
+                this._selections = Array.from(selected.values());
             };
 
-            ["strength", "dexterity", "intelligence", "will"].forEach(attr => {
+            attrs.forEach(attr => {
                 const row = document.createElement("div");
                 row.className = "tool-row";
                 row.dataset.attr = attr;
-                
+
                 const label = document.createElement("span");
                 label.className = "tool-label";
-                label.textContent = ATTRIBUTE_LABELS[attr];
-                
+                label.textContent = ATTRIBUTE_LABELS[attr] || attr;
+
                 const stepper = document.createElement("div");
                 stepper.className = "level-stepper";
-                
-                const value = document.createElement("span");
-                value.textContent = state.hero[attr];
-                
+
                 const minusBtn = document.createElement("button");
                 minusBtn.type = "button";
-                minusBtn.className = "stepper-btn"; minusBtn.textContent = "−";
-                minusBtn.disabled = true; // Cannot decrease baseline
-                
+                minusBtn.className = "stepper-btn stepper-minus";
+                minusBtn.textContent = "−";
+                minusBtn.disabled = !selected.has(attr);
+                minusBtn.addEventListener("click", () => {
+                    selected.delete(attr);
+                    updateUI();
+                });
+
+                const val = document.createElement("span");
+                val.className = "stepper-value";
+                val.textContent = state.hero[attr];
+
                 const plusBtn = document.createElement("button");
                 plusBtn.type = "button";
-                plusBtn.className = "stepper-btn"; plusBtn.textContent = "+";
+                plusBtn.className = "stepper-btn stepper-plus";
+                plusBtn.textContent = "+";
                 plusBtn.addEventListener("click", () => {
-                    if (selectedAttrs.size < 2) {
-                        selectedAttrs.add(attr);
-                        value.textContent = state.hero[attr] + 1;
-                        value.classList.add("highlight-text");
+                    if (selected.size < requiredCount) {
+                        selected.set(attr, {type: "add_attribute", name: attr, value: 1});
                         updateUI();
                     }
                 });
 
-                stepper.append(minusBtn, value, plusBtn);
+                stepper.append(minusBtn, val, plusBtn);
                 row.append(label, stepper);
-                tools.append(row);
+                panel.append(row);
             });
 
-            this.append(tools);
-            
-            // Override _submit for this special case
+            this.append(panel);
+            updateUI();
+
             this._submit = async () => {
-                if (selectedAttrs.size !== 2) return;
-                const selections = Array.from(selectedAttrs).map(attr => ({type: "add_attribute", name: attr, value: 1}));
+                if (selected.size !== requiredCount) return;
                 try {
-                    await this.store.applyChoices(selections);
+                    await this.store.applyChoices(Array.from(selected.values()));
                     window.showWizardToast?.("Atrybuty zwiększone.");
                 } catch (e) { window.showWizardToast?.(e.message); }
             };
@@ -562,7 +582,7 @@
     }
 
     class PathPicker extends HTMLElement {
-        connectedCallback() { this.store = window.creationStore; this._search = ""; this._selected = null; this.render(); }
+        connectedCallback() { this.store = window.creationStore; this._search = ""; this._cursorPos = 0; this._selected = null; this.render(); }
         get tier() { return this.getAttribute("tier"); }
         render() {
             this.replaceChildren();
@@ -576,8 +596,9 @@
                 const search = document.createElement("input");
                 search.className = "path-picker-search"; search.placeholder = "Szukaj...";
                 search.value = this._search;
-                search.addEventListener("input", (e) => { this._search = e.target.value; this.render(); });
+                search.addEventListener("input", (e) => { this._search = e.target.value; this._cursorPos = e.target.selectionStart; this.render(); });
                 this.append(search);
+                if (this._search) { search.focus(); search.setSelectionRange(this._cursorPos, this._cursorPos); }
             }
 
             const grid = document.createElement("div");
@@ -723,8 +744,30 @@
             this._chosenPaths = { novice: null, expert: null, master: null };
         }
         connectedCallback() {
+            this._renderQueued = false;
+            this._onStateChange = () => {
+                if (this._renderQueued) return;
+                this._renderQueued = true;
+                queueMicrotask(() => { this._renderQueued = false; this.render(); });
+            };
             this.render();
-            this.store.addEventListener("statechange", () => this.render());
+            this.store.addEventListener("statechange", this._onStateChange);
+        }
+        disconnectedCallback() {
+            this.store.removeEventListener("statechange", this._onStateChange);
+        }
+
+        _buildPaths() {
+            const paths = { novice: null, expert: [], master: null };
+            if (this._lvl >= 1) paths.novice = this._chosenPaths.novice;
+            if (this._lvl >= 3 && this._chosenPaths.expert) paths.expert.push(this._chosenPaths.expert);
+            if (this._lvl >= 7 && this._chosenPaths.master) {
+                const mId = this._chosenPaths.master;
+                const isExp = window.PATH_CATALOG.expert.some(p => p.id === mId);
+                if (isExp) paths.expert.push(mId);
+                else paths.master = mId;
+            }
+            return paths;
         }
 
         _createPathSelect(tier, placeholder, options) {
@@ -859,16 +902,7 @@
                         this._ancestry = e.detail.ancestry;
                         if (this._mode === "manual") this.store.start("manual", this._ancestry);
                         else {
-                            const paths = { novice: null, expert: [], master: null };
-                            if (this._lvl >= 1) paths.novice = this._chosenPaths.novice;
-                            if (this._lvl >= 3 && this._chosenPaths.expert) paths.expert.push(this._chosenPaths.expert);
-                            if (this._lvl >= 7 && this._chosenPaths.master) {
-                                const mId = this._chosenPaths.master;
-                                const isExp = window.PATH_CATALOG.expert.some(p => p.id === mId);
-                                if (isExp) paths.expert.push(mId);
-                                else paths.master = mId;
-                            }
-                            this.store.start("random", this._ancestry, {targetLevel: this._lvl, paths});
+                            this.store.start("random", this._ancestry, {targetLevel: this._lvl, paths: this._buildPaths()});
                         }
                     });
                     p.addEventListener("back", () => {
@@ -883,16 +917,7 @@
                     const c = document.createElement("random-config-screen");
                     c.chosenPaths = this._chosenPaths;
                     c.addEventListener("start", () => {
-                        const paths = { novice: null, expert: [], master: null };
-                        if (this._lvl >= 1) paths.novice = this._chosenPaths.novice;
-                        if (this._lvl >= 3 && this._chosenPaths.expert) paths.expert.push(this._chosenPaths.expert);
-                        if (this._lvl >= 7 && this._chosenPaths.master) {
-                            const mId = this._chosenPaths.master;
-                            const isExp = window.PATH_CATALOG.expert.some(p => p.id === mId);
-                            if (isExp) paths.expert.push(mId);
-                            else paths.master = mId;
-                        }
-                        this.store.start("random", this._ancestry, {targetLevel: this._lvl, paths});
+                        this.store.start("random", this._ancestry, {targetLevel: this._lvl, paths: this._buildPaths()});
                     });
                     c.addEventListener("back", () => {
                         this._screen = "ancestry";

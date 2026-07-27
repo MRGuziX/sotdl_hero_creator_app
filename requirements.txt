@@ -1,6 +1,5 @@
-Flask
-pypdf
-pydantic
-pytest
-ruff
-reportlab
+Flask==3.1.3
+fonttools==4.63.0
+pypdf==6.14.2
+pydantic==2.13.4
+reportlab==5.0.0

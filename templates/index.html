@@ -1,9 +1,10 @@
 <!DOCTYPE html>
-<html>
+<html lang="pl">
 <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Sigmar+One&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="{{ url_for('assets', filename='css/style.css') }}">
 
@@ -34,7 +35,7 @@
             <div class="pdf-panel-header">
                 <h3>Twoja Karta Postaci:</h3>
             </div>
-            <iframe id="hero-frame" src=""></iframe>
+            <iframe id="hero-frame" src="about:blank" title="Podgląd karty postaci"></iframe>
         </section>
     </main>
 </div>
@@ -42,12 +43,12 @@
 <button id="open-sheet-btn" class="sheet-fab" type="button" aria-controls="pdf-panel" aria-expanded="false">◉ <span>Podgląd karty</span></button>
 <div id="event-toast" class="event-toast" role="status" aria-live="polite"></div>
 
-<div class="footer">
+<footer class="footer">
     Created by Tomasz Guzik, <a href="https://www.youtube.com/@Guzikologia" target="_blank">Guzikologia</a> |
     Translation & publishing by Alis.Games, <a href="https://alisgames.pl/pl_PL/" target="_blank">Alis.Games</a> |
     RPG game by Robert Shwalb, <a href="https://schwalbentertainment.com/shadow-of-the-demon-lord/" target="_blank">Schwalb
     Entertainment</a>
-</div>
+</footer>
 
 <img src="{{ url_for('static', filename='goblin.png') }}" alt="Goblin" class="corner-img goblin-img">
 <img src="{{ url_for('static', filename='dwarf.png') }}" alt="Dwarf" class="corner-img dwarf-img">

@@ -2,7 +2,9 @@ import json
 import logging
 import os
 import random
+import re
 import tempfile
+import threading
 import time
 import uuid
 from pathlib import Path
@@ -26,7 +28,7 @@ from models.action import Action
 from models.base_hero import AncestryHero
 from utils.pdf_creator import fill_pdf
 from utils.utils import (
-    _load_json,
+    load_json as _load_json,
     advance_hero,
     apply_action,
     benefits_for_new_path_pick,
@@ -65,8 +67,10 @@ EXPERT_PATHS_DIR = PROJECT_ROOT / "data_base" / "paths" / "expert"
 MASTER_PATHS_DIR = PROJECT_ROOT / "data_base" / "paths" / "master"
 PATH_TIERS = ("novice", "expert", "master")
 _MANUAL_CREATIONS = {}
+_MANUAL_CREATIONS_LOCK = threading.Lock()
 _MANUAL_CREATION_TTL = 3600
 _MAX_MANUAL_CREATIONS = 1000
+_SAFE_PATH_ID = re.compile(r"^[a-z0-9_]+$")
 
 
 def _session_id() -> str:
@@ -82,11 +86,10 @@ def _output_path() -> str:
     return str(OUTPUT_DIR / f"{_session_id()}.pdf")
 
 
-def load_novice_paths() -> list[dict[str, str]]:
-    """Load available novice paths from the bundled JSON definitions."""
+def _load_paths(directory: Path, *, skip: set[str] | None = None) -> list[dict[str, str]]:
     paths = []
-    for path_file in sorted(NOVICE_PATHS_DIR.glob("*.json")):
-        if path_file.name == "cleric_religions.json":
+    for path_file in sorted(directory.glob("*.json")):
+        if skip and path_file.name in skip:
             continue
         path_data = _load_json(str(path_file))
         if "path_name" in path_data and "level_benefits" in path_data:
@@ -94,24 +97,16 @@ def load_novice_paths() -> list[dict[str, str]]:
     return paths
 
 
+def load_novice_paths() -> list[dict[str, str]]:
+    return _load_paths(NOVICE_PATHS_DIR, skip={"cleric_religions.json"})
+
+
 def load_expert_paths() -> list[dict[str, str]]:
-    """Load available Expert paths from the bundled JSON definitions."""
-    paths = []
-    for path_file in sorted(EXPERT_PATHS_DIR.glob("*.json")):
-        path_data = _load_json(str(path_file))
-        if "path_name" in path_data and "level_benefits" in path_data:
-            paths.append({"id": path_file.stem, "name": path_data["path_name"]})
-    return paths
+    return _load_paths(EXPERT_PATHS_DIR)
 
 
 def load_master_paths() -> list[dict[str, str]]:
-    """Load available Master paths from the bundled JSON definitions."""
-    paths = []
-    for path_file in sorted(MASTER_PATHS_DIR.glob("*.json")):
-        path_data = _load_json(str(path_file))
-        if "path_name" in path_data and "level_benefits" in path_data:
-            paths.append({"id": path_file.stem, "name": path_data["path_name"]})
-    return paths
+    return _load_paths(MASTER_PATHS_DIR)
 
 
 def _path_file_exists(tier: str, path_id: str) -> bool:
@@ -415,6 +410,8 @@ def api_pick_path(creation_id, tier):
     path_id = data.get("path_id") or data.get("path")
     if not path_id:
         return jsonify({"error": "Missing path_id"}), 400
+    if not _SAFE_PATH_ID.match(path_id.lower()):
+        return jsonify({"error": "Invalid path_id"}), 400
 
     expected_tier = state.awaiting_path_pick()
     # At the level 7 crossroads, `expected_tier` is reported as "master"
@@ -472,6 +469,8 @@ def api_rewind_creation(creation_id):
     data = request.get_json(silent=True) or {}
     if state is None or state.state_id != creation_id:
         return jsonify({"error": "Creation not found"}), 404
+    if data.get("state_version") != state.state_version:
+        return jsonify({"error": "Stale state"}), 409
     try:
         target = int(data["target_level"])
     except (KeyError, TypeError, ValueError):
@@ -526,39 +525,22 @@ def api_rewind_choice(creation_id):
     state = _get_manual_creation()
     if state is None or state.state_id != creation_id:
         return jsonify({"error": "Creation not found"}), 404
+    data = request.get_json(silent=True) or {}
+    if data.get("state_version") != state.state_version:
+        return jsonify({"error": "Stale state"}), 409
     if state.choice_cursor <= 0:
         return jsonify({"error": "Cannot rewind further in this level"}), 400
 
     state.choice_cursor -= 1
-    # Pop the last selection for this level
     if state.current_level in state.selections:
         state.selections[state.current_level].pop()
 
-    # Pop the last action from applied_actions
-    while state.applied_actions and state.applied_actions[-1][0] == state.current_level:
-        # Check if we should pop multiple? No, _apply_selected_choices currently pops 1 choice group.
-        # But a group might have added multiple actions? No, _apply_selected_choices validates len(parsed_choices) == 1.
-        # WAIT, "Sztuczki" might add 2.
-        # Let's pop until we reach the previous cursor's state.
-        # Actually, let's just rebuild_hero, it's safer.
-        break
-
-    # To be safe, just pop the last N actions where N is the number of actions added by the last choice.
-    # Actually, rebuilding is easier.
-    # Let's find how many actions to keep.
-    target_action_count = sum(len(state.selections.get(lvl, [])) for lvl in range(state.current_level)) + len(state.selections.get(state.current_level, []))
-    # Wait, this assumes 1 action per selection.
-    
-    # Let's just track the applied_actions count in a better way or just rebuild.
-    # Rebuilding is fast enough.
-    # Before rebuilding, we need to adjust applied_actions.
-    # We'll just remove the last entry that matches current_level.
     new_applied = []
     found_last = False
     for lvl, act in reversed(state.applied_actions):
         if not found_last and lvl == state.current_level:
-             found_last = True
-             continue
+            found_last = True
+            continue
         new_applied.append((lvl, act))
     state.applied_actions = list(reversed(new_applied))
     
@@ -626,6 +608,7 @@ def roll(ancestry):
 
         hero = result
         fill_pdf(hero, _output_path())
+        return jsonify({"status": "success", "download_url": url_for("download_current")})
 
     return send_file(
         _output_path(),
@@ -753,7 +736,10 @@ def download_current():
 
 
 def _purge_manual_creations() -> None:
-    """Remove expired pending creations and enforce a bounded process cache."""
+    """Remove expired pending creations and enforce a bounded process cache.
+
+    Must be called while holding ``_MANUAL_CREATIONS_LOCK``.
+    """
     now = time.monotonic()
     expired = [
         key for key, value in _MANUAL_CREATIONS.items()
@@ -768,14 +754,16 @@ def _purge_manual_creations() -> None:
 
 def _store_manual_creation(state: CreationState) -> None:
     """Store pending manual state with a timestamp for bounded cleanup."""
-    _purge_manual_creations()
-    _MANUAL_CREATIONS[_session_id()] = (state, time.monotonic())
+    with _MANUAL_CREATIONS_LOCK:
+        _purge_manual_creations()
+        _MANUAL_CREATIONS[_session_id()] = (state, time.monotonic())
 
 
 def _get_manual_creation():
     """Return the current pending creation, or `None` when it is absent/expired."""
-    _purge_manual_creations()
-    creation = _MANUAL_CREATIONS.get(session.get("creation_id"))
+    with _MANUAL_CREATIONS_LOCK:
+        _purge_manual_creations()
+        creation = _MANUAL_CREATIONS.get(session.get("creation_id"))
     if creation is None:
         return None
     return creation[0]

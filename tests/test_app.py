@@ -12,13 +12,6 @@ from utils.utils import TRADITION_FILE_MAP, _expand_dynamic_choice_group, expand
 from utils.utils import apply_action
 
 
-@pytest.fixture
-def client():
-    app.config["TESTING"] = True
-    with app.test_client() as client:
-        yield client
-
-
 def test_index_route(client):
     response = client.get("/")
     assert response.status_code == 200
@@ -30,7 +23,9 @@ def test_roll_ancestry_route(client):
     for ancestry in ancestries:
         response = client.get(f"/roll/{ancestry}")
         assert response.status_code == 200
-        assert response.headers["Content-Type"] == "application/pdf"
+        data = response.get_json()
+        assert data["status"] == "success"
+        assert "download_url" in data
 
 
 def test_roll_invalid_ancestry(client):
@@ -42,7 +37,9 @@ def test_roll_invalid_ancestry(client):
 def test_roll_random_route(client):
     response = client.get("/roll_random", follow_redirects=True)
     assert response.status_code == 200
-    assert response.headers["Content-Type"] == "application/pdf"
+    data = response.get_json()
+    assert data["status"] == "success"
+    assert "download_url" in data
 
 
 def test_static_logo(client):
