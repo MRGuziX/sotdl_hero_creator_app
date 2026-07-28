@@ -634,6 +634,19 @@ def finalize_defense(hero: AncestryHero) -> None:
     hero.defense = base + path_bonus + shield_bonus
 
 
+def _assign_random_equipment(hero: AncestryHero) -> None:
+    from models.equipment import Armor, Shield, Weapon
+
+    store = _load_json("data_base/equipment/equ.json")["store"]
+    hero.equipment.armors = [Armor(**random.choice(store["armors"]))]
+    weapon_count = random.randint(3, 5)
+    hero.equipment.weapons = [
+        Weapon(**w) for w in random.sample(store["weapons"], weapon_count)
+    ]
+    if random.random() < 0.5:
+        hero.equipment.shields = [Shield(**random.choice(store["shields"]))]
+
+
 def add_language(
     name: str, hero: AncestryHero, can_write: bool = False, is_random: bool = False
 ):
@@ -856,7 +869,6 @@ def add_item(name: str, hero: AncestryHero, item_data: AddItem | None = None):
                 availability=item_data.availability or "",
             )
         )
-        hero.equipment.backpack.append(name.lower())
         return
 
     store_data = _load_json("data_base/equipment/equ.json")
@@ -872,7 +884,6 @@ def add_item(name: str, hero: AncestryHero, item_data: AddItem | None = None):
                     hero.equipment.shields.append(Shield.model_validate(item))
                 elif item_type == "armor":
                     hero.equipment.armors.append(Armor.model_validate(item))
-                hero.equipment.backpack.append(name.lower())
                 return
 
     hero.equipment.backpack.append(name.lower())
@@ -1355,6 +1366,9 @@ def get_hero(
         # Then resolve and apply choices one by one
         choice_actions = resolve_choices(hero, [], choices, is_random=True)
         actions.extend(choice_actions)
+
+    if is_random and level >= 3:
+        _assign_random_equipment(hero)
 
     finalize_defense(hero)
     logger.info(

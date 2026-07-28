@@ -94,7 +94,7 @@
         "item_type": "weapon"
       },
       {
-        "name": "Młotek lub siekiera",
+        "name": "Młotek",
         "damage": "1k3",
         "grip": "Chwyt dowolny",
         "properties": "Miotana, zasięg (bliski)",
@@ -103,7 +103,16 @@
         "item_type": "weapon"
       },
       {
-        "name": "Nóż lub sztylet",
+        "name": "Siekiera",
+        "damage": "1k3",
+        "grip": "Chwyt dowolny",
+        "properties": "Miotana, zasięg (bliski)",
+        "price": "1 sr",
+        "availability": "P",
+        "item_type": "weapon"
+      },
+      {
+        "name": "Sztylet",
         "damage": "1k3",
         "grip": "Chwyt dowolny",
         "properties": "Finezyjna, miotana, zasięg (bliski)",
@@ -130,7 +139,16 @@
         "item_type": "weapon"
       },
       {
-        "name": "Sierp lub włócznia",
+        "name": "Sierp",
+        "damage": "1k6",
+        "grip": "Jednoręczny",
+        "properties": "Finezyjna",
+        "price": "1 sr",
+        "availability": "P",
+        "item_type": "weapon"
+      },
+      {
+        "name": "Włócznia",
         "damage": "1k6",
         "grip": "Jednoręczny",
         "properties": "Finezyjna",
@@ -238,7 +256,25 @@
         "item_type": "weapon"
       },
       {
-        "name": "Glewia, halabarda lub berdysz",
+        "name": "Glewia",
+        "damage": "1k6 + 2",
+        "grip": "Dwuręczny",
+        "properties": "Dalekosiężna +1",
+        "price": "1 zk",
+        "availability": "N",
+        "item_type": "weapon"
+      },
+      {
+        "name": "Halabarda",
+        "damage": "1k6 + 2",
+        "grip": "Dwuręczny",
+        "properties": "Dalekosiężna +1",
+        "price": "1 zk",
+        "availability": "N",
+        "item_type": "weapon"
+      },
+      {
+        "name": "Berdysz",
         "damage": "1k6 + 2",
         "grip": "Dwuręczny",
         "properties": "Dalekosiężna +1",
@@ -256,7 +292,16 @@
         "item_type": "weapon"
       },
       {
-        "name": "Miecz długi lub młot bojowy",
+        "name": "Młot bojowy",
+        "damage": "2k6",
+        "grip": "Dwuręczny",
+        "properties": "Nieporęczna",
+        "price": "1 zk",
+        "availability": "R",
+        "item_type": "weapon"
+      },
+      {
+        "name": "Miecz długi",
         "damage": "2k6",
         "grip": "Dwuręczny",
         "properties": "Nieporęczna",
@@ -274,7 +319,43 @@
         "item_type": "weapon"
       },
       {
-        "name": "Topór bojowy, korbacz, morgenstern, nadziak lub miecz",
+        "name": "Topór bojowy",
+        "damage": "1k6 + 2",
+        "grip": "Jednoręczny",
+        "properties": "",
+        "price": "5 sr",
+        "availability": "N",
+        "item_type": "weapon"
+      },
+      {
+        "name": "Korbacz",
+        "damage": "1k6 + 2",
+        "grip": "Jednoręczny",
+        "properties": "",
+        "price": "5 sr",
+        "availability": "N",
+        "item_type": "weapon"
+      },
+      {
+        "name": "Morgenstern",
+        "damage": "1k6 + 2",
+        "grip": "Jednoręczny",
+        "properties": "",
+        "price": "5 sr",
+        "availability": "N",
+        "item_type": "weapon"
+      },
+      {
+        "name": "Nadziak",
+        "damage": "1k6 + 2",
+        "grip": "Jednoręczny",
+        "properties": "",
+        "price": "5 sr",
+        "availability": "N",
+        "item_type": "weapon"
+      },
+      {
+        "name": "Miecz",
         "damage": "1k6 + 2",
         "grip": "Jednoręczny",
         "properties": "",
@@ -310,7 +391,7 @@
         "item_type": "weapon"
       },
       {
-        "name": "Łańcuch, kordelas, długi nóż, karczownik lub mizerykordia",
+        "name": "Łańcuch",
         "damage": "1k3",
         "grip": "Chwyt dowolny",
         "properties": "Finezyjna",
@@ -319,7 +400,43 @@
         "item_type": "weapon"
       },
       {
-        "name": "Rapier, szabla, bułat",
+        "name": "Kordelas",
+        "damage": "1k3",
+        "grip": "Chwyt dowolny",
+        "properties": "Finezyjna",
+        "price": "5 md",
+        "availability": "P",
+        "item_type": "weapon"
+      },
+      {
+        "name": "Długi nóż",
+        "damage": "1k3",
+        "grip": "Chwyt dowolny",
+        "properties": "Finezyjna",
+        "price": "5 md",
+        "availability": "P",
+        "item_type": "weapon"
+      },
+      {
+        "name": "Karczownik",
+        "damage": "1k3",
+        "grip": "Chwyt dowolny",
+        "properties": "Finezyjna",
+        "price": "5 md",
+        "availability": "P",
+        "item_type": "weapon"
+      },
+      {
+        "name": "Mizerykordia",
+        "damage": "1k3",
+        "grip": "Chwyt dowolny",
+        "properties": "Finezyjna",
+        "price": "5 md",
+        "availability": "P",
+        "item_type": "weapon"
+      },
+      {
+        "name": "Rapier",
         "damage": "1k6 + 1",
         "grip": "Jednoręczny",
         "properties": "Finezyjna",
@@ -328,7 +445,25 @@
         "item_type": "weapon"
       },
       {
-        "name": "Dwuręczny miecz, dwuręczny topór lub dwuręczny młot",
+        "name": "Szabla",
+        "damage": "1k6 + 1",
+        "grip": "Jednoręczny",
+        "properties": "Finezyjna",
+        "price": "1 zk",
+        "availability": "R",
+        "item_type": "weapon"
+      },
+      {
+        "name": "Bułat",
+        "damage": "1k6 + 1",
+        "grip": "Jednoręczny",
+        "properties": "Finezyjna",
+        "price": "1 zk",
+        "availability": "R",
+        "item_type": "weapon"
+      },
+      {
+        "name": "Dwuręczny miecz",
         "damage": "3k6",
         "grip": "Dwuręczny",
         "properties": "Nieporęczna",
@@ -337,7 +472,34 @@
         "item_type": "weapon"
       },
       {
-        "name": "Miecz długi lub młot bojowy",
+        "name": "Dwuręczny topór",
+        "damage": "3k6",
+        "grip": "Dwuręczny",
+        "properties": "Nieporęczna",
+        "price": "2 zk",
+        "availability": "R",
+        "item_type": "weapon"
+      },
+      {
+        "name": "Dwuręczny młot",
+        "damage": "3k6",
+        "grip": "Dwuręczny",
+        "properties": "Nieporęczna",
+        "price": "2 zk",
+        "availability": "R",
+        "item_type": "weapon"
+      },
+      {
+        "name": "Miecz długi",
+        "damage": "2k6",
+        "grip": "Jednoręczny",
+        "properties": "Nieporęczna",
+        "price": "1 zk",
+        "availability": "R",
+        "item_type": "weapon"
+      },
+      {
+        "name": "Młot bojowy",
         "damage": "2k6",
         "grip": "Jednoręczny",
         "properties": "Nieporęczna",
