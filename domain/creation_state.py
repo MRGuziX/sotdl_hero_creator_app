@@ -168,6 +168,8 @@ class CreationState:
         return None
 
     def awaiting_equipment_pick(self) -> bool:
+        if self.mode != "manual":
+            return False
         if not self.required_complete:
             return False
         if self.awaiting_path_pick():
