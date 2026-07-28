@@ -378,6 +378,8 @@ def build_hero(
         damage=ancestry_data.general.damage,
         insanity=ancestry_data.general.insanity,
         corruption=ancestry_data.general.corruption,
+        ancestry_defense_bonus=ancestry_data.general.defense - ancestry_data.general.dexterity,
+        defense_from_stats=ancestry_data.general.defense,
         languages=ancestry_data.general.languages,
         talents=ancestry_data.talents,
     )
@@ -589,7 +591,47 @@ def add_attribute(
 
     if name in CORE_ATTRIBUTES or name in SECONDARY_ATTRIBUTES:
         current = getattr(hero, name)
-        setattr(hero, name, current + int(resolved_value))
+        delta = int(resolved_value)
+        setattr(hero, name, current + delta)
+
+        if name == "strength":
+            hero.health += delta
+        elif name == "intelligence":
+            hero.perception += delta
+        elif name == "dexterity":
+            hero.defense += delta
+            hero.defense_from_stats += delta
+
+        if name == "defense":
+            hero.defense_from_stats += delta
+
+
+def finalize_defense(hero: AncestryHero) -> None:
+    """Recompute hero.defense from armor, shield, and stat-only defense.
+
+    Idempotent: reads from defense_from_stats (never modified here),
+    writes to defense.
+    """
+    path_bonus = hero.defense_from_stats - hero.dexterity - hero.ancestry_defense_bonus
+    natural_defense = hero.dexterity + hero.ancestry_defense_bonus
+
+    best_armor_defense = 0
+    for armor in hero.equipment.armors:
+        if armor.defence_base == "dexterity":
+            armor_def = hero.dexterity + armor.defence_bonus
+        elif armor.defence_base == "flat":
+            armor_def = armor.defence_value
+        else:
+            continue
+        best_armor_defense = max(best_armor_defense, armor_def)
+
+    base = max(natural_defense, best_armor_defense) if best_armor_defense > 0 else natural_defense
+
+    shield_bonus = 0
+    for shield in hero.equipment.shields:
+        shield_bonus = max(shield_bonus, shield.defence_bonus)
+
+    hero.defense = base + path_bonus + shield_bonus
 
 
 def add_language(
@@ -1314,6 +1356,7 @@ def get_hero(
         choice_actions = resolve_choices(hero, [], choices, is_random=True)
         actions.extend(choice_actions)
 
+    finalize_defense(hero)
     logger.info(
         "=== Hero complete: %s | STR=%d DEX=%d INT=%d WILL=%d | %d prof(s) | %d lang(s) | wealth=%s ===",
         hero.ancestry_name,

@@ -803,6 +803,7 @@ random-config-screen {
 step-shell,
 ancestry-picker,
 path-picker,
+equipment-picker,
 crossroads-screen {
     display: flex;
     flex-direction: column;
@@ -939,6 +940,59 @@ step-shell[hidden] { display: none; }
 }
 
 .step-option-text { flex: 1; }
+
+.equipment-section {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.equipment-option {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 8px;
+    padding: 8px 10px;
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+    color: var(--text-primary);
+    user-select: none;
+    border: 1px solid transparent;
+    transition: background-color var(--motion-fast), border-color var(--motion-fast);
+}
+
+.equipment-option:hover { border-color: rgba(184, 134, 11, .35); }
+
+.equipment-option:has(input:checked) {
+    background: rgba(139, 0, 0, .18);
+    border-color: var(--accent-blood);
+}
+
+.equipment-option.disabled {
+    opacity: .4;
+    cursor: not-allowed;
+}
+
+.equipment-option input[type="radio"],
+.equipment-option input[type="checkbox"] {
+    accent-color: var(--accent-blood);
+    margin: 0;
+    flex-shrink: 0;
+}
+
+.equipment-name {
+    font-weight: 600;
+    font-size: 14px;
+}
+
+.equipment-stats {
+    display: block;
+    width: 100%;
+    font-size: 12px;
+    color: var(--text-muted);
+    padding-left: 24px;
+    margin-top: -2px;
+}
 
 .step-shell-footer {
     display: flex;

@@ -148,6 +148,24 @@
             } finally { this._pending = false; }
         }
 
+        async setEquipment(selections) {
+            if (this._pending) return;
+            this._pending = true;
+            try {
+                if (!this.state) throw new Error("No active creation");
+                const response = await fetch(`/api/creations/${this.state.state_id}/equipment`, {
+                    method: "POST",
+                    headers: {"Content-Type": "application/json"},
+                    body: JSON.stringify({...selections, state_version: this.state.state_version})
+                });
+                const result = await response.json();
+                if (!response.ok) throw new Error(result.error || "Unable to set equipment");
+                this.setContract(result);
+                try { await this.finalize(); } catch(e) { console.warn("finalize failed:", e); }
+                return result;
+            } finally { this._pending = false; }
+        }
+
         async finalize(manual = false) {
             if (!this.state) throw new Error("No active creation");
             const response = await fetch(`/api/creations/${this.state.state_id}/finalize`, {

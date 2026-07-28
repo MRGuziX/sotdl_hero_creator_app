@@ -1,4 +1,4 @@
-from pydantic import BaseModel, ConfigDict, Field
+from pydantic import BaseModel, ConfigDict, Field, model_validator
 
 from models.equipment import Equipment, Money
 from models.language import Language
@@ -29,6 +29,8 @@ class AncestryHero(BaseModel):
     damage: int = 0
     insanity: int = 0
     corruption: int = 0
+    ancestry_defense_bonus: int = 0
+    defense_from_stats: int = 0
     languages: list[Language] = Field(default_factory=list)
     talents: list[Talent] = Field(default_factory=list)
     spells: list[Spell] = Field(default_factory=list)
@@ -39,3 +41,9 @@ class AncestryHero(BaseModel):
     oddity: str = ""
     equipment: Equipment = Field(default_factory=Equipment)
     religion: str = ""
+
+    @model_validator(mode="after")
+    def _init_defense_tracking(self):
+        if self.defense_from_stats == 0 and self.defense > 0:
+            self.defense_from_stats = self.defense
+        return self
