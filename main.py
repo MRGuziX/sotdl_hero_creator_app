@@ -36,6 +36,7 @@ from utils.utils import (
     apply_action,
     benefits_for_new_path_pick,
     expand_any_to_choices,
+    finalize_defense,
     get_hero,
     get_spells_for_tradition,
     get_tradition_name_from_talent,
@@ -209,6 +210,7 @@ def rebuild_hero(state: CreationState):
     hero.path_name = paths.get("novice")
     hero.expert_path_names = list(paths.get("expert") or [])
     hero.master_path_name = paths.get("master")
+    finalize_defense(hero)
     state.hero = hero
 
 
@@ -246,6 +248,7 @@ def _try_expand_current_group(state: CreationState) -> None:
 def _creation_response(state: CreationState, download_url: str | None = None) -> dict:
     """Build the versioned JSON contract used by the component frontend."""
     _try_expand_current_group(state)
+    finalize_defense(state.hero)
     public = state.public_dict()
     total_choices = state.total_choices_in_level
     current_index = min(state.choice_cursor + 1, total_choices) if total_choices else 0

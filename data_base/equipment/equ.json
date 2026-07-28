@@ -4,6 +4,8 @@
       {
         "name": "Odzież",
         "defence": "Zręczność",
+        "defence_base": "dexterity",
+        "defence_bonus": 0,
         "special": "P",
         "requirements": "Brak wymagań",
         "item_type": "armor"
@@ -11,6 +13,8 @@
       {
         "name": "Miękka skórznia",
         "defence": "Zręczność + 1",
+        "defence_base": "dexterity",
+        "defence_bonus": 1,
         "special": "P",
         "requirements": "Brak wymagań",
         "item_type": "armor"
@@ -18,6 +22,8 @@
       {
         "name": "Utwardzana skórznia",
         "defence": "Zręczność + 2",
+        "defence_base": "dexterity",
+        "defence_bonus": 2,
         "special": "P",
         "requirements": "Min. 11 Siły (lekki pancerz)",
         "item_type": "armor"
@@ -25,6 +31,8 @@
       {
         "name": "Brygantyna",
         "defence": "13",
+        "defence_base": "flat",
+        "defence_value": 13,
         "special": "P",
         "requirements": "Min. 11 Siły (lekki pancerz)",
         "item_type": "armor"
@@ -32,6 +40,8 @@
       {
         "name": "Kolczuga",
         "defence": "15",
+        "defence_base": "flat",
+        "defence_value": 15,
         "special": "N",
         "requirements": "Min. 13 Siły (średni pancerz)",
         "item_type": "armor"
@@ -39,6 +49,8 @@
       {
         "name": "Zbroja łuskowa",
         "defence": "16",
+        "defence_base": "flat",
+        "defence_value": 16,
         "special": "N",
         "requirements": "Min. 13 Siły (średni pancerz)",
         "item_type": "armor"
@@ -46,6 +58,8 @@
       {
         "name": "Bechter",
         "defence": "17",
+        "defence_base": "flat",
+        "defence_value": 17,
         "special": "R",
         "requirements": "Min. 15 Siły (ciężki pancerz)",
         "item_type": "armor"
@@ -53,6 +67,8 @@
       {
         "name": "Pełna zbroja płytowa",
         "defence": "18",
+        "defence_base": "flat",
+        "defence_value": 18,
         "special": "E",
         "requirements": "Min. 15 Siły (ciężki pancerz)",
         "item_type": "armor"
@@ -336,6 +352,7 @@
         "damage": "1",
         "grip": "Chwyt dowolny",
         "properties": "Defensywna +1",
+        "defence_bonus": 1,
         "price": "5 md",
         "availability": "P",
         "item_type": "shield"
@@ -345,6 +362,7 @@
         "damage": "1k3",
         "grip": "Chwyt dowolny",
         "properties": "Defensywna +2, Rozmiar 1",
+        "defence_bonus": 2,
         "price": "1 sr",
         "availability": "P",
         "requirements": "min. 11 Siły",
