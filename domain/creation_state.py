@@ -34,6 +34,8 @@ class CreationState:
     completed_steps: list[int] = field(default_factory=list)
     dependencies: dict[str, list[str]] = field(default_factory=dict)
     invalidated_levels: list[int] = field(default_factory=list)
+    equipment_confirmed_levels: list[int] = field(default_factory=list)
+    equipment_picks: dict[str, Any] = field(default_factory=dict)
     state_version: int = 0
     version: int = CREATION_STATE_VERSION
     state_id: str = field(default_factory=lambda: uuid4().hex)
@@ -60,6 +62,8 @@ class CreationState:
             "completed_steps": self.completed_steps,
             "dependencies": self.dependencies,
             "invalidated_levels": self.invalidated_levels,
+            "equipment_confirmed_levels": self.equipment_confirmed_levels,
+            "equipment_picks": self.equipment_picks,
             "state_version": self.state_version,
         }
 
@@ -93,6 +97,8 @@ class CreationState:
                 completed_steps=list(data.get("completed_steps", [])),
                 dependencies=dict(data.get("dependencies", {})),
                 invalidated_levels=list(data.get("invalidated_levels", [])),
+                equipment_confirmed_levels=list(data.get("equipment_confirmed_levels", [])),
+                equipment_picks=dict(data.get("equipment_picks", {})),
                 state_version=data.get("state_version", 0),
             )
         except (KeyError, TypeError, ValueError) as exc:
@@ -161,6 +167,15 @@ class CreationState:
             return "master"
         return None
 
+    def awaiting_equipment_pick(self) -> bool:
+        if not self.required_complete:
+            return False
+        if self.awaiting_path_pick():
+            return False
+        if self.current_level not in (3, 5, 7):
+            return False
+        return self.current_level not in self.equipment_confirmed_levels
+
     def public_dict(self) -> dict[str, Any]:
         """Return the frontend contract without exposing implementation details."""
         paths = self.creation_inputs.get("paths") or {"novice": None, "expert": [], "master": None}
@@ -194,4 +209,5 @@ class CreationState:
             "can_finalize": self.can_finalize,
             "can_advance": self.can_advance,
             "awaiting_path_pick": self.awaiting_path_pick(),
+            "awaiting_equipment_pick": self.awaiting_equipment_pick(),
         }

@@ -28,6 +28,7 @@ from models.action import (
     Action, AddLanguage, AddProfession, AddSpell, AddTradition, UpdateLanguage,
 )
 from models.base_hero import AncestryHero
+from models.equipment import Armor, Shield, Weapon
 from utils.pdf_creator import fill_pdf
 from utils.utils import (
     _expand_dynamic_choice_group,
@@ -174,6 +175,16 @@ def choices_response(
     }
 
 
+_equipment_store_cache = None
+
+
+def _load_equipment_store() -> dict:
+    global _equipment_store_cache
+    if _equipment_store_cache is None:
+        _equipment_store_cache = _load_json("data_base/equipment/equ.json")["store"]
+    return _equipment_store_cache
+
+
 def load_ancestry_descriptions() -> dict:
     with open(DESCRIPTIONS_PATH, "r", encoding="utf-8") as descriptions_file:
         return json.load(descriptions_file)
@@ -210,6 +221,12 @@ def rebuild_hero(state: CreationState):
     hero.path_name = paths.get("novice")
     hero.expert_path_names = list(paths.get("expert") or [])
     hero.master_path_name = paths.get("master")
+
+    if state.equipment_picks:
+        hero.equipment.armors = [Armor(**a) for a in state.equipment_picks.get("armors", [])]
+        hero.equipment.weapons = [Weapon(**w) for w in state.equipment_picks.get("weapons", [])]
+        hero.equipment.shields = [Shield(**s) for s in state.equipment_picks.get("shields", [])]
+
     finalize_defense(hero)
     state.hero = hero
 
@@ -272,6 +289,15 @@ def _creation_response(state: CreationState, download_url: str | None = None) ->
             **choice_context(state.hero, state.level_choices[state.choice_cursor : state.choice_cursor + 1]),
         },
     }
+    if state.awaiting_equipment_pick():
+        response["step"]["awaiting_equipment_pick"] = True
+        response["step"]["equipment_store"] = _load_equipment_store()
+        response["step"]["equipment_limits"] = {"armors": 1, "weapons": 5, "shields": 1}
+        response["step"]["current_equipment"] = {
+            "armors": [a.model_dump(mode="json") for a in state.hero.equipment.armors],
+            "weapons": [w.model_dump(mode="json") for w in state.hero.equipment.weapons],
+            "shields": [s.model_dump(mode="json") for s in state.hero.equipment.shields],
+        }
     if download_url is not None:
         response["download_url"] = download_url
     return response
@@ -509,6 +535,70 @@ def api_pick_path(creation_id, tier):
     return jsonify(_creation_response(state))
 
 
+@app.post("/api/creations/<creation_id>/equipment")
+def api_set_equipment(creation_id):
+    state = _get_manual_creation()
+    if state is None or state.state_id != creation_id:
+        return jsonify({"error": "Creation not found"}), 404
+    data = request.get_json(silent=True) or {}
+    if data.get("state_version") != state.state_version:
+        return jsonify({"error": "Stale state"}), 409
+    if not state.awaiting_equipment_pick():
+        return jsonify({"error": "Equipment selection not available at this level"}), 400
+
+    armor_names = data.get("armors", [])
+    weapon_names = data.get("weapons", [])
+    shield_names = data.get("shields", [])
+
+    if len(armor_names) > 1:
+        return jsonify({"error": "Maximum 1 armor allowed"}), 400
+    if len(weapon_names) > 5:
+        return jsonify({"error": "Maximum 5 weapons allowed"}), 400
+    if len(shield_names) > 1:
+        return jsonify({"error": "Maximum 1 shield allowed"}), 400
+
+    store = _load_equipment_store()
+    armor_lookup = {a["name"]: a for a in store["armors"]}
+    weapon_lookup = {w["name"]: w for w in store["weapons"]}
+    shield_lookup = {s["name"]: s for s in store["shields"]}
+
+    armors = []
+    for name in armor_names:
+        if name not in armor_lookup:
+            return jsonify({"error": f"Unknown armor: {name}"}), 400
+        armors.append(Armor(**armor_lookup[name]))
+
+    weapons = []
+    for name in weapon_names:
+        if name not in weapon_lookup:
+            return jsonify({"error": f"Unknown weapon: {name}"}), 400
+        weapons.append(Weapon(**weapon_lookup[name]))
+
+    shields = []
+    for name in shield_names:
+        if name not in shield_lookup:
+            return jsonify({"error": f"Unknown shield: {name}"}), 400
+        shields.append(Shield(**shield_lookup[name]))
+
+    state.hero.equipment.armors = armors
+    state.hero.equipment.weapons = weapons
+    state.hero.equipment.shields = shields
+
+    state.equipment_picks = {
+        "armors": [a.model_dump(mode="json") for a in armors],
+        "weapons": [w.model_dump(mode="json") for w in weapons],
+        "shields": [s.model_dump(mode="json") for s in shields],
+    }
+    state.equipment_confirmed_levels = sorted(
+        {*state.equipment_confirmed_levels, state.current_level}
+    )
+
+    finalize_defense(state.hero)
+    state.touch()
+    _store_manual_creation(state)
+    return jsonify(_creation_response(state))
+
+
 @app.post("/api/creations/<creation_id>/rewind")
 def api_rewind_creation(creation_id):
     state = _get_manual_creation()
@@ -542,6 +632,10 @@ def api_rewind_creation(creation_id):
     for lvl in list(state.selections.keys()):
         if lvl >= target:
             del state.selections[lvl]
+
+    state.equipment_confirmed_levels = [l for l in state.equipment_confirmed_levels if l < target]
+    if not state.equipment_confirmed_levels:
+        state.equipment_picks = {}
 
     rebuild_hero(state)
 
