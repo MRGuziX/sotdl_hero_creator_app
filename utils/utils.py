@@ -378,6 +378,8 @@ def build_hero(
         damage=ancestry_data.general.damage,
         insanity=ancestry_data.general.insanity,
         corruption=ancestry_data.general.corruption,
+        ancestry_defense_bonus=ancestry_data.general.defense - ancestry_data.general.dexterity,
+        defense_from_stats=ancestry_data.general.defense,
         languages=ancestry_data.general.languages,
         talents=ancestry_data.talents,
     )
@@ -589,7 +591,60 @@ def add_attribute(
 
     if name in CORE_ATTRIBUTES or name in SECONDARY_ATTRIBUTES:
         current = getattr(hero, name)
-        setattr(hero, name, current + int(resolved_value))
+        delta = int(resolved_value)
+        setattr(hero, name, current + delta)
+
+        if name == "strength":
+            hero.health += delta
+        elif name == "intelligence":
+            hero.perception += delta
+        elif name == "dexterity":
+            hero.defense += delta
+            hero.defense_from_stats += delta
+
+        if name == "defense":
+            hero.defense_from_stats += delta
+
+
+def finalize_defense(hero: AncestryHero) -> None:
+    """Recompute hero.defense from armor, shield, and stat-only defense.
+
+    Idempotent: reads from defense_from_stats (never modified here),
+    writes to defense.
+    """
+    path_bonus = hero.defense_from_stats - hero.dexterity - hero.ancestry_defense_bonus
+    natural_defense = hero.dexterity + hero.ancestry_defense_bonus
+
+    best_armor_defense = 0
+    for armor in hero.equipment.armors:
+        if armor.defence_base == "dexterity":
+            armor_def = hero.dexterity + armor.defence_bonus
+        elif armor.defence_base == "flat":
+            armor_def = armor.defence_value
+        else:
+            continue
+        best_armor_defense = max(best_armor_defense, armor_def)
+
+    base = max(natural_defense, best_armor_defense) if best_armor_defense > 0 else natural_defense
+
+    shield_bonus = 0
+    for shield in hero.equipment.shields:
+        shield_bonus = max(shield_bonus, shield.defence_bonus)
+
+    hero.defense = base + path_bonus + shield_bonus
+
+
+def _assign_random_equipment(hero: AncestryHero) -> None:
+    from models.equipment import Armor, Shield, Weapon
+
+    store = _load_json("data_base/equipment/equ.json")["store"]
+    hero.equipment.armors = [Armor(**random.choice(store["armors"]))]
+    weapon_count = random.randint(3, 5)
+    hero.equipment.weapons = [
+        Weapon(**w) for w in random.sample(store["weapons"], weapon_count)
+    ]
+    if random.random() < 0.5:
+        hero.equipment.shields = [Shield(**random.choice(store["shields"]))]
 
 
 def add_language(
@@ -814,7 +869,6 @@ def add_item(name: str, hero: AncestryHero, item_data: AddItem | None = None):
                 availability=item_data.availability or "",
             )
         )
-        hero.equipment.backpack.append(name.lower())
         return
 
     store_data = _load_json("data_base/equipment/equ.json")
@@ -830,7 +884,6 @@ def add_item(name: str, hero: AncestryHero, item_data: AddItem | None = None):
                     hero.equipment.shields.append(Shield.model_validate(item))
                 elif item_type == "armor":
                     hero.equipment.armors.append(Armor.model_validate(item))
-                hero.equipment.backpack.append(name.lower())
                 return
 
     hero.equipment.backpack.append(name.lower())
@@ -1314,6 +1367,10 @@ def get_hero(
         choice_actions = resolve_choices(hero, [], choices, is_random=True)
         actions.extend(choice_actions)
 
+    if is_random and level >= 3:
+        _assign_random_equipment(hero)
+
+    finalize_defense(hero)
     logger.info(
         "=== Hero complete: %s | STR=%d DEX=%d INT=%d WILL=%d | %d prof(s) | %d lang(s) | wealth=%s ===",
         hero.ancestry_name,

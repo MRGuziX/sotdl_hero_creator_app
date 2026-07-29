@@ -16,6 +16,9 @@ class Weapon(BaseModel):
 class Armor(BaseModel):
     name: str
     defence: str
+    defence_base: str = ""
+    defence_bonus: int = 0
+    defence_value: int = 0
     special: str = ""
     requirements: str = ""
     item_type: Literal["armor"] = "armor"
@@ -26,6 +29,7 @@ class Shield(BaseModel):
     damage: str
     grip: str
     properties: str = ""
+    defence_bonus: int = 0
     price: str = ""
     availability: str = ""
     requirements: str = ""

@@ -680,6 +680,198 @@
         }
     }
 
+    class EquipmentPicker extends HTMLElement {
+        constructor() {
+            super();
+            this.store = window.creationStore;
+            this._selectedArmor = null;
+            this._selectedWeapons = new Set();
+            this._selectedShield = null;
+            this._initialized = false;
+        }
+
+        connectedCallback() { this.render(); }
+
+        _initSelections() {
+            if (this._initialized) return;
+            this._initialized = true;
+            const step = this.store.step || {};
+            const current = step.current_equipment || {};
+            const armors = current.armors || [];
+            const weapons = current.weapons || [];
+            const shields = current.shields || [];
+            if (armors.length > 0) this._selectedArmor = armors[0].name;
+            weapons.forEach(w => this._selectedWeapons.add(w.name));
+            if (shields.length > 0) this._selectedShield = shields[0].name;
+        }
+
+        render() {
+            this._initSelections();
+            this.replaceChildren();
+            const step = this.store.step || {};
+            const eqStore = step.equipment_store || {};
+            const limits = step.equipment_limits || {};
+
+            const heading = document.createElement("h3");
+            heading.className = "section-title";
+            heading.textContent = "Wybierz ekwipunek";
+            this.append(heading);
+
+            const body = document.createElement("div");
+            body.className = "wizard-scroll-body";
+
+            this._renderArmorSection(body, eqStore.armors || []);
+            this._renderWeaponSection(body, eqStore.weapons || [], limits.weapons || 5);
+            this._renderShieldSection(body, eqStore.shields || []);
+
+            this.append(body);
+
+            const footer = document.createElement("div");
+            footer.className = "step-shell-footer";
+            const next = document.createElement("button");
+            next.className = "confirm-button step-next-button";
+            next.textContent = "Dalej";
+            next.addEventListener("click", () => this._submit());
+            footer.append(next);
+            this.append(footer);
+        }
+
+        _renderArmorSection(container, armors) {
+            const heading = document.createElement("h4");
+            heading.className = "choice-section-heading";
+            heading.textContent = "Zbroja (maks. 1)";
+            container.append(heading);
+
+            const fieldset = document.createElement("fieldset");
+            fieldset.className = "step-card equipment-section";
+
+            const noneLabel = this._createRadio("armor", null, "Brak", this._selectedArmor === null);
+            noneLabel.addEventListener("change", () => { this._selectedArmor = null; });
+            fieldset.append(noneLabel);
+
+            armors.forEach(armor => {
+                const checked = this._selectedArmor === armor.name;
+                const label = this._createRadio("armor", armor.name,
+                    armor.name, checked);
+                const stats = document.createElement("span");
+                stats.className = "equipment-stats";
+                stats.textContent = `Obrona: ${armor.defence}` +
+                    (armor.requirements && armor.requirements !== "Brak wymagań" ? ` | ${armor.requirements}` : "");
+                label.append(stats);
+                label.addEventListener("change", () => { this._selectedArmor = armor.name; });
+                fieldset.append(label);
+            });
+            container.append(fieldset);
+        }
+
+        _renderWeaponSection(container, weapons, maxWeapons) {
+            const heading = document.createElement("h4");
+            heading.className = "choice-section-heading";
+            heading.textContent = `Broń (maks. ${maxWeapons})`;
+            container.append(heading);
+
+            const fieldset = document.createElement("fieldset");
+            fieldset.className = "step-card equipment-section";
+
+            const updateWeaponLimits = () => {
+                const atLimit = this._selectedWeapons.size >= maxWeapons;
+                fieldset.querySelectorAll("input[type='checkbox']").forEach(cb => {
+                    const isDisabled = atLimit && !cb.checked;
+                    cb.disabled = isDisabled;
+                    cb.closest(".equipment-option").classList.toggle("disabled", isDisabled);
+                });
+            };
+
+            weapons.forEach(weapon => {
+                const checked = this._selectedWeapons.has(weapon.name);
+                const atLimit = this._selectedWeapons.size >= maxWeapons && !checked;
+                const label = this._createCheckbox("weapon", weapon.name,
+                    weapon.name, checked, atLimit);
+                const stats = document.createElement("span");
+                stats.className = "equipment-stats";
+                stats.textContent = `Obrażenia: ${weapon.damage} | ${weapon.grip}` +
+                    (weapon.properties ? ` | ${weapon.properties}` : "");
+                label.append(stats);
+                label.addEventListener("change", (e) => {
+                    if (e.target.checked) this._selectedWeapons.add(weapon.name);
+                    else this._selectedWeapons.delete(weapon.name);
+                    updateWeaponLimits();
+                });
+                fieldset.append(label);
+            });
+            container.append(fieldset);
+        }
+
+        _renderShieldSection(container, shields) {
+            const heading = document.createElement("h4");
+            heading.className = "choice-section-heading";
+            heading.textContent = "Tarcza (maks. 1)";
+            container.append(heading);
+
+            const fieldset = document.createElement("fieldset");
+            fieldset.className = "step-card equipment-section";
+
+            const noneLabel = this._createRadio("shield", null, "Brak", this._selectedShield === null);
+            noneLabel.addEventListener("change", () => { this._selectedShield = null; });
+            fieldset.append(noneLabel);
+
+            shields.forEach(shield => {
+                const checked = this._selectedShield === shield.name;
+                const label = this._createRadio("shield", shield.name,
+                    shield.name, checked);
+                const stats = document.createElement("span");
+                stats.className = "equipment-stats";
+                stats.textContent = `Obrażenia: ${shield.damage} | ${shield.grip}` +
+                    (shield.properties ? ` | ${shield.properties}` : "");
+                label.append(stats);
+                label.addEventListener("change", () => { this._selectedShield = shield.name; });
+                fieldset.append(label);
+            });
+            container.append(fieldset);
+        }
+
+        _createRadio(group, value, text, checked) {
+            const label = document.createElement("label");
+            label.className = "equipment-option";
+            const input = document.createElement("input");
+            input.type = "radio";
+            input.name = group;
+            input.value = value || "";
+            input.checked = checked;
+            const span = document.createElement("span");
+            span.className = "equipment-name";
+            span.textContent = text;
+            label.append(input, span);
+            return label;
+        }
+
+        _createCheckbox(group, value, text, checked, disabled) {
+            const label = document.createElement("label");
+            label.className = "equipment-option";
+            if (disabled) label.classList.add("disabled");
+            const input = document.createElement("input");
+            input.type = "checkbox";
+            input.name = group;
+            input.value = value;
+            input.checked = checked;
+            input.disabled = disabled;
+            const span = document.createElement("span");
+            span.className = "equipment-name";
+            span.textContent = text;
+            label.append(input, span);
+            return label;
+        }
+
+        _submit() {
+            const selections = {
+                armors: this._selectedArmor ? [this._selectedArmor] : [],
+                weapons: Array.from(this._selectedWeapons),
+                shields: this._selectedShield ? [this._selectedShield] : [],
+            };
+            this.store.setEquipment(selections);
+        }
+    }
+
     class CrossroadsScreen extends HTMLElement {
         connectedCallback() { this.render(); }
         render() {
@@ -977,6 +1169,8 @@
                     content.append(p);
                 } else if (state.level_choices && state.choice_cursor < state.total_choices_in_level) {
                     content.append(document.createElement("step-shell"));
+                } else if (state.awaiting_equipment_pick) {
+                    content.append(document.createElement("equipment-picker"));
                 } else {
                     content.append(document.createElement("crossroads-screen"));
                 }
@@ -1014,6 +1208,7 @@
     window.customElements.define("ancestry-picker", AncestryPicker);
     window.customElements.define("step-shell", StepShell);
     window.customElements.define("path-picker", PathPicker);
+    window.customElements.define("equipment-picker", EquipmentPicker);
     window.customElements.define("crossroads-screen", CrossroadsScreen);
     window.customElements.define("random-config-screen", RandomConfigScreen);
     window.customElements.define("wizard-shell", WizardShell);

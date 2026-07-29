@@ -208,7 +208,11 @@ def fill_pdf(hero: AncestryHero, output_path: str) -> None:
         "miedziaki": str(hero.money.miedziaki) if hero.money.miedziaki else "",
         "srebro": str(hero.money.srebrniki) if hero.money.srebrniki else "",
         "zloto": str(hero.money.zlote_korony) if hero.money.zlote_korony else "",
-        "plecak": ", ".join(hero.equipment.backpack) if hero.equipment.backpack else "",
+        "plecak": ", ".join(
+            [a.name for a in hero.equipment.armors]
+            + [s.name for s in hero.equipment.shields]
+            + hero.equipment.backpack
+        ),
         "wyglad": " ".join(
             filter(
                 None,
