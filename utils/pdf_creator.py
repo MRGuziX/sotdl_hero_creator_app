@@ -3,6 +3,7 @@ import pathlib
 import re
 from dataclasses import dataclass
 from html import escape
+from typing import Any
 
 from pypdf import PdfReader, PdfWriter
 from reportlab.lib.colors import black, white
@@ -257,9 +258,7 @@ def fill_pdf(hero: AncestryHero, output_path: str) -> None:
         notatki_parts.append("")
 
     traditions = sorted(
-        talent.name
-        for talent in hero.talents
-        if talent.name.startswith("Tradycja ")
+        talent.name for talent in hero.talents if talent.name.startswith("Tradycja ")
     )
     if traditions:
         notatki_parts.append(f"Tradycje magiczne: {', '.join(traditions)}")
@@ -274,14 +273,6 @@ def fill_pdf(hero: AncestryHero, output_path: str) -> None:
 
     if hero.oddity:
         notatki_parts.append(f"Kuriozum: {hero.oddity}")
-
-    # Spells are skipped for now - we need other pdf for that
-    # if hero.spells:
-    #     notatki_parts.append("CZARY:")
-    #     for s in hero.spells:
-    #         desc = f": {s.description}" if s.description else ""
-    #         notatki_parts.append(f"• {s.name} (Poz. {s.level}){desc}")
-    #     notatki_parts.append("")
 
     fields["notatki"] = "\n".join(notatki_parts)
 
@@ -361,7 +352,7 @@ def _spell_description_font_size(description: str) -> int:
     return _spell_description_layout(description)[0]
 
 
-def _spell_card_fields(spell, card_number: int) -> dict[str, str]:
+def _spell_card_fields(spell, card_number: int) -> dict[str | Any, str | dict[Any, Any] | Any]:
     """Build the numbered field dictionary used by the 3x3 card loop."""
     return {
         f"spell_name_card_{card_number}": spell.name or "",
@@ -394,7 +385,7 @@ def _draw_spell_table(
 ) -> float:
     """Draw a spell table stored as {headers: [...], rows: [[...], ...]}.
 
-    The table is intentionally data-only so it can be loaded directly from JSON.
+    The table is intentionally data-only, so it can be loaded directly from JSON.
     """
     headers = table_data.get("headers", [])
     rows = table_data.get("rows", [])
@@ -443,7 +434,7 @@ def _draw_spell_table(
 
 
 def _spell_table_column_widths(headers: list, table_width: float) -> list[float]:
-    """Return widths that keep headers on one line and use remaining space."""
+    """Return widths that keep headers on one line and use the remaining space."""
     _register_spell_fonts()
     header_padding = 8
     minimum_widths = [

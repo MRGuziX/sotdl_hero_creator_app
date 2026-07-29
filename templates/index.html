@@ -5,8 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap"
+          rel="stylesheet">
     <link rel="stylesheet" href="{{ url_for('assets', filename='css/style.css') }}">
+    <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
 
     <title>CWD - Generator Postaci</title>
     <style>
@@ -34,14 +36,17 @@
         <section id="pdf-panel" class="pdf-panel">
             <div class="pdf-panel-header">
                 <h3 class="section-title">Twoja Karta Postaci</h3>
-                <button id="close-pdf-panel" class="pdf-panel-close" type="button" aria-label="Zamknij podgląd">&times;</button>
+                <button id="close-pdf-panel" class="pdf-panel-close" type="button" aria-label="Zamknij podgląd">
+                    &times;
+                </button>
             </div>
             <iframe id="hero-frame" src="about:blank" title="Podgląd karty postaci"></iframe>
         </section>
     </main>
 </div>
 
-<button id="open-sheet-btn" class="sheet-fab" type="button" aria-controls="pdf-panel" aria-expanded="false">◉ <span>Podgląd karty</span></button>
+<button id="open-sheet-btn" class="sheet-fab" type="button" aria-controls="pdf-panel" aria-expanded="false">◉ <span>Podgląd karty</span>
+</button>
 <div id="event-toast" class="event-toast" role="status" aria-live="polite"></div>
 
 <footer class="footer">
@@ -75,6 +80,7 @@
     function hidePdfPanel() {
         document.getElementById('pdf-panel').classList.remove('visible');
     }
+
     window.hidePdfPanel = hidePdfPanel;
 
     // The crossroads screen's "Zapisz PDF" button and the random-mode
