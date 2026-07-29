@@ -20,18 +20,21 @@ from flask import (
     session,
     url_for,
 )
-
 from pydantic import TypeAdapter
 
 from domain.creation_state import CreationState
 from models.action import (
-    Action, AddLanguage, AddProfession, AddSpell, AddTradition, UpdateLanguage,
+    Action,
+    AddLanguage,
+    AddProfession,
+    AddSpell,
+    AddTradition,
+    UpdateLanguage,
 )
 from models.base_hero import AncestryHero
 from utils.pdf_creator import fill_pdf
 from utils.utils import (
     _expand_dynamic_choice_group,
-    load_json as _load_json,
     advance_hero,
     apply_action,
     benefits_for_new_path_pick,
@@ -41,6 +44,9 @@ from utils.utils import (
     get_tradition_name_from_talent,
     is_duplicate_expert_path,
     randomly_pick_paths,
+)
+from utils.utils import (
+    load_json as _load_json,
 )
 
 logging.basicConfig(
@@ -57,6 +63,7 @@ app.secret_key = os.environ.get("SECRET_KEY", "development-only-secret")
 def assets(filename):
     """Serve extracted presentation assets without changing legacy image URLs."""
     return send_from_directory(PROJECT_ROOT / "static", filename)
+
 
 ANCESTRIES = ["human", "automaton", "goblin", "dwarf", "orc", "changeling"]
 
@@ -151,9 +158,7 @@ def choice_context(hero: AncestryHero, choices: list[list[Action]]) -> dict:
             if action.type == "add_tradition" and action.name == "religious_tradition":
                 religions = _load_json("data_base/paths/novice/cleric_religions.json")
                 if hero.religion in religions:
-                    available_traditions = sorted(
-                        set(religions[hero.religion]) - set(traditions)
-                    )
+                    available_traditions = sorted(set(religions[hero.religion]) - set(traditions))
             elif action.type == "add_spell" and action.name == "known_tradition":
                 break
     return {
@@ -183,7 +188,7 @@ def rebuild_hero(state: CreationState):
     ancestry = state.creation_inputs["ancestry"]
     paths = state.creation_inputs.get("paths", {})
 
-    # 1. Start with level 0 baseline
+    # 1. Start with the level 0 baseline
     hero = get_hero(ancestry, is_random=False, level=0)
     if isinstance(hero, tuple):
         hero, _ = hero
@@ -199,9 +204,7 @@ def rebuild_hero(state: CreationState):
         # but just to get the hero object updated with deterministic benefits.
         # advance_hero normally returns expanded choices which we ignore here
         # because they should already be in state.level_choices or applied_actions.
-        advance_hero(
-            hero, ancestry, None, lvl - 1, lvl, is_random=False, paths=paths
-        )
+        advance_hero(hero, ancestry, None, lvl - 1, lvl, is_random=False, paths=paths)
         for action_lvl, action in state.applied_actions:
             if action_lvl == lvl:
                 apply_action(action, hero, is_random=False)
@@ -266,7 +269,9 @@ def _creation_response(state: CreationState, download_url: str | None = None) ->
             # (MagicDashboard/GrimoirePanel groundwork) can render spell and
             # tradition choices with their real names/groupings instead of
             # generic action labels, without duplicating any SotDL rules.
-            **choice_context(state.hero, state.level_choices[state.choice_cursor : state.choice_cursor + 1]),
+            **choice_context(
+                state.hero, state.level_choices[state.choice_cursor : state.choice_cursor + 1]
+            ),
         },
     }
     if download_url is not None:
@@ -290,8 +295,13 @@ def _advance_one_level(state: CreationState) -> None:
     )
     next_level = state.current_level + 1
     next_choices = advance_hero(
-        state.hero, ancestry, None, state.current_level, next_level,
-        is_random=False, paths=paths,
+        state.hero,
+        ancestry,
+        None,
+        state.current_level,
+        next_level,
+        is_random=False,
+        paths=paths,
     )
     state.hero.level = next_level
     state.current_level = next_level
@@ -482,12 +492,8 @@ def api_pick_path(creation_id, tier):
         paths["master"] = path_id
         state.hero.master_path_name = path_id
 
-    actions, choices = benefits_for_new_path_pick(
-        paths_before, tier, path_id, state.current_level
-    )
-    remaining_actions, expanded_choices = expand_any_to_choices(
-        state.hero, actions, choices
-    )
+    actions, choices = benefits_for_new_path_pick(paths_before, tier, path_id, state.current_level)
+    remaining_actions, expanded_choices = expand_any_to_choices(state.hero, actions, choices)
     for action in remaining_actions:
         apply_action(action, state.hero, is_random=False)
 
@@ -556,11 +562,13 @@ def api_rewind_creation(creation_id):
 
     state.touch()
     _store_manual_creation(state)
-    return jsonify({
-        "state": state.public_dict(),
-        "invalidated_steps": state.invalidated_levels,
-        **_creation_response(state)
-    })
+    return jsonify(
+        {
+            "state": state.public_dict(),
+            "invalidated_steps": state.invalidated_levels,
+            **_creation_response(state),
+        }
+    )
 
 
 @app.post("/api/creations/<creation_id>/rewind_choice")
@@ -578,8 +586,7 @@ def api_rewind_choice(creation_id):
     saved_selections.pop()
 
     state.applied_actions = [
-        (lvl, act) for lvl, act in state.applied_actions
-        if lvl != state.current_level
+        (lvl, act) for lvl, act in state.applied_actions if lvl != state.current_level
     ]
     state.selections[state.current_level] = []
 
@@ -596,8 +603,13 @@ def api_rewind_choice(creation_id):
         state.level_choices = choices
     else:
         state.level_choices = advance_hero(
-            state.hero, ancestry, None, actual_level - 1,
-            actual_level, is_random=False, paths=paths,
+            state.hero,
+            ancestry,
+            None,
+            actual_level - 1,
+            actual_level,
+            is_random=False,
+            paths=paths,
         )
 
     state.choice_cursor = 0
@@ -625,7 +637,9 @@ def api_finalize_creation(creation_id):
     if state.pending_choices:
         return jsonify({"error": "Creation has unresolved choices"}), 409
     fill_pdf(state.hero, _output_path())
-    return jsonify({"summary": state.hero.model_dump(mode="json"), "pdf_url": url_for("download_current")})
+    return jsonify(
+        {"summary": state.hero.model_dump(mode="json"), "pdf_url": url_for("download_current")}
+    )
 
 
 @app.route("/")
@@ -656,13 +670,13 @@ def roll(ancestry):
     path_name = request.args.get("path")
 
     if not download:
-        result = get_hero(
-            ancestry, is_random=is_random, level=level, path_name=path_name
-        )
+        result = get_hero(ancestry, is_random=is_random, level=level, path_name=path_name)
 
         if isinstance(result, tuple):
             hero, choices = result
-            _store_manual_creation(CreationState(hero=hero, level_choices=choices, total_choices_in_level=len(choices)))
+            _store_manual_creation(
+                CreationState(hero=hero, level_choices=choices, total_choices_in_level=len(choices))
+            )
             return jsonify(
                 {
                     "status": "need_choices",
@@ -730,15 +744,21 @@ def _apply_selected_choices(
 
         current_cursor += 1
 
-        if isinstance(action, AddSpell) and action.name not in (
-            "any", "known_tradition",
-        ) and not action.name.startswith("tradition:") and not action.name.startswith("tradition_rank0:"):
+        if (
+            isinstance(action, AddSpell)
+            and action.name
+            not in (
+                "any",
+                "known_tradition",
+            )
+            and not action.name.startswith("tradition:")
+            and not action.name.startswith("tradition_rank0:")
+        ):
             for i in range(current_cursor, len(level_choices)):
                 group = level_choices[i]
                 if any(isinstance(a, AddSpell) and a.name == action.name for a in group):
                     filtered = [
-                        a for a in group
-                        if not (isinstance(a, AddSpell) and a.name == action.name)
+                        a for a in group if not (isinstance(a, AddSpell) and a.name == action.name)
                     ]
                     level_choices[i] = filtered if filtered else group
 
@@ -756,7 +776,8 @@ def _apply_selected_choices(
                 group = level_choices[i]
                 if any(isinstance(a, AddTradition) for a in group):
                     filtered = [
-                        a for a in group
+                        a
+                        for a in group
                         if not (isinstance(a, AddTradition) and a.name == action.name)
                     ]
                     level_choices[i] = filtered if filtered else group
@@ -780,11 +801,7 @@ def confirm_choices():
     selected_choices = data.get("selected_choices", data.get("selections"))
     choice_cursor = data.get("choice_cursor", 0)
 
-    if (
-        not selected_choices
-        or not isinstance(choice_cursor, int)
-        or choice_cursor < 0
-    ):
+    if not selected_choices or not isinstance(choice_cursor, int) or choice_cursor < 0:
         return "Missing data", 400
 
     state = _get_manual_creation()
@@ -802,7 +819,9 @@ def confirm_choices():
             {
                 "status": "need_choices",
                 "hero_data": state.hero.model_dump(),
-                **choices_response(state.hero, state.level_choices[state.choice_cursor:], state.choice_cursor),
+                **choices_response(
+                    state.hero, state.level_choices[state.choice_cursor :], state.choice_cursor
+                ),
             }
         )
 
@@ -840,8 +859,7 @@ def _purge_manual_creations() -> None:
     """
     now = time.monotonic()
     expired = [
-        key for key, value in _MANUAL_CREATIONS.items()
-        if now - value[1] > _MANUAL_CREATION_TTL
+        key for key, value in _MANUAL_CREATIONS.items() if now - value[1] > _MANUAL_CREATION_TTL
     ]
     for key in expired:
         _MANUAL_CREATIONS.pop(key, None)
