@@ -30,6 +30,12 @@
             return this.state ? this.state.current_level : 0;
         }
 
+        _tryFinalize() {
+            if (this.state && this.state.can_finalize) {
+                this.finalize().catch(e => console.warn("finalize failed:", e));
+            }
+        }
+
         async start(mode, ancestry, options = {}) {
             if (this._pending) return;
             this._pending = true;
@@ -85,7 +91,7 @@
                 const result = await response.json();
                 if (!response.ok) throw new Error(result.error || "Unable to choose path");
                 this.setContract(result);
-                this.finalize().catch(e => console.warn("finalize failed:", e));
+                this._tryFinalize();
                 return result;
             } finally { this._pending = false; }
         }
@@ -116,7 +122,7 @@
                 const result = await response.json();
                 if (!response.ok) throw new Error(result.error || "Unable to apply choices");
                 if (result.state || result.step) this.setContract(result);
-                this.finalize().catch(e => console.warn("finalize failed:", e));
+                this._tryFinalize();
                 if (result.download_url) {
                     this.dispatchEvent(new CustomEvent("completed", {detail: {downloadUrl: result.download_url}}));
                 }
@@ -137,7 +143,7 @@
                 const result = await response.json();
                 if (!response.ok) throw new Error(result.error || "Unable to rewind creation");
                 this.setContract(result);
-                this.finalize().catch(e => console.warn("finalize failed:", e));
+                this._tryFinalize();
                 return result;
             } finally { this._pending = false; }
         }
@@ -155,7 +161,7 @@
                 const result = await response.json();
                 if (!response.ok) throw new Error(result.error || "Unable to rewind choice");
                 this.setContract(result);
-                this.finalize().catch(e => console.warn("finalize failed:", e));
+                this._tryFinalize();
                 return result;
             } finally { this._pending = false; }
         }
@@ -173,7 +179,7 @@
                 const result = await response.json();
                 if (!response.ok) throw new Error(result.error || "Unable to set equipment");
                 this.setContract(result);
-                this.finalize().catch(e => console.warn("finalize failed:", e));
+                this._tryFinalize();
                 return result;
             } finally { this._pending = false; }
         }

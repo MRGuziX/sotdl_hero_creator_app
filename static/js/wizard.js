@@ -378,6 +378,7 @@
         disconnectedCallback() { this.store.removeEventListener("statechange", this._onStateChange); }
 
         render() {
+            this._attrSubmit = null;
             const state = this.store && this.store.state;
             this.replaceChildren();
             if (!state) { this.hidden = true; return; }
@@ -504,7 +505,7 @@
             this._body.append(panel);
             updateUI();
 
-            this._submit = async () => {
+            this._attrSubmit = async () => {
                 if (selected.size !== requiredCount) return;
                 try {
                     await this.store.applyChoices(Array.from(selected.values()));
@@ -664,6 +665,7 @@
         }
 
         async _submit() {
+            if (this._attrSubmit) { await this._attrSubmit(); return; }
             if (!this._selections.length) { window.showWizardToast?.("Wybierz opcję."); return; }
             try {
                 await this.store.applyChoices(this._selections);

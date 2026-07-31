@@ -68,11 +68,10 @@ class TalentBox:
 
 
 TALENT_BOX_CONFIG = {
-    "maly": {"count": 3, "capacity": 69},
-    "sredni": {"count": 7, "capacity": 414},
-    "kwadrat": {"count": 2, "capacity": 272},
-    "duzy": {"count": 1, "capacity": 912},
-    "ogromny": {"count": 1, "capacity": 1774},
+    "maly": {"count": 8, "capacity": 69},
+    "kwadrat": {"count": 8, "capacity": 272},
+    "sredni": {"count": 4, "capacity": 414},
+    "duzy": {"count": 2, "capacity": 912},
 }
 
 
@@ -103,8 +102,6 @@ def _talent_box_capacity(description_length):
             return 414
         case length if length <= 912:
             return 912
-        case length if length <= 1774:
-            return 1774
         case _:
             return None
 

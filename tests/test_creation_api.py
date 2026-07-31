@@ -399,7 +399,7 @@ def test_full_manual_playthrough_second_expert_path_at_level_seven(client):
     )
     assert duplicate_response.status_code == 400
 
-    state, _ = _pick_path(client, creation_id, state, "expert", "assasin")
+    state, _ = _pick_path(client, creation_id, state, "expert", "assassin")
     assert state["awaiting_path_pick"] is None
 
 

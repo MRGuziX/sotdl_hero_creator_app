@@ -12,7 +12,6 @@ from pathlib import Path
 from flask import (
     Flask,
     jsonify,
-    redirect,
     render_template,
     request,
     send_file,
@@ -45,10 +44,8 @@ from utils.utils import (
     get_spells_for_tradition,
     get_tradition_name_from_talent,
     is_duplicate_expert_path,
-    randomly_pick_paths,
-)
-from utils.utils import (
     load_json as _load_json,
+    randomly_pick_paths,
 )
 
 logging.basicConfig(
@@ -58,7 +55,11 @@ logging.basicConfig(
 )
 
 app = Flask(__name__, static_folder="pictures", static_url_path="/static")
-app.secret_key = os.environ.get("SECRET_KEY", "development-only-secret")
+_secret = os.environ.get("SECRET_KEY")
+if not _secret:
+    logging.getLogger(__name__).warning("SECRET_KEY not set — using insecure fallback")
+    _secret = "development-only-secret"
+app.secret_key = _secret
 
 
 @app.route("/assets/<path:filename>")
@@ -179,16 +180,6 @@ def choice_context(
     }
 
 
-def choices_response(
-    hero: AncestryHero, choices: list[list[Action]], choice_cursor: int = 0
-) -> dict:
-    return {
-        "choices": [[a.model_dump() for a in choices[0]]] if choices else [],
-        "choice_cursor": choice_cursor,
-        **choice_context(hero, choices[:1]),
-    }
-
-
 _equipment_store_cache = None
 
 
@@ -294,7 +285,7 @@ def _try_expand_current_group(state: CreationState) -> None:
         state.total_choices_in_level = len(state.level_choices)
 
 
-def _creation_response(state: CreationState, download_url: str | None = None) -> dict:
+def _creation_response(state: CreationState) -> dict:
     """Build the versioned JSON contract used by the component frontend."""
     _try_expand_current_group(state)
     finalize_defense(state.hero)
@@ -334,8 +325,6 @@ def _creation_response(state: CreationState, download_url: str | None = None) ->
             "weapons": [w.model_dump(mode="json") for w in state.hero.equipment.weapons],
             "shields": [s.model_dump(mode="json") for s in state.hero.equipment.shields],
         }
-    if download_url is not None:
-        response["download_url"] = download_url
     return response
 
 
@@ -789,51 +778,6 @@ def index():
     )
 
 
-@app.route("/roll/<ancestry>")
-def roll(ancestry):
-    if ancestry not in ANCESTRIES:
-        return "Invalid ancestry", 400
-
-    download = request.args.get("download", "0") == "1"
-    is_random = request.args.get("is_random", "1") == "1"
-    try:
-        level = int(request.args.get("level", "0"))
-    except (TypeError, ValueError):
-        return "Invalid level", 400
-    if level < 0:
-        return "Invalid level", 400
-    path_name = request.args.get("path")
-
-    if not download:
-        result = get_hero(ancestry, is_random=is_random, level=level, path_name=path_name)
-
-        if isinstance(result, tuple):
-            hero, choices = result
-            _store_manual_creation(
-                CreationState(hero=hero, level_choices=choices, total_choices_in_level=len(choices))
-            )
-            return jsonify(
-                {
-                    "status": "need_choices",
-                    "hero_data": hero.model_dump(),
-                    # Manual creation is intentionally a wizard: expose only the
-                    # next unresolved choice so later choices see earlier picks.
-                    **choices_response(hero, choices),
-                }
-            )
-
-        hero = result
-        fill_pdf(hero, _output_path())
-        return jsonify({"status": "success", "download_url": url_for("download_current")})
-
-    return send_file(
-        _output_path(),
-        as_attachment=download,
-        download_name=f"{ancestry}_hero.pdf",
-        mimetype="application/pdf",
-    )
-
-
 def _apply_selected_choices(
     state: CreationState, selected_choices: list, choice_cursor: int
 ) -> tuple[bool, dict | str, int]:
@@ -928,47 +872,6 @@ def _apply_selected_choices(
         return (True, {"status": "need_choices"}, 200)
 
     return True, {"status": "done"}, 200
-
-
-@app.route("/confirm_choices", methods=["POST"])
-def confirm_choices():
-    data = request.get_json(silent=True) or {}
-    selected_choices = data.get("selected_choices", data.get("selections"))
-    choice_cursor = data.get("choice_cursor", 0)
-
-    if not selected_choices or not isinstance(choice_cursor, int) or choice_cursor < 0:
-        return "Missing data", 400
-
-    state = _get_manual_creation()
-    if state is None:
-        return "No active creation", 400
-
-    ok, result, status = _apply_selected_choices(state, selected_choices, choice_cursor)
-    if not ok:
-        return result, status
-
-    if result["status"] == "need_choices":
-        state.touch()
-        _store_manual_creation(state)
-        return jsonify(
-            {
-                "status": "need_choices",
-                "hero_data": state.hero.model_dump(),
-                **choices_response(
-                    state.hero, state.level_choices[state.choice_cursor :], state.choice_cursor
-                ),
-            }
-        )
-
-    _MANUAL_CREATIONS.pop(_session_id(), None)
-    fill_pdf(state.hero, _output_path())
-    return jsonify({"status": "success", "download_url": url_for("download_current")})
-
-
-@app.route("/roll_random")
-def roll_random():
-    random_ancestry = random.choice(ANCESTRIES)
-    return redirect(url_for("roll", ancestry=random_ancestry, **request.args))
 
 
 @app.route("/download_current")

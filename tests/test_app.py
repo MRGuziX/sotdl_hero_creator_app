@@ -18,42 +18,10 @@ def test_index_route(client):
     assert b"cwd_logo.png" in response.data
 
 
-def test_roll_ancestry_route(client):
-    ancestries = ["human", "automaton", "goblin", "dwarf", "orc", "changeling"]
-    for ancestry in ancestries:
-        response = client.get(f"/roll/{ancestry}")
-        assert response.status_code == 200
-        data = response.get_json()
-        assert data["status"] == "success"
-        assert "download_url" in data
-
-
-def test_roll_invalid_ancestry(client):
-    response = client.get("/roll/elf")
-    assert response.status_code == 400
-    assert b"Invalid ancestry" in response.data
-
-
-def test_roll_random_route(client):
-    response = client.get("/roll_random", follow_redirects=True)
-    assert response.status_code == 200
-    data = response.get_json()
-    assert data["status"] == "success"
-    assert "download_url" in data
-
-
 def test_static_logo(client):
     response = client.get("/static/cwd_logo.png")
     assert response.status_code == 200
     assert response.headers["Content-Type"] == "image/png"
-
-
-def test_download_current_route(client):
-    client.get("/roll/human")
-
-    response = client.get("/download_current")
-    assert response.status_code == 200
-    assert response.headers["Content-Type"] == "application/pdf"
 
 
 def test_download_no_hero(client):
@@ -73,65 +41,48 @@ def test_download_no_hero(client):
             os.rename(backup_path, OUTPUT_PATH)
 
 
-def test_roll_manual_returns_choices(client):
-    response = client.get("/roll/human?is_random=0")
+def test_manual_creation_returns_choices(client):
+    response = client.post("/api/creations", json={"mode": "manual", "ancestry": "human"})
     assert response.status_code == 200
     data = response.get_json()
-    if data and data.get("status") == "need_choices":
-        assert "hero_data" in data
-        assert "choices" in data
+    assert "creation_id" in data
+    assert "state" in data
+    state = data["state"]
+    assert state["current_level"] == 0
+    assert state["total_choices_in_level"] > 0
 
 
-def test_confirm_choices(client):
-    response = client.get("/roll/human?is_random=0")
-    data = response.get_json()
-
-    if data and data.get("status") == "need_choices":
-        hero_data = data["hero_data"]
-        choices = data["choices"]
-        selected = [group[0] for group in choices]
-
-        response = client.post(
-            "/confirm_choices",
-            json={
-                "hero_data": hero_data,
-                "selected_choices": selected,
-            },
-        )
+def test_random_creation_with_all_ancestries(client):
+    ancestries = ["human", "automaton", "goblin", "dwarf", "orc", "changeling"]
+    for ancestry in ancestries:
+        response = client.post("/api/creations", json={"mode": "random", "ancestry": ancestry})
         assert response.status_code == 200
-        result = response.get_json()
-        assert result["status"] in {"need_choices", "success"}
-        if result["status"] == "need_choices":
-            assert result["choices"]
-            assert result["choice_cursor"] == 1
+        data = response.get_json()
+        assert "creation_id" in data
 
 
-def test_confirm_choices_advances_repeated_attribute_groups(client):
-    response = client.get("/roll/human?is_random=0")
-    data = response.get_json()
-    assert data["status"] == "need_choices"
+def test_creation_rejects_invalid_ancestry(client):
+    response = client.post("/api/creations", json={"mode": "manual", "ancestry": "elf"})
+    assert response.status_code == 400
 
-    first = client.post(
-        "/confirm_choices",
+
+def test_apply_choices_advances_cursor(client):
+    create = client.post("/api/creations", json={"mode": "manual", "ancestry": "human"}).get_json()
+    cid = create["creation_id"]
+    state = create["state"]
+    pending = state["level_choices"][state["choice_cursor"]]
+
+    response = client.post(
+        f"/api/creations/{cid}/steps/0/choices",
         json={
-            "hero_data": data["hero_data"],
-            "selected_choices": [data["choices"][0][0]],
+            "selections": [pending[0]],
+            "choice_cursor": state["choice_cursor"],
+            "state_version": state["state_version"],
         },
-    ).get_json()
-    assert first["status"] == "need_choices"
-    assert first["choice_cursor"] == 1
-
-    second = client.post(
-        "/confirm_choices",
-        json={
-            "hero_data": first["hero_data"],
-            "selected_choices": [first["choices"][0][0]],
-            "choice_cursor": first["choice_cursor"],
-        },
-    ).get_json()
-    assert second["status"] in {"need_choices", "success"}
-    if second["status"] == "need_choices":
-        assert second["choice_cursor"] == 2
+    )
+    assert response.status_code == 200
+    result = response.get_json()
+    assert result["state"]["choice_cursor"] == state["choice_cursor"] + 1
 
 
 def test_index_lists_all_novice_paths(client):
@@ -140,15 +91,8 @@ def test_index_lists_all_novice_paths(client):
     response = client.get("/")
     assert response.status_code == 200
     page = response.get_data(as_text=True)
-    for path_id in ("cleric", "mage", "rouge", "warrior"):
+    for path_id in ("cleric", "mage", "rogue", "warrior"):
         assert f'"{path_id}"' in page
-
-
-def test_new_novice_paths_can_start_manual_creation(client):
-    for path_id in ("mage", "rouge", "warrior"):
-        response = client.get(f"/roll/human?is_random=0&level=2&path={path_id}")
-        assert response.status_code == 200
-        assert response.get_json()["status"] == "need_choices"
 
 
 def test_new_tradition_choice_excludes_known_traditions(monkeypatch):
@@ -336,9 +280,9 @@ def test_repeated_backstab_uses_full_upgraded_description():
     assert hero.talents[0].description == description.replace("1k6", "2k6")
 
 
-def test_rouge_repeatable_talent_contains_upgrade_metadata():
+def test_rogue_repeatable_talent_contains_upgrade_metadata():
     hero, choices = __import__("utils.utils", fromlist=["get_hero"]).get_hero(
-        "human", is_random=False, level=8, path_name="rouge"
+        "human", is_random=False, level=8, path_name="rogue"
     )
     backstab_options = [
         option
@@ -353,9 +297,9 @@ def test_rouge_repeatable_talent_contains_upgrade_metadata():
     )
 
 
-def test_rouge_talent_selection_is_one_group_of_five_options():
+def test_rogue_talent_selection_is_one_group_of_five_options():
     _, choices = __import__("utils.utils", fromlist=["get_hero"]).get_hero(
-        "human", is_random=False, level=8, path_name="rouge"
+        "human", is_random=False, level=8, path_name="rogue"
     )
 
     rogue_talent_groups = [
@@ -371,7 +315,7 @@ def test_rouge_talent_selection_is_one_group_of_five_options():
 
 def test_level_eight_wolta_uses_upgrade_description_when_selected_again():
     hero, choices = __import__("utils.utils", fromlist=["get_hero"]).get_hero(
-        "human", is_random=False, level=8, path_name="rouge"
+        "human", is_random=False, level=8, path_name="rogue"
     )
     wolta = next(
         option
@@ -420,7 +364,7 @@ def test_level_eight_wolta_uses_upgrade_description_when_selected_again():
         ),
     ],
 )
-def test_every_rouge_talent_uses_its_upgrade_description(name, description, upgrade):
+def test_every_rogue_talent_uses_its_upgrade_description(name, description, upgrade):
     hero = AncestryHero(
         ancestry_name="Człowiek",
         ancestry_id="human",
