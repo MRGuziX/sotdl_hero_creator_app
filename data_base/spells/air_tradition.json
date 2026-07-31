@@ -31,6 +31,21 @@
         "source": "PG",
         "number": 138
       }
+    },
+    {
+      "name": "WICHER DEMONÓW",
+      "tags": [
+        "Powietrze",
+        "Atak"
+      ],
+      "level": 0,
+      "target": "Cel: Jedno stworzenie w bliskim zasięgu.",
+      "book_description": "Testowy czar powietrza z suplementu Władcy Demonów. Przywołujesz demoniczny wiatr, który zadaje 1k6+1 obrażeń.",
+      "card_description": "Testowy czar powietrza\nz suplementu Władcy Demonów.\nPrzywołujesz demoniczny wiatr,\nktóry zadaje 1k6+1 obrażeń.",
+      "origin": {
+        "source": "SWD",
+        "number": 50
+      }
     }
   ],
   "level_1": [

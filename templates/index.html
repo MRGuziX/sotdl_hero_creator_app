@@ -28,6 +28,7 @@
         <div class="stage-left">
             <header class="workspace-header">
                 <img src="{{ url_for('static', filename='cwd_logo.png') }}" alt="CWD Logo" class="logo">
+                <supplement-selector></supplement-selector>
                 <progress-navigator aria-label="Poziomy tworzenia postaci"></progress-navigator>
             </header>
             <wizard-shell aria-label="Kreator bohatera"></wizard-shell>
@@ -65,6 +66,7 @@
     // ancestry tooltip copy used by <ancestry-picker>, and the Novice/
     // Expert/Master path catalogs used by <path-picker>/<random-config-screen>.
     window.ancestryDescriptions = JSON.parse('{{ ancestry_descriptions | tojson | safe }}');
+    window.ANCESTRY_LIST = JSON.parse('{{ ancestry_list | tojson | safe }}');
     window.PATH_CATALOG = {
         novice: JSON.parse('{{ novice_paths | tojson | safe }}'),
         expert: JSON.parse('{{ expert_paths | tojson | safe }}'),

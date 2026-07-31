@@ -83,6 +83,14 @@ a:focus-visible {
     gap: 12px;
     margin-bottom: 14px;
     width: 100%;
+    position: relative;
+}
+
+.workspace-header > supplement-selector {
+    position: absolute;
+    top: 12px;
+    left: 12px;
+    z-index: 200;
 }
 
 .workspace-panel {
@@ -284,21 +292,40 @@ a:focus-visible {
     color: #fff;
 }
 
+supplement-selector {
+    position: relative;
+    display: inline-block;
+}
+
 .books-toggle {
     border: 1px solid var(--overlay-hover);
     border-radius: var(--radius-sm);
     background: rgba(255, 255, 255, .1);
     color: var(--text-bright);
-    font-size: 14px;
+    font-size: 28px;
     padding: 6px 10px;
     cursor: pointer;
+    line-height: 1;
+}
+
+.books-toggle:hover {
+    background: rgba(255, 255, 255, .2);
 }
 
 .books-panel {
     display: none;
-    margin-top: 8px;
-    padding-top: 8px;
-    border-top: 1px solid rgba(255, 255, 255, .12);
+    position: absolute;
+    top: 100%;
+    left: 0;
+    margin-top: 4px;
+    padding: 10px 14px;
+    background: var(--bg-panel);
+    backdrop-filter: blur(8px);
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-sm);
+    box-shadow: var(--shadow-elevated);
+    z-index: 9999;
+    min-width: 280px;
 }
 
 .books-panel.visible { display: block; }

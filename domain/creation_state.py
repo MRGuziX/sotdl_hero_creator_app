@@ -36,6 +36,7 @@ class CreationState:
     invalidated_levels: list[int] = field(default_factory=list)
     equipment_confirmed_levels: list[int] = field(default_factory=list)
     equipment_picks: dict[str, Any] = field(default_factory=dict)
+    enabled_sources: list[str] = field(default_factory=lambda: ["PG"])
     state_version: int = 0
     version: int = CREATION_STATE_VERSION
     state_id: str = field(default_factory=lambda: uuid4().hex)
@@ -64,6 +65,7 @@ class CreationState:
             "invalidated_levels": self.invalidated_levels,
             "equipment_confirmed_levels": self.equipment_confirmed_levels,
             "equipment_picks": self.equipment_picks,
+            "enabled_sources": self.enabled_sources,
             "state_version": self.state_version,
         }
 
@@ -99,6 +101,7 @@ class CreationState:
                 invalidated_levels=list(data.get("invalidated_levels", [])),
                 equipment_confirmed_levels=list(data.get("equipment_confirmed_levels", [])),
                 equipment_picks=dict(data.get("equipment_picks", {})),
+                enabled_sources=list(data.get("enabled_sources", ["PG"])),
                 state_version=data.get("state_version", 0),
             )
         except (KeyError, TypeError, ValueError) as exc:

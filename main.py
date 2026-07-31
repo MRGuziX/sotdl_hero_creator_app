@@ -67,7 +67,7 @@ def assets(filename):
     return send_from_directory(PROJECT_ROOT / "static", filename)
 
 
-ANCESTRIES = ["human", "automaton", "goblin", "dwarf", "orc", "changeling"]
+ANCESTRIES = ["human", "automaton", "goblin", "dwarf", "orc", "changeling", "swd_elf"]
 
 PROJECT_ROOT = Path(__file__).resolve().parent
 OUTPUT_DIR = Path(tempfile.gettempdir()) / "sotdl_hero_creator"
@@ -105,7 +105,12 @@ def _load_paths(directory: Path, *, skip: set[str] | None = None) -> list[dict[s
             continue
         path_data = _load_json(str(path_file))
         if "path_name" in path_data and "level_benefits" in path_data:
-            paths.append({"id": path_file.stem, "name": path_data["path_name"]})
+            origin = path_data.get("origin") or {}
+            paths.append({
+                "id": path_file.stem,
+                "name": path_data["path_name"],
+                "source": origin.get("source", "PG"),
+            })
     return paths
 
 
@@ -138,7 +143,11 @@ def _normalize_paths_input(raw: dict | None) -> dict:
     }
 
 
-def choice_context(hero: AncestryHero, choices: list[list[Action]]) -> dict:
+def choice_context(
+    hero: AncestryHero,
+    choices: list[list[Action]],
+    enabled_sources: list[str] | None = None,
+) -> dict:
     """Return the lists needed to make tradition and spell choices explicit."""
     traditions = sorted(
         {
@@ -149,7 +158,7 @@ def choice_context(hero: AncestryHero, choices: list[list[Action]]) -> dict:
     )
     spells_by_tradition = {
         tradition: sorted(
-            set(get_spells_for_tradition(tradition, hero.power))
+            set(get_spells_for_tradition(tradition, hero.power, enabled_sources))
             - {spell.name for spell in hero.spells}
         )
         for tradition in traditions
@@ -193,6 +202,26 @@ def _load_equipment_store() -> dict:
 def load_ancestry_descriptions() -> dict:
     with open(DESCRIPTIONS_PATH, "r", encoding="utf-8") as descriptions_file:
         return json.load(descriptions_file)
+
+
+def load_ancestry_list() -> list[dict[str, str]]:
+    """Build the ancestry list from descriptions.json including source info."""
+    descriptions = load_ancestry_descriptions()
+    names = {
+        "human": "Człowiek", "automaton": "Automaton", "goblin": "Goblin",
+        "dwarf": "Krasnolud", "orc": "Ork", "changeling": "Odmieniec",
+        "swd_elf": "Elf (SWD Test)",
+    }
+    result = []
+    for ancestry_id in ANCESTRIES:
+        entry = descriptions.get(ancestry_id, {})
+        source = entry.get("source", "PG") if isinstance(entry, dict) else "PG"
+        result.append({
+            "id": ancestry_id,
+            "name": names.get(ancestry_id, ancestry_id),
+            "source": source,
+        })
+    return result
 
 
 def rebuild_hero(state: CreationState):
@@ -259,7 +288,7 @@ def _try_expand_current_group(state: CreationState) -> None:
     group = state.level_choices[state.choice_cursor]
     if not _has_placeholders(group):
         return
-    expanded = _expand_dynamic_choice_group(state.hero, group)
+    expanded = _expand_dynamic_choice_group(state.hero, group, state.enabled_sources)
     if expanded:
         state.level_choices[state.choice_cursor] = expanded
         state.total_choices_in_level = len(state.level_choices)
@@ -290,7 +319,9 @@ def _creation_response(state: CreationState, download_url: str | None = None) ->
             # tradition choices with their real names/groupings instead of
             # generic action labels, without duplicating any SotDL rules.
             **choice_context(
-                state.hero, state.level_choices[state.choice_cursor : state.choice_cursor + 1]
+                state.hero,
+                state.level_choices[state.choice_cursor : state.choice_cursor + 1],
+                state.enabled_sources,
             ),
         },
     }
@@ -350,6 +381,9 @@ def api_start_creation():
     data = request.get_json(silent=True) or {}
     mode = data.get("mode", "manual")
     ancestry = data.get("ancestry")
+    enabled_sources = data.get("enabled_sources", ["PG"])
+    if not isinstance(enabled_sources, list) or "PG" not in enabled_sources:
+        enabled_sources = ["PG"]
     if mode not in {"manual", "random"} or ancestry not in ANCESTRIES:
         return jsonify({"error": "Unsupported mode or ancestry"}), 400
 
@@ -375,6 +409,7 @@ def api_start_creation():
             mode=mode,
             current_level=level,
             completed_steps=list(range(level + 1)),
+            enabled_sources=enabled_sources,
         )
     else:
         # Manual mode always starts at level 0 with only the ancestry
@@ -393,6 +428,7 @@ def api_start_creation():
             mode=mode,
             current_level=0,
             total_choices_in_level=len(choices),
+            enabled_sources=enabled_sources,
         )
 
     _store_manual_creation(state)
@@ -714,7 +750,7 @@ def api_rewind_choice(creation_id):
     for sel_idx in saved_selections:
         group = state.level_choices[state.choice_cursor]
         if _has_placeholders(group):
-            group = _expand_dynamic_choice_group(state.hero, group)
+            group = _expand_dynamic_choice_group(state.hero, group, state.enabled_sources)
             state.level_choices[state.choice_cursor] = group
         action = group[sel_idx]
         _apply_selected_choices(state, [action.model_dump(mode="json")], state.choice_cursor)
@@ -742,9 +778,11 @@ def api_finalize_creation(creation_id):
 @app.route("/")
 def index():
     descriptions = load_ancestry_descriptions()
+    ancestry_list = load_ancestry_list()
     return render_template(
         "index.html",
         ancestry_descriptions=descriptions,
+        ancestry_list=ancestry_list,
         novice_paths=load_novice_paths(),
         expert_paths=load_expert_paths(),
         master_paths=load_master_paths(),
@@ -860,7 +898,7 @@ def _apply_selected_choices(
                     level_choices[i] = filtered if filtered else group
 
         if isinstance(action, AddTradition) and action.name not in ("any", "religious_tradition"):
-            rank0 = get_spells_for_tradition(action.name, power_level=0)
+            rank0 = get_spells_for_tradition(action.name, power_level=0, enabled_sources=state.enabled_sources)
             known = {s.name for s in hero.spells}
             if [s for s in rank0 if s not in known]:
                 has_sztuczki = any(t.name == "Sztuczki" for t in hero.talents)
@@ -880,7 +918,7 @@ def _apply_selected_choices(
                     level_choices[i] = filtered if filtered else group
 
         if current_cursor < len(level_choices) and _has_placeholders(level_choices[current_cursor]):
-            expanded = _expand_dynamic_choice_group(hero, level_choices[current_cursor])
+            expanded = _expand_dynamic_choice_group(hero, level_choices[current_cursor], state.enabled_sources)
             if expanded:
                 level_choices[current_cursor] = expanded
 

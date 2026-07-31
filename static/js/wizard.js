@@ -140,6 +140,65 @@
         }
     }
 
+    class SupplementSelector extends HTMLElement {
+        connectedCallback() {
+            this._open = false;
+            this.render();
+            this._onSupChange = () => this.render();
+            window.addEventListener("supplements-change", this._onSupChange);
+            this._onClickOutside = (e) => {
+                if (this._open && !this.contains(e.target)) {
+                    this._open = false;
+                    this.render();
+                }
+            };
+            document.addEventListener("click", this._onClickOutside);
+        }
+        disconnectedCallback() {
+            window.removeEventListener("supplements-change", this._onSupChange);
+            document.removeEventListener("click", this._onClickOutside);
+        }
+        render() {
+            this.replaceChildren();
+            const btn = document.createElement("button");
+            btn.type = "button";
+            btn.className = "books-toggle";
+            btn.textContent = "⚙";
+            btn.setAttribute("aria-label", "Wybierz suplementy");
+            btn.addEventListener("click", (e) => {
+                e.stopPropagation();
+                this._open = !this._open;
+                this.render();
+            });
+            this.append(btn);
+
+            if (this._open) {
+                const panel = document.createElement("div");
+                panel.className = "books-panel visible";
+
+                const supplements = [
+                    {code: "PG", label: "Podręcznik Główny (PG)", locked: true},
+                    {code: "SWD", label: "Suplement Władcy Demonów (SWD)", locked: false},
+                ];
+                supplements.forEach(({code, label, locked}) => {
+                    const option = document.createElement("label");
+                    option.className = "book-option";
+                    const input = document.createElement("input");
+                    input.type = "checkbox";
+                    input.checked = window.enabledSupplements.has(code);
+                    input.disabled = locked;
+                    input.addEventListener("change", () => window.toggleSupplement(code));
+                    const checkmark = document.createElement("span");
+                    checkmark.className = "checkmark";
+                    const text = document.createTextNode(label);
+                    option.append(input, checkmark, text);
+                    panel.append(option);
+                });
+                this.append(panel);
+            }
+        }
+    }
+
     class ProgressNavigator extends HTMLElement {
         connectedCallback() {
             this.store = window.creationStore;
@@ -227,8 +286,13 @@
             this.nextLabel = "Dalej";
         }
         connectedCallback() {
-            this._selected = null;
+            if (this._selected === undefined) this._selected = null;
             this.render();
+            this._onSupChange = () => this.render();
+            window.addEventListener("supplements-change", this._onSupChange);
+        }
+        disconnectedCallback() {
+            window.removeEventListener("supplements-change", this._onSupChange);
         }
         render() {
             this.replaceChildren();
@@ -242,11 +306,8 @@
 
             const grid = document.createElement("div");
             grid.className = "ancestry-grid";
-            const list = [
-                {id: "human", name: "Człowiek"}, {id: "automaton", name: "Automaton"},
-                {id: "goblin", name: "Goblin"}, {id: "dwarf", name: "Krasnolud"},
-                {id: "orc", name: "Ork"}, {id: "changeling", name: "Odmieniec"}
-            ];
+            const enabledSources = window.enabledSupplements || new Set(["PG"]);
+            const list = (window.ANCESTRY_LIST || []).filter(a => enabledSources.has(a.source || "PG"));
             const descriptions = window.ancestryDescriptions || {};
 
             list.forEach(({id, name}) => {
@@ -266,12 +327,15 @@
                 tooltipBtn.addEventListener("click", (e) => {
                     e.preventDefault();
                     e.stopPropagation();
-                    WizardPopover.toggle(tooltipBtn, descriptions[id] || "Brak opisu.");
+                    const desc = descriptions[id];
+                    const text = (typeof desc === "object" && desc !== null) ? (desc.description || "Brak opisu.") : (desc || "Brak opisu.");
+                    WizardPopover.toggle(tooltipBtn, text);
                 });
                 card.append(tooltipBtn);
 
                 card.addEventListener("click", () => {
                     this._selected = id;
+                    this.dispatchEvent(new CustomEvent("select-ancestry", {detail: {ancestry: id}}));
                     this.render();
                 });
                 card.addEventListener("keydown", (e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); card.click(); } });
@@ -608,7 +672,14 @@
     }
 
     class PathPicker extends HTMLElement {
-        connectedCallback() { this.store = window.creationStore; this._search = ""; this._cursorPos = 0; this._selected = null; this.render(); }
+        connectedCallback() {
+            this.store = window.creationStore; this._search = ""; this._cursorPos = 0; this._selected = null; this.render();
+            this._onSupChange = () => this.render();
+            window.addEventListener("supplements-change", this._onSupChange);
+        }
+        disconnectedCallback() {
+            window.removeEventListener("supplements-change", this._onSupChange);
+        }
         get tier() { return this.getAttribute("tier"); }
         render() {
             this.replaceChildren();
@@ -632,7 +703,8 @@
 
             const grid = document.createElement("div");
             grid.className = "ancestry-grid";
-            const catalog = (window.PATH_CATALOG && window.PATH_CATALOG[tier]) || [];
+            const enabledSources = window.enabledSupplements || new Set(["PG"]);
+            const catalog = ((window.PATH_CATALOG && window.PATH_CATALOG[tier]) || []).filter(p => enabledSources.has(p.source || "PG"));
             const needle = this._search.toLowerCase();
             catalog.filter(p => p.name.toLowerCase().includes(needle)).forEach(p => {
                 const card = document.createElement("div");
@@ -651,7 +723,7 @@
                 const expertGrid = document.createElement("div");
                 expertGrid.className = "ancestry-grid";
                 const chosen = new Set(this.store.state.paths.expert);
-                window.PATH_CATALOG.expert.filter(p => !chosen.has(p.id) && p.name.toLowerCase().includes(needle)).forEach(p => {
+                window.PATH_CATALOG.expert.filter(p => enabledSources.has(p.source || "PG") && !chosen.has(p.id) && p.name.toLowerCase().includes(needle)).forEach(p => {
                     const card = document.createElement("div");
                     card.className = "ancestry-item";
                     if (this._selected === p.id) card.classList.add("active");
@@ -986,11 +1058,14 @@
                 this._renderQueued = true;
                 queueMicrotask(() => { this._renderQueued = false; this.render(); });
             };
+            this._onSupChange = () => this.render();
             this.render();
             this.store.addEventListener("statechange", this._onStateChange);
+            window.addEventListener("supplements-change", this._onSupChange);
         }
         disconnectedCallback() {
             this.store.removeEventListener("statechange", this._onStateChange);
+            window.removeEventListener("supplements-change", this._onSupChange);
         }
 
         _buildPaths() {
@@ -1100,22 +1175,24 @@
                 levelTools.append(levelRow);
 
                 if (!state && this._mode === "random" && this._lvl >= 1) {
+                    const enabledSources = window.enabledSupplements || new Set(["PG"]);
+                    const filterBySource = (list) => list.filter(p => enabledSources.has(p.source || "PG"));
                     // Novice Path
                     if (this._lvl >= 1) {
-                        const sel = this._createPathSelect("novice", "Wybierz ścieżkę Nowicjusza (opcjonalne)", window.PATH_CATALOG.novice);
+                        const sel = this._createPathSelect("novice", "Wybierz ścieżkę Nowicjusza (opcjonalne)", filterBySource(window.PATH_CATALOG.novice));
                         levelTools.append(sel);
                     }
                     // Expert Path
                     if (this._lvl >= 3) {
-                        const sel = this._createPathSelect("expert", "Wybierz ścieżkę Eksperta (opcjonalne)", window.PATH_CATALOG.expert);
+                        const sel = this._createPathSelect("expert", "Wybierz ścieżkę Eksperta (opcjonalne)", filterBySource(window.PATH_CATALOG.expert));
                         levelTools.append(sel);
                     }
                     // Master / Second Expert Path
                     if (this._lvl >= 7) {
                         const expertId = this._chosenPaths.expert;
-                        const availableExperts = window.PATH_CATALOG.expert.filter(p => p.id !== expertId);
+                        const availableExperts = filterBySource(window.PATH_CATALOG.expert).filter(p => p.id !== expertId);
                         const masterOptions = [
-                            ...window.PATH_CATALOG.master,
+                            ...filterBySource(window.PATH_CATALOG.master),
                             ...availableExperts.map(p => ({...p, name: `${p.name} (Ekspert)`}))
                         ];
                         const sel = this._createPathSelect("master", "Wybierz ścieżkę Mistrza lub Eksperta (opcjonalne)", masterOptions);
@@ -1134,6 +1211,12 @@
                     if (this._mode === "random") {
                         p.nextLabel = "Generuj";
                     }
+                    if (this._ancestry) {
+                        p._selected = this._ancestry;
+                    }
+                    p.addEventListener("select-ancestry", (e) => {
+                        this._ancestry = e.detail.ancestry;
+                    });
                     p.addEventListener("choose-ancestry", (e) => {
                         this._ancestry = e.detail.ancestry;
                         if (this._mode === "manual") this.store.start("manual", this._ancestry);
@@ -1203,6 +1286,7 @@
         clearTimeout(window._t); window._t = setTimeout(() => toast.classList.remove("visible"), 3000);
     };
 
+    window.customElements.define("supplement-selector", SupplementSelector);
     window.customElements.define("progress-navigator", ProgressNavigator);
     window.customElements.define("main-menu", MainMenu);
     window.customElements.define("ancestry-picker", AncestryPicker);

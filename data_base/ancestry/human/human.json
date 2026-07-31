@@ -9,7 +9,10 @@
     "defense": 10,
     "health": 10,
     "healing_rate": 2,
-    "size": [1.0, 0.5],
+    "size": [
+      1.0,
+      0.5
+    ],
     "speed": 10,
     "power": 0,
     "damage": 0,
@@ -21,7 +24,10 @@
         "can_speak": true,
         "can_write": false
       }
-    ]
+    ],
+    "origin": {
+      "source": "PG"
+    }
   },
   "backstory": {},
   "talents": [],

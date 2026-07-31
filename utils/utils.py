@@ -103,6 +103,7 @@ TRADITION_FILE_MAP = {
     "Tradycja Czasu": "time_tradition.json",
     "Tradycja Transformacji": "transformation_tradition.json",
     "Tradycja Wody": "water_tradition.json",
+    "Tradycja Testowa SWD": "swd_test_tradition.json",
 }
 
 
@@ -833,7 +834,11 @@ def get_tradition_name_from_talent(talent_name: str) -> str | None:
     return None
 
 
-def get_spells_for_tradition(tradition_name: str, power_level: int) -> list[str]:
+def get_spells_for_tradition(
+    tradition_name: str,
+    power_level: int,
+    enabled_sources: list[str] | None = None,
+) -> list[str]:
     filename = TRADITION_FILE_MAP.get(tradition_name)
     if not filename:
         logger.warning("No file mapping for tradition: %s", tradition_name)
@@ -850,6 +855,10 @@ def get_spells_for_tradition(tradition_name: str, power_level: int) -> list[str]
         key = f"level_{lvl}"
         if key in data:
             for spell_data in data[key]:
+                if enabled_sources is not None:
+                    spell_source = (spell_data.get("origin") or {}).get("source", "PG")
+                    if spell_source not in enabled_sources:
+                        continue
                 available_spells.append(spell_data["name"])
     return available_spells
 
@@ -933,7 +942,9 @@ def apply_action(action: Action, hero: AncestryHero, is_random: bool = False):
 
 
 def _expand_dynamic_choice_group(
-    hero: AncestryHero, choice_group: Choice
+    hero: AncestryHero,
+    choice_group: Choice,
+    enabled_sources: list[str] | None = None,
 ) -> list[Action]:
     religions_data = _load_json("data_base/paths/novice/cleric_religions.json")
     known_traditions = {
@@ -973,7 +984,7 @@ def _expand_dynamic_choice_group(
                 known_spells = {spell.name for spell in hero.spells}
                 spells = sorted(
                     spell
-                    for spell in get_spells_for_tradition(tradition_name, 0)
+                    for spell in get_spells_for_tradition(tradition_name, 0, enabled_sources)
                     if spell not in known_spells
                 )
                 if spells:
@@ -986,7 +997,7 @@ def _expand_dynamic_choice_group(
                 spells = sorted(
                     spell
                     for spell in get_spells_for_tradition(
-                        tradition_name, hero.power
+                        tradition_name, hero.power, enabled_sources
                     )
                     if spell not in known_spells
                 )
@@ -1007,7 +1018,7 @@ def _expand_dynamic_choice_group(
                     {
                         spell
                         for tradition in known_traditions
-                        for spell in get_spells_for_tradition(tradition, hero.power)
+                        for spell in get_spells_for_tradition(tradition, hero.power, enabled_sources)
                         if spell not in known_spells
                     }
                 )
