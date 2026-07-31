@@ -68,10 +68,10 @@ class TalentBox:
 
 
 TALENT_BOX_CONFIG = {
-    "maly": {"count": 8, "capacity": 69},
-    "kwadrat": {"count": 8, "capacity": 272},
-    "sredni": {"count": 4, "capacity": 414},
-    "duzy": {"count": 2, "capacity": 912},
+    "small": {"count": 8, "capacity": 160},
+    "medium": {"count": 8, "capacity": 470},
+    "big": {"count": 4, "capacity": 760},
+    "huge": {"count": 2, "capacity": 1070},
 }
 
 
@@ -83,8 +83,8 @@ def get_talent_boxes():
                 TalentBox(
                     field_id=f"{box_type}_{i}",
                     capacity=config["capacity"],
-                    name_field=f"nazwa_talent_{box_type}_{i}",
-                    desc_field=f"opis_talent_{box_type}_{i}",
+                    name_field=f"name_{box_type}_{i}",
+                    desc_field=f"description_{box_type}_{i}",
                 )
             )
 
@@ -94,14 +94,14 @@ def get_talent_boxes():
 def _talent_box_capacity(description_length):
     """Return the smallest box capacity that can contain a description."""
     match description_length:
-        case length if length <= 69:
-            return 69
-        case length if length <= 272:
-            return 272
-        case length if length <= 414:
-            return 414
-        case length if length <= 912:
-            return 912
+        case length if length <= 160:
+            return 160
+        case length if length <= 470:
+            return 470
+        case length if length <= 760:
+            return 760
+        case length if length <= 1070:
+            return 1070
         case _:
             return None
 
@@ -152,16 +152,15 @@ def fill_pdf(hero: AncestryHero, output_path: str) -> None:
     PDF and filesystem errors are propagated to the caller.
     """
     project_root = pathlib.Path(__file__).parent.parent
-    template_path = project_root / "data_base" / "card_no_color.pdf"
+    hero_template = project_root / "data_base" / "hero_card_no_color.pdf"
+    talent_template = project_root / "data_base" / "talent_card_no_color.pdf"
 
-    reader = PdfReader(template_path)
     writer = PdfWriter()
-    writer.append(reader)
+    writer.append(PdfReader(hero_template))
+    writer.append(PdfReader(talent_template))
 
-    # 1. Distribute talents into boxes on Page 2
     assigned_talents, overflow_talents = distribute_talents(hero.talents)
 
-    # 2. Prepare all fields
     def _get_path_display_name(tier, path_id):
         if not path_id:
             return ""
@@ -178,40 +177,38 @@ def fill_pdf(hero: AncestryHero, output_path: str) -> None:
     expert_path = ", ".join([_get_path_display_name("expert", p) for p in hero.expert_path_names])
     master_path = _get_path_display_name("master", hero.master_path_name)
 
-    fields = {
-        "sila": str(hero.strength),
-        "wola": str(hero.will),
-        "intelekt": str(hero.intelligence),
-        "zrecznosc": str(hero.dexterity),
-        "sila_mod": str(hero.strength - 10),
-        "wola_mod": str(hero.will - 10),
-        "intelekt_mod": str(hero.intelligence - 10),
-        "zrecznosc_mod": str(hero.dexterity - 10),
-        "percepcja": str(hero.perception),
-        "obrona": str(hero.defense),
-        "zdrowie": str(hero.health),
-        "predkosc": str(hero.speed),
-        "moc": str(hero.power),
-        "obrazenia": str(hero.damage),
-        "szalenstwo": str(hero.insanity),
-        "splugawienie": str(hero.corruption),
-        "szybkosc_zdrowienia": str(hero.health // 4),
-        "rozmiar": str(hero.size[0]) if hero.size else "1",
-        "pochodzenie": hero.ancestry_name,
-        "nowicjusz": novice_path,
-        "ekspert": expert_path,
-        "mistrz": master_path,
-        "poziom": str(hero.level),
-        "okrawki": str(hero.money.okrawki) if hero.money.okrawki else "",
-        "miedziaki": str(hero.money.miedziaki) if hero.money.miedziaki else "",
-        "srebro": str(hero.money.srebrniki) if hero.money.srebrniki else "",
-        "zloto": str(hero.money.zlote_korony) if hero.money.zlote_korony else "",
-        "plecak": ", ".join(
-            [a.name for a in hero.equipment.armors]
-            + [s.name for s in hero.equipment.shields]
-            + hero.equipment.backpack
-        ),
-        "wyglad": " ".join(
+    hero_fields = {
+        "strength": str(hero.strength),
+        "will": str(hero.will),
+        "inteligence": str(hero.intelligence),
+        "dexterity": str(hero.dexterity),
+        "str_mod": str(hero.strength - 10),
+        "will_mod": str(hero.will - 10),
+        "int_mod": str(hero.intelligence - 10),
+        "dex_mod": str(hero.dexterity - 10),
+        "perception": str(hero.perception),
+        "defence": str(hero.defense),
+        "health": str(hero.health),
+        "speed": str(hero.speed),
+        "power": str(hero.power),
+        "damage": str(hero.damage),
+        "insanity": str(hero.insanity),
+        "corruption": str(hero.corruption),
+        "healing_rate": str(hero.health // 4),
+        "size": str(hero.size[0]) if hero.size else "1",
+        "ancestry": hero.ancestry_name,
+        "novice": novice_path,
+        "expert": expert_path,
+        "master": master_path,
+        "level": str(hero.level),
+        "bits": str(hero.money.okrawki) if hero.money.okrawki else "",
+        "copper": str(hero.money.miedziaki) if hero.money.miedziaki else "",
+        "silver": str(hero.money.srebrniki) if hero.money.srebrniki else "",
+        "gold": str(hero.money.zlote_korony) if hero.money.zlote_korony else "",
+        "backpack": ", ".join(hero.equipment.backpack),
+        "armor": hero.equipment.armors[0].name if hero.equipment.armors else "",
+        "shield": hero.equipment.shields[0].name if hero.equipment.shields else "",
+        "look": " ".join(
             filter(
                 None,
                 [
@@ -222,67 +219,64 @@ def fill_pdf(hero: AncestryHero, output_path: str) -> None:
                 ],
             )
         ),
-        "osobowosc": hero.backstory.get("personality", ""),
-        "zamoznosc": hero.wealth.split(":")[0] if hero.wealth else "",
+        "character": hero.backstory.get("personality", ""),
+        "wealth": hero.wealth.split(":")[0] if hero.wealth else "",
     }
 
-    # Add assigned talents to Page 2 fields
-    for box_id, data in assigned_talents.items():
-        box = data["box"]
-        fields[box.name_field] = data["name"]
-        fields[box.desc_field] = data["description"]
-
-    # 3. Build 'notatki' for Page 1 (including overflow talents and spells)
-    notatki_parts = []
+    notes_parts = []
     if hero.backstory.get("past"):
-        notatki_parts.append(hero.backstory["past"])
-        notatki_parts.append("")
+        notes_parts.append(hero.backstory["past"])
+        notes_parts.append("")
     if hero.backstory.get("religion"):
-        notatki_parts.append(hero.backstory["religion"])
-        notatki_parts.append("")
+        notes_parts.append(hero.backstory["religion"])
+        notes_parts.append("")
 
     if hero.languages:
         lang_written = [language.name for language in hero.languages if language.can_write]
         lang_spoken = [language.name for language in hero.languages if not language.can_write]
         if lang_spoken:
-            notatki_parts.append(f"Języki znane: {', '.join(lang_spoken)}")
+            notes_parts.append(f"Języki znane: {', '.join(lang_spoken)}")
         if lang_written:
-            notatki_parts.append(f"Języki pisane: {', '.join(lang_written)}")
-        notatki_parts.append("")
+            notes_parts.append(f"Języki pisane: {', '.join(lang_written)}")
+        notes_parts.append("")
 
     if hero.professions:
-        notatki_parts.append(f"Profesje: {', '.join(hero.professions)}")
-        notatki_parts.append("")
+        notes_parts.append(f"Profesje: {', '.join(hero.professions)}")
+        notes_parts.append("")
 
     traditions = sorted(
         talent.name for talent in hero.talents if talent.name.startswith("Tradycja ")
     )
     if traditions:
-        notatki_parts.append(f"Tradycje magiczne: {', '.join(traditions)}")
-        notatki_parts.append("")
+        notes_parts.append(f"Tradycje magiczne: {', '.join(traditions)}")
+        notes_parts.append("")
 
     if overflow_talents:
-        notatki_parts.append("TALENTY (NADMIAROWE):")
+        notes_parts.append("TALENTY (NADMIAROWE):")
         for t in overflow_talents:
             desc = f": {t.description}" if t.description else ""
-            notatki_parts.append(f"• {t.name}{desc}")
-        notatki_parts.append("")
+            notes_parts.append(f"• {t.name}{desc}")
+        notes_parts.append("")
 
     if hero.oddity:
-        notatki_parts.append(f"Kuriozum: {hero.oddity}")
+        notes_parts.append(f"Kuriozum: {hero.oddity}")
 
-    fields["notatki"] = "\n".join(notatki_parts)
+    hero_fields["notes"] = "\n".join(notes_parts)
 
     for i, weapon in enumerate(hero.equipment.weapons[:5]):
-        fields[f"ekwipunek_{i + 1}"] = weapon.name
-        fields[f"obrazenia_{i + 1}"] = weapon.damage
-        fields[f"cechy_{i + 1}"] = weapon.properties
+        hero_fields[f"weapon_{i + 1}"] = weapon.name
+        hero_fields[f"dmg_{i + 1}"] = weapon.damage
+        if i + 1 != 2:
+            hero_fields[f"property_{i + 1}"] = weapon.properties
 
-    # Update Page 1
-    writer.update_page_form_field_values(writer.pages[0], fields)
-    # Update Page 2 (pypdf will ignore fields that don't exist on this page)
-    if len(writer.pages) > 1:
-        writer.update_page_form_field_values(writer.pages[1], fields)
+    talent_fields = {}
+    for box_id, data in assigned_talents.items():
+        box = data["box"]
+        talent_fields[box.name_field] = data["name"]
+        talent_fields[box.desc_field] = data["description"]
+
+    writer.update_page_form_field_values(writer.pages[0], hero_fields)
+    writer.update_page_form_field_values(writer.pages[1], talent_fields)
 
     renderable_spells = [
         spell

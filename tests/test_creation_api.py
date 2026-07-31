@@ -191,16 +191,20 @@ def test_apply_choices_completes_level_and_exposes_crossroads(client):
 
 def test_rewind_rejects_target_beyond_current_level(client):
     contract = _start(client)
+    state = contract["state"]
     response = client.post(
-        f"/api/creations/{contract['creation_id']}/rewind", json={"target_level": 5}
+        f"/api/creations/{contract['creation_id']}/rewind",
+        json={"target_level": 5, "state_version": state["state_version"]},
     )
     assert response.status_code == 400
 
 
 def test_rewind_rejects_negative_target(client):
     contract = _start(client)
+    state = contract["state"]
     response = client.post(
-        f"/api/creations/{contract['creation_id']}/rewind", json={"target_level": -1}
+        f"/api/creations/{contract['creation_id']}/rewind",
+        json={"target_level": -1, "state_version": state["state_version"]},
     )
     assert response.status_code == 400
 
@@ -218,7 +222,8 @@ def test_rewind_happy_path_invalidates_later_levels(client):
     state, _ = _advance(client, contract["creation_id"], state)
 
     response = client.post(
-        f"/api/creations/{contract['creation_id']}/rewind", json={"target_level": 0}
+        f"/api/creations/{contract['creation_id']}/rewind",
+        json={"target_level": 0, "state_version": state["state_version"]},
     )
     assert response.status_code == 200
     payload = response.get_json()
