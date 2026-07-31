@@ -275,8 +275,8 @@ def fill_pdf(hero: AncestryHero, output_path: str) -> None:
         talent_fields[box.name_field] = data["name"]
         talent_fields[box.desc_field] = data["description"]
 
-    writer.update_page_form_field_values(writer.pages[0], hero_fields)
-    writer.update_page_form_field_values(writer.pages[1], talent_fields)
+    writer.update_page_form_field_values(writer.pages[0], hero_fields, auto_regenerate=False)
+    writer.update_page_form_field_values(writer.pages[1], talent_fields, auto_regenerate=False)
 
     renderable_spells = [
         spell
