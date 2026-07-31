@@ -303,13 +303,13 @@ def fill_pdf(hero: AncestryHero, output_path: str) -> None:
 
 
 def _draw_wrapped_text(
-    canvas: Canvas,
-    text: str,
-    x: float,
-    y: float,
-    width: float,
-    font_size: int,
-    leading: float | None = None,
+        canvas: Canvas,
+        text: str,
+        x: float,
+        y: float,
+        width: float,
+        font_size: int,
+        leading: float | None = None,
 ) -> float:
     style = ParagraphStyle(
         "spell_text",
@@ -357,7 +357,7 @@ def _spell_card_fields(spell, card_number: int) -> dict[str | Any, str | dict[An
         f"spell_duration_card_{card_number}": spell.duration or "",
         f"spell_area_card_{card_number}": spell.area or "",
         f"spell_description_card_{card_number}": (
-            spell.card_description or spell.description or ""
+                spell.card_description or spell.description or ""
         ),
         f"spell_attack_roll_card_{card_number}": spell.critical_success or "",
         f"spell_requirements_card_{card_number}": spell.requirements or "",
@@ -372,13 +372,13 @@ def _spell_card_fields(spell, card_number: int) -> dict[str | Any, str | dict[An
 
 
 def _draw_spell_table(
-    canvas: Canvas,
-    table_data: dict,
-    left: float,
-    top: float,
-    width: float,
-    px_to_x: float,
-    px_to_y: float,
+        canvas: Canvas,
+        table_data: dict,
+        left: float,
+        top: float,
+        width: float,
+        px_to_x: float,
+        px_to_y: float,
 ) -> float:
     """Draw a spell table stored as {headers: [...], rows: [[...], ...]}.
 
@@ -494,16 +494,16 @@ def _spell_name_bounds(column_px: float) -> tuple[float, float]:
 def _spell_critical_success_y(base_y: float, description_height: float, px_to_y: float) -> float:
     """Return the Y position 50 pixels below the wrapped description."""
     return (
-        base_y
-        + SPELL_DESCRIPTION_OFFSET_Y
-        + description_height / px_to_y
-        + SPELL_CRITICAL_SUCCESS_GAP_PX
+            base_y
+            + SPELL_DESCRIPTION_OFFSET_Y
+            + description_height / px_to_y
+            + SPELL_CRITICAL_SUCCESS_GAP_PX
     )
 
 
 def _spell_description_top(
-    base_y: float,
-    technical_fields_bottom: float | None,
+        base_y: float,
+        technical_fields_bottom: float | None,
 ) -> float:
     """Return the description top 50 px below the last technical field."""
     if technical_fields_bottom is None:
@@ -521,7 +521,7 @@ def _spell_effect_value(value: str, label: str) -> str:
     prefixes = (label, "Rzut na atak to 20+:") if label == "Rzut na atak 20+:" else (label,)
     for prefix in prefixes:
         if value.startswith(prefix):
-            return value[len(prefix) :].strip()
+            return value[len(prefix):].strip()
     return value
 
 
@@ -535,15 +535,15 @@ def _format_spell_description(text: str) -> str:
 
 
 def _draw_wrapped_centered(
-    canvas: Canvas,
-    text: str,
-    left: float,
-    top: float,
-    width: float,
-    font_name: str,
-    font_size: int,
-    px_to_x: float,
-    px_to_y: float,
+        canvas: Canvas,
+        text: str,
+        left: float,
+        top: float,
+        width: float,
+        font_name: str,
+        font_size: int,
+        px_to_x: float,
+        px_to_y: float,
 ) -> float:
     style = ParagraphStyle(
         "spell_name",
@@ -560,19 +560,19 @@ def _draw_wrapped_centered(
 
 
 def _draw_spell_field(
-    canvas: Canvas,
-    text: str,
-    column: float,
-    top: float,
-    px_to_x: float,
-    px_to_y: float,
+        canvas: Canvas,
+        text: str,
+        column: float,
+        top: float,
+        px_to_x: float,
+        px_to_y: float,
 ) -> float:
     """Draw a centered, wrapped technical field and return its height in points."""
     left, width = _spell_description_bounds(column)
     labels = ("Czas działania:", "Czas trwania:", "Cel:", "Obszar:")
     label = next((item for item in labels if text.startswith(item)), "")
     if label:
-        text = f'<font name="{SPELL_FONT_BOLD}">{escape(label)}</font>{escape(text[len(label) :])}'
+        text = f'<font name="{SPELL_FONT_BOLD}">{escape(label)}</font>{escape(text[len(label):])}'
     else:
         text = escape(text)
     return _draw_wrapped_centered(
@@ -591,7 +591,7 @@ def _draw_spell_field(
 def fill_spell_pdf(hero: AncestryHero, output_path: str) -> str:
     """Render up to nine spells per page on the 3x3 card template."""
     templates_dir = pathlib.Path(__file__).parent.parent / "data_base"
-    template_path = templates_dir / "empty_spell_cards.pdf"
+    template_path = templates_dir / "spell_card_no_color.pdf"
     output_file = pathlib.Path(output_path)
     output_file.parent.mkdir(parents=True, exist_ok=True)
     spells = [
@@ -609,13 +609,13 @@ def fill_spell_pdf(hero: AncestryHero, output_path: str) -> str:
     px_to_y = A4[1] / 3508
 
     def draw_centered(
-        text: str, x_px: float, y_px: float, size: int, font_name: str = SPELL_FONT
+            text: str, x_px: float, y_px: float, size: int, font_name: str = SPELL_FONT
     ) -> None:
         canvas.setFont(font_name, size)
         canvas.drawCentredString(x_px * px_to_x, A4[1] - y_px * px_to_y, text)
 
     for page_start in range(0, len(spells), 9):
-        for card_index, spell in enumerate(spells[page_start : page_start + 9], 1):
+        for card_index, spell in enumerate(spells[page_start: page_start + 9], 1):
             column = SPELL_CARD_COLUMNS_X[(card_index - 1) % 3]
             base_y = SPELL_CARD_ROW_BASES_Y[(card_index - 1) // 3]
             fields = _spell_card_fields(spell, card_index)
