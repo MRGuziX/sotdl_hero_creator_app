@@ -28,7 +28,10 @@
         "can_speak": true,
         "can_write": true
       }
-    ]
+    ],
+    "origin": {
+      "source": "PG"
+    }
   },
   "backstory": {},
   "talents": [

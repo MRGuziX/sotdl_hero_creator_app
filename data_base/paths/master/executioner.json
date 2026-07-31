@@ -1,6 +1,9 @@
 {
   "path_name": "Egzekutor",
   "path_type": "master",
+  "origin": {
+    "source": "PG"
+  },
   "level_benefits": {
     "7": {
       "actions": [

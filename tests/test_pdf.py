@@ -113,7 +113,7 @@ def test_pdf_includes_magic_traditions_in_notes(populated_hero, output_path):
     fill_pdf(populated_hero, output_path)
 
     fields = PdfReader(output_path).get_fields()
-    assert "Tradycja Życia" in fields["notatki"]["/V"]
+    assert "Tradycja Życia" in fields["notes"]["/V"]
 
 
 def test_pdf_does_not_render_placeholder_spell(populated_hero, output_path):
@@ -131,10 +131,10 @@ def test_pdf_fields_populated(populated_hero, output_path):
     reader = PdfReader(output_path)
     fields = reader.get_form_text_fields() or {}
 
-    assert fields.get("pochodzenie") == "Człowiek"
-    assert fields.get("sila") == "12"
-    assert fields.get("zrecznosc") == "11"
-    assert fields.get("sila_mod") == "2"
+    assert fields.get("ancestry") == "Człowiek"
+    assert fields.get("strength") == "12"
+    assert fields.get("dexterity") == "11"
+    assert fields.get("str_mod") == "2"
 
 
 def test_pdf_novice_path_is_populated(output_path):
@@ -143,7 +143,7 @@ def test_pdf_novice_path_is_populated(output_path):
     fill_pdf(hero, output_path)
     fields = PdfReader(output_path).get_form_text_fields() or {}
 
-    assert fields.get("nowicjusz") == "Wojownik"
+    assert fields.get("novice") == "Wojownik"
 
 
 def test_pdf_weapons_populated(populated_hero, output_path):
@@ -151,8 +151,8 @@ def test_pdf_weapons_populated(populated_hero, output_path):
     reader = PdfReader(output_path)
     fields = reader.get_form_text_fields() or {}
 
-    assert fields.get("ekwipunek_1") == "Miecz"
-    assert fields.get("obrazenia_1") == "1k6+2"
+    assert fields.get("weapon_1") == "Miecz"
+    assert fields.get("dmg_1") == "1k6+2"
 
 
 @pytest.mark.parametrize(
@@ -190,20 +190,20 @@ def test_pdf_talent_placement(output_path):
         size=[1.0],
         speed=10,
         talents=[
-            Talent(name="Mały 1", description="S" * 50),
-            Talent(name="Kwadrat 1", description="K" * 200),
-            Talent(name="Średni 1", description="M" * 300),
-            Talent(name="Wielki 1", description="L" * 800),
+            Talent(name="Small 1", description="S" * 100),
+            Talent(name="Medium 1", description="M" * 300),
+            Talent(name="Big 1", description="B" * 600),
+            Talent(name="Huge 1", description="H" * 1000),
         ],
     )
     fill_pdf(hero, output_path)
     reader = PdfReader(output_path)
     fields = reader.get_form_text_fields() or {}
 
-    assert fields.get("nazwa_talent_maly_1") == "Mały 1"
-    assert fields.get("nazwa_talent_kwadrat_1") == "Kwadrat 1"
-    assert fields.get("nazwa_talent_sredni_1") == "Średni 1"
-    assert fields.get("nazwa_talent_duzy_1") == "Wielki 1"
+    assert fields.get("name_small_1") == "Small 1"
+    assert fields.get("name_medium_1") == "Medium 1"
+    assert fields.get("name_big_1") == "Big 1"
+    assert fields.get("name_huge_1") == "Huge 1"
 
 
 def test_pdf_from_full_flow(output_path):
@@ -214,7 +214,7 @@ def test_pdf_from_full_flow(output_path):
 
     reader = PdfReader(output_path)
     fields = reader.get_form_text_fields() or {}
-    assert fields.get("pochodzenie") == "Człowiek"
+    assert fields.get("ancestry") == "Człowiek"
     assert hero.wealth != ""
     assert hero.oddity != ""
 
@@ -562,7 +562,7 @@ def test_spell_tags_include_level():
 
 @pytest.mark.parametrize(
     ("name_length", "font_size"),
-    [(3, 18), (12, 18), (13, 14), (23, 14), (24, 12), (34, 12)],
+    [(3, 16), (12, 16), (13, 14), (23, 14), (24, 12), (34, 12)],
 )
 def test_spell_name_font_size(name_length, font_size):
     assert _spell_name_font_size("A" * name_length) == font_size
@@ -570,7 +570,7 @@ def test_spell_name_font_size(name_length, font_size):
 
 @pytest.mark.parametrize(
     ("description_length", "font_size"),
-    [(0, 8), (500, 8), (501, 7), (900, 7), (901, 7), (1100, 7), (1101, 7)],
+    [(0, 8), (500, 8), (501, 7), (700, 7), (701, 6), (900, 6), (1100, 6)],
 )
 def test_spell_description_font_size(description_length, font_size):
     assert _spell_description_font_size("A" * description_length) == font_size
@@ -582,26 +582,26 @@ def test_spell_description_font_size(description_length, font_size):
         (0, (8, "empty_spell_cards")),
         (500, (8, "empty_spell_cards")),
         (501, (7, "empty_spell_cards")),
-        (900, (7, "empty_spell_cards")),
-        (901, (7, "empty_spell_cards")),
-        (1100, (7, "empty_spell_cards")),
-        (1101, (7, "empty_spell_cards")),
+        (700, (7, "empty_spell_cards")),
+        (701, (6, "empty_spell_cards")),
+        (900, (6, "empty_spell_cards")),
+        (1100, (6, "empty_spell_cards")),
     ],
 )
 def test_spell_description_layout(description_length, layout):
     assert _spell_description_layout("A" * description_length) == layout
 
 
-@pytest.mark.parametrize("column", [488, 1239, 1991])
+@pytest.mark.parametrize("column", [500, 1253, 2007])
 def test_spell_description_bounds_follow_card_edges(column):
     left, width = _spell_description_bounds(column)
 
-    assert left == 100 + (column - 488)
-    assert width == 688
+    assert left == 170 + (column - 500)
+    assert width == 628
 
 
 def test_spell_name_uses_card_edges_for_wrapping():
-    left, width = _spell_name_bounds(488)
+    left, width = _spell_name_bounds(500)
 
     assert left == 170
     assert width == 630
@@ -614,8 +614,8 @@ def test_spell_critical_success_moves_below_wrapped_description():
     short_description_y = _spell_critical_success_y(base_y, 20, px_to_y)
     long_description_y = _spell_critical_success_y(base_y, 100, px_to_y)
 
-    assert short_description_y == 620
-    assert long_description_y == 1020
+    assert short_description_y == 570.0
+    assert long_description_y == 970.0
     assert long_description_y > short_description_y
 
 
@@ -634,12 +634,12 @@ def test_spell_origin_is_formatted_for_card_footer():
 
 
 def test_spell_origin_uses_the_same_left_offset_for_each_column():
-    assert _spell_origin_x(488) == 168
-    assert _spell_origin_x(1249) == 929
-    assert _spell_origin_x(1991) == 1671
+    assert _spell_origin_x(500) == 165
+    assert _spell_origin_x(1253) == 918
+    assert _spell_origin_x(2007) == 1672
 
 
 def test_spell_origin_has_an_offset_for_each_row():
     assert _spell_origin_offset_y(0) == 980
-    assert _spell_origin_offset_y(1) == 980
-    assert _spell_origin_offset_y(2) == 900
+    assert _spell_origin_offset_y(1) == 970
+    assert _spell_origin_offset_y(2) == 960

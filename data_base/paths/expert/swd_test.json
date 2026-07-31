@@ -1,0 +1,60 @@
+{
+  "path_name": "Testowy SWD Ekspert",
+  "path_type": "expert",
+  "origin": {
+    "source": "SWD"
+  },
+  "level_benefits": {
+    "3": {
+      "actions": [
+        {
+          "type": "add_attribute",
+          "name": "health",
+          "value": 5
+        },
+        {
+          "type": "add_talent",
+          "name": "Testowy talent SWD",
+          "description": "To jest testowy talent z suplementu Władcy Demonów."
+        }
+      ],
+      "choices": [
+        [
+          {
+            "type": "add_tradition",
+            "name": "Tradycja Testowa SWD"
+          },
+          {
+            "type": "add_tradition",
+            "name": "Tradycja Powietrza"
+          }
+        ]
+      ]
+    },
+    "6": {
+      "actions": [
+        {
+          "type": "add_attribute",
+          "name": "health",
+          "value": 5
+        },
+        {
+          "type": "add_talent",
+          "name": "Testowy talent SWD 2",
+          "description": "To jest drugi testowy talent z suplementu Władcy Demonów."
+        }
+      ],
+      "choices": []
+    },
+    "9": {
+      "actions": [
+        {
+          "type": "add_attribute",
+          "name": "health",
+          "value": 5
+        }
+      ],
+      "choices": []
+    }
+  }
+}

@@ -25,8 +25,3 @@ class Spell(BaseModel):
             values = dict(values)
             values["description"] = values.get("book_description") or ""
         return values
-
-
-class Tradition(BaseModel):
-    name: str
-    spells: dict[int, list[Spell]]

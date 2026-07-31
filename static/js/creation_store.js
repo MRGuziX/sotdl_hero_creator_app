@@ -1,5 +1,17 @@
 /* Server-authoritative creation state for the progressive wizard. */
 (function () {
+    window.enabledSupplements = new Set(["PG"]);
+
+    window.toggleSupplement = function (source) {
+        if (source === "PG") return;
+        if (window.enabledSupplements.has(source)) {
+            window.enabledSupplements.delete(source);
+        } else {
+            window.enabledSupplements.add(source);
+        }
+        window.dispatchEvent(new CustomEvent("supplements-change"));
+    };
+
     class CreationStore extends EventTarget {
         constructor() {
             super();
@@ -18,11 +30,17 @@
             return this.state ? this.state.current_level : 0;
         }
 
+        _tryFinalize() {
+            if (this.state && this.state.can_finalize) {
+                this.finalize().catch(e => console.warn("finalize failed:", e));
+            }
+        }
+
         async start(mode, ancestry, options = {}) {
             if (this._pending) return;
             this._pending = true;
             try {
-                const body = {mode, ancestry};
+                const body = {mode, ancestry, enabled_sources: Array.from(window.enabledSupplements)};
                 if (mode === "random") {
                     body.target_level = options.targetLevel ?? 0;
                     body.paths = options.paths || {novice: null, expert: [], master: null};
@@ -73,7 +91,7 @@
                 const result = await response.json();
                 if (!response.ok) throw new Error(result.error || "Unable to choose path");
                 this.setContract(result);
-                try { await this.finalize(); } catch(e) { console.warn("finalize failed:", e); }
+                this._tryFinalize();
                 return result;
             } finally { this._pending = false; }
         }
@@ -104,7 +122,7 @@
                 const result = await response.json();
                 if (!response.ok) throw new Error(result.error || "Unable to apply choices");
                 if (result.state || result.step) this.setContract(result);
-                try { await this.finalize(); } catch(e) { console.warn("finalize failed:", e); }
+                this._tryFinalize();
                 if (result.download_url) {
                     this.dispatchEvent(new CustomEvent("completed", {detail: {downloadUrl: result.download_url}}));
                 }
@@ -125,7 +143,7 @@
                 const result = await response.json();
                 if (!response.ok) throw new Error(result.error || "Unable to rewind creation");
                 this.setContract(result);
-                try { await this.finalize(); } catch(e) { console.warn("finalize failed:", e); }
+                this._tryFinalize();
                 return result;
             } finally { this._pending = false; }
         }
@@ -143,7 +161,7 @@
                 const result = await response.json();
                 if (!response.ok) throw new Error(result.error || "Unable to rewind choice");
                 this.setContract(result);
-                try { await this.finalize(); } catch(e) { console.warn("finalize failed:", e); }
+                this._tryFinalize();
                 return result;
             } finally { this._pending = false; }
         }
@@ -161,7 +179,7 @@
                 const result = await response.json();
                 if (!response.ok) throw new Error(result.error || "Unable to set equipment");
                 this.setContract(result);
-                try { await this.finalize(); } catch(e) { console.warn("finalize failed:", e); }
+                this._tryFinalize();
                 return result;
             } finally { this._pending = false; }
         }

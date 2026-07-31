@@ -1,6 +1,9 @@
 {
   "path_name": "Czarodziej",
   "path_type": "expert",
+  "origin": {
+    "source": "PG"
+  },
   "level_benefits": {
     "3": {
       "actions": [

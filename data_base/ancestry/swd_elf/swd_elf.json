@@ -1,0 +1,123 @@
+{
+  "general": {
+    "ancestry_name": "Elf (SWD Test)",
+    "strength": 9,
+    "dexterity": 11,
+    "intelligence": 10,
+    "will": 10,
+    "perception": 11,
+    "defense": 11,
+    "health": 9,
+    "healing_rate": 2,
+    "size": [1.0, 0.5],
+    "speed": 12,
+    "power": 0,
+    "damage": 0,
+    "insanity": 0,
+    "corruption": 0,
+    "languages": [
+      {
+        "name": "Wspólny",
+        "can_speak": true,
+        "can_write": false
+      },
+      {
+        "name": "Elficki",
+        "can_speak": true,
+        "can_write": true
+      }
+    ],
+    "origin": {
+      "source": "SWD"
+    }
+  },
+  "backstory": {},
+  "talents": [
+    {
+      "name": "Widzenie w ciemności",
+      "description": "Widzisz w ciemności w zasięgu 20 metrów tak, jakby panował półmrok."
+    }
+  ],
+  "professions": [],
+  "spells": [],
+  "wealth": "2k6 mc",
+  "money": {
+    "gold": 0,
+    "silver": 0,
+    "copper": 0,
+    "bits": 0
+  },
+  "oddity": "",
+  "equipment": {
+    "armors": [],
+    "weapons": [],
+    "shields": [],
+    "other": []
+  },
+  "actions": [
+    {
+      "type": "add_attribute",
+      "name": "any",
+      "value": 1
+    }
+  ],
+  "choices": [
+    [
+      {
+        "type": "add_attribute",
+        "name": "strength",
+        "value": 1
+      },
+      {
+        "type": "add_attribute",
+        "name": "dexterity",
+        "value": 1
+      },
+      {
+        "type": "add_attribute",
+        "name": "intelligence",
+        "value": 1
+      },
+      {
+        "type": "add_attribute",
+        "name": "will",
+        "value": 1
+      }
+    ]
+  ],
+  "level_benefits": {
+    "4": {
+      "actions": [
+        {
+          "type": "add_attribute",
+          "name": "health",
+          "value": 3
+        }
+      ],
+      "choices": [
+        [
+          {
+            "type": "add_attribute",
+            "name": "strength",
+            "value": 1
+          },
+          {
+            "type": "add_attribute",
+            "name": "dexterity",
+            "value": 1
+          },
+          {
+            "type": "add_attribute",
+            "name": "intelligence",
+            "value": 1
+          },
+          {
+            "type": "add_attribute",
+            "name": "will",
+            "value": 1
+          }
+        ]
+      ]
+    }
+  }
+}

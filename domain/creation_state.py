@@ -28,14 +28,13 @@ class CreationState:
     creation_inputs: dict[str, Any] = field(default_factory=dict)
     applied_actions: list[tuple[int, Action]] = field(default_factory=list)
     selections: dict[int, list[int]] = field(default_factory=dict)
-    roll_results: dict[str, Any] = field(default_factory=dict)
     mode: str = "manual"
     current_level: int = 0
     completed_steps: list[int] = field(default_factory=list)
-    dependencies: dict[str, list[str]] = field(default_factory=dict)
     invalidated_levels: list[int] = field(default_factory=list)
     equipment_confirmed_levels: list[int] = field(default_factory=list)
     equipment_picks: dict[str, Any] = field(default_factory=dict)
+    enabled_sources: list[str] = field(default_factory=lambda: ["PG"])
     state_version: int = 0
     version: int = CREATION_STATE_VERSION
     state_id: str = field(default_factory=lambda: uuid4().hex)
@@ -56,14 +55,13 @@ class CreationState:
                 [lvl, action.model_dump(mode="json")] for lvl, action in self.applied_actions
             ],
             "selections": {str(k): v for k, v in self.selections.items()},
-            "roll_results": self.roll_results,
             "mode": self.mode,
             "current_level": self.current_level,
             "completed_steps": self.completed_steps,
-            "dependencies": self.dependencies,
             "invalidated_levels": self.invalidated_levels,
             "equipment_confirmed_levels": self.equipment_confirmed_levels,
             "equipment_picks": self.equipment_picks,
+            "enabled_sources": self.enabled_sources,
             "state_version": self.state_version,
         }
 
@@ -89,16 +87,15 @@ class CreationState:
                 selections={
                     int(k): v for k, v in data.get("selections", {}).items()
                 },
-                roll_results=dict(data.get("roll_results", {})),
                 version=data["version"],
                 state_id=data["state_id"],
                 mode=data.get("mode", "manual"),
                 current_level=data.get("current_level", 0),
                 completed_steps=list(data.get("completed_steps", [])),
-                dependencies=dict(data.get("dependencies", {})),
                 invalidated_levels=list(data.get("invalidated_levels", [])),
                 equipment_confirmed_levels=list(data.get("equipment_confirmed_levels", [])),
                 equipment_picks=dict(data.get("equipment_picks", {})),
+                enabled_sources=list(data.get("enabled_sources", ["PG"])),
                 state_version=data.get("state_version", 0),
             )
         except (KeyError, TypeError, ValueError) as exc:

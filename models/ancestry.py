@@ -24,6 +24,7 @@ class GeneralStats(BaseModel):
     insanity: int = 0
     corruption: int = 0
     languages: list[Language] = []
+    origin: dict | None = None
 
 
 class AncestryData(BaseModel):

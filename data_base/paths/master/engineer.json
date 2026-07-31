@@ -1,6 +1,9 @@
 {
   "path_name": "Inżynier",
   "path_type": "master",
+  "origin": {
+    "source": "PG"
+  },
   "level_benefits": {
     "7": {
       "actions": [
@@ -27,7 +30,7 @@
         {
           "type": "add_talent",
           "name": "Eidolon",
-          "description": "Tworzysz humanoidalny konstrukt o dowolnym wyglądzie. Eidolon jest wysoki na prawie 4 metry i waży około tony. Możesz mieć tylko jednego takiego sługę naraz. Jeśli twój eidolon zostanie zniszczony, możesz zbudować kolejnego. Wymaga to poświęcenia co najmniej 8 godzin pracy oraz użycia części, które sam stworzysz lub odzyskasz z poprzedniego. Po tym czasie twój nowy mechaniczny sługa jest gotowy. Eidolon nie jest żywą istotą. Nie cierpi z powodu wystawiania się na nieprzyjazne warunki ani z braku zaspokojenia potrzeb. Pozostaje niewrażliwy na efekty, które by go postarzyły. Obezwładniony eidolon przestaje być stworzeniem i traktowany jest jako obiekt. Posiadasz nad nim całkowitą kontrolę, decydujesz, jakie działania podejmuje w każdej swojej turze. Poniżej przedstawiono jego statystyki. EIDOLON Konstrukt, Rozmiar 2 Percepcja: 10 (+0); widzenie w ciemności Obrona: 11; Zdrowie: 50 Siła: 16 (+6), Zręczność: 8 (-2), Intelekt: 5 (-5), Wola: 11 (+1) Prędkość: 6 Niewrażliwość na obrażenia od choroby i trucizny; nie może zyskiwać Szaleństwa; niewrażliwość na uśpienie, zauroczenie, choroby, wyczerpanie, przestraszenie i trucizny. ATAKI Kończyna: (broń biała) +6 (2k6)"
+          "description": "Tworzysz humanoidalny konstrukt o dowolnym wyglądzie. Eidolon jest wysoki na prawie 4 metry i waży około tony. Możesz mieć tylko jednego takiego naraz. Po zniszczeniu, możesz zbudować kolejnego. Wymaga to poświęcenia co najmniej 8 godzin pracy oraz użycia części, które sam stworzysz lub odzyskasz z poprzedniego. Eidolon nie jest żywą istotą. Nie cierpi z powodu wystawiania się na nieprzyjazne warunki ani z braku zaspokojenia potrzeb. Niewrażliwy na efekty, które by go postarzyły. Obezwładniony eidolon przestaje być stworzeniem i traktowany jest jako obiekt. Posiadasz nad nim całkowitą kontrolę, decydujesz, jakie działania podejmuje w każdej swojej turze. Statystyki: EIDOLON Konstrukt, Rozmiar 2 Percepcja: 10 (+0); widzenie w ciemności Obrona: 11; Zdrowie: 50 Siła: 16 (+6), Zręczność: 8 (-2), Intelekt: 5 (-5), Wola: 11 (+1) Prędkość: 6 Niewrażliwość na obrażenia od choroby i trucizny; nie może zyskiwać Szaleństwa; niewrażliwość na uśpienie, zauroczenie, choroby, wyczerpanie, przestraszenie i trucizny. ATAKI Kończyna: (broń biała) +6 (2k6)"
         },
         {
           "type": "add_talent",

@@ -1,6 +1,9 @@
 {
   "path_name": "Kleryk",
   "path_type": "novice",
+  "origin": {
+    "source": "PG"
+  },
   "level_benefits": {
     "1": {
       "actions": [

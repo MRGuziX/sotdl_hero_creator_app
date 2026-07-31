@@ -42,7 +42,6 @@ def test_creation_state_round_trips_hero_actions_and_cursor():
         choice_cursor=2,
         creation_inputs={"ancestry": "human", "level": 0},
         applied_actions=[(0, action)],
-        roll_results={"past": 7},
     )
 
     restored = CreationState.from_dict(state.to_dict())
@@ -51,7 +50,6 @@ def test_creation_state_round_trips_hero_actions_and_cursor():
     assert restored.choice_cursor == 2
     assert restored.level_choices[0][0] == action
     assert restored.applied_actions == [(0, action)]
-    assert restored.roll_results == {"past": 7}
 
 
 def test_creation_state_rejects_wrong_version_and_cursor():
@@ -133,7 +131,7 @@ def test_awaiting_path_pick_flags_novice_expert_and_master_thresholds():
 
     # A second Expert path instead of Master also satisfies the level 7 pick.
     state.creation_inputs["paths"]["master"] = None
-    state.creation_inputs["paths"]["expert"] = ["fighter", "assasin"]
+    state.creation_inputs["paths"]["expert"] = ["fighter", "assassin"]
     assert state.awaiting_path_pick() is None
 
     # Pending choices always suppress the path-pick prompt.

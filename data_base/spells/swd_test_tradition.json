@@ -1,0 +1,55 @@
+{
+  "level_0": [
+    {
+      "name": "TESTOWY CZAR SWD 1",
+      "tags": [
+        "Testowa SWD",
+        "Atak"
+      ],
+      "level": 0,
+      "target": "Cel: Jedno stworzenie w bliskim zasięgu.",
+      "book_description": "Testowy czar z suplementu Władcy Demonów. Zadaje 1k6 obrażeń.",
+      "card_description": "Testowy czar z suplementu\nWładcy Demonów.\nZadaje 1k6 obrażeń.",
+      "origin": {
+        "source": "SWD",
+        "number": 1
+      }
+    },
+    {
+      "name": "TESTOWY CZAR SWD 2",
+      "tags": [
+        "Testowa SWD",
+        "Użytkowe"
+      ],
+      "level": 0,
+      "duration": "Czas działania: 1 minuta",
+      "book_description": "Testowy czar użytkowy z suplementu Władcy Demonów.",
+      "card_description": "Testowy czar użytkowy\nz suplementu Władcy Demonów.",
+      "origin": {
+        "source": "SWD",
+        "number": 2
+      }
+    }
+  ],
+  "level_1": [
+    {
+      "name": "TESTOWY CZAR SWD 3",
+      "tags": [
+        "Testowa SWD",
+        "Atak"
+      ],
+      "level": 1,
+      "target": "Cel: Jedno stworzenie w bliskim zasięgu.",
+      "book_description": "Potężniejszy testowy czar z suplementu Władcy Demonów. Zadaje 2k6 obrażeń.",
+      "card_description": "Potężniejszy testowy czar\nz suplementu Władcy Demonów.\nZadaje 2k6 obrażeń.",
+      "origin": {
+        "source": "SWD",
+        "number": 3
+      }
+    }
+  ],
+  "level_2": [],
+  "level_3": [],
+  "level_4": [],
+  "level_5": []
+}

@@ -1,0 +1,34 @@
+{
+  "path_name": "Testowy SWD Mistrz",
+  "path_type": "master",
+  "origin": {
+    "source": "SWD"
+  },
+  "level_benefits": {
+    "7": {
+      "actions": [
+        {
+          "type": "add_attribute",
+          "name": "health",
+          "value": 5
+        },
+        {
+          "type": "add_talent",
+          "name": "Testowy talent mistrza SWD",
+          "description": "To jest testowy talent mistrza z suplementu Władcy Demonów."
+        }
+      ],
+      "choices": []
+    },
+    "10": {
+      "actions": [
+        {
+          "type": "add_attribute",
+          "name": "health",
+          "value": 5
+        }
+      ],
+      "choices": []
+    }
+  }
+}
