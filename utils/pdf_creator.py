@@ -6,7 +6,6 @@ from html import escape
 from typing import Any
 
 from pypdf import PdfReader, PdfWriter
-from pypdf.generic import NameObject, create_string_object
 from reportlab.lib.colors import black, white
 from reportlab.lib.enums import TA_CENTER, TA_LEFT
 from reportlab.lib.pagesizes import A4
@@ -146,29 +145,6 @@ def distribute_talents(talents):
     return assigned, overflow
 
 
-def _propagate_parent_values(writer: PdfWriter) -> None:
-    """Copy /V from parent field objects to their widget annotations.
-
-    Some fields in the PDF templates use a parent-child structure where the
-    field name and value live on a parent dictionary while the visible widget
-    is a child with an empty /V.  pypdf's update_page_form_field_values sets
-    /NeedAppearances=True so viewers regenerate appearances from /V, but
-    certain viewers (macOS Preview, some Acrobat versions) only inspect the
-    widget's own /V — not the parent's — and render blank fields.  Copying
-    the value down to each widget ensures every viewer finds it.
-    """
-    for page in writer.pages:
-        for annot in page.get("/Annots", []):
-            obj = annot.get_object()
-            parent = obj.get("/Parent")
-            if parent is None:
-                continue
-            parent_obj = parent.get_object() if hasattr(parent, "get_object") else parent
-            parent_v = parent_obj.get("/V")
-            if parent_v and not obj.get("/V"):
-                obj[NameObject("/V")] = create_string_object(str(parent_v))
-
-
 def fill_pdf(hero: AncestryHero, output_path: str) -> None:
     """Fill the bundled character-sheet template and write it to `output_path`.
 
@@ -301,7 +277,6 @@ def fill_pdf(hero: AncestryHero, output_path: str) -> None:
 
     writer.update_page_form_field_values(writer.pages[0], hero_fields)
     writer.update_page_form_field_values(writer.pages[1], talent_fields)
-    _propagate_parent_values(writer)
 
     renderable_spells = [
         spell
