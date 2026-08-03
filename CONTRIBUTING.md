@@ -59,6 +59,11 @@ When adding a new ancestry:
 When adding a new path:
 1. Create `data_base/paths/<tier>/<path_name>.json` with `level_benefits` defining actions and choices per level
 2. Path files follow the `LevelBenefit` schema (actions + choices arrays per level)
+3. Include a `path_description` field with a short summary — this is shown in the ⓘ tooltip on path cards
+
+When adding or editing spells:
+1. Each spell in a tradition JSON has `book_description` and `card_description` fields
+2. The `card_description` is shown in the ⓘ tooltip when the spell appears as a choice in the wizard
 
 ## Running Tests
 

@@ -577,6 +577,8 @@
                 fieldset.append(heading);
 
                 if (type === "add_spell") {
+                    const spellDescs = (magicContext && magicContext.spell_descriptions) || {};
+                    items.forEach(s => { if (!s.description && spellDescs[s.name]) s.description = spellDescs[s.name]; });
                     const tradNames = Object.keys(spellsByTrad).sort();
                     if (tradNames.length > 0) {
                         const grouped = new Set();
@@ -713,6 +715,13 @@
                 card.className = "ancestry-item";
                 if (this._selected === p.id) card.classList.add("active");
                 card.textContent = p.name;
+                if (p.description) {
+                    const tip = document.createElement("button");
+                    tip.type = "button"; tip.className = "ancestry-tooltip-trigger";
+                    tip.textContent = "ⓘ";
+                    tip.addEventListener("click", (e) => { e.stopPropagation(); WizardPopover.toggle(tip, p.description); });
+                    card.append(tip);
+                }
                 card.addEventListener("click", () => { this._selected = p.id; this._selectedTier = tier; this.render(); });
                 grid.append(card);
             });
@@ -730,6 +739,13 @@
                     card.className = "ancestry-item";
                     if (this._selected === p.id) card.classList.add("active");
                     card.textContent = p.name;
+                    if (p.description) {
+                        const tip = document.createElement("button");
+                        tip.type = "button"; tip.className = "ancestry-tooltip-trigger";
+                        tip.textContent = "ⓘ";
+                        tip.addEventListener("click", (e) => { e.stopPropagation(); WizardPopover.toggle(tip, p.description); });
+                        card.append(tip);
+                    }
                     card.addEventListener("click", () => { this._selected = p.id; this._selectedTier = "expert"; this.render(); });
                     expertGrid.append(card);
                 });
@@ -1274,12 +1290,13 @@
 
     fab?.addEventListener("click", () => {
         const open = sheet.classList.toggle("drawer-open");
+        if (!open) sheet.classList.remove("visible");
         fab.setAttribute("aria-expanded", String(open));
     });
 
     closeBtn?.addEventListener("click", () => {
-        sheet.classList.remove("drawer-open");
-        fab.setAttribute("aria-expanded", "false");
+        sheet.classList.remove("drawer-open", "visible");
+        fab?.setAttribute("aria-expanded", "false");
     });
 
     window.showWizardToast = (msg) => {

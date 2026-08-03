@@ -863,6 +863,33 @@ def get_spells_for_tradition(
     return available_spells
 
 
+def get_spell_descriptions(
+    tradition_name: str,
+    power_level: int,
+    enabled_sources: list[str] | None = None,
+) -> dict[str, str]:
+    """Return a dict mapping spell name -> card_description for available spells."""
+    filename = TRADITION_FILE_MAP.get(tradition_name)
+    if not filename:
+        return {}
+    path = f"data_base/spells/{filename}"
+    if not os.path.exists(PROJECT_ROOT / path):
+        return {}
+    data = _load_json(path)
+    descriptions = {}
+    for lvl in range(power_level + 1):
+        key = f"level_{lvl}"
+        if key in data:
+            for spell_data in data[key]:
+                if enabled_sources is not None:
+                    spell_source = (spell_data.get("origin") or {}).get("source", "PG")
+                    if spell_source not in enabled_sources:
+                        continue
+                if spell_data.get("card_description"):
+                    descriptions[spell_data["name"]] = spell_data["card_description"]
+    return descriptions
+
+
 def add_item(name: str, hero: AncestryHero, item_data: AddItem | None = None):
     if not name:
         return
