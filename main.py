@@ -41,6 +41,7 @@ from utils.utils import (
     expand_any_to_choices,
     finalize_defense,
     get_hero,
+    get_spell_descriptions,
     get_spells_for_tradition,
     get_tradition_name_from_talent,
     is_duplicate_expert_path,
@@ -107,11 +108,14 @@ def _load_paths(directory: Path, *, skip: set[str] | None = None) -> list[dict[s
         path_data = _load_json(str(path_file))
         if "path_name" in path_data and "level_benefits" in path_data:
             origin = path_data.get("origin") or {}
-            paths.append({
+            entry = {
                 "id": path_file.stem,
                 "name": path_data["path_name"],
                 "source": origin.get("source", "PG"),
-            })
+            }
+            if path_data.get("path_description"):
+                entry["description"] = path_data["path_description"]
+            paths.append(entry)
     return paths
 
 
@@ -164,6 +168,11 @@ def choice_context(
         )
         for tradition in traditions
     }
+    spell_descriptions = {}
+    for tradition in traditions:
+        spell_descriptions.update(
+            get_spell_descriptions(tradition, hero.power, enabled_sources)
+        )
     available_traditions = []
     for group in choices:
         for action in group:
@@ -177,6 +186,7 @@ def choice_context(
         "known_traditions": traditions,
         "available_traditions": available_traditions,
         "spells_by_tradition": spells_by_tradition,
+        "spell_descriptions": spell_descriptions,
     }
 
 

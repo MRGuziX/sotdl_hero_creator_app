@@ -85,11 +85,27 @@ a:focus-visible {
     position: relative;
 }
 
-.workspace-header > supplement-selector {
+.header-tools {
     position: absolute;
     top: 12px;
     left: 12px;
     z-index: 200;
+    display: flex;
+    gap: 6px;
+    align-items: flex-start;
+}
+
+.home-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.books-toggle,
+.home-btn {
+    width: 42px;
+    height: 42px;
+    padding: 0;
 }
 
 .workspace-panel {
@@ -137,7 +153,7 @@ a:focus-visible {
 .stage {
     flex: 1;
     display: grid;
-    grid-template-columns: 6fr 4fr;
+    grid-template-columns: 4fr 6fr;
     align-items: stretch;
     gap: 2rem;
     min-width: 0;
@@ -1158,6 +1174,19 @@ progress-navigator button.is-locked {
     }
 }
 
+@media (max-width: 768px) {
+    .workspace-header { padding: 16px; }
+
+    .logo { max-width: 240px; }
+
+    .section-title { font-size: 19px; }
+
+    .stepper-btn {
+        width: 44px;
+        height: 44px;
+    }
+}
+
 @media (max-width: 480px) {
     .ancestry-grid { grid-template-columns: 1fr; }
 
@@ -1173,6 +1202,14 @@ progress-navigator button.is-locked {
     .step-next-button {
         font-size: 15px;
         padding: 10px 12px;
+    }
+
+    .books-panel {
+        min-width: 0;
+        width: calc(100vw - 32px);
+        position: fixed;
+        left: 16px;
+        right: 16px;
     }
 }
 

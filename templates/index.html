@@ -28,7 +28,10 @@
         <div class="stage-left">
             <header class="workspace-header">
                 <img src="{{ url_for('static', filename='cwd_logo.png') }}" alt="CWD Logo" class="logo">
-                <supplement-selector></supplement-selector>
+                <div class="header-tools">
+                    <button type="button" class="books-toggle home-btn" aria-label="Strona główna" onclick="window.creationStore.reset()"><svg width="20" height="20" viewBox="0 0 24 24" fill="white" xmlns="http://www.w3.org/2000/svg"><path d="M12 3L2 12h3v8h6v-6h2v6h6v-8h3L12 3z"/></svg></button>
+                    <supplement-selector></supplement-selector>
+                </div>
                 <progress-navigator aria-label="Poziomy tworzenia postaci"></progress-navigator>
             </header>
             <wizard-shell aria-label="Kreator bohatera"></wizard-shell>

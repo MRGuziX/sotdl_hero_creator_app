@@ -24,6 +24,15 @@ Supported ancestries (core book): Human, Automaton, Goblin, Dwarf, Orc, Changeli
    new choices at each level via a crossroads screen
 10. A **PDF character sheet** is generated and displayed in-browser
 
+### UI Features
+
+- **Info tooltips (ⓘ)** on ancestry cards, path cards, talent choices, and spell choices — click to see a
+  description popover (bottom-sheet on mobile)
+- **Home button** in the header toolbar to return to the main menu at any time
+- **Supplement selector** (cog wheel) to enable/disable game supplement sources (e.g. SWD)
+- **Responsive design** with three breakpoints (1024px tablet, 768px mid-size, 480px phone) — the PDF preview
+  becomes a slide-up drawer on mobile with a floating action button
+
 ### Random vs Manual Mode
 
 - **Random mode**: all choices are resolved automatically using dice rolls. Path selection and target level are
@@ -77,7 +86,7 @@ sotdl_hero_creator_app/
 ├── data_base/               # Game data (JSON files)
 │   ├── ancestry/            # Per-ancestry: base stats + roll tables (6 ancestries)
 │   ├── equipment/           # Equipment store, wealth tables, oddities
-│   ├── paths/               # Path definitions (4 novice, 16 expert, 27+ master)
+│   ├── paths/               # Path definitions with path_description (4 novice, 16 expert, 27+ master)
 │   ├── professions/         # Profession roll tables
 │   └── spells/              # 30 spell traditions (fire, shadow, necromancy, etc.)
 ├── templates/
@@ -132,8 +141,8 @@ state model:
   (`/api/creations/...`). Handles creation, advancement, choice submission, rewinding, and finalization.
 - **`wizard.js`** — web components (`StepShell`, `PathPicker`, `CrossroadsScreen`, `RandomConfigScreen`, etc.)
   that render the step-by-step wizard UI. Includes spell/tradition display with grouped selections.
-- **`style.css`** — dark-fantasy theme, responsive desktop split view, mobile bottom-sheet preview,
-  focus states, and step progress indicators.
+- **`style.css`** — dark-fantasy theme, responsive layout (breakpoints at 1024px, 768px, 480px),
+  mobile bottom-sheet preview, focus states, and step progress indicators.
 
 ## Local Development
 

@@ -4,6 +4,7 @@
   "origin": {
     "source": "PG"
   },
+  "path_description": "sample text",
   "level_benefits": {
     "7": {
       "actions": [
