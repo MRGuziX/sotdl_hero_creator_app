@@ -121,6 +121,15 @@
         "item_type": "weapon"
       },
       {
+        "name": "Nóż lub sztylet",
+        "damage": "1k3",
+        "grip": "Chwyt dowolny",
+        "properties": "Finezyjna, miotana, zasięg (bliski)",
+        "price": "5 md",
+        "availability": "P",
+        "item_type": "weapon"
+      },
+      {
         "name": "Oszczep",
         "damage": "1k6",
         "grip": "Jednoręczny",
