@@ -5,6 +5,7 @@ import tempfile
 import uuid
 from pathlib import Path
 from io import BytesIO
+from datetime import timedelta
 
 from flask import (
     Flask,
@@ -55,6 +56,11 @@ logging.basicConfig(
 
 app = Flask(__name__, static_folder="pictures", static_url_path="/static")
 app.secret_key = secret_key(development=__name__ == "__main__")
+app.config.update(
+    PERMANENT_SESSION_LIFETIME=timedelta(days=7),
+    SESSION_COOKIE_SAMESITE="Lax",
+    SESSION_COOKIE_SECURE=bool(os.environ.get("VERCEL")),
+)
 
 
 @app.route("/assets/<path:filename>")
@@ -73,7 +79,6 @@ DESCRIPTIONS_PATH = PROJECT_ROOT / "data_base" / "ancestry" / "descriptions.json
 NOVICE_PATHS_DIR = PROJECT_ROOT / "data_base" / "paths" / "novice"
 EXPERT_PATHS_DIR = PROJECT_ROOT / "data_base" / "paths" / "expert"
 MASTER_PATHS_DIR = PROJECT_ROOT / "data_base" / "paths" / "master"
-PATH_TIERS = ("novice", "expert", "master")
 app.config["CREATION_REPOSITORY"] = configured_repository()
 _SAFE_SESSION_ID = re.compile(r"[a-f0-9]{32}")
 
@@ -107,6 +112,7 @@ def _session_id() -> str:
     identifier = session["creation_id"]
     if not isinstance(identifier, str) or not _SAFE_SESSION_ID.fullmatch(identifier):
         abort(400, description="Invalid session identifier")
+    session.permanent = True
     return identifier
 
 
@@ -161,23 +167,6 @@ def load_expert_paths() -> list[dict[str, str]]:
 
 def load_master_paths() -> list[dict[str, str]]:
     return _load_paths(MASTER_PATHS_DIR)
-
-
-def _path_file_exists(tier: str, path_id: str) -> bool:
-    """Return whether a path definition file exists for `tier`/`path_id`."""
-    return (PROJECT_ROOT / "data_base" / "paths" / tier / f"{path_id.lower()}.json").exists()
-
-
-def _normalize_paths_input(raw: dict | None) -> dict:
-    """Normalize a client-supplied path selection into the canonical
-    `{"novice": ..., "expert": [...], "master": ...}` shape used throughout
-    the creation contract."""
-    raw = raw or {}
-    return {
-        "novice": raw.get("novice") or None,
-        "expert": [name for name in (raw.get("expert") or []) if name],
-        "master": raw.get("master") or None,
-    }
 
 
 def choice_context(
