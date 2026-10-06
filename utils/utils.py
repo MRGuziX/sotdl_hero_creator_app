@@ -503,6 +503,9 @@ def add_attribute(name: str, value: int | float | str, hero: AncestryHero, is_ra
     if name == "healing_rate":
         name = "healing_rate_bonus"
     resolved_value = _parse_dice_value(value)
+    if name in type(hero.money).model_fields:
+        setattr(hero.money, name, getattr(hero.money, name) + int(resolved_value))
+        return
 
     if name == "any":
         name = random.choice(CORE_ATTRIBUTES)
