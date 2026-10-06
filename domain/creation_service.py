@@ -7,7 +7,15 @@ from pydantic import TypeAdapter
 
 from data.creations import CreationRepository
 from domain.creation_state import CreationState, CreationStateError
-from models.action import Action, AddLanguage, AddProfession, AddSpell, AddTradition, UpdateLanguage
+from models.action import (
+    Action,
+    AddLanguage,
+    AddProfession,
+    AddSpell,
+    AddTradition,
+    GrantLiteracy,
+    UpdateLanguage,
+)
 from models.equipment import Armor, Shield, Weapon
 from utils.utils import (
     _expand_dynamic_choice_group,
@@ -51,6 +59,8 @@ class CreationService:
 
 def _has_placeholders(group: list) -> bool:
     for action in group:
+        if isinstance(action, GrantLiteracy) and action.target == "any":
+            return True
         if isinstance(action, AddTradition) and action.name in ("any", "religious_tradition"):
             return True
         if isinstance(action, AddSpell) and (

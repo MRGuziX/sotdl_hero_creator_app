@@ -304,9 +304,7 @@ def benefits_for_new_path_pick(
             own_level = level
         else:
             offset_map = _expert_level_offset(slot_index)
-            own_level = next(
-                (own for own, mapped in offset_map.items() if mapped == level), None
-            )
+            own_level = next((own for own, mapped in offset_map.items() if mapped == level), None)
     else:
         data = _load_path_data(tier, path_name)
         own_level = level
@@ -354,9 +352,7 @@ def build_hero(
     data = _load_json(f"data_base/ancestry/{ancestry}/{ancestry}.json")
     ancestry_data = AncestryData.model_validate(data)
 
-    logger.info(
-        "Building hero: ancestry=%s, level=%d, paths=%s", ancestry, level, resolved_paths
-    )
+    logger.info("Building hero: ancestry=%s, level=%d, paths=%s", ancestry, level, resolved_paths)
 
     hero = AncestryHero(
         ancestry_name=ancestry_data.general.ancestry_name,
@@ -413,43 +409,27 @@ def build_hero(
                 [a.type for a in entry.actions],
             )
         if entry.choices:
-            logger.info(
-                "  backstory [%s] adds %d choice group(s)", category, len(entry.choices)
-            )
+            logger.info("  backstory [%s] adds %d choice group(s)", category, len(entry.choices))
         actions.extend(entry.actions)
         choices.extend(entry.choices)
 
     match ancestry:
         case "human":
-            _update_backstory(
-                get_from_ancestry(roll_dice(1, 20), "past", ancestry), "past"
-            )
+            _update_backstory(get_from_ancestry(roll_dice(1, 20), "past", ancestry), "past")
             _update_backstory(
                 get_from_ancestry(roll_dice(3, 6), "personality", ancestry),
                 "personality",
             )
-            _update_backstory(
-                get_from_ancestry(roll_dice(3, 6), "religion", ancestry), "religion"
-            )
-            _update_backstory(
-                get_from_ancestry(roll_dice(3, 6), "age", ancestry), "age"
-            )
-            _update_backstory(
-                get_from_ancestry(roll_dice(3, 6), "body", ancestry), "body"
-            )
+            _update_backstory(get_from_ancestry(roll_dice(3, 6), "religion", ancestry), "religion")
+            _update_backstory(get_from_ancestry(roll_dice(3, 6), "age", ancestry), "age")
+            _update_backstory(get_from_ancestry(roll_dice(3, 6), "body", ancestry), "body")
             _update_backstory(
                 get_from_ancestry(roll_dice(3, 6), "appearance", ancestry), "appearance"
             )
         case "automaton":
-            _update_backstory(
-                get_from_ancestry(roll_dice(3, 6), "age", ancestry), "age"
-            )
-            _update_backstory(
-                get_from_ancestry(roll_dice(1, 20), "function", ancestry), "function"
-            )
-            _update_backstory(
-                get_from_ancestry(roll_dice(3, 6), "form", ancestry), "form"
-            )
+            _update_backstory(get_from_ancestry(roll_dice(3, 6), "age", ancestry), "age")
+            _update_backstory(get_from_ancestry(roll_dice(1, 20), "function", ancestry), "function")
+            _update_backstory(get_from_ancestry(roll_dice(3, 6), "form", ancestry), "form")
             _update_backstory(
                 get_from_ancestry(roll_dice(3, 6), "appearance", ancestry), "appearance"
             )
@@ -457,64 +437,40 @@ def build_hero(
                 get_from_ancestry(roll_dice(3, 6), "personality", ancestry),
                 "personality",
             )
-            _update_backstory(
-                get_from_ancestry(roll_dice(1, 20), "past", ancestry), "past"
-            )
+            _update_backstory(get_from_ancestry(roll_dice(1, 20), "past", ancestry), "past")
         case "goblin":
-            _update_backstory(
-                get_from_ancestry(roll_dice(1, 20), "past", ancestry), "past"
-            )
+            _update_backstory(get_from_ancestry(roll_dice(1, 20), "past", ancestry), "past")
             _update_backstory(
                 get_from_ancestry(roll_dice(3, 6), "personality", ancestry),
                 "personality",
             )
-            _update_backstory(
-                get_from_ancestry(roll_dice(3, 6), "quirk", ancestry), "quirk"
-            )
-            _update_backstory(
-                get_from_ancestry(roll_dice(3, 6), "age", ancestry), "age"
-            )
-            _update_backstory(
-                get_from_ancestry(roll_dice(3, 6), "body", ancestry), "body"
-            )
+            _update_backstory(get_from_ancestry(roll_dice(3, 6), "quirk", ancestry), "quirk")
+            _update_backstory(get_from_ancestry(roll_dice(3, 6), "age", ancestry), "age")
+            _update_backstory(get_from_ancestry(roll_dice(3, 6), "body", ancestry), "body")
             _update_backstory(
                 get_from_ancestry(roll_dice(1, 20), "appearance", ancestry),
                 "appearance",
             )
         case "dwarf":
-            _update_backstory(
-                get_from_ancestry(roll_dice(1, 20), "past", ancestry), "past"
-            )
+            _update_backstory(get_from_ancestry(roll_dice(1, 20), "past", ancestry), "past")
             _update_backstory(
                 get_from_ancestry(roll_dice(3, 6), "personality", ancestry),
                 "personality",
             )
-            _update_backstory(
-                get_from_ancestry(roll_dice(1, 20), "quirk", ancestry), "quirk"
-            )
-            _update_backstory(
-                get_from_ancestry(roll_dice(3, 6), "age", ancestry), "age"
-            )
-            _update_backstory(
-                get_from_ancestry(roll_dice(3, 6), "body", ancestry), "body"
-            )
+            _update_backstory(get_from_ancestry(roll_dice(1, 20), "quirk", ancestry), "quirk")
+            _update_backstory(get_from_ancestry(roll_dice(3, 6), "age", ancestry), "age")
+            _update_backstory(get_from_ancestry(roll_dice(3, 6), "body", ancestry), "body")
             _update_backstory(
                 get_from_ancestry(roll_dice(3, 6), "appearance", ancestry), "appearance"
             )
         case "orc":
-            _update_backstory(
-                get_from_ancestry(roll_dice(1, 20), "past", ancestry), "past"
-            )
+            _update_backstory(get_from_ancestry(roll_dice(1, 20), "past", ancestry), "past")
             _update_backstory(
                 get_from_ancestry(roll_dice(3, 6), "personality", ancestry),
                 "personality",
             )
-            _update_backstory(
-                get_from_ancestry(roll_dice(3, 6), "age", ancestry), "age"
-            )
-            _update_backstory(
-                get_from_ancestry(roll_dice(3, 6), "body", ancestry), "body"
-            )
+            _update_backstory(get_from_ancestry(roll_dice(3, 6), "age", ancestry), "age")
+            _update_backstory(get_from_ancestry(roll_dice(3, 6), "body", ancestry), "body")
             _update_backstory(
                 get_from_ancestry(roll_dice(3, 6), "appearance", ancestry), "appearance"
             )
@@ -537,17 +493,11 @@ def build_hero(
             )
             source_ancestry = origin_ancestry_map[origin_key]
 
-            _update_backstory(
-                get_from_ancestry(roll_dice(3, 6), "age", source_ancestry), "age"
-            )
-            _update_backstory(
-                get_from_ancestry(roll_dice(3, 6), "body", source_ancestry), "body"
-            )
+            _update_backstory(get_from_ancestry(roll_dice(3, 6), "age", source_ancestry), "age")
+            _update_backstory(get_from_ancestry(roll_dice(3, 6), "body", source_ancestry), "body")
             _update_backstory(
                 get_from_ancestry(
-                    roll_dice(1, 20)
-                    if source_ancestry == "goblin"
-                    else roll_dice(3, 6),
+                    roll_dice(1, 20) if source_ancestry == "goblin" else roll_dice(3, 6),
                     "appearance",
                     source_ancestry,
                 ),
@@ -562,12 +512,8 @@ def build_hero(
                 get_from_ancestry(roll_dice(1, 6), "apparent_sex", ancestry),
                 "apparent_sex",
             )
-            _update_backstory(
-                get_from_ancestry(roll_dice(3, 6), "true_age", ancestry), "true_age"
-            )
-            _update_backstory(
-                get_from_ancestry(roll_dice(3, 6), "oddity", ancestry), "oddity"
-            )
+            _update_backstory(get_from_ancestry(roll_dice(3, 6), "true_age", ancestry), "true_age")
+            _update_backstory(get_from_ancestry(roll_dice(3, 6), "oddity", ancestry), "oddity")
 
     logger.info(
         "  ancestry actions: %s",
@@ -578,9 +524,7 @@ def build_hero(
     return hero, actions, choices
 
 
-def add_attribute(
-    name: str, value: int | float | str, hero: AncestryHero, is_random: bool = False
-):
+def add_attribute(name: str, value: int | float | str, hero: AncestryHero, is_random: bool = False):
     resolved_value = _parse_dice_value(value)
 
     if name == "any":
@@ -641,52 +585,25 @@ def _assign_random_equipment(hero: AncestryHero) -> None:
     store = _load_json("data_base/equipment/equ.json")["store"]
     hero.equipment.armors = [Armor(**random.choice(store["armors"]))]
     weapon_count = random.randint(3, 5)
-    hero.equipment.weapons = [
-        Weapon(**w) for w in random.sample(store["weapons"], weapon_count)
-    ]
+    hero.equipment.weapons = [Weapon(**w) for w in random.sample(store["weapons"], weapon_count)]
     if random.random() < 0.5:
         hero.equipment.shields = [Shield(**random.choice(store["shields"]))]
 
 
-def add_language(
-    name: str, hero: AncestryHero, can_write: bool = False, is_random: bool = False
-):
-    spoken_names = [language.name for language in hero.languages if not language.can_write]
-    known_names = [language.name for language in hero.languages]
-    learnable = [language for language in ALL_LANGUAGES if language not in known_names]
-    learnable.extend(spoken_names)
-
-    if is_random:
-        if can_write and name == "any":
-            if spoken_names:
-                name = random.choice(spoken_names)
-                for lang in hero.languages:
-                    if lang.name == name:
-                        lang.can_write = True
-                        return
-        elif not can_write and name == "any":
-            if learnable:
-                name = random.choice(learnable)
-                hero.languages.append(
-                    Language(name=name, can_speak=True, can_write=False)
-                )
+def add_language(name: str, hero: AncestryHero, can_write: bool = False, is_random: bool = False):
+    known = {language.name: language for language in hero.languages}
+    if name == "any":
+        options = [language for language in known if can_write and not known[language].can_write]
+        if not options:
+            options = [language for language in ALL_LANGUAGES if language not in known]
+        if not options:
             return
+        name = random.choice(options)
+    if name in known:
+        known[name].can_speak = True
+        known[name].can_write = known[name].can_write or can_write
     else:
-        if can_write:
-            if name == "any" and spoken_names:
-                name = random.choice(spoken_names)
-            for lang in hero.languages:
-                if lang.name == name:
-                    lang.can_write = True
-                    return
-        else:
-            if name == "any" and learnable:
-                name = random.choice(learnable)
-
-            if name != "any" and name not in known_names:
-                hero.languages.append(
-                    Language(name=name, can_speak=True, can_write=False)
-                )
+        hero.languages.append(Language(name=name, can_speak=True, can_write=can_write))
 
 
 def grant_literacy(target: str, hero: AncestryHero, is_random: bool = False):
@@ -737,9 +654,7 @@ def add_talent(
             existing.name = upgraded_name
         if upgrade:
             if "2k6" in upgrade and "1k6" in (description or existing.description):
-                existing.description = (description or existing.description).replace(
-                    "1k6", "2k6"
-                )
+                existing.description = (description or existing.description).replace("1k6", "2k6")
             else:
                 existing.description = upgrade
         return
@@ -803,18 +718,14 @@ def add_spell(name: str, hero: AncestryHero):
 
 
 def add_tradition(name: str, hero: AncestryHero):
-    hero.talents.append(
-        Talent(name=name, description="Dostęp do zaklęć tej tradycji", level=0)
-    )
+    hero.talents.append(Talent(name=name, description="Dostęp do zaklęć tej tradycji", level=0))
 
 
 def add_religion(name: str, hero: AncestryHero):
     hero.religion = name
 
 
-def update_language(
-    name: str, hero: AncestryHero, can_speak: bool = True, can_write: bool = True
-):
+def update_language(name: str, hero: AncestryHero, can_speak: bool = True, can_write: bool = True):
     if name == "known":
         for lang in hero.languages:
             lang.can_speak = can_speak
@@ -939,16 +850,12 @@ def apply_action(action: Action, hero: AncestryHero, is_random: bool = False):
         case GrantLiteracy():
             grant_literacy(action.target, hero, is_random)
         case AddTalent():
-            add_talent(
-                action.name, action.description, hero, hero.level, action.upgrade
-            )
+            add_talent(action.name, action.description, hero, hero.level, action.upgrade)
         case AddSpell():
             add_spell(action.name, hero)
         case AddTradition():
             if action.name == "religious_tradition" and is_random:
-                religions_data = _load_json(
-                    "data_base/paths/novice/cleric_religions.json"
-                )
+                religions_data = _load_json("data_base/paths/novice/cleric_religions.json")
                 if hero.religion in religions_data:
                     trad = random.choice(religions_data[hero.religion])
                     add_tradition(trad, hero)
@@ -982,15 +889,16 @@ def _expand_dynamic_choice_group(
     expanded_group = []
     for action in choice_group:
         match action:
+            case GrantLiteracy(target="any"):
+                expanded_group.extend(
+                    GrantLiteracy(target=language.name)
+                    for language in hero.languages
+                    if language.can_speak and not language.can_write
+                )
             case AddTradition(name="any"):
-                available = [
-                    t for t in sorted(TRADITION_FILE_MAP)
-                    if t not in known_traditions
-                ]
+                available = [t for t in sorted(TRADITION_FILE_MAP) if t not in known_traditions]
                 if available:
-                    expanded_group.extend(
-                        AddTradition(name=t) for t in available
-                    )
+                    expanded_group.extend(AddTradition(name=t) for t in available)
                 else:
                     expanded_group.append(action)
             case AddTradition(name="religious_tradition"):
@@ -1001,13 +909,12 @@ def _expand_dynamic_choice_group(
                 ]
                 if traditions:
                     expanded_group.extend(
-                        AddTradition(name=tradition)
-                        for tradition in sorted(set(traditions))
+                        AddTradition(name=tradition) for tradition in sorted(set(traditions))
                     )
                 else:
                     expanded_group.append(action)
             case AddSpell(name=spell_name) if spell_name.startswith("tradition_rank0:"):
-                tradition_name = spell_name[len("tradition_rank0:"):]
+                tradition_name = spell_name[len("tradition_rank0:") :]
                 known_spells = {spell.name for spell in hero.spells}
                 spells = sorted(
                     spell
@@ -1019,7 +926,7 @@ def _expand_dynamic_choice_group(
                 else:
                     expanded_group.append(action)
             case AddSpell(name=spell_name) if spell_name.startswith("tradition:"):
-                tradition_name = spell_name[len("tradition:"):]
+                tradition_name = spell_name[len("tradition:") :]
                 known_spells = {spell.name for spell in hero.spells}
                 spells = sorted(
                     spell
@@ -1045,7 +952,9 @@ def _expand_dynamic_choice_group(
                     {
                         spell
                         for tradition in known_traditions
-                        for spell in get_spells_for_tradition(tradition, hero.power, enabled_sources)
+                        for spell in get_spells_for_tradition(
+                            tradition, hero.power, enabled_sources
+                        )
                         if spell not in known_spells
                     }
                 )
@@ -1055,8 +964,7 @@ def _expand_dynamic_choice_group(
                     expanded_group.append(action)
             case UpdateLanguage(name="known"):
                 speak_only = [
-                    lang for lang in hero.languages
-                    if lang.can_speak and not lang.can_write
+                    lang for lang in hero.languages if lang.can_speak and not lang.can_write
                 ]
                 if speak_only:
                     expanded_group.extend(
@@ -1071,30 +979,22 @@ def _expand_dynamic_choice_group(
                     expanded_group.append(action)
             case AddLanguage(name="any", can_write=cw):
                 known_names = {lang.name for lang in hero.languages}
-                learnable = [
-                    lang for lang in ALL_LANGUAGES
-                    if lang not in known_names
-                ]
+                learnable = [lang for lang in ALL_LANGUAGES if lang not in known_names]
                 if learnable:
                     expanded_group.extend(
-                        AddLanguage(name=lang, can_write=cw)
-                        for lang in sorted(learnable)
+                        AddLanguage(name=lang, can_write=cw) for lang in sorted(learnable)
                     )
                 else:
                     expanded_group.append(action)
             case AddProfession(name="any"):
-                expanded_group.extend(
-                    AddProfession(name=cat)
-                    for cat in PROFESSION_CATEGORIES
-                )
+                expanded_group.extend(AddProfession(name=cat) for cat in PROFESSION_CATEGORIES)
             case AddTradition(name=tname) if tname in known_traditions:
                 pass
             case _:
                 expanded_group.append(action)
 
     has_spell_placeholder = any(
-        isinstance(a, AddSpell) and a.name in ("known_tradition", "any")
-        for a in choice_group
+        isinstance(a, AddSpell) and a.name in ("known_tradition", "any") for a in choice_group
     )
     has_mandatory_tradition = any(
         isinstance(a, AddTradition)
@@ -1103,9 +1003,7 @@ def _expand_dynamic_choice_group(
         for a in choice_group
     )
     if has_mandatory_tradition and not has_spell_placeholder:
-        expanded_group = [
-            a for a in expanded_group if isinstance(a, AddTradition)
-        ]
+        expanded_group = [a for a in expanded_group if isinstance(a, AddTradition)]
 
     return expanded_group
 
@@ -1128,7 +1026,10 @@ def resolve_choices(
             apply_action(picked, hero, is_random=True)
             actions.append(picked)
 
-            if isinstance(picked, AddTradition) and picked.name not in ("any", "religious_tradition"):
+            if isinstance(picked, AddTradition) and picked.name not in (
+                "any",
+                "religious_tradition",
+            ):
                 rank0 = get_spells_for_tradition(picked.name, power_level=0)
                 known = {s.name for s in hero.spells}
                 available = [s for s in rank0 if s not in known]
@@ -1140,11 +1041,7 @@ def resolve_choices(
                     actions.append(spell_action)
     elif selected_choices:
         for choice in selected_choices:
-            label = (
-                f"{choice.type}({choice.name})"
-                if hasattr(choice, "name")
-                else choice.type
-            )
+            label = f"{choice.type}({choice.name})" if hasattr(choice, "name") else choice.type
             logger.info("  user selected: %s", label)
         actions.extend(selected_choices)
 
@@ -1174,8 +1071,17 @@ def expand_any_to_choices(
         choices = actions  # type: ignore[assignment]
         actions = hero  # type: ignore[assignment]
         hero = AncestryHero(
-            ancestry_name="", strength=0, dexterity=0, intelligence=0, will=0,
-            perception=0, defense=0, health=0, healing_rate=0, size=[0], speed=0,
+            ancestry_name="",
+            strength=0,
+            dexterity=0,
+            intelligence=0,
+            will=0,
+            perception=0,
+            defense=0,
+            health=0,
+            healing_rate=0,
+            size=[0],
+            speed=0,
         )
 
     if not isinstance(hero, AncestryHero):
@@ -1208,11 +1114,10 @@ def expand_any_to_choices(
                 )
             case AddLanguage(name="any", can_write=can_write):
                 new_placeholder_choices.append(
-                    [
-                        AddLanguage(name=lang, can_write=can_write)
-                        for lang in ALL_LANGUAGES
-                    ]
+                    [AddLanguage(name=lang, can_write=can_write) for lang in ALL_LANGUAGES]
                 )
+            case GrantLiteracy(target="any") | UpdateLanguage(name="known"):
+                new_placeholder_choices.append([action])
             case AddSpell(name="any"):
                 known_trads = [
                     get_tradition_name_from_talent(t.name)
@@ -1220,9 +1125,7 @@ def expand_any_to_choices(
                     if get_tradition_name_from_talent(t.name)
                 ]
                 if known_trads:
-                    new_placeholder_choices.append(
-                        [AddSpell(name="known_tradition")]
-                    )
+                    new_placeholder_choices.append([AddSpell(name="known_tradition")])
                 else:
                     new_placeholder_choices.append([action])
             case AddTradition(name="any"):
@@ -1330,7 +1233,9 @@ def randomly_pick_paths(target_level: int, existing_paths: dict) -> dict:
     }
 
     if target_level >= 1 and not paths["novice"]:
-        options = [f.stem for f in NOVICE_PATHS_DIR.glob("*.json") if f.name != "cleric_religions.json"]
+        options = [
+            f.stem for f in NOVICE_PATHS_DIR.glob("*.json") if f.name != "cleric_religions.json"
+        ]
         if options:
             paths["novice"] = random.choice(options)
 
@@ -1346,7 +1251,9 @@ def randomly_pick_paths(target_level: int, existing_paths: dict) -> dict:
                 if options:
                     paths["master"] = random.choice(options)
             else:
-                options = [f.stem for f in EXPERT_PATHS_DIR.glob("*.json") if f.stem not in paths["expert"]]
+                options = [
+                    f.stem for f in EXPERT_PATHS_DIR.glob("*.json") if f.stem not in paths["expert"]
+                ]
                 if options:
                     paths["expert"].append(random.choice(options))
 
@@ -1370,9 +1277,7 @@ def get_hero(
         level,
         resolved_paths,
     )
-    hero, actions, choices = build_hero(
-        ancestry=ancestry, level=level, paths=resolved_paths
-    )
+    hero, actions, choices = build_hero(ancestry=ancestry, level=level, paths=resolved_paths)
 
     add_wealth(hero, actions, choices)
     add_oddity(hero)
@@ -1390,9 +1295,7 @@ def get_hero(
             apply_action(action, hero, is_random=False)
 
         if choices:
-            logger.info(
-                "Returning hero with %d unresolved choice group(s)", len(choices)
-            )
+            logger.info("Returning hero with %d unresolved choice group(s)", len(choices))
             return hero, choices
 
     if is_random:
@@ -1446,7 +1349,10 @@ def advance_hero(
     resolved_paths = _resolve_paths(paths, path_name)
     logger.info(
         "advance_hero: %s from level %d to %d (paths=%s)",
-        ancestry, from_level, to_level, resolved_paths,
+        ancestry,
+        from_level,
+        to_level,
+        resolved_paths,
     )
     actions, choices = benefits_between(ancestry, resolved_paths, from_level, to_level)
     remaining_actions, expanded_choices = expand_any_to_choices(hero, actions, choices)
