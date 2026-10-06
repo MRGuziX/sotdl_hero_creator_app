@@ -258,8 +258,13 @@ def start_creation(data):
                 file = Path(__file__).resolve().parent.parent / "data_base" / "paths" / tier
                 if name and (name == "cleric_religions" or not (file / f"{name}.json").is_file()):
                     raise CreationError("Unknown path")
-                if name and (load_json(f"data_base/paths/{tier}/{name}.json").get("origin")
-                             or {}).get("source", "PG") not in sources:
+                if (
+                    name
+                    and (load_json(f"data_base/paths/{tier}/{name}.json").get("origin") or {}).get(
+                        "source", "PG"
+                    )
+                    not in sources
+                ):
                     raise CreationError("Path source is not enabled")
         paths = randomly_pick_paths(level, paths, sources)
         hero = get_hero(ancestry, is_random=True, level=level, paths=paths, enabled_sources=sources)
@@ -358,7 +363,12 @@ def set_equipment(state, data):
     store = load_json("data_base/equipment/equ.json")["store"]
     picks = {}
     for category, model in (("armors", Armor), ("weapons", Weapon), ("shields", Shield)):
-        lookup = {item["name"]: item for item in store[category]}
+        lookup = {item.get("id") or item["name"]: item for item in store[category]}
+        for item in store[category]:
+            if sum(other["name"] == item["name"] for other in store[category]) == 1:
+                lookup[item["name"]] = item  # Compatibility for unambiguous legacy names.
+        if len(set(data[category])) != len(data[category]):
+            raise CreationError(f"Duplicate {category}")
         if any(name not in lookup for name in data[category]):
             raise CreationError(f"Unknown {category}")
         picks[category] = [model(**lookup[name]) for name in data[category]]

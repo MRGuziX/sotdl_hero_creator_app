@@ -4,6 +4,7 @@ from pydantic import BaseModel, ConfigDict
 
 
 class Weapon(BaseModel):
+    id: str | None = None
     name: str
     damage: str
     grip: str

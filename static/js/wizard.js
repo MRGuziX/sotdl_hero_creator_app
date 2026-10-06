@@ -841,7 +841,12 @@
             const weapons = current.weapons || [];
             const shields = current.shields || [];
             if (armors.length > 0) this._selectedArmor = armors[0].name;
-            weapons.forEach(w => this._selectedWeapons.add(w.name));
+            weapons.forEach(w => {
+                const match = (step.equipment_store?.weapons || []).find(item =>
+                    item.name === w.name && item.damage === w.damage && item.grip === w.grip
+                    && (item.properties || "") === w.properties);
+                this._selectedWeapons.add(w.id || match?.id || w.name);
+            });
             if (shields.length > 0) this._selectedShield = shields[0].name;
         }
 
@@ -923,9 +928,10 @@
             };
 
             weapons.forEach(weapon => {
-                const checked = this._selectedWeapons.has(weapon.name);
+                const identifier = weapon.id || weapon.name;
+                const checked = this._selectedWeapons.has(identifier);
                 const atLimit = this._selectedWeapons.size >= maxWeapons && !checked;
-                const label = this._createCheckbox("weapon", weapon.name,
+                const label = this._createCheckbox("weapon", identifier,
                     weapon.name, checked, atLimit);
                 const stats = document.createElement("span");
                 stats.className = "equipment-stats";
@@ -933,8 +939,8 @@
                     (weapon.properties ? ` | ${weapon.properties}` : "");
                 label.append(stats);
                 label.addEventListener("change", (e) => {
-                    if (e.target.checked) this._selectedWeapons.add(weapon.name);
-                    else this._selectedWeapons.delete(weapon.name);
+                    if (e.target.checked) this._selectedWeapons.add(identifier);
+                    else this._selectedWeapons.delete(identifier);
                     updateWeaponLimits();
                 });
                 fieldset.append(label);
