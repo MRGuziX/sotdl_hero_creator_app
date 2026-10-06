@@ -5,7 +5,13 @@ import pytest
 os.environ.setdefault("SECRET_KEY", "tests-only-secret-not-for-deployment")
 
 from main import app
+from data.creations import MemoryCreationRepository
 from models.base_hero import AncestryHero
+
+
+@pytest.fixture(autouse=True)
+def isolated_repository(monkeypatch):
+    monkeypatch.setitem(app.config, "CREATION_REPOSITORY", MemoryCreationRepository())
 
 
 @pytest.fixture

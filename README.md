@@ -168,13 +168,25 @@ configure it in the deployment environment and never commit it to this repositor
 
 ## Deployment on Vercel
 
-This app is ready to be deployed on Vercel.
+Vercel requires shared PostgreSQL storage; local files are not durable across instances.
+Set a stable `SECRET_KEY` and a provider-supplied `DATABASE_URL` (with TLS configured
+as required by your provider), then run `python -m data.persistence init` once against
+that database before deployment. Startup fails on Vercel without `DATABASE_URL`.
+Database provisioning and deployment are separate steps.
+
+Local development uses `instance/creations.sqlite3`, or `CREATION_DB_PATH` if set.
+Creations and undo history survive restarts. Both adapters expire creations seven days
+after their last successful update; periodically run `python -m data.persistence cleanup`.
+The signed session cookie identifies the owner, so keep the same secret across restarts
+and instances. Losing the cookie means losing access to that owner's characters.
+The serialized creation format is version 4. Incompatible saved states return HTTP 410
+with instructions to start a new character; no automatic migration is attempted.
 
 1. Connect your GitHub repository to [Vercel](https://vercel.com/).
 2. Vercel will automatically detect the `vercel.json` and `requirements.txt` files.
 3. The app uses the `/tmp` directory for PDF generation, which is compatible with Vercel's serverless environment.
-4. **Note:** Since Vercel functions are stateless, the "Download Current" button may not work reliably if the function
-   instance restarts between the generation and the download. Use the download button immediately after generating.
+4. PostgreSQL integration tests run when `TEST_DATABASE_URL` is configured. Use a dedicated
+   test database, never your production database.
 
 ## Logging
 

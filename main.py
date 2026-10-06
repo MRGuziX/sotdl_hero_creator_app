@@ -19,11 +19,11 @@ from flask import (
 from pydantic import ValidationError
 
 from config import secret_key
-from data.creations import MemoryCreationRepository
+from data.persistence import configured_repository
 from domain import creation_service as commands
 from domain.creation_service import CreationError, CreationService, _try_expand_current_group
 
-from domain.creation_state import CreationState
+from domain.creation_state import CreationState, CreationStateError
 from models.action import (
     Action,
 )
@@ -72,7 +72,7 @@ NOVICE_PATHS_DIR = PROJECT_ROOT / "data_base" / "paths" / "novice"
 EXPERT_PATHS_DIR = PROJECT_ROOT / "data_base" / "paths" / "expert"
 MASTER_PATHS_DIR = PROJECT_ROOT / "data_base" / "paths" / "master"
 PATH_TIERS = ("novice", "expert", "master")
-app.config["CREATION_REPOSITORY"] = MemoryCreationRepository()
+app.config["CREATION_REPOSITORY"] = configured_repository()
 _SAFE_SESSION_ID = re.compile(r"[a-f0-9]{32}")
 
 
@@ -294,6 +294,11 @@ def invalid_creation(error):
     return jsonify({"error": str(error)}), error.status
 
 
+@app.errorhandler(CreationStateError)
+def incompatible_creation(error):
+    return jsonify({"error": "This saved creation is incompatible. Start a new character."}), 410
+
+
 def _repository():
     return app.config["CREATION_REPOSITORY"]
 
@@ -340,6 +345,13 @@ def api_get_creation(creation_id):
     if state is None:
         raise CreationError("Creation not found", 404)
     return jsonify(_creation_response(state))
+
+
+@app.get("/api/creations")
+def api_list_creations():
+    return jsonify(
+        {"creations": [state.public_dict() for state in _repository().list(_session_id())]}
+    )
 
 
 @app.post("/api/creations/<creation_id>/steps/<int:level>/choices")
