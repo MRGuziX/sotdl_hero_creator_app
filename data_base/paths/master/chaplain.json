@@ -4,7 +4,6 @@
   "origin": {
     "source": "PG"
   },
-  "path_description": "sample text",
   "level_benefits": {
     "7": {
       "actions": [
@@ -44,11 +43,11 @@
           },
           {
             "type": "add_profession",
-            "name": "wojenną"
+            "name": "wojenna"
           },
           {
             "type": "add_profession",
-            "name": "religijną"
+            "name": "religijna"
           }
         ]
       ]

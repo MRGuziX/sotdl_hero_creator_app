@@ -34,6 +34,7 @@
                 </div>
                 <progress-navigator aria-label="Poziomy tworzenia postaci"></progress-navigator>
             </header>
+            <p id="request-status" role="status" aria-live="polite" hidden>Trwa przetwarzanie…</p>
             <wizard-shell aria-label="Kreator bohatera"></wizard-shell>
         </div>
 
@@ -45,6 +46,7 @@
                 </button>
             </div>
             <iframe id="hero-frame" src="about:blank" title="Podgląd karty postaci"></iframe>
+            <a id="download-sheet" class="confirm-button" download="Karta_Postaci_SotDL.pdf" hidden>Pobierz PDF</a>
         </section>
     </main>
 </div>
@@ -68,25 +70,44 @@
     // Data handed off from the server for the wizard's JS components: the
     // ancestry tooltip copy used by <ancestry-picker>, and the Novice/
     // Expert/Master path catalogs used by <path-picker>/<random-config-screen>.
-    window.ancestryDescriptions = JSON.parse('{{ ancestry_descriptions | tojson | safe }}');
-    window.ANCESTRY_LIST = JSON.parse('{{ ancestry_list | tojson | safe }}');
+    window.ancestryDescriptions = {{ ancestry_descriptions | tojson }};
+    window.ANCESTRY_LIST = {{ ancestry_list | tojson }};
     window.PATH_CATALOG = {
-        novice: JSON.parse('{{ novice_paths | tojson | safe }}'),
-        expert: JSON.parse('{{ expert_paths | tojson | safe }}'),
-        master: JSON.parse('{{ master_paths | tojson | safe }}')
+        novice: {{ novice_paths | tojson }},
+        expert: {{ expert_paths | tojson }},
+        master: {{ master_paths | tojson }}
     };
 
     let currentDownloadUrl = null;
 
     function showPdfPanel() {
         document.getElementById('pdf-panel').classList.add('visible');
+        if (window.innerWidth <= 1024) document.getElementById('pdf-panel').classList.add('drawer-open');
+        document.getElementById('open-sheet-btn').setAttribute('aria-expanded', 'true');
     }
 
     function hidePdfPanel() {
-        document.getElementById('pdf-panel').classList.remove('visible');
+        document.getElementById('pdf-panel').classList.remove('visible', 'drawer-open');
+        document.getElementById('open-sheet-btn').setAttribute('aria-expanded', 'false');
     }
 
     window.hidePdfPanel = hidePdfPanel;
+
+    window.creationStore.addEventListener('pdfclear', () => {
+        hidePdfPanel();
+        document.getElementById('hero-frame').src = 'about:blank';
+        currentDownloadUrl = null;
+        const download = document.getElementById('download-sheet');
+        download.hidden = true;
+        download.removeAttribute('href');
+    });
+    window.creationStore.addEventListener('error', event => window.showWizardToast?.(event.detail));
+    window.creationStore.addEventListener('busychange', event => {
+        const shell = document.querySelector('wizard-shell');
+        shell.inert = event.detail;
+        shell.setAttribute('aria-busy', String(event.detail));
+        document.getElementById('request-status').hidden = !event.detail;
+    });
 
     // The crossroads screen's "Zapisz PDF" button and the random-mode
     // generate flow both resolve into this same "completed" event, so the
@@ -97,9 +118,11 @@
             return;
         }
         const iframe = document.getElementById('hero-frame');
-        const timestamp = new Date().getTime();
-        iframe.src = `${downloadUrl}?t=${timestamp}#zoom=110`;
-        currentDownloadUrl = downloadUrl.includes('?') ? `${downloadUrl}&download=1` : `${downloadUrl}?download=1`;
+        iframe.src = `${downloadUrl}#zoom=110`;
+        currentDownloadUrl = downloadUrl;
+        const download = document.getElementById('download-sheet');
+        download.href = downloadUrl;
+        download.hidden = false;
         showPdfPanel();
     });
 

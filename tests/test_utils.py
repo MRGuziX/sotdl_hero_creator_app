@@ -1,4 +1,3 @@
-
 import pytest
 
 from models.action import (
@@ -121,7 +120,10 @@ def test_add_language_grant_write(hero):
 def test_grant_literacy(hero):
     assert not next(language for language in hero.languages if language.name == "Wspólny").can_write
     grant_literacy("Wspólny", hero)
-    assert next(language for language in hero.languages if language.name == "Wspólny").can_write is True
+    assert (
+        next(language for language in hero.languages if language.name == "Wspólny").can_write
+        is True
+    )
 
 
 def test_grant_literacy_any(hero):
@@ -237,7 +239,10 @@ def test_apply_action_add_item(hero):
 def test_apply_action_grant_literacy(hero):
     action = GrantLiteracy(target="Wspólny")
     apply_action(action, hero)
-    assert next(language for language in hero.languages if language.name == "Wspólny").can_write is True
+    assert (
+        next(language for language in hero.languages if language.name == "Wspólny").can_write
+        is True
+    )
 
 
 # --- resolve_choices ---
@@ -245,22 +250,16 @@ def test_apply_action_grant_literacy(hero):
 
 def test_resolve_choices_random(hero):
     actions = []
-    choices = [
-        [AddAttribute(name="strength", value=1), AddAttribute(name="will", value=1)]
-    ]
+    choices = [[AddAttribute(name="strength", value=1), AddAttribute(name="will", value=1)]]
     result = resolve_choices(hero, actions, choices, is_random=True)
     assert len(result) == 1
 
 
 def test_resolve_choices_manual(hero):
     actions = []
-    choices = [
-        [AddAttribute(name="strength", value=1), AddAttribute(name="will", value=1)]
-    ]
+    choices = [[AddAttribute(name="strength", value=1), AddAttribute(name="will", value=1)]]
     selected = [AddAttribute(name="will", value=1)]
-    result = resolve_choices(
-        hero, actions, choices, is_random=False, selected_choices=selected
-    )
+    result = resolve_choices(hero, actions, choices, is_random=False, selected_choices=selected)
     assert len(result) == 1
     assert result[0].name == "will"
 

@@ -82,7 +82,8 @@
         "properties": "Finezyjna",
         "price": "-",
         "availability": "-",
-        "item_type": "weapon"
+        "item_type": "weapon",
+        "id": "weapon_001"
       },
       {
         "name": "Kostur",
@@ -91,7 +92,8 @@
         "properties": "Finezyjna",
         "price": "5 md",
         "availability": "P",
-        "item_type": "weapon"
+        "item_type": "weapon",
+        "id": "weapon_002"
       },
       {
         "name": "Młotek",
@@ -100,7 +102,8 @@
         "properties": "Miotana, zasięg (bliski)",
         "price": "1 sr",
         "availability": "P",
-        "item_type": "weapon"
+        "item_type": "weapon",
+        "id": "weapon_003"
       },
       {
         "name": "Siekiera",
@@ -109,7 +112,8 @@
         "properties": "Miotana, zasięg (bliski)",
         "price": "1 sr",
         "availability": "P",
-        "item_type": "weapon"
+        "item_type": "weapon",
+        "id": "weapon_004"
       },
       {
         "name": "Sztylet",
@@ -118,7 +122,8 @@
         "properties": "Finezyjna, miotana, zasięg (bliski)",
         "price": "5 md",
         "availability": "P",
-        "item_type": "weapon"
+        "item_type": "weapon",
+        "id": "weapon_005"
       },
       {
         "name": "Nóż lub sztylet",
@@ -127,7 +132,8 @@
         "properties": "Finezyjna, miotana, zasięg (bliski)",
         "price": "5 md",
         "availability": "P",
-        "item_type": "weapon"
+        "item_type": "weapon",
+        "id": "weapon_006"
       },
       {
         "name": "Oszczep",
@@ -136,7 +142,8 @@
         "properties": "Finezyjna, miotana, zasięg (średni)",
         "price": "5 md",
         "availability": "P",
-        "item_type": "weapon"
+        "item_type": "weapon",
+        "id": "weapon_007"
       },
       {
         "name": "Pałka",
@@ -145,7 +152,8 @@
         "properties": "Finezyjna",
         "price": "1 sr",
         "availability": "P",
-        "item_type": "weapon"
+        "item_type": "weapon",
+        "id": "weapon_008"
       },
       {
         "name": "Sierp",
@@ -154,9 +162,11 @@
         "properties": "Finezyjna",
         "price": "1 sr",
         "availability": "P",
-        "item_type": "weapon"
+        "item_type": "weapon",
+        "id": "weapon_009"
       },
       {
+        "id": "spear_melee",
         "name": "Włócznia",
         "damage": "1k6",
         "grip": "Jednoręczny",
@@ -172,7 +182,8 @@
         "properties": "Finezyjna, miotana, zasięg (bliski)",
         "price": "1 md",
         "availability": "P",
-        "item_type": "weapon"
+        "item_type": "weapon",
+        "id": "weapon_011"
       },
       {
         "name": "Topór",
@@ -181,7 +192,8 @@
         "properties": "",
         "price": "1 sr",
         "availability": "P",
-        "item_type": "weapon"
+        "item_type": "weapon",
+        "id": "weapon_012"
       },
       {
         "name": "Długi łuk (min. 9 Siły)",
@@ -190,7 +202,8 @@
         "properties": "Rozmiar 1, używa strzał, zasięg (daleki)",
         "price": "1 zk",
         "availability": "N",
-        "item_type": "weapon"
+        "item_type": "weapon",
+        "id": "weapon_013"
       },
       {
         "name": "Dmuchawka",
@@ -199,7 +212,8 @@
         "properties": "Używa igieł, zasięg (średni)",
         "price": "5 sr",
         "availability": "P",
-        "item_type": "weapon"
+        "item_type": "weapon",
+        "id": "weapon_014"
       },
       {
         "name": "Flinta",
@@ -208,7 +222,8 @@
         "properties": "Niewypał, przeładowanie, używa kul, zasięg (daleki)",
         "price": "10 zk",
         "availability": "R",
-        "item_type": "weapon"
+        "item_type": "weapon",
+        "id": "weapon_015"
       },
       {
         "name": "Kusza",
@@ -217,7 +232,8 @@
         "properties": "Przeładowanie, używa bełtów, zasięg (daleki)",
         "price": "2 zk",
         "availability": "P",
-        "item_type": "weapon"
+        "item_type": "weapon",
+        "id": "weapon_016"
       },
       {
         "name": "Łuk",
@@ -226,7 +242,8 @@
         "properties": "Używa strzał, zasięg (średni)",
         "price": "5 sr",
         "availability": "P",
-        "item_type": "weapon"
+        "item_type": "weapon",
+        "id": "weapon_017"
       },
       {
         "name": "Kusza pistoletowa",
@@ -235,7 +252,8 @@
         "properties": "Przeładowanie, używa bełtów, zasięg (bliski)",
         "price": "1 zk",
         "availability": "R",
-        "item_type": "weapon"
+        "item_type": "weapon",
+        "id": "weapon_018"
       },
       {
         "name": "Pistolet",
@@ -244,7 +262,8 @@
         "properties": "Niewypał, przeładowanie, używa kul, zasięg (średni)",
         "price": "5 zk",
         "availability": "E",
-        "item_type": "weapon"
+        "item_type": "weapon",
+        "id": "weapon_019"
       },
       {
         "name": "Proca",
@@ -253,7 +272,8 @@
         "properties": "Używa kamieni, zasięg (średni)",
         "price": "5 md",
         "availability": "P",
-        "item_type": "weapon"
+        "item_type": "weapon",
+        "id": "weapon_020"
       },
       {
         "name": "Buława",
@@ -262,7 +282,8 @@
         "properties": "",
         "price": "5 sr",
         "availability": "P",
-        "item_type": "weapon"
+        "item_type": "weapon",
+        "id": "weapon_021"
       },
       {
         "name": "Glewia",
@@ -271,7 +292,8 @@
         "properties": "Dalekosiężna +1",
         "price": "1 zk",
         "availability": "N",
-        "item_type": "weapon"
+        "item_type": "weapon",
+        "id": "weapon_022"
       },
       {
         "name": "Halabarda",
@@ -280,7 +302,8 @@
         "properties": "Dalekosiężna +1",
         "price": "1 zk",
         "availability": "N",
-        "item_type": "weapon"
+        "item_type": "weapon",
+        "id": "weapon_023"
       },
       {
         "name": "Berdysz",
@@ -289,7 +312,8 @@
         "properties": "Dalekosiężna +1",
         "price": "1 zk",
         "availability": "N",
-        "item_type": "weapon"
+        "item_type": "weapon",
+        "id": "weapon_024"
       },
       {
         "name": "Lanca",
@@ -298,7 +322,8 @@
         "properties": "Dalekosiężna +2, jednoręczna w czasie jazdy wierzchem",
         "price": "5 sr",
         "availability": "N",
-        "item_type": "weapon"
+        "item_type": "weapon",
+        "id": "weapon_025"
       },
       {
         "name": "Młot bojowy",
@@ -307,7 +332,8 @@
         "properties": "Nieporęczna",
         "price": "1 zk",
         "availability": "R",
-        "item_type": "weapon"
+        "item_type": "weapon",
+        "id": "weapon_026"
       },
       {
         "name": "Miecz długi",
@@ -316,7 +342,8 @@
         "properties": "Nieporęczna",
         "price": "1 zk",
         "availability": "R",
-        "item_type": "weapon"
+        "item_type": "weapon",
+        "id": "weapon_027"
       },
       {
         "name": "Pika",
@@ -325,7 +352,8 @@
         "properties": "Dalekosiężna +2, Rozmiar 1",
         "price": "5 sr",
         "availability": "N",
-        "item_type": "weapon"
+        "item_type": "weapon",
+        "id": "weapon_028"
       },
       {
         "name": "Topór bojowy",
@@ -334,7 +362,8 @@
         "properties": "",
         "price": "5 sr",
         "availability": "N",
-        "item_type": "weapon"
+        "item_type": "weapon",
+        "id": "weapon_029"
       },
       {
         "name": "Korbacz",
@@ -343,7 +372,8 @@
         "properties": "",
         "price": "5 sr",
         "availability": "N",
-        "item_type": "weapon"
+        "item_type": "weapon",
+        "id": "weapon_030"
       },
       {
         "name": "Morgenstern",
@@ -352,7 +382,8 @@
         "properties": "",
         "price": "5 sr",
         "availability": "N",
-        "item_type": "weapon"
+        "item_type": "weapon",
+        "id": "weapon_031"
       },
       {
         "name": "Nadziak",
@@ -361,7 +392,8 @@
         "properties": "",
         "price": "5 sr",
         "availability": "N",
-        "item_type": "weapon"
+        "item_type": "weapon",
+        "id": "weapon_032"
       },
       {
         "name": "Miecz",
@@ -370,7 +402,8 @@
         "properties": "",
         "price": "5 sr",
         "availability": "N",
-        "item_type": "weapon"
+        "item_type": "weapon",
+        "id": "weapon_033"
       },
       {
         "name": "Trójząb",
@@ -379,9 +412,11 @@
         "properties": "Finezyjna, miotana, zasięg (bliski)",
         "price": "1 sr",
         "availability": "P",
-        "item_type": "weapon"
+        "item_type": "weapon",
+        "id": "weapon_034"
       },
       {
+        "id": "spear_thrown",
         "name": "Włócznia",
         "damage": "1k6",
         "grip": "Jednoręczny",
@@ -397,7 +432,8 @@
         "properties": "Dalekosiężna +1, finezyjna",
         "price": "5 sr",
         "availability": "N",
-        "item_type": "weapon"
+        "item_type": "weapon",
+        "id": "weapon_036"
       },
       {
         "name": "Łańcuch",
@@ -406,7 +442,8 @@
         "properties": "Finezyjna",
         "price": "5 md",
         "availability": "P",
-        "item_type": "weapon"
+        "item_type": "weapon",
+        "id": "weapon_037"
       },
       {
         "name": "Kordelas",
@@ -415,7 +452,8 @@
         "properties": "Finezyjna",
         "price": "5 md",
         "availability": "P",
-        "item_type": "weapon"
+        "item_type": "weapon",
+        "id": "weapon_038"
       },
       {
         "name": "Długi nóż",
@@ -424,7 +462,8 @@
         "properties": "Finezyjna",
         "price": "5 md",
         "availability": "P",
-        "item_type": "weapon"
+        "item_type": "weapon",
+        "id": "weapon_039"
       },
       {
         "name": "Karczownik",
@@ -433,7 +472,8 @@
         "properties": "Finezyjna",
         "price": "5 md",
         "availability": "P",
-        "item_type": "weapon"
+        "item_type": "weapon",
+        "id": "weapon_040"
       },
       {
         "name": "Mizerykordia",
@@ -442,7 +482,8 @@
         "properties": "Finezyjna",
         "price": "5 md",
         "availability": "P",
-        "item_type": "weapon"
+        "item_type": "weapon",
+        "id": "weapon_041"
       },
       {
         "name": "Rapier",
@@ -451,7 +492,8 @@
         "properties": "Finezyjna",
         "price": "1 zk",
         "availability": "R",
-        "item_type": "weapon"
+        "item_type": "weapon",
+        "id": "weapon_042"
       },
       {
         "name": "Szabla",
@@ -460,7 +502,8 @@
         "properties": "Finezyjna",
         "price": "1 zk",
         "availability": "R",
-        "item_type": "weapon"
+        "item_type": "weapon",
+        "id": "weapon_043"
       },
       {
         "name": "Bułat",
@@ -469,7 +512,8 @@
         "properties": "Finezyjna",
         "price": "1 zk",
         "availability": "R",
-        "item_type": "weapon"
+        "item_type": "weapon",
+        "id": "weapon_044"
       },
       {
         "name": "Dwuręczny miecz",
@@ -478,7 +522,8 @@
         "properties": "Nieporęczna",
         "price": "2 zk",
         "availability": "R",
-        "item_type": "weapon"
+        "item_type": "weapon",
+        "id": "weapon_045"
       },
       {
         "name": "Dwuręczny topór",
@@ -487,7 +532,8 @@
         "properties": "Nieporęczna",
         "price": "2 zk",
         "availability": "R",
-        "item_type": "weapon"
+        "item_type": "weapon",
+        "id": "weapon_046"
       },
       {
         "name": "Dwuręczny młot",
@@ -496,7 +542,8 @@
         "properties": "Nieporęczna",
         "price": "2 zk",
         "availability": "R",
-        "item_type": "weapon"
+        "item_type": "weapon",
+        "id": "weapon_047"
       },
       {
         "name": "Miecz długi",
@@ -505,7 +552,8 @@
         "properties": "Nieporęczna",
         "price": "1 zk",
         "availability": "R",
-        "item_type": "weapon"
+        "item_type": "weapon",
+        "id": "weapon_048"
       },
       {
         "name": "Młot bojowy",
@@ -514,7 +562,8 @@
         "properties": "Nieporęczna",
         "price": "1 zk",
         "availability": "R",
-        "item_type": "weapon"
+        "item_type": "weapon",
+        "id": "weapon_049"
       }
     ],
     "shields": [

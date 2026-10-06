@@ -218,7 +218,7 @@
         },
         {
           "type": "add_attribute",
-          "name": "defence",
+          "name": "defense",
           "value": -2
         }
       ]
@@ -241,7 +241,7 @@
         },
         {
           "type": "add_attribute",
-          "name": "defence",
+          "name": "defense",
           "value": -3
         }
       ]
@@ -514,7 +514,7 @@
       "actions": [
         {
           "type": "add_attribute",
-          "name": "copper_coins",
+          "name": "miedziaki",
           "value": "2d6"
         }
       ]

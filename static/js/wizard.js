@@ -146,6 +146,8 @@
             this.render();
             this._onSupChange = () => this.render();
             window.addEventListener("supplements-change", this._onSupChange);
+            window.creationStore.addEventListener("statechange", this._onSupChange);
+            window.creationStore.addEventListener("busychange", this._onSupChange);
             this._onClickOutside = (e) => {
                 if (this._open && !this.contains(e.target)) {
                     this._open = false;
@@ -156,6 +158,8 @@
         }
         disconnectedCallback() {
             window.removeEventListener("supplements-change", this._onSupChange);
+            window.creationStore.removeEventListener("statechange", this._onSupChange);
+            window.creationStore.removeEventListener("busychange", this._onSupChange);
             document.removeEventListener("click", this._onClickOutside);
         }
         render() {
@@ -186,7 +190,7 @@
                     const input = document.createElement("input");
                     input.type = "checkbox";
                     input.checked = window.enabledSupplements.has(code);
-                    input.disabled = locked;
+                    input.disabled = locked || !!window.creationStore.state || window.creationStore.busy;
                     input.addEventListener("change", () => window.toggleSupplement(code));
                     const checkmark = document.createElement("span");
                     checkmark.className = "checkmark";
@@ -194,6 +198,11 @@
                     option.append(input, checkmark, text);
                     panel.append(option);
                 });
+                if (window.creationStore.state) {
+                    const hint = document.createElement("p");
+                    hint.textContent = "Suplementy są zapisane z postacią. Wróć do menu, aby zmienić je dla nowej postaci.";
+                    panel.append(hint);
+                }
                 this.append(panel);
             }
         }
@@ -391,7 +400,7 @@
 
             // Pre-fill selections if we are navigating back to a resolved choice
             const pastSelections = state.selections || [];
-            if (this._selections.length === 0 && pastSelections[cursor] !== undefined) {
+            if (currentGroup && this._selections.length === 0 && pastSelections[cursor] !== undefined) {
                 // If it's a single index (standard)
                 const selectedIdx = pastSelections[cursor];
                 if (typeof selectedIdx === "number") {
@@ -492,7 +501,7 @@
                 plusBtn.textContent = "+";
                 plusBtn.addEventListener("click", () => {
                     if (selected.size < requiredCount) {
-                        selected.set(attr, {type: "add_attribute", name: attr, value: 1});
+                        selected.set(attr, group.find(action => action.name === attr));
                         updateUI();
                     }
                 });
@@ -508,8 +517,8 @@
             this._attrSubmit = async () => {
                 if (selected.size !== requiredCount) return;
                 try {
-                    await this.store.applyChoices(Array.from(selected.values()));
-                    window.showWizardToast?.("Atrybuty zwiększone.");
+                    const result = await this.store.applyChoices(Array.from(selected.values()));
+                    if (result) window.showWizardToast?.("Atrybuty zwiększone.");
                 } catch (e) { window.showWizardToast?.(e.message); }
             };
         }
@@ -636,6 +645,7 @@
                     const tooltipBtn = document.createElement("button");
                     tooltipBtn.type = "button"; tooltipBtn.className = "ancestry-tooltip-trigger inner-tooltip";
                     tooltipBtn.textContent = "ⓘ";
+                    tooltipBtn.setAttribute("aria-label", "Opis: " + describeOption(opt, state.hero, magicContext));
                     tooltipBtn.addEventListener("click", (e) => {
                         e.preventDefault();
                         e.stopPropagation();
@@ -685,7 +695,42 @@
             window.removeEventListener("supplements-change", this._onSupChange);
         }
         get tier() { return this.getAttribute("tier"); }
+        _pathCard(path, tier) {
+            const card = document.createElement("div");
+            card.className = "ancestry-item path-option";
+            if (this._selected === path.id && this._selectedTier === tier) card.classList.add("active");
+            const label = document.createElement("label");
+            const input = document.createElement("input");
+            input.type = "radio";
+            input.name = "path-choice";
+            input.value = tier + ":" + path.id;
+            input.checked = this._selected === path.id && this._selectedTier === tier;
+            input.addEventListener("change", () => {
+                this._selected = path.id;
+                this._selectedTier = tier;
+                this.render();
+                Array.from(this.querySelectorAll("input[name='path-choice']"))
+                    .find(node => node.value === input.value)?.focus();
+            });
+            const name = document.createElement("span");
+            name.className = "ancestry-name";
+            name.textContent = path.name;
+            label.append(input, name);
+            card.append(label);
+            if (path.description) {
+                const tip = document.createElement("button");
+                tip.type = "button";
+                tip.className = "ancestry-tooltip-trigger";
+                tip.textContent = "ⓘ";
+                tip.setAttribute("aria-label", "Opis ścieżki: " + path.name);
+                tip.addEventListener("click", () => WizardPopover.toggle(tip, path.description));
+                card.append(tip);
+            }
+            return card;
+        }
         render() {
+            const restoreSearchFocus = this.contains(document.activeElement)
+                && document.activeElement.classList.contains("path-picker-search");
             this.replaceChildren();
             const tier = this.tier;
             const heading = document.createElement("h3");
@@ -711,19 +756,7 @@
             const catalog = ((window.PATH_CATALOG && window.PATH_CATALOG[tier]) || []).filter(p => enabledSources.has(p.source || "PG"));
             const needle = this._search.toLowerCase();
             catalog.filter(p => p.name.toLowerCase().includes(needle)).forEach(p => {
-                const card = document.createElement("div");
-                card.className = "ancestry-item";
-                if (this._selected === p.id) card.classList.add("active");
-                card.textContent = p.name;
-                if (p.description) {
-                    const tip = document.createElement("button");
-                    tip.type = "button"; tip.className = "ancestry-tooltip-trigger";
-                    tip.textContent = "ⓘ";
-                    tip.addEventListener("click", (e) => { e.stopPropagation(); WizardPopover.toggle(tip, p.description); });
-                    card.append(tip);
-                }
-                card.addEventListener("click", () => { this._selected = p.id; this._selectedTier = tier; this.render(); });
-                grid.append(card);
+                grid.append(this._pathCard(p, tier));
             });
             body.append(grid);
 
@@ -735,19 +768,7 @@
                 expertGrid.className = "ancestry-grid";
                 const chosen = new Set(this.store.state.paths.expert);
                 window.PATH_CATALOG.expert.filter(p => enabledSources.has(p.source || "PG") && !chosen.has(p.id) && p.name.toLowerCase().includes(needle)).forEach(p => {
-                    const card = document.createElement("div");
-                    card.className = "ancestry-item";
-                    if (this._selected === p.id) card.classList.add("active");
-                    card.textContent = p.name;
-                    if (p.description) {
-                        const tip = document.createElement("button");
-                        tip.type = "button"; tip.className = "ancestry-tooltip-trigger";
-                        tip.textContent = "ⓘ";
-                        tip.addEventListener("click", (e) => { e.stopPropagation(); WizardPopover.toggle(tip, p.description); });
-                        card.append(tip);
-                    }
-                    card.addEventListener("click", () => { this._selected = p.id; this._selectedTier = "expert"; this.render(); });
-                    expertGrid.append(card);
+                    expertGrid.append(this._pathCard(p, "expert"));
                 });
                 body.append(expertGrid);
             }
@@ -757,7 +778,7 @@
             footer.className = "step-shell-footer";
             const back = document.createElement("button");
             back.className = "step-back-button"; back.textContent = "Wstecz";
-            back.addEventListener("click", () => this.store.rewind(this.store.state.current_level));
+            back.addEventListener("click", () => this.store.cancelAdvance());
             const next = document.createElement("button");
             next.className = "confirm-button step-next-button";
             next.textContent = "Dalej";
@@ -767,6 +788,11 @@
             });
             footer.append(back, next);
             this.append(footer);
+            if (restoreSearchFocus) {
+                const search = this.querySelector(".path-picker-search");
+                search?.focus();
+                search?.setSelectionRange(this._cursorPos, this._cursorPos);
+            }
         }
     }
 
@@ -791,7 +817,12 @@
             const weapons = current.weapons || [];
             const shields = current.shields || [];
             if (armors.length > 0) this._selectedArmor = armors[0].name;
-            weapons.forEach(w => this._selectedWeapons.add(w.name));
+            weapons.forEach(w => {
+                const match = (step.equipment_store?.weapons || []).find(item =>
+                    item.name === w.name && item.damage === w.damage && item.grip === w.grip
+                    && (item.properties || "") === w.properties);
+                this._selectedWeapons.add(w.id || match?.id || w.name);
+            });
             if (shields.length > 0) this._selectedShield = shields[0].name;
         }
 
@@ -873,9 +904,10 @@
             };
 
             weapons.forEach(weapon => {
-                const checked = this._selectedWeapons.has(weapon.name);
+                const identifier = weapon.id || weapon.name;
+                const checked = this._selectedWeapons.has(identifier);
                 const atLimit = this._selectedWeapons.size >= maxWeapons && !checked;
-                const label = this._createCheckbox("weapon", weapon.name,
+                const label = this._createCheckbox("weapon", identifier,
                     weapon.name, checked, atLimit);
                 const stats = document.createElement("span");
                 stats.className = "equipment-stats";
@@ -883,8 +915,8 @@
                     (weapon.properties ? ` | ${weapon.properties}` : "");
                 label.append(stats);
                 label.addEventListener("change", (e) => {
-                    if (e.target.checked) this._selectedWeapons.add(weapon.name);
-                    else this._selectedWeapons.delete(weapon.name);
+                    if (e.target.checked) this._selectedWeapons.add(identifier);
+                    else this._selectedWeapons.delete(identifier);
                     updateWeaponLimits();
                 });
                 fieldset.append(label);
@@ -1071,6 +1103,14 @@
         }
         connectedCallback() {
             this._renderQueued = false;
+            this._onReset = () => {
+                this._screen = "menu";
+                this._mode = null;
+                this._lvl = 0;
+                this._ancestry = null;
+                this._chosenPaths = {novice: null, expert: null, master: null};
+                window.dispatchEvent(new CustomEvent("ui-screen-change"));
+            };
             this._onStateChange = () => {
                 if (this._renderQueued) return;
                 this._renderQueued = true;
@@ -1079,10 +1119,12 @@
             this._onSupChange = () => this.render();
             this.render();
             this.store.addEventListener("statechange", this._onStateChange);
+            this.store.addEventListener("reset", this._onReset);
             window.addEventListener("supplements-change", this._onSupChange);
         }
         disconnectedCallback() {
             this.store.removeEventListener("statechange", this._onStateChange);
+            this.store.removeEventListener("reset", this._onReset);
             window.removeEventListener("supplements-change", this._onSupChange);
         }
 
@@ -1131,6 +1173,7 @@
             const state = this.store.state;
             if (state && state.mode) {
                 this._mode = state.mode;
+                this._screen = "creation";
             }
 
             if (this._screen === "menu") {

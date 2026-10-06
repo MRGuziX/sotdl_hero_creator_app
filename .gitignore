@@ -9,3 +9,7 @@ __pycache__/
 .env
 .mypy_cache/
 .pytest_cache/
+instance/
+node_modules/
+test-results/
+playwright-report/

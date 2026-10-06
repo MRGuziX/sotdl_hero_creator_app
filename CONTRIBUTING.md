@@ -18,17 +18,17 @@ in your commit.
 ## Project Structure
 
 ```
-main.py              # Flask routes, wizard state management, API endpoints
+main.py              # Stateless Flask commands and direct PDF responses
 models/              # Pydantic data models — the schema for all game data
-domain/              # Domain/business logic (actions, backstory, choices, progression, state)
-data/                # Data access layer (JSON loading and caching)
+domain/              # Atomic creation transitions, checkpoints and progression
+data/                # JSON catalog validation and isolated caching
 utils/utils.py       # Core game logic — dice rolls, hero building, action pipeline
 utils/pdf_creator.py # PDF character sheet generation
 export/              # PDF export pipeline
 data_base/           # Game data as JSON files (ancestry, paths, spells, equipment)
 static/js/           # Frontend (wizard.js web components + creation_store.js state manager)
 templates/           # Single-page Jinja2 template
-tests/               # pytest test suite (11 test files)
+tests/               # pytest, Node regressions and desktop/phone browser workflows
 ```
 
 ## Key Concepts
@@ -42,6 +42,7 @@ tests/               # pytest test suite (11 test files)
 - **AncestryData** — the Pydantic model for loading ancestry JSON templates
 
 When adding a new action type:
+
 1. Add the model class to `models/action.py` with a `Literal` type field
 2. Add it to the `Action` union
 3. Handle it in `apply_action()` in `utils/utils.py`
@@ -50,35 +51,58 @@ When adding a new action type:
 5. Add UI label rendering in `wizard.js`
 
 When adding a new ancestry:
+
 1. Create `data_base/ancestry/<name>/<name>.json` following the existing schema
 2. Create `data_base/ancestry/<name>/<name>_tables.json` with backstory roll tables
 3. Add the backstory roll sequence in the `build_hero()` match/case block
-4. Add the ancestry key to `ANCESTRIES` in `main.py`
+4. Add the ancestry key to `ANCESTRIES` in `main.py` and `StartCreation` in `models/requests.py`
 5. Add the display name and description to `data_base/ancestry/descriptions.json`
 
 When adding a new path:
+
 1. Create `data_base/paths/<tier>/<path_name>.json` with `level_benefits` defining actions and choices per level
 2. Path files follow the `LevelBenefit` schema (actions + choices arrays per level)
-3. Include a `path_description` field with a short summary — this is shown in the ⓘ tooltip on path cards
+3. Include a reviewed `path_description`, or omit it to show existing talent names.
+   Do not add placeholder copy or invent game mechanics.
 
 When adding or editing spells:
+
 1. Each spell in a tradition JSON has `book_description` and `card_description` fields
 2. The `card_description` is shown in the ⓘ tooltip when the spell appears as a choice in the wizard
 
 ## Running Tests
 
 ```bash
-pip install pytest
+pip install -r requirements-dev.txt
 pytest tests/ -v
+python -m data.validate
+ruff check .
+ruff format --check .
+npm ci
+npm test
+npx playwright install chromium
+npm run test:browser
 ```
 
+No database is needed for development, tests or deployment. Browser tests run Flask with
+`VERCEL=1` and a fixed test-only signing secret, and cover desktop and phone widths.
+
+The browser carries signed full-state tokens in request bodies; the server never retains
+characters. Always verify the signature before loading state. Work on independent snapshots,
+preserve complete checkpoint history and leave the original token untouched on failure.
+Versions are local to the supplied token, not a cross-client/global lock. Add a regression
+before fixing a state or data issue, and keep each repair in a focused commit. PDF export
+returns bytes directly; preview/download must share the same Blob and release old object URLs.
+Weapons with shared display names require distinct catalog IDs.
+
 The test suite covers:
+
 - **test_models.py** — Pydantic model validation, creation, mutation, JSON loading
 - **test_utils.py** — dice rolling, attribute/language/profession/item/wealth logic, full hero generation
 - **test_pdf.py** — PDF generation, field population verification, all-ancestry PDF generation
 - **test_app.py** — Flask route integration tests, manual choice flow
 - **test_api.py** — API endpoint tests
-- **test_creation_contract.py** — creation workflow contract tests
+- **test_creation_api.py** — creation workflow contract, guards and undo tests
 - **test_creation_state.py** — CreationState state machine tests
 - **test_export_boundary.py** — PDF export boundary tests
 - **test_spells_json.py** — spell/tradition JSON data validation

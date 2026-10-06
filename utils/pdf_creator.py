@@ -1,11 +1,22 @@
-import json
 import pathlib
 import re
 from dataclasses import dataclass
 from html import escape
 from typing import Any
+from io import BytesIO
+from functools import lru_cache
+from fontTools.ttLib import TTFont as FontToolsFont
 
 from pypdf import PdfReader, PdfWriter
+from pypdf._font import Font
+from pypdf.generic import (
+    NameObject,
+    NumberObject,
+    TextStringObject,
+    DictionaryObject,
+    DecodedStreamObject,
+)
+from pypdf.generic._appearance_stream import BaseStreamConfig, TextStreamAppearance
 from reportlab.lib.colors import black, white
 from reportlab.lib.enums import TA_CENTER, TA_LEFT
 from reportlab.lib.pagesizes import A4
@@ -145,6 +156,62 @@ def distribute_talents(talents):
     return assigned, overflow
 
 
+@lru_cache(maxsize=1)
+def _form_font_bytes() -> bytes:
+    font_path = pathlib.Path(__file__).parent.parent / "data_base/fonts/athelas.ttc"
+    with FontToolsFont(font_path, fontNumber=0) as font:
+        buffer = BytesIO()
+        font.save(buffer)
+        return buffer.getvalue()
+
+
+def _attach_form_font(writer: PdfWriter):
+    """Embed the bundled font; templates only contain unembedded WinAnsi metrics.
+
+    pypdf's pinned font adapter emits Unicode CID resources. Keep this private
+    integration isolated and covered by the rendered-appearance regression.
+    """
+    fonts = writer.root_object["/AcroForm"]["/DR"]["/Font"]
+    font = Font.from_truetype_font_file(BytesIO(_form_font_bytes()))
+    resource = font._add_to_writer(writer, fonts, NameObject("/Athelas"))
+    return font, resource
+
+
+def _fill_form_fields(writer, page, values: dict, font, resource) -> None:
+    for reference in page.get("/Annots", []):
+        annotation = reference.get_object()
+        name = annotation.get("/T")
+        if name not in values:
+            continue
+        appearance = annotation.get("/DA", "/Athelas 10 Tf 0 g")
+        size = re.search(r"([\d.]+)\s+Tf", appearance)
+        font_size = size.group(1) if size else "10"
+        value = str(values[name])
+        if value and not re.fullmatch(r"-?\d+(?:\.\d+)?", value):
+            # Fit and wrap text inside the real field rectangle, including long
+            # equipment names and talent descriptions. Keep numeric stat sizes.
+            font_size = "0"
+            annotation[NameObject("/Ff")] = NumberObject(int(annotation.get("/Ff", 0)) | 4096)
+        annotation[NameObject("/DA")] = TextStringObject(f"/Athelas {font_size} Tf 0 g")
+        annotation[NameObject("/V")] = TextStringObject(value)
+        x0, y0, x1, y1 = map(float, annotation["/Rect"])
+        # Generate from unescaped Unicode text: pypdf's form updater escapes
+        # parentheses as literal strings even when a CID font emits hex strings.
+        appearance = TextStreamAppearance(
+            BaseStreamConfig(rectangle=(0, 0, x1 - x0, y1 - y0)),
+            value,
+            font=font,
+            font_resource=resource,
+            font_name="/Athelas",
+            font_size=float(font_size),
+            is_multiline=bool(int(annotation.get("/Ff", 0)) & 4096),
+            alignment=annotation.get("/Q", 0),
+        )
+        annotation[NameObject("/AP")] = DictionaryObject(
+            {NameObject("/N"): writer._add_object(appearance)}
+        )
+
+
 def fill_pdf(hero: AncestryHero, output_path: str) -> None:
     """Fill the bundled character-sheet template and write it to `output_path`.
 
@@ -158,6 +225,7 @@ def fill_pdf(hero: AncestryHero, output_path: str) -> None:
     writer = PdfWriter()
     writer.append(PdfReader(hero_template))
     writer.append(PdfReader(talent_template))
+    form_font, form_resource = _attach_form_font(writer)
 
     assigned_talents, overflow_talents = distribute_talents(hero.talents)
 
@@ -167,7 +235,9 @@ def fill_pdf(hero: AncestryHero, output_path: str) -> None:
         path_file = project_root / "data_base" / "paths" / tier / f"{path_id.lower()}.json"
         if path_file.exists():
             try:
-                data = json.loads(path_file.read_text(encoding="utf-8"))
+                from data.repository import load_json
+
+                data = load_json(path_file)
                 return data.get("path_name", path_id)
             except Exception:
                 return path_id
@@ -194,7 +264,7 @@ def fill_pdf(hero: AncestryHero, output_path: str) -> None:
         "damage": str(hero.damage),
         "insanity": str(hero.insanity),
         "corruption": str(hero.corruption),
-        "healing_rate": str(hero.health // 4),
+        "healing_rate": str(hero.healing_rate),
         "size": str(hero.size[0]) if hero.size else "1",
         "ancestry": hero.ancestry_name,
         "novice": novice_path,
@@ -275,8 +345,9 @@ def fill_pdf(hero: AncestryHero, output_path: str) -> None:
         talent_fields[box.name_field] = data["name"]
         talent_fields[box.desc_field] = data["description"]
 
-    writer.update_page_form_field_values(writer.pages[0], hero_fields)
-    writer.update_page_form_field_values(writer.pages[1], talent_fields)
+    _fill_form_fields(writer, writer.pages[0], hero_fields, form_font, form_resource)
+    _fill_form_fields(writer, writer.pages[1], talent_fields, form_font, form_resource)
+    writer.set_need_appearances_writer(False)
 
     renderable_spells = [
         spell
@@ -291,19 +362,32 @@ def fill_pdf(hero: AncestryHero, output_path: str) -> None:
             writer.add_page(spell_page)
         spell_output_path.unlink()
 
+    _compress_pdf(writer)
     with open(output_path, "wb") as output_stream:
         writer.write(output_stream)
     return output_path
 
 
+def _compress_pdf(writer: PdfWriter) -> None:
+    """Losslessly keep full sheets/cards below serverless response-size limits.
+
+    Merging card overlays decodes the template content streams. Recompress them
+    before deduplicating shared template/font resources; the reverse order can
+    corrupt shared content arrays in pypdf. Keep rendered/Unicode regressions.
+    """
+    for page in writer.pages:
+        page.compress_content_streams()
+    writer.compress_identical_objects(remove_duplicates=True, remove_unreferenced=True)
+
+
 def _draw_wrapped_text(
-        canvas: Canvas,
-        text: str,
-        x: float,
-        y: float,
-        width: float,
-        font_size: int,
-        leading: float | None = None,
+    canvas: Canvas,
+    text: str,
+    x: float,
+    y: float,
+    width: float,
+    font_size: int,
+    leading: float | None = None,
 ) -> float:
     style = ParagraphStyle(
         "spell_text",
@@ -351,7 +435,7 @@ def _spell_card_fields(spell, card_number: int) -> dict[str | Any, str | dict[An
         f"spell_duration_card_{card_number}": spell.duration or "",
         f"spell_area_card_{card_number}": spell.area or "",
         f"spell_description_card_{card_number}": (
-                spell.card_description or spell.description or ""
+            spell.card_description or spell.description or ""
         ),
         f"spell_attack_roll_card_{card_number}": spell.critical_success or "",
         f"spell_requirements_card_{card_number}": spell.requirements or "",
@@ -366,13 +450,13 @@ def _spell_card_fields(spell, card_number: int) -> dict[str | Any, str | dict[An
 
 
 def _draw_spell_table(
-        canvas: Canvas,
-        table_data: dict,
-        left: float,
-        top: float,
-        width: float,
-        px_to_x: float,
-        px_to_y: float,
+    canvas: Canvas,
+    table_data: dict,
+    left: float,
+    top: float,
+    width: float,
+    px_to_x: float,
+    px_to_y: float,
 ) -> float:
     """Draw a spell table stored as {headers: [...], rows: [[...], ...]}.
 
@@ -452,7 +536,7 @@ def _spell_origin_text(origin: dict) -> str:
     number = origin.get("number")
     if not source and number is None:
         return ""
-    return f"{source} {number}".strip()
+    return source if number is None else f"{source} {number}".strip()
 
 
 def _spell_origin_x(column_px: float) -> float:
@@ -488,16 +572,16 @@ def _spell_name_bounds(column_px: float) -> tuple[float, float]:
 def _spell_critical_success_y(base_y: float, description_height: float, px_to_y: float) -> float:
     """Return the Y position 50 pixels below the wrapped description."""
     return (
-            base_y
-            + SPELL_DESCRIPTION_OFFSET_Y
-            + description_height / px_to_y
-            + SPELL_CRITICAL_SUCCESS_GAP_PX
+        base_y
+        + SPELL_DESCRIPTION_OFFSET_Y
+        + description_height / px_to_y
+        + SPELL_CRITICAL_SUCCESS_GAP_PX
     )
 
 
 def _spell_description_top(
-        base_y: float,
-        technical_fields_bottom: float | None,
+    base_y: float,
+    technical_fields_bottom: float | None,
 ) -> float:
     """Return the description top 50 px below the last technical field."""
     if technical_fields_bottom is None:
@@ -515,7 +599,7 @@ def _spell_effect_value(value: str, label: str) -> str:
     prefixes = (label, "Rzut na atak to 20+:") if label == "Rzut na atak 20+:" else (label,)
     for prefix in prefixes:
         if value.startswith(prefix):
-            return value[len(prefix):].strip()
+            return value[len(prefix) :].strip()
     return value
 
 
@@ -529,15 +613,15 @@ def _format_spell_description(text: str) -> str:
 
 
 def _draw_wrapped_centered(
-        canvas: Canvas,
-        text: str,
-        left: float,
-        top: float,
-        width: float,
-        font_name: str,
-        font_size: int,
-        px_to_x: float,
-        px_to_y: float,
+    canvas: Canvas,
+    text: str,
+    left: float,
+    top: float,
+    width: float,
+    font_name: str,
+    font_size: int,
+    px_to_x: float,
+    px_to_y: float,
 ) -> float:
     style = ParagraphStyle(
         "spell_name",
@@ -554,19 +638,19 @@ def _draw_wrapped_centered(
 
 
 def _draw_spell_field(
-        canvas: Canvas,
-        text: str,
-        column: float,
-        top: float,
-        px_to_x: float,
-        px_to_y: float,
+    canvas: Canvas,
+    text: str,
+    column: float,
+    top: float,
+    px_to_x: float,
+    px_to_y: float,
 ) -> float:
     """Draw a centered, wrapped technical field and return its height in points."""
     left, width = _spell_description_bounds(column)
     labels = ("Czas działania:", "Czas trwania:", "Cel:", "Obszar:")
     label = next((item for item in labels if text.startswith(item)), "")
     if label:
-        text = f'<font name="{SPELL_FONT_BOLD}">{escape(label)}</font>{escape(text[len(label):])}'
+        text = f'<font name="{SPELL_FONT_BOLD}">{escape(label)}</font>{escape(text[len(label) :])}'
     else:
         text = escape(text)
     return _draw_wrapped_centered(
@@ -603,13 +687,13 @@ def fill_spell_pdf(hero: AncestryHero, output_path: str) -> str:
     px_to_y = A4[1] / 3508
 
     def draw_centered(
-            text: str, x_px: float, y_px: float, size: int, font_name: str = SPELL_FONT
+        text: str, x_px: float, y_px: float, size: int, font_name: str = SPELL_FONT
     ) -> None:
         canvas.setFont(font_name, size)
         canvas.drawCentredString(x_px * px_to_x, A4[1] - y_px * px_to_y, text)
 
     for page_start in range(0, len(spells), 9):
-        for card_index, spell in enumerate(spells[page_start: page_start + 9], 1):
+        for card_index, spell in enumerate(spells[page_start : page_start + 9], 1):
             column = SPELL_CARD_COLUMNS_X[(card_index - 1) % 3]
             base_y = SPELL_CARD_ROW_BASES_Y[(card_index - 1) // 3]
             fields = _spell_card_fields(spell, card_index)
@@ -678,7 +762,7 @@ def fill_spell_pdf(hero: AncestryHero, output_path: str) -> str:
                 )
                 effect_y = table_top + table_height / px_to_y + SPELL_TECHNICAL_FIELD_GAP_PX
             else:
-                effect_y = _spell_critical_success_y(base_y, height, px_to_y) - 20
+                effect_y = description_top + height / px_to_y + SPELL_TECHNICAL_FIELD_GAP_PX
             effect_fields = (
                 ("spell_attack_roll_card_", "Rzut na atak 20+:"),
                 ("spell_requirements_card_", "Wymagania:"),
@@ -724,11 +808,21 @@ def fill_spell_pdf(hero: AncestryHero, output_path: str) -> str:
     canvas.save()
 
     overlay = PdfReader(overlay_path)
+    template = PdfReader(template_path)
     writer = PdfWriter()
     for page in overlay.pages:
-        card = PdfReader(template_path).pages[0]
+        # Reuse one reader so all card pages share its large background/mask.
+        # Photoshop's PieceInfo embeds editing-only raster copies. They are not
+        # part of the displayed page; do not clone them into every spell sheet.
+        card = writer.add_page(template.pages[0], excluded_keys=["/PieceInfo"])
+        # The background resources can be shared, but merge_page replaces its
+        # content stream in place. Give each card page a separate stream so later
+        # overlays cannot appear on every earlier page.
+        content = DecodedStreamObject()
+        content.set_data(template.pages[0].get_contents().get_data())
+        card[NameObject("/Contents")] = writer._add_object(content)
         card.merge_page(page)
-        writer.add_page(card)
+    _compress_pdf(writer)
     with output_file.open("wb") as output_stream:
         writer.write(output_stream)
     overlay_path.unlink()

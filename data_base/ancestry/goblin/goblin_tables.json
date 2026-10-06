@@ -82,7 +82,7 @@
         { "roll": [17], "description": "Byłeś pomocnikiem potężnego czarodzieja." },
         { "roll": [18], "description": "W ściekach znalazłeś szlachecki sygnet." },
         { "roll": [19], "description": "Jesteś siedemnastym dzieckiem króla goblinów." },
-        { "roll": [20], "description": "Odziedziczyłeś w spadku pieniądze; zaczynasz grę z 2k6 miedziaków.", "actions": [{"type": "add_attribute", "name": "coins", "value": "2d6"}] }
+        { "roll": [20], "description": "Odziedziczyłeś w spadku pieniądze; zaczynasz grę z 2k6 miedziaków.", "actions": [{"type": "add_attribute", "name": "miedziaki", "value": "2d6"}] }
     ],
     "personality": [
         { "roll": [3], "description": "Jesteś zbirem i lubisz nękać słabszych od siebie." },

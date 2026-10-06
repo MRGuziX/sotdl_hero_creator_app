@@ -1,5 +1,6 @@
 """Serializable, server-authoritative state for the creation wizard."""
 
+from copy import deepcopy
 from dataclasses import dataclass, field
 from typing import Any
 from uuid import uuid4
@@ -10,7 +11,7 @@ from models.action import Action
 from models.base_hero import AncestryHero
 
 
-CREATION_STATE_VERSION = 3
+CREATION_STATE_VERSION = 4
 
 
 class CreationStateError(ValueError):
@@ -35,19 +36,19 @@ class CreationState:
     equipment_confirmed_levels: list[int] = field(default_factory=list)
     equipment_picks: dict[str, Any] = field(default_factory=dict)
     enabled_sources: list[str] = field(default_factory=lambda: ["PG"])
+    checkpoints: list[dict[str, Any]] = field(default_factory=list)
     state_version: int = 0
     version: int = CREATION_STATE_VERSION
     state_id: str = field(default_factory=lambda: uuid4().hex)
 
-    def to_dict(self) -> dict[str, Any]:
-        return {
+    def to_dict(self, *, include_history: bool = True) -> dict[str, Any]:
+        result = {
             "version": self.version,
             "state_id": self.state_id,
             "creation_inputs": self.creation_inputs,
             "hero": self.hero.model_dump(mode="json"),
             "level_choices": [
-                [action.model_dump(mode="json") for action in group]
-                for group in self.level_choices
+                [action.model_dump(mode="json") for action in group] for group in self.level_choices
             ],
             "choice_cursor": self.choice_cursor,
             "total_choices_in_level": self.total_choices_in_level,
@@ -64,11 +65,15 @@ class CreationState:
             "enabled_sources": self.enabled_sources,
             "state_version": self.state_version,
         }
+        if include_history:
+            result["checkpoints"] = deepcopy(self.checkpoints)
+        return result
 
     @classmethod
     def from_dict(cls, data: dict[str, Any]) -> "CreationState":
         if not isinstance(data, dict) or data.get("version") != CREATION_STATE_VERSION:
             raise CreationStateError("Unsupported or missing creation state version")
+        data = deepcopy(data)
         try:
             action_adapter = TypeAdapter(Action)
             return cls(
@@ -84,9 +89,7 @@ class CreationState:
                     (lvl, action_adapter.validate_python(action))
                     for lvl, action in data.get("applied_actions", [])
                 ],
-                selections={
-                    int(k): v for k, v in data.get("selections", {}).items()
-                },
+                selections={int(k): v for k, v in data.get("selections", {}).items()},
                 version=data["version"],
                 state_id=data["state_id"],
                 mode=data.get("mode", "manual"),
@@ -96,10 +99,36 @@ class CreationState:
                 equipment_confirmed_levels=list(data.get("equipment_confirmed_levels", [])),
                 equipment_picks=dict(data.get("equipment_picks", {})),
                 enabled_sources=list(data.get("enabled_sources", ["PG"])),
+                checkpoints=deepcopy(data.get("checkpoints", [])),
                 state_version=data.get("state_version", 0),
             )
         except (KeyError, TypeError, ValueError) as exc:
             raise CreationStateError("Malformed creation state") from exc
+
+    def checkpoint(self, kind: str) -> None:
+        self.checkpoints.append(
+            {
+                "kind": kind,
+                "level": self.current_level,
+                "state": deepcopy(self.to_dict(include_history=False)),
+            }
+        )
+
+    def restore_checkpoint(self, kind: str, level: int) -> None:
+        matches = [
+            index
+            for index, item in enumerate(self.checkpoints)
+            if item["kind"] == kind and item["level"] == level
+        ]
+        if not matches:
+            raise CreationStateError("No saved checkpoint for this step")
+        index = matches[0] if kind == "level" else matches[-1]
+        history = deepcopy(self.checkpoints[: index + (kind == "level")])
+        version = self.state_version
+        restored = self.from_dict(deepcopy(self.checkpoints[index]["state"]))
+        self.__dict__.update(restored.__dict__)
+        self.checkpoints = history
+        self.state_version = version
 
     def validate_cursor(self, cursor: int) -> None:
         if not isinstance(cursor, int) or cursor < 0 or cursor != self.choice_cursor:
@@ -112,7 +141,7 @@ class CreationState:
     @property
     def pending_choices(self) -> list[list[Action]]:
         """Return the current active choice group(s) for the wizard."""
-        return self.level_choices[self.choice_cursor:]
+        return self.level_choices[self.choice_cursor :]
 
     @property
     def required_complete(self) -> bool:
@@ -120,20 +149,24 @@ class CreationState:
         return self.choice_cursor >= self.total_choices_in_level
 
     @property
-    def can_finalize(self) -> bool:
-        """Return whether a hero preview/PDF may be produced right now.
+    def step_complete(self) -> bool:
+        return (
+            self.required_complete
+            and not self.pending_choices
+            and not self.awaiting_path_pick()
+            and not self.awaiting_equipment_pick()
+        )
 
-        Once a hero exists and has no unresolved choices, finalize/preview
-        is always available - the wizard is no longer gated behind reaching
-        level 10, so the player can stop and save at any crossroads.
-        """
-        return self.required_complete
+    @property
+    def can_finalize(self) -> bool:
+        """Allow export at any level after every requirement is resolved."""
+        return self.step_complete
 
     @property
     def can_advance(self) -> bool:
         """Return whether the crossroads screen may request advancing one
         more level via `POST /api/creations/<id>/advance`."""
-        return self.required_complete and self.current_level < 10
+        return self.mode == "manual" and self.step_complete and self.current_level < 10
 
     def awaiting_path_pick(self) -> str | None:
         """Return which path tier still needs to be chosen before the
@@ -156,11 +189,7 @@ class CreationState:
             return "novice"
         if level >= 3 and not (paths.get("expert") or []):
             return "expert"
-        if (
-            level >= 7
-            and not paths.get("master")
-            and len(paths.get("expert") or []) < 2
-        ):
+        if level >= 7 and not paths.get("master") and len(paths.get("expert") or []) < 2:
             return "master"
         return None
 
@@ -183,6 +212,7 @@ class CreationState:
             "state_version": self.state_version,
             "mode": self.mode,
             "current_level": self.current_level,
+            "enabled_sources": list(self.enabled_sources),
             "completed_steps": self.completed_steps,
             "invalidated_levels": self.invalidated_levels,
             "hero": self.hero.model_dump(mode="json"),
@@ -194,8 +224,7 @@ class CreationState:
                 "master": paths.get("master"),
             },
             "level_choices": [
-                [action.model_dump(mode="json") for action in group]
-                for group in self.level_choices
+                [action.model_dump(mode="json") for action in group] for group in self.level_choices
             ],
             "pending_choices": [
                 [action.model_dump(mode="json") for action in group]

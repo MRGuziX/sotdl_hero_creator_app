@@ -4,7 +4,6 @@
   "origin": {
     "source": "PG"
   },
-  "path_description": "sample text",
   "level_benefits": {
     "7": {
       "actions": [
@@ -44,15 +43,15 @@
           },
           {
             "type": "add_profession",
-            "name": "pospolitą"
+            "name": "pospolita"
           },
           {
             "type": "add_profession",
-            "name": "wojenną"
+            "name": "wojenna"
           },
           {
             "type": "add_profession",
-            "name": "koczowniczą"
+            "name": "koczownicza"
           }
         ]
       ]

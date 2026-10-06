@@ -100,9 +100,7 @@ def test_pdf_joins_spell_cards_when_hero_has_spells(populated_hero, output_path)
     fill_pdf(populated_hero, output_path)
 
     assert len(PdfReader(output_path).pages) == 3
-    assert not os.path.exists(
-        os.path.splitext(output_path)[0] + ".spell-pages.pdf"
-    )
+    assert not os.path.exists(os.path.splitext(output_path)[0] + ".spell-pages.pdf")
 
 
 def test_pdf_includes_magic_traditions_in_notes(populated_hero, output_path):
@@ -117,9 +115,7 @@ def test_pdf_includes_magic_traditions_in_notes(populated_hero, output_path):
 
 
 def test_pdf_does_not_render_placeholder_spell(populated_hero, output_path):
-    populated_hero.spells.append(
-        Spell(name="known_tradition", description="Nowe zaklęcie")
-    )
+    populated_hero.spells.append(Spell(name="known_tradition", description="Nowe zaklęcie"))
 
     fill_pdf(populated_hero, output_path)
 
@@ -222,7 +218,23 @@ def test_pdf_from_full_flow(output_path):
 def test_spell_card_renders_all_fields_together():
     spell = Spell(
         name="OSOBLIWOŚĆ",
-        card_description="W punkcie początkowym pojawia się wirująca plama. Gdy rzucasz osobliwość, niezabezpieczone obiekty wewnątrz jej obszaru przemieszczają się o 2k6 metrów w kierunku punktu początkowego. Każde stworzenie znajdujące się wewnątrz obszaru w momencie jego rzucenia lub na niego wchodzące musi wykonać test Siły z 1 utrudnieniem. Porażka oznacza, że przemieszcza się o 2k6 metrów w kierunku punktu początkowego i dopóki czar trwa , nie może się od niego oddalić. Stworzenie lub obiekt, które dotrze do punktu początkowego osobliwości, otrzymuje 10k6 obrażeń. Jeśli wskutek tych obrażeń zostanie obezwładnione, dojdzie także do całkowitego wymazania go z rzeczywistości. Gdy efekt czaru dobiegnie końca, plama wybucha, zadając 4k6 obrażeń wszystkiemu wewnątrz obszaru działania zaklęcia. Każde znajdujące się tam stworzenie musi wykonać test Siły. Porażka oznacza, że zostaje powalone, a sukces, że otrzymuje tylko połowę obrażeń.",
+        card_description=(
+            "W punkcie początkowym pojawia się wirująca plama. Gdy rzucasz "
+            "osobliwość, niezabezpieczone obiekty wewnątrz jej obszaru "
+            "przemieszczają się o 2k6 metrów w kierunku punktu początkowego. Każde "
+            "stworzenie znajdujące się wewnątrz obszaru w momencie jego rzucenia "
+            "lub na niego wchodzące musi wykonać test Siły z 1 utrudnieniem. "
+            "Porażka oznacza, że przemieszcza się o 2k6 metrów w kierunku punktu "
+            "początkowego i dopóki czar trwa , nie może się od niego oddalić. "
+            "Stworzenie lub obiekt, które dotrze do punktu początkowego "
+            "osobliwości, otrzymuje 10k6 obrażeń. Jeśli wskutek tych obrażeń "
+            "zostanie obezwładnione, dojdzie także do całkowitego wymazania go z "
+            "rzeczywistości. Gdy efekt czaru dobiegnie końca, plama wybucha, "
+            "zadając 4k6 obrażeń wszystkiemu wewnątrz obszaru działania zaklęcia. "
+            "Każde znajdujące się tam stworzenie musi wykonać test Siły. Porażka "
+            "oznacza, że zostaje powalone, a sukces, że otrzymuje tylko połowę "
+            "obrażeń."
+        ),
         target=(
             "Cel: Jeden obiekt o Rozmiarze 1 lub mniejszym w średnim zasięgu, "
             "który widzisz. Celem nie może być obiekt, który kiedykolwiek był "
@@ -268,8 +280,7 @@ def test_real_storm_and_conjuration_spells_render_from_full_json():
         "requirements": "Wymagania: Musisz znajdować się na wolnym powietrzu.",
         "target": "Cel: Punkt na podłożu w dalekim zasięgu.",
         "sacrifice": (
-            "Poświęcenie: Możesz poświęcić użycie tego zaklęcia, "
-            "by rzucić czar rozwidlony piorun."
+            "Poświęcenie: Możesz poświęcić użycie tego zaklęcia, by rzucić czar rozwidlony piorun."
         ),
         "book_description": (
             "W cel uderza z nieba piorun, zadając 3k6 + 5 obrażeń "
@@ -368,15 +379,14 @@ def test_real_storm_and_conjuration_spells_render_from_full_json():
         ),
         "origin": {"source": "PG", "number": 125},
     }
+
     def load_spell(file_name, level, spell_name):
         with open(f"data_base/spells/{file_name}.json", encoding="utf-8") as file:
             data = json.load(file)
         return next(spell for spell in data[f"level_{level}"] if spell["name"] == spell_name)
 
     lightning_data = load_spell("storm_tradition", 2, "PRZYWOŁANIE PIORUNA")
-    item_data = load_spell(
-        "conjuration_tradition", 0, "PRZYWOŁANIE UŻYTECZNEGO PRZEDMIOTU"
-    )
+    item_data = load_spell("conjuration_tradition", 0, "PRZYWOŁANIE UŻYTECZNEGO PRZEDMIOTU")
     wall_data = load_spell("chaos_tradition", 1, "ZAKRZYWIENIE PRZESTRZENI")
     toad_data = load_spell("curse_tradition", 4, "ROPUCHA")
     vision_data = load_spell("divination_tradition", 4, "WIZJA")
@@ -385,9 +395,7 @@ def test_real_storm_and_conjuration_spells_render_from_full_json():
     mirage_data = load_spell("illusion_tradition", 4, "MIRAŻ")
     wild_magic_data = load_spell("chaos_tradition", 3, "DZIKA MAGIA")
     healing_data = load_spell("life_tradition", 1, "UZDROWIENIE")
-    hateful_defecation_data = load_spell(
-        "forbidden_tradition", 1, "NIENAWISTNA DEFEKACJA"
-    )
+    hateful_defecation_data = load_spell("forbidden_tradition", 1, "NIENAWISTNA DEFEKACJA")
     soul_swap_data = load_spell("forbidden_tradition", 4, "ZAMIANA DUSZ")
     vile_fusion_data = load_spell("forbidden_tradition", 5, "NIKCZEMNE ZESPOLENIE")
     magical_item_data = load_spell("technomancy_tradition", 5, "MAGICZNY PRZEDMIOT")
@@ -429,8 +437,6 @@ def test_real_storm_and_conjuration_spells_render_from_full_json():
     fill_spell_pdf(hero, output_path)
 
 
-
-
 def test_spell_card_fields_include_requirements_and_sacrifice():
     spell = Spell(
         name="TEST",
@@ -460,7 +466,12 @@ def test_spell_card_fields_include_permanent_effect():
 def test_spell_card_fields_include_table():
     table = {
         "headers": ["Liczba duplikatów", "W duplikat trafia wynik"],
-        "rows": [[4, "16 lub mniej"], [3, "15 lub mniej"], [2, "14 lub mniej"], [1, "10 lub mniej"]],
+        "rows": [
+            [4, "16 lub mniej"],
+            [3, "15 lub mniej"],
+            [2, "14 lub mniej"],
+            [1, "10 lub mniej"],
+        ],
     }
     spell = Spell(name="DUPLIKATY", table=table)
 
@@ -477,7 +488,15 @@ def test_spell_table_gives_effect_column_more_space_and_wraps_text():
 
     table = {
         "headers": ["K20", "Efekt"],
-        "rows": [["4-5", "Stworzenia wykonują bardzo długi efekt, który powinien zawinąć się w komórce tabeli."]],
+        "rows": [
+            [
+                "4-5",
+                (
+                    "Stworzenia wykonują bardzo długi efekt, który powinien zawinąć się w "
+                    "komórce tabeli."
+                ),
+            ]
+        ],
     }
     canvas = Canvas(BytesIO())
 
