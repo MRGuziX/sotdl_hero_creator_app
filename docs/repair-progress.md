@@ -46,10 +46,16 @@ Coverage includes refresh/resume, keyboard choice/path selection, undo, Home/PDF
 HTML error/retry, versioned PDF download, captured sources, and separate tabs.
 The browser tests additionally found/fixed a finished-choice rendering exception.
 
+Visual PDF inspection uncovered another repair: Unicode form-font embedding,
+automatic text wrapping/fitting, and unescaped CID appearances preserve Polish letters,
+long equipment names/notes and parentheses. Added structural and actual-renderer tests;
+latest local run: 396 passed, four PostgreSQL tests skipped without its URL. Full PostgreSQL
+verification remains part of the final check. Screenshots and a representative three-page
+level-10 magic character PDF have been inspected. PyMuPDF is a development-only dependency.
+
 ## Remaining work
 
-1. PDF repairs are verified; representative visual PDF inspection remains.
-2. Frontend repairs and browser coverage are verified; inspect representative screenshots/PDFs.
+1. PDF/frontend repairs and representative visual inspection are complete.
 4. CI: full tests, PostgreSQL integration, catalog validation, deterministic generation,
    frontend checks and Ruff. Resolve remaining legacy lint findings.
 5. Update architecture/setup documentation and remove placeholder descriptions without

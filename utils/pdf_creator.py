@@ -3,8 +3,14 @@ import re
 from dataclasses import dataclass
 from html import escape
 from typing import Any
+from io import BytesIO
+from functools import lru_cache
+from fontTools.ttLib import TTFont as FontToolsFont
 
 from pypdf import PdfReader, PdfWriter
+from pypdf._font import Font
+from pypdf.generic import NameObject, NumberObject, TextStringObject, DictionaryObject
+from pypdf.generic._appearance_stream import BaseStreamConfig, TextStreamAppearance
 from reportlab.lib.colors import black, white
 from reportlab.lib.enums import TA_CENTER, TA_LEFT
 from reportlab.lib.pagesizes import A4
@@ -144,6 +150,62 @@ def distribute_talents(talents):
     return assigned, overflow
 
 
+@lru_cache(maxsize=1)
+def _form_font_bytes() -> bytes:
+    font_path = pathlib.Path(__file__).parent.parent / "data_base/fonts/athelas.ttc"
+    with FontToolsFont(font_path, fontNumber=0) as font:
+        buffer = BytesIO()
+        font.save(buffer)
+        return buffer.getvalue()
+
+
+def _attach_form_font(writer: PdfWriter):
+    """Embed the bundled font; templates only contain unembedded WinAnsi metrics.
+
+    pypdf's pinned font adapter emits Unicode CID resources. Keep this private
+    integration isolated and covered by the rendered-appearance regression.
+    """
+    fonts = writer.root_object["/AcroForm"]["/DR"]["/Font"]
+    font = Font.from_truetype_font_file(BytesIO(_form_font_bytes()))
+    resource = font._add_to_writer(writer, fonts, NameObject("/Athelas"))
+    return font, resource
+
+
+def _fill_form_fields(writer, page, values: dict, font, resource) -> None:
+    for reference in page.get("/Annots", []):
+        annotation = reference.get_object()
+        name = annotation.get("/T")
+        if name not in values:
+            continue
+        appearance = annotation.get("/DA", "/Athelas 10 Tf 0 g")
+        size = re.search(r"([\d.]+)\s+Tf", appearance)
+        font_size = size.group(1) if size else "10"
+        value = str(values[name])
+        if value and not re.fullmatch(r"-?\d+(?:\.\d+)?", value):
+            # Fit and wrap text inside the real field rectangle, including long
+            # equipment names and talent descriptions. Keep numeric stat sizes.
+            font_size = "0"
+            annotation[NameObject("/Ff")] = NumberObject(int(annotation.get("/Ff", 0)) | 4096)
+        annotation[NameObject("/DA")] = TextStringObject(f"/Athelas {font_size} Tf 0 g")
+        annotation[NameObject("/V")] = TextStringObject(value)
+        x0, y0, x1, y1 = map(float, annotation["/Rect"])
+        # Generate from unescaped Unicode text: pypdf's form updater escapes
+        # parentheses as literal strings even when a CID font emits hex strings.
+        appearance = TextStreamAppearance(
+            BaseStreamConfig(rectangle=(0, 0, x1 - x0, y1 - y0)),
+            value,
+            font=font,
+            font_resource=resource,
+            font_name="/Athelas",
+            font_size=float(font_size),
+            is_multiline=bool(int(annotation.get("/Ff", 0)) & 4096),
+            alignment=annotation.get("/Q", 0),
+        )
+        annotation[NameObject("/AP")] = DictionaryObject(
+            {NameObject("/N"): writer._add_object(appearance)}
+        )
+
+
 def fill_pdf(hero: AncestryHero, output_path: str) -> None:
     """Fill the bundled character-sheet template and write it to `output_path`.
 
@@ -157,6 +219,7 @@ def fill_pdf(hero: AncestryHero, output_path: str) -> None:
     writer = PdfWriter()
     writer.append(PdfReader(hero_template))
     writer.append(PdfReader(talent_template))
+    form_font, form_resource = _attach_form_font(writer)
 
     assigned_talents, overflow_talents = distribute_talents(hero.talents)
 
@@ -276,8 +339,9 @@ def fill_pdf(hero: AncestryHero, output_path: str) -> None:
         talent_fields[box.name_field] = data["name"]
         talent_fields[box.desc_field] = data["description"]
 
-    writer.update_page_form_field_values(writer.pages[0], hero_fields)
-    writer.update_page_form_field_values(writer.pages[1], talent_fields)
+    _fill_form_fields(writer, writer.pages[0], hero_fields, form_font, form_resource)
+    _fill_form_fields(writer, writer.pages[1], talent_fields, form_font, form_resource)
+    writer.set_need_appearances_writer(False)
 
     renderable_spells = [
         spell
@@ -453,7 +517,7 @@ def _spell_origin_text(origin: dict) -> str:
     number = origin.get("number")
     if not source and number is None:
         return ""
-    return f"{source} {number}".strip()
+    return source if number is None else f"{source} {number}".strip()
 
 
 def _spell_origin_x(column_px: float) -> float:
