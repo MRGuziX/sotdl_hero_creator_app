@@ -1,6 +1,7 @@
 {
   "path_name": "Wojownik",
   "path_type": "novice",
+  "path_description": "Opis roboczy: Wojownik wybiera drogę odwagi, wytrwałości i walki. Może być obrońcą, najemnikiem lub wędrowcem, który stawia czoła niebezpieczeństwu, zamiast od niego uciekać.",
   "origin": {
     "source": "PG"
   },

@@ -20,13 +20,53 @@ def test_repository_rejects_escape():
         load_json("../config.py")
 
 
-def test_path_descriptions_are_grounded_in_existing_content():
+def test_novice_tooltips_use_editable_draft_path_descriptions():
+    from main import load_novice_paths
+
+    for entry in load_novice_paths():
+        definition = load_path("novice", entry["id"])
+        assert entry["description"] == definition.path_description
+        assert entry["description"].startswith("Opis roboczy:")
+        assert "Talenty ścieżki:" not in entry["description"]
+
+
+def test_missing_path_descriptions_use_labeled_templates_not_talent_lists():
     from main import load_expert_paths, load_master_paths
 
     for entry in load_expert_paths() + load_master_paths():
-        assert entry.get("description") != "sample text"
-    witch = next(entry for entry in load_expert_paths() if entry["id"] == "witch")
-    assert "Wsparcie" in witch["description"]
+        assert entry["name"] in entry["description"]
+        assert "szablon tymczasowy" in entry["description"]
+        assert "Talenty ścieżki:" not in entry["description"]
+
+
+@pytest.mark.parametrize("description", [None, "", "   "])
+def test_empty_descriptions_use_a_placeholder(monkeypatch, description):
+    from main import load_expert_paths
+
+    monkeypatch.setattr(
+        "main._load_json",
+        lambda path: {
+            "path_name": "Ścieżka testowa",
+            "path_description": description,
+            "level_benefits": {},
+        },
+    )
+    assert all("szablon tymczasowy" in entry["description"] for entry in load_expert_paths())
+
+
+def test_supplied_path_description_is_preferred_over_the_template(monkeypatch):
+    from main import load_expert_paths
+
+    description = "Gotowy opis fabularny ścieżki."
+    monkeypatch.setattr(
+        "main._load_json",
+        lambda path: {
+            "path_name": "Ścieżka testowa",
+            "path_description": description,
+            "level_benefits": {},
+        },
+    )
+    assert all(entry["description"] == description for entry in load_expert_paths())
 
 
 @pytest.mark.parametrize(

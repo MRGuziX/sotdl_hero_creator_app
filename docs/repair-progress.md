@@ -92,12 +92,16 @@ Use `git log` for that commit's ID.
 
 ## Path-picker follow-up repairs (2026-10-06)
 
-- Restore button-like path cards: the whole card label is clickable, selection has the
+- `5e52d91`: restore button-like path cards: the whole card label is clickable, selection has the
   existing active-card styling, and native radio controls are visually hidden while
   retaining keyboard and screen-reader behavior. Desktop/phone browser regression checks
   cover clicks in card padding, changing selections and keyboard selection.
-- In progress: replace talent-list tooltips with path descriptions/placeholders and make
-  the path picker's Back button return to the previous completed level.
+- Path tooltips now use editable `path_description` JSON fields. All four novice paths
+  have original draft flavor descriptions labeled "Opis roboczy"; missing expert/master
+  descriptions use a labeled template. No rulebook text or talent-list fallback is used.
+  Catalog regressions verify provided, empty and missing descriptions. Desktop/phone
+  workflows open every novice tooltip and ensure reading it cannot select a path.
+- In progress: make the path picker's Back button return to the previous completed level.
 
 ## Remaining / separate work
 

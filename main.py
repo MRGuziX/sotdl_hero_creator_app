@@ -14,7 +14,6 @@ from flask import (
 from pydantic import ValidationError
 
 from config import secret_key
-from data.repository import load_path
 from domain import creation_service as commands
 from domain.creation_service import CreationError, mutate_creation, _try_expand_current_group
 
@@ -129,20 +128,14 @@ def _load_paths(directory: Path, *, skip: set[str] | None = None) -> list[dict[s
                 "name": path_data["path_name"],
                 "source": origin.get("source", "PG"),
             }
-            if path_data.get("path_description"):
-                entry["description"] = path_data["path_description"]
-            else:
-                definition = load_path(directory.name, path_file.stem)
-                talents = sorted(
-                    {
-                        action.name
-                        for benefit in definition.level_benefits.values()
-                        for action in benefit.actions
-                        if action.type == "add_talent"
-                    }
-                )
-                if talents:
-                    entry["description"] = "Talenty ścieżki: " + "; ".join(talents) + "."
+            description = (path_data.get("path_description") or "").strip()
+            tier_name = {"novice": "Nowicjusza", "expert": "Eksperta", "master": "Mistrza"}[
+                directory.name
+            ]
+            entry["description"] = description or (
+                f"{path_data['path_name']} — ścieżka {tier_name}. "
+                "Opis fabularny w przygotowaniu (szablon tymczasowy)."
+            )
             paths.append(entry)
     return paths
 

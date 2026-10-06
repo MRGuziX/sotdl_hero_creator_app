@@ -220,8 +220,9 @@ without any database or cookie-based character ownership.
 
 The PDF form-font integration is isolated in `utils/pdf_creator.py` and uses pypdf's pinned
 font/appearance adapter. Re-run the structural and rendered Unicode regressions when bumping
-pypdf. Reviewed path descriptions are retained; missing descriptions list existing talent
-names rather than introducing new game rules. Independent rulebook-content review and a
+pypdf. Path tooltips use `path_description` from the path JSON; novice paths currently have
+original descriptions labeled as drafts. Missing descriptions use labeled temporary
+templates, not talent lists or invented game rules. Independent rulebook-content review and a
 visual UI redesign remain separate work.
 
 ## Logging

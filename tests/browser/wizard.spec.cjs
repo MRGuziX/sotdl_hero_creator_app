@@ -47,6 +47,18 @@ test('manual creation, reload, keyboard path selection, undo and Home', async ({
     }
     await page.getByRole('button', {name: 'Awansuj'}).click();
     await expect(page.locator('path-picker')).toBeVisible();
+    const tips = page.locator('path-picker .ancestry-tooltip-trigger');
+    for (let index = 0; index < await tips.count(); index++) {
+        await tips.nth(index).click();
+        await expect(page.locator('.wizard-popover.visible')).toContainText('Opis roboczy:');
+        const description = await page.evaluate(i => window.PATH_CATALOG.novice[i].description, index);
+        await expect(page.locator('.wizard-popover.visible')).toHaveText(description);
+        // Reading a description must not select its path.
+        await expect(page.locator('path-picker input[type=radio]:checked')).toHaveCount(0);
+        if (index === 0) await page.screenshot({path: test.info().outputPath('path-description.png')});
+        await page.keyboard.press('Escape');
+        await expect(page.locator('.wizard-popover')).not.toBeVisible();
+    }
     const cards = page.locator('path-picker .path-option');
     const cardSize = await cards.first().boundingBox();
     // Clicking card padding, not just its name, must select the option.
