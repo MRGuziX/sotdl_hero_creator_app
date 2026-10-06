@@ -1,15 +1,15 @@
-from data.creations import MemoryCreationRepository
+from domain.state_token import StateTokenCodec
 from domain.creation_state import CreationState
 
 
-def test_repository_owns_nested_input_snapshots_on_create_and_save(hero):
-    repository = MemoryCreationRepository()
+def test_carried_tokens_own_nested_input_snapshots_on_encode_and_decode(hero):
+    codec = StateTokenCodec("test-secret")
     state = CreationState(hero, creation_inputs={"paths": {"expert": ["fighter"]}})
-    repository.create("owner", state)
+    token = codec.encode(state)
     state.creation_inputs["paths"]["expert"].append("witch")
-    loaded = repository.get("owner", state.state_id)
+    loaded = codec.decode(token)
     assert loaded.creation_inputs["paths"]["expert"] == ["fighter"]
     loaded.touch()
-    assert repository.save("owner", loaded, 0)
+    token = codec.encode(loaded)
     loaded.creation_inputs["paths"]["expert"].clear()
-    assert repository.get("owner", state.state_id).creation_inputs["paths"]["expert"] == ["fighter"]
+    assert codec.decode(token).creation_inputs["paths"]["expert"] == ["fighter"]

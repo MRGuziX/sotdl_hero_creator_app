@@ -1,6 +1,6 @@
-/* Server-authoritative state; each tab resumes its own active creation. */
+/* Python processes commands; the browser carries each tab's signed creation state. */
 (function () {
-    const ACTIVE_KEY = "sotdl.activeCreation";
+    const ACTIVE_KEY = "sotdl.browserDraft.v1";
     window.enabledSupplements = new Set(["PG"]);
 
     window.toggleSupplement = function (source) {
@@ -15,23 +15,36 @@
             super();
             this.state = null;
             this.step = null;
+            this.stateToken = null;
+            this.pdfUrl = null;
+            this.pdfVersion = null;
             this._token = null;
         }
 
         get busy() { return this._token !== null; }
         get activeLevel() { return this.state ? this.state.current_level : 0; }
 
-        _remember(id) {
+        _remember(draft) {
             try {
-                if (id) sessionStorage.setItem(ACTIVE_KEY, id);
+                if (draft) sessionStorage.setItem(ACTIVE_KEY, JSON.stringify(draft));
                 else sessionStorage.removeItem(ACTIVE_KEY);
-            } catch (_) { /* Storage-disabled browsers still support the current session. */ }
+            } catch (_) {
+                // Do not leave an older, misleading draft behind after a quota failure.
+                try { sessionStorage.removeItem(ACTIVE_KEY); } catch (_) { /* Storage disabled. */ }
+                if (draft) this.dispatchEvent(new CustomEvent("error", {detail:
+                    "Przeglądarka nie zapisała szkicu. Nie odświeżaj strony przed pobraniem PDF."}));
+            }
         }
 
         setContract(contract) {
-            this.state = contract.state !== undefined ? contract.state : contract;
+            if (!contract.state?.state_id || typeof contract.state_token !== "string" || !contract.state_token) {
+                throw new Error("Serwer zwrócił nieprawidłowy stan postaci. Spróbuj ponownie.");
+            }
+            this.clearPdf();
+            this.state = contract.state;
             this.step = contract.step || null;
-            this._remember(this.state?.state_id);
+            this.stateToken = contract.state_token;
+            this._remember({creation_id: this.state.state_id, state_token: this.stateToken});
             if (this.state?.enabled_sources) {
                 window.enabledSupplements = new Set(this.state.enabled_sources);
             }
@@ -39,28 +52,39 @@
             window.dispatchEvent(new CustomEvent("supplements-change"));
         }
 
-        async _request(url, body, token) {
+        async _request(url, body, token, pdf = false) {
             const response = await fetch(url, {
                 method: body === undefined ? "GET" : "POST",
                 headers: {"Content-Type": "application/json"},
                 ...(body === undefined ? {} : {body: JSON.stringify(body)}),
-                signal: token.controller.signal
+                signal: token.controller.signal,
+                credentials: "omit",
+                cache: "no-store"
             });
             if (this._token !== token) throw new DOMException("Cancelled", "AbortError");
+            if (response.ok && pdf) {
+                if (response.headers.get("Content-Type")?.split(";")[0].trim().toLowerCase() !== "application/pdf") {
+                    throw new Error("Serwer nie zwrócił pliku PDF. Spróbuj ponownie.");
+                }
+                const blob = await response.blob();
+                if (await blob.slice(0, 5).text() !== "%PDF-") {
+                    throw new Error("Serwer zwrócił nieprawidłowy plik PDF. Spróbuj ponownie.");
+                }
+                if (this._token !== token) throw new DOMException("Cancelled", "AbortError");
+                return blob;
+            }
             let result;
             try { result = await response.json(); }
             catch (_) { throw new Error("Serwer zwrócił nieprawidłową odpowiedź. Spróbuj ponownie."); }
             if (this._token !== token) throw new DOMException("Cancelled", "AbortError");
             if (!response.ok) {
                 if (response.status === 409 && this.state) {
-                    const current = await this._request("/api/creations/" + this.state.state_id, undefined, token);
-                    this.setContract(current);
-                    throw new Error("Postać została odświeżona. Sprawdź wybory i spróbuj ponownie.");
+                    throw new Error("Wybór nie pasuje do bieżącego etapu. Sprawdź wybory i spróbuj ponownie.");
                 }
                 if ([404, 410].includes(response.status)) {
                     token.reportError = true;
                     this.reset();
-                    throw new Error("Zapis wygasł lub jest niezgodny. Rozpocznij nową postać.");
+                    throw new Error("Szkic jest nieprawidłowy lub niezgodny. Rozpocznij nową postać.");
                 }
                 throw new Error(result.error || "Nie udało się wykonać operacji.");
             }
@@ -102,9 +126,10 @@
             }, true);
         }
 
-        resume(id) {
+        resume(draft) {
             return this._run(async token => {
-                const result = await this._request("/api/creations/" + encodeURIComponent(id), undefined, token);
+                const result = await this._request("/api/creations/" + encodeURIComponent(draft.creation_id) + "/resume",
+                    {state_token: draft.state_token}, token);
                 this.setContract(result);
                 return result;
             }, true);
@@ -112,22 +137,26 @@
 
         restore() {
             try {
-                const id = sessionStorage.getItem(ACTIVE_KEY);
-                if (id) return this.resume(id);
-            } catch (_) { /* No tab storage. */ }
+                sessionStorage.removeItem("sotdl.activeCreation"); // Old database IDs cannot be resumed.
+                const saved = sessionStorage.getItem(ACTIVE_KEY);
+                if (saved) {
+                    const draft = JSON.parse(saved);
+                    if (!draft?.creation_id || typeof draft.state_token !== "string" || !draft.state_token) {
+                        throw new Error("Invalid browser draft");
+                    }
+                    return this.resume(draft);
+                }
+            } catch (_) { this._remember(null); }
             return Promise.resolve(null);
-        }
-
-        listCreations() {
-            return this._run(token => this._request("/api/creations", undefined, token));
         }
 
         _mutate(suffix, body = {}, preview = true) {
             return this._run(async token => {
                 if (!this.state) throw new Error("Brak aktywnej postaci.");
+                this.clearPdf();
                 window.hidePdfPanel?.();
                 const result = await this._request("/api/creations/" + this.state.state_id + "/" + suffix,
-                    {...body, state_version: this.state.state_version}, token);
+                    {...body, state_version: this.state.state_version, state_token: this.stateToken}, token);
                 this.setContract(result);
                 return result;
             }, preview);
@@ -146,20 +175,35 @@
 
         async _export(token, manual = false) {
             if (!this.state) throw new Error("Brak aktywnej postaci.");
-            const result = await this._request("/api/creations/" + this.state.state_id + "/finalize",
-                {state_version: this.state.state_version}, token);
-            this.dispatchEvent(new CustomEvent("completed", {detail: {downloadUrl: result.pdf_url}}));
+            if (!this.pdfUrl || this.pdfVersion !== this.state.state_version) {
+                const blob = await this._request("/api/creations/" + this.state.state_id + "/finalize",
+                    {state_version: this.state.state_version, state_token: this.stateToken}, token, true);
+                this.clearPdf();
+                this.pdfUrl = URL.createObjectURL(blob);
+                this.pdfVersion = this.state.state_version;
+            }
+            const result = {downloadUrl: this.pdfUrl};
+            this.dispatchEvent(new CustomEvent("completed", {detail: result}));
             if (manual) this.dispatchEvent(new CustomEvent("finalized", {detail: result}));
             return result;
         }
 
         finalize(manual = false) { return this._run(token => this._export(token, manual)); }
 
+        clearPdf() {
+            if (this.pdfUrl) URL.revokeObjectURL(this.pdfUrl);
+            this.pdfUrl = null;
+            this.pdfVersion = null;
+            this.dispatchEvent(new CustomEvent("pdfclear"));
+        }
+
         reset() {
             this._token?.controller.abort();
             this._token = null;
             this.state = null;
             this.step = null;
+            this.stateToken = null;
+            this.clearPdf();
             this._remember(null);
             this.dispatchEvent(new CustomEvent("reset"));
             this.dispatchEvent(new CustomEvent("statechange", {detail: null}));

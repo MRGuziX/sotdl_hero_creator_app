@@ -285,33 +285,6 @@
             manualButton.addEventListener("click", () => this.dispatchEvent(new CustomEvent("choose-mode", {detail: {mode: "manual"}})));
 
             actions.append(randomButton, manualButton);
-            const resumeButton = document.createElement("button");
-            resumeButton.type = "button";
-            resumeButton.className = "confirm-button main-menu-button";
-            resumeButton.textContent = "Wznów zapisaną postać";
-            resumeButton.addEventListener("click", async () => {
-                const result = await window.creationStore.listCreations();
-                if (!result || !this.isConnected) return;
-                const picker = document.createElement("select");
-                picker.setAttribute("aria-label", "Zapisane postacie");
-                result.creations.forEach(state => {
-                    const option = document.createElement("option");
-                    option.value = state.state_id;
-                    option.textContent = state.hero.ancestry_name + " — poziom " + state.current_level
-                        + " (" + state.state_id.slice(0, 6) + ")";
-                    picker.append(option);
-                });
-                const open = document.createElement("button");
-                open.type = "button";
-                open.className = "confirm-button";
-                open.textContent = "Wznów";
-                open.disabled = result.creations.length === 0;
-                open.addEventListener("click", () => window.creationStore.resume(picker.value));
-                resumeButton.remove();
-                actions.append(picker, open);
-                if (!result.creations.length) window.showWizardToast?.("Brak zapisanych postaci.");
-            });
-            actions.append(resumeButton);
             this.append(actions);
         }
     }

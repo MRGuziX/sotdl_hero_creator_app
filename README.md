@@ -58,8 +58,8 @@ Paths like Magik and Priest grant **magic traditions** (e.g. Fire, Shadow, Necro
 
 ```
 sotdl_hero_creator_app/
-├── main.py                  # Flask HTTP/session ownership and response contracts
-├── config.py                # Development/production secret configuration
+├── main.py                  # Stateless Flask commands and direct PDF responses
+├── config.py                # Development/production state-signing secret
 ├── models/                  # Pydantic data models
 │   ├── action.py            # Action discriminated union (10 types) + Choice, LevelBenefit
 │   ├── ancestry.py          # AncestryData + GeneralStats (for loading ancestry JSONs)
@@ -74,11 +74,10 @@ sotdl_hero_creator_app/
 ├── domain/                  # Domain/business logic
 │   ├── creation_service.py  # Atomic transitions and completion/progression guards
 │   ├── creation_state.py    # Versioned state and immutable undo checkpoints
+│   ├── state_token.py       # Signed browser-carried character and undo history
 │   └── progression.py       # Level progression (benefits_between)
 ├── data/                    # Data access layer
 │   ├── repository.py        # Isolated cached JSON reads and normalization
-│   ├── creations.py         # Storage contract and in-memory test adapter
-│   ├── persistence.py       # SQLite/PostgreSQL storage and versioned export snapshots
 │   └── validate.py          # Catalog models, references and roll-table validation
 ├── utils/
 │   ├── utils.py             # Core game logic: dice rolling, hero building, action system
@@ -127,23 +126,26 @@ The character creation and progression process is driven by an **action/choice p
 7. Dynamic placeholders like `"known_tradition"` expand based on current hero state (e.g. spells from learned traditions)
 8. All actions are applied to the hero through `apply_action()`, which dispatches on the `Action` type
 9. Undo restores immutable checkpoints without rolling character details again. Undo is a
-   new versioned mutation; failed and stale requests cannot partially modify a character.
+   new versioned mutation; failed requests cannot partially modify the browser's snapshot.
 
 ## Requirements
 
 - Python 3.12+
-- Dependencies: `Flask`, `pypdf`, `pydantic`, `reportlab`, `fonttools`, `psycopg`
+- Dependencies: `Flask`, `pypdf`, `pydantic`, `reportlab`, `fonttools`, `itsdangerous`
 - Development tools: `pytest`, `ruff`, `PyMuPDF`; Node.js 22+ for frontend/browser tests
 
 ### Frontend Architecture
 
-The frontend is a single-page app built with **vanilla JavaScript web components** and a server-authoritative
-state model:
+The frontend is a single-page app built with **vanilla JavaScript web components**.
+Python processes game rules; the browser carries the signed character state. No database is used:
 
 - **`creation_store.js`** — client-side state manager that communicates with Flask API endpoints
-  (`/api/creations/...`). Serializes requests, reports errors, recovers stale state without
-  replaying mutations, and resumes a per-tab ID from session storage. Home clears the active
-  tab and preview, not the saved character; use "Wznów zapisaną postać" to reopen it.
+  (`/api/creations/...`). Serializes requests and sends a signed `state_token` with each
+  command. Per-tab session storage holds the latest token for reload recovery. Home clears
+  that draft and preview; there is no server-side saved-character list. Drafts are temporary:
+  download the PDF before closing the tab, clearing browser storage or starting another hero.
+  PDF export returns bytes directly. One browser Blob is used for both preview and download,
+  and is released when the character changes or the user returns Home.
 - **`wizard.js`** — web components (`StepShell`, `PathPicker`, `CrossroadsScreen`, `RandomConfigScreen`, etc.)
   that render the step-by-step wizard UI. Includes spell/tradition display with grouped selections.
 - **`style.css`** — dark-fantasy theme, responsive layout (breakpoints at 1024px, 768px, 480px),
@@ -174,42 +176,43 @@ npx playwright install chromium
 npm run test:browser
 ```
 
-`python main.py` uses an unpredictable development session secret. To run locally through
-the Flask CLI, set `APP_ENV=development`. Sessions reset when that development process restarts.
+`python main.py` uses an unpredictable development signing secret. To run locally through
+the Flask CLI, set `APP_ENV=development`. Browser drafts become invalid when the development
+process restarts with a new secret. Set `SECRET_KEY` locally if you need drafts across restarts.
 Production imports require `SECRET_KEY` to be set to a stable, randomly generated secret;
 configure it in the deployment environment and never commit it to this repository.
 
 ## Deployment on Vercel
 
-Vercel requires shared PostgreSQL storage; local files are not durable across instances.
-Set a stable `SECRET_KEY` and a provider-supplied `DATABASE_URL` (with TLS configured
-as required by your provider), then run `python -m data.persistence init` once against
-that database before deployment. Startup fails on Vercel without `DATABASE_URL`.
-Database provisioning and deployment are separate steps.
+The flow is **create hero → preview the filled PDF → download that PDF**. Neither Vercel
+nor local development requires PostgreSQL, SQLite, `DATABASE_URL`, schema initialization
+or a cleanup job. The app does not retain characters or exported PDFs on the server.
 
-Local development uses `instance/creations.sqlite3`, or `CREATION_DB_PATH` if set.
-Creations and undo history survive restarts. Both adapters expire creations seven days
-after their last successful update; periodically run `python -m data.persistence cleanup`.
-The signed session cookie identifies the owner, so keep the same secret across restarts
-and instances. Losing the cookie means losing access to that owner's characters.
-The owner cookie lasts seven days, uses HttpOnly and SameSite=Lax, and is Secure on Vercel.
-The serialized creation format is version 4. Incompatible saved states return HTTP 410
-with instructions to start a new character; no automatic migration is attempted.
+1. Connect this repository to [Vercel](https://vercel.com/) with the repository root as
+   the project root. The existing `vercel.json` targets the Flask `app` in `main.py`;
+   `requirements.txt` contains the runtime dependencies. No frontend build is needed.
+2. Set a stable, randomly generated `SECRET_KEY` in the deployment environment (Production
+   and Preview as appropriate), and never commit it. This authenticates browser-carried
+   state; it is not a database credential. Do not set `APP_ENV=development` in production.
+3. Deploy a preview and check UI assets, random/manual creation, reload/undo, PDF preview
+   and download. Local tests alone do not certify a Vercel deployment.
+4. Merge to your configured production branch only after the preview succeeds and the
+   production secret is configured. Vercel's Git integration may deploy immediately.
 
-1. Connect your GitHub repository to [Vercel](https://vercel.com/).
-2. Vercel will automatically detect the `vercel.json` and `requirements.txt` files.
-3. The app uses the `/tmp` directory for PDF generation, which is compatible with Vercel's serverless environment.
-   Downloads regenerate from an owned immutable snapshot stored in PostgreSQL. URLs identify
-   a character/version; they do not rely on a PDF left on a previous instance. Scratch files
-   are cleaned on both success and failure. Run the schema initialization command again
-   when upgrading from the initial persistence commit to add the export-snapshot table.
-4. PostgreSQL integration tests run when `TEST_DATABASE_URL` is configured. Use a dedicated
-   test database, never your production database.
+PDF rendering uses isolated `/tmp` scratch files and removes them on success and failure.
+The response contains the actual PDF bytes, not a URL to a previous function instance's file.
+Any instance with the same secret can resume a browser-carried token. Tokens are signed,
+not encrypted; possession grants access to the character, so do not put tokens in URLs/logs.
+Versions are local to a draft: replaying a previous token can branch that draft, not acquire
+a global lock. Requests are size-limited, validated and operate on detached snapshots.
+State format 4 is retained; invalid/incompatible drafts return HTTP 410. Changing the
+signing secret invalidates existing drafts. Earlier database-backed saves are not migrated;
+existing databases/files are not modified or deleted by this upgrade.
 
 `.github/workflows/checks.yml` runs lint/format, full catalog validation, the Python suite
-(including deterministic generation samples and a PostgreSQL 16 service), Node regressions,
-and desktop/phone Chromium workflows. Local PostgreSQL tests are skipped unless
-`TEST_DATABASE_URL` is configured. Browser tests use an isolated SQLite database.
+(including deterministic generation and database-free transport checks), Node regressions,
+and desktop/phone Chromium workflows. Browser tests run with `VERCEL=1` and a signing secret,
+without any database or cookie-based character ownership.
 
 The PDF form-font integration is isolated in `utils/pdf_creator.py` and uses pypdf's pinned
 font/appearance adapter. Re-run the structural and rendered Unicode regressions when bumping

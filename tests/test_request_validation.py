@@ -50,4 +50,4 @@ def test_invalid_mutations_leave_creation_unchanged(client, suffix, extra):
     )
     assert response.status_code == 400
     assert response.is_json
-    assert client.get(url).get_json() == initial
+    assert client.resume(url).get_json() == initial

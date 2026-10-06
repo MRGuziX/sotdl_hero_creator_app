@@ -1,8 +1,5 @@
-from pathlib import Path
-
 import pytest
 
-import main
 from config import secret_key
 
 
@@ -25,30 +22,12 @@ def test_configured_secret_is_preserved(monkeypatch):
     assert secret_key() == "configured-secret"
 
 
-@pytest.mark.parametrize("identifier", ["../../outside", "/tmp/outside", None, 123, {}])
-def test_forged_pdf_identifiers_are_rejected(client, identifier):
-    with client.session_transaction() as browser_session:
-        browser_session["creation_id"] = identifier
-    response = client.get("/download_current")
-    assert response.status_code == 400
-
-
-def test_pdf_symlink_cannot_escape_output_directory(client, monkeypatch, tmp_path):
-    output = tmp_path / "output"
-    output.mkdir()
-    identifier = "a" * 32
-    external = tmp_path / "outside.pdf"
-    external.touch()
-    (output / f"{identifier}.pdf").symlink_to(external)
-    monkeypatch.setattr(main, "OUTPUT_DIR", output)
-    with client.session_transaction() as browser_session:
-        browser_session["creation_id"] = identifier
-    assert client.get("/download_current").status_code == 400
-
-
-def test_pdf_path_is_session_scoped(client, monkeypatch, tmp_path):
-    monkeypatch.setattr(main, "OUTPUT_DIR", tmp_path)
-    with client.session_transaction() as browser_session:
-        browser_session["creation_id"] = "b" * 32
-    client.get("/download_current")
-    assert Path(main._output_path()) == tmp_path / f"{'b' * 32}.pdf"
+def test_pdf_destination_never_uses_client_identifiers(raw_client, monkeypatch, tmp_path):
+    monkeypatch.setattr("main.OUTPUT_DIR", tmp_path)
+    contract = raw_client.post("/api/creations", json={"mode": "random", "ancestry": "human"}).json
+    body = {"state_token": contract["state_token"], "state_version": 0}
+    assert raw_client.post("/api/creations/wrong-character/finalize", json=body).status_code == 404
+    assert list(tmp_path.iterdir()) == []
+    response = raw_client.post(f"/api/creations/{contract['creation_id']}/finalize", json=body)
+    assert response.data.startswith(b"%PDF-")
+    assert list(tmp_path.iterdir()) == []

@@ -1,38 +1,32 @@
 import logging
-import os
-import re
 import tempfile
-import uuid
 from pathlib import Path
 from io import BytesIO
-from datetime import timedelta
 
 from flask import (
     Flask,
-    abort,
     jsonify,
     render_template,
     request,
     send_file,
     send_from_directory,
-    session,
-    url_for,
 )
 from pydantic import ValidationError
 
 from config import secret_key
-from data.persistence import configured_repository
 from data.repository import load_path
 from domain import creation_service as commands
-from domain.creation_service import CreationError, CreationService, _try_expand_current_group
+from domain.creation_service import CreationError, mutate_creation, _try_expand_current_group
 
 from domain.creation_state import CreationState, CreationStateError
+from domain.state_token import StateTokenCodec
 from models.action import (
     Action,
 )
 from models.base_hero import AncestryHero
 from models.requests import (
     ApplyChoices,
+    CarriedStateRequest,
     PickEquipment,
     PickPath,
     Rewind,
@@ -56,11 +50,8 @@ logging.basicConfig(
 
 app = Flask(__name__, static_folder="pictures", static_url_path="/static")
 app.secret_key = secret_key(development=__name__ == "__main__")
-app.config.update(
-    PERMANENT_SESSION_LIFETIME=timedelta(days=7),
-    SESSION_COOKIE_SAMESITE="Lax",
-    SESSION_COOKIE_SECURE=bool(os.environ.get("VERCEL")),
-)
+# Keep browser-carried state requests below Vercel's payload limit.
+app.config["MAX_CONTENT_LENGTH"] = 1_500_000
 
 
 @app.route("/assets/<path:filename>")
@@ -73,14 +64,10 @@ ANCESTRIES = ["human", "automaton", "goblin", "dwarf", "orc", "changeling", "swd
 
 PROJECT_ROOT = Path(__file__).resolve().parent
 OUTPUT_DIR = Path(tempfile.gettempdir()) / "sotdl_hero_creator"
-# Kept for compatibility with callers that import this constant.
-OUTPUT_PATH = str(OUTPUT_DIR / "hero_card.pdf")
 DESCRIPTIONS_PATH = PROJECT_ROOT / "data_base" / "ancestry" / "descriptions.json"
 NOVICE_PATHS_DIR = PROJECT_ROOT / "data_base" / "paths" / "novice"
 EXPERT_PATHS_DIR = PROJECT_ROOT / "data_base" / "paths" / "expert"
 MASTER_PATHS_DIR = PROJECT_ROOT / "data_base" / "paths" / "master"
-app.config["CREATION_REPOSITORY"] = configured_repository()
-_SAFE_SESSION_ID = re.compile(r"[a-f0-9]{32}")
 
 
 class RequestValidationError(ValueError):
@@ -105,25 +92,21 @@ def _request_data(model) -> dict:
         raise RequestValidationError(f"Invalid {field or 'request'}") from error
 
 
-def _session_id() -> str:
-    """Return the stable identifier used to isolate this browser session."""
-    if "creation_id" not in session:
-        session["creation_id"] = uuid.uuid4().hex
-    identifier = session["creation_id"]
-    if not isinstance(identifier, str) or not _SAFE_SESSION_ID.fullmatch(identifier):
-        abort(400, description="Invalid session identifier")
-    session.permanent = True
-    return identifier
+def _token_codec():
+    return StateTokenCodec(app.secret_key)
 
 
-def _output_path() -> str:
-    """Return the temporary PDF path assigned to the current session."""
-    OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
-    root = OUTPUT_DIR.resolve()
-    destination = (root / f"{_session_id()}.pdf").resolve()
-    if destination.parent != root:
-        abort(400, description="Invalid PDF destination")
-    return str(destination)
+@app.errorhandler(413)
+def oversized_request(error):
+    return jsonify({"error": "Creation request is too large"}), 413
+
+
+@app.after_request
+def private_creation_responses(response):
+    if request.path.startswith("/api/creations"):
+        response.headers["Cache-Control"] = "no-store"
+        response.headers["X-Content-Type-Options"] = "nosniff"
+    return response
 
 
 def _load_paths(directory: Path, *, skip: set[str] | None = None) -> list[dict[str, str]]:
@@ -289,6 +272,7 @@ def _creation_response(state: CreationState) -> dict:
             "weapons": [w.model_dump(mode="json") for w in state.hero.equipment.weapons],
             "shields": [s.model_dump(mode="json") for s in state.hero.equipment.shields],
         }
+    response["state_token"] = _token_codec().encode(state)
     return response
 
 
@@ -299,31 +283,25 @@ def invalid_creation(error):
 
 @app.errorhandler(CreationStateError)
 def incompatible_creation(error):
-    return jsonify({"error": "This saved creation is incompatible. Start a new character."}), 410
+    return jsonify(
+        {"error": "This browser draft is invalid or incompatible. Start a new character."}
+    ), 410
 
 
-def _repository():
-    return app.config["CREATION_REPOSITORY"]
-
-
-def _get_manual_creation(creation_id=None):
-    identifier = creation_id or (request.view_args or {}).get("creation_id")
-    identifier = identifier or session.get("active_creation_id")
-    if not identifier:
-        return None
-    return _repository().get(_session_id(), identifier)
+def _carried_creation(creation_id, data):
+    state = _token_codec().decode(data["state_token"])
+    if state.state_id != creation_id:
+        raise CreationError("Creation token does not match this character", 404)
+    return state
 
 
 def _mutate_creation(model, command, creation_id, **kwargs):
-    current = _get_manual_creation(creation_id)
-    if current is None:
-        raise CreationError("Creation not found", 404)
+    current = _carried_creation(creation_id, _request_data(CarriedStateRequest))
     if "level" in kwargs and kwargs["level"] != current.current_level:
         raise CreationError("Step is not active", 409)
     data = _request_data(model)
-    state = CreationService(_repository()).mutate(
-        _session_id(),
-        creation_id,
+    state = mutate_creation(
+        current,
         data["state_version"],
         lambda working: command(working, data, **kwargs),
     )
@@ -337,24 +315,13 @@ def _mutate_creation(model, command, creation_id, **kwargs):
 def api_start_creation():
     state = commands.start_creation(_request_data(StartCreation))
     contract = _creation_response(state)
-    _repository().create(_session_id(), state)
-    session["active_creation_id"] = state.state_id
     return jsonify(contract)
 
 
-@app.get("/api/creations/<creation_id>")
-def api_get_creation(creation_id):
-    state = _get_manual_creation(creation_id)
-    if state is None:
-        raise CreationError("Creation not found", 404)
+@app.post("/api/creations/<creation_id>/resume")
+def api_resume_creation(creation_id):
+    state = _carried_creation(creation_id, _request_data(CarriedStateRequest))
     return jsonify(_creation_response(state))
-
-
-@app.get("/api/creations")
-def api_list_creations():
-    return jsonify(
-        {"creations": [state.public_dict() for state in _repository().list(_session_id())]}
-    )
 
 
 @app.post("/api/creations/<creation_id>/steps/<int:level>/choices")
@@ -389,42 +356,21 @@ def api_rewind_choice(creation_id):
 
 @app.post("/api/creations/<creation_id>/finalize")
 def api_finalize_creation(creation_id):
-    state = _get_manual_creation(creation_id)
-    if state is None:
-        raise CreationError("Creation not found", 404)
+    data = _request_data(VersionedRequest)
+    state = _carried_creation(creation_id, data)
+    if data["state_version"] != state.state_version:
+        raise CreationError("Creation changed; refresh before exporting", 409)
     if state.pending_choices:
         raise CreationError("Creation has unresolved choices", 409)
     if not state.can_finalize:
         raise CreationError("Complete required paths and equipment before exporting", 409)
-    if request.get_data():
-        data = _request_data(VersionedRequest)
-        if data["state_version"] != state.state_version:
-            raise CreationError("Creation changed; refresh before exporting", 409)
-    if not _repository().pin_export(_session_id(), state):
-        raise CreationError("Creation changed; refresh before exporting", 409)
-    session["last_export"] = [creation_id, state.state_version]
-    return jsonify(
-        {
-            "summary": state.hero.model_dump(mode="json"),
-            "pdf_url": url_for(
-                "download_creation_pdf", creation_id=creation_id, version=state.state_version
-            ),
-        }
-    )
-
-
-@app.get("/api/creations/<creation_id>/pdf/<int:version>")
-def download_creation_pdf(creation_id, version):
-    snapshot = _repository().get_export(_session_id(), creation_id, version)
-    if snapshot is None:
-        raise CreationError("Export not found or expired. Export the character again.", 404)
     OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
-    with tempfile.TemporaryDirectory(prefix="download-", dir=OUTPUT_DIR) as scratch:
-        output = export_pdf(AncestryHero.model_validate(snapshot), Path(scratch) / "hero.pdf")
+    with tempfile.TemporaryDirectory(prefix="export-", dir=OUTPUT_DIR) as scratch:
+        output = export_pdf(state.hero, Path(scratch) / "hero.pdf")
         content = BytesIO(output.read_bytes())
     return send_file(
         content,
-        as_attachment=request.args.get("download") == "1",
+        as_attachment=False,
         download_name="hero_card.pdf",
         mimetype="application/pdf",
     )
@@ -441,24 +387,6 @@ def index():
         novice_paths=load_novice_paths(),
         expert_paths=load_expert_paths(),
         master_paths=load_master_paths(),
-    )
-
-
-@app.route("/download_current")
-def download_current():
-    if session.get("last_export"):
-        return download_creation_pdf(*session["last_export"])
-    output_path = _output_path()
-    if not os.path.exists(output_path):
-        return "No hero generated yet", 404
-
-    download = request.args.get("download", "0") == "1"
-
-    return send_file(
-        output_path,
-        as_attachment=download,
-        download_name="hero_card.pdf",
-        mimetype="application/pdf",
     )
 
 

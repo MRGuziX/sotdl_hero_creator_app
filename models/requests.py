@@ -13,6 +13,7 @@ from pydantic import (
 )
 
 from models.action import Action
+from domain.state_token import MAX_TOKEN_LENGTH
 
 PathID = Annotated[str, StringConstraints(pattern=r"^[a-z0-9_]+$")]
 Level = Annotated[int, Field(ge=0, le=10)]
@@ -52,7 +53,11 @@ class StartCreation(RequestModel):
         return list(dict.fromkeys(sources))
 
 
-class VersionedRequest(RequestModel):
+class CarriedStateRequest(RequestModel):
+    state_token: Annotated[str, StringConstraints(min_length=1, max_length=MAX_TOKEN_LENGTH)]
+
+
+class VersionedRequest(CarriedStateRequest):
     state_version: Version
 
 

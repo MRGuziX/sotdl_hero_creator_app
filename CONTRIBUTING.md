@@ -18,10 +18,10 @@ in your commit.
 ## Project Structure
 
 ```
-main.py              # Flask routes, session ownership and response contracts
+main.py              # Stateless Flask commands and direct PDF responses
 models/              # Pydantic data models — the schema for all game data
 domain/              # Atomic creation transitions, checkpoints and progression
-data/                # JSON catalog validation/cache and durable SQLite/PostgreSQL storage
+data/                # JSON catalog validation and isolated caching
 utils/utils.py       # Core game logic — dice rolls, hero building, action pipeline
 utils/pdf_creator.py # PDF character sheet generation
 export/              # PDF export pipeline
@@ -84,16 +84,16 @@ npx playwright install chromium
 npm run test:browser
 ```
 
-Set `TEST_DATABASE_URL` to an isolated PostgreSQL database to include the real persistence
-tests. Never use production storage: tests initialize schema and write test rows. CI supplies
-PostgreSQL 16 automatically. Browser tests start a local Flask server with a separate SQLite
-file and test both desktop and phone widths.
+No database is needed for development, tests or deployment. Browser tests run Flask with
+`VERCEL=1` and a fixed test-only signing secret, and cover desktop and phone widths.
 
-Storage writes must compare the owner, ID and expected version atomically. Always deserialize
-independent copies; preserve complete checkpoint history on successful mutations and leave
-state untouched on failures. Add a regression before fixing a state or data issue, and keep
-each repair in a focused commit. PDF downloads must render their pinned snapshot rather than
-the current mutable creation. Weapons with shared display names require distinct catalog IDs.
+The browser carries signed full-state tokens in request bodies; the server never retains
+characters. Always verify the signature before loading state. Work on independent snapshots,
+preserve complete checkpoint history and leave the original token untouched on failure.
+Versions are local to the supplied token, not a cross-client/global lock. Add a regression
+before fixing a state or data issue, and keep each repair in a focused commit. PDF export
+returns bytes directly; preview/download must share the same Blob and release old object URLs.
+Weapons with shared display names require distinct catalog IDs.
 
 The test suite covers:
 

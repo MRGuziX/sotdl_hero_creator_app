@@ -1,16 +1,5 @@
 """Coverage for the JSON creation API used by the component-based wizard."""
 
-import pytest
-
-from main import app
-
-
-@pytest.fixture
-def client():
-    app.config["TESTING"] = True
-    with app.test_client() as test_client:
-        yield test_client
-
 
 def _start(client, ancestry="human", mode="manual", target_level=0, paths=None):
     payload = {"mode": mode, "ancestry": ancestry}
@@ -116,7 +105,7 @@ def test_start_creation_happy_path_returns_contract(client):
 
 def test_get_creation_returns_current_state(client):
     contract = _start(client)
-    response = client.get(f"/api/creations/{contract['creation_id']}")
+    response = client.resume(f"/api/creations/{contract['creation_id']}")
     assert response.status_code == 200
     assert response.get_json()["creation_id"] == contract["creation_id"]
 
@@ -174,12 +163,12 @@ def test_apply_choices_rejects_inactive_step(client):
     assert "Step is not active" in response.get_json()["error"]
 
 
-def test_apply_choices_missing_creation_returns_404(client):
+def test_apply_choices_without_carried_state_returns_400(client):
     response = client.post(
         "/api/creations/does-not-exist/steps/0/choices",
         json={"selections": [], "state_version": 0},
     )
-    assert response.status_code == 404
+    assert response.status_code == 400
 
 
 def test_apply_choices_completes_level_and_exposes_crossroads(client):
@@ -212,9 +201,9 @@ def test_rewind_rejects_negative_target(client):
     assert response.status_code == 400
 
 
-def test_rewind_missing_creation_returns_404(client):
+def test_rewind_without_carried_state_returns_400(client):
     response = client.post("/api/creations/does-not-exist/rewind", json={"target_level": 0})
-    assert response.status_code == 404
+    assert response.status_code == 400
 
 
 def test_rewind_happy_path_invalidates_later_levels(client):
@@ -241,12 +230,12 @@ def test_finalize_blocks_when_choices_are_pending(client):
     assert "unresolved choices" in response.get_json()["error"]
 
 
-def test_finalize_missing_creation_returns_404(client):
+def test_finalize_without_carried_state_returns_400(client):
     response = client.post("/api/creations/does-not-exist/finalize")
-    assert response.status_code == 404
+    assert response.status_code == 400
 
 
-def test_finalize_happy_path_returns_pdf_url_below_level_ten(client):
+def test_finalize_happy_path_returns_pdf_bytes_below_level_ten(client):
     # Finalize/preview must be available as soon as a hero exists with no
     # pending choices, not only once level 10 is reached.
     contract = _start(client)
@@ -255,9 +244,8 @@ def test_finalize_happy_path_returns_pdf_url_below_level_ten(client):
 
     response = client.post(f"/api/creations/{contract['creation_id']}/finalize")
     assert response.status_code == 200
-    payload = response.get_json()
-    assert "summary" in payload
-    assert "pdf_url" in payload
+    assert response.mimetype == "application/pdf"
+    assert response.data.startswith(b"%PDF-")
 
 
 def test_step_response_exposes_magic_context(client):
@@ -295,9 +283,9 @@ def test_advance_rejects_stale_state_version(client):
     assert response.status_code == 409
 
 
-def test_advance_missing_creation_returns_404(client):
+def test_advance_without_carried_state_returns_400(client):
     response = client.post("/api/creations/does-not-exist/advance", json={"state_version": 0})
-    assert response.status_code == 404
+    assert response.status_code == 400
 
 
 def test_advance_moves_exactly_one_level_and_flags_novice_path_pick(client):
@@ -375,7 +363,8 @@ def test_full_manual_playthrough_level_zero_to_ten_through_expert_and_master(cli
 
     response = client.post(f"/api/creations/{creation_id}/finalize")
     assert response.status_code == 200
-    assert "pdf_url" in response.get_json()
+    assert response.mimetype == "application/pdf"
+    assert response.data.startswith(b"%PDF-")
 
 
 def test_full_manual_playthrough_second_expert_path_at_level_seven(client):

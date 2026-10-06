@@ -13,8 +13,23 @@ Updated: 2026-10-06. Branch: `fix-for-the-app`.
 
 ## Completed commits
 
-Database-free conversion is in progress. First change: signed browser-carried full
-state/undo history and detached domain transitions; the HTTP/UI switch follows.
+Database-free conversion:
+
+- `0c325cc`: signed browser-carried full state/undo history and detached domain transitions.
+- Stateless HTTP/UI switch replaces database adapters and saved-character listing.
+  Tokens live in per-tab session storage; Home clears the draft. PDF export returns bytes
+  and the browser reuses one Blob for preview/download, revoking it on reset/mutation.
+  Python workflow regressions now use a browser-like token-carrying test client; raw-client
+  tests prove IDs/cookies alone cannot recover state and independent instances need no DB.
+  PostgreSQL dependency, schema/cleanup commands and CI database service are removed.
+
+The original repair history below describes the earlier architecture; the database-free
+decision above supersedes its persistence, ownership-cookie and deployment requirements.
+
+Current conversion checks: 409 Python tests, 14 frontend regressions, eight desktop/phone
+browser workflows, catalog validation and Ruff checks pass. Browser preview/download bytes
+match; fixed a CSS rule that overrode the download link's `hidden` attribute on Home.
+Final edge-case and deployment packaging checks follow.
 
 | Commit | Repair |
 | --- | --- |
@@ -43,7 +58,7 @@ The final verification/maintenance commit also contains CI, formatting/lint clea
 extra PDF geometry/multi-page tests, updated setup/architecture docs and this record.
 Use `git log` for that commit's ID.
 
-## Final verification
+## Original repair verification (before database-free conversion)
 
 - 413 Python tests passed with actual PostgreSQL 16 integration enabled; no skips/warnings.
 - Eight Node regressions passed (duplicate requests, late responses, stale recovery,
@@ -64,23 +79,20 @@ No planned code repairs remain. Independent rulebook/supplement accuracy review,
 visual UI redesign and product features remain separate tasks. Cosmetic mobile toolbar
 crowding is left for the redesign, not treated as a new layout project here.
 
-Deployment requires the user to provision PostgreSQL, configure stable `SECRET_KEY`
-and `DATABASE_URL`, then run `python -m data.persistence init`. Re-run initialization
-when upgrading from the first persistence commit so the export table is present.
-Periodically run `python -m data.persistence cleanup`; state and export TTL is seven days.
+Deployment now needs only a stable `SECRET_KEY`; no database URL or schema/cleanup step.
+Preview the Vercel deployment before production: no cloud deployment has been verified.
 Do not claim the app has been deployed or that all rulebook content has been audited.
 
 ## Resumption notes
 
 - Install Python tooling using `pip install -r requirements-dev.txt` into `.venv`.
-- Run `.venv/bin/python -m pytest -q`; set `TEST_DATABASE_URL` to a dedicated test DB
-  to include PostgreSQL tests. Never use production credentials for tests.
+- Run `.venv/bin/python -m pytest -q`; no database or database credentials are needed.
 - Catalog: `.venv/bin/python -m data.validate`; lint: `ruff check .`;
   formatting: `ruff format --check .`.
 - Frontend: `npm ci && npm test`; install Chromium using `npx playwright install chromium`;
   workflows: `npm run test:browser`.
 - State format is version 4; incompatible saves produce HTTP 410. No automatic migration.
-  A stable secret and the signed owner cookie preserve access; Home does not delete saves.
+  A stable secret verifies browser-carried state. Home clears the tab's draft and PDF.
 - PDF font/appearance integration uses isolated private adapters from the pinned pypdf
   version. Keep the actual-renderer regressions when upgrading that dependency.
 - Git add/commit require approved elevated execution in this workspace.

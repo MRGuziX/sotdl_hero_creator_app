@@ -1,6 +1,4 @@
 const {defineConfig} = require('@playwright/test');
-const os = require('node:os');
-const path = require('node:path');
 
 module.exports = defineConfig({
     testDir: './tests/browser',
@@ -14,8 +12,7 @@ module.exports = defineConfig({
     webServer: {
         command: '.venv/bin/python -m flask --app main run --host 127.0.0.1 --port 5057',
         url: 'http://127.0.0.1:5057',
-        env: {APP_ENV: 'development', SECRET_KEY: 'browser-tests-only', DATABASE_URL: '',
-              CREATION_DB_PATH: path.join(os.tmpdir(), 'sotdl-e2e-' + process.pid + '.sqlite3')},
+        env: {SECRET_KEY: 'browser-tests-only', VERCEL: '1'},
         reuseExistingServer: false,
         stderr: 'ignore'
     }

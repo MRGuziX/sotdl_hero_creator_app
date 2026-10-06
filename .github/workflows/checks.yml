@@ -4,19 +4,6 @@ on: [push, pull_request]
 jobs:
   verify:
     runs-on: ubuntu-latest
-    services:
-      postgres:
-        image: postgres:16
-        env:
-          POSTGRES_USER: sotdl
-          POSTGRES_PASSWORD: test-only
-          POSTGRES_DB: sotdl_test
-        ports: ["5432:5432"]
-        options: >-
-          --health-cmd pg_isready
-          --health-interval 5s --health-timeout 5s --health-retries 10
-    env:
-      TEST_DATABASE_URL: postgresql://sotdl:test-only@localhost:5432/sotdl_test
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
@@ -26,7 +13,7 @@ jobs:
         run: |
           python -m venv .venv
           .venv/bin/python -m pip install -r requirements-dev.txt
-      - name: Python checks and real PostgreSQL integration
+      - name: Python and database-free API checks
         run: |
           .venv/bin/ruff check .
           .venv/bin/ruff format --check .

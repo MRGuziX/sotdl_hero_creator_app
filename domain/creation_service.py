@@ -5,7 +5,6 @@ from pathlib import Path
 
 from pydantic import TypeAdapter
 
-from data.creations import CreationRepository
 from domain.creation_state import CreationState, CreationStateError
 from models.action import (
     Action,
@@ -36,20 +35,6 @@ class CreationError(ValueError):
     def __init__(self, message: str, status: int = 400):
         super().__init__(message)
         self.status = status
-
-
-class CreationService:
-    def __init__(self, repository: CreationRepository):
-        self.repository = repository
-
-    def mutate(self, owner, state_id, expected_version, operation):
-        state = self.repository.get(owner, state_id)
-        if state is None:
-            raise CreationError("Creation not found", 404)
-        state = mutate_creation(state, expected_version, operation)
-        if not self.repository.save(owner, state, expected_version):
-            raise CreationError("Stale state", 409)
-        return state
 
 
 def mutate_creation(state: CreationState, expected_version: int, operation) -> CreationState:

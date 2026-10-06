@@ -1,8 +1,5 @@
-import os
-
 import pytest
 
-from main import OUTPUT_PATH
 from models.action import AddSpell, AddTradition
 from models.action import AddTalent
 from models.base_hero import AncestryHero
@@ -25,20 +22,8 @@ def test_static_logo(client):
 
 
 def test_download_no_hero(client):
-    backup_path = OUTPUT_PATH + ".bak"
-    exists = os.path.exists(OUTPUT_PATH)
-    if exists:
-        os.rename(OUTPUT_PATH, backup_path)
-
-    try:
-        response = client.get("/download_current")
-        assert response.status_code == 404
-        assert b"No hero generated yet" in response.data
-    finally:
-        if exists:
-            if os.path.exists(OUTPUT_PATH):
-                os.remove(OUTPUT_PATH)
-            os.rename(backup_path, OUTPUT_PATH)
+    # No server-side "current PDF" or persistent download route remains.
+    assert client.get("/download_current").status_code == 404
 
 
 def test_manual_creation_returns_choices(client):

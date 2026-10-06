@@ -1,4 +1,5 @@
 const {test, expect} = require('@playwright/test');
+const fs = require('node:fs/promises');
 
 async function startManual(page) {
     await page.getByRole('button', {name: 'Tryb ręczny'}).click();
@@ -56,19 +57,33 @@ test('manual creation, reload, keyboard path selection, undo and Home', async ({
     await expect(page.locator('#hero-frame')).toHaveAttribute('src', 'about:blank');
     await expect(page.locator('#pdf-panel')).not.toHaveClass(/visible|drawer-open/);
     expect(errors).toEqual([]);
-    await page.getByRole('button', {name: 'Wznów zapisaną postać'}).click();
-    await page.getByRole('button', {name: 'Wznów', exact: true}).click();
-    await expect.poll(() => page.evaluate(() => window.creationStore.state?.state_id)).toBe(id);
+    expect(await page.evaluate(() => sessionStorage.getItem('sotdl.browserDraft.v1'))).toBeNull();
+    await expect(page.getByRole('button', {name: 'Wznów zapisaną postać'})).toHaveCount(0);
+    await expect(page.locator('#download-sheet')).toBeHidden();
 });
 
-test('random creation exports a versioned PDF and locks captured sources', async ({page}) => {
+test('random hero previews and downloads the same PDF without a database', async ({page}) => {
+    let exports = 0;
+    page.on('request', request => { if (request.url().endsWith('/finalize')) exports += 1; });
     await page.goto('/');
     await page.getByRole('button', {name: 'Tryb losowy'}).click();
     await page.locator('ancestry-picker .ancestry-item').filter({hasText: 'Człowiek'}).click();
     await page.getByRole('button', {name: 'Generuj', exact: true}).click();
-    await expect(page.locator('#hero-frame')).toHaveAttribute('src', /\/pdf\/0/);
-    const url = await page.locator('#hero-frame').getAttribute('src');
-    expect((await page.request.get(url)).status()).toBe(200);
+    await expect(page.locator('#hero-frame')).toHaveAttribute('src', /^blob:/);
+    await expect(page.locator('#download-sheet')).toBeVisible();
+    const preview = await page.evaluate(async () => {
+        const response = await fetch(window.creationStore.pdfUrl);
+        return Array.from(new Uint8Array(await response.arrayBuffer()));
+    });
+    expect(Buffer.from(preview).subarray(0, 5).toString()).toBe('%PDF-');
+    const downloaded = page.waitForEvent('download');
+    await page.getByRole('link', {name: 'Pobierz PDF', exact: true}).click();
+    const download = await downloaded;
+    expect(download.suggestedFilename()).toBe('Karta_Postaci_SotDL.pdf');
+    expect(await fs.readFile(await download.path())).toEqual(Buffer.from(preview));
+    await page.evaluate(() => window.creationStore.finalize(true));
+    expect(exports).toBe(1);
+    expect(await page.context().cookies()).toEqual([]);
     if (test.info().project.name === 'phone') {
         await page.getByRole('button', {name: 'Zamknij podgląd'}).click();
     }

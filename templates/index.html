@@ -34,7 +34,7 @@
                 </div>
                 <progress-navigator aria-label="Poziomy tworzenia postaci"></progress-navigator>
             </header>
-            <p id="request-status" role="status" aria-live="polite" hidden>Trwa zapisywanie…</p>
+            <p id="request-status" role="status" aria-live="polite" hidden>Trwa przetwarzanie…</p>
             <wizard-shell aria-label="Kreator bohatera"></wizard-shell>
         </div>
 
@@ -46,6 +46,7 @@
                 </button>
             </div>
             <iframe id="hero-frame" src="about:blank" title="Podgląd karty postaci"></iframe>
+            <a id="download-sheet" class="confirm-button" download="Karta_Postaci_SotDL.pdf" hidden>Pobierz PDF</a>
         </section>
     </main>
 </div>
@@ -92,10 +93,13 @@
 
     window.hidePdfPanel = hidePdfPanel;
 
-    window.creationStore.addEventListener('reset', () => {
+    window.creationStore.addEventListener('pdfclear', () => {
         hidePdfPanel();
         document.getElementById('hero-frame').src = 'about:blank';
         currentDownloadUrl = null;
+        const download = document.getElementById('download-sheet');
+        download.hidden = true;
+        download.removeAttribute('href');
     });
     window.creationStore.addEventListener('error', event => window.showWizardToast?.(event.detail));
     window.creationStore.addEventListener('busychange', event => {
@@ -114,9 +118,11 @@
             return;
         }
         const iframe = document.getElementById('hero-frame');
-        const timestamp = new Date().getTime();
-        iframe.src = `${downloadUrl}?t=${timestamp}#zoom=110`;
-        currentDownloadUrl = downloadUrl.includes('?') ? `${downloadUrl}&download=1` : `${downloadUrl}?download=1`;
+        iframe.src = `${downloadUrl}#zoom=110`;
+        currentDownloadUrl = downloadUrl;
+        const download = document.getElementById('download-sheet');
+        download.href = downloadUrl;
+        download.hidden = false;
         showPdfPanel();
     });
 

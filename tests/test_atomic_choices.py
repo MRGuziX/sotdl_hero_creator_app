@@ -17,7 +17,7 @@ def test_rejected_choice_batch_does_not_apply_its_valid_prefix(client):
     for _ in range(3):
         response = client.post(f"{url}/steps/0/choices", json=payload)
         assert response.status_code == 400
-        assert client.get(url).get_json() == initial
+        assert client.resume(url).get_json() == initial
     response = client.post(f"{url}/rewind_choice", json={"state_version": 0})
     assert response.status_code == 400
 

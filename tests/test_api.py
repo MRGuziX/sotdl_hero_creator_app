@@ -54,7 +54,7 @@ class TestGetCreation:
     def test_get_existing_creation(self, client):
         data = _create_manual(client)
         state_id = data["state"]["state_id"]
-        response = client.get(f"/api/creations/{state_id}")
+        response = client.resume(f"/api/creations/{state_id}")
         assert response.status_code == 200
 
     def test_get_missing_creation_returns_404(self, client):
@@ -146,12 +146,12 @@ class TestRewind:
         )
         assert response.status_code == 409
 
-    def test_rewind_missing_creation_returns_404(self, client):
+    def test_rewind_without_carried_state_returns_400(self, client):
         response = client.post(
             "/api/creations/nonexistent/rewind",
             json={"target_level": 0, "state_version": 0},
         )
-        assert response.status_code == 404
+        assert response.status_code == 400
 
 
 class TestRewindChoice:
@@ -175,9 +175,9 @@ class TestRewindChoice:
 
 
 class TestFinalize:
-    def test_finalize_missing_creation_returns_404(self, client):
+    def test_finalize_without_carried_state_returns_400(self, client):
         response = client.post("/api/creations/nonexistent/finalize")
-        assert response.status_code == 404
+        assert response.status_code == 400
 
     def test_finalize_with_unresolved_choices_returns_409(self, client):
         data = _create_manual(client)

@@ -195,6 +195,13 @@ a:focus-visible {
     background: white;
 }
 
+#download-sheet {
+    margin-top: 12px;
+    flex-shrink: 0;
+}
+
+#download-sheet[hidden] { display: none; }
+
 /* Left-panel tools */
 
 .left-panel-tools {
