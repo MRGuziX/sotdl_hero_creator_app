@@ -48,8 +48,7 @@ class CreationState:
             "creation_inputs": self.creation_inputs,
             "hero": self.hero.model_dump(mode="json"),
             "level_choices": [
-                [action.model_dump(mode="json") for action in group]
-                for group in self.level_choices
+                [action.model_dump(mode="json") for action in group] for group in self.level_choices
             ],
             "choice_cursor": self.choice_cursor,
             "total_choices_in_level": self.total_choices_in_level,
@@ -74,6 +73,7 @@ class CreationState:
     def from_dict(cls, data: dict[str, Any]) -> "CreationState":
         if not isinstance(data, dict) or data.get("version") != CREATION_STATE_VERSION:
             raise CreationStateError("Unsupported or missing creation state version")
+        data = deepcopy(data)
         try:
             action_adapter = TypeAdapter(Action)
             return cls(
@@ -89,9 +89,7 @@ class CreationState:
                     (lvl, action_adapter.validate_python(action))
                     for lvl, action in data.get("applied_actions", [])
                 ],
-                selections={
-                    int(k): v for k, v in data.get("selections", {}).items()
-                },
+                selections={int(k): v for k, v in data.get("selections", {}).items()},
                 version=data["version"],
                 state_id=data["state_id"],
                 mode=data.get("mode", "manual"),
@@ -108,21 +106,24 @@ class CreationState:
             raise CreationStateError("Malformed creation state") from exc
 
     def checkpoint(self, kind: str) -> None:
-        self.checkpoints.append({
-            "kind": kind,
-            "level": self.current_level,
-            "state": deepcopy(self.to_dict(include_history=False)),
-        })
+        self.checkpoints.append(
+            {
+                "kind": kind,
+                "level": self.current_level,
+                "state": deepcopy(self.to_dict(include_history=False)),
+            }
+        )
 
     def restore_checkpoint(self, kind: str, level: int) -> None:
         matches = [
-            index for index, item in enumerate(self.checkpoints)
+            index
+            for index, item in enumerate(self.checkpoints)
             if item["kind"] == kind and item["level"] == level
         ]
         if not matches:
             raise CreationStateError("No saved checkpoint for this step")
         index = matches[0] if kind == "level" else matches[-1]
-        history = deepcopy(self.checkpoints[:index + (kind == "level")])
+        history = deepcopy(self.checkpoints[: index + (kind == "level")])
         version = self.state_version
         restored = self.from_dict(deepcopy(self.checkpoints[index]["state"]))
         self.__dict__.update(restored.__dict__)
@@ -140,7 +141,7 @@ class CreationState:
     @property
     def pending_choices(self) -> list[list[Action]]:
         """Return the current active choice group(s) for the wizard."""
-        return self.level_choices[self.choice_cursor:]
+        return self.level_choices[self.choice_cursor :]
 
     @property
     def required_complete(self) -> bool:
@@ -188,11 +189,7 @@ class CreationState:
             return "novice"
         if level >= 3 and not (paths.get("expert") or []):
             return "expert"
-        if (
-            level >= 7
-            and not paths.get("master")
-            and len(paths.get("expert") or []) < 2
-        ):
+        if level >= 7 and not paths.get("master") and len(paths.get("expert") or []) < 2:
             return "master"
         return None
 
@@ -226,8 +223,7 @@ class CreationState:
                 "master": paths.get("master"),
             },
             "level_choices": [
-                [action.model_dump(mode="json") for action in group]
-                for group in self.level_choices
+                [action.model_dump(mode="json") for action in group] for group in self.level_choices
             ],
             "pending_choices": [
                 [action.model_dump(mode="json") for action in group]
