@@ -20,6 +20,15 @@ def test_repository_rejects_escape():
         load_json("../config.py")
 
 
+def test_path_descriptions_are_grounded_in_existing_content():
+    from main import load_expert_paths, load_master_paths
+
+    for entry in load_expert_paths() + load_master_paths():
+        assert entry.get("description") != "sample text"
+    witch = next(entry for entry in load_expert_paths() if entry["id"] == "witch")
+    assert "Wsparcie" in witch["description"]
+
+
 @pytest.mark.parametrize(
     "tier,path,level,name",
     [("master", "exorcist", 7, "Egzorcyzm"), ("expert", "witch", 3, "Wiedźmi ogień")],

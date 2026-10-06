@@ -21,6 +21,7 @@ from pydantic import ValidationError
 
 from config import secret_key
 from data.persistence import configured_repository
+from data.repository import load_path
 from domain import creation_service as commands
 from domain.creation_service import CreationError, CreationService, _try_expand_current_group
 
@@ -134,6 +135,18 @@ def _load_paths(directory: Path, *, skip: set[str] | None = None) -> list[dict[s
             }
             if path_data.get("path_description"):
                 entry["description"] = path_data["path_description"]
+            else:
+                definition = load_path(directory.name, path_file.stem)
+                talents = sorted(
+                    {
+                        action.name
+                        for benefit in definition.level_benefits.values()
+                        for action in benefit.actions
+                        if action.type == "add_talent"
+                    }
+                )
+                if talents:
+                    entry["description"] = "Talenty ścieżki: " + "; ".join(talents) + "."
             paths.append(entry)
     return paths
 
