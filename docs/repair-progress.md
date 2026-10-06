@@ -31,7 +31,7 @@ After persistence: 388 passed, three PostgreSQL tests skipped without configurat
 Separately, all seven persistence tests passed with a real, isolated PostgreSQL cluster,
 including concurrent compare-and-swap across independent connections.
 
-## Most recently completed
+## Recently completed
 
 PDF reliability: persisted immutable export snapshots, versioned download routes,
 scratch-directory cleanup and atomic publication, API/PDF healing-rate consistency,
@@ -40,12 +40,16 @@ PostgreSQL integration: 398 passed, no skips or warnings. Failure cleanup, overl
 exports, snapshot ownership/version retention, and healing-rate bonuses have regressions.
 This entry is committed alongside the PDF repair; use git log for its commit ID.
 
+Frontend recovery/navigation repairs are also implemented. Eight Node regressions
+and eight real Chromium workflows passed (desktop 1440×1000, phone 390×844).
+Coverage includes refresh/resume, keyboard choice/path selection, undo, Home/PDF reset,
+HTML error/retry, versioned PDF download, captured sources, and separate tabs.
+The browser tests additionally found/fixed a finished-choice rendering exception.
+
 ## Remaining work
 
 1. PDF repairs are verified; representative visual PDF inspection remains.
-2. Frontend: per-tab refresh recovery, stale-version recovery, request errors/busy state,
-   duplicate/late-response prevention, Home/reset, supplement lock, keyboard path selection.
-3. Browser coverage at desktop/mobile widths; inspect representative rendered PDFs.
+2. Frontend repairs and browser coverage are verified; inspect representative screenshots/PDFs.
 4. CI: full tests, PostgreSQL integration, catalog validation, deterministic generation,
    frontend checks and Ruff. Resolve remaining legacy lint findings.
 5. Update architecture/setup documentation and remove placeholder descriptions without

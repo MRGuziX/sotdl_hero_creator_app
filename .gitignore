@@ -10,3 +10,6 @@ __pycache__/
 .mypy_cache/
 .pytest_cache/
 instance/
+node_modules/
+test-results/
+playwright-report/

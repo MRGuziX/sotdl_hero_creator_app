@@ -316,8 +316,21 @@ supplement-selector {
 .book-option input {
     position: absolute;
     opacity: 0;
-    width: 0;
-    height: 0;
+    width: 18px;
+    height: 18px;
+}
+
+.step-option:focus-within,
+.ancestry-item:focus-within {
+    outline: 2px solid var(--accent-blood);
+    outline-offset: 3px;
+}
+
+.ancestry-item label {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
 }
 
 .book-option .checkmark {
