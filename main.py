@@ -7,6 +7,7 @@ import tempfile
 import threading
 import time
 import uuid
+from copy import deepcopy
 from pathlib import Path
 
 from flask import (
@@ -726,6 +727,17 @@ def index():
 
 
 def _apply_selected_choices(
+    state: CreationState, selected_choices: list, choice_cursor: int
+) -> tuple[bool, dict | str, int]:
+    """Commit a choice batch only after all of its selections succeed."""
+    working = deepcopy(state)
+    result = _apply_selected_choices_in_place(working, selected_choices, choice_cursor)
+    if result[0]:
+        state.__dict__.update(working.__dict__)
+    return result
+
+
+def _apply_selected_choices_in_place(
     state: CreationState, selected_choices: list, choice_cursor: int
 ) -> tuple[bool, dict | str, int]:
     """Validate and apply one or more selected actions for the current pending
