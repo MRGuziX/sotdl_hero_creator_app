@@ -23,7 +23,7 @@ from flask import (
 from pydantic import TypeAdapter, ValidationError
 
 from config import secret_key
-from domain.creation_state import CreationState
+from domain.creation_state import CreationState, CreationStateError
 from models.action import (
     Action,
     AddLanguage,
@@ -261,45 +261,6 @@ def load_ancestry_list() -> list[dict[str, str]]:
     return result
 
 
-def rebuild_hero(state: CreationState):
-    """Rebuild the hero from scratch up to the current level and cursor."""
-    ancestry = state.creation_inputs["ancestry"]
-    paths = state.creation_inputs.get("paths", {})
-
-    # 1. Start with the level 0 baseline
-    hero = get_hero(ancestry, is_random=False, level=0)
-    if isinstance(hero, tuple):
-        hero, _ = hero
-
-    # Apply choices for level 0 from applied_actions
-    for lvl, action in state.applied_actions:
-        if lvl == 0:
-            apply_action(action, hero, is_random=False)
-
-    # 2. Advance and apply choices for each level up to current_level
-    for lvl in range(1, state.current_level + 1):
-        # We need to advance without adding NEW choices to CreationState,
-        # but just to get the hero object updated with deterministic benefits.
-        # advance_hero normally returns expanded choices which we ignore here
-        # because they should already be in state.level_choices or applied_actions.
-        advance_hero(hero, ancestry, None, lvl - 1, lvl, is_random=False, paths=paths)
-        for action_lvl, action in state.applied_actions:
-            if action_lvl == lvl:
-                apply_action(action, hero, is_random=False)
-
-    hero.path_name = paths.get("novice")
-    hero.expert_path_names = list(paths.get("expert") or [])
-    hero.master_path_name = paths.get("master")
-
-    if state.equipment_picks:
-        hero.equipment.armors = [Armor(**a) for a in state.equipment_picks.get("armors", [])]
-        hero.equipment.weapons = [Weapon(**w) for w in state.equipment_picks.get("weapons", [])]
-        hero.equipment.shields = [Shield(**s) for s in state.equipment_picks.get("shields", [])]
-
-    finalize_defense(hero)
-    state.hero = hero
-
-
 def _has_placeholders(group: list) -> bool:
     for action in group:
         if isinstance(action, AddTradition) and action.name in ("any", "religious_tradition"):
@@ -389,6 +350,7 @@ def _advance_one_level(state: CreationState) -> None:
         "paths", {"novice": None, "expert": [], "master": None}
     )
     next_level = state.current_level + 1
+    state.hero.level = next_level
     next_choices = advance_hero(
         state.hero,
         ancestry,
@@ -408,6 +370,7 @@ def _advance_one_level(state: CreationState) -> None:
         state.level_choices = []
         state.total_choices_in_level = 0
         state.completed_steps = sorted({*state.completed_steps, next_level})
+    state.checkpoint("level")
 
 
 @app.post("/api/creations")
@@ -472,6 +435,7 @@ def api_start_creation():
             enabled_sources=enabled_sources,
         )
 
+    state.checkpoint("level")
     _store_manual_creation(state)
     return jsonify(_creation_response(state))
 
@@ -588,6 +552,7 @@ def api_pick_path(creation_id, tier):
         "expert": list(paths.get("expert") or []),
         "master": paths.get("master"),
     }
+    state.checkpoint("path")
     if tier == "expert":
         paths["expert"] = [*paths.get("expert", []), path_id]
         state.hero.expert_path_names = list(paths["expert"])
@@ -663,6 +628,7 @@ def api_set_equipment(creation_id):
             return jsonify({"error": f"Unknown shield: {name}"}), 400
         shields.append(Shield(**shield_lookup[name]))
 
+    state.checkpoint("equipment")
     state.hero.equipment.armors = armors
     state.hero.equipment.weapons = weapons
     state.hero.equipment.shields = shields
@@ -697,42 +663,11 @@ def api_rewind_creation(creation_id):
     if target < 0 or target > state.current_level:
         return jsonify({"error": "Invalid rewind target"}), 400
 
-    # Clear path selections that belong to future levels
-    paths = state.creation_inputs.get("paths", {})
-    if target < 1:
-        paths["novice"] = None
-    if target < 3:
-        paths["expert"] = []
-    if target < 7:
-        paths["expert"] = paths.get("expert", [])[:1]
-        paths["master"] = None
-
-    state.current_level = target
-    state.choice_cursor = 0
-    state.completed_steps = [step for step in state.completed_steps if step < target]
-    state.invalidated_levels = [step for step in range(target + 1, 11)]
-    state.applied_actions = [(lvl, act) for lvl, act in state.applied_actions if lvl < target]
-    for lvl in list(state.selections.keys()):
-        if lvl >= target:
-            del state.selections[lvl]
-
-    state.equipment_confirmed_levels = [l for l in state.equipment_confirmed_levels if l < target]
-    if not state.equipment_confirmed_levels:
-        state.equipment_picks = {}
-
-    rebuild_hero(state)
-
-    # Restore level_choices for the target level
-    ancestry = state.creation_inputs.get("ancestry")
-    if target == 0:
-        result = get_hero(ancestry, is_random=False, level=0)
-        _, choices = result if isinstance(result, tuple) else (result, [])
-        state.level_choices = choices
-    else:
-        state.level_choices = advance_hero(
-            state.hero, ancestry, None, target - 1, target, is_random=False, paths=paths
-        )
-    state.total_choices_in_level = len(state.level_choices)
+    try:
+        state.restore_checkpoint("level", target)
+    except CreationStateError as error:
+        return jsonify({"error": str(error)}), 400
+    state.invalidated_levels = list(range(target + 1, 11))
 
     state.touch()
     _store_manual_creation(state)
@@ -753,50 +688,10 @@ def api_rewind_choice(creation_id):
     data = _request_data(VersionedRequest)
     if data.get("state_version") != state.state_version:
         return jsonify({"error": "Stale state"}), 409
-    if state.choice_cursor <= 0:
+    try:
+        state.restore_checkpoint("choice", state.current_level)
+    except CreationStateError:
         return jsonify({"error": "Cannot rewind further in this level"}), 400
-
-    saved_selections = list(state.selections.get(state.current_level, []))
-    saved_selections.pop()
-
-    state.applied_actions = [
-        (lvl, act) for lvl, act in state.applied_actions if lvl != state.current_level
-    ]
-    state.selections[state.current_level] = []
-
-    actual_level = state.current_level
-    state.current_level = max(0, actual_level - 1)
-    rebuild_hero(state)
-    state.current_level = actual_level
-
-    ancestry = state.creation_inputs.get("ancestry")
-    paths = state.creation_inputs.get("paths", {})
-    if actual_level == 0:
-        result = get_hero(ancestry, is_random=False, level=0)
-        _, choices = result if isinstance(result, tuple) else (result, [])
-        state.level_choices = choices
-    else:
-        state.level_choices = advance_hero(
-            state.hero,
-            ancestry,
-            None,
-            actual_level - 1,
-            actual_level,
-            is_random=False,
-            paths=paths,
-        )
-
-    state.choice_cursor = 0
-
-    for sel_idx in saved_selections:
-        group = state.level_choices[state.choice_cursor]
-        if _has_placeholders(group):
-            group = _expand_dynamic_choice_group(state.hero, group, state.enabled_sources)
-            state.level_choices[state.choice_cursor] = group
-        action = group[sel_idx]
-        _apply_selected_choices(state, [action.model_dump(mode="json")], state.choice_cursor)
-
-    state.total_choices_in_level = len(state.level_choices)
     _try_expand_current_group(state)
     state.touch()
     _store_manual_creation(state)
@@ -865,6 +760,9 @@ def _apply_selected_choices(
         if action.model_dump_json() not in allowed:
             return False, f"Invalid choice at step {current_cursor}", 400
 
+        state.choice_cursor = current_cursor
+        state.total_choices_in_level = len(level_choices)
+        state.checkpoint("choice")
         apply_action(action, hero, is_random=False)
         state.applied_actions.append((state.current_level, action))
 

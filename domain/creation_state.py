@@ -1,5 +1,6 @@
 """Serializable, server-authoritative state for the creation wizard."""
 
+from copy import deepcopy
 from dataclasses import dataclass, field
 from typing import Any
 from uuid import uuid4
@@ -10,7 +11,7 @@ from models.action import Action
 from models.base_hero import AncestryHero
 
 
-CREATION_STATE_VERSION = 3
+CREATION_STATE_VERSION = 4
 
 
 class CreationStateError(ValueError):
@@ -35,12 +36,13 @@ class CreationState:
     equipment_confirmed_levels: list[int] = field(default_factory=list)
     equipment_picks: dict[str, Any] = field(default_factory=dict)
     enabled_sources: list[str] = field(default_factory=lambda: ["PG"])
+    checkpoints: list[dict[str, Any]] = field(default_factory=list)
     state_version: int = 0
     version: int = CREATION_STATE_VERSION
     state_id: str = field(default_factory=lambda: uuid4().hex)
 
-    def to_dict(self) -> dict[str, Any]:
-        return {
+    def to_dict(self, *, include_history: bool = True) -> dict[str, Any]:
+        result = {
             "version": self.version,
             "state_id": self.state_id,
             "creation_inputs": self.creation_inputs,
@@ -64,6 +66,9 @@ class CreationState:
             "enabled_sources": self.enabled_sources,
             "state_version": self.state_version,
         }
+        if include_history:
+            result["checkpoints"] = deepcopy(self.checkpoints)
+        return result
 
     @classmethod
     def from_dict(cls, data: dict[str, Any]) -> "CreationState":
@@ -96,10 +101,33 @@ class CreationState:
                 equipment_confirmed_levels=list(data.get("equipment_confirmed_levels", [])),
                 equipment_picks=dict(data.get("equipment_picks", {})),
                 enabled_sources=list(data.get("enabled_sources", ["PG"])),
+                checkpoints=deepcopy(data.get("checkpoints", [])),
                 state_version=data.get("state_version", 0),
             )
         except (KeyError, TypeError, ValueError) as exc:
             raise CreationStateError("Malformed creation state") from exc
+
+    def checkpoint(self, kind: str) -> None:
+        self.checkpoints.append({
+            "kind": kind,
+            "level": self.current_level,
+            "state": deepcopy(self.to_dict(include_history=False)),
+        })
+
+    def restore_checkpoint(self, kind: str, level: int) -> None:
+        matches = [
+            index for index, item in enumerate(self.checkpoints)
+            if item["kind"] == kind and item["level"] == level
+        ]
+        if not matches:
+            raise CreationStateError("No saved checkpoint for this step")
+        index = matches[0] if kind == "level" else matches[-1]
+        history = deepcopy(self.checkpoints[:index + (kind == "level")])
+        version = self.state_version
+        restored = self.from_dict(deepcopy(self.checkpoints[index]["state"]))
+        self.__dict__.update(restored.__dict__)
+        self.checkpoints = history
+        self.state_version = version
 
     def validate_cursor(self, cursor: int) -> None:
         if not isinstance(cursor, int) or cursor < 0 or cursor != self.choice_cursor:
