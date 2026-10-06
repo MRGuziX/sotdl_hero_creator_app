@@ -6,11 +6,15 @@ Updated: 2026-10-06. Branch: `fix-for-the-app`.
 
 - Implement `docs/fix-plan.md`, with a focused commit for each repair.
 - Fix reliability before a UI prototype. No visual redesign in this work.
-- Production persistence: PostgreSQL (confirmed by user); local development: SQLite.
+- Superseding decision: database-free create → preview PDF → download PDF. The earlier
+  PostgreSQL/local SQLite choice is retired; see `docs/db-free-plan.md`.
 - Do not provision services, deploy, or push without another request.
 - Keep detailed completed-fix history here; chat updates should stay brief.
 
 ## Completed commits
+
+Database-free conversion is in progress. First change: signed browser-carried full
+state/undo history and detached domain transitions; the HTTP/UI switch follows.
 
 | Commit | Repair |
 | --- | --- |

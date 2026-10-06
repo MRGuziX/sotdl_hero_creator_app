@@ -46,15 +46,22 @@ class CreationService:
         state = self.repository.get(owner, state_id)
         if state is None:
             raise CreationError("Creation not found", 404)
-        if state.state_version != expected_version:
-            raise CreationError("Stale state", 409)
-        operation(state)
-        state.touch()
-        _try_expand_current_group(state)
-        finalize_defense(state.hero)
+        state = mutate_creation(state, expected_version, operation)
         if not self.repository.save(owner, state, expected_version):
             raise CreationError("Stale state", 409)
         return state
+
+
+def mutate_creation(state: CreationState, expected_version: int, operation) -> CreationState:
+    """Apply a command to a detached snapshot, leaving failed requests untouched."""
+    if state.state_version != expected_version:
+        raise CreationError("Stale state", 409)
+    working = deepcopy(state)
+    operation(working)
+    working.touch()
+    _try_expand_current_group(working)
+    finalize_defense(working.hero)
+    return working
 
 
 def _has_placeholders(group: list) -> bool:
