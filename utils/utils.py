@@ -500,6 +500,8 @@ def build_hero(
 
 
 def add_attribute(name: str, value: int | float | str, hero: AncestryHero, is_random: bool = False):
+    if name == "healing_rate":
+        name = "healing_rate_bonus"
     resolved_value = _parse_dice_value(value)
 
     if name == "any":
@@ -509,7 +511,7 @@ def add_attribute(name: str, value: int | float | str, hero: AncestryHero, is_ra
         hero.size = [resolved_value]
         return
 
-    if name in CORE_ATTRIBUTES or name in SECONDARY_ATTRIBUTES:
+    if name in CORE_ATTRIBUTES or name in SECONDARY_ATTRIBUTES or name == "healing_rate_bonus":
         current = getattr(hero, name)
         delta = int(resolved_value)
         setattr(hero, name, current + delta)

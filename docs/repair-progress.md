@@ -31,19 +31,18 @@ After persistence: 388 passed, three PostgreSQL tests skipped without configurat
 Separately, all seven persistence tests passed with a real, isolated PostgreSQL cluster,
 including concurrent compare-and-swap across independent connections.
 
-## Current uncommitted work
+## Most recently completed
 
 PDF reliability: persisted immutable export snapshots, versioned download routes,
 scratch-directory cleanup and atomic publication, API/PDF healing-rate consistency,
-spell-effect position and pypdf writer attachment. These changes are not yet committed.
-Latest full test run: one existing export-boundary mock fails because it does not create
-the output file required by the new atomic export contract; 387 passed, three skipped,
-and the four PDF deprecation warnings are gone. Update that test and add regressions
-before committing. Healing-rate bonuses also need a focused test.
+spell-effect position and pypdf writer attachment. Latest full suite, including real
+PostgreSQL integration: 398 passed, no skips or warnings. Failure cleanup, overlapping
+exports, snapshot ownership/version retention, and healing-rate bonuses have regressions.
+This entry is committed alongside the PDF repair; use git log for its commit ID.
 
 ## Remaining work
 
-1. Finish/test/commit PDF snapshot, concurrency, failure cleanup and layout repairs.
+1. PDF repairs are verified; representative visual PDF inspection remains.
 2. Frontend: per-tab refresh recovery, stale-version recovery, request errors/busy state,
    duplicate/late-response prevention, Home/reset, supplement lock, keyboard path selection.
 3. Browser coverage at desktop/mobile widths; inspect representative rendered PDFs.

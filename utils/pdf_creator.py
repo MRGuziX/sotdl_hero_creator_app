@@ -195,7 +195,7 @@ def fill_pdf(hero: AncestryHero, output_path: str) -> None:
         "damage": str(hero.damage),
         "insanity": str(hero.insanity),
         "corruption": str(hero.corruption),
-        "healing_rate": str(hero.health // 4),
+        "healing_rate": str(hero.healing_rate),
         "size": str(hero.size[0]) if hero.size else "1",
         "ancestry": hero.ancestry_name,
         "novice": novice_path,
@@ -679,7 +679,7 @@ def fill_spell_pdf(hero: AncestryHero, output_path: str) -> str:
                 )
                 effect_y = table_top + table_height / px_to_y + SPELL_TECHNICAL_FIELD_GAP_PX
             else:
-                effect_y = _spell_critical_success_y(base_y, height, px_to_y) - 20
+                effect_y = description_top + height / px_to_y + SPELL_TECHNICAL_FIELD_GAP_PX
             effect_fields = (
                 ("spell_attack_roll_card_", "Rzut na atak 20+:"),
                 ("spell_requirements_card_", "Wymagania:"),
@@ -727,9 +727,8 @@ def fill_spell_pdf(hero: AncestryHero, output_path: str) -> str:
     overlay = PdfReader(overlay_path)
     writer = PdfWriter()
     for page in overlay.pages:
-        card = PdfReader(template_path).pages[0]
+        card = writer.add_page(PdfReader(template_path).pages[0])
         card.merge_page(page)
-        writer.add_page(card)
     with output_file.open("wb") as output_stream:
         writer.write(output_stream)
     overlay_path.unlink()

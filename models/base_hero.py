@@ -23,6 +23,7 @@ class AncestryHero(BaseModel):
     defense: int
     health: int
     healing_rate: int
+    healing_rate_bonus: int = 0
     size: list[float]
     speed: int
     power: int = 0
@@ -44,6 +45,7 @@ class AncestryHero(BaseModel):
 
     @model_validator(mode="after")
     def _init_defense_tracking(self):
+        object.__setattr__(self, "healing_rate", self.health // 4 + self.healing_rate_bonus)
         if self.defense_from_stats == 0 and self.defense > 0:
             self.defense_from_stats = self.defense
         return self

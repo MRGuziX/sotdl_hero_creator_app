@@ -61,6 +61,23 @@ def test_compare_and_swap_across_connections(repositories, hero):
     assert first.get(owner, state.state_id).state_version == 1
 
 
+def test_immutable_exports_survive_restart_and_later_mutations(repositories, hero):
+    first, second = repositories
+    owner = uuid4().hex
+    state = CreationState(hero)
+    first.create(owner, state)
+    assert first.pin_export(owner, state)
+    original = state.hero.model_dump(mode="json")
+    state.hero.health += 20
+    state.touch()
+    assert second.save(owner, state, 0)
+    assert second.pin_export(owner, state)
+    assert first.get_export(owner, state.state_id, 0) == original
+    assert first.get_export(owner, state.state_id, 1) == state.hero.model_dump(mode="json")
+    assert second.get_export("someone-else", state.state_id, 0) is None
+    assert not first.pin_export("someone-else", state)
+
+
 def test_expiry_and_incompatible_schema(repositories, hero):
     first, second = repositories
     owner = uuid4().hex

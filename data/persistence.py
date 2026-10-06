@@ -53,6 +53,55 @@ class SQLiteCreationRepository:
                 connection,
                 "CREATE INDEX IF NOT EXISTS creations_owner ON creations(owner, updated)",
             )
+            self._initialize_exports(connection)
+
+    def _initialize_exports(self, connection):
+        self._execute(
+            connection,
+            """
+            CREATE TABLE IF NOT EXISTS creation_exports (
+                id TEXT NOT NULL, version INTEGER NOT NULL, owner TEXT NOT NULL,
+                snapshot TEXT NOT NULL, expires DOUBLE PRECISION NOT NULL,
+                PRIMARY KEY (id, version)
+            )
+        """,
+        )
+
+    def pin_export(self, owner, state):
+        now = self.clock()
+        with self._connect() as connection:
+            result = self._execute(
+                connection,
+                """
+                INSERT INTO creation_exports (id, version, owner, snapshot, expires)
+                SELECT ?, ?, ?, ?, ? WHERE EXISTS (
+                    SELECT 1 FROM creations
+                    WHERE id = ? AND owner = ? AND version = ? AND expires > ?
+                ) ON CONFLICT (id, version) DO UPDATE SET expires = excluded.expires
+            """,
+                (
+                    state.state_id,
+                    state.state_version,
+                    owner,
+                    self._encode(state.hero.model_dump(mode="json")),
+                    now + self.ttl,
+                    state.state_id,
+                    owner,
+                    state.state_version,
+                    now,
+                ),
+            )
+        return result.rowcount == 1
+
+    def get_export(self, owner, state_id, version):
+        with self._connect() as connection:
+            row = self._execute(
+                connection,
+                "SELECT snapshot FROM creation_exports "
+                "WHERE id = ? AND version = ? AND owner = ? AND expires > ?",
+                (state_id, version, owner, self.clock()),
+            ).fetchone()
+        return self._decode(row[0]) if row else None
 
     def create(self, owner, state):
         now = self.clock()
@@ -112,6 +161,9 @@ class SQLiteCreationRepository:
 
     def cleanup(self):
         with self._connect() as connection:
+            self._execute(
+                connection, "DELETE FROM creation_exports WHERE expires <= ?", (self.clock(),)
+            )
             return self._execute(
                 connection, "DELETE FROM creations WHERE expires <= ?", (self.clock(),)
             ).rowcount
@@ -139,6 +191,18 @@ class PostgresCreationRepository(SQLiteCreationRepository):
 
         return Jsonb(data)
 
+    def _initialize_exports(self, connection):
+        self._execute(
+            connection,
+            """
+            CREATE TABLE IF NOT EXISTS creation_exports (
+                id TEXT NOT NULL, version INTEGER NOT NULL, owner TEXT NOT NULL,
+                snapshot JSONB NOT NULL, expires DOUBLE PRECISION NOT NULL,
+                PRIMARY KEY (id, version)
+            )
+        """,
+        )
+
     def initialize(self):
         with self._connect() as connection:
             self._execute(
@@ -155,6 +219,7 @@ class PostgresCreationRepository(SQLiteCreationRepository):
                 connection,
                 "CREATE INDEX IF NOT EXISTS creations_owner ON creations(owner, updated)",
             )
+            self._initialize_exports(connection)
 
 
 def configured_repository() -> CreationRepository:

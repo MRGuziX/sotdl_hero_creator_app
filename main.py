@@ -4,6 +4,7 @@ import re
 import tempfile
 import uuid
 from pathlib import Path
+from io import BytesIO
 
 from flask import (
     Flask,
@@ -36,7 +37,7 @@ from models.requests import (
     StartCreation,
     VersionedRequest,
 )
-from utils.pdf_creator import fill_pdf
+from export.pdf import export_pdf
 from utils.utils import (
     finalize_defense,
     get_spell_descriptions,
@@ -393,12 +394,37 @@ def api_finalize_creation(creation_id):
         raise CreationError("Creation has unresolved choices", 409)
     if not state.can_finalize:
         raise CreationError("Complete required paths and equipment before exporting", 409)
-    fill_pdf(state.hero, _output_path())
+    if request.get_data():
+        data = _request_data(VersionedRequest)
+        if data["state_version"] != state.state_version:
+            raise CreationError("Creation changed; refresh before exporting", 409)
+    if not _repository().pin_export(_session_id(), state):
+        raise CreationError("Creation changed; refresh before exporting", 409)
+    session["last_export"] = [creation_id, state.state_version]
     return jsonify(
         {
             "summary": state.hero.model_dump(mode="json"),
-            "pdf_url": url_for("download_current"),
+            "pdf_url": url_for(
+                "download_creation_pdf", creation_id=creation_id, version=state.state_version
+            ),
         }
+    )
+
+
+@app.get("/api/creations/<creation_id>/pdf/<int:version>")
+def download_creation_pdf(creation_id, version):
+    snapshot = _repository().get_export(_session_id(), creation_id, version)
+    if snapshot is None:
+        raise CreationError("Export not found or expired. Export the character again.", 404)
+    OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
+    with tempfile.TemporaryDirectory(prefix="download-", dir=OUTPUT_DIR) as scratch:
+        output = export_pdf(AncestryHero.model_validate(snapshot), Path(scratch) / "hero.pdf")
+        content = BytesIO(output.read_bytes())
+    return send_file(
+        content,
+        as_attachment=request.args.get("download") == "1",
+        download_name="hero_card.pdf",
+        mimetype="application/pdf",
     )
 
 
@@ -418,6 +444,8 @@ def index():
 
 @app.route("/download_current")
 def download_current():
+    if session.get("last_export"):
+        return download_creation_pdf(*session["last_export"])
     output_path = _output_path()
     if not os.path.exists(output_path):
         return "No hero generated yet", 404

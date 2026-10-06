@@ -3,6 +3,7 @@
 import threading
 import time
 from typing import Protocol
+from copy import deepcopy
 
 from domain.creation_state import CreationState
 
@@ -12,6 +13,8 @@ class CreationRepository(Protocol):
     def get(self, owner: str, state_id: str) -> CreationState | None: ...
     def save(self, owner: str, state: CreationState, expected_version: int) -> bool: ...
     def list(self, owner: str) -> list[CreationState]: ...
+    def pin_export(self, owner: str, state: CreationState) -> bool: ...
+    def get_export(self, owner: str, state_id: str, version: int) -> dict | None: ...
 
 
 class MemoryCreationRepository:
@@ -22,6 +25,7 @@ class MemoryCreationRepository:
         self.capacity = capacity
         self.clock = clock
         self._entries = {}
+        self._exports = {}
         self._lock = threading.Lock()
 
     def _purge(self):
@@ -69,3 +73,20 @@ class MemoryCreationRepository:
                 for entry_owner, state, _ in entries
                 if entry_owner == owner
             ]
+
+    def pin_export(self, owner, state):
+        with self._lock:
+            self._purge()
+            entry = self._entries.get(state.state_id)
+            if not entry or entry[0] != owner or entry[1]["state_version"] != state.state_version:
+                return False
+            self._exports.setdefault(
+                (owner, state.state_id, state.state_version),
+                (deepcopy(state.hero.model_dump(mode="json")), self.clock() + self.ttl),
+            )
+            return True
+
+    def get_export(self, owner, state_id, version):
+        with self._lock:
+            entry = self._exports.get((owner, state_id, version))
+            return deepcopy(entry[0]) if entry and entry[1] > self.clock() else None
