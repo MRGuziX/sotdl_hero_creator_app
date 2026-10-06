@@ -9,7 +9,13 @@ from fontTools.ttLib import TTFont as FontToolsFont
 
 from pypdf import PdfReader, PdfWriter
 from pypdf._font import Font
-from pypdf.generic import NameObject, NumberObject, TextStringObject, DictionaryObject
+from pypdf.generic import (
+    NameObject,
+    NumberObject,
+    TextStringObject,
+    DictionaryObject,
+    DecodedStreamObject,
+)
 from pypdf.generic._appearance_stream import BaseStreamConfig, TextStreamAppearance
 from reportlab.lib.colors import black, white
 from reportlab.lib.enums import TA_CENTER, TA_LEFT
@@ -356,9 +362,22 @@ def fill_pdf(hero: AncestryHero, output_path: str) -> None:
             writer.add_page(spell_page)
         spell_output_path.unlink()
 
+    _compress_pdf(writer)
     with open(output_path, "wb") as output_stream:
         writer.write(output_stream)
     return output_path
+
+
+def _compress_pdf(writer: PdfWriter) -> None:
+    """Losslessly keep full sheets/cards below serverless response-size limits.
+
+    Merging card overlays decodes the template content streams. Recompress them
+    before deduplicating shared template/font resources; the reverse order can
+    corrupt shared content arrays in pypdf. Keep rendered/Unicode regressions.
+    """
+    for page in writer.pages:
+        page.compress_content_streams()
+    writer.compress_identical_objects(remove_duplicates=True, remove_unreferenced=True)
 
 
 def _draw_wrapped_text(
@@ -789,10 +808,21 @@ def fill_spell_pdf(hero: AncestryHero, output_path: str) -> str:
     canvas.save()
 
     overlay = PdfReader(overlay_path)
+    template = PdfReader(template_path)
     writer = PdfWriter()
     for page in overlay.pages:
-        card = writer.add_page(PdfReader(template_path).pages[0])
+        # Reuse one reader so all card pages share its large background/mask.
+        # Photoshop's PieceInfo embeds editing-only raster copies. They are not
+        # part of the displayed page; do not clone them into every spell sheet.
+        card = writer.add_page(template.pages[0], excluded_keys=["/PieceInfo"])
+        # The background resources can be shared, but merge_page replaces its
+        # content stream in place. Give each card page a separate stream so later
+        # overlays cannot appear on every earlier page.
+        content = DecodedStreamObject()
+        content.set_data(template.pages[0].get_contents().get_data())
+        card[NameObject("/Contents")] = writer._add_object(content)
         card.merge_page(page)
+    _compress_pdf(writer)
     with output_file.open("wb") as output_stream:
         writer.write(output_stream)
     overlay_path.unlink()

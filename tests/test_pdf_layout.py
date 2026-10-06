@@ -1,3 +1,5 @@
+import re
+
 import pytest
 from pypdf import PdfReader
 
@@ -38,6 +40,6 @@ def test_multi_page_spell_export_keeps_every_card(hero, tmp_path):
     destination = export_pdf(hero, tmp_path / "hero.pdf")
     reader = PdfReader(destination)
     assert len(reader.pages) == 5
-    text = " ".join(page.extract_text() for page in reader.pages[2:])
-    for index in range(20):
-        assert f"Zaklęcie {index}" in text
+    for page_index, page in enumerate(reader.pages[2:]):
+        found = [int(index) for index in re.findall(r"Zaklęcie (\d+)", page.extract_text())]
+        assert found == list(range(page_index * 9, min((page_index + 1) * 9, 20)))

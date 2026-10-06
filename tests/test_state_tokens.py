@@ -4,7 +4,7 @@ import pytest
 
 from domain.creation_service import CreationError, mutate_creation
 from domain.creation_state import CreationState, CreationStateError
-from domain.state_token import MAX_TOKEN_LENGTH, StateTokenCodec
+from domain.state_token import MAX_TOKEN_LENGTH, StateTokenCodec, StateTokenSizeError
 
 
 def test_tokens_continue_on_an_independent_instance_with_all_history(hero):
@@ -23,7 +23,8 @@ def test_tokens_continue_on_an_independent_instance_with_all_history(hero):
 def test_modified_or_wrong_secret_tokens_are_rejected(hero):
     codec = StateTokenCodec("test-secret")
     token = codec.encode(CreationState(hero))
-    modified = token[:-1] + ("a" if token[-1] != "a" else "b")
+    payload, signature = token.rsplit(".", 1)
+    modified = payload + "." + ("a" if signature[0] != "a" else "b") + signature[1:]
     for invalid in [modified, "nonsense", "", None, "a" * (MAX_TOKEN_LENGTH + 1)]:
         with pytest.raises(CreationStateError):
             codec.decode(invalid)
@@ -71,3 +72,10 @@ def test_parallel_requests_branch_without_mutating_the_carried_snapshot(hero):
         results = list(pool.map(execute, range(2)))
     assert all(state.hero.health == 20 and state.state_version == 1 for state in results)
     assert initial.to_dict() == before
+
+
+@pytest.mark.parametrize("limit", ["MAX_STATE_BYTES", "MAX_TOKEN_LENGTH"])
+def test_oversized_generated_capsules_have_a_distinct_recoverable_error(hero, monkeypatch, limit):
+    monkeypatch.setattr("domain.state_token." + limit, 1)
+    with pytest.raises(StateTokenSizeError):
+        StateTokenCodec("test-secret").encode(CreationState(hero))

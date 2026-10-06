@@ -200,6 +200,8 @@ or a cleanup job. The app does not retain characters or exported PDFs on the ser
    production secret is configured. Vercel's Git integration may deploy immediately.
 
 PDF rendering uses isolated `/tmp` scratch files and removes them on success and failure.
+Spell templates omit Photoshop editing-only data, share background resources across pages,
+and use lossless compression to keep complete multi-page exports within response limits.
 The response contains the actual PDF bytes, not a URL to a previous function instance's file.
 Any instance with the same secret can resume a browser-carried token. Tokens are signed,
 not encrypted; possession grants access to the character, so do not put tokens in URLs/logs.

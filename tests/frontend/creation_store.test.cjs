@@ -187,3 +187,14 @@ test('a response without a signed capsule cannot replace the active draft', asyn
     assert.equal(env.store.stateToken, 'capsule-0');
     assert.match(env.errors[0], /nieprawidłowy stan/);
 });
+
+test('oversized command responses retain the previous browser token and draft', async () => {
+    const env = setup(() => response({error: 'Creation is too large'}, 413));
+    env.store.setContract(contract());
+    const before = env.saved.get(DRAFT_KEY);
+    await env.store.advance();
+    assert.equal(env.store.stateToken, 'capsule-0');
+    assert.equal(env.saved.get(DRAFT_KEY), before);
+    assert.equal(env.requests.length, 1);
+    assert.equal(env.errors[0], 'Creation is too large');
+});

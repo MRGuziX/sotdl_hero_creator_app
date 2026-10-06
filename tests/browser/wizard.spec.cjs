@@ -41,6 +41,10 @@ test('manual creation, reload, keyboard path selection, undo and Home', async ({
     await page.reload();
     await expect.poll(() => page.evaluate(() => window.creationStore.state?.state_id)).toBe(id);
     await resolveLevel(page);
+    if (test.info().project.name === 'phone') {
+        await expect(page.locator('#pdf-panel')).toHaveClass(/drawer-open/);
+        await page.getByRole('button', {name: 'Zamknij podgląd'}).click();
+    }
     await page.getByRole('button', {name: 'Awansuj'}).click();
     await expect(page.locator('path-picker')).toBeVisible();
     await page.screenshot({path: test.info().outputPath('path-picker.png')});
@@ -81,6 +85,7 @@ test('random hero previews and downloads the same PDF without a database', async
     const download = await downloaded;
     expect(download.suggestedFilename()).toBe('Karta_Postaci_SotDL.pdf');
     expect(await fs.readFile(await download.path())).toEqual(Buffer.from(preview));
+    await page.screenshot({path: test.info().outputPath('pdf-preview.png')});
     await page.evaluate(() => window.creationStore.finalize(true));
     expect(exports).toBe(1);
     expect(await page.context().cookies()).toEqual([]);
@@ -91,6 +96,10 @@ test('random hero previews and downloads the same PDF without a database', async
     for (const input of await page.locator('supplement-selector input[type=checkbox]').all()) {
         await expect(input).toBeDisabled();
     }
+    await page.getByRole('button', {name: 'Strona główna'}).click();
+    await expect(page.locator('#hero-frame')).toHaveAttribute('src', 'about:blank');
+    await expect(page.locator('#download-sheet')).toBeHidden();
+    expect(await page.evaluate(() => window.creationStore.pdfUrl)).toBeNull();
 });
 
 test('failed start is visible and retry works without unhandled errors', async ({page}) => {

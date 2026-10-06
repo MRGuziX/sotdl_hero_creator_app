@@ -37,7 +37,7 @@
         }
 
         setContract(contract) {
-            if (!contract.state?.state_id || typeof contract.state_token !== "string" || !contract.state_token) {
+            if (!contract?.state?.state_id || typeof contract.state_token !== "string" || !contract.state_token) {
                 throw new Error("Serwer zwrócił nieprawidłowy stan postaci. Spróbuj ponownie.");
             }
             this.clearPdf();
@@ -86,7 +86,7 @@
                     this.reset();
                     throw new Error("Szkic jest nieprawidłowy lub niezgodny. Rozpocznij nową postać.");
                 }
-                throw new Error(result.error || "Nie udało się wykonać operacji.");
+                throw new Error(result?.error || "Nie udało się wykonać operacji.");
             }
             return result;
         }

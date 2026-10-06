@@ -16,7 +16,7 @@ Updated: 2026-10-06. Branch: `fix-for-the-app`.
 Database-free conversion:
 
 - `0c325cc`: signed browser-carried full state/undo history and detached domain transitions.
-- Stateless HTTP/UI switch replaces database adapters and saved-character listing.
+- `e48c305`: stateless HTTP/UI switch replaces database adapters and saved-character listing.
   Tokens live in per-tab session storage; Home clears the draft. PDF export returns bytes
   and the browser reuses one Blob for preview/download, revoking it on reset/mutation.
   Python workflow regressions now use a browser-like token-carrying test client; raw-client
@@ -26,10 +26,22 @@ Database-free conversion:
 The original repair history below describes the earlier architecture; the database-free
 decision above supersedes its persistence, ownership-cookie and deployment requirements.
 
-Current conversion checks: 409 Python tests, 14 frontend regressions, eight desktop/phone
-browser workflows, catalog validation and Ruff checks pass. Browser preview/download bytes
-match; fixed a CSS rule that overrode the download link's `hidden` attribute on Home.
-Final edge-case and deployment packaging checks follow.
+Current conversion checks: 414 Python tests on a clean Python 3.12 environment, 15 frontend
+regressions, eight desktop/phone browser workflows, catalog validation and Ruff lint/format
+checks pass. Browser preview/download bytes match; fixed a CSS rule that overrode the
+download link's `hidden` attribute on Home. No database credentials, services or cookies
+are used. No push or deployment was performed.
+Browser checks use full Chromium (`channel: chromium`) rather than its PDF-less headless
+shell. Inspected the actual filled PDF viewer on desktop/phone and final spell-card pages.
+
+Final edge-case work: distinguish oversized valid drafts (HTTP 413, preserve current token)
+from invalid drafts (HTTP 410). A complete level-10 mage exposed a >10 MB PDF response;
+exclude non-rendering Photoshop `/PieceInfo` from spell templates, reuse their reader,
+compress content streams and deduplicate objects. A visual check also caught shared content
+streams accumulating overlays: only background resources are shared now, with independent
+page content and exact per-page card regression checks. The representative 21-spell/five-page
+PDF is 3,805,639 bytes instead of >10 MB. The level-10 API regression fits Vercel's 4.5 MB
+buffered-response limit; renderer and pixel-identity tests remain mandatory.
 
 | Commit | Repair |
 | --- | --- |
@@ -101,3 +113,6 @@ Do not claim the app has been deployed or that all rulebook content has been aud
   private socket port 55439, no TCP listener). No user database was modified.
 - Temporary Chromium cache: `/private/tmp/sotdl-playwright-browsers`; representative
   PDF renderings: `/private/tmp/sotdl-pdf-check.NH8vNT`. These are not committed assets.
+- Database-free verification environment and final five-page magic PDF/rendering:
+  `/private/tmp/sotdl-db-free-check.AsFQbM`. This disposable Python 3.12 environment uses
+  the exact development dependency pins; the existing project `.venv` is unchanged.

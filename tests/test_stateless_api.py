@@ -5,6 +5,7 @@ import sys
 import pytest
 
 from main import app
+from domain.state_token import StateTokenSizeError
 
 
 def start(client, **options):
@@ -76,6 +77,72 @@ def test_body_size_limit_returns_json_without_reflecting_state(raw_client):
     )
     assert response.status_code == 413
     assert response.json == {"error": "Creation request is too large"}
+
+
+def test_response_size_failure_keeps_the_previous_carried_state(raw_client, monkeypatch):
+    contract = raw_client.post("/api/creations", json={"mode": "manual", "ancestry": "human"}).json
+
+    def too_large(self, state):
+        raise StateTokenSizeError("Too large")
+
+    with monkeypatch.context() as patch:
+        patch.setattr("domain.state_token.StateTokenCodec.encode", too_large)
+        response = raw_client.post(
+            f"/api/creations/{contract['creation_id']}/steps/0/choices",
+            json={
+                "state_token": contract["state_token"],
+                "state_version": 0,
+                "selections": [contract["state"]["pending_choices"][0][0]],
+                "choice_cursor": 0,
+            },
+        )
+        assert response.status_code == 413
+    restored = raw_client.post(
+        f"/api/creations/{contract['creation_id']}/resume",
+        json={"state_token": contract["state_token"]},
+    )
+    assert restored.json == contract
+
+
+def test_full_manual_magic_lifecycle_fits_transport_and_exports_filled_pdf(client):
+    from io import BytesIO
+    from pypdf import PdfReader
+
+    contract = client.post("/api/creations", json={"mode": "manual", "ancestry": "human"}).json
+    path = f"/api/creations/{contract['creation_id']}"
+    for _ in range(250):
+        state = contract["state"]
+        assert len(contract["state_token"]) < 100_000
+        body = {"state_version": state["state_version"]}
+        if state["pending_choices"]:
+            suffix = f"steps/{state['current_level']}/choices"
+            body.update(
+                selections=[state["pending_choices"][0][0]], choice_cursor=state["choice_cursor"]
+            )
+        elif state["awaiting_path_pick"]:
+            tier = state["awaiting_path_pick"]
+            suffix = "paths/" + tier
+            body["path_id"] = {"novice": "mage", "expert": "wizard", "master": "aeromancer"}[tier]
+        elif state["awaiting_equipment_pick"]:
+            suffix = "equipment"
+        elif state["current_level"] < 10:
+            suffix = "advance"
+        else:
+            break
+        response = client.post(path + "/" + suffix, json=body)
+        assert response.status_code == 200, response.json
+        contract = response.json
+    else:
+        pytest.fail("Wizard did not complete")
+    assert state["current_level"] == 10 and state["can_finalize"]
+    assert state["hero"]["spells"]
+    response = client.post(path + "/finalize", json={"state_version": state["state_version"]})
+    assert response.status_code == 200
+    assert len(response.data) < 4_500_000
+    reader = PdfReader(BytesIO(response.data))
+    assert len(reader.pages) >= 3
+    fields = reader.get_fields()
+    assert fields["ancestry"]["/V"] == "Człowiek"
 
 
 def test_render_failure_cleans_request_scratch_and_original_token_is_reusable(

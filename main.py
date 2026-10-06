@@ -19,7 +19,7 @@ from domain import creation_service as commands
 from domain.creation_service import CreationError, mutate_creation, _try_expand_current_group
 
 from domain.creation_state import CreationState, CreationStateError
-from domain.state_token import StateTokenCodec
+from domain.state_token import StateTokenCodec, StateTokenSizeError
 from models.action import (
     Action,
 )
@@ -99,6 +99,13 @@ def _token_codec():
 @app.errorhandler(413)
 def oversized_request(error):
     return jsonify({"error": "Creation request is too large"}), 413
+
+
+@app.errorhandler(StateTokenSizeError)
+def oversized_creation(error):
+    return jsonify(
+        {"error": "Creation is too large. Download the current PDF before continuing."}
+    ), 413
 
 
 @app.after_request

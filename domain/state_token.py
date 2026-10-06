@@ -11,6 +11,10 @@ MAX_TOKEN_LENGTH = 1_000_000
 MAX_STATE_BYTES = 16 * 1024 * 1024
 
 
+class StateTokenSizeError(ValueError):
+    """A valid creation is too large to return; retain the previous browser draft."""
+
+
 class StateTokenCodec:
     """Tokens authenticate (not encrypt) the full character and undo history.
 
@@ -31,10 +35,10 @@ class StateTokenCodec:
     def encode(self, state: CreationState) -> str:
         payload = state.to_dict()
         if len(json.dumps(payload, ensure_ascii=False).encode("utf-8")) > MAX_STATE_BYTES:
-            raise CreationStateError("Creation is too large to carry in the browser")
+            raise StateTokenSizeError("Creation is too large to carry in the browser")
         token = self.serializer.dumps(payload)
         if len(token) > MAX_TOKEN_LENGTH:
-            raise CreationStateError("Creation is too large to carry in the browser")
+            raise StateTokenSizeError("Creation is too large to carry in the browser")
         return token
 
     def decode(self, token: str) -> CreationState:
