@@ -22,6 +22,11 @@ Database-free conversion:
   Python workflow regressions now use a browser-like token-carrying test client; raw-client
   tests prove IDs/cookies alone cannot recover state and independent instances need no DB.
   PostgreSQL dependency, schema/cleanup commands and CI database service are removed.
+- `f029ca8`: recoverable oversized-state errors, lossless spell-PDF compaction, isolated
+  page overlays and full-Chromium viewer regressions. Verified the full manual magic flow.
+- Final packaging/handoff commit: `.vercelignore` excludes dependencies, test artifacts,
+  development secrets and old local database/output files while retaining runtime PDF,
+  font and web assets. Plans are marked complete; use `git log` for this commit's ID.
 
 The original repair history below describes the earlier architecture; the database-free
 decision above supersedes its persistence, ownership-cookie and deployment requirements.

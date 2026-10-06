@@ -4,6 +4,10 @@ Status: code repairs implemented and locally verified on 2026-10-06. Completed c
 test evidence and deployment requirements are recorded in [repair-progress.md](repair-progress.md).
 Visual redesign, independent rulebook accuracy review and deployment are separate work.
 
+Superseding decision: the user requested database-free create → preview → download on
+2026-10-06. See [db-free-plan.md](db-free-plan.md); database persistence and global
+compare-and-swap requirements below describe the original repair architecture only.
+
 ## Objective and scope
 
 Make character creation secure, deterministic under undo, atomic under failed or concurrent
