@@ -5,9 +5,7 @@ import pytest
 
 def start(client):
     random.seed(42)
-    return client.post(
-        "/api/creations", json={"mode": "manual", "ancestry": "human"}
-    ).get_json()
+    return client.post("/api/creations", json={"mode": "manual", "ancestry": "human"}).get_json()
 
 
 def post(client, contract, operation, **extra):
@@ -22,7 +20,9 @@ def post(client, contract, operation, **extra):
 def choose(client, contract, action=None):
     state = contract["state"]
     return post(
-        client, contract, f"steps/{state['current_level']}/choices",
+        client,
+        contract,
+        f"steps/{state['current_level']}/choices",
         selections=[action or state["pending_choices"][0][0]],
         choice_cursor=state["choice_cursor"],
     )
@@ -39,9 +39,7 @@ def complete(client, contract):
 def test_choice_undo_restores_exact_previous_character_without_randomness(client, monkeypatch):
     before = choose(client, start(client))
     after = choose(client, before)
-    monkeypatch.setattr(
-        random, "randint", lambda *args: pytest.fail("Undo must not roll dice")
-    )
+    monkeypatch.setattr(random, "randint", lambda *args: pytest.fail("Undo must not roll dice"))
     restored = post(client, after, "rewind_choice")
     assert restored["state"]["hero"] == before["state"]["hero"]
     assert restored["state"]["choice_cursor"] == before["state"]["choice_cursor"]
@@ -66,9 +64,7 @@ def test_level_undo_restores_entry_snapshot_and_reopens_paths(client, monkeypatc
             continue
         contract = post(client, contract, "advance")
         entries[contract["state"]["current_level"]] = contract["state"]
-    monkeypatch.setattr(
-        random, "randint", lambda *args: pytest.fail("Undo must not roll dice")
-    )
+    monkeypatch.setattr(random, "randint", lambda *args: pytest.fail("Undo must not roll dice"))
     restored = post(client, contract, "rewind", target_level=target)
     assert restored["state"]["hero"] == entries[target]["hero"]
     assert restored["state"]["paths"] == entries[target]["paths"]
@@ -85,7 +81,8 @@ def test_spell_undo_restores_dynamic_spell_choices(client):
     while contract["state"]["pending_choices"][0][0]["type"] != "add_tradition":
         contract = choose(client, contract)
     tradition = next(
-        action for action in contract["state"]["pending_choices"][0]
+        action
+        for action in contract["state"]["pending_choices"][0]
         if action["name"] == "Tradycja Ognia"
     )
     before = choose(client, contract, tradition)

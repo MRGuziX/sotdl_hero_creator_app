@@ -2,7 +2,7 @@ import os
 
 import pytest
 
-from main import app, OUTPUT_PATH
+from main import OUTPUT_PATH
 from models.action import AddSpell, AddTradition
 from models.action import AddTalent
 from models.base_hero import AncestryHero
@@ -272,7 +272,9 @@ def test_repeated_backstab_uses_full_upgraded_description():
         AddTalent(
             name="Cios w plecy",
             description=description,
-            upgrade="Jeśli wybierzesz ten talent ponownie, dodatkowe obrażenia zwiększają się do 2k6.",
+            upgrade=(
+                "Jeśli wybierzesz ten talent ponownie, dodatkowe obrażenia zwiększają się do 2k6."
+            ),
         ),
         hero,
     )
@@ -292,9 +294,7 @@ def test_rogue_repeatable_talent_contains_upgrade_metadata():
     ]
 
     assert backstab_options
-    assert all(
-        option.upgrade and "2k6" in option.upgrade for option in backstab_options
-    )
+    assert all(option.upgrade and "2k6" in option.upgrade for option in backstab_options)
 
 
 def test_rogue_talent_selection_is_one_group_of_five_options():
@@ -327,9 +327,7 @@ def test_level_eight_wolta_uses_upgrade_description_when_selected_again():
     apply_action(wolta, hero)
     apply_action(wolta, hero)
 
-    upgraded = next(
-        talent for talent in hero.talents if talent.name.startswith("Wolta")
-    )
+    upgraded = next(talent for talent in hero.talents if talent.name.startswith("Wolta"))
     assert upgraded.name == "Wolta (poz. 2)"
     assert upgraded.description == wolta.upgrade
 
@@ -345,22 +343,35 @@ def test_level_eight_wolta_uses_upgrade_description_when_selected_again():
         (
             "Pogróżki",
             "Przeciwnik zostaje przestraszony.",
-            "Jeśli wybierzesz ten talent ponownie, twoje ataki bronią zadają przestraszonym w ten sposób celom dodatkowe 1k6 obrażeń.",
+            (
+                "Jeśli wybierzesz ten talent ponownie, twoje ataki bronią zadają "
+                "przestraszonym w ten sposób celom dodatkowe 1k6 obrażeń."
+            ),
         ),
         (
             "Magia",
             "Poznajesz jedną tradycję magiczną.",
-            "Jeśli wybierzesz ten talent ponownie, zwiększasz swoją Moc o 1 i poznajesz jedną tradycję lub uczysz się jednego zaklęcia.",
+            (
+                "Jeśli wybierzesz ten talent ponownie, zwiększasz swoją Moc o 1 i "
+                "poznajesz jedną tradycję lub uczysz się jednego zaklęcia."
+            ),
         ),
         (
             "Wolta",
             "Możesz poruszyć się o połowę swojej Prędkości.",
-            "Jeśli wybierzesz ten talent ponownie, możesz poruszyć się o całą wartość swojej Prędkości.",
+            (
+                "Jeśli wybierzesz ten talent ponownie, możesz poruszyć się o całą "
+                "wartość swojej Prędkości."
+            ),
         ),
         (
             "Zwód",
             "Przeciwnik zostaje zauroczony.",
-            "Jeśli wybierzesz ten talent ponownie, zyskujesz 1 ułatwienie do związanego z nim rzutu i możesz zwodzić stworzenia, które cię nie rozumieją.",
+            (
+                "Jeśli wybierzesz ten talent ponownie, zyskujesz 1 ułatwienie do "
+                "związanego z nim rzutu i możesz zwodzić stworzenia, które cię nie "
+                "rozumieją."
+            ),
         ),
     ],
 )

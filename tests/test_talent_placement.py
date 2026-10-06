@@ -17,9 +17,7 @@ def test_talent_distribution():
     small_2 = Talent(name="Small 2", description="S" * 50)
     small_3 = Talent(name="Small 3", description="S" * 50)
 
-    tradition = Talent(
-        name="Tradycja Niebiańska", description="Dostęp do zaklęć"
-    )
+    tradition = Talent(name="Tradycja Niebiańska", description="Dostęp do zaklęć")
 
     talents = [
         small_talent,
@@ -48,8 +46,6 @@ def test_talent_distribution():
     assert "Tradycja Niebiańska" not in assigned_names
     assert len(assigned) == 7
 
-    extra_talents = [
-        Talent(name=f"Overflow {i}", description="O" * 1500) for i in range(5)
-    ]
+    extra_talents = [Talent(name=f"Overflow {i}", description="O" * 1500) for i in range(5)]
     assigned_2, overflow_2 = distribute_talents(extra_talents)
     assert len(overflow_2) == 5

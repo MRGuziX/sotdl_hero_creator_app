@@ -1,6 +1,8 @@
 # Codebase repair plan
 
-Status: proposed implementation plan. Creating this document does not implement the fixes.
+Status: code repairs implemented and locally verified on 2026-10-06. Completed commits,
+test evidence and deployment requirements are recorded in [repair-progress.md](repair-progress.md).
+Visual redesign, independent rulebook accuracy review and deployment are separate work.
 
 ## Objective and scope
 
@@ -112,6 +114,10 @@ shared storage accessible to every instance; process memory or local SQLite does
 that requirement. Build the repository contract and local/test adapter first. Choose and
 configure the production storage service before enabling the deployment. Provisioning services,
 incurring costs, and deploying are separate actions from these code changes.
+
+Resolved: the user selected PostgreSQL. Both production PostgreSQL and local SQLite adapters
+are implemented; PostgreSQL ownership, snapshots and atomicity were tested against a real
+isolated server. Provisioning/configuration and deployment have not been performed.
 
 Acceptance: characters survive page refresh and application restart against the persistent
 adapter; independent instances see the same state; two tabs can create separate characters;

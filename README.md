@@ -58,7 +58,8 @@ Paths like Magik and Priest grant **magic traditions** (e.g. Fire, Shadow, Necro
 
 ```
 sotdl_hero_creator_app/
-├── main.py                  # Flask routes, wizard state management, API endpoints
+├── main.py                  # Flask HTTP/session ownership and response contracts
+├── config.py                # Development/production secret configuration
 ├── models/                  # Pydantic data models
 │   ├── action.py            # Action discriminated union (10 types) + Choice, LevelBenefit
 │   ├── ancestry.py          # AncestryData + GeneralStats (for loading ancestry JSONs)
@@ -66,23 +67,24 @@ sotdl_hero_creator_app/
 │   ├── equipment.py         # Weapon, Armor, Shield, Money, Equipment
 │   ├── language.py          # Language (name, can_speak, can_write)
 │   ├── path.py              # Path model (novice/expert/master path definitions)
-│   ├── spell.py             # Spell, Tradition
+│   ├── requests.py          # Strict creation/mutation request envelopes
+│   ├── spell.py             # Spell and embedded path-spell data
 │   ├── tables.py            # RollTableEntry, ProfessionEntry, WealthEntry
 │   └── talent.py            # Talent (name, description, level)
 ├── domain/                  # Domain/business logic
-│   ├── actions.py           # Action execution logic
-│   ├── backstory.py         # Backstory generation
-│   ├── choices.py           # Choice handling
-│   ├── creation_state.py    # CreationState — server-side wizard state machine
-│   ├── hero_builder.py      # Builder pattern for hero assembly
+│   ├── creation_service.py  # Atomic transitions and completion/progression guards
+│   ├── creation_state.py    # Versioned state and immutable undo checkpoints
 │   └── progression.py       # Level progression (benefits_between)
 ├── data/                    # Data access layer
-│   └── repository.py        # JSON data loading and caching
+│   ├── repository.py        # Isolated cached JSON reads and normalization
+│   ├── creations.py         # Storage contract and in-memory test adapter
+│   ├── persistence.py       # SQLite/PostgreSQL storage and versioned export snapshots
+│   └── validate.py          # Catalog models, references and roll-table validation
 ├── utils/
 │   ├── utils.py             # Core game logic: dice rolling, hero building, action system
 │   └── pdf_creator.py       # PDF form-filling using pypdf
 ├── export/
-│   └── pdf.py               # PDF export pipeline
+│   └── pdf.py               # Isolated scratch rendering and atomic publication
 ├── data_base/               # Game data (JSON files)
 │   ├── ancestry/            # Per-ancestry: base stats + roll tables (6 ancestries)
 │   ├── equipment/           # Equipment store, wealth tables, oddities
@@ -97,7 +99,7 @@ sotdl_hero_creator_app/
 │       ├── wizard.js        # Web component wizard UI (step shells, path picker, spell UI)
 │       └── creation_store.js # Client-side state management and API calls
 ├── pictures/                # Static assets (logo, background, character art)
-└── tests/                   # pytest test suite (11 test files)
+└── tests/                   # pytest, Node store regressions, Playwright browser flows
 ```
 
 ### Data Models
@@ -124,13 +126,14 @@ The character creation and progression process is driven by an **action/choice p
 6. In manual mode, `"any"` placeholders are expanded into concrete choice groups for the wizard UI
 7. Dynamic placeholders like `"known_tradition"` expand based on current hero state (e.g. spells from learned traditions)
 8. All actions are applied to the hero through `apply_action()`, which dispatches on the `Action` type
-9. The wizard supports **rewinding** choices — the hero and choices are rebuilt from scratch and prior selections replayed
+9. Undo restores immutable checkpoints without rolling character details again. Undo is a
+   new versioned mutation; failed and stale requests cannot partially modify a character.
 
 ## Requirements
 
 - Python 3.12+
-- Dependencies: `Flask`, `pypdf`, `pydantic`, `reportlab`, `fonttools`
-- Development tools: `pytest`, `ruff`
+- Dependencies: `Flask`, `pypdf`, `pydantic`, `reportlab`, `fonttools`, `psycopg`
+- Development tools: `pytest`, `ruff`, `PyMuPDF`; Node.js 22+ for frontend/browser tests
 
 ### Frontend Architecture
 
@@ -138,7 +141,9 @@ The frontend is a single-page app built with **vanilla JavaScript web components
 state model:
 
 - **`creation_store.js`** — client-side state manager that communicates with Flask API endpoints
-  (`/api/creations/...`). Handles creation, advancement, choice submission, rewinding, and finalization.
+  (`/api/creations/...`). Serializes requests, reports errors, recovers stale state without
+  replaying mutations, and resumes a per-tab ID from session storage. Home clears the active
+  tab and preview, not the saved character; use "Wznów zapisaną postać" to reopen it.
 - **`wizard.js`** — web components (`StepShell`, `PathPicker`, `CrossroadsScreen`, `RandomConfigScreen`, etc.)
   that render the step-by-step wizard UI. Includes spell/tradition display with grouped selections.
 - **`style.css`** — dark-fantasy theme, responsive layout (breakpoints at 1024px, 768px, 480px),
@@ -149,16 +154,24 @@ state model:
 ```bash
 python -m venv .venv
 source .venv/bin/activate
-pip install -r requirements.txt
+pip install -r requirements-dev.txt
 
 # Run the app
 python main.py
 
 # Run tests
 pytest tests/ -v
+python -m data.validate
 
 # Run linting
 ruff check .
+ruff format --check .
+
+# Frontend checks (Node.js 22+)
+npm ci
+npm test
+npx playwright install chromium
+npm run test:browser
 ```
 
 `python main.py` uses an unpredictable development session secret. To run locally through
@@ -179,14 +192,30 @@ Creations and undo history survive restarts. Both adapters expire creations seve
 after their last successful update; periodically run `python -m data.persistence cleanup`.
 The signed session cookie identifies the owner, so keep the same secret across restarts
 and instances. Losing the cookie means losing access to that owner's characters.
+The owner cookie lasts seven days, uses HttpOnly and SameSite=Lax, and is Secure on Vercel.
 The serialized creation format is version 4. Incompatible saved states return HTTP 410
 with instructions to start a new character; no automatic migration is attempted.
 
 1. Connect your GitHub repository to [Vercel](https://vercel.com/).
 2. Vercel will automatically detect the `vercel.json` and `requirements.txt` files.
 3. The app uses the `/tmp` directory for PDF generation, which is compatible with Vercel's serverless environment.
+   Downloads regenerate from an owned immutable snapshot stored in PostgreSQL. URLs identify
+   a character/version; they do not rely on a PDF left on a previous instance. Scratch files
+   are cleaned on both success and failure. Run the schema initialization command again
+   when upgrading from the initial persistence commit to add the export-snapshot table.
 4. PostgreSQL integration tests run when `TEST_DATABASE_URL` is configured. Use a dedicated
    test database, never your production database.
+
+`.github/workflows/checks.yml` runs lint/format, full catalog validation, the Python suite
+(including deterministic generation samples and a PostgreSQL 16 service), Node regressions,
+and desktop/phone Chromium workflows. Local PostgreSQL tests are skipped unless
+`TEST_DATABASE_URL` is configured. Browser tests use an isolated SQLite database.
+
+The PDF form-font integration is isolated in `utils/pdf_creator.py` and uses pypdf's pinned
+font/appearance adapter. Re-run the structural and rendered Unicode regressions when bumping
+pypdf. Reviewed path descriptions are retained; missing descriptions list existing talent
+names rather than introducing new game rules. Independent rulebook-content review and a
+visual UI redesign remain separate work.
 
 ## Logging
 

@@ -79,7 +79,8 @@ def test_can_finalize_is_available_at_any_level_once_choices_are_resolved():
     # Finalize/preview is no longer gated behind reaching level 10: it is
     # always available once a hero exists and has no pending choices.
     state = CreationState(
-        hero=_hero(), current_level=3,
+        hero=_hero(),
+        current_level=3,
         creation_inputs={"paths": {"novice": "warrior", "expert": ["fighter"]}},
         equipment_confirmed_levels=[3],
     )
@@ -94,10 +95,15 @@ def test_can_finalize_is_available_at_any_level_once_choices_are_resolved():
 
 def test_can_advance_requires_no_pending_choices_and_level_below_ten():
     state = CreationState(
-        hero=_hero(), current_level=9,
-        creation_inputs={"paths": {
-            "novice": "warrior", "expert": ["fighter"], "master": "duelist",
-        }},
+        hero=_hero(),
+        current_level=9,
+        creation_inputs={
+            "paths": {
+                "novice": "warrior",
+                "expert": ["fighter"],
+                "master": "duelist",
+            }
+        },
     )
 
     assert state.can_advance is True

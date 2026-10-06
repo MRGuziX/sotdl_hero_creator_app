@@ -68,17 +68,13 @@ def _pick_path(client, creation_id, state, tier, path_id):
 
 
 def test_start_creation_rejects_invalid_mode(client):
-    response = client.post(
-        "/api/creations", json={"mode": "bogus", "ancestry": "human"}
-    )
+    response = client.post("/api/creations", json={"mode": "bogus", "ancestry": "human"})
     assert response.status_code == 400
     assert "error" in response.get_json()
 
 
 def test_start_creation_rejects_unsupported_ancestry(client):
-    response = client.post(
-        "/api/creations", json={"mode": "manual", "ancestry": "elf"}
-    )
+    response = client.post("/api/creations", json={"mode": "manual", "ancestry": "elf"})
     assert response.status_code == 400
     assert "error" in response.get_json()
 
@@ -217,9 +213,7 @@ def test_rewind_rejects_negative_target(client):
 
 
 def test_rewind_missing_creation_returns_404(client):
-    response = client.post(
-        "/api/creations/does-not-exist/rewind", json={"target_level": 0}
-    )
+    response = client.post("/api/creations/does-not-exist/rewind", json={"target_level": 0})
     assert response.status_code == 404
 
 
@@ -302,9 +296,7 @@ def test_advance_rejects_stale_state_version(client):
 
 
 def test_advance_missing_creation_returns_404(client):
-    response = client.post(
-        "/api/creations/does-not-exist/advance", json={"state_version": 0}
-    )
+    response = client.post("/api/creations/does-not-exist/advance", json={"state_version": 0})
     assert response.status_code == 404
 
 
@@ -417,9 +409,7 @@ def test_full_manual_playthrough_second_expert_path_at_level_seven(client):
 
 
 def test_random_mode_reports_every_level_up_to_target_completed(client):
-    contract = _start(
-        client, mode="random", target_level=3, paths={"novice": "warrior"}
-    )
+    contract = _start(client, mode="random", target_level=3, paths={"novice": "warrior"})
     state = contract["state"]
     assert state["current_level"] == 3
     assert state["completed_steps"] == [0, 1, 2, 3]
@@ -447,9 +437,12 @@ def test_missing_novice_path_blocks_advancement_and_export(client):
     assert state["awaiting_path_pick"] == "novice"
     assert state["can_advance"] is False
     assert state["can_finalize"] is False
-    assert client.post(
-        f"/api/creations/{cid}/advance", json={"state_version": state["state_version"]}
-    ).status_code == 409
+    assert (
+        client.post(
+            f"/api/creations/{cid}/advance", json={"state_version": state["state_version"]}
+        ).status_code
+        == 409
+    )
     assert client.post(f"/api/creations/{cid}/finalize").status_code == 409
 
 
@@ -472,7 +465,10 @@ def test_unconfirmed_equipment_blocks_advancement_and_export(client):
     assert state["awaiting_equipment_pick"] is True
     assert state["can_advance"] is False
     assert state["can_finalize"] is False
-    assert client.post(
-        f"/api/creations/{cid}/advance", json={"state_version": state["state_version"]}
-    ).status_code == 409
+    assert (
+        client.post(
+            f"/api/creations/{cid}/advance", json={"state_version": state["state_version"]}
+        ).status_code
+        == 409
+    )
     assert client.post(f"/api/creations/{cid}/finalize").status_code == 409

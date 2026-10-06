@@ -24,28 +24,43 @@ def test_automatic_pg_paths_exclude_supplement_content(seed):
     assert "swd" not in str(paths)
 
 
-@pytest.mark.parametrize("extra", [
-    {"ancestry": "swd_elf"},
-    {"paths": {"expert": ["swd_test"]}},
-    {"paths": {"master": "swd_test_master"}},
-])
+@pytest.mark.parametrize(
+    "extra",
+    [
+        {"ancestry": "swd_elf"},
+        {"paths": {"expert": ["swd_test"]}},
+        {"paths": {"master": "swd_test_master"}},
+    ],
+)
 def test_server_rejects_disabled_source_selections(client, extra):
-    response = client.post("/api/creations", json={
-        "mode": "random", "ancestry": "human", "target_level": 10,
-        "enabled_sources": ["PG"], **extra,
-    })
+    response = client.post(
+        "/api/creations",
+        json={
+            "mode": "random",
+            "ancestry": "human",
+            "target_level": 10,
+            "enabled_sources": ["PG"],
+            **extra,
+        },
+    )
     assert response.status_code == 400
     assert "source is not enabled" in response.get_json()["error"]
 
 
 def test_random_pg_character_contains_no_swd_paths_or_spells(client):
     random.seed(116)
-    response = client.post("/api/creations", json={
-        "mode": "random", "ancestry": "human", "target_level": 10,
-        "enabled_sources": ["PG"],
-    })
+    response = client.post(
+        "/api/creations",
+        json={
+            "mode": "random",
+            "ancestry": "human",
+            "target_level": 10,
+            "enabled_sources": ["PG"],
+        },
+    )
     assert response.status_code == 200
     state = response.get_json()["state"]
     assert "swd" not in str(state["paths"])
-    assert all((spell.get("origin") or {}).get("source", "PG") == "PG"
-               for spell in state["hero"]["spells"])
+    assert all(
+        (spell.get("origin") or {}).get("source", "PG") == "PG" for spell in state["hero"]["spells"]
+    )
