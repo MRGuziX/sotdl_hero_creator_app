@@ -1,6 +1,7 @@
 from typing import Annotated, Literal
 
 from pydantic import BaseModel, Field
+from models.spell import Spell
 
 
 class AddAttribute(BaseModel):
@@ -30,6 +31,7 @@ class AddTalent(BaseModel):
 class AddSpell(BaseModel):
     type: Literal["add_spell"] = "add_spell"
     name: str = "any"
+    spell: Spell | None = None
 
 
 class AddItem(BaseModel):

@@ -1,4 +1,3 @@
-import json
 import logging
 import os
 import re
@@ -218,8 +217,7 @@ def _load_equipment_store() -> dict:
 
 
 def load_ancestry_descriptions() -> dict:
-    with open(DESCRIPTIONS_PATH, "r", encoding="utf-8") as descriptions_file:
-        return json.load(descriptions_file)
+    return _load_json(str(DESCRIPTIONS_PATH))
 
 
 def load_ancestry_list() -> list[dict[str, str]]:

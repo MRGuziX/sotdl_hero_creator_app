@@ -1,4 +1,3 @@
-import json
 import logging
 import os
 import pathlib
@@ -6,6 +5,7 @@ import random
 import re
 
 from pydantic import TypeAdapter
+from data.repository import load_json as repository_load_json, normalize_action, normalize_benefit
 
 from models.action import (
     Action,
@@ -138,9 +138,7 @@ def _parse_dice_value(value: int | float | str) -> int | float:
 
 
 def _load_json(relative_path: str) -> dict:
-    path = PROJECT_ROOT / relative_path
-    with open(path, "r", encoding="utf8") as f:
-        return json.load(f)
+    return repository_load_json(relative_path)
 
 
 load_json = _load_json
@@ -152,20 +150,7 @@ def _normalize_path_action(action: dict) -> dict:
     so every path tier validates against the same `Action` union without
     growing new action types just for a naming difference in the data.
     """
-    if not isinstance(action, dict):
-        return action
-
-    action_type = action.get("type")
-    if action_type == "learn_tradition":
-        return {"type": "add_tradition", "name": action.get("name", "any")}
-    if action_type == "learn_spell":
-        tradition = action.get("tradition")
-        if tradition == "any":
-            return {"type": "add_spell", "name": "known_tradition"}
-        if tradition:
-            return {"type": "add_spell", "name": f"tradition:{tradition}"}
-        return {"type": "add_spell", "name": action.get("name", "any")}
-    return action
+    return normalize_action(action)
 
 
 def _normalize_level_benefit_json(benefit: dict) -> dict:
@@ -173,17 +158,7 @@ def _normalize_level_benefit_json(benefit: dict) -> dict:
     into a single nested group (matching `PathData`'s `list[Choice]` shape)
     and normalize every action within it/`actions` via `_normalize_path_action`.
     """
-    normalized = dict(benefit)
-    choices = normalized.get("choices", [])
-    if choices and isinstance(choices[0], dict):
-        choices = [choices]
-    normalized["choices"] = [
-        [_normalize_path_action(action) for action in group] for group in choices
-    ]
-    normalized["actions"] = [
-        _normalize_path_action(action) for action in normalized.get("actions", [])
-    ]
-    return normalized
+    return normalize_benefit(benefit)
 
 
 def _load_path_data(tier: str, path_name: str) -> PathData | None:
@@ -852,7 +827,11 @@ def apply_action(action: Action, hero: AncestryHero, is_random: bool = False):
         case AddTalent():
             add_talent(action.name, action.description, hero, hero.level, action.upgrade)
         case AddSpell():
-            add_spell(action.name, hero)
+            if action.spell is not None:
+                if action.name not in {spell.name for spell in hero.spells}:
+                    hero.spells.append(action.spell.model_copy(deep=True))
+            else:
+                add_spell(action.name, hero)
         case AddTradition():
             if action.name == "religious_tradition" and is_random:
                 religions_data = _load_json("data_base/paths/novice/cleric_religions.json")
@@ -889,8 +868,10 @@ def _expand_dynamic_choice_group(
     known_spells = {spell.name for spell in hero.spells}
     languages = {language.name: language for language in hero.languages}
     available_traditions = {
-        name for name in TRADITION_FILE_MAP
-        if enabled_sources is None or any(
+        name
+        for name in TRADITION_FILE_MAP
+        if enabled_sources is None
+        or any(
             (spell.get("origin") or {}).get("source", "PG") in enabled_sources
             for spells in _load_json(f"data_base/spells/{TRADITION_FILE_MAP[name]}").values()
             for spell in spells
@@ -1007,8 +988,9 @@ def resolve_choices(
                 "any",
                 "religious_tradition",
             ):
-                rank0 = get_spells_for_tradition(picked.name, power_level=0,
-                                               enabled_sources=enabled_sources)
+                rank0 = get_spells_for_tradition(
+                    picked.name, power_level=0, enabled_sources=enabled_sources
+                )
                 known = {s.name for s in hero.spells}
                 available = [s for s in rank0 if s not in known]
                 has_sztuczki = any(t.name == "Sztuczki" for t in hero.talents)
@@ -1126,7 +1108,9 @@ def add_oddity(hero: AncestryHero):
 
 
 def randomly_pick_paths(
-    target_level: int, existing_paths: dict, enabled_sources: list[str] | None = None,
+    target_level: int,
+    existing_paths: dict,
+    enabled_sources: list[str] | None = None,
 ) -> dict:
     """Fill missing paths randomly based on the target level for Random mode."""
     paths = {
@@ -1134,14 +1118,20 @@ def randomly_pick_paths(
         "expert": list(existing_paths.get("expert") or []),
         "master": existing_paths.get("master"),
     }
+
     def options_for(directory):
-        return [file.stem for file in sorted(directory.glob("*.json"))
-                if file.name != "cleric_religions.json" and (
-                    enabled_sources is None or
-                    (_load_json(str(file.relative_to(PROJECT_ROOT))).get("origin") or {}).get(
-                        "source", "PG"
-                    ) in enabled_sources
-                )]
+        return [
+            file.stem
+            for file in sorted(directory.glob("*.json"))
+            if file.name != "cleric_religions.json"
+            and (
+                enabled_sources is None
+                or (_load_json(str(file.relative_to(PROJECT_ROOT))).get("origin") or {}).get(
+                    "source", "PG"
+                )
+                in enabled_sources
+            )
+        ]
 
     if target_level >= 1 and not paths["novice"]:
         options = options_for(NOVICE_PATHS_DIR)
@@ -1160,8 +1150,9 @@ def randomly_pick_paths(
                 if options:
                     paths["master"] = random.choice(options)
             else:
-                options = [name for name in options_for(EXPERT_PATHS_DIR)
-                           if name not in paths["expert"]]
+                options = [
+                    name for name in options_for(EXPERT_PATHS_DIR) if name not in paths["expert"]
+                ]
                 if options:
                     paths["expert"].append(random.choice(options))
 
@@ -1227,7 +1218,9 @@ def get_hero(
                 None,
                 next_level - 1,
                 next_level,
-                is_random=True, paths=resolved_paths, enabled_sources=enabled_sources,
+                is_random=True,
+                paths=resolved_paths,
+                enabled_sources=enabled_sources,
             )
 
     if is_random and level >= 3:
