@@ -11,6 +11,7 @@ from pathlib import Path
 
 from flask import (
     Flask,
+    abort,
     jsonify,
     render_template,
     request,
@@ -21,6 +22,7 @@ from flask import (
 )
 from pydantic import TypeAdapter
 
+from config import secret_key
 from domain.creation_state import CreationState
 from models.action import (
     Action,
@@ -56,11 +58,7 @@ logging.basicConfig(
 )
 
 app = Flask(__name__, static_folder="pictures", static_url_path="/static")
-_secret = os.environ.get("SECRET_KEY")
-if not _secret:
-    logging.getLogger(__name__).warning("SECRET_KEY not set — using insecure fallback")
-    _secret = "development-only-secret"
-app.secret_key = _secret
+app.secret_key = secret_key(development=__name__ == "__main__")
 
 
 @app.route("/assets/<path:filename>")
@@ -85,19 +83,27 @@ _MANUAL_CREATIONS_LOCK = threading.Lock()
 _MANUAL_CREATION_TTL = 3600
 _MAX_MANUAL_CREATIONS = 1000
 _SAFE_PATH_ID = re.compile(r"^[a-z0-9_]+$")
+_SAFE_SESSION_ID = re.compile(r"[a-f0-9]{32}")
 
 
 def _session_id() -> str:
     """Return the stable identifier used to isolate this browser session."""
     if "creation_id" not in session:
         session["creation_id"] = uuid.uuid4().hex
-    return session["creation_id"]
+    identifier = session["creation_id"]
+    if not isinstance(identifier, str) or not _SAFE_SESSION_ID.fullmatch(identifier):
+        abort(400, description="Invalid session identifier")
+    return identifier
 
 
 def _output_path() -> str:
     """Return the temporary PDF path assigned to the current session."""
     OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
-    return str(OUTPUT_DIR / f"{_session_id()}.pdf")
+    root = OUTPUT_DIR.resolve()
+    destination = (root / f"{_session_id()}.pdf").resolve()
+    if destination.parent != root:
+        abort(400, description="Invalid PDF destination")
+    return str(destination)
 
 
 def _load_paths(directory: Path, *, skip: set[str] | None = None) -> list[dict[str, str]]:

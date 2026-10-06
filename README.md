@@ -161,6 +161,11 @@ pytest tests/ -v
 ruff check .
 ```
 
+`python main.py` uses an unpredictable development session secret. To run locally through
+the Flask CLI, set `APP_ENV=development`. Sessions reset when that development process restarts.
+Production imports require `SECRET_KEY` to be set to a stable, randomly generated secret;
+configure it in the deployment environment and never commit it to this repository.
+
 ## Deployment on Vercel
 
 This app is ready to be deployed on Vercel.

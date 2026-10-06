@@ -1,4 +1,8 @@
+import os
+
 import pytest
+
+os.environ.setdefault("SECRET_KEY", "tests-only-secret-not-for-deployment")
 
 from main import app
 from models.base_hero import AncestryHero
