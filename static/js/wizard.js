@@ -778,7 +778,7 @@
             footer.className = "step-shell-footer";
             const back = document.createElement("button");
             back.className = "step-back-button"; back.textContent = "Wstecz";
-            back.addEventListener("click", () => this.store.rewind(this.store.state.current_level));
+            back.addEventListener("click", () => this.store.cancelAdvance());
             const next = document.createElement("button");
             next.className = "confirm-button step-next-button";
             next.textContent = "Dalej";

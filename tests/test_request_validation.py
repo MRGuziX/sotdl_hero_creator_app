@@ -33,6 +33,7 @@ def test_bad_creation_fields_are_rejected(client, extra):
     "suffix,extra",
     [
         ("advance", {"state_version": True}),
+        ("cancel_advance", {"state_version": True}),
         ("rewind", {"target_level": "1"}),
         ("rewind", {"target_level": -1}),
         ("paths/novice", {"path_id": {}}),

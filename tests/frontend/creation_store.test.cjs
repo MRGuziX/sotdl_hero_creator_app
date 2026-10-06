@@ -125,6 +125,18 @@ test('choice undo is available after the completed cursor resets to zero', async
     assert.equal(env.requests[0].url, '/api/creations/carried/rewind_choice');
 });
 
+test('cancelling a path pick carries state/version without opening the PDF drawer', async () => {
+    const env = setup(() => response({state: {...state(4), can_finalize: true}, state_token: 'capsule-4'}));
+    env.store.setContract(contract(3));
+    await env.store.cancelAdvance();
+    assert.equal(env.requests.length, 1);
+    assert.equal(env.requests[0].url, '/api/creations/carried/cancel_advance');
+    assert.deepEqual(JSON.parse(env.requests[0].options.body), {state_version: 3, state_token: 'capsule-3'});
+    assert.equal(env.store.state.state_version, 4);
+    assert.equal(env.urls.length, 0);
+    assert.equal(env.store.busy, false);
+});
+
 test('reset revokes the PDF object URL and removes the token', async () => {
     const env = setup(() => pdf());
     env.store.setContract(contract());

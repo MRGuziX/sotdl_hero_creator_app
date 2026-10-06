@@ -163,6 +163,7 @@
         }
 
         advance() { return this._mutate("advance"); }
+        cancelAdvance() { return this._mutate("cancel_advance", {}, false); }
         pickPath(tier, pathId) { return this._mutate("paths/" + tier, {path_id: pathId}); }
         applyChoices(selections) {
             return this._mutate("steps/" + this.activeLevel + "/choices", {

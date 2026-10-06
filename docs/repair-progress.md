@@ -96,12 +96,24 @@ Use `git log` for that commit's ID.
   existing active-card styling, and native radio controls are visually hidden while
   retaining keyboard and screen-reader behavior. Desktop/phone browser regression checks
   cover clicks in card padding, changing selections and keyboard selection.
-- Path tooltips now use editable `path_description` JSON fields. All four novice paths
+- `bb8b00c`: path tooltips now use editable `path_description` JSON fields. All four novice paths
   have original draft flavor descriptions labeled "Opis roboczy"; missing expert/master
   descriptions use a labeled template. No rulebook text or talent-list fallback is used.
   Catalog regressions verify provided, empty and missing descriptions. Desktop/phone
   workflows open every novice tooltip and ensure reading it cannot select a path.
-- In progress: make the path picker's Back button return to the previous completed level.
+- Path-picker Back now cancels the last advance using a completed-level checkpoint, not
+  the current level's entry snapshot. Character, paths and previous choices are preserved;
+  advancing again cannot apply benefits twice. The return does not automatically open
+  the PDF drawer over the crossroads. Older signed drafts without these checkpoints can
+  still go back, but reopen the previous level's entry choices.
+  Regressions cover novice/expert/master pickers, repeated Back/Advance, reload, stale
+  versions, missing tokens and invalid contexts. No database or state-format bump is needed.
+  This fix is in the final follow-up commit; use `git log` for its ID.
+
+Follow-up verification: 428 Python tests (clean Python 3.12), 16 frontend regressions and
+eight full-Chromium desktop/phone workflows pass. Catalog validation, Ruff lint/format
+and whitespace checks pass. Inspected the path-card layout and mobile description popover.
+All three user-reported issues are handled in separate commits; no push/deployment occurred.
 
 ## Remaining / separate work
 

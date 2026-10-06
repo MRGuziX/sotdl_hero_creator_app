@@ -49,7 +49,7 @@ def test_creation_resume_and_pdf_need_no_cookie_or_backend_storage(raw_client):
         assert independent.get("/api/creations").status_code == 405
 
 
-@pytest.mark.parametrize("suffix", ["resume", "advance", "rewind", "finalize"])
+@pytest.mark.parametrize("suffix", ["resume", "advance", "cancel_advance", "rewind", "finalize"])
 def test_id_alone_cannot_recover_or_change_a_character(raw_client, suffix):
     contract = start(raw_client).json
     response = raw_client.post(

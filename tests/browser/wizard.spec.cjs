@@ -45,6 +45,18 @@ test('manual creation, reload, keyboard path selection, undo and Home', async ({
         await expect(page.locator('#pdf-panel')).toHaveClass(/drawer-open/);
         await page.getByRole('button', {name: 'Zamknij podgląd'}).click();
     }
+    const completedHero = await page.evaluate(() => window.creationStore.state.hero);
+    await page.getByRole('button', {name: 'Awansuj'}).click();
+    await expect(page.locator('path-picker')).toBeVisible();
+    // Exercise the user's actual Back button, including after restoring a tab.
+    await page.reload();
+    await expect(page.locator('path-picker')).toBeVisible();
+    await page.getByRole('button', {name: 'Wstecz', exact: true}).click();
+    await expect(page.locator('crossroads-screen')).toBeVisible();
+    await expect.poll(() => page.evaluate(() => window.creationStore.state.current_level)).toBe(0);
+    expect(await page.evaluate(() => window.creationStore.state.hero)).toEqual(completedHero);
+    await expect(page.locator('step-shell')).toHaveCount(0);
+    await expect(page.locator('#pdf-panel')).not.toHaveClass(/drawer-open/);
     await page.getByRole('button', {name: 'Awansuj'}).click();
     await expect(page.locator('path-picker')).toBeVisible();
     const tips = page.locator('path-picker .ancestry-tooltip-trigger');

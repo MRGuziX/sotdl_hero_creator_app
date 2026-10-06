@@ -305,7 +305,29 @@ def advance(state, data):
         raise CreationError("Creation has unresolved choices", 409)
     if not state.can_advance:
         raise CreationError("Complete required paths and equipment before advancing", 409)
+    # Level checkpoints are entry snapshots. Keep the completed previous level
+    # separately so cancelling a path pick does not reopen already-made choices.
+    state.checkpoint("advance")
     _advance_one_level(state)
+
+
+def cancel_advance(state, data):
+    """Return from an unconfirmed path pick to the previous level's crossroads."""
+    if state.current_level < 1 or not state.awaiting_path_pick():
+        raise CreationError("No path pick is pending", 409)
+    target = state.current_level - 1
+    checkpoint_kind = (
+        "advance"
+        if any(item["kind"] == "advance" and item["level"] == target for item in state.checkpoints)
+        else "level"
+    )
+    # Older signed drafts have only entry checkpoints. Let their Back button
+    # work too, reopening the previous level instead of returning to this picker.
+    try:
+        state.restore_checkpoint(checkpoint_kind, target)
+    except CreationStateError as error:
+        raise CreationError(str(error)) from error
+    state.invalidated_levels = list(range(target + 1, 11))
 
 
 def pick_path(state, data, *, tier):

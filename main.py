@@ -334,6 +334,11 @@ def api_advance_creation(creation_id):
     return _mutate_creation(VersionedRequest, commands.advance, creation_id)
 
 
+@app.post("/api/creations/<creation_id>/cancel_advance")
+def api_cancel_advance_creation(creation_id):
+    return _mutate_creation(VersionedRequest, commands.cancel_advance, creation_id)
+
+
 @app.post("/api/creations/<creation_id>/paths/<tier>")
 def api_pick_path(creation_id, tier):
     return _mutate_creation(PickPath, commands.pick_path, creation_id, tier=tier)
