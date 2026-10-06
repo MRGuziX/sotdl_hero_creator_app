@@ -79,15 +79,16 @@ def _has_placeholders(group: list) -> bool:
 
 
 def _try_expand_current_group(state: CreationState) -> None:
-    if state.choice_cursor >= len(state.level_choices):
-        return
-    group = state.level_choices[state.choice_cursor]
-    if not _has_placeholders(group):
-        return
-    expanded = _expand_dynamic_choice_group(state.hero, group, state.enabled_sources)
-    if expanded:
-        state.level_choices[state.choice_cursor] = expanded
-        state.total_choices_in_level = len(state.level_choices)
+    while state.choice_cursor < len(state.level_choices):
+        group = state.level_choices[state.choice_cursor]
+        expanded = _expand_dynamic_choice_group(state.hero, group, state.enabled_sources)
+        if expanded:
+            state.level_choices[state.choice_cursor] = expanded
+            break
+        del state.level_choices[state.choice_cursor]
+    state.total_choices_in_level = len(state.level_choices)
+    if not state.pending_choices:
+        state.completed_steps = sorted({*state.completed_steps, state.current_level})
 
 
 def _advance_one_level(state: CreationState) -> None:
@@ -212,7 +213,7 @@ def _apply_selected_choices_in_place(
             known = {s.name for s in hero.spells}
             if [s for s in rank0 if s not in known]:
                 has_sztuczki = any(t.name == "Sztuczki" for t in hero.talents)
-                num_picks = 2 if has_sztuczki else 1
+                num_picks = min(2 if has_sztuczki else 1, len([s for s in rank0 if s not in known]))
                 for _ in range(num_picks):
                     marker = AddSpell(name=f"tradition_rank0:{action.name}")
                     level_choices.insert(current_cursor, [marker])
@@ -227,12 +228,8 @@ def _apply_selected_choices_in_place(
                     ]
                     level_choices[i] = filtered if filtered else group
 
-        if current_cursor < len(level_choices) and _has_placeholders(level_choices[current_cursor]):
-            expanded = _expand_dynamic_choice_group(
-                hero, level_choices[current_cursor], state.enabled_sources
-            )
-            if expanded:
-                level_choices[current_cursor] = expanded
+        state.choice_cursor = current_cursor
+        _try_expand_current_group(state)
 
     state.choice_cursor = current_cursor
     state.total_choices_in_level = len(level_choices)
@@ -333,7 +330,7 @@ def pick_path(state, data, *, tier):
         paths["master"] = path_id
         state.hero.master_path_name = path_id
     actions, choices = benefits_for_new_path_pick(before, tier, path_id, state.current_level)
-    remaining, expanded = expand_any_to_choices(state.hero, actions, choices)
+    remaining, expanded = expand_any_to_choices(state.hero, actions, choices, defer_dynamic=True)
     for action in remaining:
         apply_action(action, state.hero, is_random=False)
     state.choice_cursor = 0
