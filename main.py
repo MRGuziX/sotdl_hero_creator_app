@@ -20,7 +20,7 @@ from flask import (
     session,
     url_for,
 )
-from pydantic import TypeAdapter
+from pydantic import TypeAdapter, ValidationError
 
 from config import secret_key
 from domain.creation_state import CreationState
@@ -34,6 +34,14 @@ from models.action import (
 )
 from models.base_hero import AncestryHero
 from models.equipment import Armor, Shield, Weapon
+from models.requests import (
+    ApplyChoices,
+    PickEquipment,
+    PickPath,
+    Rewind,
+    StartCreation,
+    VersionedRequest,
+)
 from utils.pdf_creator import fill_pdf
 from utils.utils import (
     _expand_dynamic_choice_group,
@@ -84,6 +92,28 @@ _MANUAL_CREATION_TTL = 3600
 _MAX_MANUAL_CREATIONS = 1000
 _SAFE_PATH_ID = re.compile(r"^[a-z0-9_]+$")
 _SAFE_SESSION_ID = re.compile(r"[a-f0-9]{32}")
+
+
+class RequestValidationError(ValueError):
+    pass
+
+
+@app.errorhandler(RequestValidationError)
+def invalid_api_request(error):
+    return jsonify({"error": str(error)}), 400
+
+
+def _request_data(model) -> dict:
+    raw = request.get_json(silent=True)
+    if raw is None and not request.get_data():
+        raw = {}
+    if not isinstance(raw, dict):
+        raise RequestValidationError("Request body must be a JSON object")
+    try:
+        return model.model_validate(raw).model_dump(mode="json", exclude_none=True)
+    except ValidationError as error:
+        field = ".".join(str(part) for part in error.errors()[0]["loc"])
+        raise RequestValidationError(f"Invalid {field or 'request'}") from error
 
 
 def _session_id() -> str:
@@ -383,7 +413,7 @@ def _advance_one_level(state: CreationState) -> None:
 @app.post("/api/creations")
 def api_start_creation():
     """Start a manual or random creation without trusting client hero data."""
-    data = request.get_json(silent=True) or {}
+    data = _request_data(StartCreation)
     mode = data.get("mode", "manual")
     ancestry = data.get("ancestry")
     enabled_sources = data.get("enabled_sources", ["PG"])
@@ -404,6 +434,12 @@ def api_start_creation():
         if not 0 <= level <= 10:
             return jsonify({"error": "Invalid target level"}), 400
         paths = _normalize_paths_input(data.get("paths"))
+        for tier in PATH_TIERS:
+            selected = paths["expert"] if tier == "expert" else [paths[tier]]
+            if any(name and (
+                not _path_file_exists(tier, name) or name == "cleric_religions"
+            ) for name in selected):
+                return jsonify({"error": "Unknown path"}), 400
         paths = randomly_pick_paths(level, paths)
         creation_inputs = {"ancestry": ancestry, "target_level": level, "paths": paths}
         hero = get_hero(ancestry, is_random=True, level=level, paths=paths)
@@ -451,11 +487,11 @@ def api_get_creation(creation_id):
 @app.post("/api/creations/<creation_id>/steps/<int:level>/choices")
 def api_apply_choices(creation_id, level):
     state = _get_manual_creation()
-    data = request.get_json(silent=True) or {}
     if state is None or state.state_id != creation_id:
         return jsonify({"error": "Creation not found"}), 404
     if level != state.current_level:
         return jsonify({"error": "Step is not active"}), 409
+    data = _request_data(ApplyChoices)
     if data.get("state_version") != state.state_version:
         return jsonify({"error": "Stale state"}), 409
 
@@ -492,9 +528,9 @@ def api_advance_creation(creation_id):
     auto-loop-to-target behavior with an explicit, single-level step that
     the crossroads screen triggers on demand."""
     state = _get_manual_creation()
-    data = request.get_json(silent=True) or {}
     if state is None or state.state_id != creation_id:
         return jsonify({"error": "Creation not found"}), 404
+    data = _request_data(VersionedRequest)
     if data.get("state_version") != state.state_version:
         return jsonify({"error": "Stale state"}), 409
     if state.pending_choices:
@@ -519,7 +555,7 @@ def api_pick_path(creation_id, tier):
     if tier not in PATH_TIERS:
         return jsonify({"error": "Unsupported path tier"}), 400
 
-    data = request.get_json(silent=True) or {}
+    data = _request_data(PickPath)
     if data.get("state_version") != state.state_version:
         return jsonify({"error": "Stale state"}), 409
     if state.pending_choices:
@@ -587,7 +623,7 @@ def api_set_equipment(creation_id):
     state = _get_manual_creation()
     if state is None or state.state_id != creation_id:
         return jsonify({"error": "Creation not found"}), 404
-    data = request.get_json(silent=True) or {}
+    data = _request_data(PickEquipment)
     if data.get("state_version") != state.state_version:
         return jsonify({"error": "Stale state"}), 409
     if not state.awaiting_equipment_pick():
@@ -649,9 +685,9 @@ def api_set_equipment(creation_id):
 @app.post("/api/creations/<creation_id>/rewind")
 def api_rewind_creation(creation_id):
     state = _get_manual_creation()
-    data = request.get_json(silent=True) or {}
     if state is None or state.state_id != creation_id:
         return jsonify({"error": "Creation not found"}), 404
+    data = _request_data(Rewind)
     if data.get("state_version") != state.state_version:
         return jsonify({"error": "Stale state"}), 409
     try:
@@ -714,7 +750,7 @@ def api_rewind_choice(creation_id):
     state = _get_manual_creation()
     if state is None or state.state_id != creation_id:
         return jsonify({"error": "Creation not found"}), 404
-    data = request.get_json(silent=True) or {}
+    data = _request_data(VersionedRequest)
     if data.get("state_version") != state.state_version:
         return jsonify({"error": "Stale state"}), 409
     if state.choice_cursor <= 0:
