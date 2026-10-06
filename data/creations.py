@@ -42,7 +42,7 @@ class MemoryCreationRepository:
             self._purge()
             if state.state_id in self._entries:
                 raise ValueError("Creation already exists")
-            self._entries[state.state_id] = (owner, state.to_dict(), self.clock())
+            self._entries[state.state_id] = (owner, deepcopy(state.to_dict()), self.clock())
             while len(self._entries) > self.capacity:
                 oldest = min(self._entries, key=lambda key: self._entries[key][2])
                 del self._entries[oldest]
@@ -61,7 +61,7 @@ class MemoryCreationRepository:
             entry = self._entries.get(state.state_id)
             if entry is None or entry[0] != owner or entry[1]["state_version"] != expected_version:
                 return False
-            self._entries[state.state_id] = (owner, state.to_dict(), self.clock())
+            self._entries[state.state_id] = (owner, deepcopy(state.to_dict()), self.clock())
             return True
 
     def list(self, owner):
