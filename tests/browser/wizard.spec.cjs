@@ -47,8 +47,19 @@ test('manual creation, reload, keyboard path selection, undo and Home', async ({
     }
     await page.getByRole('button', {name: 'Awansuj'}).click();
     await expect(page.locator('path-picker')).toBeVisible();
+    const cards = page.locator('path-picker .path-option');
+    const cardSize = await cards.first().boundingBox();
+    // Clicking card padding, not just its name, must select the option.
+    await cards.first().click({position: {x: 10, y: cardSize.height - 8}});
+    await expect(cards.first()).toHaveClass(/active/);
+    await expect(page.getByRole('button', {name: 'Dalej', exact: true})).toBeEnabled();
+    await cards.nth(1).click({position: {x: 10, y: cardSize.height - 8}});
+    await expect(cards.first()).not.toHaveClass(/active/);
+    await expect(cards.nth(1)).toHaveClass(/active/);
+    await expect(page.locator('path-picker input[type=radio]:checked')).toHaveCount(1);
     await page.screenshot({path: test.info().outputPath('path-picker.png')});
     const path = page.locator('path-picker input[type=radio]').first();
+    expect(await path.evaluate(node => getComputedStyle(node).opacity)).toBe('0');
     await path.focus();
     await page.keyboard.press('Space');
     await expect(page.locator('path-picker input[type=radio]:checked')).toBeFocused();

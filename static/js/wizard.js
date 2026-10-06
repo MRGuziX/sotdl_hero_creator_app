@@ -697,7 +697,7 @@
         get tier() { return this.getAttribute("tier"); }
         _pathCard(path, tier) {
             const card = document.createElement("div");
-            card.className = "ancestry-item";
+            card.className = "ancestry-item path-option";
             if (this._selected === path.id && this._selectedTier === tier) card.classList.add("active");
             const label = document.createElement("label");
             const input = document.createElement("input");
@@ -712,7 +712,10 @@
                 Array.from(this.querySelectorAll("input[name='path-choice']"))
                     .find(node => node.value === input.value)?.focus();
             });
-            label.append(input, document.createTextNode(path.name));
+            const name = document.createElement("span");
+            name.className = "ancestry-name";
+            name.textContent = path.name;
+            label.append(input, name);
             card.append(label);
             if (path.description) {
                 const tip = document.createElement("button");

@@ -90,6 +90,15 @@ Use `git log` for that commit's ID.
 - Added GitHub Actions checks with PostgreSQL, Python, Node and Chromium. The remote
   workflow itself has not run: no push or deployment was performed.
 
+## Path-picker follow-up repairs (2026-10-06)
+
+- Restore button-like path cards: the whole card label is clickable, selection has the
+  existing active-card styling, and native radio controls are visually hidden while
+  retaining keyboard and screen-reader behavior. Desktop/phone browser regression checks
+  cover clicks in card padding, changing selections and keyboard selection.
+- In progress: replace talent-list tooltips with path descriptions/placeholders and make
+  the path picker's Back button return to the previous completed level.
+
 ## Remaining / separate work
 
 No planned code repairs remain. Independent rulebook/supplement accuracy review,
