@@ -212,6 +212,7 @@ class CreationState:
             "state_version": self.state_version,
             "mode": self.mode,
             "current_level": self.current_level,
+            "enabled_sources": list(self.enabled_sources),
             "completed_steps": self.completed_steps,
             "invalidated_levels": self.invalidated_levels,
             "hero": self.hero.model_dump(mode="json"),

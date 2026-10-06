@@ -115,6 +115,7 @@ def _advance_one_level(state: CreationState) -> None:
         next_level,
         is_random=False,
         paths=paths,
+        enabled_sources=state.enabled_sources,
     )
     state.hero.level = next_level
     state.current_level = next_level
@@ -242,6 +243,10 @@ def _apply_selected_choices_in_place(
 def start_creation(data):
     ancestry = data["ancestry"]
     mode = data["mode"]
+    sources = data["enabled_sources"]
+    ancestry_data = load_json(f"data_base/ancestry/{ancestry}/{ancestry}.json")
+    if (ancestry_data["general"].get("origin") or {}).get("source", "PG") not in sources:
+        raise CreationError("Ancestry source is not enabled")
     if mode == "random":
         level = data["target_level"]
         paths = data["paths"]
@@ -253,8 +258,11 @@ def start_creation(data):
                 file = Path(__file__).resolve().parent.parent / "data_base" / "paths" / tier
                 if name and (name == "cleric_religions" or not (file / f"{name}.json").is_file()):
                     raise CreationError("Unknown path")
-        paths = randomly_pick_paths(level, paths)
-        hero = get_hero(ancestry, is_random=True, level=level, paths=paths)
+                if name and (load_json(f"data_base/paths/{tier}/{name}.json").get("origin")
+                             or {}).get("source", "PG") not in sources:
+                    raise CreationError("Path source is not enabled")
+        paths = randomly_pick_paths(level, paths, sources)
+        hero = get_hero(ancestry, is_random=True, level=level, paths=paths, enabled_sources=sources)
         state = CreationState(
             hero=hero,
             mode=mode,
@@ -264,7 +272,7 @@ def start_creation(data):
             enabled_sources=data["enabled_sources"],
         )
     else:
-        result = get_hero(ancestry, is_random=False, level=0)
+        result = get_hero(ancestry, is_random=False, level=0, enabled_sources=sources)
         hero, choices = result if isinstance(result, tuple) else (result, [])
         state = CreationState(
             hero=hero,
@@ -318,6 +326,10 @@ def pick_path(state, data, *, tier):
     directory = Path(__file__).resolve().parent.parent / "data_base" / "paths" / tier
     if path_id == "cleric_religions" or not (directory / f"{path_id}.json").is_file():
         raise CreationError("Unknown path")
+    if (load_json(f"data_base/paths/{tier}/{path_id}.json").get("origin") or {}).get(
+        "source", "PG"
+    ) not in state.enabled_sources:
+        raise CreationError("Path source is not enabled")
     state.checkpoint("path")
     before = deepcopy(paths)
     if tier == "expert":

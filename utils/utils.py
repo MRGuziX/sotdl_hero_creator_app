@@ -888,6 +888,14 @@ def _expand_dynamic_choice_group(
     }
     known_spells = {spell.name for spell in hero.spells}
     languages = {language.name: language for language in hero.languages}
+    available_traditions = {
+        name for name in TRADITION_FILE_MAP
+        if enabled_sources is None or any(
+            (spell.get("origin") or {}).get("source", "PG") in enabled_sources
+            for spells in _load_json(f"data_base/spells/{TRADITION_FILE_MAP[name]}").values()
+            for spell in spells
+        )
+    }
     expanded = []
     for action in choice_group:
         match action:
@@ -896,8 +904,8 @@ def _expand_dynamic_choice_group(
             case AddTradition(name="any"):
                 expanded.extend(
                     AddTradition(name=name)
-                    for name in sorted(TRADITION_FILE_MAP)
-                    if name not in known_traditions
+                    for name in sorted(available_traditions)
+                    if name not in known_traditions and name in available_traditions
                 )
             case AddTradition(name="religious_tradition"):
                 expanded.extend(
@@ -906,7 +914,7 @@ def _expand_dynamic_choice_group(
                     if name not in known_traditions
                 )
             case AddTradition(name=name):
-                if name not in known_traditions:
+                if name not in known_traditions and name in available_traditions:
                     expanded.append(action)
             case AddSpell(name=name):
                 if name.startswith("tradition_rank0:"):
@@ -979,10 +987,11 @@ def resolve_choices(
     choices: list[Choice],
     is_random: bool = True,
     selected_choices: list[Action] | None = None,
+    enabled_sources: list[str] | None = None,
 ) -> list[Action]:
     if is_random:
         for i, choice_group in enumerate(choices):
-            expanded_group = _expand_dynamic_choice_group(hero, choice_group)
+            expanded_group = _expand_dynamic_choice_group(hero, choice_group, enabled_sources)
 
             if not expanded_group:
                 logger.info("Skipping an exhausted choice group")
@@ -998,7 +1007,8 @@ def resolve_choices(
                 "any",
                 "religious_tradition",
             ):
-                rank0 = get_spells_for_tradition(picked.name, power_level=0)
+                rank0 = get_spells_for_tradition(picked.name, power_level=0,
+                                               enabled_sources=enabled_sources)
                 known = {s.name for s in hero.spells}
                 available = [s for s in rank0 if s not in known]
                 has_sztuczki = any(t.name == "Sztuczki" for t in hero.talents)
@@ -1022,6 +1032,7 @@ def expand_any_to_choices(
     choices: list[Choice] | None = None,
     *,
     defer_dynamic: bool = False,
+    enabled_sources: list[str] | None = None,
 ) -> tuple[list[Action], list[Choice]]:
     """Convert actions requiring a decision into choices, preserving future definitions.
 
@@ -1067,7 +1078,9 @@ def expand_any_to_choices(
     definitions = generated + list(choices)
     if defer_dynamic:
         return remaining, definitions
-    return remaining, [_expand_dynamic_choice_group(hero, group) for group in definitions]
+    return remaining, [
+        _expand_dynamic_choice_group(hero, group, enabled_sources) for group in definitions
+    ]
 
 
 def add_wealth(hero: AncestryHero, actions: list[Action], choices: list[Choice]):
@@ -1112,36 +1125,43 @@ def add_oddity(hero: AncestryHero):
             return
 
 
-def randomly_pick_paths(target_level: int, existing_paths: dict) -> dict:
+def randomly_pick_paths(
+    target_level: int, existing_paths: dict, enabled_sources: list[str] | None = None,
+) -> dict:
     """Fill missing paths randomly based on the target level for Random mode."""
     paths = {
         "novice": existing_paths.get("novice"),
         "expert": list(existing_paths.get("expert") or []),
         "master": existing_paths.get("master"),
     }
+    def options_for(directory):
+        return [file.stem for file in sorted(directory.glob("*.json"))
+                if file.name != "cleric_religions.json" and (
+                    enabled_sources is None or
+                    (_load_json(str(file.relative_to(PROJECT_ROOT))).get("origin") or {}).get(
+                        "source", "PG"
+                    ) in enabled_sources
+                )]
 
     if target_level >= 1 and not paths["novice"]:
-        options = [
-            f.stem for f in NOVICE_PATHS_DIR.glob("*.json") if f.name != "cleric_religions.json"
-        ]
+        options = options_for(NOVICE_PATHS_DIR)
         if options:
             paths["novice"] = random.choice(options)
 
     if target_level >= 3 and len(paths["expert"]) < 1:
-        options = [f.stem for f in EXPERT_PATHS_DIR.glob("*.json")]
+        options = options_for(EXPERT_PATHS_DIR)
         if options:
             paths["expert"].append(random.choice(options))
 
     if target_level >= 7:
         if not paths["master"] and len(paths["expert"]) < 2:
             if random.choice(["master", "expert"]) == "master":
-                options = [f.stem for f in MASTER_PATHS_DIR.glob("*.json")]
+                options = options_for(MASTER_PATHS_DIR)
                 if options:
                     paths["master"] = random.choice(options)
             else:
-                options = [
-                    f.stem for f in EXPERT_PATHS_DIR.glob("*.json") if f.stem not in paths["expert"]
-                ]
+                options = [name for name in options_for(EXPERT_PATHS_DIR)
+                           if name not in paths["expert"]]
                 if options:
                     paths["expert"].append(random.choice(options))
 
@@ -1154,10 +1174,11 @@ def get_hero(
     level: int = 0,
     path_name: str | None = None,
     paths: dict | None = None,
+    enabled_sources: list[str] | None = None,
 ) -> AncestryHero | tuple[AncestryHero, list[Choice]]:
     resolved_paths = _resolve_paths(paths, path_name)
     if is_random:
-        resolved_paths = randomly_pick_paths(level, resolved_paths)
+        resolved_paths = randomly_pick_paths(level, resolved_paths, enabled_sources)
     logger.info(
         "=== get_hero: ancestry=%s, is_random=%s, level=%d, paths=%s ===",
         ancestry,
@@ -1195,7 +1216,9 @@ def get_hero(
             apply_action(action, hero, is_random=True)
 
         # Then resolve and apply choices one by one
-        choice_actions = resolve_choices(hero, [], choices, is_random=True)
+        choice_actions = resolve_choices(
+            hero, [], choices, is_random=True, enabled_sources=enabled_sources
+        )
         actions.extend(choice_actions)
         for next_level in range(1, level + 1):
             advance_hero(
@@ -1204,8 +1227,7 @@ def get_hero(
                 None,
                 next_level - 1,
                 next_level,
-                is_random=True,
-                paths=resolved_paths,
+                is_random=True, paths=resolved_paths, enabled_sources=enabled_sources,
             )
 
     if is_random and level >= 3:
@@ -1235,6 +1257,7 @@ def advance_hero(
     to_level: int,
     is_random: bool = False,
     paths: dict | None = None,
+    enabled_sources: list[str] | None = None,
 ) -> list[Choice]:
     """Apply the deterministic actions gained moving from `from_level` to
     `to_level` and return any unresolved choice groups still needed.
@@ -1265,7 +1288,7 @@ def advance_hero(
         apply_action(action, hero, is_random=is_random)
 
     if is_random:
-        resolve_choices(hero, [], expanded_choices, is_random=True)
+        resolve_choices(hero, [], expanded_choices, is_random=True, enabled_sources=enabled_sources)
         return []
 
     return expanded_choices
