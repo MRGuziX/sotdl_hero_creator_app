@@ -22,7 +22,7 @@ def _start(client, ancestry="human", mode="manual", target_level=0, paths=None):
     return response.get_json()
 
 
-def _resolve_all_choices(client, creation_id, state):
+def _resolve_all_choices(client, creation_id, state, *, confirm_equipment=True):
     while state["pending_choices"]:
         group = state["pending_choices"][0]
         response = client.post(
@@ -37,6 +37,13 @@ def _resolve_all_choices(client, creation_id, state):
         assert response.status_code == 200
         payload = response.get_json()
         state = payload["state"]
+    if confirm_equipment and state.get("awaiting_equipment_pick"):
+        response = client.post(
+            f"/api/creations/{creation_id}/equipment",
+            json={"state_version": state["state_version"]},
+        )
+        assert response.status_code == 200
+        state = response.get_json()["state"]
     return state
 
 
@@ -354,8 +361,9 @@ def test_full_manual_playthrough_level_zero_to_ten_through_expert_and_master(cli
     assert state["current_level"] == 0
 
     while state["current_level"] < 10:
-        assert state["can_advance"] is True
-        assert state["can_finalize"] is True
+        complete = not state["awaiting_path_pick"] and not state["awaiting_equipment_pick"]
+        assert state["can_advance"] is complete
+        assert state["can_finalize"] is complete
 
         awaiting = state["awaiting_path_pick"]
         if awaiting == "novice":
@@ -429,3 +437,42 @@ def test_random_mode_supports_expert_and_master_paths(client):
     assert state["current_level"] == 10
     assert state["completed_steps"] == list(range(11))
     assert state["pending_choices"] == []
+
+
+def test_missing_novice_path_blocks_advancement_and_export(client):
+    contract = _start(client)
+    cid = contract["creation_id"]
+    state = _resolve_all_choices(client, cid, contract["state"])
+    state, _ = _advance(client, cid, state)
+    assert state["awaiting_path_pick"] == "novice"
+    assert state["can_advance"] is False
+    assert state["can_finalize"] is False
+    assert client.post(
+        f"/api/creations/{cid}/advance", json={"state_version": state["state_version"]}
+    ).status_code == 409
+    assert client.post(f"/api/creations/{cid}/finalize").status_code == 409
+
+
+def test_unconfirmed_equipment_blocks_advancement_and_export(client):
+    contract = _start(client)
+    cid = contract["creation_id"]
+    state = _resolve_all_choices(client, cid, contract["state"])
+    for _ in range(20):
+        if state["awaiting_path_pick"]:
+            tier = state["awaiting_path_pick"]
+            state, _ = _pick_path(
+                client, cid, state, tier, {"novice": "warrior", "expert": "fighter"}[tier]
+            )
+        elif state.get("awaiting_equipment_pick"):
+            break
+        else:
+            state, _ = _advance(client, cid, state)
+        state = _resolve_all_choices(client, cid, state, confirm_equipment=False)
+    assert state["current_level"] == 3
+    assert state["awaiting_equipment_pick"] is True
+    assert state["can_advance"] is False
+    assert state["can_finalize"] is False
+    assert client.post(
+        f"/api/creations/{cid}/advance", json={"state_version": state["state_version"]}
+    ).status_code == 409
+    assert client.post(f"/api/creations/{cid}/finalize").status_code == 409

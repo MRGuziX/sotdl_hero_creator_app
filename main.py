@@ -502,6 +502,8 @@ def api_advance_creation(creation_id):
         return jsonify({"error": "Creation has unresolved choices"}), 409
     if state.current_level >= 10:
         return jsonify({"error": "Hero is already at the maximum level"}), 409
+    if not state.can_advance:
+        return jsonify({"error": "Complete required paths and equipment before advancing"}), 409
 
     _advance_one_level(state)
     state.touch()
@@ -706,6 +708,8 @@ def api_finalize_creation(creation_id):
         return jsonify({"error": "Creation not found"}), 404
     if state.pending_choices:
         return jsonify({"error": "Creation has unresolved choices"}), 409
+    if not state.can_finalize:
+        return jsonify({"error": "Complete required paths and equipment before exporting"}), 409
     fill_pdf(state.hero, _output_path())
     return jsonify(
         {"summary": state.hero.model_dump(mode="json"), "pdf_url": url_for("download_current")}

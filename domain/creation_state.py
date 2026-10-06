@@ -148,20 +148,24 @@ class CreationState:
         return self.choice_cursor >= self.total_choices_in_level
 
     @property
-    def can_finalize(self) -> bool:
-        """Return whether a hero preview/PDF may be produced right now.
+    def step_complete(self) -> bool:
+        return (
+            self.required_complete
+            and not self.pending_choices
+            and not self.awaiting_path_pick()
+            and not self.awaiting_equipment_pick()
+        )
 
-        Once a hero exists and has no unresolved choices, finalize/preview
-        is always available - the wizard is no longer gated behind reaching
-        level 10, so the player can stop and save at any crossroads.
-        """
-        return self.required_complete
+    @property
+    def can_finalize(self) -> bool:
+        """Allow export at any level after every requirement is resolved."""
+        return self.step_complete
 
     @property
     def can_advance(self) -> bool:
         """Return whether the crossroads screen may request advancing one
         more level via `POST /api/creations/<id>/advance`."""
-        return self.required_complete and self.current_level < 10
+        return self.mode == "manual" and self.step_complete and self.current_level < 10
 
     def awaiting_path_pick(self) -> str | None:
         """Return which path tier still needs to be chosen before the
