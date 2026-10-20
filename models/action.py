@@ -1,6 +1,7 @@
 from typing import Annotated, Literal
 
 from pydantic import BaseModel, Field, model_validator
+
 from models.spell import Spell
 
 

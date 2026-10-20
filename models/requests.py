@@ -12,8 +12,8 @@ from pydantic import (
     model_validator,
 )
 
-from models.action import Action
 from domain.state_token import MAX_TOKEN_LENGTH
+from models.action import Action
 
 PathID = Annotated[str, StringConstraints(pattern=r"^[a-z0-9_]+$")]
 Level = Annotated[int, Field(ge=0, le=10)]

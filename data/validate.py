@@ -9,14 +9,14 @@ from models.action import (
     AddSpell,
     AddTradition,
 )
-from models.spell import Spell
 from models.equipment import Armor, Shield, Weapon
-from models.tables import RollTableEntry, ProfessionEntry, WealthEntry
+from models.spell import Spell
+from models.tables import ProfessionEntry, RollTableEntry, WealthEntry
 from utils.utils import (
     ALL_LANGUAGES,
     CORE_ATTRIBUTES,
-    SECONDARY_ATTRIBUTES,
     PROFESSION_CATEGORIES,
+    SECONDARY_ATTRIBUTES,
     TRADITION_FILE_MAP,
 )
 

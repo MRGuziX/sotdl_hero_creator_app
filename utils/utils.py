@@ -5,8 +5,9 @@ import random
 import re
 
 from pydantic import TypeAdapter
-from data.repository import load_json as repository_load_json, normalize_action, normalize_benefit
 
+from data.repository import load_json as repository_load_json
+from data.repository import normalize_action, normalize_benefit
 from models.action import (
     Action,
     AddAttribute,

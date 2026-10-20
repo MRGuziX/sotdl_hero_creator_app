@@ -22,8 +22,8 @@ from utils.pdf_creator import (
     _spell_effect_value,
     _spell_name_bounds,
     _spell_name_font_size,
-    _spell_origin_text,
     _spell_origin_offset_y,
+    _spell_origin_text,
     _spell_origin_x,
     _spell_table_top,
     fill_pdf,
@@ -248,7 +248,10 @@ def test_witch_path_spell_renders_card_fields():
     assert fields["spell_name_card_1"] == "WIEDŹMI OGIEŃ"
     assert fields["spell_tags_card_1"] == "Wiedźma, Atak 1"
     assert fields["spell_duration_card_1"] == "Czas trwania: Koncentracja, do 1 minuty."
-    assert fields["spell_attack_roll_card_1"] == "Rzut na atak to 20+: Cel otrzymuje dodatkowe 1k6 obrażeń."
+    assert (
+        fields["spell_attack_roll_card_1"]
+        == "Rzut na atak to 20+: Cel otrzymuje dodatkowe 1k6 obrażeń."
+    )
     assert fields["spell_origin_card_1"] == {"source": "PG", "number": 73}
 
 
@@ -289,8 +292,14 @@ def test_spellbinder_and_exorcist_path_spells_render_card_fields():
     ex_fields = _spell_card_fields(hero.spells[1], 2)
     assert ex_fields["spell_name_card_2"] == "EGZORCYZM"
     assert ex_fields["spell_tags_card_2"] == "Egzorcysta, Atak 1"
-    assert ex_fields["spell_target_card_2"] == "Cel: Jedno stworzenie w bliskim zasięgu, które jest zauroczone, zniewolone, przestraszone lub opętane."
-    assert ex_fields["spell_attack_roll_card_2"] == "Rzut na atak to 20+: Opętująca istota jest zamiast tego oszołomiona przez 1 rundę."
+    assert (
+        ex_fields["spell_target_card_2"]
+        == "Cel: Jedno stworzenie w bliskim zasięgu, które jest zauroczone, zniewolone, przestraszone lub opętane."
+    )
+    assert (
+        ex_fields["spell_attack_roll_card_2"]
+        == "Rzut na atak to 20+: Opętująca istota jest zamiast tego oszołomiona przez 1 rundę."
+    )
     assert ex_fields["spell_origin_card_2"] == {"source": "PG", "number": 81}
 
 
@@ -707,7 +716,12 @@ def test_spell_name_uses_card_edges_for_wrapping():
 
 def test_spell_name_multiline_offset():
     from unittest.mock import MagicMock
-    from utils.pdf_creator import _draw_wrapped_centered, SPELL_NAME_FONT, SPELL_NAME_MULTILINE_OFFSET_Y
+
+    from utils.pdf_creator import (
+        SPELL_NAME_FONT,
+        SPELL_NAME_MULTILINE_OFFSET_Y,
+        _draw_wrapped_centered,
+    )
 
     canvas = MagicMock()
     # Test single line does not apply multiline offset

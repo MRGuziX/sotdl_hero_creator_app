@@ -22,10 +22,10 @@ from utils.utils import (
     apply_action,
     benefits_for_new_path_pick,
     expand_any_to_choices,
+    finalize_defense,
     get_hero,
     get_spells_for_tradition,
     is_duplicate_expert_path,
-    finalize_defense,
     load_json,
     randomly_pick_paths,
 )

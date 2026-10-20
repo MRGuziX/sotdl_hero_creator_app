@@ -3,14 +3,7 @@ import json
 import pytest
 from pydantic import ValidationError
 
-from models.action import (
-    Action,
-    AddAttribute,
-    AddItem,
-    AddLanguage,
-    AddProfession,
-    GrantLiteracy,
-)
+from models.action import Action, AddAttribute, AddItem, AddLanguage, AddProfession, GrantLiteracy
 from models.ancestry import AncestryData
 from models.base_hero import AncestryHero
 from models.equipment import Armor, Equipment, Money, Shield, Weapon

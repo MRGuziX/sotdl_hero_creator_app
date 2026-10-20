@@ -2,8 +2,8 @@ from pydantic import BaseModel, ConfigDict, Field, model_validator
 
 from models.equipment import Equipment, Money
 from models.language import Language
-from models.talent import Talent
 from models.spell import Spell
+from models.talent import Talent
 
 
 class AncestryHero(BaseModel):
