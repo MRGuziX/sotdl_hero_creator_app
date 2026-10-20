@@ -29,8 +29,23 @@
         },
         {
           "type": "add_spell",
-          "name": "Zaklęta broń",
-          "description": "ZAKLĘTA BROŃ ZAKLINACZ, UŻYTKOWE 0 Dotykasz jednej broni w bezpośrednim zasięgu i nasycasz ją magiczną mocą na 4 godziny. Dopóki czar trwa, zyskujesz następujące korzyści. • Broń liczy się jako instrument magiczny. • Rzuty na atak przy użyciu tej broni wykonujesz z 1 ułatwieniem. • Jeśli broń znajduje się w odległości do 1,5 kilometra od ciebie, możesz wykorzystać akcję, by teleportować ją prosto do swoich rąk. Jeśli masz zajęte ręce, pojawi się ona u twoich stóp. • Możesz wykorzystać akcję, by dotknąć zaklętej broni i usunąć z niej wszelkie uszkodzenia, nawet jeśli została zniszczona, pod warunkiem że posiadasz chociaż jeden jej fragment. Poświęcenie: Możesz wykorzystać reakcję i poświęcić użycie tego zaklęcia, dzięki czemu do końca rundy zadajesz zaklętą bronią dodatkowe obrażenia równe twojej Mocy."
+          "spell": {
+            "name": "ZAKLĘTA BROŃ",
+            "tags": [
+              "Zaklinacz",
+              "Użytkowe"
+            ],
+            "level": 0,
+            "target": "Cel: Jedna broń w bezpośrednim zasięgu.",
+            "duration": "Czas trwania: 4 godziny.",
+            "sacrifice": "Poświęcenie: Możesz wykorzystać reakcję i poświęcić użycie tego zaklęcia, dzięki czemu do końca rundy zadajesz zaklętą bronią dodatkowe obrażenia równe twojej Mocy.",
+            "book_description": "Dotykasz jednej broni w bezpośrednim zasięgu i nasycasz ją magiczną mocą na 4 godziny. Dopóki czar trwa, zyskujesz następujące korzyści:\n• Broń liczy się jako instrument magiczny.\n• Rzuty na atak przy użyciu tej broni wykonujesz z 1 ułatwieniem.\n• Jeśli broń znajduje się w odległości do 1,5 kilometra od ciebie, możesz wykorzystać akcję, by teleportować ją prosto do swoich rąk. Jeśli masz zajęte ręce, pojawi się ona u twoich stóp.\n• Możesz wykorzystać akcję, by dotknąć zaklętej broni i usunąć z niej wszelkie uszkodzenia, nawet jeśli została zniszczona, pod warunkiem że posiadasz chociaż jeden jej fragment.",
+            "card_description": "Dotykasz jednej broni w bezpośrednim zasięgu i jest magiczna na 4h.\n• Broń liczy się jako instrument magiczny.\n• Rzuty na atak tą bronią z 1 ułatwieniem.\n• Jeśli broń jest do 1,5 km od ciebie, akcją\nteleportujesz ją do rąk (lub pod stopy).\n• Akcją usuwasz z niej uszkodzenia,\nnawet jeśli została zniszczona (jeśli masz fragment).",
+            "origin": {
+              "source": "PG",
+              "number": 76
+            }
+          }
         }
       ],
       "choices": [

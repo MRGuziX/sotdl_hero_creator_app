@@ -70,13 +70,17 @@ def test_supplied_path_description_is_preferred_over_the_template(monkeypatch):
 
 
 @pytest.mark.parametrize(
-    "tier,path,level,name",
-    [("master", "exorcist", 7, "Egzorcyzm"), ("expert", "witch", 3, "Wiedźmi ogień")],
+    "tier,path,level,name,spell_level",
+    [
+        ("master", "exorcist", 7, "EGZORCYZM", 1),
+        ("expert", "witch", 3, "WIEDŹMI OGIEŃ", 1),
+        ("expert", "spellbinder", 3, "ZAKLĘTA BROŃ", 0),
+    ],
 )
-def test_embedded_spell_preserves_rules(hero, tier, path, level, name):
+def test_embedded_spell_preserves_rules(hero, tier, path, level, name, spell_level):
     benefit = load_path(tier, path).level_benefits[level]
     action = next(action for action in benefit.actions if action.type == "add_spell")
     apply_action(action, hero, False)
     assert hero.spells[-1].name == name
     assert hero.spells[-1].description == action.spell.description
-    assert hero.spells[-1].level == 1
+    assert hero.spells[-1].level == spell_level

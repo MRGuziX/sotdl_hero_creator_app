@@ -1,20 +1,20 @@
 import pathlib
 import re
 from dataclasses import dataclass
-from html import escape
-from typing import Any
-from io import BytesIO
 from functools import lru_cache
-from fontTools.ttLib import TTFont as FontToolsFont
+from html import escape
+from io import BytesIO
+from typing import Any
 
+from fontTools.ttLib import TTFont as FontToolsFont
 from pypdf import PdfReader, PdfWriter
 from pypdf._font import Font
 from pypdf.generic import (
+    DecodedStreamObject,
+    DictionaryObject,
     NameObject,
     NumberObject,
     TextStringObject,
-    DictionaryObject,
-    DecodedStreamObject,
 )
 from pypdf.generic._appearance_stream import BaseStreamConfig, TextStreamAppearance
 from reportlab.lib.colors import black, white
@@ -28,9 +28,19 @@ from reportlab.platypus import Paragraph, Table, TableStyle
 
 from models.base_hero import AncestryHero
 
-SPELL_NAME_FONT = "FirstOrderPL"
-SPELL_FONT = "Athelas"
-SPELL_FONT_BOLD = "Athelas-Bold"
+FONTS_DIR = pathlib.Path(__file__).parent.parent / "data_base" / "fonts"
+
+SPELL_NAME_FONT = "Arial-Bold"
+SPELL_NAME_FONT_FILE = "arialbd.ttf"
+
+SPELL_FONT = "Arial"
+SPELL_FONT_FILE = "arial.ttf"
+
+SPELL_FONT_BOLD = "Arial-Bold"
+SPELL_FONT_BOLD_FILE = "arialbd.ttf"
+
+FORM_FONT_NAME = "/Arial"
+FORM_FONT_FILE = "arial.ttf"
 
 # Spell-card coordinate system, expressed in the template's pixel grid.
 SPELL_CARD_COLUMNS_X = (500, 1253, 2007)
@@ -38,6 +48,7 @@ SPELL_CARD_ROW_BASES_Y = (135, 1255, 2375)
 
 SPELL_NAME_LEFT_X = 170
 SPELL_NAME_RIGHT_X = 800
+SPELL_NAME_MULTILINE_OFFSET_Y = 5
 SPELL_DESCRIPTION_LEFT_X = 170
 SPELL_DESCRIPTION_RIGHT_X = 798
 
@@ -57,17 +68,17 @@ SPELL_TABLE_FONT_SIZE = 5
 
 
 def _register_spell_fonts() -> None:
-    fonts_dir = pathlib.Path(__file__).parent.parent / "data_base" / "fonts"
-    name_font_path = fonts_dir / "first_order_pl.ttf"
-    text_font_path = fonts_dir / "athelas.ttc"
-    if not name_font_path.exists() or not text_font_path.exists():
-        raise RuntimeError("Nie znaleziono fontów First Order PL lub Athelas.")
+    name_font_path = FONTS_DIR / SPELL_NAME_FONT_FILE
+    body_font_path = FONTS_DIR / SPELL_FONT_FILE
+    bold_font_path = FONTS_DIR / SPELL_FONT_BOLD_FILE
+    if not name_font_path.exists() or not body_font_path.exists() or not bold_font_path.exists():
+        raise RuntimeError("Nie znaleziono wymaganych plików fontów.")
     if SPELL_NAME_FONT not in pdfmetrics.getRegisteredFontNames():
         pdfmetrics.registerFont(TTFont(SPELL_NAME_FONT, str(name_font_path)))
     if SPELL_FONT not in pdfmetrics.getRegisteredFontNames():
-        pdfmetrics.registerFont(TTFont(SPELL_FONT, str(text_font_path), subfontIndex=0))
+        pdfmetrics.registerFont(TTFont(SPELL_FONT, str(body_font_path)))
     if SPELL_FONT_BOLD not in pdfmetrics.getRegisteredFontNames():
-        pdfmetrics.registerFont(TTFont(SPELL_FONT_BOLD, str(text_font_path), subfontIndex=3))
+        pdfmetrics.registerFont(TTFont(SPELL_FONT_BOLD, str(bold_font_path)))
 
 
 @dataclass
@@ -158,8 +169,8 @@ def distribute_talents(talents):
 
 @lru_cache(maxsize=1)
 def _form_font_bytes() -> bytes:
-    font_path = pathlib.Path(__file__).parent.parent / "data_base/fonts/athelas.ttc"
-    with FontToolsFont(font_path, fontNumber=0) as font:
+    font_path = FONTS_DIR / FORM_FONT_FILE
+    with FontToolsFont(font_path) as font:
         buffer = BytesIO()
         font.save(buffer)
         return buffer.getvalue()
@@ -173,17 +184,18 @@ def _attach_form_font(writer: PdfWriter):
     """
     fonts = writer.root_object["/AcroForm"]["/DR"]["/Font"]
     font = Font.from_truetype_font_file(BytesIO(_form_font_bytes()))
-    resource = font._add_to_writer(writer, fonts, NameObject("/Athelas"))
+    resource = font._add_to_writer(writer, fonts, NameObject(FORM_FONT_NAME))
     return font, resource
 
 
 def _fill_form_fields(writer, page, values: dict, font, resource) -> None:
+    default_da = f"{FORM_FONT_NAME} 10 Tf 0 g"
     for reference in page.get("/Annots", []):
         annotation = reference.get_object()
         name = annotation.get("/T")
         if name not in values:
             continue
-        appearance = annotation.get("/DA", "/Athelas 10 Tf 0 g")
+        appearance = annotation.get("/DA", default_da)
         size = re.search(r"([\d.]+)\s+Tf", appearance)
         font_size = size.group(1) if size else "10"
         value = str(values[name])
@@ -192,7 +204,7 @@ def _fill_form_fields(writer, page, values: dict, font, resource) -> None:
             # equipment names and talent descriptions. Keep numeric stat sizes.
             font_size = "0"
             annotation[NameObject("/Ff")] = NumberObject(int(annotation.get("/Ff", 0)) | 4096)
-        annotation[NameObject("/DA")] = TextStringObject(f"/Athelas {font_size} Tf 0 g")
+        annotation[NameObject("/DA")] = TextStringObject(f"{FORM_FONT_NAME} {font_size} Tf 0 g")
         annotation[NameObject("/V")] = TextStringObject(value)
         x0, y0, x1, y1 = map(float, annotation["/Rect"])
         # Generate from unescaped Unicode text: pypdf's form updater escapes
@@ -202,7 +214,7 @@ def _fill_form_fields(writer, page, values: dict, font, resource) -> None:
             value,
             font=font,
             font_resource=resource,
-            font_name="/Athelas",
+            font_name=FORM_FONT_NAME,
             font_size=float(font_size),
             is_multiline=bool(int(annotation.get("/Ff", 0)) & 4096),
             alignment=annotation.get("/Q", 0),
@@ -315,7 +327,9 @@ def fill_pdf(hero: AncestryHero, output_path: str) -> None:
         notes_parts.append("")
 
     traditions = sorted(
-        talent.name for talent in hero.talents if talent.name.startswith("Tradycja ")
+        talent.name.removeprefix("Tradycja ")
+        for talent in hero.talents
+        if talent.name.startswith("Tradycja ")
     )
     if traditions:
         notes_parts.append(f"Tradycje magiczne: {', '.join(traditions)}")
@@ -405,11 +419,13 @@ def _draw_wrapped_text(
 
 def _spell_name_font_size(name: str) -> int:
     name_length = len(name)
-    if name_length <= 12:
-        return 16
-    if name_length <= 23:
+    if name_length <= 10:
         return 14
-    return 12
+    if name_length <= 18:
+        return 12
+    if name_length <= 25:
+        return 10
+    return 8
 
 
 def _spell_description_layout(description: str) -> tuple[int, str]:
@@ -622,18 +638,23 @@ def _draw_wrapped_centered(
     font_size: int,
     px_to_x: float,
     px_to_y: float,
+    multiline_y_offset_px: float = 0.0,
 ) -> float:
+    leading = font_size * 1.2
     style = ParagraphStyle(
         "spell_name",
         fontName=font_name,
         fontSize=font_size,
-        leading=font_size * 1.2,
+        leading=leading,
         textColor=black,
         alignment=TA_CENTER,
     )
     paragraph = Paragraph(_format_spell_description(text), style)
     _, height = paragraph.wrap(width * px_to_x, A4[1])
-    paragraph.drawOn(canvas, left * px_to_x, A4[1] - top * px_to_y - height)
+    effective_top = top
+    if multiline_y_offset_px and height > leading * 1.3:
+        effective_top -= multiline_y_offset_px
+    paragraph.drawOn(canvas, left * px_to_x, A4[1] - effective_top * px_to_y - height)
     return height
 
 
@@ -711,6 +732,7 @@ def fill_spell_pdf(hero: AncestryHero, output_path: str) -> str:
                 _spell_name_font_size(name),
                 px_to_x,
                 px_to_y,
+                multiline_y_offset_px=SPELL_NAME_MULTILINE_OFFSET_Y,
             )
             field_top = base_y + SPELL_TECHNICAL_FIELDS_OFFSET_Y
             last_technical_field_bottom = None

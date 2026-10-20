@@ -34,8 +34,22 @@
         },
         {
           "type": "add_spell",
-          "name": "Wiedźmi ogień",
-          "description": "WIEDŹMI OGIEŃ WIEDŹMA, ATAK 1 Czas trwania: Koncentracja, do 1 minuty. Dopóki zaklęcie trwa, jesteś niewidzialny, a w twoim bezpośrednim zasięgu pojawia się kula zielonego ognia. Gdy efekt kończy działanie, teleportujesz się na wybraną wolną przestrzeń w odległości do 1 metra od kuli ognia. Gdy rzucasz to zaklęcie i za każdym razem, gdy wykorzystujesz akcję na utrzymanie koncentracji, możesz przemieścić kulę na odległość do 10 metrów i zaatakować stworzenie znajdujące się do 1 metra od niej. Wykonaj oparty na Intelekcie lub Woli rzut na atak przeciwko Zręczności celu. Sukces oznacza, że przeciwnik otrzymuje 2k6 obrażeń. Rzut na atak 20+: Cel otrzymuje dodatkowe 1k6 obrażeń."
+          "spell": {
+            "name": "WIEDŹMI OGIEŃ",
+            "tags": [
+              "Wiedźma",
+              "Atak"
+            ],
+            "level": 1,
+            "duration": "Czas trwania: Koncentracja, do 1 minuty.",
+            "critical_success": "Rzut na atak to 20+: Cel otrzymuje dodatkowe 1k6 obrażeń.",
+            "book_description": "Dopóki zaklęcie trwa, jesteś niewidzialny, a w twoim bezpośrednim zasięgu pojawia się kula zielonego ognia. Gdy efekt kończy działanie, teleportujesz się na wybraną wolną przestrzeń w odległości do 1 metra od kuli ognia. Gdy rzucasz to zaklęcie i za każdym razem, gdy wykorzystujesz akcję na utrzymanie koncentracji, możesz przemieścić kulę na odległość do 10 metrów i zaatakować stworzenie znajdujące się do 1 metra od niej. Wykonaj oparty na Intelekcie lub Woli rzut na atak przeciwko Zręczności celu. Sukces oznacza, że przeciwnik otrzymuje 2k6 obrażeń.",
+            "card_description": "Dopóki zaklęcie trwa, jesteś niewidzialny,\na w twoim bezpośrednim zasięgu pojawia się\nkula zielonego ognia. Gdy efekt kończy\ndziałanie, teleportujesz się na wybraną wolną\nprzestrzeń w odległości do 1 metra od kuli\nognia. Gdy rzucasz to zaklęcie i za każdym\nrazem, gdy wykorzystujesz akcję na utrzymanie\nkoncentracji, możesz przemieścić kulę na\nodległość do 10 metrów i zaatakować stworzenie\nznajdujące się do 1 metra od niej. Wykonaj\noparty na Intelekcie lub Woli rzut na atak\nprzeciwko Zręczności celu. Sukces oznacza,\nże przeciwnik otrzymuje 2k6 obrażeń.",
+            "origin": {
+              "source": "PG",
+              "number": 73
+            }
+          }
         }
       ],
       "choices": [

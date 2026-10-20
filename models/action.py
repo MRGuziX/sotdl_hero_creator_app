@@ -1,6 +1,6 @@
 from typing import Annotated, Literal
 
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, Field, model_validator
 from models.spell import Spell
 
 
@@ -30,8 +30,16 @@ class AddTalent(BaseModel):
 
 class AddSpell(BaseModel):
     type: Literal["add_spell"] = "add_spell"
-    name: str = "any"
+    name: str | None = None
     spell: Spell | None = None
+
+    @model_validator(mode="after")
+    def populate_name_from_spell(self) -> "AddSpell":
+        if self.spell is not None and self.name is None:
+            self.name = self.spell.name
+        elif self.name is None:
+            self.name = "any"
+        return self
 
 
 class AddItem(BaseModel):
