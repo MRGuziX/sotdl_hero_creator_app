@@ -294,13 +294,14 @@ def test_spellbinder_and_exorcist_path_spells_render_card_fields():
     assert ex_fields["spell_tags_card_2"] == "Egzorcysta, Atak 1"
     assert (
         ex_fields["spell_target_card_2"]
-        == "Cel: Jedno stworzenie w bliskim zasięgu, które jest zauroczone, zniewolone, przestraszone lub opętane."
+        == "Cel: Jedno stworzenie w bliskim zasięgu, które jest zauroczone, "
+        "zniewolone, przestraszone lub opętane."
     )
     assert (
         ex_fields["spell_attack_roll_card_2"]
         == "Rzut na atak to 20+: Opętująca istota jest zamiast tego oszołomiona przez 1 rundę."
     )
-    assert ex_fields["spell_origin_card_2"] == {"source": "PG", "number": 81}
+    assert ex_fields["spell_origin_card_2"] == {"source": "PG", "number": 85}
 
 
 def test_spell_card_renders_all_fields_together():
@@ -719,7 +720,6 @@ def test_spell_name_multiline_offset():
 
     from utils.pdf_creator import (
         SPELL_NAME_FONT,
-        SPELL_NAME_MULTILINE_OFFSET_Y,
         _draw_wrapped_centered,
     )
 
