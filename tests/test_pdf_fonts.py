@@ -1,7 +1,9 @@
 import logging
 
 from pypdf import PdfReader
+
 from export.pdf import export_pdf
+from utils.pdf_creator import FORM_FONT_NAME
 
 
 def test_polish_form_appearances_embed_a_unicode_font(hero, tmp_path, caplog):
@@ -10,13 +12,13 @@ def test_polish_form_appearances_embed_a_unicode_font(hero, tmp_path, caplog):
     with caplog.at_level(logging.WARNING):
         export_pdf(hero, destination)
     reader = PdfReader(destination)
-    font = reader.trailer["/Root"]["/AcroForm"]["/DR"]["/Font"]["/Athelas"]
+    font = reader.trailer["/Root"]["/AcroForm"]["/DR"]["/Font"][FORM_FONT_NAME]
     assert font["/Subtype"] == "/Type0"
     assert "/FontFile2" in font["/DescendantFonts"][0]["/FontDescriptor"]
     annotation = next(
         a.get_object() for a in reader.pages[0]["/Annots"] if a.get_object().get("/T") == "ancestry"
     )
-    assert annotation["/AP"]["/N"]["/Resources"]["/Font"]["/Athelas"]["/Subtype"] == "/Type0"
+    assert annotation["/AP"]["/N"]["/Resources"]["/Font"][FORM_FONT_NAME]["/Subtype"] == "/Type0"
     assert reader.trailer["/Root"]["/AcroForm"]["/NeedAppearances"].value is False
     assert not any(
         "encoding" in record.message or "Font dictionary" in record.message

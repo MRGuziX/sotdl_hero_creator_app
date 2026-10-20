@@ -33,9 +33,23 @@
           "value": 1
         },
         {
-          "type": "learn_spell",
-          "name": "Egzorcyzm",
-          "description": "EGZORCYZM EGZORCYSTA, ATAK 1. Cel: Jedno stworzenie w bliskim zasięgu, które jest zauroczone, zniewolone, przestraszone lub opętane. Jeśli cel jest zauroczony, zniewolony lub przestraszony, pozbywa się tego stanu. Jeśli cel jest opętany, musisz przez 1 minutę mieć go w zasięgu i utrzymać koncentrację. Następnie wykonujesz oparty na Woli atak przeciwko Woli opętującej istoty. Sukces oznacza, że opętanie ulega zakończeniu, a odpowiedzialny za nie byt pojawia się w wolnej przestrzeni w bliskim zasięgu i jest zamroczony przez 1 rundę. Rzut na atak 20+: Opętująca istota jest zamiast tego oszołomiona przez 1 rundę."
+          "type": "add_spell",
+          "spell": {
+            "name": "EGZORCYZM",
+            "tags": [
+              "Egzorcysta",
+              "Atak"
+            ],
+            "level": 1,
+            "target": "Cel: Jedno stworzenie w bliskim zasięgu, które jest zauroczone, zniewolone, przestraszone lub opętane.",
+            "critical_success": "Rzut na atak to 20+: Opętująca istota jest zamiast tego oszołomiona przez 1 rundę.",
+            "book_description": "Jeśli cel jest zauroczony, zniewolony lub przestraszony, pozbywa się tego stanu. Jeśli cel jest opętany, musisz przez 1 minutę mieć go w zasięgu i utrzymać koncentrację. Następnie wykonujesz oparty na Woli atak przeciwko Woli opętującej istoty. Sukces oznacza, że opętanie ulega zakończeniu, a odpowiedzialny za nie byt pojawia się w wolnej przestrzeni w bliskim zasięgu i jest zamroczony przez 1 rundę.",
+            "card_description": "Jeśli cel jest zauroczony, zniewolony lub\nprzestraszony, pozbywa się tego stanu.\nJeśli cel jest opętany, musisz przez 1 min .\nmieć go w zasięgu i utrzymać koncentrację.\nNastępnie wykonaj oparty na Woli atak przeciwko\nWoli opętującej istoty. Sukces: opętanie ulega\nzakończeniu, a byt pojawia się w wolnej\nprzestrzeni i jest zamroczony przez 1 rundę.",
+            "origin": {
+              "source": "PG",
+              "number": 85
+            }
+          }
         }
       ],
       "choices": [

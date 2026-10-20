@@ -4,8 +4,8 @@ import sys
 
 import pytest
 
-from main import app
 from domain.state_token import StateTokenSizeError
+from main import app
 
 
 def start(client, **options):
@@ -106,6 +106,7 @@ def test_response_size_failure_keeps_the_previous_carried_state(raw_client, monk
 
 def test_full_manual_magic_lifecycle_fits_transport_and_exports_filled_pdf(client):
     from io import BytesIO
+
     from pypdf import PdfReader
 
     contract = client.post("/api/creations", json={"mode": "manual", "ancestry": "human"}).json

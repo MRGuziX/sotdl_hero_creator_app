@@ -1,7 +1,8 @@
+import pytest
+
 from data.repository import load_json
 from models.tables import RollTableEntry
 from utils.utils import apply_action
-import pytest
 
 
 @pytest.mark.parametrize("ancestry", ["goblin", "human", "automaton"])

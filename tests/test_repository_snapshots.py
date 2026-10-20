@@ -1,5 +1,5 @@
-from domain.state_token import StateTokenCodec
 from domain.creation_state import CreationState
+from domain.state_token import StateTokenCodec
 
 
 def test_carried_tokens_own_nested_input_snapshots_on_encode_and_decode(hero):

@@ -1,12 +1,15 @@
 import pytest
 
-from models.action import AddSpell, AddTradition
-from models.action import AddTalent
+from models.action import AddSpell, AddTalent, AddTradition
 from models.base_hero import AncestryHero
 from models.spell import Spell
 from models.talent import Talent
-from utils.utils import TRADITION_FILE_MAP, _expand_dynamic_choice_group, expand_any_to_choices
-from utils.utils import apply_action
+from utils.utils import (
+    TRADITION_FILE_MAP,
+    _expand_dynamic_choice_group,
+    apply_action,
+    expand_any_to_choices,
+)
 
 
 def test_index_route(client):

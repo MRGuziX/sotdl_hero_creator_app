@@ -1,29 +1,23 @@
 import pytest
 
-from models.action import (
-    AddAttribute,
-    AddItem,
-    AddLanguage,
-    AddProfession,
-    GrantLiteracy,
-)
+from models.action import AddAttribute, AddItem, AddLanguage, AddProfession, GrantLiteracy
 from models.base_hero import AncestryHero
 from models.language import Language
 from utils.utils import (
-    roll_dice,
-    get_from_ancestry,
-    build_hero,
     add_attribute,
-    add_language,
-    add_profession,
     add_item,
+    add_language,
     add_oddity,
+    add_profession,
     add_wealth,
     apply_action,
-    resolve_choices,
+    build_hero,
     expand_any_to_choices,
-    grant_literacy,
+    get_from_ancestry,
     get_hero,
+    grant_literacy,
+    resolve_choices,
+    roll_dice,
 )
 
 

@@ -1,27 +1,18 @@
 import logging
 import tempfile
-from pathlib import Path
 from io import BytesIO
+from pathlib import Path
 
-from flask import (
-    Flask,
-    jsonify,
-    render_template,
-    request,
-    send_file,
-    send_from_directory,
-)
+from flask import Flask, jsonify, render_template, request, send_file, send_from_directory
 from pydantic import ValidationError
 
 from config import secret_key
 from domain import creation_service as commands
-from domain.creation_service import CreationError, mutate_creation, _try_expand_current_group
-
+from domain.creation_service import CreationError, _try_expand_current_group, mutate_creation
 from domain.creation_state import CreationState, CreationStateError
 from domain.state_token import StateTokenCodec, StateTokenSizeError
-from models.action import (
-    Action,
-)
+from export.pdf import export_pdf
+from models.action import Action
 from models.base_hero import AncestryHero
 from models.requests import (
     ApplyChoices,
@@ -32,14 +23,13 @@ from models.requests import (
     StartCreation,
     VersionedRequest,
 )
-from export.pdf import export_pdf
 from utils.utils import (
     finalize_defense,
     get_spell_descriptions,
     get_spells_for_tradition,
     get_tradition_name_from_talent,
-    load_json as _load_json,
 )
+from utils.utils import load_json as _load_json
 
 logging.basicConfig(
     level=logging.INFO,

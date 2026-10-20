@@ -10,7 +10,6 @@ from pydantic import TypeAdapter
 from models.action import Action
 from models.base_hero import AncestryHero
 
-
 CREATION_STATE_VERSION = 4
 
 

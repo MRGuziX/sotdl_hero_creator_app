@@ -11,6 +11,7 @@ from models.language import Language
 from models.spell import Spell
 from models.talent import Talent
 from utils.pdf_creator import (
+    SPELL_FONT_BOLD,
     _format_spell_description,
     _spell_card_fields,
     _spell_critical_success_y,
@@ -21,8 +22,8 @@ from utils.pdf_creator import (
     _spell_effect_value,
     _spell_name_bounds,
     _spell_name_font_size,
-    _spell_origin_text,
     _spell_origin_offset_y,
+    _spell_origin_text,
     _spell_origin_x,
     _spell_table_top,
     fill_pdf,
@@ -111,7 +112,7 @@ def test_pdf_includes_magic_traditions_in_notes(populated_hero, output_path):
     fill_pdf(populated_hero, output_path)
 
     fields = PdfReader(output_path).get_fields()
-    assert "Tradycja Życia" in fields["notes"]["/V"]
+    assert "Tradycje magiczne: Życia" in fields["notes"]["/V"]
 
 
 def test_pdf_does_not_render_placeholder_spell(populated_hero, output_path):
@@ -215,6 +216,94 @@ def test_pdf_from_full_flow(output_path):
     assert hero.oddity != ""
 
 
+def test_witch_path_spell_renders_card_fields():
+    from data.repository import load_path
+    from utils.utils import apply_action
+
+    witch_data = load_path("expert", "witch")
+    action = next(a for a in witch_data.level_benefits[3].actions if a.type == "add_spell")
+    hero = AncestryHero(
+        ancestry_name="Człowiek",
+        strength=10,
+        dexterity=10,
+        intelligence=10,
+        will=10,
+        perception=10,
+        defense=10,
+        health=10,
+        healing_rate=2,
+        size=[1.0],
+        speed=10,
+    )
+    apply_action(action, hero, False)
+    assert len(hero.spells) == 1
+    spell = hero.spells[0]
+    assert spell.name == "WIEDŹMI OGIEŃ"
+    assert spell.tags == ["Wiedźma", "Atak"]
+    assert spell.level == 1
+    assert spell.duration == "Czas trwania: Koncentracja, do 1 minuty."
+    assert spell.critical_success == "Rzut na atak to 20+: Cel otrzymuje dodatkowe 1k6 obrażeń."
+
+    fields = _spell_card_fields(spell, 1)
+    assert fields["spell_name_card_1"] == "WIEDŹMI OGIEŃ"
+    assert fields["spell_tags_card_1"] == "Wiedźma, Atak 1"
+    assert fields["spell_duration_card_1"] == "Czas trwania: Koncentracja, do 1 minuty."
+    assert (
+        fields["spell_attack_roll_card_1"]
+        == "Rzut na atak to 20+: Cel otrzymuje dodatkowe 1k6 obrażeń."
+    )
+    assert fields["spell_origin_card_1"] == {"source": "PG", "number": 73}
+
+
+def test_spellbinder_and_exorcist_path_spells_render_card_fields():
+    from data.repository import load_path
+    from utils.utils import apply_action
+
+    spellbinder = load_path("expert", "spellbinder")
+    action_sb = next(a for a in spellbinder.level_benefits[3].actions if a.type == "add_spell")
+    exorcist = load_path("master", "exorcist")
+    action_ex = next(a for a in exorcist.level_benefits[7].actions if a.type == "add_spell")
+
+    hero = AncestryHero(
+        ancestry_name="Człowiek",
+        strength=10,
+        dexterity=10,
+        intelligence=10,
+        will=10,
+        perception=10,
+        defense=10,
+        health=10,
+        healing_rate=2,
+        size=[1.0],
+        speed=10,
+    )
+    apply_action(action_sb, hero, False)
+    apply_action(action_ex, hero, False)
+    assert len(hero.spells) == 2
+
+    sb_fields = _spell_card_fields(hero.spells[0], 1)
+    assert sb_fields["spell_name_card_1"] == "ZAKLĘTA BROŃ"
+    assert sb_fields["spell_tags_card_1"] == "Zaklinacz, Użytkowe 0"
+    assert sb_fields["spell_target_card_1"] == "Cel: Jedna broń w bezpośrednim zasięgu."
+    assert sb_fields["spell_duration_card_1"] == "Czas trwania: 4 godziny."
+    assert "Poświęcenie" in sb_fields["spell_sacrifice_card_1"]
+    assert sb_fields["spell_origin_card_1"] == {"source": "PG", "number": 76}
+
+    ex_fields = _spell_card_fields(hero.spells[1], 2)
+    assert ex_fields["spell_name_card_2"] == "EGZORCYZM"
+    assert ex_fields["spell_tags_card_2"] == "Egzorcysta, Atak 1"
+    assert (
+        ex_fields["spell_target_card_2"]
+        == "Cel: Jedno stworzenie w bliskim zasięgu, które jest zauroczone, "
+        "zniewolone, przestraszone lub opętane."
+    )
+    assert (
+        ex_fields["spell_attack_roll_card_2"]
+        == "Rzut na atak to 20+: Opętująca istota jest zamiast tego oszołomiona przez 1 rundę."
+    )
+    assert ex_fields["spell_origin_card_2"] == {"source": "PG", "number": 85}
+
+
 def test_spell_card_renders_all_fields_together():
     spell = Spell(
         name="OSOBLIWOŚĆ",
@@ -298,7 +387,7 @@ def test_real_storm_and_conjuration_spells_render_from_full_json():
         "origin": {"source": "PG", "number": 127},
     }
     item_data = {
-        "name": "PRZYWOŁANIE UŻYTECZNEGO PRZEDMIOTU",
+        "name": "PRZYWOŁANIE PRZEDMIOTU",
         "tags": ["Przywołania", "Użytkowe"],
         "level": 0,
         "area": "Obszar: Sześcian o krawędzi 1 metra i punkcie początkowym w zasięgu ręki.",
@@ -386,7 +475,7 @@ def test_real_storm_and_conjuration_spells_render_from_full_json():
         return next(spell for spell in data[f"level_{level}"] if spell["name"] == spell_name)
 
     lightning_data = load_spell("storm_tradition", 2, "PRZYWOŁANIE PIORUNA")
-    item_data = load_spell("conjuration_tradition", 0, "PRZYWOŁANIE UŻYTECZNEGO PRZEDMIOTU")
+    item_data = load_spell("conjuration_tradition", 0, "PRZYWOŁANIE PRZEDMIOTU")
     wall_data = load_spell("chaos_tradition", 1, "ZAKRZYWIENIE PRZESTRZENI")
     toad_data = load_spell("curse_tradition", 4, "ROPUCHA")
     vision_data = load_spell("divination_tradition", 4, "WIZJA")
@@ -555,7 +644,7 @@ def test_spell_description_formats_reaction_as_bold_new_section():
     )
 
     assert formatted == (
-        'Opis zaklęcia.<br/><font name="Athelas-Bold">Reakcja:</font> '
+        f'Opis zaklęcia.<br/><font name="{SPELL_FONT_BOLD}">Reakcja:</font> '
         "Możesz rzucić zaklęcie jako reakcję."
     )
 
@@ -563,7 +652,7 @@ def test_spell_description_formats_reaction_as_bold_new_section():
 def test_spell_description_formats_reaction_at_start_without_extra_break():
     formatted = _format_spell_description("Reakcja: Natychmiastowy efekt.")
 
-    assert formatted == '<font name="Athelas-Bold">Reakcja:</font> Natychmiastowy efekt.'
+    assert formatted == f'<font name="{SPELL_FONT_BOLD}">Reakcja:</font> Natychmiastowy efekt.'
 
 
 def test_spell_tags_include_level():
@@ -581,7 +670,7 @@ def test_spell_tags_include_level():
 
 @pytest.mark.parametrize(
     ("name_length", "font_size"),
-    [(3, 16), (12, 16), (13, 14), (23, 14), (24, 12), (34, 12)],
+    [(3, 14), (10, 14), (11, 12), (18, 12), (19, 10), (25, 10), (26, 8), (34, 8)],
 )
 def test_spell_name_font_size(name_length, font_size):
     assert _spell_name_font_size("A" * name_length) == font_size
@@ -624,6 +713,44 @@ def test_spell_name_uses_card_edges_for_wrapping():
 
     assert left == 170
     assert width == 630
+
+
+def test_spell_name_multiline_offset():
+    from unittest.mock import MagicMock
+
+    from utils.pdf_creator import (
+        SPELL_NAME_FONT,
+        _draw_wrapped_centered,
+    )
+
+    canvas = MagicMock()
+    # Test single line does not apply multiline offset
+    height_single = _draw_wrapped_centered(
+        canvas,
+        "Krótkie",
+        100,
+        200,
+        600,
+        SPELL_NAME_FONT,
+        16,
+        1.0,
+        1.0,
+        multiline_y_offset_px=5,
+    )
+    # Test multiline applies multiline offset
+    height_multi = _draw_wrapped_centered(
+        canvas,
+        "Bardzo długie zaklęcie o nazwie przekraczającej pojedynczą linię tekstu",
+        100,
+        200,
+        100,
+        SPELL_NAME_FONT,
+        16,
+        1.0,
+        1.0,
+        multiline_y_offset_px=5,
+    )
+    assert height_multi > height_single
 
 
 def test_spell_critical_success_moves_below_wrapped_description():
