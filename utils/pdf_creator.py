@@ -193,6 +193,9 @@ def _fill_form_fields(writer, page, values: dict, font, resource) -> None:
     for reference in page.get("/Annots", []):
         annotation = reference.get_object()
         name = annotation.get("/T")
+        if name is None and "/Parent" in annotation:
+            parent = annotation["/Parent"].get_object()
+            name = parent.get("/T")
         if name not in values:
             continue
         appearance = annotation.get("/DA", default_da)

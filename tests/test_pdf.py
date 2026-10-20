@@ -188,8 +188,13 @@ def test_pdf_talent_placement(output_path):
         speed=10,
         talents=[
             Talent(name="Small 1", description="S" * 100),
+            Talent(name="Small 2", description="S" * 90),
+            Talent(name="Small 3", description="S" * 80),
+            Talent(name="Small 4", description="S" * 70),
             Talent(name="Medium 1", description="M" * 300),
             Talent(name="Big 1", description="B" * 600),
+            Talent(name="Big 2", description="B" * 590),
+            Talent(name="Big 3", description="B" * 580),
             Talent(name="Huge 1", description="H" * 1000),
         ],
     )
@@ -198,8 +203,10 @@ def test_pdf_talent_placement(output_path):
     fields = reader.get_form_text_fields() or {}
 
     assert fields.get("name_small_1") == "Small 1"
+    assert fields.get("description_small_4") == "S" * 70
     assert fields.get("name_medium_1") == "Medium 1"
     assert fields.get("name_big_1") == "Big 1"
+    assert fields.get("name_big_3") == "Big 3"
     assert fields.get("name_huge_1") == "Huge 1"
 
 
